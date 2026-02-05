@@ -257,12 +257,12 @@ const App: React.FC = () => {
     s === RoleType.HR ? 'HR' : s.replace(/_/g, ' ').toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
 
   const renderIntro = () => (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4 md:p-6 text-center bg-black stage-transition safe-area-top safe-area-bottom">
-      <div className="mb-8 md:mb-12 relative fade-in">
+    <div className="flex flex-col items-center justify-center min-h-screen p-4 md:p-6 text-center bg-black safe-area-top safe-area-bottom">
+      <div className="mb-8 md:mb-12 relative">
         <div className="text-5xl md:text-6xl font-bold glitch-text tracking-tighter mb-2">HYPERSCALE</div>
         <div className="text-red-600 font-bold mono text-xs md:text-sm animate-pulse tracking-[0.4em]">project_icarus // os_v0.92</div>
       </div>
-      <p className="max-w-xl text-slate-500 mb-12 md:mb-16 text-base md:text-lg px-4 fade-in" style={{ animationDelay: '0.2s' }}>
+      <p className="max-w-xl text-slate-500 mb-12 md:mb-16 text-base md:text-lg px-4">
       The CEO integrated an unhinged AI into every department. Keep the stock price high and the prison sentence short.<br/> <br/> 
       Move fast, break laws, and try to survive the final audit. AI Governance for people who hate compliance training.
       </p>
