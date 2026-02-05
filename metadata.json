@@ -1,0 +1,7 @@
+{
+  "name": "Swipe Risk: The HyperScale Chronicles",
+  "description": "An addictive, high-stakes simulator for learning AI Governance, Risk, and Security through corporate satire and Tinder-style swiping.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
