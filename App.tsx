@@ -364,7 +364,7 @@ const App: React.FC = () => {
   const renderIntro = () => (
     <div className="flex flex-col items-center justify-center min-h-screen p-4 md:p-6 text-center bg-black safe-area-top safe-area-bottom">
       <div className="mb-8 md:mb-12 relative">
-        <div className="text-5xl md:text-6xl font-bold glitch-text tracking-tighter mb-2">HYPERSCALE</div>
+        <div className="text-6xl md:text-7xl font-bold glitch-text tracking-tighter mb-2">hyperscale</div>
         <div className="text-red-600 font-bold mono text-xs md:text-sm animate-pulse tracking-[0.4em]">incident_response_terminal // os_v0.92</div>
       </div>
       <p className="max-w-xl text-slate-400 mb-8 md:mb-10 text-base md:text-lg px-4 leading-relaxed">
