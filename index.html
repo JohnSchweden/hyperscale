@@ -32,9 +32,7 @@
         
         #root {
             height: 100%;
-            overflow-y: auto;
-            overflow-x: hidden;
-            scrollbar-gutter: stable;
+            overflow: hidden;
         }
 
         .mono {
@@ -189,7 +187,7 @@
 
         @keyframes scanlineMove {
             0% {
-                top: -1px;
+                transform: translateY(-100%);
                 opacity: 0;
             }
             10% {
@@ -199,7 +197,7 @@
                 opacity: 1;
             }
             100% {
-                top: 100vh;
+                transform: translateY(100vh);
                 opacity: 0;
             }
         }
@@ -393,6 +391,10 @@
 </script>
 </head>
 <body>
+    <div class="fixed inset-0 overflow-hidden pointer-events-none" style="z-index: 9998;" aria-hidden="true">
+        <div class="crt-overlay"></div>
+        <div class="scanline-overlay"></div>
+    </div>
     <main id="root"></main>
     <script type="module" src="/index.tsx"></script>
 </body>

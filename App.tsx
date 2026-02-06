@@ -957,13 +957,9 @@ const App: React.FC = () => {
   };
 
   return (
-    <>
-      <div className="crt-overlay" aria-hidden="true" />
-      <div className="scanline-overlay" aria-hidden="true" />
-      <div className="h-screen overflow-y-auto stage-transition" key={state.stage}>
-        {renderStage()}
-      </div>
-    </>
+    <div className="h-screen overflow-y-auto stage-transition" key={state.stage}>
+      {renderStage()}
+    </div>
   );
 };
 
