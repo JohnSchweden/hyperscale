@@ -362,19 +362,19 @@ const App: React.FC = () => {
     s === RoleType.HR ? 'HR' : s.replace(/_/g, ' ').toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
 
   const renderIntro = () => (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4 md:p-6 text-center bg-black safe-area-top safe-area-bottom">
-      <div className="mb-8 md:mb-12 relative">
-        <div className="text-6xl md:text-7xl font-bold glitch-text tracking-tighter mb-2">hyperscale</div>
+    <div className="flex flex-col items-center justify-center h-screen p-4 md:p-6 text-center bg-black safe-area-top safe-area-bottom">
+      <div className="mb-8 md:mb-12">
+        <h1 className="text-6xl md:text-7xl font-bold glitch-text tracking-tighter mb-2">hyperscale</h1>
         <div className="text-red-600 font-bold mono text-xs md:text-sm animate-pulse tracking-[0.4em]">incident_response_terminal // os_v0.92</div>
       </div>
-      <p className="max-w-xl text-slate-400 mb-8 md:mb-10 text-base md:text-lg px-4 leading-relaxed">
+      <p className="max-w-xl text-slate-300 mb-8 md:mb-10 text-base md:text-lg px-4 leading-relaxed">
         <span className="font-bold">Tinder for AI Risk, Governance, and Compliance.</span>
         <br />
         <span className="text-[#B8962E] mono text-sm md:text-base">[NOTICE: Made for people who hate f*cking boring governance training]</span>
       </p>
-      <p className="max-w-xl text-slate-500 mb-12 md:mb-16 text-base md:text-lg px-4">
-        <span className="text-slate-400 font-bold block mb-2">Project Icarus</span>
-        The CEO integrated an unhinged AI into every department.<br className="hidden md:inline" /><span className="text-slate-400"> Move fast, break laws, and try to survive the final audit. <span className="cursor-blink text-slate-400">_</span></span> 
+      <p className="max-w-xl text-slate-300 mb-12 md:mb-16 text-base md:text-lg px-4">
+        <span className="text-slate-300 font-bold block mb-2">Project Icarus</span>
+        <span className="text-slate-400">The CEO integrated an unhinged AI into every department.</span><br className="hidden md:inline" /><span className="text-slate-300"> Move fast, break laws, and try to survive the final audit. <span className="cursor-blink text-slate-300">_</span></span> 
       </p>
       <button 
         onClick={handleStart}
@@ -387,7 +387,7 @@ const App: React.FC = () => {
   );
 
   const renderPersonalitySelect = () => (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4 md:p-6 bg-black safe-area-top safe-area-bottom">
+    <div className="flex flex-col items-center justify-center h-screen p-4 md:p-6 bg-black safe-area-top safe-area-bottom">
       <div className="w-full max-w-5xl">
         <div className="text-center mb-6 md:mb-10">
           <div className="text-red-600 mb-3 mono text-[10px] md:text-xs tracking-[0.3em]">
@@ -411,7 +411,7 @@ const App: React.FC = () => {
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="flex flex-col items-center text-center mb-4 md:mb-6">
-                <div className="text-slate-500 group-hover:text-cyan-500 transition-colors mb-2 md:mb-3">
+                <div className="text-slate-400 group-hover:text-cyan-500 transition-colors mb-2 md:mb-3">
                   <i
                     className={`fa-solid ${
                       type === PersonalityType.ROASTER
@@ -420,6 +420,7 @@ const App: React.FC = () => {
                         ? 'fa-leaf'
                         : 'fa-rocket'
                     } text-2xl md:text-4xl`}
+                    aria-hidden
                   ></i>
                 </div>
                 <div className="text-xl md:text-2xl font-black">{p.name}</div>
@@ -436,7 +437,7 @@ const App: React.FC = () => {
   );
 
   const renderRoleSelect = () => (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4 md:p-6 bg-black safe-area-top safe-area-bottom">
+    <div className="flex flex-col items-center justify-center h-screen p-4 md:p-6 bg-black safe-area-top safe-area-bottom">
       <div className="w-full max-w-4xl">
         <div className="text-center mb-6 md:mb-10">
           <div className="text-red-600 mb-2 md:mb-3 mono text-[10px] md:text-xs tracking-[0.3em] fade-in px-4">
@@ -459,7 +460,7 @@ const App: React.FC = () => {
               className="group p-6 md:p-8 bg-slate-900/60 border border-slate-800 hover:border-cyan-500 transition-all text-center hover-scale shadow-2xl"
               style={{ animationDelay: `${index * 0.08}s` }}
             >
-              <div className="text-3xl md:text-4xl mb-3 md:mb-4 text-slate-500 group-hover:text-cyan-400 transition-colors">
+              <div className="text-3xl md:text-4xl mb-3 md:mb-4 text-slate-400 group-hover:text-cyan-400 transition-colors">
                 <i
                   className={`fa-solid ${
                     role === RoleType.DEVELOPMENT
@@ -474,6 +475,7 @@ const App: React.FC = () => {
                       ? 'fa-vault'
                       : 'fa-broom'
                   }`}
+                  aria-hidden
                 ></i>
               </div>
               <div className="font-black text-xs md:text-sm tracking-wide text-slate-300 group-hover:text-white transition-colors">
@@ -487,7 +489,7 @@ const App: React.FC = () => {
   );
 
   const renderInitializing = () => (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4 md:p-6 bg-black text-cyan-500 font-mono safe-area-top safe-area-bottom">
+    <div className="flex flex-col items-center justify-center h-screen p-4 md:p-6 bg-black text-cyan-500 font-mono safe-area-top safe-area-bottom">
       <div className="w-full max-w-xl p-4 md:p-8 border border-cyan-900/50 bg-slate-900/20 rounded-lg shadow-2xl relative overflow-hidden">
         <div className="absolute bottom-0 left-0 w-full h-1 bg-cyan-500/20 overflow-hidden">
           <div className="h-full bg-cyan-500 animate-[progress-shine_2s_infinite]" style={{ width: `${(3 - countdown) * 33.3}%` }}></div>
@@ -507,7 +509,7 @@ const App: React.FC = () => {
           <div className="text-4xl md:text-6xl font-black tracking-tighter animate-pulse drop-shadow-[0_0_20px_rgba(6,182,212,0.5)]">
             {countdown > 0 ? countdown : 'Start'}
           </div>
-          <div className="mt-4 md:mt-6 text-[10px] font-black tracking-[0.3em] text-slate-500 text-center">
+          <div className="mt-4 md:mt-6 text-[10px] font-black tracking-[0.3em] text-slate-400 text-center">
             Commencing Q4 survival protocol
           </div>
         </div>
@@ -524,12 +526,12 @@ const App: React.FC = () => {
     const personality = PERSONALITIES[state.personality!];
 
     return (
-      <div className="min-h-screen bg-[#0a0a0c] flex flex-col relative pt-16 md:pt-12 pb-12 md:pb-12 safe-area-top safe-area-bottom">
+      <div className="h-screen bg-[#0a0a0c] flex flex-col relative pt-16 md:pt-12 pb-12 md:pb-12 safe-area-top safe-area-bottom overflow-y-auto">
         {/* Top HUD - Budget Focused - Mobile Optimized */}
         <div className="absolute top-2 md:top-4 left-1/2 -translate-x-1/2 w-full max-w-4xl px-3 md:px-4 flex flex-col md:flex-row gap-2 md:gap-6 items-stretch md:items-center">
           <div className="flex-1 space-y-1 min-w-0">
             <div className="flex justify-between text-[10px] font-black tracking-wide mb-1">
-              <span className={`${state.budget < 2000000 ? 'text-red-500 animate-pulse' : 'text-green-400'} inline-flex items-center gap-1.5`}><i className="fa-solid fa-coins text-[10px]"></i>Budget</span>
+              <span className={`${state.budget < 2000000 ? 'text-red-500 animate-pulse' : 'text-green-400'} inline-flex items-center gap-1.5`}><i className="fa-solid fa-coins text-[10px]" aria-hidden></i>Budget</span>
               <span className={state.budget < 2000000 ? 'text-red-500' : 'text-green-400'}>{formatBudget(state.budget)}</span>
             </div>
             <div className="h-2 bg-slate-900 rounded border border-white/10 overflow-hidden bg-stripes p-[1px]">
@@ -542,7 +544,7 @@ const App: React.FC = () => {
           <div className="flex gap-3 md:gap-6 w-full md:w-auto">
             <div className="flex-1 md:w-28 space-y-1">
               <div className="flex justify-between text-[10px] font-black tracking-wide mb-1">
-                <span className={`${state.heat > 80 ? 'text-yellow-400 animate-pulse' : 'text-orange-500'} inline-flex items-center gap-1.5`}><i className="fa-solid fa-fire text-[10px]"></i>Risk</span>
+                <span className={`${state.heat > 80 ? 'text-yellow-400 animate-pulse' : 'text-orange-500'} inline-flex items-center gap-1.5`}><i className="fa-solid fa-fire text-[10px]" aria-hidden></i>Risk</span>
                 <span className="text-orange-500">{state.heat}%</span>
               </div>
               <div className="h-2 bg-slate-900 rounded border border-white/10 overflow-hidden bg-stripes p-[1px]">
@@ -551,7 +553,7 @@ const App: React.FC = () => {
             </div>
             <div className="flex-1 md:w-28 space-y-1">
               <div className="flex justify-between text-[10px] font-black tracking-wide mb-1">
-                <span className={`${state.hype < 20 ? 'text-red-500 animate-pulse' : 'text-cyan-400'} inline-flex items-center gap-1.5`}><i className="fa-solid fa-chart-line text-[10px]"></i>Hype</span>
+                <span className={`${state.hype < 20 ? 'text-red-500 animate-pulse' : 'text-cyan-400'} inline-flex items-center gap-1.5`}><i className="fa-solid fa-chart-line text-[10px]" aria-hidden></i>Hype</span>
                 <span className="text-cyan-400">{state.hype}%</span>
               </div>
               <div className="h-2 bg-slate-900 rounded border border-white/10 overflow-hidden bg-stripes p-[1px]">
@@ -595,7 +597,7 @@ const App: React.FC = () => {
 
             <div className="bg-slate-800 px-3 md:px-4 py-2 flex items-center justify-between border-b border-white/5">
               <div className="flex items-center gap-2 text-[10px] mono font-bold text-slate-400 truncate">
-                <i className={`fa-solid ${currentCard.source === AppSource.IDE ? 'fa-terminal' : 'fa-hashtag'}`}></i>
+                <i className={`fa-solid ${currentCard.source === AppSource.IDE ? 'fa-terminal' : 'fa-hashtag'}`} aria-hidden></i>
                 <span className="truncate">{currentCard.source} // {currentCard.context}</span>
               </div>
               <div className="flex gap-1.5 shrink-0">
@@ -608,11 +610,11 @@ const App: React.FC = () => {
               <div className="space-y-3 md:space-y-6 overflow-y-auto">
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 md:w-10 md:h-10 rounded bg-slate-800 flex items-center justify-center border border-white/5 shrink-0">
-                     <i className="fa-solid fa-user-robot text-slate-500 text-xs md:text-base"></i>
+                     <i className="fa-solid fa-user-robot text-slate-400 text-xs md:text-base" aria-hidden></i>
                   </div>
                   <div className="min-w-0">
                     <div className="text-xs md:text-sm font-bold text-cyan-400 truncate">{currentCard.sender}</div>
-                    <div className="text-[9px] md:text-[10px] text-slate-500 mono truncate">Incident #{(state.currentCardIndex + 1) * 324}</div>
+                    <div className="text-[9px] md:text-[10px] text-slate-400 mono truncate">Incident #{(state.currentCardIndex + 1) * 324}</div>
                   </div>
                 </div>
                 <p className="text-base md:text-xl font-medium leading-relaxed text-slate-200">
@@ -621,7 +623,7 @@ const App: React.FC = () => {
               </div>
               <div className="flex flex-col gap-3 mt-6 md:mt-8 shrink-0">
                 {/* Keyboard hint for desktop */}
-                <div className="flex items-center justify-center gap-2 text-[10px] text-slate-500 mono">
+                <div className="flex items-center justify-center gap-2 text-[10px] text-slate-400 mono">
                   <span className="hidden md:inline px-1.5 py-0.5 bg-slate-800 border border-slate-700 rounded">←</span>
                   <span className="hidden md:inline">Use arrow keys or swipe</span>
                   <span className="hidden md:inline px-1.5 py-0.5 bg-slate-800 border border-slate-700 rounded">→</span>
@@ -650,7 +652,7 @@ const App: React.FC = () => {
           <div className="w-full max-w-[43rem] lg:w-[43rem] h-auto lg:h-[260px] bg-black/80 border border-slate-800 rounded-xl overflow-hidden flex flex-col shadow-2xl">
             <div className="bg-slate-900 px-4 py-2 border-b border-white/5 flex items-center justify-between">
               <span className="text-[10px] mono font-bold text-green-500">roast_con.exe</span>
-              <i className="fa-solid fa-minus text-[10px] text-slate-500"></i>
+              <i className="fa-solid fa-minus text-[10px] text-slate-400" aria-hidden></i>
             </div>
             <div className="p-4 flex-1 flex flex-col">
               <p className="text-[10px] mono text-green-700 mb-4 hidden sm:block">Describe workflow for governance review...</p>
@@ -658,6 +660,7 @@ const App: React.FC = () => {
                 value={roastInput}
                 onChange={(e) => setRoastInput(e.target.value)}
                 placeholder="e.g. I use ChatGPT for company secrets..."
+                aria-label="Describe workflow for governance review"
                 className="w-full h-14 lg:h-24 bg-black border border-green-900/30 rounded p-3 text-xs mono text-green-500 focus:outline-none placeholder:text-green-900/50 resize-none mb-3"
               />
               <button 
@@ -681,28 +684,28 @@ const App: React.FC = () => {
         <div className="h-12 bg-slate-900/95 border-t border-white/5 flex items-center px-3 md:px-6 justify-between fixed bottom-0 w-full backdrop-blur-md safe-area-bottom">
           <div className="flex items-center gap-2 md:gap-6">
              <button className="bg-slate-800 hover:bg-slate-700 px-2 md:px-4 py-1.5 flex items-center gap-2 border border-white/5 transition-colors min-h-[36px]">
-               <i className="fa-solid fa-atom text-cyan-400"></i>
+               <i className="fa-solid fa-atom text-cyan-400" aria-hidden></i>
                <span className="text-xs font-black tracking-wide hidden sm:inline">Start</span>
              </button>
              <div className="flex gap-2 md:gap-4">
                <div className="w-8 h-8 rounded bg-slate-800 flex items-center justify-center border border-cyan-500/50 shadow-[0_0_10px_rgba(34,211,238,0.3)]">
-                 <i className="fa-solid fa-comment-dots text-xs text-cyan-400"></i>
+                 <i className="fa-solid fa-comment-dots text-xs text-cyan-400" aria-hidden></i>
                </div>
                <div className="w-8 h-8 rounded bg-slate-800 flex items-center justify-center border border-white/5 opacity-50 hidden sm:flex">
-                 <i className="fa-solid fa-terminal text-xs text-slate-500"></i>
+                 <i className="fa-solid fa-terminal text-xs text-slate-400" aria-hidden></i>
                </div>
              </div>
           </div>
           <div className="flex items-center gap-2 md:gap-6">
             <div className="bg-black/50 px-2 md:px-3 py-1.5 rounded border border-white/5 flex items-center gap-2 md:gap-3">
                <div className="w-5 h-5 rounded-full bg-slate-800 flex items-center justify-center">
-                 <i className={`fa-solid ${state.personality === PersonalityType.ROASTER ? 'fa-user-ninja' : state.personality === PersonalityType.ZEN_MASTER ? 'fa-leaf' : 'fa-rocket'} text-[10px] text-cyan-500`}></i>
+                 <i className={`fa-solid ${state.personality === PersonalityType.ROASTER ? 'fa-user-ninja' : state.personality === PersonalityType.ZEN_MASTER ? 'fa-leaf' : 'fa-rocket'} text-[10px] text-cyan-500`} aria-hidden></i>
                </div>
                <span className="text-[10px] mono font-bold text-slate-400 tracking-tighter hidden md:inline">{personality.name}</span>
             </div>
             <div className="text-right">
               <div className="text-xs mono font-bold text-slate-300">{currentTime}</div>
-              <div className="text-[8px] mono text-slate-500 tracking-wide hidden sm:block">v0.92-prod</div>
+              <div className="text-[8px] mono text-slate-400 tracking-wide hidden sm:block">v0.92-prod</div>
             </div>
           </div>
         </div>
@@ -710,10 +713,11 @@ const App: React.FC = () => {
         {/* Answer Window - Overlay with fine display */}
         {feedbackOverlay &&
           (
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 bg-black/70 backdrop-blur-sm">
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 bg-black/70 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="feedback-overlay-title" aria-describedby="feedback-overlay-desc">
               <div className="w-full max-w-lg bg-slate-900 border border-slate-700 p-6 md:p-10 rounded-2xl text-center shadow-2xl max-h-[90vh] overflow-y-auto">
+                <h2 id="feedback-overlay-title" className="sr-only">Governance feedback</h2>
                 <div className={`text-4xl md:text-6xl mb-4 md:mb-6 ${feedbackOverlay.fine > 0 ? 'text-red-500' : 'text-green-500'}`}>
-                  <i className={`fa-solid ${feedbackOverlay.fine > 0 ? 'fa-triangle-exclamation' : 'fa-circle-check'}`}></i>
+                  <i className={`fa-solid ${feedbackOverlay.fine > 0 ? 'fa-triangle-exclamation' : 'fa-circle-check'}`} aria-hidden></i>
                 </div>
                 
                 {feedbackOverlay.fine > 0 && (
@@ -727,8 +731,8 @@ const App: React.FC = () => {
                 <div className="text-cyan-400 mono text-[10px] mb-3 md:mb-4 font-bold tracking-wide">{personality.name}'s review</div>
                 <p className="text-lg md:text-2xl mb-4 md:mb-8 italic text-slate-100 font-light leading-relaxed">"{feedbackOverlay.text}"</p>
                 
-                <div className="bg-black/50 border border-white/5 p-4 md:p-6 rounded-xl text-left mb-4 md:mb-8">
-                  <div className="text-[10px] font-bold text-slate-500 tracking-wide mb-3 border-b border-white/5 pb-2">Governance alert</div>
+                <div id="feedback-overlay-desc" className="bg-black/50 border border-white/5 p-4 md:p-6 rounded-xl text-left mb-4 md:mb-8 min-h-[4.5rem]">
+                  <div className="text-[10px] font-bold text-slate-400 tracking-wide mb-3 border-b border-white/5 pb-2">Governance alert</div>
                   <p className="text-xs md:text-sm text-slate-400 leading-relaxed font-light">{feedbackOverlay.lesson}</p>
                 </div>
 
@@ -751,11 +755,11 @@ const App: React.FC = () => {
     const fixedAnswers = [question.correctAnswer, ...question.wrongAnswers];
 
     return (
-      <div className="min-h-screen bg-[#0a0a0c] flex flex-col items-center justify-center p-4 md:p-8 safe-area-top safe-area-bottom">
+      <div className="h-screen bg-[#0a0a0c] flex flex-col items-center justify-center p-4 md:p-8 safe-area-top safe-area-bottom">
         <div className="w-full max-w-3xl">
           <div className="text-center mb-6 md:mb-8">
             <div className="text-4xl md:text-6xl mb-3 md:mb-4">
-              <i className="fa-solid fa-gavel text-yellow-500"></i>
+              <i className="fa-solid fa-gavel text-yellow-500" aria-hidden></i>
             </div>
             <h2 className="text-2xl md:text-4xl font-black mb-2 tracking-tight text-yellow-500">Boss fight</h2>
             <p className="text-slate-400 text-sm md:text-base">Negotiate with the External Auditor</p>
@@ -764,7 +768,7 @@ const App: React.FC = () => {
           <div className="bg-slate-900 border border-slate-700 rounded-2xl p-4 md:p-8 shadow-2xl">
             {/* Timer Bar */}
             <div className="mb-4 md:mb-6">
-              <div className="flex justify-between text-xs text-slate-500 mb-2">
+              <div className="flex justify-between text-xs text-slate-400 mb-2">
                 <span>Time remaining</span>
                 <span className={bossTimeLeft < 5 ? 'text-red-500' : ''}>{bossTimeLeft}s</span>
               </div>
@@ -828,7 +832,7 @@ const App: React.FC = () => {
 
           {/* Score */}
           <div className="mt-4 md:mt-6 text-center">
-            <div className="text-xs text-slate-500 tracking-wide mb-2">Correct answers</div>
+            <div className="text-xs text-slate-400 tracking-wide mb-2">Correct answers</div>
             <div className="text-xl md:text-2xl font-black text-cyan-400">
               {state.bossFightAnswers.filter(a => a).length} / {state.bossFightAnswers.length}
             </div>
@@ -842,12 +846,12 @@ const App: React.FC = () => {
     const deathEnding = state.deathType ? DEATH_ENDINGS[state.deathType] : null;
     
     return (
-      <div className="min-h-screen bg-[#1a0505] flex flex-col items-center justify-center p-4 md:p-6 text-center safe-area-top safe-area-bottom">
+      <div className="h-screen bg-[#1a0505] flex flex-col items-center justify-center p-4 md:p-6 text-center safe-area-top safe-area-bottom">
         <div className="w-full max-w-2xl">
         {deathEnding && (
           <>
             <div className={`text-6xl md:text-9xl mb-4 md:mb-6 animate-pulse drop-shadow-[0_0_30px_rgba(220,38,38,0.5)] ${deathEnding.color}`}>
-              <i className={`fa-solid ${deathEnding.icon}`}></i>
+              <i className={`fa-solid ${deathEnding.icon}`} aria-hidden></i>
             </div>
             <h2 className={`text-3xl md:text-6xl font-black mb-3 md:mb-4 tracking-tighter ${deathEnding.color}`}>
               {deathEnding.title}
@@ -865,7 +869,7 @@ const App: React.FC = () => {
 
         {/* Collection Progress */}
         <div className="mb-6 md:mb-8 p-4 md:p-6 rounded-xl">
-          <div className="text-xs text-slate-500 tracking-wide mb-3 md:mb-4">Ending collection</div>
+          <div className="text-xs text-slate-400 tracking-wide mb-3 md:mb-4">Ending collection</div>
           <div className="flex gap-2 md:gap-3 justify-center flex-wrap">
             {Object.values(DeathType).map((type) => (
               <div 
@@ -877,7 +881,7 @@ const App: React.FC = () => {
                 }`}
                 title={DEATH_ENDINGS[type].title}
               >
-                <i className={`fa-solid ${DEATH_ENDINGS[type].icon} ${state.unlockedEndings.includes(type) ? 'text-cyan-400' : 'text-slate-600'}`}></i>
+                <i className={`fa-solid ${DEATH_ENDINGS[type].icon} ${state.unlockedEndings.includes(type) ? 'text-cyan-400' : 'text-slate-600'}`} aria-hidden></i>
               </div>
             ))}
           </div>
@@ -895,10 +899,10 @@ const App: React.FC = () => {
   };
 
   const renderSummary = () => (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4 md:p-6 text-center bg-[#051a0d] safe-area-top safe-area-bottom">
+    <div className="flex flex-col items-center justify-center h-screen p-4 md:p-6 text-center bg-[#051a0d] safe-area-top safe-area-bottom">
       <div className="w-full max-w-2xl">
        <div className="text-6xl md:text-9xl text-green-500 mb-6 md:mb-8 animate-bounce drop-shadow-[0_0_30px_rgba(34,197,94,0.4)]">
-        <i className="fa-solid fa-trophy"></i>
+        <i className="fa-solid fa-trophy" aria-hidden></i>
       </div>
       <h2 className="text-3xl md:text-6xl font-black mb-3 md:mb-4 tracking-tighter text-green-400">Quarter survived</h2>
       <p className="max-w-xl text-base md:text-xl mb-6 md:mb-8 text-slate-400 px-4 mx-auto">Against all odds, the company is still legal. You've earned a voucher for a synthetic coffee.</p>
@@ -910,7 +914,7 @@ const App: React.FC = () => {
 
       {/* Collection Progress */}
       <div className="mb-6 md:mb-8 p-4 md:p-6 bg-slate-900/50 border border-slate-800 rounded-xl">
-        <div className="text-xs text-slate-500 tracking-wide mb-3 md:mb-4">Ending collection</div>
+        <div className="text-xs text-slate-400 tracking-wide mb-3 md:mb-4">Ending collection</div>
         <div className="flex gap-2 md:gap-3 justify-center flex-wrap">
             {Object.values(DeathType).map((type) => (
               <div 
@@ -922,7 +926,7 @@ const App: React.FC = () => {
                 }`}
                 title={DEATH_ENDINGS[type].title}
               >
-              <i className={`fa-solid ${DEATH_ENDINGS[type].icon} ${state.unlockedEndings.includes(type) ? 'text-cyan-400' : 'text-slate-600'}`}></i>
+              <i className={`fa-solid ${DEATH_ENDINGS[type].icon} ${state.unlockedEndings.includes(type) ? 'text-cyan-400' : 'text-slate-600'}`} aria-hidden></i>
             </div>
           ))}
         </div>
@@ -953,7 +957,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen overflow-y-auto stage-transition" key={state.stage}>
+    <div className="h-screen overflow-y-auto stage-transition" key={state.stage}>
       {renderStage()}
     </div>
   );

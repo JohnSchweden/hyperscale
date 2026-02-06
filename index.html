@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -15,29 +15,34 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=optional');
         
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
         body {
             font-family: 'Space+Grotesk', sans-serif;
             background-color: #0a0a0c;
             color: #e2e8f0;
-            overflow-y: auto;
-            overflow-x: hidden;
+        }
+        
+        #root {
+            height: 100%;
+            overflow: hidden;
         }
 
         .mono {
             font-family: 'JetBrains+Mono', monospace;
         }
 
-        /* CRT Overlay Effect - full screen */
-        body::after {
-            content: " ";
-            display: block;
+        /* CRT Overlay Effect - applied via React component to avoid paint flash */
+        .crt-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
+            inset: 0;
             background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
             z-index: 10000;
             background-size: 100% 2px, 3px 100%;
@@ -160,22 +165,12 @@
             }
         }
 
-        /* Soft scanline running over screen */
-        .scanline-container {
+        /* Soft scanline running over screen - applied via React component */
+        .scanline-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             pointer-events: none;
             z-index: 9999;
-            overflow: hidden;
-        }
-
-        .scanline {
-            position: absolute;
-            width: 100%;
-            height: 1px;
             background: linear-gradient(
                 to bottom,
                 transparent 0%,
@@ -184,13 +179,15 @@
                 rgba(6, 182, 212, 0.06) 70%,
                 transparent 100%
             );
+            background-size: 100% 1px;
+            background-repeat: no-repeat;
             box-shadow: 0 0 15px rgba(6, 182, 212, 0.1), 0 0 30px rgba(6, 182, 212, 0.06);
             animation: scanlineMove 8s ease-in-out infinite;
         }
 
         @keyframes scanlineMove {
             0% {
-                top: -1px;
+                transform: translateY(-100%);
                 opacity: 0;
             }
             10% {
@@ -200,7 +197,7 @@
                 opacity: 1;
             }
             100% {
-                top: 100vh;
+                transform: translateY(100vh);
                 opacity: 0;
             }
         }
@@ -359,6 +356,19 @@
             overscroll-behavior-y: none;
         }
 
+        /* Screen-reader only (a11y) */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
         /* Safe area insets for notched devices */
         @supports (padding-top: env(safe-area-inset-top)) {
             .safe-area-top {
@@ -381,10 +391,11 @@
 </script>
 </head>
 <body>
-    <div class="scanline-container">
-        <div class="scanline"></div>
+    <div class="fixed inset-0 overflow-hidden pointer-events-none" style="z-index: 9998;" aria-hidden="true">
+        <div class="crt-overlay"></div>
+        <div class="scanline-overlay"></div>
     </div>
-    <div id="root"></div>
+    <main id="root"></main>
     <script type="module" src="/index.tsx"></script>
 </body>
 </html>
