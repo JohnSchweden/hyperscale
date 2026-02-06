@@ -8,7 +8,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#0a0a0c">
-    <title>Swipe Risk: HyperScale Chronicles</title>
+    <title>HYPERSCALE — AI Risk, Governance & Compliance Simulator</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -18,7 +18,8 @@
             font-family: 'Space+Grotesk', sans-serif;
             background-color: #0a0a0c;
             color: #e2e8f0;
-            overflow: hidden;
+            overflow-y: auto;
+            overflow-x: hidden;
         }
 
         .mono {
@@ -260,20 +261,43 @@
                 touch-action: manipulation;
             }
             
-            /* Mobile-friendly scrollbars */
-            ::-webkit-scrollbar {
-                width: 4px;
-                height: 4px;
-            }
-            
-            ::-webkit-scrollbar-track {
-                background: #1e293b;
-            }
-            
-            ::-webkit-scrollbar-thumb {
-                background: #475569;
-                border-radius: 2px;
-            }
+        }
+
+        /* Native smooth scrollbar */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            border: 2px solid transparent;
+            background-clip: content-box;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid transparent;
+            background-clip: content-box;
+        }
+
+        ::-webkit-scrollbar-corner {
+            background: transparent;
+        }
+
+        /* Firefox scrollbar */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
         }
 
         /* Prevent pull-to-refresh on mobile */

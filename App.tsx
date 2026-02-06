@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { GameStage, PersonalityType, RoleType, GameState, Card, AppSource, DeathType } from './types';
 import { PERSONALITIES, ROLE_CARDS, DEATH_ENDINGS, BOSS_FIGHT_QUESTIONS } from './constants';
 import { speak, getRoast } from './services/geminiService';
@@ -41,6 +41,16 @@ const App: React.FC = () => {
   const [bossTimeLeft, setBossTimeLeft] = useState(15);
   const [showBossExplanation, setShowBossExplanation] = useState(false);
   const [bossAnswered, setBossAnswered] = useState(false);
+
+  // Track if we're in a transition - blocks all pointer events during stage changes
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  
+  useEffect(() => {
+    // Block pointer events immediately when stage changes
+    setIsTransitioning(true);
+    const timer = setTimeout(() => setIsTransitioning(false), 350);
+    return () => clearTimeout(timer);
+  }, [state.stage]);
 
   // Clock update
   useEffect(() => {
@@ -85,8 +95,12 @@ const App: React.FC = () => {
     }
   }, [state.stage, state.personality]);
 
-  const handleStart = () => setState(prev => ({ ...prev, stage: GameStage.PERSONALITY_SELECT }));
-  const selectPersonality = (p: PersonalityType) => setState(prev => ({ ...prev, personality: p, stage: GameStage.ROLE_SELECT }));
+  const handleStart = () => {
+    setState(prev => ({ ...prev, stage: GameStage.PERSONALITY_SELECT }));
+  };
+  const selectPersonality = (p: PersonalityType) => {
+    setState(prev => ({ ...prev, personality: p, stage: GameStage.ROLE_SELECT }));
+  };
   const selectRole = (r: RoleType) => {
     setCountdown(3);
     setState(prev => ({ ...prev, role: r, stage: GameStage.INITIALIZING, currentCardIndex: 0 }));
@@ -262,13 +276,18 @@ const App: React.FC = () => {
         <div className="text-5xl md:text-6xl font-bold glitch-text tracking-tighter mb-2">HYPERSCALE</div>
         <div className="text-red-600 font-bold mono text-xs md:text-sm animate-pulse tracking-[0.4em]">project_icarus // os_v0.92</div>
       </div>
+      <p className="max-w-xl text-slate-400 mb-8 md:mb-10 text-base md:text-lg px-4 leading-relaxed">
+        The ultimate simulator for AI Risk, Governance, and Compliance.
+        <br />
+        <span className="text-slate-500">Made for people who hate f*cking boring governance training.</span>
+      </p>
       <p className="max-w-xl text-slate-500 mb-12 md:mb-16 text-base md:text-lg px-4">
-      The CEO integrated an unhinged AI into every department. Keep the stock price high and the prison sentence short.<br/> <br/> 
-      Move fast, break laws, and try to survive the final audit. AI Governance for people who hate compliance training.
+        <span className="text-slate-400 font-bold block mb-2">The Premise</span>
+        The CEO integrated an unhinged AI into every department.<br className="hidden md:inline" /><span className="text-slate-400">Your Task:</span> Move fast, break laws, and try to survive the final audit.
       </p>
       <button 
         onClick={handleStart}
-        className="px-8 md:px-12 py-4 bg-white text-black font-bold text-lg md:text-xl tracking-wide hover:bg-cyan-400 transition-all duration-300 transform hover:scale-105 min-h-[48px]"
+        className="px-6 py-3 md:px-12 md:py-4 text-base md:text-xl font-bold tracking-wide hover:bg-cyan-400 transition-all duration-300 transform hover:scale-105 min-h-[40px] md:min-h-[48px] bg-white text-black"
       >
         Boot system
       </button>
@@ -332,7 +351,7 @@ const App: React.FC = () => {
   const renderInitializing = () => (
     <div className="flex flex-col items-center justify-center min-h-screen p-4 md:p-6 bg-black text-cyan-500 font-mono safe-area-top safe-area-bottom">
       <div className="w-full max-w-xl p-4 md:p-8 border border-cyan-900/50 bg-slate-900/20 rounded-lg shadow-2xl relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-1 bg-cyan-500/20 overflow-hidden">
+        <div className="absolute bottom-0 left-0 w-full h-1 bg-cyan-500/20 overflow-hidden">
           <div className="h-full bg-cyan-500 animate-[progress-shine_2s_infinite]" style={{ width: `${(3 - countdown) * 33.3}%` }}></div>
         </div>
         <div className="mb-4 text-[10px] tracking-[0.2em] opacity-50 flex justify-between">
@@ -405,10 +424,10 @@ const App: React.FC = () => {
         </div>
 
         {/* Main Content - Responsive Layout */}
-        <div className="flex-1 flex flex-col lg:flex-row items-center justify-center p-3 md:p-8 gap-4 md:gap-8">
+        <div className="flex-1 flex flex-col lg:flex-row items-center justify-center pt-8 p-3 md:p-8 gap-4 md:gap-8">
           
           {/* Main App Window */}
-          <div className="flex-1 w-full max-w-full lg:max-w-[43rem] min-h-[350px] md:min-h-[520px] bg-slate-900/90 border border-slate-700 rounded-xl overflow-hidden shadow-2xl flex flex-col ticket-transition" key={state.currentCardIndex}>
+          <div className="flex-1 w-full max-w-full lg:max-w-[43rem] min-h-[280px] md:min-h-[400px] bg-slate-900/90 border border-slate-700 rounded-xl overflow-hidden shadow-2xl flex flex-col ticket-transition" key={state.currentCardIndex}>
             <div className="bg-slate-800 px-3 md:px-4 py-2 flex items-center justify-between border-b border-white/5">
               <div className="flex items-center gap-2 text-[10px] mono font-bold text-slate-400 truncate">
                 <i className={`fa-solid ${currentCard.source === AppSource.IDE ? 'fa-terminal' : 'fa-hashtag'}`}></i>
@@ -435,11 +454,11 @@ const App: React.FC = () => {
                   "{currentCard.text}"
                 </p>
               </div>
-              <div className="flex flex-col sm:flex-row gap-3 md:gap-4 mt-6 md:mt-12">
-                 <button onClick={() => handleChoice('LEFT')} className="flex-1 py-3 md:py-4 px-4 border border-red-500/50 text-red-500 font-bold tracking-wide hover:bg-red-500 hover:text-white transition-all rounded-lg min-h-[48px]">
+              <div className="flex flex-row gap-3 md:gap-4 mt-6 md:mt-12">
+                 <button onClick={() => handleChoice('LEFT')} className="flex-1 py-2 px-3 md:py-4 md:px-4 text-sm md:text-base border border-white text-white bg-transparent font-bold tracking-wide hover:bg-cyan-500 hover:border-cyan-500 hover:text-black active:bg-cyan-500 active:border-cyan-500 active:text-black transition-all rounded-lg min-h-[40px] md:min-h-[48px]">
                    {currentCard.onLeft.label}
                  </button>
-                 <button onClick={() => handleChoice('RIGHT')} className="flex-1 py-3 md:py-4 px-4 bg-cyan-500 text-black font-black tracking-wide hover:bg-white transition-all rounded-lg min-h-[48px]">
+                 <button onClick={() => handleChoice('RIGHT')} className="flex-1 py-2 px-3 md:py-4 md:px-4 text-sm md:text-base border border-white text-white bg-transparent font-black tracking-wide hover:bg-cyan-500 hover:border-cyan-500 hover:text-black active:bg-cyan-500 active:border-cyan-500 active:text-black transition-all rounded-lg min-h-[40px] md:min-h-[48px]">
                    {currentCard.onRight.label}
                  </button>
               </div>
@@ -463,7 +482,7 @@ const App: React.FC = () => {
               <button 
                 onClick={handleRoast}
                 disabled={isRoasting}
-                className="w-full py-2 bg-green-900/20 border border-green-500/40 text-green-500 font-bold text-[10px] mono tracking-wide hover:bg-green-500 hover:text-black transition-all mb-3 min-h-[44px]"
+                className="w-fit px-8 py-2.5 bg-green-900/20 border border-green-500/40 text-green-500 font-bold text-[10px] mono tracking-wide hover:bg-green-500 hover:text-black transition-all mb-3 min-h-[44px] self-center"
               >
                 {isRoasting ? 'Scanning...' : 'Init roast'}
               </button>
@@ -533,7 +552,7 @@ const App: React.FC = () => {
 
               <button 
                 onClick={nextIncident}
-                className="w-full py-4 md:py-5 bg-white text-black font-black tracking-wide hover:bg-cyan-500 transition-all rounded-lg shadow-xl transform active:scale-95 min-h-[48px]"
+                className="w-auto px-8 py-2.5 text-sm md:text-base bg-white text-black font-black tracking-wide hover:bg-cyan-500 transition-all rounded-lg shadow-xl transform active:scale-95"
               >
                 Next ticket
               </button>
@@ -612,12 +631,14 @@ const App: React.FC = () => {
                   </div>
                   <p className="text-slate-400 text-xs md:text-sm">{question.explanation}</p>
                 </div>
-                <button
-                  onClick={nextBossQuestion}
-                  className="w-full py-3 md:py-4 bg-cyan-500 text-black font-black tracking-wide hover:bg-white transition-all rounded-lg min-h-[48px]"
-                >
-                  {currentBossQuestion + 1 >= BOSS_FIGHT_QUESTIONS.length ? 'Final result' : 'Next question'}
-                </button>
+                <div className="text-center pt-3">
+                  <button
+                    onClick={nextBossQuestion}
+                    className="w-auto px-8 py-2.5 text-sm md:text-base bg-white text-black font-black tracking-wide hover:bg-cyan-500 transition-all rounded-lg shadow-xl transform active:scale-95"
+                  >
+                    {currentBossQuestion + 1 >= BOSS_FIGHT_QUESTIONS.length ? 'Final result' : 'Next question'}
+                  </button>
+                </div>
               </div>
             )}
           </div>
@@ -639,6 +660,7 @@ const App: React.FC = () => {
     
     return (
       <div className="min-h-screen bg-[#1a0505] flex flex-col items-center justify-center p-4 md:p-6 text-center safe-area-top safe-area-bottom">
+        <div className="w-full max-w-2xl">
         {deathEnding && (
           <>
             <div className={`text-6xl md:text-9xl mb-4 md:mb-6 animate-pulse drop-shadow-[0_0_30px_rgba(220,38,38,0.5)] ${deathEnding.color}`}>
@@ -647,12 +669,17 @@ const App: React.FC = () => {
             <h2 className={`text-3xl md:text-6xl font-black mb-3 md:mb-4 tracking-tighter ${deathEnding.color}`}>
               {deathEnding.title}
             </h2>
-            <p className="max-w-md text-base md:text-xl mb-6 md:mb-8 text-slate-400 leading-relaxed px-4">
+            <p className="max-w-xl text-base md:text-xl mb-6 md:mb-8 text-slate-400 leading-relaxed px-4 mx-auto">
               {deathEnding.description}
             </p>
           </>
         )}
-        
+
+        <div className="mb-6 md:mb-8 p-3 md:p-4 bg-red-900/20 border border-red-500/30 rounded-lg">
+          <div className="text-red-400 text-xs font-bold tracking-wide mb-1">Final budget</div>
+          <div className="text-2xl md:text-3xl font-black text-red-500">{formatBudget(state.budget)}</div>
+        </div>
+
         {/* Collection Progress */}
         <div className="mb-6 md:mb-8 p-4 md:p-6 bg-slate-900/50 border border-slate-800 rounded-xl">
           <div className="text-xs text-slate-500 tracking-wide mb-3 md:mb-4">Ending collection</div>
@@ -676,25 +703,22 @@ const App: React.FC = () => {
           </div>
         </div>
 
-        <div className="mb-6 md:mb-8 p-3 md:p-4 bg-red-900/20 border border-red-500/30 rounded-lg">
-          <div className="text-red-400 text-xs font-bold tracking-wide mb-1">Final budget</div>
-          <div className="text-2xl md:text-3xl font-black text-red-500">{formatBudget(state.budget)}</div>
-        </div>
-
-        <button onClick={restart} className="px-8 md:px-16 py-4 md:py-5 bg-red-600 text-white font-black text-xl md:text-2xl tracking-wide hover:bg-white hover:text-red-600 transition-all shadow-xl min-h-[48px]">
+        <button onClick={restart} className="px-6 py-3 md:px-12 md:py-4 text-base md:text-xl font-bold tracking-wide bg-white text-red-600 hover:bg-red-600 hover:text-white transition-all duration-300 transform hover:scale-105 min-h-[40px] md:min-h-[48px]">
           Reboot system
         </button>
+        </div>
       </div>
     );
   };
 
   const renderSummary = () => (
     <div className="flex flex-col items-center justify-center min-h-screen p-4 md:p-6 text-center bg-[#051a0d] safe-area-top safe-area-bottom">
+      <div className="w-full max-w-2xl">
        <div className="text-6xl md:text-9xl text-green-500 mb-6 md:mb-8 animate-bounce drop-shadow-[0_0_30px_rgba(34,197,94,0.4)]">
         <i className="fa-solid fa-trophy"></i>
       </div>
       <h2 className="text-3xl md:text-6xl font-black mb-3 md:mb-4 tracking-tighter text-green-400">Quarter survived</h2>
-      <p className="max-w-md text-base md:text-xl mb-6 md:mb-8 text-slate-400 px-4">Against all odds, the company is still legal. You've earned a voucher for a synthetic coffee.</p>
+      <p className="max-w-xl text-base md:text-xl mb-6 md:mb-8 text-slate-400 px-4 mx-auto">Against all odds, the company is still legal. You've earned a voucher for a synthetic coffee.</p>
       
       <div className="mb-6 md:mb-8 p-4 md:p-6 bg-green-900/20 border border-green-500/30 rounded-xl">
         <div className="text-green-400 text-xs font-bold tracking-wide mb-1">Remaining budget</div>
@@ -724,9 +748,10 @@ const App: React.FC = () => {
         </div>
       </div>
 
-      <button onClick={restart} className="px-8 md:px-16 py-4 md:py-5 bg-green-600 text-white font-black text-xl md:text-2xl tracking-wide hover:bg-white hover:text-green-600 transition-all shadow-xl min-h-[48px]">
+      <button onClick={restart} className="px-6 py-3 md:px-16 md:py-5 text-base md:text-2xl font-black tracking-wide bg-green-600 text-white hover:bg-white hover:text-green-600 transition-all shadow-xl min-h-[40px] md:min-h-[48px]">
         Log off
       </button>
+      </div>
     </div>
   );
 
@@ -745,7 +770,10 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen stage-transition" key={state.stage}>
+    <div 
+      className={`min-h-screen overflow-y-auto stage-transition ${isTransitioning ? 'pointer-events-none' : ''}`} 
+      key={state.stage}
+    >
       {renderStage()}
     </div>
   );
