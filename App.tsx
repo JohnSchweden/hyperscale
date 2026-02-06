@@ -362,8 +362,8 @@ const App: React.FC = () => {
     s === RoleType.HR ? 'HR' : s.replace(/_/g, ' ').toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
 
   const renderIntro = () => (
-    <div className="flex flex-col items-center justify-center h-screen p-4 md:p-6 text-center bg-black safe-area-top safe-area-bottom">
-      <div className="mb-8 md:mb-12">
+    <div className="flex flex-col items-center justify-center min-h-screen p-4 md:p-6 text-center bg-black safe-area-top safe-area-bottom">
+      <div className="mb-8 md:mb-12 relative">
         <h1 className="text-6xl md:text-7xl font-bold glitch-text tracking-tighter mb-2">hyperscale</h1>
         <div className="text-red-600 font-bold mono text-xs md:text-sm animate-pulse tracking-[0.4em]">incident_response_terminal // os_v0.92</div>
       </div>
@@ -387,7 +387,7 @@ const App: React.FC = () => {
   );
 
   const renderPersonalitySelect = () => (
-    <div className="flex flex-col items-center justify-center h-screen p-4 md:p-6 bg-black safe-area-top safe-area-bottom">
+    <div className="flex flex-col items-center justify-center min-h-screen p-4 md:p-6 bg-black safe-area-top safe-area-bottom">
       <div className="w-full max-w-5xl">
         <div className="text-center mb-6 md:mb-10">
           <div className="text-red-600 mb-3 mono text-[10px] md:text-xs tracking-[0.3em]">
@@ -437,7 +437,7 @@ const App: React.FC = () => {
   );
 
   const renderRoleSelect = () => (
-    <div className="flex flex-col items-center justify-center h-screen p-4 md:p-6 bg-black safe-area-top safe-area-bottom">
+    <div className="flex flex-col items-center justify-center min-h-screen p-4 md:p-6 bg-black safe-area-top safe-area-bottom">
       <div className="w-full max-w-4xl">
         <div className="text-center mb-6 md:mb-10">
           <div className="text-red-600 mb-2 md:mb-3 mono text-[10px] md:text-xs tracking-[0.3em] fade-in px-4">
@@ -489,7 +489,7 @@ const App: React.FC = () => {
   );
 
   const renderInitializing = () => (
-    <div className="flex flex-col items-center justify-center h-screen p-4 md:p-6 bg-black text-cyan-500 font-mono safe-area-top safe-area-bottom">
+    <div className="flex flex-col items-center justify-center min-h-screen p-4 md:p-6 bg-black text-cyan-500 font-mono safe-area-top safe-area-bottom">
       <div className="w-full max-w-xl p-4 md:p-8 border border-cyan-900/50 bg-slate-900/20 rounded-lg shadow-2xl relative overflow-hidden">
         <div className="absolute bottom-0 left-0 w-full h-1 bg-cyan-500/20 overflow-hidden">
           <div className="h-full bg-cyan-500 animate-[progress-shine_2s_infinite]" style={{ width: `${(3 - countdown) * 33.3}%` }}></div>
@@ -526,7 +526,7 @@ const App: React.FC = () => {
     const personality = PERSONALITIES[state.personality!];
 
     return (
-      <div className="h-screen bg-[#0a0a0c] flex flex-col relative pt-16 md:pt-12 pb-12 md:pb-12 safe-area-top safe-area-bottom overflow-y-auto">
+      <div className="min-h-screen bg-[#0a0a0c] flex flex-col relative pt-16 md:pt-12 pb-12 md:pb-12 safe-area-top safe-area-bottom">
         {/* Top HUD - Budget Focused - Mobile Optimized */}
         <div className="absolute top-2 md:top-4 left-1/2 -translate-x-1/2 w-full max-w-4xl px-3 md:px-4 flex flex-col md:flex-row gap-2 md:gap-6 items-stretch md:items-center">
           <div className="flex-1 space-y-1 min-w-0">
@@ -755,7 +755,7 @@ const App: React.FC = () => {
     const fixedAnswers = [question.correctAnswer, ...question.wrongAnswers];
 
     return (
-      <div className="h-screen bg-[#0a0a0c] flex flex-col items-center justify-center p-4 md:p-8 safe-area-top safe-area-bottom">
+      <div className="min-h-screen bg-[#0a0a0c] flex flex-col items-center justify-center p-4 md:p-8 safe-area-top safe-area-bottom">
         <div className="w-full max-w-3xl">
           <div className="text-center mb-6 md:mb-8">
             <div className="text-4xl md:text-6xl mb-3 md:mb-4">
@@ -846,7 +846,7 @@ const App: React.FC = () => {
     const deathEnding = state.deathType ? DEATH_ENDINGS[state.deathType] : null;
     
     return (
-      <div className="h-screen bg-[#1a0505] flex flex-col items-center justify-center p-4 md:p-6 text-center safe-area-top safe-area-bottom">
+      <div className="min-h-screen bg-[#1a0505] flex flex-col items-center justify-center p-4 md:p-6 text-center safe-area-top safe-area-bottom">
         <div className="w-full max-w-2xl">
         {deathEnding && (
           <>
@@ -899,7 +899,7 @@ const App: React.FC = () => {
   };
 
   const renderSummary = () => (
-    <div className="flex flex-col items-center justify-center h-screen p-4 md:p-6 text-center bg-[#051a0d] safe-area-top safe-area-bottom">
+    <div className="flex flex-col items-center justify-center min-h-screen p-4 md:p-6 text-center bg-[#051a0d] safe-area-top safe-area-bottom">
       <div className="w-full max-w-2xl">
        <div className="text-6xl md:text-9xl text-green-500 mb-6 md:mb-8 animate-bounce drop-shadow-[0_0_30px_rgba(34,197,94,0.4)]">
         <i className="fa-solid fa-trophy" aria-hidden></i>
@@ -957,7 +957,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="h-screen overflow-y-auto stage-transition" key={state.stage}>
+    <div className="min-h-screen overflow-y-auto stage-transition" key={state.stage}>
       {renderStage()}
     </div>
   );
