@@ -30,17 +30,26 @@ This roadmap delivers a comprehensive UI/UX overhaul of the hyperscale game, foc
 4. Scroll on mobile browser — content stays stable when toolbars collapse/expand
 5. Code review: LayoutShell component used consistently across all stages
 
+### Plans
+
+**Plans:** 5 plans in 5 waves
+
+- [ ] 01-01-PLAN.md — Create LayoutShell component with responsive logic
+- [ ] 01-02-PLAN.md — Update Intro, Personality Select, Role Select screens
+- [ ] 01-03-PLAN.md — Update Initializing, Boss Fight, Game Over, Summary screens
+- [ ] 01-04-PLAN.md — Refactor Game screen and add scrollbar/viewport fixes
+- [ ] 01-05-PLAN.md — Human verification of all 8 stages
+
 ### Implementation Notes
 
 **Order of operations:**
-1. Create LayoutShell component with responsive logic
-2. Update Game screen to use LayoutShell (biggest change)
-3. Update remaining 7 screens to use LayoutShell
-4. Add scrollbar-gutter CSS for desktop
-5. Replace min-h-screen with min-h-[100dvh]
-6. Test across breakpoints
+1. Create LayoutShell component with responsive logic (Plan 01)
+2. Update first 3 non-gameplay screens (Plan 02)
+3. Update remaining 4 non-gameplay screens (Plan 03)
+4. Refactor Game screen + add scrollbar-gutter + replace 100vh (Plan 04)
+5. Human verification across all breakpoints (Plan 05)
 
-**Key files to modify:**
+**Key files to modify:
 - `App.tsx` - Refactor all render methods
 - `index.html` - Add scrollbar-gutter CSS
 - Create `components/LayoutShell.tsx`
