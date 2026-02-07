@@ -133,6 +133,25 @@ Wave 2:
 **Duration:** 1-2 days
 **Requirements:** 3 (TRANS-01, DESIGN-01, PERF-01)
 
+### Plans
+
+**Plans:** 3 plans in 2 waves
+
+- [ ] 03-01-PLAN.md — Standardize stage transition animations (TRANS-01)
+- [ ] 03-02-PLAN.md — Design audit and visual system standardization (DESIGN-01)
+- [ ] 03-03-PLAN.md — Performance optimization and Lighthouse audit (PERF-01)
+
+### Wave Structure
+
+```
+Wave 1 (Parallel):
+├── 03-01: Transition animations (independent)
+└── 03-02: Design audit (independent of 03-01)
+
+Wave 2:
+└── 03-03: Performance optimization (depends on 03-01, 03-02)
+```
+
 ### Success Criteria
 
 1. All stage transitions feel consistent — same animation, duration, easing

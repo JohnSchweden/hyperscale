@@ -28,7 +28,7 @@ See: `.planning/PROJECT.md` (updated 2026-02-07)
 |-------|--------|----------|---------|-------|--------------|
 | 1 — Layout Foundation | ● In Progress | 2/5 | ✓ Active | 3 ready, 2 complete | LAYOUT-01 to LAYOUT-05 |
 | 2 — Swipe Interactions | ○ Planned | 0/3 | ✓ Ready | 3 ready | SWIPE-01, SWIPE-03 to SWIPE-05 |
-| 3 — Polish & Performance | ○ Context Gathered | 0/3 | ✓ Ready | — | TRANS-01, DESIGN-01, PERF-01 |
+| 3 — Polish & Performance | ○ Planned | 0/3 | ✓ Ready | 3 plans | TRANS-01, DESIGN-01, PERF-01 |
 
 ### Requirements Status
 
@@ -68,6 +68,23 @@ Created: 3 plans in 2 waves
 - SWIPE-04: Enhanced preview (Plan 02-02)
 - SWIPE-05: Exit animations (Plan 02-01)
 - ~~SWIPE-02~~: Card lift — REMOVED per user decision
+
+---
+
+## Phase 3 Plans Summary
+
+Created: 3 plans in 2 waves
+
+| Plan | Wave | Objective | Files | Autonomous |
+|------|------|-----------|-------|------------|
+| 03-01 | 1 | Standardize stage transition animations | App.tsx, index.html | ✓ Yes |
+| 03-02 | 1 | Design audit and visual system | App.tsx, index.html | ✓ Yes |
+| 03-03 | 2 | Performance optimization & Lighthouse | App.tsx, index.html | ✓ Yes |
+
+**Requirements Coverage:**
+- TRANS-01: Consistent transitions (Plan 03-01)
+- DESIGN-01: Visual design audit (Plan 03-02)
+- PERF-01: Performance optimization (Plan 03-03)
 
 ---
 
@@ -113,19 +130,19 @@ Remaining plans in Phase 1:
 /gsd-execute-phase 2
 ```
 
-**Plan Phase 3 (Context Ready):**
+**Execute Phase 3 (Ready After Phase 2):**
 ```
-/gsd-plan-phase 3
+/gsd-execute-phase 3
 ```
 
 ---
 
 ## Notes
 
-- Phase 1: 5 plans ready for execution
+- Phase 1: 3 plans remaining (2 complete, 3 ready)
 - Phase 2: 3 plans ready for execution (SWIPE-02 removed)
-- Phase 3: Context gathered, ready for planning
-- Total: 8 executable plans across Phases 1-2
+- Phase 3: 3 plans ready for execution
+- Total: 11 executable plans across all phases
 - No external dependencies or blockers
 
 ## Session Continuity
