@@ -388,8 +388,8 @@ const App: React.FC = () => {
   );
 
   const renderPersonalitySelect = () => (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4 md:p-6 bg-black safe-area-top safe-area-bottom">
-      <div className="w-full max-w-5xl">
+    <LayoutShell className="p-4 md:p-6">
+      <div className="w-full max-w-5xl mx-auto">
         <div className="text-center mb-6 md:mb-10">
           <div className="text-red-600 mb-3 mono text-[10px] md:text-xs tracking-[0.3em]">
             step_01 // chaos_handler
@@ -434,7 +434,7 @@ const App: React.FC = () => {
           ))}
         </div>
       </div>
-    </div>
+    </LayoutShell>
   );
 
   const renderRoleSelect = () => (
