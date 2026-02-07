@@ -567,7 +567,7 @@ const App: React.FC = () => {
         </div>
 
         {/* Main Content - Responsive Layout */}
-        <div className="flex-1 flex flex-col items-center justify-center pt-8 md:pt-12 p-3 pb-2 md:p-8 md:pb-4 gap-4 md:gap-8">
+        <div className="flex-1 flex flex-col items-center justify-center pt-8 md:pt-12 p-3 pb-14 md:p-8 md:pb-4 gap-4 md:gap-8">
           
           {/* Main App Window */}
           <div
