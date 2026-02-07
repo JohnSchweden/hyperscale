@@ -490,7 +490,7 @@ const App: React.FC = () => {
   );
 
   const renderInitializing = () => (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4 md:p-6 bg-black text-cyan-500 font-mono safe-area-top safe-area-bottom">
+    <LayoutShell className="p-4 md:p-6 bg-black text-cyan-500 font-mono">
       <div className="w-full max-w-xl p-4 md:p-8 border border-cyan-900/50 bg-slate-900/20 rounded-lg shadow-2xl relative overflow-hidden">
         <div className="absolute bottom-0 left-0 w-full h-1 bg-cyan-500/20 overflow-hidden">
           <div className="h-full bg-cyan-500 animate-[progress-shine_2s_infinite]" style={{ width: `${(3 - countdown) * 33.3}%` }}></div>
@@ -518,7 +518,7 @@ const App: React.FC = () => {
       <div className="mt-6 md:mt-8 text-[8px] tracking-wide opacity-30 text-center max-w-xs px-4">
         HyperScale Inc. is not liable for data breaches, federal lawsuits, or spontaneous AI consciousness.
       </div>
-    </div>
+    </LayoutShell>
   );
 
   const renderGame = () => {
