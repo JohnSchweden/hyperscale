@@ -900,7 +900,7 @@ const App: React.FC = () => {
   };
 
   const renderSummary = () => (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4 md:p-6 text-center bg-[#051a0d] safe-area-top safe-area-bottom">
+    <LayoutShell className="p-4 md:p-6 text-center bg-[#051a0d]">
       <div className="w-full max-w-2xl">
        <div className="text-6xl md:text-9xl text-green-500 mb-6 md:mb-8 animate-bounce drop-shadow-[0_0_30px_rgba(34,197,94,0.4)]">
         <i className="fa-solid fa-trophy" aria-hidden></i>
@@ -940,7 +940,7 @@ const App: React.FC = () => {
         Log off
       </button>
       </div>
-    </div>
+    </LayoutShell>
   );
 
   const renderStage = () => {
