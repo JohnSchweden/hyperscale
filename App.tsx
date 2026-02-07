@@ -712,43 +712,6 @@ const App: React.FC = () => {
             </div>
           </div>
         </div>
-
-        {/* Answer Window - Overlay with fine display */}
-        {feedbackOverlay &&
-          (
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 bg-black/70 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="feedback-overlay-title" aria-describedby="feedback-overlay-desc">
-              <div className="w-full max-w-lg bg-slate-900 border border-slate-700 p-6 md:p-10 rounded-2xl text-center shadow-2xl max-h-[90vh] overflow-y-auto">
-                <h2 id="feedback-overlay-title" className="sr-only">Governance feedback</h2>
-                <div className={`text-4xl md:text-6xl mb-4 md:mb-6 ${feedbackOverlay.fine > 0 ? 'text-red-500' : 'text-green-500'}`}>
-                  <i className={`fa-solid ${feedbackOverlay.fine > 0 ? 'fa-triangle-exclamation' : 'fa-circle-check'}`} aria-hidden></i>
-                </div>
-                
-                {feedbackOverlay.fine > 0 && (
-                  <div className="mb-4 md:mb-6 p-3 md:p-4 bg-red-900/20 border border-red-500/30 rounded-lg">
-                    <div className="text-red-400 text-xs font-bold tracking-wide mb-1">Violation fine</div>
-                    <div className="text-2xl md:text-3xl font-black text-red-500">-{formatBudget(feedbackOverlay.fine)}</div>
-                    <div className="text-red-400/70 text-xs mt-1">{feedbackOverlay.violation}</div>
-                  </div>
-                )}
-                
-                <div className="text-cyan-400 mono text-[10px] mb-3 md:mb-4 font-bold tracking-wide">{personality.name}'s review</div>
-                <p className="text-lg md:text-2xl mb-4 md:mb-8 italic text-slate-100 font-light leading-relaxed">"{feedbackOverlay.text}"</p>
-                
-                <div id="feedback-overlay-desc" className="bg-black/50 border border-white/5 p-4 md:p-6 rounded-xl text-left mb-4 md:mb-8 min-h-[4.5rem]">
-                  <div className="text-[10px] font-bold text-slate-400 tracking-wide mb-3 border-b border-white/5 pb-2">Governance alert</div>
-                  <p className="text-xs md:text-sm text-slate-400 leading-relaxed font-light">{feedbackOverlay.lesson}</p>
-                </div>
-
-                <button 
-                  onClick={nextIncident}
-                  className="w-auto px-8 py-2.5 text-sm md:text-base bg-white text-black font-black tracking-wide hover:bg-cyan-500 transition-all shadow-xl transform active:scale-95"
-                >
-                  Next ticket
-                </button>
-              </div>
-            </div>
-          )
-        }
       </LayoutShell>
     );
   };
@@ -960,9 +923,44 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-[100dvh] stage-transition" key={state.stage}>
-      {renderStage()}
-    </div>
+    <>
+      <div className="min-h-[100dvh] stage-transition" key={state.stage}>
+        {renderStage()}
+      </div>
+      {state.stage === GameStage.PLAYING && feedbackOverlay && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 bg-black/70 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="feedback-overlay-title" aria-describedby="feedback-overlay-desc">
+          <div className="w-full max-w-lg bg-slate-900 border border-slate-700 p-6 md:p-10 rounded-2xl text-center shadow-2xl max-h-[90vh] overflow-y-auto">
+            <h2 id="feedback-overlay-title" className="sr-only">Governance feedback</h2>
+            <div className={`text-4xl md:text-6xl mb-4 md:mb-6 ${feedbackOverlay.fine > 0 ? 'text-red-500' : 'text-green-500'}`}>
+              <i className={`fa-solid ${feedbackOverlay.fine > 0 ? 'fa-triangle-exclamation' : 'fa-circle-check'}`} aria-hidden></i>
+            </div>
+            
+            {feedbackOverlay.fine > 0 && (
+              <div className="mb-4 md:mb-6 p-3 md:p-4 bg-red-900/20 border border-red-500/30 rounded-lg">
+                <div className="text-red-400 text-xs font-bold tracking-wide mb-1">Violation fine</div>
+                <div className="text-2xl md:text-3xl font-black text-red-500">-{formatBudget(feedbackOverlay.fine)}</div>
+                <div className="text-red-400/70 text-xs mt-1">{feedbackOverlay.violation}</div>
+              </div>
+            )}
+            
+            <div className="text-cyan-400 mono text-[10px] mb-3 md:mb-4 font-bold tracking-wide">{PERSONALITIES[state.personality!].name}'s review</div>
+            <p className="text-lg md:text-2xl mb-4 md:mb-8 italic text-slate-100 font-light leading-relaxed">"{feedbackOverlay.text}"</p>
+            
+            <div id="feedback-overlay-desc" className="bg-black/50 border border-white/5 p-4 md:p-6 rounded-xl text-left mb-4 md:mb-8 min-h-[4.5rem]">
+              <div className="text-[10px] font-bold text-slate-400 tracking-wide mb-3 border-b border-white/5 pb-2">Governance alert</div>
+              <p className="text-xs md:text-sm text-slate-400 leading-relaxed font-light">{feedbackOverlay.lesson}</p>
+            </div>
+
+            <button 
+              onClick={nextIncident}
+              className="w-auto px-8 py-2.5 text-sm md:text-base bg-white text-black font-black tracking-wide hover:bg-cyan-500 transition-all shadow-xl transform active:scale-95"
+            >
+              Next ticket
+            </button>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
