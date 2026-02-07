@@ -68,26 +68,43 @@ This roadmap delivers a comprehensive UI/UX overhaul of the hyperscale game, foc
 **Goal:** Implement Tinder-style swipe animations with spring physics and card stack
 
 **Duration:** 2-3 days
-**Requirements:** 5 (SWIPE-01 through SWIPE-05)
+**Requirements:** 4 (SWIPE-01, SWIPE-03, SWIPE-04, SWIPE-05)  
+*Note: SWIPE-02 (card lift) was removed per user decision*
 
 ### Success Criteria
 
-1. Drag card on mobile — card lifts (scales up) immediately
-2. Drag card partially — spring physics returns it smoothly when released
-3. Drag past threshold — card exits with rotation animation
-4. Next card visible underneath — creates "deck" feel
-5. Gradient preview appears when swiping — scales with distance
-6. 60fps performance on mid-range mobile device
+1. Drag card partially — spring physics returns it smoothly when released
+2. Drag past threshold — card exits with rotation animation
+3. Next card visible underneath — creates "deck" feel
+4. Gradient preview appears when swiping — scales with distance
+5. 60fps performance on mid-range mobile device
+
+### Plans
+
+**Plans:** 3 plans in 2 waves
+
+- [ ] 02-01-PLAN.md — CSS Animation System (spring physics + exit animations)
+- [ ] 02-02-PLAN.md — Card Stack & Enhanced Preview (SWIPE-03 + SWIPE-04)
+- [ ] 02-03-PLAN.md — Human verification of all swipe interactions
 
 ### Implementation Notes
 
 **Order of operations:**
-1. Implement card lift effect (easiest win)
-2. Add spring physics CSS for snap-back
-3. Refine exit animations with rotation
-4. Create card stack structure (render next card behind)
-5. Enhance gradient preview (scale with distance)
-6. Optimize performance (will-change, etc.)
+1. **Wave 1 (Parallel):**
+   - Plan 01: Add spring physics CSS and refine exit animations in index.html
+   - Plan 02: Implement card stack and enhanced preview in App.tsx
+2. **Wave 2:**
+   - Plan 03: Human verification across devices
+
+**Wave Structure:**
+```
+Wave 1:
+├── 02-01: CSS animations (independent)
+└── 02-02: Card stack (independent of 02-01)
+
+Wave 2:
+└── 02-03: Human verification (depends on 02-01, 02-02)
+```
 
 **Key files to modify:**
 - `App.tsx` - Game screen renderGame() method
