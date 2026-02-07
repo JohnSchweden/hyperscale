@@ -19,8 +19,8 @@ See: `.planning/PROJECT.md` (updated 2026-02-07)
 ### Overall Progress
 
 **Phase:** 1 — Layout Foundation (Complete)  
-**Phase Progress:** 7/7 plans complete (including 2 gap closures)  
-**Overall Progress:** 33%
+**Phase Progress:** 8/8 plans complete (including 3 gap closures)  
+**Overall Progress:** 36%
 
 ### Phase Status
 
@@ -53,6 +53,8 @@ See: `.planning/PROJECT.md` (updated 2026-02-07)
 - **2026-02-07** — Completed Plan 01-04: Game screen refactored to LayoutShell, scrollbar-gutter CSS added for desktop
 - **2026-02-07** — Completed Plan 01-06: Fixed desktop centering in LayoutShell (gap closure)
 - **2026-02-07** — Completed Plan 01-07: Fixed Game screen mobile layout issues (padding, button sizing, answer window)
+- **2026-02-07** — Completed Plan 01-08: Fixed scrollbar first render by removing overflow conflicts and reducing animation translateY
+- **2026-02-07** — Completed Plan 01-09: Fixed roast window and boot button cutoff on mobile with proper taskbar clearance padding
 
 ---
 
@@ -113,6 +115,8 @@ Created: 3 plans in 2 waves
 | 2026-02-07 | Mobile padding pt-12 md:pt-20 pattern | Reduces excessive whitespace while clearing HUD on mobile | ✓ Implemented in 01-07 |
 | 2026-02-07 | WCAG 2.5.5 44px touch target compliance | Boot button meets accessibility standards for mobile | ✓ Implemented in 01-07 |
 | 2026-02-07 | Responsive padding p-3 md:p-4 pattern | Optimizes answer window spacing across breakpoints | ✓ Implemented in 01-07 |
+| 2026-02-07 | Body overflow-y: hidden | Prevents duplicate scroll context, all scrolling managed by LayoutShell | ✓ Implemented in 01-08 |
+| 2026-02-07 | Reduced translateY from 20px to 10px | Minimizes temporary overflow during stage transitions | ✓ Implemented in 01-08 |
 
 ---
 
@@ -161,8 +165,8 @@ None — Phases 1 & 2 have executable plans, Phase 3 has context
 
 ## Session Continuity
 
-**Last session:** 2026-02-07 22:33 UTC
-**Stopped at:** Completed 01-07-PLAN.md (gap closure for mobile layout)
+**Last session:** 2026-02-07 23:24 UTC
+**Stopped at:** Completed 01-08-PLAN.md (gap closure for scrollbar first render)
 **Resume file:** None
 
 ---

@@ -44,7 +44,7 @@ This roadmap delivers a comprehensive UI/UX overhaul of the hyperscale game, foc
 **Gap Closure Plans (from verification):**
 - [x] 01-06-PLAN.md — Fix desktop centering for all 8 screens
 - [x] 01-07-PLAN.md — Fix Game screen mobile layout issues
-- [ ] 01-08-PLAN.md — Fix scrollbar first render (remove overflow conflicts)
+- [x] 01-08-PLAN.md — Fix scrollbar first render (remove overflow conflicts)
 - [ ] 01-09-PLAN.md — Fix roast window and boot button cutoff (taskbar clearance)
 - [ ] 01-10-PLAN.md — Fix answer overlay centering and HUD cutoff (positioning context)
 
