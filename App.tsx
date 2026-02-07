@@ -379,7 +379,7 @@ const App: React.FC = () => {
       </p>
       <button 
         onClick={handleStart}
-        className="px-6 py-3 md:px-12 md:py-4 text-base md:text-xl font-bold tracking-wide hover:bg-cyan-400 transition-all duration-300 transform hover:scale-105 min-h-[40px] md:min-h-[48px] bg-white text-black"
+        className="px-6 py-3 md:px-12 md:py-4 text-base md:text-xl font-bold tracking-wide transition-all duration-300 transform min-h-[44px] md:min-h-[48px] bg-white text-black hover:bg-cyan-400 hover:scale-105"
       >
         Boot system
       </button>
@@ -408,7 +408,7 @@ const App: React.FC = () => {
             <button
               key={type}
               onClick={() => selectPersonality(type as PersonalityType)}
-              className="group p-6 md:p-10 bg-slate-900/60 border border-slate-800 hover:border-cyan-500 flex flex-col hover-scale shadow-2xl transition-colors w-full text-left"
+              className="group p-6 md:p-10 bg-slate-900/60 border border-slate-800 hover:border-cyan-500 flex flex-col shadow-2xl transition-colors w-full text-left"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="flex flex-col items-center text-center mb-4 md:mb-6">
@@ -491,7 +491,7 @@ const App: React.FC = () => {
 
   const renderInitializing = () => (
     <LayoutShell className="p-4 md:p-6 bg-black text-cyan-500 font-mono">
-      <div className="w-full max-w-xl p-4 md:p-8 border border-cyan-900/50 bg-slate-900/20 rounded-lg shadow-2xl relative overflow-hidden">
+      <div className="w-full max-w-xl mx-auto p-4 md:p-8 border border-cyan-900/50 bg-slate-900/20 rounded-lg shadow-2xl relative overflow-hidden">
         <div className="absolute bottom-0 left-0 w-full h-1 bg-cyan-500/20 overflow-hidden">
           <div className="h-full bg-cyan-500 animate-[progress-shine_2s_infinite]" style={{ width: `${(3 - countdown) * 33.3}%` }}></div>
         </div>
@@ -650,7 +650,7 @@ const App: React.FC = () => {
           </div>
 
           {/* Side Roaster Terminal - Below incident */}
-          <div className="w-full max-w-[43rem] lg:w-[43rem] h-auto lg:h-[260px] bg-black/80 border border-slate-800 rounded-xl overflow-hidden flex flex-col shadow-2xl">
+          <div className="w-full max-w-[43rem] lg:w-[43rem] mx-auto h-auto lg:h-[260px] bg-black/80 border border-slate-800 rounded-xl overflow-hidden flex flex-col shadow-2xl">
             <div className="bg-slate-900 px-4 py-2 border-b border-white/5 flex items-center justify-between">
               <span className="text-[10px] mono font-bold text-green-500">roast_con.exe</span>
               <i className="fa-solid fa-minus text-[10px] text-slate-400" aria-hidden></i>
@@ -757,7 +757,7 @@ const App: React.FC = () => {
 
     return (
       <LayoutShell className="p-4 md:p-8 bg-[#0a0a0c]">
-        <div className="w-full max-w-3xl">
+        <div className="w-full max-w-3xl mx-auto">
           <div className="text-center mb-6 md:mb-8">
             <div className="text-4xl md:text-6xl mb-3 md:mb-4">
               <i className="fa-solid fa-gavel text-yellow-500" aria-hidden></i>
@@ -848,7 +848,7 @@ const App: React.FC = () => {
     
     return (
       <LayoutShell className="p-4 md:p-6 text-center bg-[#1a0505]">
-        <div className="w-full max-w-2xl">
+        <div className="w-full max-w-2xl mx-auto">
         {deathEnding && (
           <>
             <div className={`text-6xl md:text-9xl mb-4 md:mb-6 animate-pulse drop-shadow-[0_0_30px_rgba(220,38,38,0.5)] ${deathEnding.color}`}>
@@ -901,7 +901,7 @@ const App: React.FC = () => {
 
   const renderSummary = () => (
     <LayoutShell className="p-4 md:p-6 text-center bg-[#051a0d]">
-      <div className="w-full max-w-2xl">
+      <div className="w-full max-w-2xl mx-auto">
        <div className="text-6xl md:text-9xl text-green-500 mb-6 md:mb-8 animate-bounce drop-shadow-[0_0_30px_rgba(34,197,94,0.4)]">
         <i className="fa-solid fa-trophy" aria-hidden></i>
       </div>
