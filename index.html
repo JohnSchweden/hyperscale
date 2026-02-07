@@ -312,6 +312,13 @@
             scroll-behavior: smooth;
         }
 
+        /* Prevent layout shifts from scrollbar on desktop */
+        @media (min-width: 1024px) {
+            html {
+                scrollbar-gutter: stable;
+            }
+        }
+
         /* Minimalist scrollbar - only visible when scrolling */
         ::-webkit-scrollbar {
             width: 8px;
