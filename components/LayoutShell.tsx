@@ -29,6 +29,7 @@ export const LayoutShell: React.FC<LayoutShellProps> = ({
         min-h-[100dvh]
         bg-black
         safe-area-top safe-area-bottom
+        overflow-y-auto
         ${className}
       `.trim()}
     >
