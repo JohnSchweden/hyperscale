@@ -10,7 +10,7 @@ Implement Tinder-style swipe animations with spring physics and card stack. Enha
 
 **Requirements to deliver:**
 - SWIPE-01: Spring physics snap-back animation
-- SWIPE-02: Card lift effect on drag
+- ~~SWIPE-02: Card lift effect on drag~~ — REMOVED (no scale on drag)
 - SWIPE-03: Card stack showing next card underneath
 - SWIPE-04: Enhanced gradient/text swipe preview
 - SWIPE-05: Smooth card exit animations
@@ -26,12 +26,6 @@ Implement Tinder-style swipe animations with spring physics and card stack. Enha
 - Duration: 500-600ms for natural feel
 - Triggered when swipe released under threshold (100px)
 - Overshoot should feel premium but not jarring
-
-### Card lift effect
-- Scale from 1.0 to 1.05 when drag starts
-- Box shadow increases for depth perception (0 20px 60px rgba(0,0,0,0.4))
-- Smooth 200ms transition on drag start
-- Card returns to scale 1.0 on release
 
 ### Card stack visibility
 - Next card fully visible underneath (not peeking from edges)
@@ -70,7 +64,6 @@ Implement Tinder-style swipe animations with spring physics and card stack. Enha
 ## Specific Ideas
 
 - "Tinder-style" card swipe with physics-based animations
-- Card should feel "lifted" when dragging (tactile feedback)
 - Next card visible underneath creates sense of progression/deck
 - Contextual labels matter more than generic icons because decisions are contextual ("Debug" vs "Paste" are different types of actions, not simple yes/no)
 - Spring physics: "soft bouncy" — premium feel without being too jarring
