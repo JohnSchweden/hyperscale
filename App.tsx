@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { GameStage, PersonalityType, RoleType, GameState, AppSource, DeathType } from './types';
 import { PERSONALITIES, ROLE_CARDS, DEATH_ENDINGS, BOSS_FIGHT_QUESTIONS } from './constants';
 import { speak, getRoast } from './services/geminiService';
+import LayoutShell from './components/LayoutShell';
 
 const INITIAL_BUDGET = 10000000;
 const SWIPE_THRESHOLD = 100;
@@ -362,7 +363,7 @@ const App: React.FC = () => {
     s === RoleType.HR ? 'HR' : s.replace(/_/g, ' ').toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
 
   const renderIntro = () => (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4 md:p-6 text-center bg-black safe-area-top safe-area-bottom">
+    <LayoutShell className="p-4 md:p-6 text-center">
       <div className="mb-8 md:mb-12 relative">
         <h1 className="text-6xl md:text-7xl font-bold glitch-text tracking-tighter mb-2">hyperscale</h1>
         <div className="text-red-600 font-bold mono text-xs md:text-sm animate-pulse tracking-[0.4em]">incident_response_terminal // os_v0.92</div>
@@ -383,7 +384,7 @@ const App: React.FC = () => {
         Boot system
       </button>
       <div className="mt-8 md:mt-12 mono text-xs text-red-500 px-4 text-center">WARNING: PREVIOUS COMPLIANCE OFFICER CURRENTLY PENDING LITIGATION</div>
-    </div>
+    </LayoutShell>
   );
 
   const renderPersonalitySelect = () => (
