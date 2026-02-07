@@ -756,7 +756,7 @@ const App: React.FC = () => {
     const fixedAnswers = [question.correctAnswer, ...question.wrongAnswers];
 
     return (
-      <div className="min-h-screen bg-[#0a0a0c] flex flex-col items-center justify-center p-4 md:p-8 safe-area-top safe-area-bottom">
+      <LayoutShell className="p-4 md:p-8 bg-[#0a0a0c]">
         <div className="w-full max-w-3xl">
           <div className="text-center mb-6 md:mb-8">
             <div className="text-4xl md:text-6xl mb-3 md:mb-4">
@@ -839,7 +839,7 @@ const App: React.FC = () => {
             </div>
           </div>
         </div>
-      </div>
+      </LayoutShell>
     );
   };
 
@@ -847,7 +847,7 @@ const App: React.FC = () => {
     const deathEnding = state.deathType ? DEATH_ENDINGS[state.deathType] : null;
     
     return (
-      <div className="min-h-screen bg-[#1a0505] flex flex-col items-center justify-center p-4 md:p-6 text-center safe-area-top safe-area-bottom">
+      <LayoutShell className="p-4 md:p-6 text-center bg-[#1a0505]">
         <div className="w-full max-w-2xl">
         {deathEnding && (
           <>
@@ -895,7 +895,7 @@ const App: React.FC = () => {
           Reboot system
         </button>
         </div>
-      </div>
+      </LayoutShell>
     );
   };
 
