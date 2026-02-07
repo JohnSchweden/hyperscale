@@ -32,13 +32,18 @@ This roadmap delivers a comprehensive UI/UX overhaul of the hyperscale game, foc
 
 ### Plans
 
-**Plans:** 5 plans in 5 waves
+**Plans:** 7 plans in 5 waves (includes 2 gap closure plans)
 
-- [ ] 01-01-PLAN.md — Create LayoutShell component with responsive logic
-- [ ] 01-02-PLAN.md — Update Intro, Personality Select, Role Select screens
-- [ ] 01-03-PLAN.md — Update Initializing, Boss Fight, Game Over, Summary screens
-- [ ] 01-04-PLAN.md — Refactor Game screen and add scrollbar/viewport fixes
+**Foundation Plans:**
+- [x] 01-01-PLAN.md — Create LayoutShell component with responsive logic
+- [x] 01-02-PLAN.md — Update Intro, Personality Select, Role Select screens
+- [x] 01-03-PLAN.md — Update Initializing, Boss Fight, Game Over, Summary screens
+- [x] 01-04-PLAN.md — Refactor Game screen and add scrollbar/viewport fixes
 - [ ] 01-05-PLAN.md — Human verification of all 8 stages
+
+**Gap Closure Plans (from verification):**
+- [ ] 01-06-PLAN.md — Fix desktop centering for all 8 screens
+- [ ] 01-07-PLAN.md — Fix Game screen mobile layout issues
 
 ### Implementation Notes
 
