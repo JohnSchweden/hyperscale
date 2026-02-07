@@ -655,7 +655,7 @@ const App: React.FC = () => {
               <span className="text-[10px] mono font-bold text-green-500">roast_con.exe</span>
               <i className="fa-solid fa-minus text-[10px] text-slate-400" aria-hidden></i>
             </div>
-            <div className="p-4 flex-1 flex flex-col">
+            <div className="p-3 md:p-4 flex-1 flex flex-col">
               <p className="text-[10px] mono text-green-700 mb-4 hidden sm:block">Describe workflow for governance review...</p>
               <textarea 
                 value={roastInput}
