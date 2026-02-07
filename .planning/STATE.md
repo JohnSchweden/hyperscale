@@ -18,15 +18,15 @@ See: `.planning/PROJECT.md` (updated 2026-02-07)
 
 ### Overall Progress
 
-**Phase:** 1 — Layout Foundation (Planned)  
-**Phase Progress:** 0%  
-**Overall Progress:** 0%
+**Phase:** 1 — Layout Foundation (In Progress)  
+**Phase Progress:** 20%  
+**Overall Progress:** 8%
 
 ### Phase Status
 
 | Phase | Status | Progress | Context | Plans | Requirements |
 |-------|--------|----------|---------|-------|--------------|
-| 1 — Layout Foundation | ○ Planned | 0/5 | — | 5 ready | LAYOUT-01 to LAYOUT-05 |
+| 1 — Layout Foundation | ● In Progress | 1/5 | ✓ Active | 4 ready, 1 complete | LAYOUT-01 to LAYOUT-05 |
 | 2 — Swipe Interactions | ○ Planned | 0/3 | ✓ Ready | 3 ready | SWIPE-01, SWIPE-03 to SWIPE-05 |
 | 3 — Polish & Performance | ○ Context Gathered | 0/3 | ✓ Ready | — | TRANS-01, DESIGN-01, PERF-01 |
 
@@ -47,6 +47,7 @@ See: `.planning/PROJECT.md` (updated 2026-02-07)
 - **2026-02-07** — Phase 1 planned with 5 executable plans
 - **2026-02-07** — Phase 2 context gathered and planned with 3 executable plans
 - **2026-02-07** — Phase 3 context gathered
+- **2026-02-07** — Completed Plan 01-01: LayoutShell component with responsive breakpoints
 
 ---
 
@@ -85,6 +86,7 @@ Created: 3 plans in 2 waves
 | 2026-02-07 | Animation timing hierarchy | Quick/medium/slow based on purpose | — Documented in Phase 3 context |
 | 2026-02-07 | Comprehensive design audit | Typography, colors, spacing, components | — Documented in Phase 3 context |
 | 2026-02-07 | NO card lift on drag | User decision to remove SWIPE-02 | — Documented in Phase 2 context |
+| 2026-02-07 | Desktop centered, Mobile top-anchored | Desktop has space for centering; mobile feels more app-like when top-anchored | ✓ Implemented in LayoutShell (01-01) |
 
 ---
 
@@ -96,19 +98,20 @@ None — Phases 1 & 2 have executable plans, Phase 3 has context
 
 ## Next Actions
 
-**Execute Phase 1 (Ready Now):**
+**Continue Phase 1 (In Progress — 1/5 complete):**
 ```
-/gsd-execute-phase 1
+/gsd-execute-plan 01-02
 ```
+Remaining plans in Phase 1:
+- 01-02: Integrate LayoutShell into stage components
+- 01-03: Standardize game card styling
+- 01-04: Add scrollbar-gutter stable for desktop
+- 01-05: Final integration and verification
 
-**Execute Phase 2 (Ready Now):**
+**Execute Phase 2 (Ready After Phase 1):**
 ```
 /gsd-execute-phase 2
 ```
-
-**Note:** Phases 1 and 2 both modify App.tsx. Recommended order:
-1. Complete Phase 1 first
-2. Then execute Phase 2
 
 **Plan Phase 3 (Context Ready):**
 ```
