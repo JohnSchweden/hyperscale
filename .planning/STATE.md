@@ -19,14 +19,14 @@ See: `.planning/PROJECT.md` (updated 2026-02-07)
 ### Overall Progress
 
 **Phase:** 1 — Layout Foundation (In Progress)  
-**Phase Progress:** 40%  
-**Overall Progress:** 10%
+**Phase Progress:** 80%  
+**Overall Progress:** 15%
 
 ### Phase Status
 
 | Phase | Status | Progress | Context | Plans | Requirements |
 |-------|--------|----------|---------|-------|--------------|
-| 1 — Layout Foundation | ● In Progress | 3/5 | ✓ Active | 2 ready, 3 complete | LAYOUT-01 to LAYOUT-05 |
+| 1 — Layout Foundation | ● In Progress | 4/5 | ✓ Active | 1 ready, 4 complete | LAYOUT-01 to LAYOUT-05 |
 | 2 — Swipe Interactions | ○ Planned | 0/3 | ✓ Ready | 3 ready | SWIPE-01, SWIPE-03 to SWIPE-05 |
 | 3 — Polish & Performance | ○ Planned | 0/3 | ✓ Ready | 3 plans | TRANS-01, DESIGN-01, PERF-01 |
 
@@ -50,6 +50,7 @@ See: `.planning/PROJECT.md` (updated 2026-02-07)
 - **2026-02-07** — Completed Plan 01-01: LayoutShell component with responsive breakpoints
 - **2026-02-07** — Completed Plan 01-02: LayoutShell integrated into Intro, Personality Select, and Role Select screens
 - **2026-02-07** — Completed Plan 01-03: LayoutShell integrated into Initializing, Boss Fight, Game Over, and Summary screens
+- **2026-02-07** — Completed Plan 01-04: Game screen refactored to LayoutShell, scrollbar-gutter CSS added for desktop
 
 ---
 
@@ -96,7 +97,7 @@ Created: 3 plans in 2 waves
 | 2026-02-07 | Desktop centered, Mobile top-anchored | Desktop has space for centering; mobile feels more app-like when top-anchored | — Pending validation |
 | 2026-02-07 | Keep contextual text labels (not icons) | "Debug" vs "Paste" are contextual, not yes/no | — Pending validation |
 | 2026-02-07 | No opacity fade on swipe | Must keep card text readable during decisions | — Pending validation |
-| 2026-02-07 | scrollbar-gutter: stable for desktop | Prevents layout shifts from scrollbar | — Pending implementation |
+| 2026-02-07 | scrollbar-gutter: stable for desktop | Prevents layout shifts from scrollbar | ✓ Implemented in 01-04 |
 | 2026-02-07 | Spring physics (soft bouncy feel) | Premium feel without being jarring | — Pending implementation |
 | 2026-02-07 | Card stack showing next card | Creates "deck" feel, shows progression | — Pending implementation |
 | 2026-02-07 | CSS cubic-bezier for spring | Soft bouncy with overshoot | — Documented in Phase 2 context |
@@ -117,13 +118,11 @@ None — Phases 1 & 2 have executable plans, Phase 3 has context
 
 ## Next Actions
 
-**Continue Phase 1 (In Progress — 2/5 complete):**
+**Continue Phase 1 (In Progress — 4/5 complete):**
 ```
-/gsd-execute-plan 01-03
+/gsd-execute-plan 01-05
 ```
 Remaining plans in Phase 1:
-- 01-03: Standardize game card styling
-- 01-04: Add scrollbar-gutter stable for desktop
 - 01-05: Final integration and verification
 
 **Execute Phase 2 (Ready After Phase 1):**
@@ -140,7 +139,7 @@ Remaining plans in Phase 1:
 
 ## Notes
 
-- Phase 1: 3 plans remaining (2 complete, 3 ready)
+- Phase 1: 1 plan remaining (4 complete, 1 ready)
 - Phase 2: 3 plans ready for execution (SWIPE-02 removed)
 - Phase 3: 3 plans ready for execution
 - Total: 11 executable plans across all phases
@@ -148,10 +147,10 @@ Remaining plans in Phase 1:
 
 ## Session Continuity
 
-**Last session:** 2026-02-07 22:13 UTC
-**Stopped at:** Completed 01-03-PLAN.md
+**Last session:** 2026-02-07 22:14 UTC
+**Stopped at:** Completed 01-04-PLAN.md
 **Resume file:** None
 
 ---
 
-*Last updated: 2026-02-07 after Plan 01-02 completion*
+*Last updated: 2026-02-07 after Plan 01-04 completion*
