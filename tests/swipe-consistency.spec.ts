@@ -32,6 +32,22 @@ async function releaseMouseDrag(page: Page): Promise<void> {
   await page.mouse.up();
 }
 
+/**
+ * Helper to click "Next Ticket" and advance to next card
+ */
+async function clickNextTicket(page: Page): Promise<void> {
+  // Wait for feedback overlay to appear
+  await page.waitForSelector('[data-testid="feedback-dialog"]', { state: 'visible', timeout: 5000 });
+  
+  // Click Next Ticket button
+  const nextTicketButton = page.locator('button:has-text("Next ticket")');
+  await nextTicketButton.click();
+  
+  // Wait for overlay to disappear and new card to appear
+  await page.waitForSelector('[data-testid="feedback-dialog"]', { state: 'hidden', timeout: 5000 });
+  await page.waitForTimeout(300); // Allow card transition to complete
+}
+
 test.describe('Swipe Consistency', () => {
   test('first and second swipe both wait for release after threshold', async ({ page }) => {
     await navigateToPlaying(page);
@@ -65,8 +81,11 @@ test.describe('Swipe Consistency', () => {
     });
     console.log('First swipe - opacity after release:', firstSwipeExitOpacity);
     
-    // Wait for first swipe to complete
+    // Wait for first swipe to complete and feedback overlay to appear
     await page.waitForTimeout(1000);
+    
+    // Click Next Ticket to advance to second card
+    await clickNextTicket(page);
     
     // === SECOND SWIPE ===
     console.log('=== Testing Second Swipe ===');
@@ -134,6 +153,11 @@ test.describe('Swipe Consistency', () => {
       
       // Wait for completion
       await page.waitForTimeout(1000);
+      
+      // Click Next Ticket to advance to next card (for first swipe only)
+      if (i === 0) {
+        await clickNextTicket(page);
+      }
     }
     
     // Both swipes should behave the same (no exit while dragging)
