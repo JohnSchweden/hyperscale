@@ -569,34 +569,83 @@ const App: React.FC = () => {
         {/* Main Content - Responsive Layout */}
         <div className="flex-1 flex flex-col items-center justify-center pt-8 md:pt-12 p-3 pb-14 md:p-8 md:pb-4 gap-4 md:gap-8">
           
-          {/* Main App Window */}
-          <div
-            ref={cardRef}
-            className={`flex-1 w-full max-w-full lg:max-w-[43rem] min-h-[360px] md:min-h-[480px] bg-slate-900/90 border border-slate-700 rounded-xl overflow-hidden shadow-2xl flex flex-col relative select-none ${cardExitDirection ? `swipe-exit-${cardExitDirection.toLowerCase()}` : 'ticket-transition'}`}
-            key={state.currentCardIndex}
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
-            onMouseDown={handleTouchStart}
-            onMouseMove={handleTouchMove}
-            onMouseUp={handleTouchEnd}
-            onMouseLeave={handleTouchEnd}
-            style={{
-              transform: cardExitDirection
-                ? undefined
-                : `translateX(${swipeOffset}px) rotate(${swipeOffset * 0.05}deg)`,
-              transition: isDragging ? 'none' : 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-              cursor: isDragging ? 'grabbing' : 'grab',
-            }}
-          >
-            {/* Swipe Preview Overlay */}
-            {swipeDirection && (
-              <div className={`absolute inset-0 pointer-events-none z-10 ${swipeDirection === 'RIGHT' ? 'swipe-gradient-right' : 'swipe-gradient-left'}`}>
-                <div className={`absolute top-1/2 -translate-y-1/2 ${swipeDirection === 'RIGHT' ? 'right-8' : 'left-8'} text-4xl md:text-6xl font-black tracking-tighter ${swipeDirection === 'RIGHT' ? 'text-green-500' : 'text-red-500'} opacity-50`}>
-                  {swipeDirection === 'RIGHT' ? currentCard.onRight.label.toUpperCase() : currentCard.onLeft.label.toUpperCase()}
+          {/* Card Stack Container */}
+          <div className="relative flex-1 w-full max-w-full lg:max-w-[43rem] min-h-[360px] md:min-h-[480px]">
+            {/* Next card (behind) - render only if there's a next card */}
+            {state.currentCardIndex + 1 < cards.length && (
+              <div 
+                className="absolute inset-0 bg-slate-900/90 border border-slate-700 rounded-xl overflow-hidden shadow-2xl flex flex-col"
+                style={{
+                  zIndex: 0,
+                  transform: 'scale(0.95)',
+                  opacity: 0.6,
+                }}
+              >
+                {/* Simplified next card content - just header and basic structure */}
+                <div className="bg-slate-800 px-3 md:px-4 py-2 flex items-center justify-between border-b border-white/5">
+                  <div className="flex items-center gap-2 text-[10px] mono font-bold text-slate-400 truncate">
+                    <i className={`fa-solid ${cards[state.currentCardIndex + 1].source === AppSource.IDE ? 'fa-terminal' : 'fa-hashtag'}`} aria-hidden></i>
+                    <span className="truncate">{cards[state.currentCardIndex + 1].source} // {cards[state.currentCardIndex + 1].context}</span>
+                  </div>
+                  <div className="flex gap-1.5 shrink-0">
+                    <div className="w-2.5 h-2.5 rounded-full bg-slate-600"></div>
+                    <div className="w-2.5 h-2.5 rounded-full bg-slate-600"></div>
+                    <div className="w-2.5 h-2.5 rounded-full bg-red-500/50"></div>
+                  </div>
+                </div>
+                <div className="p-4 md:p-10 flex flex-col justify-center items-center flex-1">
+                  <div className="text-slate-600 text-sm mono">Next incident loading...</div>
                 </div>
               </div>
             )}
+
+            {/* Current card (front) */}
+            <div
+              ref={cardRef}
+              className={`absolute inset-0 bg-slate-900/90 border border-slate-700 rounded-xl overflow-hidden shadow-2xl flex flex-col select-none ${cardExitDirection ? `swipe-exit-${cardExitDirection.toLowerCase()}` : 'ticket-transition'} ${!isDragging && !cardExitDirection && swipeOffset !== 0 ? 'spring-snap-back' : ''}`}
+              key={state.currentCardIndex}
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+              onMouseDown={handleTouchStart}
+              onMouseMove={handleTouchMove}
+              onMouseUp={handleTouchEnd}
+              onMouseLeave={handleTouchEnd}
+              style={{
+                zIndex: 10,
+                transform: cardExitDirection
+                  ? undefined
+                  : `translateX(${swipeOffset}px) rotate(${swipeOffset * 0.05}deg)`,
+                transition: isDragging
+                  ? 'none'
+                  : cardExitDirection
+                    ? 'none'
+                    : 'transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                cursor: isDragging ? 'grabbing' : 'grab',
+              }}
+            >
+              {/* Dynamic Swipe Preview Overlay */}
+              {swipeDirection && (
+                <div 
+                  className={`absolute inset-0 pointer-events-none z-10 ${swipeDirection === 'RIGHT' ? 'swipe-gradient-right' : 'swipe-gradient-left'}`}
+                  style={{
+                    opacity: Math.min(0.8, 0.3 + (Math.abs(swipeOffset) - SWIPE_PREVIEW_THRESHOLD) / SWIPE_THRESHOLD * 0.5),
+                  }}
+                >
+                  <div 
+                    className={`absolute top-1/2 -translate-y-1/2 ${swipeDirection === 'RIGHT' ? 'right-8' : 'left-8'} font-black tracking-tighter ${swipeDirection === 'RIGHT' ? 'text-green-500' : 'text-red-500'}`}
+                    style={{
+                      fontSize: swipeDirection === 'RIGHT' 
+                        ? `clamp(1.5rem, ${2 + (Math.abs(swipeOffset) - SWIPE_PREVIEW_THRESHOLD) / SWIPE_THRESHOLD * 2}rem, 3.75rem)`
+                        : `clamp(1.5rem, ${2 + (Math.abs(swipeOffset) - SWIPE_PREVIEW_THRESHOLD) / SWIPE_THRESHOLD * 2}rem, 3.75rem)`,
+                      transform: `scale(${0.5 + Math.min(0.5, (Math.abs(swipeOffset) - SWIPE_PREVIEW_THRESHOLD) / SWIPE_THRESHOLD * 0.5)})`,
+                      opacity: 0.5 + Math.min(0.5, (Math.abs(swipeOffset) - SWIPE_PREVIEW_THRESHOLD) / SWIPE_THRESHOLD * 0.5),
+                    }}
+                  >
+                    {swipeDirection === 'RIGHT' ? currentCard.onRight.label.toUpperCase() : currentCard.onLeft.label.toUpperCase()}
+                  </div>
+                </div>
+              )}
 
             <div className="bg-slate-800 px-3 md:px-4 py-2 flex items-center justify-between border-b border-white/5">
               <div className="flex items-center gap-2 text-[10px] mono font-bold text-slate-400 truncate">
@@ -649,6 +698,7 @@ const App: React.FC = () => {
                 </div>
               </div>
             </div>
+          </div>
           </div>
 
           {/* Side Roaster Terminal - Below incident */}
