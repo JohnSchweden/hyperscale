@@ -501,10 +501,8 @@ const App: React.FC = () => {
       }
       animationTimeoutRef.current = setTimeout(() => {
         handleChoice(direction);
-        setCardExitDirection(null);
-        setExitPosition(null);
-        setSwipeOffset(0);
-        setSwipeDirection(null);
+        // Don't reset card position here - keep it off-screen while overlay shows
+        // Reset happens in nextIncident when user clicks "Next Ticket"
         setHasDragged(false);
         animationTimeoutRef.current = null;
       }, 350);
@@ -589,10 +587,8 @@ const App: React.FC = () => {
     }
     animationTimeoutRef.current = setTimeout(() => {
       handleChoice(direction);
-      setCardExitDirection(null);
-      setExitPosition(null);
-      setSwipeOffset(0);
-      setSwipeDirection(null);
+      // Don't reset card position here - keep it off-screen while overlay shows
+      // Reset happens in nextIncident when user clicks "Next Ticket"
       setHasDragged(false);
       animationTimeoutRef.current = null;
     }, 350);
@@ -611,6 +607,11 @@ const App: React.FC = () => {
 
     dispatch({ type: 'NEXT_INCIDENT' });
     setIsFirstCard(false);
+    // Reset card position for new card
+    setCardExitDirection(null);
+    setExitPosition(null);
+    setSwipeOffset(0);
+    setSwipeDirection(null);
   };
 
   const handleBossAnswer = (isCorrect: boolean) => {
