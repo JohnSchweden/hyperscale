@@ -1,9 +1,9 @@
 ---
 status: complete
 phase: 02-swipe-interactions
-source: 02-01-SUMMARY.md, 02-02-SUMMARY.md, 02-03-SUMMARY.md
+source: 02-01-SUMMARY.md, 02-02-SUMMARY.md, 02-03-SUMMARY.md, 02-04-SUMMARY.md
 started: 2026-02-08T14:00:00Z
-updated: 2026-02-08T14:15:00Z
+updated: 2026-02-08T14:55:00Z
 ---
 
 ## Current Test
@@ -16,11 +16,10 @@ updated: 2026-02-08T14:15:00Z
 expected: Drag card <100px and release - card springs back to center with soft bouncy overshoot (not linear return)
 result: pass
 
-### 2. Card Stack Visibility
+### 2. Card Stack Visibility & Content
 expected: Next card is visible underneath current card during swipe, appears slightly smaller (scaled down ~95%) and dimmed, with REAL incident content (not dummy placeholder)
-result: issue
-reported: "I see next card but it is filled with the dummy content instead of real incident"
-severity: minor
+result: pass
+note: Fixed in Plan 02-04 - now shows real sender, source, context, and incident preview
 
 ### 3. Swipe Preview Text
 expected: When swiping past 50px, the action button label appears on the OPPOSITE side of the swipe direction (swipe left → text on right)
@@ -46,18 +45,19 @@ result: pass
 expected: Card fills available width on mobile (~330-350px) without excessive side margins
 result: pass
 
+### 9. Card Transition Animation (added)
+expected: When clicking "Next Ticket", the revealed card should NOT animate since it was already visible in the stack - only first card entering game should fade in
+result: pass
+note: Fixed in Plan 02-04 - added isFirstCard state to control when transition applies
+
 ## Summary
 
-total: 8
-passed: 7
-issues: 1
+total: 9
+passed: 9
+issues: 0
 pending: 0
 skipped: 0
 
 ## Gaps
 
-- truth: "Next card shows real incident content (not placeholder)"
-  status: failed
-  reason: "User reported: I see next card but it is filled with the dummy content instead of real incident"
-  severity: minor
-  test: 2
+[resolved - all issues fixed in Plan 02-04]
