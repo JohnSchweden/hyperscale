@@ -664,22 +664,21 @@ const App: React.FC = () => {
                 opacity: cardExitDirection ? 0 : 1,
               }}
             >
-              {/* Dynamic Swipe Preview Overlay */}
+              {/* Dynamic Swipe Preview - Text only, shown on opposite side */}
               {swipeDirection && (
-                <div 
-                  className={`absolute inset-0 pointer-events-none z-10 ${swipeDirection === 'RIGHT' ? 'swipe-gradient-right' : 'swipe-gradient-left'}`}
+                <div
+                  className="absolute inset-0 pointer-events-none z-10"
                   style={{
-                    opacity: Math.min(0.8, 0.3 + (Math.abs(swipeOffset) - SWIPE_PREVIEW_THRESHOLD) / SWIPE_THRESHOLD * 0.5),
+                    opacity: Math.min(1, 0.3 + (Math.abs(swipeOffset) - SWIPE_PREVIEW_THRESHOLD) / SWIPE_THRESHOLD * 0.7),
                   }}
                 >
-                  <div 
-                    className={`absolute top-1/2 -translate-y-1/2 ${swipeDirection === 'RIGHT' ? 'right-8' : 'left-8'} font-black tracking-tighter ${swipeDirection === 'RIGHT' ? 'text-green-500' : 'text-red-500'}`}
+                  <div
+                    className={`absolute top-1/2 -translate-y-1/2 ${swipeDirection === 'RIGHT' ? 'left-8' : 'right-8'} font-black tracking-tighter ${swipeDirection === 'RIGHT' ? 'text-green-500' : 'text-red-500'}`}
                     style={{
-                      fontSize: swipeDirection === 'RIGHT' 
+                      fontSize: swipeDirection === 'RIGHT'
                         ? `clamp(1.5rem, ${2 + (Math.abs(swipeOffset) - SWIPE_PREVIEW_THRESHOLD) / SWIPE_THRESHOLD * 2}rem, 3.75rem)`
                         : `clamp(1.5rem, ${2 + (Math.abs(swipeOffset) - SWIPE_PREVIEW_THRESHOLD) / SWIPE_THRESHOLD * 2}rem, 3.75rem)`,
                       transform: `scale(${0.5 + Math.min(0.5, (Math.abs(swipeOffset) - SWIPE_PREVIEW_THRESHOLD) / SWIPE_THRESHOLD * 0.5)})`,
-                      opacity: 0.5 + Math.min(0.5, (Math.abs(swipeOffset) - SWIPE_PREVIEW_THRESHOLD) / SWIPE_THRESHOLD * 0.5),
                     }}
                   >
                     {swipeDirection === 'RIGHT' ? currentCard.onRight.label.toUpperCase() : currentCard.onLeft.label.toUpperCase()}

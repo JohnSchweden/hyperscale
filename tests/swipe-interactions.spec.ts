@@ -120,32 +120,47 @@ test.describe('Phase 2 Swipe Interactions', () => {
     expect(true).toBe(true);
   });
 
-  test('swipe preview appears on drag', async ({ page }) => {
+  test('swipe preview text appears on drag', async ({ page }) => {
+    // Navigate to game first to get card labels
+    await page.goto('/');
+    await page.click('button:has-text("Boot system")');
+    await page.waitForTimeout(300);
+    await page.click('button:has-text("V.E.R.A")');
+    await page.waitForTimeout(300);
+    await page.click('button:has-text("Development")');
+    await page.waitForTimeout(2000);
+
     // Find the card element
-    const card = await page.locator('[class*="relative flex-1"]').first();
-    
+    const card = await page.locator('div[style*="z-index: 10"]').first();
+
     // Get card bounds
     const box = await card.boundingBox();
     expect(box).not.toBeNull();
-    
+
     if (box) {
       // Start drag from center
       const startX = box.x + box.width / 2;
       const startY = box.y + box.height / 2;
-      
+
       // Drag to right (past 50px threshold)
       await page.mouse.move(startX, startY);
       await page.mouse.down();
       await page.mouse.move(startX + 60, startY, { steps: 10 });
-      
-      // Check if preview elements are visible
-      const previewVisible = await page.evaluate(() => {
-        const preview = document.querySelector('.swipe-gradient-right, .swipe-gradient-left');
-        return preview !== null;
+
+      // Wait a moment for the swipe direction to update
+      await page.waitForTimeout(100);
+
+      // Check if preview text is visible (label shown on opposite side)
+      const previewText = await page.evaluate(() => {
+        // Look for text elements with green color (right swipe) or red color (left swipe)
+        const textEl = document.querySelector('.text-green-500, .text-red-500');
+        return textEl ? textEl.textContent : null;
       });
-      
-      expect(previewVisible).toBe(true);
-      
+
+      console.log('Preview text:', previewText);
+      expect(previewText).not.toBeNull();
+      expect(previewText?.length).toBeGreaterThan(0);
+
       // Release to snap back
       await page.mouse.up();
       await page.waitForTimeout(600); // Wait for spring animation
