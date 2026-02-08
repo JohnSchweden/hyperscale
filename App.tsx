@@ -49,6 +49,8 @@ const App: React.FC = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [swipeDirection, setSwipeDirection] = useState<'LEFT' | 'RIGHT' | null>(null);
   const [cardExitDirection, setCardExitDirection] = useState<'LEFT' | 'RIGHT' | null>(null);
+  const [hasDragged, setHasDragged] = useState(false);
+  const [isSnappingBack, setIsSnappingBack] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
   const touchStartX = useRef(0);
   const touchStartY = useRef(0);
@@ -125,14 +127,15 @@ const App: React.FC = () => {
   // Touch/Mouse gesture handlers
   const handleTouchStart = useCallback((e: React.TouchEvent | React.MouseEvent) => {
     if (state.stage !== GameStage.PLAYING || feedbackOverlay) return;
-    
+
     const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
     const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
-    
+
     touchStartX.current = clientX;
     touchStartY.current = clientY;
     isHorizontalSwipe.current = false;
     setIsDragging(true);
+    setHasDragged(true);
   }, [state.stage, feedbackOverlay]);
 
   const handleTouchMove = useCallback((e: React.TouchEvent | React.MouseEvent) => {
@@ -164,17 +167,20 @@ const App: React.FC = () => {
 
   const handleTouchEnd = useCallback(() => {
     if (!isDragging) return;
-    
+
     setIsDragging(false);
-    
+
     if (Math.abs(swipeOffset) > SWIPE_THRESHOLD) {
       // Commit the swipe
       const direction = swipeOffset > 0 ? 'RIGHT' : 'LEFT';
       handleSwipeChoice(direction);
     } else {
       // Snap back
+      setIsSnappingBack(true);
       setSwipeOffset(0);
       setSwipeDirection(null);
+      // Reset snap back flag after animation completes
+      setTimeout(() => setIsSnappingBack(false), 600);
     }
   }, [isDragging, swipeOffset]);
 
@@ -602,7 +608,7 @@ const App: React.FC = () => {
             {/* Current card (front) */}
             <div
               ref={cardRef}
-              className={`absolute inset-0 bg-slate-900/90 border border-slate-700 rounded-xl overflow-hidden shadow-2xl flex flex-col select-none ${cardExitDirection ? `swipe-exit-${cardExitDirection.toLowerCase()}` : swipeOffset === 0 && !isDragging ? 'ticket-transition' : ''} ${!isDragging && !cardExitDirection && swipeOffset !== 0 ? 'spring-snap-back' : ''}`}
+              className={`absolute inset-0 bg-slate-900/90 border border-slate-700 rounded-xl overflow-hidden shadow-2xl flex flex-col select-none ${cardExitDirection ? `swipe-exit-${cardExitDirection.toLowerCase()}` : swipeOffset === 0 && !isDragging && !hasDragged ? 'ticket-transition' : ''} ${isSnappingBack ? 'spring-snap-back' : ''}`}
               key={state.currentCardIndex}
               onTouchStart={handleTouchStart}
               onTouchMove={handleTouchMove}
