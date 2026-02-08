@@ -32,6 +32,7 @@ async function decodeAudioData(
 }
 
 let audioContext: AudioContext | null = null;
+let activeSources: AudioBufferSourceNode[] = [];
 
 // Generate speech from text using gemini-2.5-flash-preview-tts
 export const speak = async (text: string, voiceName: string = 'Kore') => {
@@ -56,21 +57,52 @@ export const speak = async (text: string, voiceName: string = 'Kore') => {
       if (!audioContext) {
         audioContext = new (window.AudioContext || (window as any).webkitAudioContext)({ sampleRate: 24000 });
       }
-      
+
+      if (audioContext.state === 'suspended') {
+        await audioContext.resume();
+      }
+
       const audioBuffer = await decodeAudioData(
         decode(base64Audio),
         audioContext,
         24000,
         1,
       );
-      
+
       const source = audioContext.createBufferSource();
       source.buffer = audioBuffer;
       source.connect(audioContext.destination);
+
+      activeSources.push(source);
+      source.onended = () => {
+        const index = activeSources.indexOf(source);
+        if (index > -1) {
+          activeSources.splice(index, 1);
+        }
+      };
+
       source.start();
     }
   } catch (error) {
     console.error("TTS Error:", error);
+  }
+};
+
+export const cleanupAudio = () => {
+  activeSources.forEach((source) => {
+    try {
+      if (source.playbackState !== 'finished') {
+        source.stop();
+      }
+    } catch {
+      // Source may already be stopped
+    }
+  });
+  activeSources = [];
+
+  if (audioContext && audioContext.state !== 'closed') {
+    audioContext.close().catch(console.error);
+    audioContext = null;
   }
 };
 

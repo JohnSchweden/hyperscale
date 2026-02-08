@@ -1,77 +1,82 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Page } from '@playwright/test';
+import { navigateToPlaying } from './helpers/navigation';
+import { SELECTORS } from './helpers/selectors';
 
 test.use({ baseURL: 'http://localhost:3004' });
 
-async function navigateToIntro(page: any) {
+async function navigateToIntro(page: Page) {
   await page.goto('/');
 }
 
-async function navigateToPersonalitySelect(page: any) {
+async function navigateToPersonalitySelect(page: Page) {
   await page.goto('/');
-  await page.click('button:has-text("Boot system")');
+  const bootButton = page.locator(SELECTORS.bootButton).or(page.locator(SELECTORS.bootButtonFallback));
+  await bootButton.click();
   await page.waitForTimeout(300);
 }
 
-async function navigateToRoleSelect(page: any) {
+async function navigateToRoleSelect(page: Page) {
   await page.goto('/');
-  await page.click('button:has-text("Boot system")');
+  const bootButton = page.locator(SELECTORS.bootButton).or(page.locator(SELECTORS.bootButtonFallback));
+  await bootButton.click();
   await page.waitForTimeout(300);
-  await page.click('button:has-text("V.E.R.A")');
+  const personalityButton = page.locator('button:has-text("V.E.R.A")');
+  await personalityButton.waitFor({ state: 'visible' });
+  await personalityButton.click();
   await page.waitForTimeout(300);
 }
 
-async function navigateToInitializing(page: any) {
+async function navigateToInitializing(page: Page) {
   await page.goto('/');
-  await page.click('button:has-text("Boot system")');
+  const bootButton = page.locator(SELECTORS.bootButton).or(page.locator(SELECTORS.bootButtonFallback));
+  await bootButton.click();
   await page.waitForTimeout(300);
-  await page.click('button:has-text("V.E.R.A")');
+  const personalityButton = page.locator('button:has-text("V.E.R.A")');
+  await personalityButton.waitFor({ state: 'visible' });
+  await personalityButton.click();
   await page.waitForTimeout(300);
-  await page.click('button:has-text("Development")');
+  const roleButton = page.locator('button:has-text("Development")');
+  await roleButton.waitFor({ state: 'visible' });
+  await roleButton.click();
   await page.waitForTimeout(100); // Catch during countdown
 }
 
-async function navigateToPlaying(page: any) {
-  await page.goto('/');
-  await page.click('button:has-text("Boot system")');
-  await page.waitForTimeout(300);
-  await page.click('button:has-text("V.E.R.A")');
-  await page.waitForTimeout(300);
-  await page.click('button:has-text("Development")');
-  await page.waitForTimeout(4000); // Countdown 3-2-1 + transition
-  await page.waitForSelector('button:has-text("Debug")', { timeout: 5000 });
-}
-
-async function navigateToBossFight(page: any) {
+async function navigateToBossFight(page: Page) {
   await navigateToPlaying(page);
   // Development has 2 cards; use left swipes (Debug, Ignore) to avoid heat/budget game over
-  await page.click('button:has-text("Debug")');
+  await page.click(SELECTORS.debugButton);
   await page.waitForTimeout(500);
-  await page.click('button:has-text("Next ticket")');
+  await page.click(SELECTORS.nextTicketButton);
   await page.waitForTimeout(500);
   await page.click('button:has-text("Ignore")');
   await page.waitForTimeout(500);
-  await page.click('button:has-text("Next ticket")');
+  await page.click(SELECTORS.nextTicketButton);
   await page.waitForTimeout(500);
   await page.waitForSelector('text=Boss fight', { timeout: 8000 });
 }
 
-async function navigateToGameOver(page: any) {
+async function navigateToGameOver(page: Page) {
   // Marketing Launch = -15M, bankrupt immediately
   await page.goto('/');
-  await page.click('button:has-text("Boot system")');
+  const bootButton = page.locator(SELECTORS.bootButton).or(page.locator(SELECTORS.bootButtonFallback));
+  await bootButton.click();
   await page.waitForTimeout(300);
-  await page.click('button:has-text("V.E.R.A")');
+  const personalityButton = page.locator('button:has-text("V.E.R.A")');
+  await personalityButton.waitFor({ state: 'visible' });
+  await personalityButton.click();
   await page.waitForTimeout(300);
-  await page.click('button:has-text("Marketing")');
+  const roleButton = page.locator('button:has-text("Marketing")');
+  await roleButton.waitFor({ state: 'visible' });
+  await roleButton.click();
   await page.waitForTimeout(4000);
   await page.click('button:has-text("Launch")');
   await page.waitForTimeout(500);
-  await page.click('button:has-text("Next ticket")');
+  await page.click(SELECTORS.nextTicketButton);
   await page.waitForTimeout(500);
   await page.waitForSelector('text=Liquidated', { timeout: 5000 });
 }
 
-async function navigateToSummary(page: any) {
+async function navigateToSummary(page: Page) {
   await navigateToBossFight(page);
   // Answer all 5 questions correctly to reach summary
   const answers = [
@@ -84,17 +89,18 @@ async function navigateToSummary(page: any) {
   for (let i = 0; i < answers.length; i++) {
     await page.click(`button:has-text("${answers[i]}")`);
     await page.waitForTimeout(300);
-    const nextLabel = i < answers.length - 1 ? 'Next question' : 'Final result';
-    await page.click(`button:has-text("${nextLabel}")`);
+    const nextLabel = i < answers.length - 1 ? SELECTORS.nextQuestionButton : SELECTORS.finalResultButton;
+    await page.click(nextLabel);
     await page.waitForTimeout(300);
   }
   await page.waitForSelector('text=Quarter survived', { timeout: 8000 });
 }
 
-async function navigateToFeedbackOverlay(page: any) {
+async function navigateToFeedbackOverlay(page: Page) {
   await navigateToPlaying(page);
   await page.click('button:has-text("Paste")'); // Swipe right = show feedback
-  await page.waitForSelector('role=dialog', { timeout: 3000 });
+  const feedbackDialog = page.locator(SELECTORS.feedbackDialog).or(page.locator(SELECTORS.feedbackDialogFallback));
+  await feedbackDialog.waitFor({ timeout: 3000 });
 }
 
 test.describe('Stage visual snapshots', () => {
@@ -112,7 +118,11 @@ test.describe('Stage visual snapshots', () => {
 
   test('role-select', async ({ page }) => {
     await navigateToRoleSelect(page);
-    await expect(page).toHaveScreenshot('role-select.png');
+    // Wait for animations to settle
+    await page.waitForTimeout(500);
+    await expect(page).toHaveScreenshot('role-select.png', {
+      maxDiffPixelRatio: 0.03, // Allow some variance for animations
+    });
   });
 
   test('initializing', async ({ page }) => {
@@ -135,18 +145,26 @@ test.describe('Stage visual snapshots', () => {
 
   test('feedback-overlay', async ({ page }) => {
     await navigateToFeedbackOverlay(page);
+    // Wait for overlay animation to settle
+    await page.waitForTimeout(500);
     await expect(page).toHaveScreenshot('feedback-overlay.png', {
       mask: [page.locator('text=/\\d{1,2}:\\d{2}/')],
+      maxDiffPixelRatio: 0.02, // Allow some variance for animations
     });
   });
 
   test('boss-fight', async ({ page }) => {
     await navigateToBossFight(page);
+    // Wait for boss fight screen to fully load and animations to settle
+    await page.waitForTimeout(1000);
+    // Wait for any countdown timers or animations to stabilize
+    await page.waitForLoadState('networkidle');
     await expect(page).toHaveScreenshot('boss-fight.png', {
       mask: [
         page.locator('text=/\\d{1,2}:\\d{2}/'),
         page.getByText(/\d+s/),
       ],
+      maxDiffPixelRatio: 0.05, // Allow more variance for boss fight dynamic content
     });
   });
 

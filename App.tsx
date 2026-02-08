@@ -678,6 +678,7 @@ const App: React.FC = () => {
       <div className="w-full flex justify-center">
         <button 
           onClick={handleStart}
+          data-testid="boot-system-button"
           className="px-6 py-3 md:px-12 md:py-4 text-base md:text-xl font-bold tracking-wide hover:bg-cyan-400 transition-all duration-300 transform hover:scale-105 min-h-[40px] md:min-h-[48px] bg-white text-black"
         >
           Boot system
@@ -708,6 +709,7 @@ const App: React.FC = () => {
             <button
               key={type}
               onClick={() => personalitySelectReady && selectPersonality(type as PersonalityType)}
+              data-testid={`personality-${type.toLowerCase()}`}
               className={`group p-6 md:p-10 bg-slate-900/60 border border-slate-800 focus:outline-none flex flex-col shadow-2xl transition-colors w-full text-left ${personalityHoverEnabled ? 'hover:border-cyan-500 hover-scale' : ''}`}
               style={{ animationDelay: `${index * 0.1}s`, pointerEvents: personalitySelectReady ? 'auto' : 'none' }}
             >
@@ -758,6 +760,7 @@ const App: React.FC = () => {
             <button
               key={role}
               onClick={() => roleSelectReady && selectRole(role)}
+              data-testid={`role-${role.toLowerCase()}`}
               className={`group p-6 md:p-8 bg-slate-900/60 border border-slate-800 transition-all text-center shadow-2xl ${roleHoverEnabled ? 'hover:border-cyan-500 hover-scale' : ''}`}
               style={{ animationDelay: `${index * 0.08}s`, pointerEvents: roleSelectReady ? 'auto' : 'none' }}
             >
@@ -879,6 +882,7 @@ const App: React.FC = () => {
             {/* Current card (front) */}
             <div
               ref={cardRef}
+              data-testid="incident-card"
               className={`absolute inset-0 bg-slate-900/90 border border-slate-700 rounded-xl overflow-hidden shadow-2xl flex flex-col select-none ${isFirstCard && !cardExitDirection && !isDragging && !hasDragged ? 'ticket-transition' : ''} ${isSnappingBack ? 'spring-snap-back' : ''}`}
               key={state.currentCardIndex}
               onTouchStart={handleTouchStart}
@@ -966,10 +970,10 @@ const App: React.FC = () => {
                 </div>
 
                 <div className="flex flex-row gap-3 md:gap-4">
-                   <button onClick={() => handleSwipeChoice('LEFT')} className={`flex-1 py-2 px-3 md:py-4 md:px-4 text-sm md:text-base border font-bold tracking-wide transition-all min-h-[40px] md:min-h-[48px] ${swipeDirection === 'LEFT' ? 'bg-cyan-500 border-cyan-500 text-black' : 'border-white text-white bg-transparent hover:bg-cyan-500 hover:border-cyan-500 hover:text-black active:bg-cyan-500 active:border-cyan-500 active:text-black'}`}>
+                   <button onClick={() => handleSwipeChoice('LEFT')} data-testid="swipe-left-button" className={`flex-1 py-2 px-3 md:py-4 md:px-4 text-sm md:text-base border font-bold tracking-wide transition-all min-h-[40px] md:min-h-[48px] ${swipeDirection === 'LEFT' ? 'bg-cyan-500 border-cyan-500 text-black' : 'border-white text-white bg-transparent hover:bg-cyan-500 hover:border-cyan-500 hover:text-black active:bg-cyan-500 active:border-cyan-500 active:text-black'}`}>
                      {currentCard.onLeft.label}
                    </button>
-                   <button onClick={() => handleSwipeChoice('RIGHT')} className={`flex-1 py-2 px-3 md:py-4 md:px-4 text-sm md:text-base border font-black tracking-wide transition-all min-h-[40px] md:min-h-[48px] ${swipeDirection === 'RIGHT' ? 'bg-cyan-500 border-cyan-500 text-black' : 'border-white text-white bg-transparent hover:bg-cyan-500 hover:border-cyan-500 hover:text-black active:bg-cyan-500 active:border-cyan-500 active:text-black'}`}>
+                   <button onClick={() => handleSwipeChoice('RIGHT')} data-testid="swipe-right-button" className={`flex-1 py-2 px-3 md:py-4 md:px-4 text-sm md:text-base border font-black tracking-wide transition-all min-h-[40px] md:min-h-[48px] ${swipeDirection === 'RIGHT' ? 'bg-cyan-500 border-cyan-500 text-black' : 'border-white text-white bg-transparent hover:bg-cyan-500 hover:border-cyan-500 hover:text-black active:bg-cyan-500 active:border-cyan-500 active:text-black'}`}>
                      {currentCard.onRight.label}
                    </button>
                 </div>
@@ -1255,7 +1259,7 @@ const App: React.FC = () => {
         {renderStage()}
       </div>
       {state.stage === GameStage.PLAYING && feedbackOverlay && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 bg-black/70 backdrop-blur-sm modal-overlay" role="dialog" aria-modal="true" aria-labelledby="feedback-overlay-title" aria-describedby="feedback-overlay-desc">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 bg-black/70 backdrop-blur-sm modal-overlay" data-testid="feedback-dialog" role="dialog" aria-modal="true" aria-labelledby="feedback-overlay-title" aria-describedby="feedback-overlay-desc">
           <div className="w-full max-w-lg bg-slate-900 border border-slate-700 p-6 md:p-10 rounded-2xl text-center shadow-2xl max-h-[90vh] overflow-y-auto modal-content">
             <h2 id="feedback-overlay-title" className="sr-only">Governance feedback</h2>
             <div className={`text-4xl md:text-6xl mb-4 md:mb-6 ${feedbackOverlay.fine > 0 ? 'text-red-500' : 'text-green-500'}`}>
