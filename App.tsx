@@ -728,10 +728,10 @@ const App: React.FC = () => {
                 </div>
 
                 <div className="flex flex-row gap-3 md:gap-4">
-                   <button onClick={() => handleSwipeChoice('LEFT')} className="flex-1 py-2 px-3 md:py-4 md:px-4 text-sm md:text-base border border-white text-white bg-transparent font-bold tracking-wide hover:bg-cyan-500 hover:border-cyan-500 hover:text-black active:bg-cyan-500 active:border-cyan-500 active:text-black transition-all min-h-[40px] md:min-h-[48px]">
+                   <button onClick={() => handleSwipeChoice('LEFT')} className={`flex-1 py-2 px-3 md:py-4 md:px-4 text-sm md:text-base border font-bold tracking-wide transition-all min-h-[40px] md:min-h-[48px] ${swipeDirection === 'LEFT' ? 'bg-cyan-500 border-cyan-500 text-black' : 'border-white text-white bg-transparent hover:bg-cyan-500 hover:border-cyan-500 hover:text-black active:bg-cyan-500 active:border-cyan-500 active:text-black'}`}>
                      {currentCard.onLeft.label}
                    </button>
-                   <button onClick={() => handleSwipeChoice('RIGHT')} className="flex-1 py-2 px-3 md:py-4 md:px-4 text-sm md:text-base border border-white text-white bg-transparent font-black tracking-wide hover:bg-cyan-500 hover:border-cyan-500 hover:text-black active:bg-cyan-500 active:border-cyan-500 active:text-black transition-all min-h-[40px] md:min-h-[48px]">
+                   <button onClick={() => handleSwipeChoice('RIGHT')} className={`flex-1 py-2 px-3 md:py-4 md:px-4 text-sm md:text-base border font-black tracking-wide transition-all min-h-[40px] md:min-h-[48px] ${swipeDirection === 'RIGHT' ? 'bg-cyan-500 border-cyan-500 text-black' : 'border-white text-white bg-transparent hover:bg-cyan-500 hover:border-cyan-500 hover:text-black active:bg-cyan-500 active:border-cyan-500 active:text-black'}`}>
                      {currentCard.onRight.label}
                    </button>
                 </div>
