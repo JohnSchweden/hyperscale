@@ -570,7 +570,7 @@ const App: React.FC = () => {
         <div className="flex-1 flex flex-col items-center justify-center pt-8 md:pt-12 p-3 pb-14 md:p-8 md:pb-4 gap-4 md:gap-8">
           
           {/* Card Stack Container */}
-          <div className="relative flex-1 w-full max-w-full lg:max-w-[43rem] min-h-[360px] md:min-h-[480px]">
+          <div className="relative flex-1 w-full max-w-full lg:max-w-[43rem] min-h-[360px] md:min-h-[480px] self-stretch">
             {/* Next card (behind) - render only if there's a next card */}
             {state.currentCardIndex + 1 < cards.length && (
               <div 

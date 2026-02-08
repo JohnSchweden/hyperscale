@@ -34,7 +34,7 @@ export const LayoutShell: React.FC<LayoutShellProps> = ({
       `.trim()}
     >
       {header && <header className="flex-shrink-0">{header}</header>}
-      <main className="flex flex-col w-full items-start lg:items-center">{children}</main>
+      <main className="flex flex-col w-full items-stretch lg:items-center">{children}</main>
       {footer && <footer className="flex-shrink-0">{footer}</footer>}
     </div>
   );
