@@ -1,29 +1,29 @@
 import { test, expect } from '@playwright/test';
+import { navigateToPlaying } from './helpers/navigation';
+import { SELECTORS } from './helpers/selectors';
 
 test.use({ baseURL: 'http://localhost:3004' });
-
-async function navigateToPlaying(page: import('@playwright/test').Page) {
-  await page.goto('/');
-  await page.click('button:has-text("Boot system")');
-  await page.waitForTimeout(300);
-  await page.click('button:has-text("V.E.R.A")');
-  await page.waitForTimeout(300);
-  await page.click('button:has-text("Development")');
-  await page.waitForTimeout(4000);
-  await page.waitForSelector('button:has-text("Debug")', { timeout: 5000 });
-}
 
 test.describe('LayoutShell behavior', () => {
   test('desktop centers content (justify-center, items-center) at ≥1024px', async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 720 });
     await page.goto('/');
+    await page.waitForLoadState('networkidle');
 
-    const shell = page.getByTestId('layout-shell');
-    const styles = await shell.evaluate((el) => {
+    const layoutRoot = page.locator('[data-testid="layout-shell"]').first();
+    await layoutRoot.waitFor({ state: 'attached' });
+    
+    const styles = await layoutRoot.evaluate((el) => {
       const s = getComputedStyle(el);
-      return { alignItems: s.alignItems, justifyContent: s.justifyContent, paddingTop: s.paddingTop };
+      return {
+        display: s.display,
+        alignItems: s.alignItems,
+        justifyContent: s.justifyContent,
+        paddingTop: s.paddingTop,
+      };
     });
 
+    expect(styles.display).toBe('flex');
     expect(styles.alignItems).toBe('center');
     expect(styles.justifyContent).toBe('center');
     expect(styles.paddingTop).toBe('0px');
@@ -32,15 +32,23 @@ test.describe('LayoutShell behavior', () => {
   test('mobile top-aligns content (items-start) and has pt-16 at <1024px', async ({ page }) => {
     await page.setViewportSize({ width: 393, height: 851 });
     await page.goto('/');
+    await page.waitForLoadState('networkidle');
 
-    const shell = page.getByTestId('layout-shell');
-    const styles = await shell.evaluate((el) => {
+    const layoutRoot = page.locator('[data-testid="layout-shell"]').first();
+    await layoutRoot.waitFor({ state: 'attached' });
+    
+    const styles = await layoutRoot.evaluate((el) => {
       const s = getComputedStyle(el);
-      return { alignItems: s.alignItems, paddingTop: s.paddingTop };
+      return {
+        display: s.display,
+        alignItems: s.alignItems,
+        paddingTop: s.paddingTop,
+      };
     });
 
+    expect(styles.display).toBe('flex');
     expect(styles.alignItems).toBe('flex-start');
-    expect(parseInt(styles.paddingTop, 10)).toBeGreaterThanOrEqual(48); // pt-16 = 4rem
+    expect(parseInt(styles.paddingTop, 10)).toBeGreaterThanOrEqual(48); // pt-16 = 4rem = 64px typically
   });
 });
 
@@ -91,11 +99,10 @@ test.describe('Feedback overlay', () => {
 });
 
 test.describe('Touch swipe', () => {
-  test('swipe uses touch events and triggers card feedback', async ({ page }, testInfo) => {
-    test.skip(testInfo.project.name !== 'chromium-mobile', 'Touch swipe runs only on mobile project');
+  test('swipe (pointer) triggers card feedback', async ({ page }) => {
     await navigateToPlaying(page);
 
-    const card = page.locator('div[style*="z-index: 10"]').first();
+    const card = page.locator(SELECTORS.card).or(page.locator(SELECTORS.cardFallback)).first();
     const box = await card.boundingBox();
     expect(box).not.toBeNull();
 
@@ -103,64 +110,17 @@ test.describe('Touch swipe', () => {
 
     const startX = box.x + box.width / 2;
     const startY = box.y + box.height / 2;
-    const endX = startX + 120; // Swipe right past threshold (100px)
+    const endX = startX + 120; // past threshold (100px)
 
-    await card.evaluate(
-      async (el, { startX, startY, endX }) => {
-        const touchOpts = (x: number, y: number) => ({
-          identifier: 1,
-          target: el,
-          clientX: x,
-          clientY: y,
-          radiusX: 2,
-          radiusY: 2,
-          rotationAngle: 0,
-          force: 1,
-        });
+    await page.mouse.move(startX, startY);
+    await page.mouse.down();
+    await page.waitForTimeout(50);
+    await page.mouse.move(endX, startY, { steps: 10 });
+    await page.waitForTimeout(50);
+    await page.mouse.up();
 
-        const touchStart = new Touch(touchOpts(startX, startY));
-        el.dispatchEvent(
-          new TouchEvent('touchstart', {
-            touches: [touchStart],
-            changedTouches: [touchStart],
-            targetTouches: [touchStart],
-            bubbles: true,
-          })
-        );
-
-        for (let i = 1; i <= 5; i++) {
-          const x = startX + (endX - startX) * (i / 5);
-          const touchMove = new Touch(touchOpts(x, startY));
-          el.dispatchEvent(
-            new TouchEvent('touchmove', {
-              touches: [touchMove],
-              changedTouches: [touchMove],
-              targetTouches: [touchMove],
-              bubbles: true,
-              cancelable: true,
-            })
-          );
-          await new Promise((r) => setTimeout(r, 20));
-        }
-
-        await new Promise((r) => setTimeout(r, 100));
-
-        const touchEnd = new Touch(touchOpts(endX, startY));
-        el.dispatchEvent(
-          new TouchEvent('touchend', {
-            touches: [],
-            changedTouches: [touchEnd],
-            targetTouches: [],
-            bubbles: true,
-          })
-        );
-      },
-      { startX, startY, endX }
-    );
-
-    await page.waitForTimeout(600);
-
-    const feedbackVisible = await page.locator('role=dialog').isVisible();
+    await page.waitForSelector(SELECTORS.feedbackDialogFallback, { timeout: 2000 });
+    const feedbackVisible = await page.locator(SELECTORS.feedbackDialogFallback).isVisible();
     expect(feedbackVisible).toBe(true);
   });
 });

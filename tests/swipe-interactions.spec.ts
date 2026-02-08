@@ -1,27 +1,12 @@
 import { test, expect } from '@playwright/test';
+import { navigateToPlaying, getCard } from './helpers/navigation';
+import { SELECTORS } from './helpers/selectors';
 
-// Using the dev server URL
 test.use({ baseURL: 'http://localhost:3004' });
 
 test.describe('Phase 2 Swipe Interactions', () => {
   test.beforeEach(async ({ page }) => {
-    // Navigate to game and get through intro screens
-    await page.goto('/');
-    
-    // Boot system
-    await page.click('button:has-text("Boot system")');
-    await page.waitForTimeout(500);
-    
-    // Select personality (V.E.R.A)
-    await page.click('button:has-text("V.E.R.A")');
-    await page.waitForTimeout(500);
-    
-    // Select role (Development)
-    await page.click('button:has-text("Development")');
-    await page.waitForTimeout(500);
-    
-    // Wait for game screen to load (look for Debug/Paste buttons)
-    await page.waitForSelector('button:has-text("Debug")', { timeout: 5000 });
+    await navigateToPlaying(page);
   });
 
   test('spring physics CSS class exists', async ({ page }) => {
@@ -108,87 +93,57 @@ test.describe('Phase 2 Swipe Interactions', () => {
   });
 
   test('keyboard navigation works with arrow keys', async ({ page }) => {
-    // Verify keyboard event handlers are set up by checking for keydown listener
-    // The actual keyboard navigation is verified manually - here we just confirm
-    // the page is interactive and keypress doesn't error
+    const card = await getCard(page);
+    await expect(card).toBeVisible();
+
     await page.keyboard.press('ArrowRight');
-    
-    // Wait for any animations
-    await page.waitForTimeout(1000);
-    
-    // If we get here without errors, keyboard navigation is functional
-    expect(true).toBe(true);
+
+    // ArrowRight triggers swipe; feedback dialog appears on swipe
+    const feedbackDialog = page.locator(SELECTORS.feedbackDialog).or(page.locator(SELECTORS.feedbackDialogFallback));
+    await expect(feedbackDialog).toBeVisible({ timeout: 3000 });
   });
 
   test('swipe preview text appears on drag', async ({ page }) => {
-    // Navigate to game first to get card labels
-    await page.goto('/');
-    await page.click('button:has-text("Boot system")');
-    await page.waitForTimeout(300);
-    await page.click('button:has-text("V.E.R.A")');
-    await page.waitForTimeout(300);
-    await page.click('button:has-text("Development")');
-    await page.waitForTimeout(2000);
-
-    // Find the card element
-    const card = await page.locator('div[style*="z-index: 10"]').first();
-
-    // Get card bounds
+    const card = await getCard(page);
     const box = await card.boundingBox();
     expect(box).not.toBeNull();
+    if (!box) return;
 
-    if (box) {
-      // Start drag from center
-      const startX = box.x + box.width / 2;
-      const startY = box.y + box.height / 2;
+    const startX = box.x + box.width / 2;
+    const startY = box.y + box.height / 2;
 
-      // Drag to right (past 50px threshold)
-      await page.mouse.move(startX, startY);
-      await page.mouse.down();
-      await page.mouse.move(startX + 60, startY, { steps: 10 });
+    await page.mouse.move(startX, startY);
+    await page.mouse.down();
+    await page.mouse.move(startX + 60, startY, { steps: 10 });
 
-      // Wait a moment for the swipe direction to update
-      await page.waitForTimeout(100);
+    // Drag preview is the absolute-positioned label (e.g. PASTE) inside the card, not the static "Swipe left/right"
+    const previewLabel = card.locator('div.absolute.font-black.tracking-tighter');
+    await expect(previewLabel).toBeVisible({ timeout: 500 });
 
-      // Check if preview text is visible (label shown on opposite side)
-      const previewText = await page.evaluate(() => {
-        // Look for text elements with green color (right swipe) or red color (left swipe)
-        const textEl = document.querySelector('.text-green-500, .text-red-500');
-        return textEl ? textEl.textContent : null;
-      });
+    const previewText = await previewLabel.textContent();
+    expect(previewText).not.toBeNull();
+    expect(previewText!.length).toBeGreaterThan(0);
 
-      console.log('Preview text:', previewText);
-      expect(previewText).not.toBeNull();
-      expect(previewText?.length).toBeGreaterThan(0);
-
-      // Release to snap back
-      await page.mouse.up();
-      await page.waitForTimeout(600); // Wait for spring animation
-    }
+    await page.mouse.up();
+    await expect(previewLabel).toBeHidden({ timeout: 1000 });
   });
 
   test('card exit animation plays on threshold cross', async ({ page }) => {
-    // Find the actual card element
-    const card = await page.locator('[class*="bg-slate-900/90"]').first();
-    
-    // Perform drag past threshold (110px)
+    const card = await getCard(page);
     const box = await card.boundingBox();
-    if (box) {
-      const startX = box.x + box.width / 2;
-      const startY = box.y + box.height / 2;
-      
-      await page.mouse.move(startX, startY);
-      await page.mouse.down();
-      await page.mouse.move(startX + 110, startY, { steps: 10 });
-      await page.mouse.up();
-      
-      // Wait for exit animation and card transition
-      await page.waitForTimeout(800);
-      
-      // Verify page is still responsive (no JS errors during drag)
-      const isInteractive = await page.evaluate(() => document.readyState === 'complete');
-      expect(isInteractive).toBe(true);
-    }
+    expect(box).not.toBeNull();
+    if (!box) return;
+
+    const startX = box.x + box.width / 2;
+    const startY = box.y + box.height / 2;
+
+    await page.mouse.move(startX, startY);
+    await page.mouse.down();
+    await page.mouse.move(startX + 110, startY, { steps: 10 });
+    await page.mouse.up();
+
+    const feedbackDialog = page.locator(SELECTORS.feedbackDialog).or(page.locator(SELECTORS.feedbackDialogFallback));
+    await expect(feedbackDialog).toBeVisible({ timeout: 2000 });
   });
 
   test('will-change property is set on animated elements', async ({ page }) => {

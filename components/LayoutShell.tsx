@@ -9,22 +9,21 @@ export interface LayoutShellProps {
 
 /**
  * LayoutShell - Responsive layout wrapper for consistent positioning across all game stages
- * 
+ *
  * Desktop (>=1024px): Centers content vertically and horizontally
  * Mobile (<1024px): Anchors content to top with padding for app-like feel
- * 
+ *
  * Uses min-h-[100dvh] for mobile viewport stability (handles browser chrome)
  */
-export const LayoutShell: React.FC<LayoutShellProps> = ({
+const LayoutShellComponent: React.FC<LayoutShellProps> = ({
   children,
   header,
   footer,
   className = '',
-}) => {
-  return (
-    <div
-      data-testid="layout-shell"
-      className={`
+}) => (
+  <div
+    data-testid="layout-shell"
+    className={`
         relative flex flex-col w-full
         lg:items-center lg:justify-center items-start pt-16 lg:pt-0
         min-h-[100dvh]
@@ -33,12 +32,15 @@ export const LayoutShell: React.FC<LayoutShellProps> = ({
         overflow-y-auto
         ${className}
       `.trim()}
-    >
-      {header && <header className="flex-shrink-0">{header}</header>}
-      <main className="flex flex-col w-full items-stretch lg:items-center">{children}</main>
-      {footer && <footer className="flex-shrink-0">{footer}</footer>}
-    </div>
-  );
-};
+  >
+    {header && <header className="flex-shrink-0">{header}</header>}
+    <main className="flex flex-col w-full items-stretch lg:items-center">{children}</main>
+    {footer && <footer className="flex-shrink-0">{footer}</footer>}
+  </div>
+);
+
+LayoutShellComponent.displayName = 'LayoutShell';
+
+export const LayoutShell = React.memo(LayoutShellComponent);
 
 export default LayoutShell;
