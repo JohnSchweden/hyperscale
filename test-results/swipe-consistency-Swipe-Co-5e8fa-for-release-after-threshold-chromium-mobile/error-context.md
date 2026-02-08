@@ -1,0 +1,86 @@
+# Page snapshot
+
+```yaml
+- main [ref=e2]:
+  - main [ref=e5]:
+    - generic [ref=e6]:
+      - generic [ref=e8]:
+        - generic [ref=e9]:
+          - generic [ref=e10]: 
+          - text: Budget
+        - generic [ref=e11]: $7.5M
+      - generic [ref=e14]:
+        - generic [ref=e16]:
+          - generic [ref=e17]:
+            - generic [ref=e18]: 
+            - text: Risk
+          - generic [ref=e19]: 45%
+        - generic [ref=e23]:
+          - generic [ref=e24]:
+            - generic [ref=e25]: 
+            - text: Hype
+          - generic [ref=e26]: 65%
+    - generic [ref=e29]:
+      - generic [ref=e30]:
+        - generic [ref=e31]:
+          - generic [ref=e33]:
+            - generic [ref=e34]: "#"
+            - generic [ref=e35]: TERMINAL // LIBRARY INSTALL
+          - generic [ref=e41]:
+            - generic [ref=e44]:
+              - generic [ref=e45]: Root-Access
+              - generic [ref=e46]: "Incident #648"
+            - paragraph [ref=e47]: "\"Found a new \"GodMode-JS\" AI library on a hacker forum that increases model inference by 300%. Install it?\""
+        - generic [ref=e48]:
+          - generic:
+            - generic: PASTE
+          - generic [ref=e50]:
+            - generic [ref=e51]: 
+            - generic [ref=e52]: IDE // CRITICAL BUG
+          - generic [ref=e57]:
+            - generic [ref=e58]:
+              - generic [ref=e61]:
+                - generic [ref=e62]: DEBUG_BOT
+                - generic [ref=e63]: "Incident #324"
+              - paragraph [ref=e64]: "\"Copy-paste the entire proprietary source code into a public version of ChatGPT to fix a bug instantly.\""
+            - generic [ref=e65]:
+              - generic [ref=e67]:
+                - generic [ref=e68]: ← Swipe left
+                - generic [ref=e69]: or
+                - generic [ref=e70]: Swipe right →
+              - generic [ref=e71]:
+                - button "Debug" [ref=e72] [cursor=pointer]
+                - button "Paste" [ref=e73] [cursor=pointer]
+      - generic [ref=e74]:
+        - generic [ref=e75]:
+          - generic [ref=e76]: roast_con.exe
+          - generic [ref=e77]: 
+        - generic [ref=e78]:
+          - textbox "Describe workflow for governance review" [ref=e79]:
+            - /placeholder: e.g. I use ChatGPT for company secrets...
+          - button "Init roast" [ref=e80] [cursor=pointer]
+    - generic [ref=e81]:
+      - generic [ref=e82]:
+        - button [ref=e83] [cursor=pointer]:
+          - generic [ref=e84]: 
+        - generic [ref=e85]:
+          - generic [ref=e87]: 
+          - text: 
+      - generic [ref=e88]:
+        - generic [ref=e91]: 
+        - generic [ref=e93]: 07:05 PM
+  - dialog "Governance feedback" [ref=e94]:
+    - generic [ref=e95]:
+      - heading "Governance feedback" [level=2] [ref=e96]
+      - generic [ref=e98]: 
+      - generic [ref=e99]:
+        - generic [ref=e100]: Violation fine
+        - generic [ref=e101]: "-$2.5M"
+        - generic [ref=e102]: Trade Secret Misappropriation (DTSA)
+      - generic [ref=e103]: V.E.R.A.'s review
+      - paragraph [ref=e104]: "\"Brilliant. You just open-sourced our trade secrets. Samsung banned this 2 years ago, but you're 'special'.\""
+      - generic [ref=e105]:
+        - generic [ref=e106]: Governance alert
+        - paragraph [ref=e107]: Shadow AI & Data Leakage. Public LLMs may store your input for training.
+      - button "Next ticket" [ref=e108] [cursor=pointer]
+```
