@@ -51,6 +51,7 @@ const App: React.FC = () => {
   const [cardExitDirection, setCardExitDirection] = useState<'LEFT' | 'RIGHT' | null>(null);
   const [hasDragged, setHasDragged] = useState(false);
   const [isSnappingBack, setIsSnappingBack] = useState(false);
+  const [exitPosition, setExitPosition] = useState<{ x: number; rotate: number } | null>(null);
   const cardRef = useRef<HTMLDivElement>(null);
   const touchStartX = useRef(0);
   const touchStartY = useRef(0);
@@ -171,9 +172,25 @@ const App: React.FC = () => {
     setIsDragging(false);
 
     if (Math.abs(swipeOffset) > SWIPE_THRESHOLD) {
-      // Commit the swipe
+      // Commit the swipe - animate from current position to exit
       const direction = swipeOffset > 0 ? 'RIGHT' : 'LEFT';
-      handleSwipeChoice(direction);
+      const targetX = direction === 'RIGHT' ? window.innerWidth * 1.2 : -window.innerWidth * 1.2;
+      const targetRotate = direction === 'RIGHT' ? 25 : -25;
+
+      // Set exit direction and position for animation
+      setCardExitDirection(direction);
+      setExitPosition({ x: targetX, rotate: targetRotate });
+
+      // After animation completes, process the choice
+      setTimeout(() => {
+        handleChoice(direction);
+        // Reset for next card
+        setCardExitDirection(null);
+        setExitPosition(null);
+        setSwipeOffset(0);
+        setSwipeDirection(null);
+        setHasDragged(false);
+      }, 350);
     } else {
       // Snap back
       setIsSnappingBack(true);
@@ -226,12 +243,25 @@ const App: React.FC = () => {
   };
 
   const handleSwipeChoice = (direction: 'LEFT' | 'RIGHT') => {
+    // If already animating from drag, don't reset
+    if (cardExitDirection) return;
+
+    const targetX = direction === 'RIGHT' ? window.innerWidth * 1.2 : -window.innerWidth * 1.2;
+    const targetRotate = direction === 'RIGHT' ? 25 : -25;
+
     setCardExitDirection(direction);
-    
+    setExitPosition({ x: targetX, rotate: targetRotate });
+
     // Wait for exit animation then trigger choice
     setTimeout(() => {
       handleChoice(direction);
-    }, 300);
+      // Reset for next card
+      setCardExitDirection(null);
+      setExitPosition(null);
+      setSwipeOffset(0);
+      setSwipeDirection(null);
+      setHasDragged(false);
+    }, 350);
   };
 
   const determineDeathType = (budget: number, heat: number, hype: number): DeathType => {
@@ -608,7 +638,7 @@ const App: React.FC = () => {
             {/* Current card (front) */}
             <div
               ref={cardRef}
-              className={`absolute inset-0 bg-slate-900/90 border border-slate-700 rounded-xl overflow-hidden shadow-2xl flex flex-col select-none ${cardExitDirection ? `swipe-exit-${cardExitDirection.toLowerCase()}` : swipeOffset === 0 && !isDragging && !hasDragged ? 'ticket-transition' : ''} ${isSnappingBack ? 'spring-snap-back' : ''}`}
+              className={`absolute inset-0 bg-slate-900/90 border border-slate-700 rounded-xl overflow-hidden shadow-2xl flex flex-col select-none ${swipeOffset === 0 && !isDragging && !hasDragged ? 'ticket-transition' : ''} ${isSnappingBack ? 'spring-snap-back' : ''}`}
               key={state.currentCardIndex}
               onTouchStart={handleTouchStart}
               onTouchMove={handleTouchMove}
@@ -619,15 +649,16 @@ const App: React.FC = () => {
               onMouseLeave={handleTouchEnd}
               style={{
                 zIndex: 10,
-                transform: cardExitDirection
-                  ? undefined
+                transform: cardExitDirection && exitPosition
+                  ? `translateX(${exitPosition.x}px) rotate(${exitPosition.rotate}deg)`
                   : `translateX(${swipeOffset}px) rotate(${swipeOffset * 0.05}deg)`,
                 transition: isDragging
                   ? 'none'
                   : cardExitDirection
-                    ? 'none'
+                    ? 'transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
                     : 'transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1)',
                 cursor: isDragging ? 'grabbing' : 'grab',
+                opacity: cardExitDirection ? 0 : 1,
               }}
             >
               {/* Dynamic Swipe Preview Overlay */}
