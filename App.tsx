@@ -118,11 +118,14 @@ const App: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [state.stage, feedbackOverlay, state.currentCardIndex]);
 
-  // Reset card exit animation when moving to next card
+  // Reset card state when moving to next card
   useEffect(() => {
     setCardExitDirection(null);
+    setExitPosition(null);
     setSwipeOffset(0);
     setSwipeDirection(null);
+    setHasDragged(false);
+    setIsSnappingBack(false);
   }, [state.currentCardIndex]);
 
   // Touch/Mouse gesture handlers
