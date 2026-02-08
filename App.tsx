@@ -4,6 +4,30 @@ import { PERSONALITIES, ROLE_CARDS, DEATH_ENDINGS, BOSS_FIGHT_QUESTIONS } from '
 import { speak, getRoast, cleanupAudio } from './services/geminiService';
 import LayoutShell from './components/LayoutShell';
 
+/**
+ * BUTTON VARIANT PATTERNS (established design system)
+ * 
+ * Primary CTA (Boot system, Reboot, Log off):
+ * - White background, black text
+ * - Large padding (px-6 py-3 md:px-12 md:py-4)
+ * - Cyan hover state
+ * - Used on: Intro, GameOver, Summary
+ * 
+ * Card Selection (Personality, Role):
+ * - Slate-900/60 background
+ * - Slate-800 border
+ * - Cyan border on hover
+ * - Large padding (p-6 md:p-8/10)
+ * - Used on: PersonalitySelect, RoleSelect
+ * 
+ * Action Button (Swipe choices):
+ * - Transparent background
+ * - White border
+ * - White text
+ * - Cyan hover state
+ * - Used on: Game screen swipe buttons
+ */
+
 const INITIAL_BUDGET = 10000000;
 const SWIPE_THRESHOLD = 100;
 const SWIPE_PREVIEW_THRESHOLD = 50;
