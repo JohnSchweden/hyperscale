@@ -22,22 +22,19 @@ The game runs entirely in the browser, supporting both desktop (mouse/keyboard) 
 - ✓ Boss fight quiz mechanics with timed responses — existing
 - ✓ Multiple death endings based on metrics — existing
 - ✓ Progressive Web App capabilities — existing
-
-### Active
-
-- [ ] **LAYOUT-01**: Unified responsive layout system (Desktop ≥1024px centered, Mobile <1024px top-anchored)
-- [ ] **LAYOUT-02**: Eliminate visual jumps between all 8 screens with consistent positioning
-- [ ] **LAYOUT-03**: Implement scrollbar-gutter: stable for desktop to prevent layout shifts
-- [ ] **LAYOUT-04**: Replace 100vh with 100dvh for mobile browser stability
-- [ ] **LAYOUT-05**: Create reusable LayoutShell component for all screens
-- [ ] **SWIPE-01**: Implement spring physics for card snap-back animation (soft bouncy feel)
-- [ ] **SWIPE-02**: Add card lift effect (scale 1.05) on drag start
-- [ ] **SWIPE-03**: Create card stack showing next card underneath current card
-- [ ] **SWIPE-04**: Enhanced gradient/text preview that scales with swipe distance
-- [ ] **SWIPE-05**: Smooth card exit animations (translateX + rotate) on commit
-- [ ] **TRANS-01**: Consistent stage transition animations across all 8 screens
-- [ ] **DESIGN-01**: Audit and align visual design across all screens
-- [ ] **PERF-01**: Optimize touch gesture performance with will-change and hardware acceleration
+- ✓ LAYOUT-01: Unified responsive layout system (Desktop ≥1024px centered, Mobile <1024px top-anchored) — v1.0
+- ✓ LAYOUT-02: Eliminate visual jumps between all 8 screens with consistent positioning — v1.0
+- ✓ LAYOUT-03: Implement scrollbar-gutter: stable for desktop to prevent layout shifts — v1.0
+- ✓ LAYOUT-04: Replace 100vh with 100dvh for mobile browser stability — v1.0
+- ✓ LAYOUT-05: Create reusable LayoutShell component for all screens — v1.0
+- ✓ SWIPE-01: Implement spring physics for card snap-back animation (soft bouncy feel) — v1.0
+- ✓ SWIPE-03: Create card stack showing next card underneath current card — v1.0
+- ✓ SWIPE-04: Enhanced gradient/text preview that scales with swipe distance — v1.0
+- ✓ SWIPE-05: Smooth card exit animations (translateX + rotate) on commit — v1.0
+- ✓ TRANS-01: Consistent stage transition animations across all 8 screens — v1.0
+- ✓ DESIGN-01: Audit and align visual design across all screens — v1.0
+- ✓ PERF-01: Optimize touch gesture performance with will-change and hardware acceleration — v1.0
+- ~~SWIPE-02: Card lift effect (scale 1.05) on drag start — removed per user decision~~
 
 ### Out of Scope
 

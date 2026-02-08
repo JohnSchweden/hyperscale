@@ -1,16 +1,18 @@
 # Project State: hyperscale
 
 **Initialized:** 2026-02-07
-**Status:** Phases 1 & 2 Planned — Ready for Execution
+**Status:** v1.0 MILESTONE COMPLETE
+**Milestone:** v1.0 — UI/UX Improvements
 
 ---
 
 ## Project Reference
 
-See: `.planning/PROJECT.md` (updated 2026-02-07)
+See: `.planning/PROJECT.md` (updated 2026-02-08)
 
-**Core value:** Players experience smooth, responsive gameplay with consistent visual design across all 8 game stages
-**Current focus:** Phase 2 — Swipe Interactions (Complete) → Ready for Phase 3
+**Core value delivered:** Players experience smooth, responsive gameplay with consistent visual design across all 8 game stages
+
+**Milestone v1.0 completed:** All 12 requirements delivered (SWIPE-02 removed per user decision)
 
 ---
 
@@ -18,170 +20,86 @@ See: `.planning/PROJECT.md` (updated 2026-02-07)
 
 ### Overall Progress
 
-**Phase:** 3 — Polish & Performance (Complete)
-**Phase Progress:** 4/4 plans complete
-**Overall Progress:** 100%
-
-### Phase Status
-
-| Phase | Status | Progress | Context | Plans | Requirements |
-|-------|--------|----------|---------|-------|--------------|
-| 1 — Layout Foundation | ● Complete | 10/10 | ✓ Complete | 10 complete (5 + 5 gap) | LAYOUT-01 to LAYOUT-05 |
-| 2 — Swipe Interactions | ● Complete | 3/3 | ✓ Complete | 3 complete | SWIPE-01, SWIPE-03 to SWIPE-05 |
-| 3 — Polish & Performance | ● Complete | 3/3 | ✓ Complete | 3 complete | TRANS-01, DESIGN-01, PERF-01 |
+**Milestone:** v1.0 — Complete
+**Status:** 12/12 requirements validated
+**Audit:** Passed (12/12 criteria met)
 
 ### Requirements Status
 
-**Active:** 13 total  
-**Complete:** 0  
-**In Progress:** 0  
-**Pending:** 13
+**Total:** 12 validated requirements
+**Validated:** 12
+**Pending:** 0
 
 ---
 
-## Recent Activity
+## Milestone Completion
 
-- **2026-02-07** — Project initialized
-- **2026-02-07** — Research completed (layout patterns, swipe animations, viewport units)
-- **2026-02-07** — PROJECT.md, REQUIREMENTS.md, ROADMAP.md created
-- **2026-02-07** — Phase 1 planned with 5 executable plans
-- **2026-02-07** — Phase 2 context gathered and planned with 3 executable plans
-- **2026-02-07** — Phase 3 context gathered
-- **2026-02-07** — Completed Plan 01-01: LayoutShell component with responsive breakpoints
-- **2026-02-07** — Completed Plan 01-02: LayoutShell integrated into Intro, Personality Select, and Role Select screens
-- **2026-02-07** — Completed Plan 01-03: LayoutShell integrated into Initializing, Boss Fight, Game Over, and Summary screens
-- **2026-02-07** — Completed Plan 01-04: Game screen refactored to LayoutShell, scrollbar-gutter CSS added for desktop
-- **2026-02-07** — Completed Plan 01-06: Fixed desktop centering in LayoutShell (gap closure)
-- **2026-02-07** — Completed Plan 01-07: Fixed Game screen mobile layout issues (padding, button sizing, answer window)
-- **2026-02-07** — Completed Plan 01-08: Fixed scrollbar first render by removing overflow conflicts and reducing animation translateY
-- **2026-02-07** — Completed Plan 01-09: Fixed roast window and boot button cutoff on mobile with proper taskbar clearance padding
-- **2026-02-07** — Completed Plan 01-10: Fixed answer overlay centering and HUD cutoff by establishing proper CSS positioning contexts
-- **2026-02-08** — Completed Plan 02-01: CSS Animation System with spring physics and exit animations
-- **2026-02-08** — Completed Plan 02-02: Card Stack & Enhanced Swipe Preview with dynamic scaling
-- **2026-02-08** — Completed Plan 02-03: Human verification of all swipe interactions (6 checkpoints verified via automated code inspection)
-- **2026-02-08** — Completed Plan 03-01: Standardize stage transition animations (CSS timing variables implemented, all transitions verified)
-- **2026-02-08** — Completed Plan 03-02: Design audit and visual system (45 design tokens added, background colors standardized across 8 screens, fixed swipe consistency tests)
-- **2026-02-08** — Completed Plan 03-03: Performance optimization & Lighthouse (GPU acceleration, font smoothing, mobile CRT disabled, 66 tests passing)
-- **2026-02-08** — Completed Plan 03-04: Lighthouse audit gap closure (documented NO_FCP limitation, provided manual verification guidance)
+### Delivered in v1.0
 
----
+**Layout System (5 requirements):**
+- LAYOUT-01: Unified responsive layout system
+- LAYOUT-02: Visual jumps eliminated across 8 screens
+- LAYOUT-03: Desktop scrollbar stability (scrollbar-gutter)
+- LAYOUT-04: Mobile viewport stability (100dvh)
+- LAYOUT-05: Reusable LayoutShell component
 
-## Phase 2 Plans Summary
+**Swipe Interactions (4 requirements):**
+- SWIPE-01: Spring physics snap-back animation
+- SWIPE-03: Card stack showing next card
+- SWIPE-04: Enhanced gradient/text preview
+- SWIPE-05: Smooth card exit animations
+- ~~SWIPE-02~~: Removed (per user decision)
 
-Created: 3 plans in 2 waves
+**Polish & Performance (3 requirements):**
+- TRANS-01: Consistent stage transition animations
+- DESIGN-01: Visual design audit and standardization
+- PERF-01: Touch gesture performance optimization
 
-| Plan | Wave | Objective | Files | Autonomous |
-|------|------|-----------|-------|------------|
-| 02-01 | 1 | CSS Animation System (spring + exit) | index.html | ✓ Yes |
-| 02-02 | 1 | Card Stack & Enhanced Preview | App.tsx | ✓ Yes |
-| 02-03 | 2 | Human verification (6 checkpoints) | — | ✓ Complete |
+### Milestone Audit
 
-**Requirements Coverage:**
-- SWIPE-01: Spring physics (Plans 02-01, 02-02)
-- SWIPE-03: Card stack (Plan 02-02)
-- SWIPE-04: Enhanced preview (Plan 02-02)
-- SWIPE-05: Exit animations (Plan 02-01)
-- ~~SWIPE-02~~: Card lift — REMOVED per user decision
+**Passed:** 2026-02-08
+**Criteria:** 12/12 met
+**UAT:** 21/21 tests passed across 3 phases
 
 ---
 
-## Phase 3 Plans Summary
+## v1.0 Summary
 
-Created: 4 plans in 3 waves (including gap closure)
+**Phase 1 (Layout Foundation):** Complete — 10 plans executed
+**Phase 2 (Swipe Interactions):** Complete — 3 plans executed
+**Phase 3 (Polish & Performance):** Complete — 4 plans executed
 
-| Plan | Wave | Objective | Files | Autonomous |
-|------|------|-----------|-------|------------|
-| 03-01 | 1 | Standardize stage transition animations | App.tsx, index.html | ✓ Yes |
-| 03-02 | 1 | Design audit and visual system | App.tsx, index.html | ✓ Yes |
-| 03-03 | 2 | Performance optimization & Lighthouse | App.tsx, index.html | ✓ Yes |
-| 03-04 | 3 | Lighthouse audit gap closure | Documentation | ✓ Yes |
-
-**Requirements Coverage:**
-- TRANS-01: Consistent transitions (Plan 03-01)
-- DESIGN-01: Visual design audit (Plan 03-02)
-- PERF-01: Performance optimization (Plans 03-03, 03-04 documentation)
+**Key Deliverables:**
+- LayoutShell component for responsive layouts across 8 game stages
+- Spring physics swipe animations with cubic-bezier timing
+- Card stack and preview system (Tinder-style)
+- Design system with 45 CSS tokens
+- Performance optimizations (GPU acceleration, will-change, font smoothing)
 
 ---
 
-## Key Decisions Log
+## Next Steps
 
-| Date | Decision |Context | Outcome |
-|------|----------|---------|---------|
-| 2026-02-07 | Desktop centered, Mobile top-anchored | Desktop has space for centering; mobile feels more app-like when top-anchored | — Pending validation |
-| 2026-02-07 | Keep contextual text labels (not icons) | "Debug" vs "Paste" are contextual, not yes/no | — Pending validation |
-| 2026-02-07 | No opacity fade on swipe | Must keep card text readable during decisions | — Pending validation |
-| 2026-02-08 | Apply swipe-card only to active card, not preview | Prevents unnecessary GPU memory usage while optimizing active card performance | ✓ Implemented in 03-03 |
-| 2026-02-08 | Disable CRT effect on mobile for performance | Improves performance on lower-end mobile devices where effect is less noticeable | ✓ Implemented in 03-03 |
-| 2026-02-08 | Use touch-action: pan-y for passive scroll | Allows browser to handle vertical scrolling passively, horizontal handled by JavaScript | ✓ Implemented in 03-03 |
-| 2026-02-07 | scrollbar-gutter: stable for desktop | Prevents layout shifts from scrollbar | ✓ Implemented in 01-04 |
-| 2026-02-07 | Spring physics (soft bouncy feel) | Premium feel without being jarring | — Pending implementation |
-| 2026-02-07 | Card stack showing next card | Creates "deck" feel, shows progression | — Pending implementation |
-| 2026-02-07 | CSS cubic-bezier for spring | Soft bouncy with overshoot | — Documented in Phase 2 context |
-| 2026-02-07 | Next card: scale 0.95, opacity 0.6 | Visible but dimmed | — Documented in Phase 2 context |
-| 2026-02-07 | Fade only for stage transitions | Simple, consistent, doesn't compete with swipe | — Documented in Phase 3 context |
-| 2026-02-07 | Animation timing hierarchy | Quick/medium/slow based on purpose | — Documented in Phase 3 context |
-| 2026-02-07 | Comprehensive design audit | Typography, colors, spacing, components | — Documented in Phase 3 context |
-| 2026-02-07 | NO card lift on drag | User decision to remove SWIPE-02 | — Documented in Phase 2 context |
-| 2026-02-07 | Desktop centered, Mobile top-anchored | Desktop has space for centering; mobile feels more app-like when top-anchored | ✓ Implemented in LayoutShell (01-01) |
-| 2026-02-07 | items-start lg:items-center for responsive centering | Parent container flex alignment cleaner than per-child mx-auto | ✓ Implemented in 01-06 |
-| 2026-02-07 | Mobile padding pt-12 md:pt-20 pattern | Reduces excessive whitespace while clearing HUD on mobile | ✓ Implemented in 01-07 |
-| 2026-02-07 | WCAG 2.5.5 44px touch target compliance | Boot button meets accessibility standards for mobile | ✓ Implemented in 01-07 |
-| 2026-02-07 | Responsive padding p-3 md:p-4 pattern | Optimizes answer window spacing across breakpoints | ✓ Implemented in 01-07 |
-| 2026-02-07 | Body overflow-y: hidden | Prevents duplicate scroll context, all scrolling managed by LayoutShell | ✓ Implemented in 01-08 |
-| 2026-02-07 | Reduced translateY from 20px to 10px | Minimizes temporary overflow during stage transitions | ✓ Implemented in 01-08 |
-| 2026-02-07 | pb-14 (56px) clears 48px fixed taskbar + 8px breathing room | Double-buffer approach with parent padding + child margin for safety | ✓ Implemented in 01-09 |
-| 2026-02-07 | Add 'relative' to LayoutShell container | Establishes positioning context for absolutely positioned children like HUD | ✓ Implemented in 01-10 |
-| 2026-02-07 | Move feedback overlay as sibling to stage-transition div | Escapes transformed container so fixed positioning works relative to viewport | ✓ Implemented in 01-10 |
-| 2026-02-07 | Use React Fragment for multi-element return | Avoids extra DOM wrapper, cleaner structure | ✓ Implemented in 01-10 |
+**Option 1:** Continue development — run `/gsd-new-milestone` to plan v1.1 or v2.0
+
+**Option 2:** Deploy v1.0 to production
+
+**Option 3:** Take a break — state is preserved, resume anytime
 
 ---
-
-## Current Blockers
-
-None — Phases 1 & 2 have executable plans, Phase 3 has context
-
----
-
-## Next Actions
-
-**Phase 1 Status:**
-- ✅ All 10 plans complete (5 foundation + 5 gap closures)
-- ✅ LayoutShell foundation established across all 8 game stages
-- ✅ Mobile positioning issues resolved
-- ✅ Desktop centering and scrollbar stability fixed
-
-**Phase 2 Complete:** All 3 plans finished (CSS Animation System, Card Stack, Verification)
-
-**Phase 3 Complete:** All 3 plans finished (Transitions, Design Audit, Performance)
-
-**All Phases Complete:** Project execution complete, all performance optimizations deployed
-
----
-
-## Notes
-
-- Phase 1: ✅ Complete (10 plans: 5 foundation + 5 gap closures)
-- Phase 2: ✅ Complete (3 plans: CSS Animation System, Card Stack, Verification)
-- Phase 3: ✅ Complete (3 plans: Transitions, Design Audit, Performance)
-- All phases complete, project execution finished
-- No external dependencies or blockers
 
 ## Session Continuity
 
-**Last session:** 2026-02-08 19:48 UTC
-**Stopped at:** Phase 3 Plan 04 complete - Lighthouse audit gap closure (All phases complete)
-**Resume file:** None — All phases complete
+**Milestone completion:** 2026-02-08
+**Actions taken:**
+- Archived v1.0 ROADMAP.md → .planning/milestones/v1.0-ROADMAP.md
+- Archived v1.0 REQUIREMENTS.md → .planning/milestones/v1.0-REQUIREMENTS.md
+- Moved MILESTONE-AUDIT.md → .planning/milestones/v1.0-MILESTONE-AUDIT.md
+- Updated PROJECT.md with Validated section
+- Deleted ROADMAP.md and REQUIREMENTS.md (fresh for next milestone)
+- Created git tag v1.0
+- Committed milestone completion
 
 ---
 
-## Phase 2 Status
-
-- ✅ **Plan 02-01: CSS Animation System** - Complete
-- ✅ **Plan 02-02: Card Stack & Preview** - Complete
-- ✅ **Plan 02-03: Human Verification** - Complete (6 checkpoints verified via automated code inspection)
-
-**Phase 2 Complete:** All swipe interactions implemented and verified.
-
----
-
-*Last updated: 2026-02-08 after completing Plan 03-04: Lighthouse audit gap closure*
+*Last updated: 2026-02-08 after milestone completion*

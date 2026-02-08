@@ -706,7 +706,7 @@ const App: React.FC = () => {
   const renderIntro = () => (
     <LayoutShell className="p-4 md:p-6 text-center bg-[#0a0a0c]">
       <div className="mb-8 md:mb-12 relative">
-        <h1 className="text-6xl md:text-7xl font-bold glitch-text tracking-tighter mb-2">hyperscale</h1>
+        <h1 className="text-6xl md:text-7xl font-bold glitch-text tracking-tighter mb-2">SwipeRisk</h1>
         <div className="text-red-600 font-bold mono text-xs md:text-sm animate-pulse tracking-[0.4em]">incident_response_terminal // os_v0.92</div>
       </div>
       <p className="max-w-xl text-slate-300 mb-8 md:mb-10 text-base md:text-lg px-4 leading-relaxed">
@@ -862,7 +862,7 @@ const App: React.FC = () => {
         </div>
       </div>
       <div className="mt-6 md:mt-8 text-[8px] tracking-wide opacity-30 text-center max-w-xs px-4">
-        HyperScale Inc. is not liable for data breaches, federal lawsuits, or spontaneous AI consciousness.
+        SwipeRisk Inc. is not liable for data breaches, federal lawsuits, or spontaneous AI consciousness.
       </div>
     </LayoutShell>
   );
