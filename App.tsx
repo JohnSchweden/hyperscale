@@ -602,7 +602,7 @@ const App: React.FC = () => {
             {/* Current card (front) */}
             <div
               ref={cardRef}
-              className={`absolute inset-0 bg-slate-900/90 border border-slate-700 rounded-xl overflow-hidden shadow-2xl flex flex-col select-none ${cardExitDirection ? `swipe-exit-${cardExitDirection.toLowerCase()}` : 'ticket-transition'} ${!isDragging && !cardExitDirection && swipeOffset !== 0 ? 'spring-snap-back' : ''}`}
+              className={`absolute inset-0 bg-slate-900/90 border border-slate-700 rounded-xl overflow-hidden shadow-2xl flex flex-col select-none ${cardExitDirection ? `swipe-exit-${cardExitDirection.toLowerCase()}` : swipeOffset === 0 && !isDragging ? 'ticket-transition' : ''} ${!isDragging && !cardExitDirection && swipeOffset !== 0 ? 'spring-snap-back' : ''}`}
               key={state.currentCardIndex}
               onTouchStart={handleTouchStart}
               onTouchMove={handleTouchMove}
