@@ -28,6 +28,24 @@ import LayoutShell from './components/LayoutShell';
  * - Used on: Game screen swipe buttons
  */
 
+/**
+ * CONTAINER WIDTH STRATEGY
+ * 
+ * Wide (max-w-5xl): Personality Select
+ *   - Needs room for 3-column grid at md breakpoint
+ * 
+ * Standard (max-w-4xl / lg:max-w-[43rem]): Game, BossFight
+ *   - Game needs specific width for card proportions
+ *   - BossFight uses max-w-3xl currently, could standardize to max-w-4xl
+ * 
+ * Narrow (max-w-2xl): Initializing, GameOver, Summary
+ *   - Focused content that doesn't need wide layout
+ * 
+ * Auto (no max-w): Intro, Role Select
+ *   - Intro uses centered text, max-w on content elements instead
+ *   - Role Select uses 2-3 column grid, width adapts naturally
+ */
+
 const INITIAL_BUDGET = 10000000;
 const SWIPE_THRESHOLD = 100;
 const SWIPE_PREVIEW_THRESHOLD = 50;
