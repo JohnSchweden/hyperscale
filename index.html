@@ -17,6 +17,21 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=optional');
         
+        :root {
+          /* Animation Timing Hierarchy
+             Quick (150ms): Button hovers, micro-interactions, feedback
+             Medium (450ms): Stage transitions, card swipes, progress bars  
+             Slow (600ms): Emphasis animations, celebrations, modal overlays
+             
+             Easing: cubic-bezier(0.25, 0.46, 0.45, 0.94) - smooth ease-out
+             Stage transitions use fade only (no directional movement)
+             to avoid confusion with swipe gestures.
+          */
+          --anim-quick: 150ms;
+          --anim-medium: 450ms;
+          --anim-slow: 600ms;
+        }
+        
         body {
             font-family: 'Space+Grotesk', sans-serif;
             background-color: #0a0a0c;
