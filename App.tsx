@@ -52,6 +52,7 @@ const App: React.FC = () => {
   const [hasDragged, setHasDragged] = useState(false);
   const [isSnappingBack, setIsSnappingBack] = useState(false);
   const [exitPosition, setExitPosition] = useState<{ x: number; rotate: number } | null>(null);
+  const [isFirstCard, setIsFirstCard] = useState(true);
   const cardRef = useRef<HTMLDivElement>(null);
   const touchStartX = useRef(0);
   const touchStartY = useRef(0);
@@ -212,6 +213,7 @@ const App: React.FC = () => {
   };
   const selectRole = (r: RoleType) => {
     setCountdown(3);
+    setIsFirstCard(true);
     setState(prev => ({ ...prev, role: r, stage: GameStage.INITIALIZING, currentCardIndex: 0 }));
   };
 
@@ -281,6 +283,8 @@ const App: React.FC = () => {
 
   const nextIncident = () => {
     setFeedbackOverlay(null);
+    // After first card exits, subsequent cards shouldn't animate
+    setIsFirstCard(false);
     
     // Check for game over conditions
     if (state.budget <= 0) {
@@ -389,6 +393,7 @@ const App: React.FC = () => {
     setBossTimeLeft(15);
     setBossAnswered(false);
     setShowBossExplanation(false);
+    setIsFirstCard(true);
   };
 
   const formatBudget = (amount: number) => {
@@ -620,7 +625,7 @@ const App: React.FC = () => {
                   opacity: 0.6,
                 }}
               >
-                {/* Simplified next card content - just header and basic structure */}
+                {/* Next card with real incident content */}
                 <div className="bg-slate-800 px-3 md:px-4 py-2 flex items-center justify-between border-b border-white/5">
                   <div className="flex items-center gap-2 text-[10px] mono font-bold text-slate-400 truncate">
                     <i className={`fa-solid ${cards[state.currentCardIndex + 1].source === AppSource.IDE ? 'fa-terminal' : 'fa-hashtag'}`} aria-hidden></i>
@@ -632,8 +637,21 @@ const App: React.FC = () => {
                     <div className="w-2.5 h-2.5 rounded-full bg-red-500/50"></div>
                   </div>
                 </div>
-                <div className="p-4 md:p-10 flex flex-col justify-center items-center flex-1">
-                  <div className="text-slate-600 text-sm mono">Next incident loading...</div>
+                <div className="p-4 md:p-6 flex flex-col justify-between flex-1 overflow-hidden">
+                  <div className="space-y-3 overflow-y-auto">
+                    <div className="flex items-center gap-3">
+                      <div className="w-7 h-7 md:w-8 md:h-8 rounded bg-slate-800 flex items-center justify-center border border-white/5 shrink-0">
+                        <i className="fa-solid fa-user-robot text-slate-500 text-xs" aria-hidden></i>
+                      </div>
+                      <div className="min-w-0">
+                        <div className="text-xs font-bold text-slate-400 truncate">{cards[state.currentCardIndex + 1].sender}</div>
+                        <div className="text-[9px] text-slate-600 mono truncate">Incident #{(state.currentCardIndex + 2) * 324}</div>
+                      </div>
+                    </div>
+                    <p className="text-sm md:text-base font-medium leading-relaxed text-slate-400 line-clamp-3">
+                      "{cards[state.currentCardIndex + 1].text}"
+                    </p>
+                  </div>
                 </div>
               </div>
             )}
@@ -641,7 +659,7 @@ const App: React.FC = () => {
             {/* Current card (front) */}
             <div
               ref={cardRef}
-              className={`absolute inset-0 bg-slate-900/90 border border-slate-700 rounded-xl overflow-hidden shadow-2xl flex flex-col select-none ${swipeOffset === 0 && !isDragging && !hasDragged ? 'ticket-transition' : ''} ${isSnappingBack ? 'spring-snap-back' : ''}`}
+              className={`absolute inset-0 bg-slate-900/90 border border-slate-700 rounded-xl overflow-hidden shadow-2xl flex flex-col select-none ${isFirstCard && !cardExitDirection ? 'ticket-transition' : ''} ${isSnappingBack ? 'spring-snap-back' : ''}`}
               key={state.currentCardIndex}
               onTouchStart={handleTouchStart}
               onTouchMove={handleTouchMove}
