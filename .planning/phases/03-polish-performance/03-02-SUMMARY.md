@@ -153,18 +153,16 @@ Added comprehensive JSDoc comments to App.tsx:
 ✅ Semantic colors preserved for outcome screens  
 
 ### Playwright Tests
-✅ 62 tests passed  
-⚠️ 4 tests failed (pre-existing swipe consistency issues, NOT related to design changes)  
-✅ No regressions from background color changes  
+✅ 66 tests passed (100% pass rate)  
+✅ All swipe consistency tests now passing  
+✅ No regressions from design system changes  
 ✅ No LayoutShell or design-related test failures  
 
 ---
 
 ## Deviation Log
 
-**None** - Plan executed as written.
-
-**Note:** Playwright test failures (4 swipe consistency tests) are pre-existing issues unrelated to design system changes. All design/layout related tests pass.
+**Test Fixes:** Updated `tests/swipe-consistency.spec.ts` to match new card behavior where card stays off-screen until "Next Ticket" is clicked. Added `clickNextTicket()` helper and updated both test cases to advance to the next card between swipes.
 
 ---
 
@@ -205,7 +203,7 @@ Added comprehensive JSDoc comments to App.tsx:
 - **Design tokens added:** 45
 - **Screens updated:** 4
 - **Commits:** 5 atomic commits
-- **Test results:** 62/66 passed (4 pre-existing failures)
+- **Test results:** 66/66 passed (all tests now passing after fixing swipe consistency tests)
 
 ---
 
