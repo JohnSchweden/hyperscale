@@ -37,7 +37,13 @@ const App: React.FC = () => {
   const [isRoasting, setIsRoasting] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
   const [countdown, setCountdown] = useState(3);
-  
+  const [personalitySelectReady, setPersonalitySelectReady] = useState(false);
+  const [personalityHoverEnabled, setPersonalityHoverEnabled] = useState(false);
+  const personalitySelectReadyTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [roleSelectReady, setRoleSelectReady] = useState(false);
+  const [roleHoverEnabled, setRoleHoverEnabled] = useState(false);
+  const roleSelectReadyTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   // Boss fight state
   const [currentBossQuestion, setCurrentBossQuestion] = useState(0);
   const [bossTimeLeft, setBossTimeLeft] = useState(15);
@@ -52,7 +58,6 @@ const App: React.FC = () => {
   const [hasDragged, setHasDragged] = useState(false);
   const [isSnappingBack, setIsSnappingBack] = useState(false);
   const [exitPosition, setExitPosition] = useState<{ x: number; rotate: number } | null>(null);
-  const [isFirstCard, setIsFirstCard] = useState(true);
   const cardRef = useRef<HTMLDivElement>(null);
   const touchStartX = useRef(0);
   const touchStartY = useRef(0);
@@ -87,6 +92,84 @@ const App: React.FC = () => {
       }
     }
   }, [state.stage, countdown]);
+
+  // Defer personality button interaction + hover so Boot click/tap doesn’t ghost-select or show hover
+  useEffect(() => {
+    if (state.stage !== GameStage.PERSONALITY_SELECT) {
+      setPersonalitySelectReady(false);
+      setPersonalityHoverEnabled(false);
+      if (personalitySelectReadyTimeout.current) {
+        clearTimeout(personalitySelectReadyTimeout.current);
+        personalitySelectReadyTimeout.current = null;
+      }
+      return;
+    }
+    personalitySelectReadyTimeout.current = setTimeout(() => {
+      setPersonalitySelectReady(true);
+      personalitySelectReadyTimeout.current = null;
+    }, 100);
+    return () => {
+      if (personalitySelectReadyTimeout.current) {
+        clearTimeout(personalitySelectReadyTimeout.current);
+        personalitySelectReadyTimeout.current = null;
+      }
+    };
+  }, [state.stage]);
+
+  // Enable hover only after first pointer move so Boot cursor position doesn't show BAMBOO hover
+  useEffect(() => {
+    if (state.stage !== GameStage.PERSONALITY_SELECT) return;
+    const onMove = () => {
+      setPersonalityHoverEnabled(true);
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('touchstart', onMove, { capture: true });
+    };
+    window.addEventListener('mousemove', onMove, { once: true });
+    window.addEventListener('touchstart', onMove, { capture: true, once: true });
+    return () => {
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('touchstart', onMove, { capture: true });
+    };
+  }, [state.stage]);
+
+  // Block ghost click on role select; enable clicks after short delay
+  useEffect(() => {
+    if (state.stage !== GameStage.ROLE_SELECT) {
+      setRoleSelectReady(false);
+      setRoleHoverEnabled(false);
+      if (roleSelectReadyTimeout.current) {
+        clearTimeout(roleSelectReadyTimeout.current);
+        roleSelectReadyTimeout.current = null;
+      }
+      return;
+    }
+    roleSelectReadyTimeout.current = setTimeout(() => {
+      setRoleSelectReady(true);
+      roleSelectReadyTimeout.current = null;
+    }, 100);
+    return () => {
+      if (roleSelectReadyTimeout.current) {
+        clearTimeout(roleSelectReadyTimeout.current);
+        roleSelectReadyTimeout.current = null;
+      }
+    };
+  }, [state.stage]);
+
+  // Enable role hover only after first pointer move
+  useEffect(() => {
+    if (state.stage !== GameStage.ROLE_SELECT) return;
+    const onMove = () => {
+      setRoleHoverEnabled(true);
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('touchstart', onMove, { capture: true });
+    };
+    window.addEventListener('mousemove', onMove, { once: true });
+    window.addEventListener('touchstart', onMove, { capture: true, once: true });
+    return () => {
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('touchstart', onMove, { capture: true });
+    };
+  }, [state.stage]);
 
   // Voice logic for stage transitions
   useEffect(() => {
@@ -206,6 +289,7 @@ const App: React.FC = () => {
   }, [isDragging, swipeOffset]);
 
   const handleStart = () => {
+    setPersonalitySelectReady(false);
     setState(prev => ({ ...prev, stage: GameStage.PERSONALITY_SELECT }));
   };
   const selectPersonality = (p: PersonalityType) => {
@@ -213,7 +297,6 @@ const App: React.FC = () => {
   };
   const selectRole = (r: RoleType) => {
     setCountdown(3);
-    setIsFirstCard(true);
     setState(prev => ({ ...prev, role: r, stage: GameStage.INITIALIZING, currentCardIndex: 0 }));
   };
 
@@ -283,8 +366,6 @@ const App: React.FC = () => {
 
   const nextIncident = () => {
     setFeedbackOverlay(null);
-    // After first card exits, subsequent cards shouldn't animate
-    setIsFirstCard(false);
     
     // Check for game over conditions
     if (state.budget <= 0) {
@@ -393,7 +474,6 @@ const App: React.FC = () => {
     setBossTimeLeft(15);
     setBossAnswered(false);
     setShowBossExplanation(false);
-    setIsFirstCard(true);
   };
 
   const formatBudget = (amount: number) => {
@@ -453,12 +533,12 @@ const App: React.FC = () => {
           {Object.entries(PERSONALITIES).map(([type, p], index) => (
             <button
               key={type}
-              onClick={() => selectPersonality(type as PersonalityType)}
-              className="group p-6 md:p-10 bg-slate-900/60 border border-slate-800 hover:border-cyan-500 focus:outline-none flex flex-col hover-scale shadow-2xl transition-colors w-full text-left"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              onClick={() => personalitySelectReady && selectPersonality(type as PersonalityType)}
+              className={`group p-6 md:p-10 bg-slate-900/60 border border-slate-800 focus:outline-none flex flex-col shadow-2xl transition-colors w-full text-left ${personalityHoverEnabled ? 'hover:border-cyan-500 hover-scale' : ''}`}
+              style={{ animationDelay: `${index * 0.1}s`, pointerEvents: personalitySelectReady ? 'auto' : 'none' }}
             >
               <div className="flex flex-col items-center text-center mb-4 md:mb-6">
-                <div className="text-slate-400 group-hover:text-cyan-500 transition-colors mb-2 md:mb-3">
+                <div className={`text-slate-400 transition-colors mb-2 md:mb-3 ${personalityHoverEnabled ? 'group-hover:text-cyan-500' : ''}`}>
                   <i
                     className={`fa-solid ${
                       type === PersonalityType.ROASTER
@@ -503,11 +583,11 @@ const App: React.FC = () => {
           {Object.values(RoleType).map((role, index) => (
             <button
               key={role}
-              onClick={() => selectRole(role)}
-              className="group p-6 md:p-8 bg-slate-900/60 border border-slate-800 hover:border-cyan-500 transition-all text-center hover-scale shadow-2xl"
-              style={{ animationDelay: `${index * 0.08}s` }}
+              onClick={() => roleSelectReady && selectRole(role)}
+              className={`group p-6 md:p-8 bg-slate-900/60 border border-slate-800 transition-all text-center shadow-2xl ${roleHoverEnabled ? 'hover:border-cyan-500 hover-scale' : ''}`}
+              style={{ animationDelay: `${index * 0.08}s`, pointerEvents: roleSelectReady ? 'auto' : 'none' }}
             >
-              <div className="text-3xl md:text-4xl mb-3 md:mb-4 text-slate-400 group-hover:text-cyan-400 transition-colors">
+              <div className={`text-3xl md:text-4xl mb-3 md:mb-4 text-slate-400 transition-colors ${roleHoverEnabled ? 'group-hover:text-cyan-400' : ''}`}>
                 <i
                   className={`fa-solid ${
                     role === RoleType.DEVELOPMENT
@@ -525,7 +605,7 @@ const App: React.FC = () => {
                   aria-hidden
                 ></i>
               </div>
-              <div className="font-black text-xs md:text-sm tracking-wide text-slate-300 group-hover:text-white transition-colors">
+              <div className={`font-black text-xs md:text-sm tracking-wide text-slate-300 transition-colors ${roleHoverEnabled ? 'group-hover:text-white' : ''}`}>
                 {formatLabel(role)}
               </div>
             </button>
@@ -625,7 +705,7 @@ const App: React.FC = () => {
                   opacity: 0.6,
                 }}
               >
-                {/* Next card with real incident content */}
+                {/* Simplified next card content - just header and basic structure */}
                 <div className="bg-slate-800 px-3 md:px-4 py-2 flex items-center justify-between border-b border-white/5">
                   <div className="flex items-center gap-2 text-[10px] mono font-bold text-slate-400 truncate">
                     <i className={`fa-solid ${cards[state.currentCardIndex + 1].source === AppSource.IDE ? 'fa-terminal' : 'fa-hashtag'}`} aria-hidden></i>
@@ -637,21 +717,8 @@ const App: React.FC = () => {
                     <div className="w-2.5 h-2.5 rounded-full bg-red-500/50"></div>
                   </div>
                 </div>
-                <div className="p-4 md:p-6 flex flex-col justify-between flex-1 overflow-hidden">
-                  <div className="space-y-3 overflow-y-auto">
-                    <div className="flex items-center gap-3">
-                      <div className="w-7 h-7 md:w-8 md:h-8 rounded bg-slate-800 flex items-center justify-center border border-white/5 shrink-0">
-                        <i className="fa-solid fa-user-robot text-slate-500 text-xs" aria-hidden></i>
-                      </div>
-                      <div className="min-w-0">
-                        <div className="text-xs font-bold text-slate-400 truncate">{cards[state.currentCardIndex + 1].sender}</div>
-                        <div className="text-[9px] text-slate-600 mono truncate">Incident #{(state.currentCardIndex + 2) * 324}</div>
-                      </div>
-                    </div>
-                    <p className="text-sm md:text-base font-medium leading-relaxed text-slate-400 line-clamp-3">
-                      "{cards[state.currentCardIndex + 1].text}"
-                    </p>
-                  </div>
+                <div className="p-4 md:p-10 flex flex-col justify-center items-center flex-1">
+                  <div className="text-slate-600 text-sm mono">Next incident loading...</div>
                 </div>
               </div>
             )}
@@ -659,7 +726,7 @@ const App: React.FC = () => {
             {/* Current card (front) */}
             <div
               ref={cardRef}
-              className={`absolute inset-0 bg-slate-900/90 border border-slate-700 rounded-xl overflow-hidden shadow-2xl flex flex-col select-none ${isFirstCard && !cardExitDirection && !isDragging && !hasDragged ? 'ticket-transition' : ''} ${isSnappingBack ? 'spring-snap-back' : ''}`}
+              className={`absolute inset-0 bg-slate-900/90 border border-slate-700 rounded-xl overflow-hidden shadow-2xl flex flex-col select-none ${swipeOffset === 0 && !isDragging && !hasDragged ? 'ticket-transition' : ''} ${isSnappingBack ? 'spring-snap-back' : ''}`}
               key={state.currentCardIndex}
               onTouchStart={handleTouchStart}
               onTouchMove={handleTouchMove}
