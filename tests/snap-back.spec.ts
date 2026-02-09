@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { navigateToPlaying } from './helpers/navigation';
 import { SELECTORS } from './helpers/selectors';
 
-test.use({ baseURL: 'http://localhost:3004' });
+test.use({ baseURL: 'http://localhost:3000' });
 
 test.describe('Spring Snap-Back', () => {
   test('card snaps back smoothly when released under threshold', async ({ page }) => {

@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { navigateToPlaying, getCard, getRightButton, getLeftButton } from './helpers/navigation';
 
-test.use({ baseURL: 'http://localhost:3004' });
+test.use({ baseURL: 'http://localhost:3000' });
 
 test.describe('Button Highlight on Swipe', () => {
   test('right button highlights when swiping right', async ({ page }) => {

@@ -135,6 +135,7 @@ export const ROLE_CARDS: Record<RoleType, Card[]> = {
       source: AppSource.IDE,
       sender: 'DEBUG_BOT',
       context: 'CRITICAL BUG',
+      storyContext: "3 a.m. The payment pipeline is down. Slack is on fire. You're one fix away from being a hero or a headline.",
       text: 'Copy-paste the entire proprietary source code into a public version of ChatGPT to fix a bug instantly.',
       onRight: {
         label: 'Paste',
@@ -168,6 +169,7 @@ export const ROLE_CARDS: Record<RoleType, Card[]> = {
       source: AppSource.TERMINAL,
       sender: 'Root-Access',
       context: 'LIBRARY INSTALL',
+      storyContext: "The sprint demo is in 48 hours. Your inference latency is killing the roadmap. Someone in the forum swears this changed their life.",
       text: 'Found a new "GodMode-JS" AI library on a hacker forum that increases model inference by 300%. Install it?',
       onRight: {
         label: 'Install',
@@ -203,6 +205,7 @@ export const ROLE_CARDS: Record<RoleType, Card[]> = {
       source: AppSource.SLACK,
       sender: 'HEAD_OF_ADS',
       context: 'HYPER-TARGETING',
+      storyContext: "Q4 targets are brutal. The board wants growth at any cost. Icarus just surfaced a segment that converts like nothing you've seen.",
       text: "Project Icarus found a way to target ads specifically to users who just lost their jobs. High conversion rates expected. Launch?",
       onRight: {
         label: 'Launch',
@@ -236,6 +239,7 @@ export const ROLE_CARDS: Record<RoleType, Card[]> = {
       source: AppSource.EMAIL,
       sender: 'AGENCY_X',
       context: 'INFLUENCER AD',
+      storyContext: "The campaign needs a face. Real influencers want seven figures. The creative team just sent you a link. 'No one will know.'",
       text: "Generate an image of Taylor Swift holding our product for the main ad banner using a Deepfake AI. It looks 100% real.",
       onRight: {
         label: 'Post',
@@ -271,6 +275,7 @@ export const ROLE_CARDS: Record<RoleType, Card[]> = {
       source: AppSource.SLACK,
       sender: 'CEO_DAVE',
       context: 'PRODUCTIVITY',
+      storyContext: "Dave read a blog post about 'quantified productivity.' He's been forwarding it all week. Now Icarus has a proposal.",
       text: "Icarus wants to use employee webcams to track 'Micro-Frowns' and 'Eye-Wandering' to score daily productivity. Enable?",
       onRight: {
         label: 'Enable',
@@ -304,6 +309,7 @@ export const ROLE_CARDS: Record<RoleType, Card[]> = {
       source: AppSource.IDE,
       sender: 'LEGAL_AI_BETA',
       context: 'CONTRACTS',
+      storyContext: "The vendor is playing hardball. Legal is booked for weeks. Someone ran the draft through the new beta. The output is aggressive—and fast.",
       text: "Let the AI 'Deepfake Negotiator' handle the new contract dispute. It can simulate a high-pressure lawyer perfectly.",
       onRight: {
         label: 'Deploy',
@@ -339,6 +345,7 @@ export const ROLE_CARDS: Record<RoleType, Card[]> = {
       source: AppSource.EMAIL,
       sender: 'INSIGHT_DASHBOARD',
       context: 'STABILITY',
+      storyContext: "Rumors of organizing have been swirling. Leadership wants it contained. Icarus just ran the comms data and surfaced five names.",
       text: "The AI has flagged 5 employees who are 92% likely to start a union based on their Slack 'Vibe Score'. Should we 'reassign' them?",
       onRight: {
         label: 'Reassign',
@@ -372,6 +379,7 @@ export const ROLE_CARDS: Record<RoleType, Card[]> = {
       source: AppSource.SLACK,
       sender: 'RECRUIT_AI',
       context: 'HIRING',
+      storyContext: "You're drowning in résumés. The hiring manager wants 'culture fit' and 'high performers.' Icarus found a signal in the data.",
       text: "AI has detected that 'Lacrosse' players are 20% more likely to succeed. Set 'Lacrosse' as a mandatory filter?",
       onRight: {
         label: 'Filter',
@@ -407,6 +415,7 @@ export const ROLE_CARDS: Record<RoleType, Card[]> = {
       source: AppSource.TERMINAL,
       sender: 'ROOT',
       context: 'TRADING_AI',
+      storyContext: "The quant team is under pressure to beat the street. Someone noticed the CEO's WhatsApp syncs to a company backup. Icarus connected the dots.",
       text: "Icarus AI found a way to scrape the CEO's private WhatsApp to 'predict' market volatility. Enable the 'Insider-Edge' bot?",
       onRight: {
         label: 'Enable',
@@ -440,6 +449,7 @@ export const ROLE_CARDS: Record<RoleType, Card[]> = {
       source: AppSource.EMAIL,
       sender: 'Q4_PLANNER',
       context: 'FORECASTING',
+      storyContext: "The numbers are ugly. The investor call is Friday. Someone suggested we 'reframe the narrative.' Icarus can generate scenarios.",
       text: "Ask the AI to 'Invent a plausible revenue scenario where we don't go bankrupt' for the investor deck.",
       onRight: {
         label: 'Generate',
@@ -475,6 +485,7 @@ export const ROLE_CARDS: Record<RoleType, Card[]> = {
       source: AppSource.SLACK,
       sender: 'FACILITIES',
       context: 'SECURITY_CHECK',
+      storyContext: "Last round of the night. Empty floor. You're wiping down the hot-desk area when you see it: a monitor, a sticky note, a password.",
       text: "You see a yellow sticky note on a monitor that says 'Admin123'. Do you leave it there?",
       onRight: {
         label: 'Leave',

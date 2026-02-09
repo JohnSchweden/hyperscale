@@ -26,6 +26,8 @@ export interface Card {
   source: AppSource;
   sender: string;
   context: string;
+  /** Optional scene-setting line to immerse the user before the main ask */
+  storyContext?: string;
   text: string;
   onRight: {
     label: string;
