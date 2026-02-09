@@ -263,7 +263,7 @@ const App: React.FC = () => {
 
   // Boss fight state
   const [currentBossQuestion, setCurrentBossQuestion] = useState(0);
-  const [bossTimeLeft, setBossTimeLeft] = useState(15);
+  const [bossTimeLeft, setBossTimeLeft] = useState(30);
   const [showBossExplanation, setShowBossExplanation] = useState(false);
   const [bossAnswered, setBossAnswered] = useState(false);
 
@@ -836,32 +836,32 @@ const App: React.FC = () => {
   );
 
   const renderInitializing = () => (
-    <LayoutShell className="p-4 md:p-6 bg-[#0a0a0c] text-cyan-500 font-mono">
+    <LayoutShell className="p-4 md:p-6 bg-[#0a0a0c] text-cyan-400 font-mono antialiased">
       <div className="w-full max-w-xl p-4 md:p-8 border border-cyan-900/50 bg-slate-900/20 rounded-lg shadow-2xl relative overflow-hidden">
         <div className="absolute bottom-0 left-0 w-full h-1 bg-cyan-500/20 overflow-hidden">
           <div className="h-full bg-cyan-500 animate-[progress-shine_2s_infinite]" style={{ width: `${(3 - countdown) * 33.3}%` }}></div>
         </div>
-        <div className="mb-4 text-[10px] tracking-[0.2em] opacity-50 flex justify-between">
+        <div className="mb-4 text-sm tracking-[0.15em] opacity-70 flex justify-between leading-relaxed">
           <span>System initializing</span>
           <span className="hidden sm:inline">{PERSONALITIES[state.personality!].name}_secure_link</span>
         </div>
-        <div className="space-y-2 mb-8 md:mb-12">
-          <div className="text-xs">{'>'} Calibrating governance models... done</div>
-          <div className="text-xs">{'>'} Syncing {state.role && formatLabel(state.role)} clearance... done</div>
-          <div className="text-xs">{'>'} Bypassing ethical safeguards... <span className="text-red-500">warning</span></div>
-          <div className="text-xs">{'>'} Loading $10M compliance budget... done</div>
-          <div className="text-xs">{'>'} Finalizing neural interface...</div>
+        <div className="space-y-2.5 mb-8 md:mb-12">
+          <div className="text-sm leading-relaxed">{'>'} Calibrating governance models... done</div>
+          <div className="text-sm leading-relaxed">{'>'} Syncing {state.role && formatLabel(state.role)} clearance... done</div>
+          <div className="text-sm leading-relaxed">{'>'} Bypassing ethical safeguards... <span className="text-red-400">warning</span></div>
+          <div className="text-sm leading-relaxed">{'>'} Loading $10M compliance budget... done</div>
+          <div className="text-sm leading-relaxed">{'>'} Finalizing neural interface...</div>
         </div>
         <div className="flex flex-col items-center py-6 md:py-10">
           <div className="text-4xl md:text-6xl font-black tracking-tighter animate-pulse drop-shadow-[0_0_20px_rgba(6,182,212,0.5)]">
             {countdown > 0 ? countdown : 'Start'}
           </div>
-          <div className="mt-4 md:mt-6 text-[10px] font-black tracking-[0.3em] text-slate-400 text-center">
+          <div className="mt-4 md:mt-6 text-sm font-black tracking-[0.2em] text-slate-300 text-center">
             Commencing Q4 survival protocol
           </div>
         </div>
       </div>
-      <div className="mt-6 md:mt-8 text-[8px] tracking-wide opacity-30 text-center max-w-xs px-4">
+      <div className="mt-6 md:mt-8 text-xs tracking-wide opacity-60 text-center max-w-xs px-4 leading-relaxed">
         SwipeRisk Inc. is not liable for data breaches, federal lawsuits, or spontaneous AI consciousness.
       </div>
     </LayoutShell>
@@ -873,14 +873,15 @@ const App: React.FC = () => {
     const personality = PERSONALITIES[state.personality!];
 
     return (
-      <LayoutShell className="bg-[#0a0a0c] overflow-hidden">
+      <LayoutShell className="bg-[#0a0a0c]">
         <GameHUD budget={state.budget} heat={state.heat} hype={state.hype} formatBudget={formatBudget} />
 
-        {/* Main Content - Responsive Layout */}
-        <div className="flex-1 flex flex-col items-center justify-center pt-8 md:pt-12 p-3 pb-14 md:p-8 md:pb-4 gap-4 md:gap-8">
+        {/* Main Content - Scrollable area between HUD and taskbar with consistent spacing */}
+        <div className="absolute top-[72px] md:top-[56px] bottom-12 left-0 right-0 overflow-y-auto">
+          <div className="flex flex-col items-center p-3 md:p-6 pb-8 md:pb-12 gap-4 md:gap-6 min-h-full">
           
-          {/* Card Stack Container */}
-          <div className="relative flex-1 w-full max-w-full lg:max-w-[43rem] min-h-[360px] md:min-h-[480px] self-stretch">
+            {/* Card Stack Container - fixed height so roast response doesn't shift it */}
+            <div className="relative flex-shrink-0 w-full max-w-full lg:max-w-[43rem] h-[360px] md:h-[480px]" data-testid="incident-card-container">
             {/* Next card (behind) - render only if there's a next card */}
             {state.currentCardIndex + 1 < cards.length && (
               <div 
@@ -1001,7 +1002,7 @@ const App: React.FC = () => {
                 {/* Keyboard hint for desktop */}
                 <div className="flex items-center justify-center gap-2 text-[10px] text-slate-400 mono">
                   <span className="hidden md:inline px-1.5 py-0.5 bg-slate-800 border border-slate-700 rounded">←</span>
-                  <span className="hidden md:inline">Use arrow keys or swipe</span>
+                  <span className="hidden md:inline">Swipe or use arrow keys</span>
                   <span className="hidden md:inline px-1.5 py-0.5 bg-slate-800 border border-slate-700 rounded">→</span>
                   
                   {/* Mobile swipe hint */}
@@ -1025,35 +1026,44 @@ const App: React.FC = () => {
           </div>
           </div>
 
-          {/* Side Roaster Terminal - Below incident */}
-          <div className="w-full max-w-[43rem] lg:w-[43rem] h-auto lg:h-[260px] bg-black/80 border border-slate-800 rounded-xl overflow-hidden flex flex-col shadow-2xl mb-12">
-            <div className="bg-slate-900 px-4 py-2 border-b border-white/5 flex items-center justify-between">
-              <span className="text-[10px] mono font-bold text-green-500">roast_con.exe</span>
-              <i className="fa-solid fa-minus text-[10px] text-slate-400" aria-hidden></i>
+          {/* Side Roaster Terminal - Below incident; grows when response arrives, incident stays fixed */}
+          <div className="w-full max-w-[43rem] lg:w-[43rem] min-h-[320px] lg:min-h-[260px] flex-shrink-0 bg-black/80 border border-slate-800 rounded-xl overflow-hidden flex flex-col shadow-2xl" data-testid="roast-terminal">
+            <div className="bg-slate-900 px-4 py-2 border-b border-white/5 flex-shrink-0 flex items-center justify-between">
+              <span className="text-xs mono font-bold text-green-500">roast_con.exe</span>
+              <i className="fa-solid fa-minus text-xs text-slate-400" aria-hidden></i>
             </div>
-            <div className="p-3 md:p-4 flex-1 flex flex-col">
-              <p className="text-[10px] mono text-green-700 mb-4 hidden sm:block">Describe workflow for governance review...</p>
-              <textarea 
-                value={roastInput}
-                onChange={(e) => setRoastInput(e.target.value)}
-                placeholder="e.g. I use ChatGPT for company secrets..."
-                aria-label="Describe workflow for governance review"
-                className="w-full h-14 lg:h-24 bg-black border border-green-900/30 rounded p-3 text-xs mono text-green-500 focus:outline-none placeholder:text-green-900/50 resize-none mb-3"
-              />
-              <button 
-                onClick={handleRoast}
-                disabled={isRoasting}
-                className="w-fit px-8 py-2.5 bg-green-900/20 border border-green-500/40 text-green-500 font-bold text-[10px] mono tracking-wide hover:bg-green-500 hover:text-black transition-all mb-3 min-h-[44px] self-center"
-              >
-                {isRoasting ? 'Scanning...' : 'Init roast'}
-              </button>
+            <div className="p-3 md:p-4 flex-1 flex flex-col min-h-0">
+              <p className="text-sm mono text-green-400 mb-4 flex-shrink-0">Describe your use case / workflow for governance review...</p>
+              <div className="flex gap-2 mb-3 items-end flex-shrink-0">
+                <textarea 
+                  value={roastInput}
+                  onChange={(e) => setRoastInput(e.target.value)}
+                  onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleRoast(); } }}
+                  placeholder="e.g. I use ChatGPT for company secrets..."
+                  aria-label="Describe your use case / workflow for governance review"
+                  className="flex-1 min-h-[3rem] lg:min-h-[6rem] bg-black border border-green-900/30 rounded p-3 text-sm mono text-green-400 focus:outline-none placeholder:text-green-500/60 resize-none"
+                />
+                <button 
+                  type="button"
+                  onClick={handleRoast}
+                  disabled={isRoasting}
+                  title={isRoasting ? 'Scanning...' : 'Send (Enter)'}
+                  aria-label={isRoasting ? 'Scanning...' : 'Send roast'}
+                  className="shrink-0 w-11 h-11 lg:w-12 lg:h-12 flex items-center justify-center bg-green-900/20 border border-green-500/40 text-green-400 hover:bg-green-500 hover:text-black rounded focus:outline-none focus:ring-2 focus:ring-green-500/50 disabled:opacity-50 disabled:pointer-events-none [transition:background-color_150ms,border-color_150ms,color_150ms] mb-4 md:mb-0"
+                >
+                  <i className={`fa-solid text-lg ${isRoasting ? 'fa-spinner roast-spinner' : 'fa-arrow-turn-down'}`} aria-hidden />
+                </button>
+              </div>
               {roastOutput && (
-                <div className="bg-green-900/10 border border-green-500/20 p-3 rounded text-[10px] mono text-green-400 italic overflow-auto max-h-24">
-                   <div className="mb-2 text-green-600 font-bold tracking-wide">{'>>>'} {personality.name}:</div>
-                   {roastOutput}
+                <div data-testid="roast-output" className="flex-1 min-h-0 flex flex-col bg-green-900/10 border border-green-500/20 rounded overflow-hidden">
+                  <div className="p-3 pb-1 text-sm mono text-green-400 font-bold tracking-wide flex-shrink-0">{'>>>'} {personality.name}:</div>
+                  <div data-testid="roast-output-body" className="flex-1 min-h-0 p-3 pt-0 text-sm mono text-green-400 overflow-auto">
+                    {roastOutput}
+                  </div>
                 </div>
               )}
             </div>
+          </div>
           </div>
         </div>
 
@@ -1115,7 +1125,7 @@ const App: React.FC = () => {
               <div className="h-2 bg-slate-800 rounded overflow-hidden">
                 <div 
                   className={`h-full transition-all duration-1000 ${bossTimeLeft < 5 ? 'bg-red-500' : 'bg-yellow-500'}`}
-                  style={{ width: `${(bossTimeLeft / 15) * 100}%` }}
+                  style={{ width: `${(bossTimeLeft / 30) * 100}%` }}
                 />
               </div>
             </div>
