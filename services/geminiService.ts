@@ -35,7 +35,9 @@ let audioContext: AudioContext | null = null;
 let activeSources: AudioBufferSourceNode[] = [];
 
 // Generate speech from text using gemini-2.5-flash-preview-tts
+// Set VITE_ENABLE_SPEECH=false in .env to disable TTS
 export const speak = async (text: string, voiceName: string = 'Kore') => {
+  if (import.meta.env.VITE_ENABLE_SPEECH === 'false') return;
   try {
     // Create a new GoogleGenAI instance right before making an API call
     const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
@@ -110,11 +112,18 @@ export const cleanupAudio = () => {
 export const getRoast = async (workflow: string, personalityName: string): Promise<string> => {
   try {
     // Create a new GoogleGenAI instance right before making an API call
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-    const prompt = `You are ${personalityName} from the satirical tech company HyperScale Inc. 
-    A user has described their current AI workflow: "${workflow}". 
-    Roast this workflow for its security flaws, privacy risks, and lack of governance. 
-    Be sarcastic, witty, and cynical. Keep it under 50 words.`;
+    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+    const prompt = `
+You are ${personalityName} from the satirical tech company HyperScale Inc.
+A user has described their current AI workflow: "${workflow}".
+
+**Step 1:** Analyze the workflow. Is it using public tools (high privacy risk) or enterprise/in-house tools (low privacy risk)?
+**Step 2:** Roast them based on that analysis.
+*   If **Public**: Roast them for leaking IP and causing a data breach.
+*   If **Private/In-house**: Roast them for blindly trusting AI code, creating "secure" garbage, or believing that a firewall fixes bad engineering.
+
+Be sarcastic, witty, and cynical. Keep it under 50 words.
+`;
     
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",

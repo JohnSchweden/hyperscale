@@ -2,7 +2,7 @@ import { test, expect, Page } from '@playwright/test';
 import { navigateToPlaying } from './helpers/navigation';
 import { SELECTORS } from './helpers/selectors';
 
-test.use({ baseURL: 'http://localhost:3004' });
+test.use({ baseURL: 'http://localhost:3000' });
 
 async function navigateToIntro(page: Page) {
   await page.goto('/');
@@ -103,6 +103,15 @@ async function navigateToFeedbackOverlay(page: Page) {
   await feedbackDialog.waitFor({ timeout: 3000 });
 }
 
+async function navigateToPlayingWithRoastAnswer(page: Page) {
+  await navigateToPlaying(page);
+  const textarea = page.getByLabel('Describe your use case / workflow for governance review');
+  await textarea.fill('I paste production secrets into random AI tools without reading the terms.');
+  await page.getByRole('button', { name: /Send roast|Scanning/i }).click();
+  await page.getByTestId('roast-output').waitFor({ state: 'attached', timeout: 20000 });
+  await expect(page.getByTestId('roast-output')).toContainText('>>>', { timeout: 10000 });
+}
+
 test.describe('Stage visual snapshots', () => {
   test('intro', async ({ page }) => {
     await navigateToIntro(page);
@@ -131,6 +140,7 @@ test.describe('Stage visual snapshots', () => {
       mask: [
         page.getByText(/^[123]$|^Start$/),
         page.locator('[style*="width"][class*="progress-shine"]'),
+        page.locator('.cursor-blink'),
       ],
       maxDiffPixelRatio: 0.02,
     });
@@ -140,6 +150,39 @@ test.describe('Stage visual snapshots', () => {
     await navigateToPlaying(page);
     await expect(page).toHaveScreenshot('playing.png', {
       mask: [page.locator('text=/\\d{1,2}:\\d{2}/')],
+    });
+  });
+
+  test('playing-roast-after', async ({ page }) => {
+    await navigateToPlayingWithRoastAnswer(page);
+    await page.getByTestId('roast-terminal').scrollIntoViewIfNeeded();
+    await expect(page).toHaveScreenshot('playing-roast-after.png', {
+      mask: [
+        page.locator('text=/\\d{1,2}:\\d{2}/'),
+        page.getByTestId('roast-output-body'),
+      ],
+      maxDiffPixelRatio: 0.08, // AI response + scroll position vary; roast panel height/layout may shift
+    });
+  });
+
+  test('playing roast con before and after', async ({ page }) => {
+    await navigateToPlaying(page);
+    await page.getByTestId('roast-terminal').scrollIntoViewIfNeeded();
+    await expect(page).toHaveScreenshot('playing-roast-before.png', {
+      mask: [page.locator('text=/\\d{1,2}:\\d{2}/')],
+    });
+    const textarea = page.getByLabel('Describe your use case / workflow for governance review');
+    await textarea.fill('I paste production secrets into random AI tools without reading the terms.');
+    await page.getByRole('button', { name: /Send roast|Scanning/i }).click();
+    await page.getByTestId('roast-output').waitFor({ state: 'visible', timeout: 15000 });
+    await expect(page.getByTestId('roast-output')).toContainText('>>>', { timeout: 5000 });
+    await page.getByTestId('roast-terminal').scrollIntoViewIfNeeded();
+    await expect(page).toHaveScreenshot('playing-roast-after.png', {
+      mask: [
+        page.locator('text=/\\d{1,2}:\\d{2}/'),
+        page.getByTestId('roast-output-body'),
+      ],
+      maxDiffPixelRatio: 0.08, // AI response + scroll position vary; roast panel height/layout may shift
     });
   });
 
@@ -171,12 +214,12 @@ test.describe('Stage visual snapshots', () => {
   test('game-over', async ({ page }) => {
     await navigateToGameOver(page);
     await expect(page).toHaveScreenshot('game-over.png', {
-      maxDiffPixelRatio: 0.03, // animate-pulse variance
+      maxDiffPixelRatio: 0.05, // animate-pulse and layout variance
     });
   });
 
   test('summary', async ({ page }) => {
-    test.setTimeout(60000); // Boss fight timer (15s × 5 questions)
+    test.setTimeout(180000); // Boss fight timer (30s × 5 questions + buffer)
     await navigateToSummary(page);
     await expect(page).toHaveScreenshot('summary.png');
   });

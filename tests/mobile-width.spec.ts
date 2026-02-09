@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { navigateToPlaying, getCard } from './helpers/navigation';
 import { SELECTORS } from './helpers/selectors';
 
-test.use({ baseURL: 'http://localhost:3004' });
+test.use({ baseURL: 'http://localhost:3000' });
 
 test.describe('Mobile Card Width', () => {
   // Reset viewport size after each test to avoid affecting other tests
@@ -18,7 +18,7 @@ test.describe('Mobile Card Width', () => {
     await navigateToPlaying(page);
     
     // Find card container
-    const cardContainer = await page.locator('.relative.flex-1.w-full').first();
+    const cardContainer = page.getByTestId('incident-card-container');
     const containerBox = await cardContainer.boundingBox();
     
     // Find actual card using shared selector

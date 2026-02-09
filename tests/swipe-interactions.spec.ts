@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { navigateToPlaying, getCard } from './helpers/navigation';
 import { SELECTORS } from './helpers/selectors';
 
-test.use({ baseURL: 'http://localhost:3004' });
+test.use({ baseURL: 'http://localhost:3000' });
 
 test.describe('Phase 2 Swipe Interactions', () => {
   test.beforeEach(async ({ page }) => {
@@ -66,8 +66,7 @@ test.describe('Phase 2 Swipe Interactions', () => {
   test('card stack renders next card', async ({ page }) => {
     // Check if next card element exists with correct styles
     const cardStackInfo = await page.evaluate(() => {
-      // Find the card container
-      const cardContainer = document.querySelector('[class*="relative flex-1"]');
+      const cardContainer = document.querySelector('[data-testid="incident-card-container"]');
       if (!cardContainer) return null;
       
       // Check for next card (should be first child with absolute positioning)

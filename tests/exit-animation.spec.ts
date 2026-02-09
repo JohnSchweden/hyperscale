@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { navigateToPlaying } from './helpers/navigation';
 import { SELECTORS } from './helpers/selectors';
 
-test.use({ baseURL: 'http://localhost:3004' });
+test.use({ baseURL: 'http://localhost:3000' });
 
 test.describe('Exit Animation Continuity', () => {
   test('card exits smoothly from current drag position', async ({ page }) => {

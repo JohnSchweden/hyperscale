@@ -195,7 +195,7 @@ function gameReducer(state: GameState, action: GameAction): GameState {
 
 const GameHUD = React.memo(function GameHUD({ budget, heat, hype, formatBudget }: GameHUDProps) {
   return (
-    <div className="absolute top-2 md:top-4 left-1/2 -translate-x-1/2 w-full max-w-4xl px-3 md:px-4 flex flex-col md:flex-row gap-2 md:gap-6 items-stretch md:items-center z-10">
+    <div className="absolute top-2 md:top-4 left-1/2 -translate-x-1/2 w-full max-w-4xl px-3 md:px-4 pb-2 md:pb-0 flex flex-col md:flex-row gap-2 md:gap-6 items-stretch md:items-center z-10">
       <div className="flex-1 space-y-1 min-w-0">
         <div className="flex justify-between text-[10px] font-black tracking-wide mb-1">
           <span className={`${budget < 2000000 ? 'text-red-500 animate-pulse' : 'text-green-400'} inline-flex items-center gap-1.5`}>
@@ -251,6 +251,7 @@ const App: React.FC = () => {
 
   const [roastInput, setRoastInput] = useState('');
   const [roastOutput, setRoastOutput] = useState<string | null>(null);
+  const roastOutputRef = useRef<HTMLDivElement>(null);
   const [isRoasting, setIsRoasting] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
   const [countdown, setCountdown] = useState(3);
@@ -290,6 +291,16 @@ const App: React.FC = () => {
     stageRef.current = state.stage;
     feedbackOverlayRef.current = feedbackOverlay;
   }, [state.stage, feedbackOverlay]);
+
+  useEffect(() => {
+    if (!roastOutput) return;
+    const el = roastOutputRef.current;
+    if (!el) return;
+    const id = requestAnimationFrame(() => {
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+    return () => cancelAnimationFrame(id);
+  }, [roastOutput]);
 
   // Audio cleanup on unmount
   useEffect(() => {
@@ -642,7 +653,7 @@ const App: React.FC = () => {
     const cards = ROLE_CARDS[state.role!];
     if (state.currentCardIndex + 1 >= cards.length) {
       setCurrentBossQuestion(0);
-      setBossTimeLeft(15);
+      setBossTimeLeft(30);
       setBossAnswered(false);
       setShowBossExplanation(false);
     }
@@ -656,6 +667,19 @@ const App: React.FC = () => {
     setSwipeDirection(null);
   };
 
+  // Space/Enter to dismiss feedback overlay (Next ticket)
+  useEffect(() => {
+    if (!feedbackOverlay) return;
+    const handleOverlayKey = (e: KeyboardEvent) => {
+      if (e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault();
+        nextIncident();
+      }
+    };
+    window.addEventListener('keydown', handleOverlayKey);
+    return () => window.removeEventListener('keydown', handleOverlayKey);
+  }, [feedbackOverlay, nextIncident]);
+
   const handleBossAnswer = (isCorrect: boolean) => {
     setBossAnswered(true);
     setShowBossExplanation(true);
@@ -668,7 +692,7 @@ const App: React.FC = () => {
       dispatch({ type: 'BOSS_COMPLETE', success: correctAnswers >= 3 });
     } else {
       setCurrentBossQuestion(prev => prev + 1);
-      setBossTimeLeft(15);
+      setBossTimeLeft(30);
       setBossAnswered(false);
       setShowBossExplanation(false);
     }
@@ -688,7 +712,7 @@ const App: React.FC = () => {
     setRoastOutput(null);
     setRoastInput('');
     setCurrentBossQuestion(0);
-    setBossTimeLeft(15);
+    setBossTimeLeft(30);
     setBossAnswered(false);
     setShowBossExplanation(false);
   };
@@ -836,32 +860,37 @@ const App: React.FC = () => {
   );
 
   const renderInitializing = () => (
-    <LayoutShell className="p-4 md:p-6 bg-[#0a0a0c] text-cyan-400 font-mono antialiased">
-      <div className="w-full max-w-xl p-4 md:p-8 border border-cyan-900/50 bg-slate-900/20 rounded-lg shadow-2xl relative overflow-hidden">
-        <div className="absolute bottom-0 left-0 w-full h-1 bg-cyan-500/20 overflow-hidden">
-          <div className="h-full bg-cyan-500 animate-[progress-shine_2s_infinite]" style={{ width: `${(3 - countdown) * 33.3}%` }}></div>
+    <LayoutShell className="p-4 md:p-6 bg-[#0a0a0c] text-green-400 font-mono antialiased !justify-center !pt-0">
+      <div className="w-full max-w-xl bg-black/80 border border-slate-800 rounded-xl shadow-2xl relative overflow-hidden">
+        {/* Title bar - same chrome as roast_con */}
+        <div className="flex items-center justify-between gap-2 px-4 py-2 bg-slate-900 border-b border-white/5 flex-shrink-0">
+          <div className="min-w-0">
+            <span className="text-xs md:text-sm tracking-[0.15em] opacity-90 truncate">System initializing</span>
+          </div>
+          <span className="hidden sm:inline text-[10px] md:text-xs tracking-wider opacity-60 shrink-0">{PERSONALITIES[state.personality!].name}_secure_link</span>
         </div>
-        <div className="mb-4 text-sm tracking-[0.15em] opacity-70 flex justify-between leading-relaxed">
-          <span>System initializing</span>
-          <span className="hidden sm:inline">{PERSONALITIES[state.personality!].name}_secure_link</span>
+        <div className="p-4 md:p-8">
+        <div className="absolute bottom-0 left-0 w-full h-1 bg-green-500/20 overflow-hidden rounded-b-lg">
+          <div className="h-full bg-green-500 animate-[progress-shine_2s_infinite]" style={{ width: `${((3 - countdown) / 3) * 100}%` }}></div>
         </div>
         <div className="space-y-2.5 mb-8 md:mb-12">
-          <div className="text-sm leading-relaxed">{'>'} Calibrating governance models... done</div>
-          <div className="text-sm leading-relaxed">{'>'} Syncing {state.role && formatLabel(state.role)} clearance... done</div>
-          <div className="text-sm leading-relaxed">{'>'} Bypassing ethical safeguards... <span className="text-red-400">warning</span></div>
-          <div className="text-sm leading-relaxed">{'>'} Loading $10M compliance budget... done</div>
-          <div className="text-sm leading-relaxed">{'>'} Finalizing neural interface...</div>
+          <div className="text-xs md:text-sm leading-relaxed">{'>'} Calibrating governance models... done</div>
+          <div className="text-xs md:text-sm leading-relaxed">{'>'} Syncing {state.role && formatLabel(state.role)} clearance... done</div>
+          <div className="text-xs md:text-sm leading-relaxed">{'>'} Bypassing ethical safeguards... <span className="text-red-400">warning</span></div>
+          <div className="text-xs md:text-sm leading-relaxed">{'>'} Loading $10M compliance budget... done</div>
+          <div className="text-xs md:text-sm leading-relaxed">{'>'} Finalizing neural interface...<span className="cursor-blink inline-block w-[7.5px] h-4 md:w-[9px] md:h-[21px] bg-green-400 ml-0.5 align-middle -translate-y-px" aria-hidden /></div>
         </div>
         <div className="flex flex-col items-center py-6 md:py-10">
-          <div className="text-4xl md:text-6xl font-black tracking-tighter animate-pulse drop-shadow-[0_0_20px_rgba(6,182,212,0.5)]">
+          <div className="text-4xl md:text-6xl font-black tracking-tighter animate-pulse drop-shadow-[0_0_20px_rgba(34,197,94,0.5)]">
             {countdown > 0 ? countdown : 'Start'}
           </div>
-          <div className="mt-4 md:mt-6 text-sm font-black tracking-[0.2em] text-slate-300 text-center">
+          <div className="mt-4 md:mt-6 text-xs md:text-sm font-black tracking-[0.2em] text-slate-300 text-center">
             Commencing Q4 survival protocol
           </div>
         </div>
+        </div>
       </div>
-      <div className="mt-6 md:mt-8 text-xs tracking-wide opacity-60 text-center max-w-xs px-4 leading-relaxed">
+      <div className="mt-6 md:mt-8 text-[11px] md:text-xs tracking-wide opacity-60 text-center max-w-xs px-4 leading-relaxed mx-auto">
         SwipeRisk Inc. is not liable for data breaches, federal lawsuits, or spontaneous AI consciousness.
       </div>
     </LayoutShell>
@@ -876,16 +905,16 @@ const App: React.FC = () => {
       <LayoutShell className="bg-[#0a0a0c]">
         <GameHUD budget={state.budget} heat={state.heat} hype={state.hype} formatBudget={formatBudget} />
 
-        {/* Main Content - Scrollable area between HUD and taskbar with consistent spacing */}
-        <div className="absolute top-[72px] md:top-[56px] bottom-12 left-0 right-0 overflow-y-auto">
+        {/* Main Content - Scrollable area starts exactly below HUD (incl. mobile pb-2) */}
+        <div className="absolute top-[80px] md:top-[56px] bottom-12 left-0 right-0 overflow-y-auto">
           <div className="flex flex-col items-center p-3 md:p-6 pb-8 md:pb-12 gap-4 md:gap-6 min-h-full">
           
             {/* Card Stack Container - fixed height so roast response doesn't shift it */}
-            <div className="relative flex-shrink-0 w-full max-w-full lg:max-w-[43rem] h-[360px] md:h-[480px]" data-testid="incident-card-container">
+            <div className="relative flex-shrink-0 w-full max-w-full lg:max-w-[43rem] h-[420px] md:h-[560px]" data-testid="incident-card-container">
             {/* Next card (behind) - render only if there's a next card */}
             {state.currentCardIndex + 1 < cards.length && (
               <div 
-                className="absolute inset-0 bg-slate-900/90 border border-slate-700 rounded-xl overflow-hidden shadow-2xl flex flex-col"
+                className="absolute inset-0 bg-slate-900 border border-slate-700 rounded-xl overflow-hidden shadow-2xl flex flex-col"
                 style={{
                   zIndex: 0,
                   transform: 'scale(0.95)',
@@ -915,8 +944,13 @@ const App: React.FC = () => {
                         <div className="text-[9px] text-slate-600 mono truncate">Incident #{(state.currentCardIndex + 2) * 324}</div>
                       </div>
                     </div>
+                    {cards[state.currentCardIndex + 1].storyContext && (
+                      <p className="text-xs text-slate-500 line-clamp-2">
+                        {cards[state.currentCardIndex + 1].storyContext}
+                      </p>
+                    )}
                     <p className="text-sm md:text-base font-medium leading-relaxed text-slate-400 line-clamp-3">
-                      "{cards[state.currentCardIndex + 1].text}"
+                      {cards[state.currentCardIndex + 1].text}
                     </p>
                   </div>
                 </div>
@@ -927,7 +961,7 @@ const App: React.FC = () => {
             <div
               ref={cardRef}
               data-testid="incident-card"
-              className={`absolute inset-0 bg-slate-900/90 border border-slate-700 rounded-xl overflow-hidden shadow-2xl flex flex-col select-none swipe-card ${isFirstCard && !cardExitDirection && !isDragging && !hasDragged ? 'ticket-transition' : ''} ${isSnappingBack ? 'spring-snap-back' : ''}`}
+              className={`absolute inset-0 bg-slate-900 border border-slate-700 rounded-xl overflow-hidden shadow-2xl flex flex-col select-none swipe-card ${isFirstCard && !cardExitDirection && !isDragging && !hasDragged ? 'ticket-transition' : ''} ${isSnappingBack ? 'spring-snap-back' : ''}`}
               key={state.currentCardIndex}
               onTouchStart={handleTouchStart}
               onTouchMove={handleTouchMove}
@@ -994,8 +1028,13 @@ const App: React.FC = () => {
                     <div className="text-[9px] md:text-[10px] text-slate-400 mono truncate">Incident #{(state.currentCardIndex + 1) * 324}</div>
                   </div>
                 </div>
+                {currentCard.storyContext && (
+                  <p className="text-sm md:text-base text-slate-400 leading-relaxed">
+                    {currentCard.storyContext}
+                  </p>
+                )}
                 <p className="text-base md:text-xl font-medium leading-relaxed text-slate-200">
-                  "{currentCard.text}"
+                  {currentCard.text}
                 </p>
               </div>
               <div className="flex flex-col gap-3 mt-6 md:mt-8 shrink-0">
@@ -1026,8 +1065,8 @@ const App: React.FC = () => {
           </div>
           </div>
 
-          {/* Side Roaster Terminal - Below incident; grows when response arrives, incident stays fixed */}
-          <div className="w-full max-w-[43rem] lg:w-[43rem] min-h-[320px] lg:min-h-[260px] flex-shrink-0 bg-black/80 border border-slate-800 rounded-xl overflow-hidden flex flex-col shadow-2xl" data-testid="roast-terminal">
+          {/* Side Roaster Terminal - Compact when no output; grows when response arrives */}
+          <div className={`w-full max-w-[43rem] lg:w-[43rem] flex-shrink-0 bg-black/80 border border-slate-800 rounded-xl overflow-hidden flex flex-col shadow-2xl ${roastOutput ? 'min-h-[320px] lg:min-h-[260px]' : 'min-h-0'}`} data-testid="roast-terminal">
             <div className="bg-slate-900 px-4 py-2 border-b border-white/5 flex-shrink-0 flex items-center justify-between">
               <span className="text-xs mono font-bold text-green-500">roast_con.exe</span>
               <i className="fa-solid fa-minus text-xs text-slate-400" aria-hidden></i>
@@ -1049,13 +1088,13 @@ const App: React.FC = () => {
                   disabled={isRoasting}
                   title={isRoasting ? 'Scanning...' : 'Send (Enter)'}
                   aria-label={isRoasting ? 'Scanning...' : 'Send roast'}
-                  className="shrink-0 w-11 h-11 lg:w-12 lg:h-12 flex items-center justify-center bg-green-900/20 border border-green-500/40 text-green-400 hover:bg-green-500 hover:text-black rounded focus:outline-none focus:ring-2 focus:ring-green-500/50 disabled:opacity-50 disabled:pointer-events-none [transition:background-color_150ms,border-color_150ms,color_150ms] mb-4 md:mb-0"
+                  className="shrink-0 w-11 h-11 lg:w-12 lg:h-12 flex items-center justify-center bg-green-900/20 border border-green-500/40 text-green-400 hover:bg-green-500 hover:text-black rounded focus:outline-none focus:ring-2 focus:ring-green-500/50 disabled:opacity-50 disabled:pointer-events-none [transition:background-color_150ms,border-color_150ms,color_150ms]"
                 >
                   <i className={`fa-solid text-lg ${isRoasting ? 'fa-spinner roast-spinner' : 'fa-arrow-turn-down'}`} aria-hidden />
                 </button>
               </div>
               {roastOutput && (
-                <div data-testid="roast-output" className="flex-1 min-h-0 flex flex-col bg-green-900/10 border border-green-500/20 rounded overflow-hidden">
+                <div ref={roastOutputRef} data-testid="roast-output" className="flex-1 min-h-0 flex flex-col bg-green-900/10 border border-green-500/20 rounded overflow-hidden">
                   <div className="p-3 pb-1 text-sm mono text-green-400 font-bold tracking-wide flex-shrink-0">{'>>>'} {personality.name}:</div>
                   <div data-testid="roast-output-body" className="flex-1 min-h-0 p-3 pt-0 text-sm mono text-green-400 overflow-auto">
                     {roastOutput}
@@ -1313,7 +1352,7 @@ const App: React.FC = () => {
       </div>
       {state.stage === GameStage.PLAYING && feedbackOverlay && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 bg-black/70 backdrop-blur-sm modal-overlay" data-testid="feedback-dialog" role="dialog" aria-modal="true" aria-labelledby="feedback-overlay-title" aria-describedby="feedback-overlay-desc">
-          <div className="w-full max-w-lg bg-slate-900 border border-slate-700 p-6 md:p-10 rounded-2xl text-center shadow-2xl max-h-[90vh] overflow-y-auto modal-content">
+          <div className="w-full max-w-lg bg-slate-900 border border-slate-700 p-6 md:p-10 rounded-2xl text-center shadow-2xl max-h-[90vh] overflow-y-auto modal-content antialiased">
             <h2 id="feedback-overlay-title" className="sr-only">Governance feedback</h2>
             <div className={`text-4xl md:text-6xl mb-4 md:mb-6 ${feedbackOverlay.fine > 0 ? 'text-red-500' : 'text-green-500'}`}>
               <i className={`fa-solid ${feedbackOverlay.fine > 0 ? 'fa-triangle-exclamation' : 'fa-circle-check'}`} aria-hidden></i>
@@ -1321,18 +1360,18 @@ const App: React.FC = () => {
             
             {feedbackOverlay.fine > 0 && (
               <div className="mb-4 md:mb-6 p-3 md:p-4 bg-red-900/20 border border-red-500/30 rounded-lg">
-                <div className="text-red-400 text-xs font-bold tracking-wide mb-1">Violation fine</div>
+                <div className="text-red-400 text-xs md:text-sm font-bold tracking-wide mb-1 leading-relaxed">Violation fine</div>
                 <div className="text-2xl md:text-3xl font-black text-red-500">-{formatBudget(feedbackOverlay.fine)}</div>
-                <div className="text-red-400/70 text-xs mt-1">{feedbackOverlay.violation}</div>
+                <div className="text-red-400/80 text-xs md:text-sm mt-1 leading-relaxed">{feedbackOverlay.violation}</div>
               </div>
             )}
             
-            <div className="text-cyan-400 mono text-[10px] mb-3 md:mb-4 font-bold tracking-wide">{PERSONALITIES[state.personality!].name}'s review</div>
-            <p className="text-lg md:text-2xl mb-4 md:mb-8 italic text-slate-100 font-light leading-relaxed">"{feedbackOverlay.text}"</p>
+            <div className="text-cyan-400 mono text-xs md:text-sm mb-3 md:mb-4 font-bold tracking-wide">{PERSONALITIES[state.personality!].name}'s review</div>
+            <p className="text-lg md:text-2xl mb-4 md:mb-8 text-slate-100 font-light leading-relaxed">"{feedbackOverlay.text}"</p>
             
             <div id="feedback-overlay-desc" className="bg-black/50 border border-white/5 p-4 md:p-6 rounded-xl text-left mb-4 md:mb-8 min-h-[4.5rem]">
-              <div className="text-[10px] font-bold text-slate-400 tracking-wide mb-3 border-b border-white/5 pb-2">Governance alert</div>
-              <p className="text-xs md:text-sm text-slate-400 leading-relaxed font-light">{feedbackOverlay.lesson}</p>
+              <div className="text-xs md:text-sm font-bold text-slate-300 tracking-wide mb-3 border-b border-white/5 pb-2">Governance alert</div>
+              <p className="text-sm md:text-base text-slate-300 leading-relaxed font-light">{feedbackOverlay.lesson}</p>
             </div>
 
             <button 
