@@ -22,7 +22,7 @@ test.describe('Button Highlight on Swipe', () => {
       return { backgroundColor: s.backgroundColor, borderColor: s.borderColor, color: s.color };
     });
     console.log('Right button styles before swipe:', rightStylesBefore);
-    expect(rightStylesBefore.backgroundColor).not.toContain('rgb(6, 182, 212)'); // cyan-500
+    expect(rightStylesBefore.backgroundColor).not.toMatch(/rgba?\(6,\s*182,\s*212/); // cyan-500
 
     // Start drag to the right
     await page.mouse.move(startX, startY);
@@ -39,7 +39,7 @@ test.describe('Button Highlight on Swipe', () => {
       return { backgroundColor: s.backgroundColor, borderColor: s.borderColor, color: s.color };
     });
     console.log('Right button styles during swipe:', rightStylesAfter);
-    expect(rightStylesAfter.backgroundColor).toContain('rgb(6, 182, 212)'); // cyan-500
+    expect(rightStylesAfter.backgroundColor).toMatch(/rgba?\(6,\s*182,\s*212/); // cyan-500 (rgb or rgba)
     expect(rightStylesAfter.color).toContain('rgb(0, 0, 0)'); // text-black
 
     // Release
@@ -65,7 +65,7 @@ test.describe('Button Highlight on Swipe', () => {
       return { backgroundColor: s.backgroundColor, borderColor: s.borderColor, color: s.color };
     });
     console.log('Left button styles before swipe:', leftStylesBefore);
-    expect(leftStylesBefore.backgroundColor).not.toContain('rgb(6, 182, 212)'); // cyan-500
+    expect(leftStylesBefore.backgroundColor).not.toMatch(/rgba?\(6,\s*182,\s*212/); // cyan-500
 
     // Start drag to the left
     await page.mouse.move(startX, startY);
@@ -82,7 +82,7 @@ test.describe('Button Highlight on Swipe', () => {
       return { backgroundColor: s.backgroundColor, borderColor: s.borderColor, color: s.color };
     });
     console.log('Left button styles during swipe:', leftStylesAfter);
-    expect(leftStylesAfter.backgroundColor).toContain('rgb(6, 182, 212)'); // cyan-500
+    expect(leftStylesAfter.backgroundColor).toMatch(/rgba?\(6,\s*182,\s*212/); // cyan-500 (rgb or rgba)
     expect(leftStylesAfter.color).toContain('rgb(0, 0, 0)'); // text-black
 
     // Release

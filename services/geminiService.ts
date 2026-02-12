@@ -108,12 +108,17 @@ export const cleanupAudio = () => {
   }
 };
 
-// Generate satirical roast using gemini-3-flash-preview
+// Generate satirical roast using Gemini text models
+const ROAST_MODELS = ["gemini-2.5-flash-lite", "gemini-2.5-flash"] as const;
+
 export const getRoast = async (workflow: string, personalityName: string): Promise<string> => {
-  try {
-    // Create a new GoogleGenAI instance right before making an API call
-    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-    const prompt = `
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) {
+    console.error("Roast Error: GEMINI_API_KEY not set in .env.local");
+    return "Roast disabled: Set GEMINI_API_KEY in .env.local to enable.";
+  }
+
+  const prompt = `
 You are ${personalityName} from the satirical tech company HyperScale Inc.
 A user has described their current AI workflow: "${workflow}".
 
@@ -124,16 +129,22 @@ A user has described their current AI workflow: "${workflow}".
 
 Be sarcastic, witty, and cynical. Keep it under 50 words.
 `;
-    
-    const response = await ai.models.generateContent({
-      model: "gemini-3-flash-preview",
-      contents: prompt,
-    });
-    
-    // Access the generated text directly from the response property
-    return response.text || "Even for you, this is remarkably insecure.";
-  } catch (error) {
-    console.error("Roast Error:", error);
-    return "The auditors found your workflow so bad they broke my AI.";
+
+  const ai = new GoogleGenAI({ apiKey });
+
+  for (const model of ROAST_MODELS) {
+    try {
+      const response = await ai.models.generateContent({
+        model,
+        contents: prompt,
+      });
+      return response.text || "Even for you, this is remarkably insecure.";
+    } catch (error) {
+      console.warn(`Roast Error (${model}):`, error);
+      // Try next model
+    }
   }
+
+  console.error("Roast Error: All models failed");
+  return "The auditors found your workflow so bad they broke my AI.";
 };

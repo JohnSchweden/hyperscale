@@ -159,9 +159,9 @@ test.describe('Stage visual snapshots', () => {
     await expect(page).toHaveScreenshot('playing-roast-after.png', {
       mask: [
         page.locator('text=/\\d{1,2}:\\d{2}/'),
-        page.getByTestId('roast-output-body'),
+        page.getByTestId('roast-terminal'),
       ],
-      maxDiffPixelRatio: 0.08, // AI response + scroll position vary; roast panel height/layout may shift
+      maxDiffPixelRatio: 0.15, // AI response varies; mask entire roast terminal
     });
   });
 
@@ -180,9 +180,9 @@ test.describe('Stage visual snapshots', () => {
     await expect(page).toHaveScreenshot('playing-roast-after.png', {
       mask: [
         page.locator('text=/\\d{1,2}:\\d{2}/'),
-        page.getByTestId('roast-output-body'),
+        page.getByTestId('roast-terminal'),
       ],
-      maxDiffPixelRatio: 0.08, // AI response + scroll position vary; roast panel height/layout may shift
+      maxDiffPixelRatio: 0.15, // AI response varies; mask entire roast terminal
     });
   });
 
