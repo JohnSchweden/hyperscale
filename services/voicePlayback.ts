@@ -9,7 +9,7 @@ const ERROR_MESSAGES = {
 export async function loadVoice(personality: string, trigger: string): Promise<void> {
   const basePath = '/audio/voices';
   const personalityDir = `${basePath}/${personality.toLowerCase()}`;
-  const filename = trigger.replace(/_/g, '-') + '.wav';
+  const filename = trigger + '.wav';
   const filePath = `${personalityDir}/${filename}`;
 
   console.log('[Voice] Loading:', filePath);

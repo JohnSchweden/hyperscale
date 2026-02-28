@@ -465,28 +465,29 @@ const App: React.FC = () => {
   useEffect(() => {
     if (feedbackOverlay) {
       const personality = state.personality!.toLowerCase();
-      let trigger = feedbackOverlay.choice.toLowerCase() + '_' + 
-        (feedbackOverlay.choice === 'LEFT' ? 'ignore' : 
-         feedbackOverlay.choice === 'RIGHT' ? 'install' : 
-         feedbackOverlay.choice === 'RIGHT' ? 'debug' : 'paste');
+      let trigger = 'feedback_ignore';
       
-      // Map feedback to appropriate trigger
-      if (feedbackOverlay.text.includes('public version of ChatGPT')) {
+      // Map based on the choice label
+      const feedbackText = feedbackOverlay.text.toLowerCase();
+      
+      if (feedbackText.includes('paste') || feedbackText.includes('open-source') || feedbackText.includes('trade secrets')) {
         trigger = 'feedback_paste';
-      } else if (feedbackOverlay.text.includes('unverified library')) {
+      } else if (feedbackText.includes('install') || feedbackText.includes('keylogger') || feedbackText.includes('library')) {
         trigger = 'feedback_install';
-      } else if (feedbackOverlay.text.includes('debug')) {
+      } else if (feedbackText.includes('debug') || feedbackText.includes('slow') || feedbackText.includes('boring')) {
         trigger = 'feedback_debug';
-      } else if (feedbackOverlay.text.includes('ignore')) {
+      } else if (feedbackText.includes('ignore') || feedbackText.includes('wisdom') || feedbackText.includes('safety')) {
         trigger = 'feedback_ignore';
       }
+      
+      console.log('[Feedback] Playing voice:', trigger, 'for text:', feedbackOverlay.text.substring(0, 50));
       
       loadVoice(personality, trigger).then(() => {
         playVoice().catch(() => {
           console.error("Voice playback failed for feedback");
         });
-      }).catch(() => {
-        console.error("Voice loading failed for feedback");
+      }).catch((e) => {
+        console.error("Voice loading failed for feedback:", e.message);
       });
     }
   }, [feedbackOverlay, state.personality]);
