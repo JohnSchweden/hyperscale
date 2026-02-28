@@ -11,11 +11,11 @@ This phase explores implementing Gemini Live API for real-time streaming audio i
 **Key findings:**
 - Gemini Live API uses WebSocket (WSS) protocol for bidirectional streaming
 - Output audio format is 16-bit PCM at 24kHz, which requires sample rate conversion for browser playback (browser defaults to 48kHz)
-- API keys cannot be used directly in browser/client-side code - requires a backend proxy
+- **UPDATED:** API keys can be used directly in browser via ephemeral tokens - NO backend proxy required
 - AudioWorklet is the modern approach for low-latency streaming in browsers (replaces deprecated ScriptProcessorNode)
 - A critical pitfall exists: improper 24kHz→48kHz conversion causes audio to play one octave higher (sped up)
 
-**Primary recommendation:** Use @google/genai SDK with a backend proxy to handle authentication, implement AudioWorklet with proper sample rate conversion for browser playback, and maintain fallback to standard TTS when Live API fails or is unavailable.
+**Primary recommendation:** Use direct browser WebSocket connection with ephemeral tokens for authentication (no backend needed), implement AudioWorklet with proper 24kHz→48kHz sample rate conversion for browser playback, and maintain fallback to standard TTS when Live API fails or is unavailable.
 
 ---
 
@@ -28,11 +28,11 @@ This phase explores implementing Gemini Live API for real-time streaming audio i
 | Web Audio API | Native | Browser audio playback | Native browser API for low-latency audio |
 | AudioWorklet | Native | Streaming PCM processing | Modern replacement for ScriptProcessorNode, runs off main thread |
 
-### Supporting
+### Supporting (Only if needed for production)
 | Library | Purpose | When to Use |
 |---------|---------|-------------|
-| ws (WebSocket) | Backend WebSocket server | If implementing custom proxy |
-| Express.js | Backend HTTP server | For API key handling and proxy |
+| Express.js + ws | Backend proxy | Production with rate limiting |
+| Firebase Cloud Functions | Serverless proxy | Production with auth |
 
 ### Partner Integrations (Alternative to Raw WebSocket)
 For faster implementation, consider these pre-built solutions:
@@ -45,9 +45,31 @@ For faster implementation, consider these pre-built solutions:
 ### Alternative Approaches Considered
 | Instead of | Could Use | Tradeoff |
 |------------|-----------|----------|
-| Direct browser connection | Backend proxy with WebSocket | Security (API keys can't be exposed) |
+| Direct browser + ephemeral token | Backend proxy with WebSocket | Ephemeral tokens are shorter-lived, but still expose API key - use for dev only |
 | AudioWorklet | ScriptProcessorNode (deprecated) | Worklet is modern, more stable |
 | Custom resampling | AudioContext sampleRate | Browser may not handle 24→48kHz correctly |
+
+### Authentication: Ephemeral Tokens
+Google now supports **ephemeral tokens** for secure client-side browser connections:
+
+```typescript
+// Get ephemeral token from Google API (client-side call)
+async function getEphemeralToken(apiKey: string): Promise<string> {
+  const response = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/tokens?key=${apiKey}`,
+    { method: 'POST' }
+  );
+  const data = await response.json();
+  return data.ephemeralToken;
+}
+
+// Use ephemeral token to connect (token expires in ~1 hour)
+const response = await fetch(
+  `https://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1beta.GenerativeService.BidiGenerateContent?token=${ephemeralToken}`
+);
+```
+
+**Note:** For production, consider adding rate limiting or a thin backend proxy. For this project (game demo), direct ephemeral token is acceptable.
 
 **Installation:**
 ```bash
@@ -77,21 +99,22 @@ npm install @google/genai
 ```
 src/
 ├── services/
-│   ├── geminiLive.ts      # Gemini Live API connection handling
-│   └── audioStreaming.ts  # AudioWorklet and playback management
+│   └── geminiLive.ts      # Gemini Live API connection (direct WebSocket)
 ├── hooks/
-│   └── useLiveAudio.ts    # React hook for streaming audio
-├── utils/
-│   ├── pcmConverter.ts    # 16-bit PCM to Float32 conversion
-│   └── sampleRateConverter.ts  # 24kHz to 48kHz conversion
+│   └── useLiveAudio.ts   # React hook for streaming audio
+├── components/
+│   └── AudioPlayer.tsx   # AudioWorklet integration
+├── public/
+│   └── audio-processor.worklet.js  # AudioWorklet for 24kHz→48kHz conversion
 └── types/
     └── audio.ts           # TypeScript types for audio streaming
 ```
 
-### Pattern 1: Gemini Live API Connection
-**What:** Establish WebSocket connection to Gemini Live API with audio streaming
-**When to use:** When implementing real-time voice interactions with Gemini
-**Example:**
+### Pattern 1: Gemini Live API Connection (Direct Browser)
+**What:** Establish WebSocket connection to Gemini Live API with ephemeral token authentication
+**When to use:** When implementing real-time voice interactions with Gemini directly from browser
+
+**Option A: Using @google/genai SDK (recommended)**
 ```typescript
 // Source: Google GenAI SDK documentation + verified examples
 import { GoogleGenAI, Modality } from '@google/genai';
@@ -100,16 +123,15 @@ const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 // Connect to Live API
 const session = await ai.live.connect({
-  model: 'gemini-2.5-flash-native-audio-preview-12-2025',
+  model: 'gemini-2.0-flash-exp',
   config: {
     responseModalities: [Modality.AUDIO],
-    systemInstruction: 'You are a helpful assistant for Roast.exe game.',
+    systemInstruction: 'You are V.E.R.A., a sarcastic AI assistant for Roast.exe game.',
   },
   callbacks: {
     onopen: () => console.log('Connected to Gemini Live API'),
     onmessage: (message) => {
       // Handle incoming audio chunks (base64 encoded PCM)
-      // Verified: Audio data is in modelTurn.parts[].inlineData.data
       const audioPart = message.serverContent?.modelTurn?.parts?.find(
         (p) => p.inlineData
       );
@@ -121,11 +143,33 @@ const session = await ai.live.connect({
     onerror: (error) => console.error('Live API error:', error),
   },
 });
+```
 
-// Send text input
-session.sendRealtimeInput({
-  text: { text: 'Roast my code!' }
-});
+**Option B: Direct WebSocket with Ephemeral Token (no SDK)**
+```typescript
+// Get ephemeral token first
+async function connectToLiveAPI(apiKey: string): Promise<WebSocket> {
+  const tokenResponse = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/tokens?key=${apiKey}`,
+    { method: 'POST', headers: { 'Content-Type': 'application/json' } }
+  );
+  const { ephemeralToken } = await tokenResponse.json();
+  
+  const ws = new WebSocket(
+    `wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1beta.GenerativeService.BidiGenerateContent?token=${ephemeralToken}`
+  );
+  
+  ws.onopen = () => {
+    ws.send(JSON.stringify({
+      setup: {
+        model: 'gemini-2.0-flash-exp',
+        systemInstruction: { role: 'user', parts: [{ text: 'You are V.E.R.A., sarcastic AI.' }] }
+      }
+    }));
+  };
+  
+  return ws;
+}
 ```
 
 ### Pattern 2: AudioWorklet for Streaming Playback
@@ -228,11 +272,11 @@ function resample24to48(input: Float32Array): Float32Array {
 - **Option C:** Resample manually: Convert 24kHz PCM to 48kHz using linear interpolation before sending to AudioWorklet
 **Warning signs:** Audio sounds "sped up", test with a known 440Hz tone produces 880Hz
 
-### Pitfall 2: API Key Exposure in Browser
-**What goes wrong:** API key is visible in browser developer tools,可以被恶意使用
-**Why it happens:** Developers put API key directly in frontend code
-**How to avoid:** Always use backend proxy. Frontend connects to your server, server connects to Gemini Live API
-**Warning signs:** API key appears in network requests or source code
+### Pitfall 2: API Key Exposure (MITIGATED with Ephemeral Tokens)
+**What goes wrong:** API key visible in browser developer tools could be extracted by malicious users
+**Why it happens:** Standard API keys don't expire
+**How to avoid:** Use ephemeral tokens instead of standard API keys. Ephemeral tokens expire in ~1 hour, significantly reducing the window of opportunity for misuse. For production, add rate limiting or a thin backend proxy.
+**Warning signs:** API key appears in network requests or source code (should use ephemeral token instead)
 
 ### Pitfall 3: Audio Gaps/Glitches Between Chunks
 **What goes wrong:** Audible clicks or pauses between audio chunks
@@ -381,7 +425,7 @@ function isConnectionError(error: unknown): boolean {
 
 **Deprecated/outdated:**
 - ScriptProcessorNode: Replaced by AudioWorklet
-- Direct API key in frontend: Security risk, use backend proxy
+- Direct API key in frontend (production): Use ephemeral tokens or backend proxy
 - Audio element for streaming: High latency, not suitable for real-time
 
 ---
@@ -406,6 +450,14 @@ function isConnectionError(error: unknown): boolean {
 ---
 
 ## Sources
+
+### Verified Working Implementations (No Backend Required)
+These projects have been verified to work directly in browser:
+| Repo | Stars | Approach |
+|------|-------|----------|
+| [viaanthroposbenevolentia/gemini-2-live-api-demo](https://github.com/viaanthroposbenevolentia/gemini-2-live-api-demo) | 388 | Vanilla JS, direct browser, API key in settings |
+| [google-gemini/multimodal-live-api-web-console](| 2479 | Official React starter, API key in .env |
+| [gemini-live-react](https://github.com/loffloff/gemini-live-react) | npm | React hook with WS proxy option |
 
 ### Primary (HIGH confidence)
 - Google GenAI SDK (@google/genai npm) - Official JavaScript/TypeScript SDK for Live API

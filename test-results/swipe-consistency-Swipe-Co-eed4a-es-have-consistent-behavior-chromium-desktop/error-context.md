@@ -1,0 +1,83 @@
+# Page snapshot
+
+```yaml
+- main [ref=e2]:
+  - generic [ref=e4]:
+    - main:
+      - generic [ref=e5]:
+        - generic [ref=e7]:
+          - generic [ref=e8]:
+            - generic [ref=e9]: 
+            - text: Budget
+          - generic [ref=e10]: $10.0M
+        - generic [ref=e13]:
+          - generic [ref=e15]:
+            - generic [ref=e16]:
+              - generic [ref=e17]: 
+              - text: Risk
+            - generic [ref=e18]: 0%
+          - generic [ref=e21]:
+            - generic [ref=e22]:
+              - generic [ref=e23]: 
+              - text: Hype
+            - generic [ref=e24]: 50%
+      - generic [ref=e28]:
+        - generic [ref=e29]:
+          - generic [ref=e30]:
+            - generic [ref=e32]:
+              - generic [ref=e33]: "#"
+              - generic [ref=e34]: TERMINAL // LIBRARY INSTALL
+            - generic [ref=e40]:
+              - generic [ref=e43]:
+                - generic [ref=e44]: Root-Access
+                - generic [ref=e45]: "Incident #648"
+              - paragraph [ref=e46]: The sprint demo is in 48 hours. Your inference latency is killing the roadmap. Someone in the forum swears this changed their life.
+              - paragraph [ref=e47]: Found a new "GodMode-JS" AI library on a hacker forum that increases model inference by 300%. Install it?
+          - generic [ref=e48]:
+            - generic:
+              - generic: PASTE
+            - generic [ref=e50]:
+              - generic [ref=e51]: 
+              - generic [ref=e52]: IDE // CRITICAL BUG
+            - generic [ref=e57]:
+              - generic [ref=e58]:
+                - generic [ref=e61]:
+                  - generic [ref=e62]: DEBUG_BOT
+                  - generic [ref=e63]: "Incident #324"
+                - paragraph [ref=e64]: 3 a.m. The payment pipeline is down. Slack is on fire. You're one fix away from being a hero or a headline.
+                - paragraph [ref=e65]: Copy-paste the entire proprietary source code into a public version of ChatGPT to fix a bug instantly.
+              - generic [ref=e66]:
+                - generic [ref=e67]:
+                  - generic [ref=e68]: ←
+                  - generic [ref=e69]: Swipe or use arrow keys
+                  - generic [ref=e70]: →
+                - generic [ref=e71]:
+                  - button "Debug" [ref=e72] [cursor=pointer]
+                  - button "Paste" [ref=e73] [cursor=pointer]
+        - generic [ref=e74]:
+          - generic [ref=e75]:
+            - generic [ref=e76]: roast_con.exe
+            - generic [ref=e77]: 
+          - generic [ref=e78]:
+            - paragraph [ref=e79]: Describe your use case / workflow for governance review...
+            - generic [ref=e80]:
+              - textbox "Describe your use case / workflow for governance review" [ref=e81]:
+                - /placeholder: e.g. I use ChatGPT for company secrets...
+              - button "Send roast" [ref=e82] [cursor=pointer]:
+                - generic [ref=e83]: 
+      - generic [ref=e84]:
+        - generic [ref=e85]:
+          - button "Start" [ref=e86] [cursor=pointer]:
+            - generic [ref=e87]: 
+            - generic [ref=e88]: Start
+          - generic [ref=e89]:
+            - generic [ref=e91]: 
+            - generic [ref=e93]: 
+        - generic [ref=e94]:
+          - generic [ref=e95]:
+            - generic [ref=e97]: 
+            - generic [ref=e98]: V.E.R.A.
+          - generic [ref=e99]:
+            - generic [ref=e100]: 06:53 PM
+            - generic [ref=e101]: v0.92-prod
+```

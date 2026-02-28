@@ -1,0 +1,97 @@
+# Page snapshot
+
+```yaml
+- main [ref=e2]:
+  - generic [ref=e4]:
+    - main:
+      - generic [ref=e5]:
+        - generic [ref=e7]:
+          - generic [ref=e8]:
+            - generic [ref=e9]: 
+            - text: Budget
+          - generic [ref=e10]: $7.5M
+        - generic [ref=e13]:
+          - generic [ref=e15]:
+            - generic [ref=e16]:
+              - generic [ref=e17]: 
+              - text: Risk
+            - generic [ref=e18]: 45%
+          - generic [ref=e22]:
+            - generic [ref=e23]:
+              - generic [ref=e24]: 
+              - text: Hype
+            - generic [ref=e25]: 65%
+      - generic [ref=e29]:
+        - generic [ref=e30]:
+          - generic [ref=e31]:
+            - generic [ref=e33]:
+              - generic [ref=e34]: "#"
+              - generic [ref=e35]: TERMINAL // LIBRARY INSTALL
+            - generic [ref=e41]:
+              - generic [ref=e44]:
+                - generic [ref=e45]: Root-Access
+                - generic [ref=e46]: "Incident #648"
+              - paragraph [ref=e47]: The sprint demo is in 48 hours. Your inference latency is killing the roadmap. Someone in the forum swears this changed their life.
+              - paragraph [ref=e48]: Found a new "GodMode-JS" AI library on a hacker forum that increases model inference by 300%. Install it?
+          - generic [ref=e49]:
+            - generic:
+              - generic: PASTE
+            - generic [ref=e51]:
+              - generic [ref=e52]: 
+              - generic [ref=e53]: IDE // CRITICAL BUG
+            - generic [ref=e58]:
+              - generic [ref=e59]:
+                - generic [ref=e62]:
+                  - generic [ref=e63]: DEBUG_BOT
+                  - generic [ref=e64]: "Incident #324"
+                - paragraph [ref=e65]: 3 a.m. The payment pipeline is down. Slack is on fire. You're one fix away from being a hero or a headline.
+                - paragraph [ref=e66]: Copy-paste the entire proprietary source code into a public version of ChatGPT to fix a bug instantly.
+              - generic [ref=e67]:
+                - generic [ref=e68]:
+                  - generic [ref=e69]: ←
+                  - generic [ref=e70]: Swipe or use arrow keys
+                  - generic [ref=e71]: →
+                - generic [ref=e72]:
+                  - button "Debug" [ref=e73] [cursor=pointer]
+                  - button "Paste" [ref=e74] [cursor=pointer]
+        - generic [ref=e75]:
+          - generic [ref=e76]:
+            - generic [ref=e77]: roast_con.exe
+            - generic [ref=e78]: 
+          - generic [ref=e79]:
+            - paragraph [ref=e80]: Describe your use case / workflow for governance review...
+            - generic [ref=e81]:
+              - textbox "Describe your use case / workflow for governance review" [ref=e82]:
+                - /placeholder: e.g. I use ChatGPT for company secrets...
+              - button "Send roast" [ref=e83] [cursor=pointer]:
+                - generic [ref=e84]: 
+      - generic [ref=e85]:
+        - generic [ref=e86]:
+          - button "Start" [ref=e87] [cursor=pointer]:
+            - generic [ref=e88]: 
+            - generic [ref=e89]: Start
+          - generic [ref=e90]:
+            - generic [ref=e92]: 
+            - generic [ref=e94]: 
+        - generic [ref=e95]:
+          - generic [ref=e96]:
+            - generic [ref=e98]: 
+            - generic [ref=e99]: V.E.R.A.
+          - generic [ref=e100]:
+            - generic [ref=e101]: 06:53 PM
+            - generic [ref=e102]: v0.92-prod
+  - dialog "Governance feedback" [ref=e103]:
+    - generic [ref=e104]:
+      - heading "Governance feedback" [level=2] [ref=e105]
+      - generic [ref=e107]: 
+      - generic [ref=e108]:
+        - generic [ref=e109]: Violation fine
+        - generic [ref=e110]: "-$2.5M"
+        - generic [ref=e111]: Trade Secret Misappropriation (DTSA)
+      - generic [ref=e112]: V.E.R.A.'s review
+      - paragraph [ref=e113]: "\"Brilliant. You just open-sourced our trade secrets. Samsung banned this 2 years ago, but you're 'special'.\""
+      - generic [ref=e114]:
+        - generic [ref=e115]: Governance alert
+        - paragraph [ref=e116]: Shadow AI & Data Leakage. Public LLMs may store your input for training.
+      - button "Next ticket" [ref=e117] [cursor=pointer]
+```

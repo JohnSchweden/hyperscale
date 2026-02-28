@@ -1,8 +1,4 @@
-import * as fs from 'fs';
-import * as path from 'path';
-
-let audioContext: any = null;
-let currentSource: any = null;
+let currentSource: HTMLAudioElement | null = null;
 
 const ERROR_MESSAGES = {
   roaster: "V.E.R.A. voice module malfunctioned",
@@ -11,21 +7,30 @@ const ERROR_MESSAGES = {
 };
 
 export async function loadVoice(personality: string, trigger: string): Promise<void> {
-  if (!audioContext) {
-    audioContext = {};
-  }
-
-  const basePath = path.join(process.cwd(), 'public', 'audio', 'voices');
-  const personalityDir = path.join(basePath, personality.toLowerCase());
+  const basePath = '/audio/voices';
+  const personalityDir = `${basePath}/${personality.toLowerCase()}`;
   const filename = trigger.replace(/_/g, '-') + '.wav';
-  const filePath = path.join(personalityDir, filename);
+  const filePath = `${personalityDir}/${filename}`;
 
   try {
-    const fileBuffer = fs.readFileSync(filePath);
-    if (!fileBuffer || fileBuffer.length === 0) {
+    const response = await fetch(filePath);
+    if (!response.ok) {
       throw new Error(ERROR_MESSAGES[personality.toLowerCase()] || "Voice module error");
     }
 
+    const arrayBuffer = await response.arrayBuffer();
+    const audioData = new Uint8Array(arrayBuffer);
+    const audioBlob = new Blob([audioData], { type: 'audio/wav' });
+    const audioUrl = URL.createObjectURL(audioBlob);
+
+    if (currentSource) {
+      currentSource.pause();
+      URL.revokeObjectURL(currentSource.src);
+    }
+
+    currentSource = new Audio(audioUrl);
+    currentSource.load();
+    
     return;
   } catch (error) {
     console.error("[Voice Error]", error);
@@ -34,13 +39,30 @@ export async function loadVoice(personality: string, trigger: string): Promise<v
 }
 
 export async function playVoice(): Promise<void> {
-  return;
+  if (!currentSource) {
+    throw new Error("No audio loaded");
+  }
+
+  return new Promise((resolve, reject) => {
+    try {
+      currentSource!.onended = () => {
+        resolve();
+      };
+      currentSource!.onerror = (e) => {
+        reject(e);
+      };
+      currentSource!.play();
+    } catch (e) {
+      reject(e);
+    }
+  });
 }
 
 export function stopVoice(): void {
   if (currentSource) {
     try {
-      // Mock stop
+      currentSource.pause();
+      currentSource.currentTime = 0;
     } catch (e) {
       console.error("Error stopping voice:", e);
     }
@@ -49,5 +71,5 @@ export function stopVoice(): void {
 }
 
 export function isPlaying(): boolean {
-  return currentSource !== null;
+  return currentSource !== null && !currentSource.paused;
 }

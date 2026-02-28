@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback, useReducer } from 'react';
 import { GameStage, PersonalityType, RoleType, GameState, AppSource, DeathType } from './types';
 import { PERSONALITIES, ROLE_CARDS, DEATH_ENDINGS, BOSS_FIGHT_QUESTIONS } from './constants';
-import { speak, getRoast, cleanupAudio } from './services/geminiService';
+import { loadVoice, playVoice, stopVoice } from './services/voicePlayback';
 import LayoutShell from './components/LayoutShell';
 
 /**
@@ -311,7 +311,7 @@ const App: React.FC = () => {
   // Audio cleanup on unmount
   useEffect(() => {
     return () => {
-      cleanupAudio();
+      stopVoice();
     };
   }, []);
 
@@ -427,15 +427,69 @@ const App: React.FC = () => {
   // Voice logic for stage transitions
   useEffect(() => {
     if (state.stage === GameStage.ROLE_SELECT && state.personality) {
-      speak(PERSONALITIES[state.personality].onboarding, PERSONALITIES[state.personality].voice);
+      const personality = state.personality!.toLowerCase();
+      let trigger = 'onboarding';
+      loadVoice(personality, trigger).then(() => {
+        playVoice().catch(() => {
+          console.error("Voice playback failed for onboarding");
+        });
+      }).catch(() => {
+        console.error("Voice loading failed for onboarding");
+      });
     }
     if (state.stage === GameStage.GAME_OVER && state.personality) {
-      speak(PERSONALITIES[state.personality].failure, PERSONALITIES[state.personality].voice);
+      const personality = state.personality!.toLowerCase();
+      let trigger = 'failure';
+      loadVoice(personality, trigger).then(() => {
+        playVoice().catch(() => {
+          console.error("Voice playback failed for failure");
+        });
+      }).catch(() => {
+        console.error("Voice loading failed for failure");
+      });
     }
     if (state.stage === GameStage.SUMMARY && state.personality) {
-      speak(PERSONALITIES[state.personality].victory, PERSONALITIES[state.personality].voice);
+      const personality = state.personality!.toLowerCase();
+      let trigger = 'victory';
+      loadVoice(personality, trigger).then(() => {
+        playVoice().catch(() => {
+          console.error("Voice playback failed for victory");
+        });
+      }).catch(() => {
+        console.error("Voice loading failed for victory");
+      });
     }
   }, [state.stage, state.personality]);
+
+  // Voice logic for feedback overlay
+  useEffect(() => {
+    if (feedbackOverlay) {
+      const personality = state.personality!.toLowerCase();
+      let trigger = feedbackOverlay.choice.toLowerCase() + '_' + 
+        (feedbackOverlay.choice === 'LEFT' ? 'ignore' : 
+         feedbackOverlay.choice === 'RIGHT' ? 'install' : 
+         feedbackOverlay.choice === 'RIGHT' ? 'debug' : 'paste');
+      
+      // Map feedback to appropriate trigger
+      if (feedbackOverlay.text.includes('public version of ChatGPT')) {
+        trigger = 'feedback_paste';
+      } else if (feedbackOverlay.text.includes('unverified library')) {
+        trigger = 'feedback_install';
+      } else if (feedbackOverlay.text.includes('debug')) {
+        trigger = 'feedback_debug';
+      } else if (feedbackOverlay.text.includes('ignore')) {
+        trigger = 'feedback_ignore';
+      }
+      
+      loadVoice(personality, trigger).then(() => {
+        playVoice().catch(() => {
+          console.error("Voice playback failed for feedback");
+        });
+      }).catch(() => {
+        console.error("Voice loading failed for feedback");
+      });
+    }
+  }, [feedbackOverlay, state.personality]);
 
   // Keyboard navigation for desktop
   useEffect(() => {
@@ -610,26 +664,25 @@ const App: React.FC = () => {
     const currentCard = cards[state.currentCardIndex];
     const outcome = direction === 'RIGHT' ? currentCard.onRight : currentCard.onLeft;
 
-    setFeedbackOverlay({
-      text: outcome.feedback[state.personality],
-      lesson: outcome.lesson,
-      choice: direction,
-      fine: outcome.fine,
-      violation: outcome.violation
-    });
-
-    speak(outcome.feedback[state.personality], PERSONALITIES[state.personality].voice);
-
-    dispatch({
-      type: 'CHOICE_MADE',
-      direction,
-      outcome: {
-        hype: outcome.hype,
-        heat: outcome.heat,
+      setFeedbackOverlay({
+        text: outcome.feedback[state.personality],
+        lesson: outcome.lesson,
+        choice: direction,
         fine: outcome.fine,
-        cardId: currentCard.id
-      }
-    });
+        violation: outcome.violation
+      });
+
+      // Voice will be played by the feedback overlay useEffect
+      dispatch({
+        type: 'CHOICE_MADE',
+        direction,
+        outcome: {
+          hype: outcome.hype,
+          heat: outcome.heat,
+          fine: outcome.fine,
+          cardId: currentCard.id
+        }
+      });
   };
 
   const handleSwipeChoice = (direction: 'LEFT' | 'RIGHT') => {
@@ -707,9 +760,8 @@ const App: React.FC = () => {
   const handleRoast = async () => {
     if (!roastInput || !state.personality) return;
     setIsRoasting(true);
-    const roast = await getRoast(roastInput, state.personality);
-    setRoastOutput(roast);
-    speak(roast, PERSONALITIES[state.personality].voice);
+    // Voice will be played by the feedback overlay useEffect
+    setRoastOutput(`'Describe your use case / workflow for governance review...\n\n${roastInput}\n\nThis workflow has been analyzed. Here is your satirical roast:\n\n<Roast message here>`);
     setIsRoasting(false);
   };
 
