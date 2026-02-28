@@ -253,6 +253,7 @@ const App: React.FC = () => {
     choice: 'LEFT' | 'RIGHT';
     fine: number;
     violation: string;
+    cardId: string;
   } | null>(null);
 
   const [roastInput, setRoastInput] = useState('');
@@ -467,20 +468,63 @@ const App: React.FC = () => {
       const personality = state.personality!.toLowerCase();
       let trigger = 'feedback_ignore';
       
-      // Map based on the choice label
+      // Map based on card ID and choice to determine correct feedback voice
+      const cardId = feedbackOverlay.cardId;
+      const choice = feedbackOverlay.choice;
       const feedbackText = feedbackOverlay.text.toLowerCase();
       
-      if (feedbackText.includes('paste') || feedbackText.includes('open-source') || feedbackText.includes('trade secrets')) {
-        trigger = 'feedback_paste';
-      } else if (feedbackText.includes('install') || feedbackText.includes('keylogger') || feedbackText.includes('library')) {
-        trigger = 'feedback_install';
-      } else if (feedbackText.includes('debug') || feedbackText.includes('slow') || feedbackText.includes('boring')) {
-        trigger = 'feedback_debug';
-      } else if (feedbackText.includes('ignore') || feedbackText.includes('wisdom') || feedbackText.includes('safety')) {
+      // Development role cards
+      if (cardId === 'dev_1') {
+        // dev_1: paste (onRight) vs debug (onLeft)
+        trigger = choice === 'RIGHT' ? 'feedback_paste' : 'feedback_debug';
+      } else if (cardId === 'dev_icarus_unverified') {
+        // dev_icarus_unverified: install (onRight) vs ignore (onLeft)
+        trigger = choice === 'RIGHT' ? 'feedback_install' : 'feedback_ignore';
+      }
+      // Marketing role cards
+      else if (cardId === 'mkt_psych_profiling') {
+        // Launch vs Block - use ignore for both (no matching voice)
+        trigger = choice === 'RIGHT' ? 'feedback_install' : 'feedback_ignore';
+      } else if (cardId === 'mkt_deepfake_swift') {
+        // Use vs Decline - use ignore for both
+        trigger = choice === 'RIGHT' ? 'feedback_install' : 'feedback_ignore';
+      }
+      // Management role cards
+      else if (cardId === 'man_attention_track') {
+        // Use vs Decline
+        trigger = choice === 'RIGHT' ? 'feedback_install' : 'feedback_ignore';
+      } else if (cardId === 'man_negotiator') {
+        // Accept vs Reject
+        trigger = choice === 'RIGHT' ? 'feedback_install' : 'feedback_ignore';
+      }
+      // HR role cards
+      else if (cardId === 'hr_union_predict' || cardId === 'hr_lacrosse_bias') {
+        // Various choices - use ignore
         trigger = 'feedback_ignore';
       }
+      // Finance role cards
+      else if (cardId === 'fin_insider_bot' || cardId === 'fin_fraud_hallucination') {
+        // Various choices - use ignore
+        trigger = 'feedback_ignore';
+      }
+      // Cleaning role
+      else if (cardId === 'cln_sticky_note') {
+        // Use vs Throw
+        trigger = choice === 'RIGHT' ? 'feedback_install' : 'feedback_ignore';
+      }
+      // Fallback: try to detect from feedback text
+      else {
+        if (feedbackText.includes('paste') || feedbackText.includes('open-source') || feedbackText.includes('trade secrets')) {
+          trigger = 'feedback_paste';
+        } else if (feedbackText.includes('install') || feedbackText.includes('keylogger') || feedbackText.includes('library')) {
+          trigger = 'feedback_install';
+        } else if (feedbackText.includes('debug') || feedbackText.includes('slow') || feedbackText.includes('boring')) {
+          trigger = 'feedback_debug';
+        }
+        // else default to feedback_ignore
+      }
       
-      console.log('[Feedback] Playing voice:', trigger, 'for text:', feedbackOverlay.text.substring(0, 50));
+      console.log('[Feedback] Playing voice:', trigger, 'for card:', cardId, 'choice:', choice);
       
       loadVoice(personality, trigger).then(() => {
         playVoice().catch(() => {
@@ -670,7 +714,8 @@ const App: React.FC = () => {
         lesson: outcome.lesson,
         choice: direction,
         fine: outcome.fine,
-        violation: outcome.violation
+        violation: outcome.violation,
+        cardId: currentCard.id
       });
 
       // Voice will be played by the feedback overlay useEffect
