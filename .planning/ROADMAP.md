@@ -102,6 +102,14 @@ v1.1 implements two voice-related features:
 
 **Dependencies:** Phase 1 complete
 
+**Plans:** 4 plans in 4 waves
+
+**Plan list:**
+- [ ] 02-01-PLAN.md — Backend proxy + AudioWorklet foundation
+- [ ] 02-02-PLAN.md — Live audio hook
+- [ ] 02-03-PLAN.md — Roast.exe integration + fallback
+- [ ] 02-04-PLAN.md — Latency testing
+
 **Requirements:**
 - VOICE-08: Research Gemini Live API integration
 - VOICE-09: Implement streaming audio for Roast.exe
@@ -113,6 +121,8 @@ v1.1 implements two voice-related features:
 3. First token audio plays faster than current approach
 4. Fallback to current TTS if Live API unavailable
 
+**Status:** Planned
+
 ---
 
 ## Progress
@@ -120,7 +130,7 @@ v1.1 implements two voice-related features:
 | Phase | Goal | Requirements | Status |
 |-------|------|--------------|--------|
 | 1 - Voice Files | 13 voice files + playback system | VOICE-01 to VOICE-07 | Planned |
-| 2 - Live API | Real-time streaming for Roast.exe | VOICE-08 to VOICE-10 | Pending |
+| 2 - Live API | Real-time streaming for Roast.exe | VOICE-08 to VOICE-10 | Planned |
 
 ---
 
