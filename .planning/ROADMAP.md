@@ -1,55 +1,55 @@
 # Roadmap: hyperscale v1.1
 
-**Milestone:** v1.1 — Roaster Voice Files
-**Goal:** Generate and integrate voice files for Roaster personality (Development role only)
+**Milestone:** v1.1 — Voice Files for All Personalities
+**Goal:** Generate and integrate voice files for all 3 personalities (onboarding, victory, failure + Roaster feedback)
 
 ---
 
 ## Overview
 
-v1.1 implements voice playback for the Roaster (V.E.R.A.) personality in the Development clearance level only.
+v1.1 implements voice playback for all three personality types:
+- **Roaster**: onboarding, 4 feedback messages, victory, failure (7 files)
+- **Zen Master**: onboarding, victory, failure (3 files)  
+- **Lovebomber**: onboarding, victory, failure (3 files)
 
 **Scope:**
-- Only ROASTER personality
-- Only DEVELOPMENT role (role type)
-- All triggers: onboarding, victory, failure, AND feedback after each card swipe
+- All 3 personalities for onboarding, victory, failure
+- Roaster only for feedback messages (Development role)
+- Other personalities' feedback deferred
 
-**Total voice files:** 7
-- 1 onboarding
-- 4 feedback (after each card swipe: Paste, Debug, Install, Ignore)
-- 1 victory
-- 1 failure
+**Total voice files:** 13
 
 ---
 
-## Phase 1: Roaster Voice Files (Development Role)
+## Phase 1: Voice Files for All Personalities
 
-**Goal:** Generate and integrate 7 voice files for Roaster personality
+**Goal:** Generate and integrate voice files for all personalities
 
 **Dependencies:** None
 
 **Requirements:**
-- VOICE-01: Generate Roaster onboarding voice file
-- VOICE-02: Generate 4 Roaster feedback voice files (Paste, Debug, Install, Ignore)
-- VOICE-03: Generate Roaster victory voice file
-- VOICE-04: Generate Roaster failure voice file
-- VOICE-05: Create voice playback system for pre-recorded audio
-- VOICE-06: Integrate voice playback with game triggers
-- VOICE-07: Test voice playback
+- VOICE-01: Generate Roaster (V.E.R.A.) voice files (7 total)
+- VOICE-02: Generate Zen Master (Bamboo) voice files (3 total)
+- VOICE-03: Generate Lovebomber (Hype-Bro) voice files (3 total)
+- VOICE-04: Create voice playback system for pre-recorded audio files
+- VOICE-05: Integrate voice playback with game triggers
+- VOICE-06: Test Roaster voice playback
+- VOICE-07: Test Zen Master and Lovebomber voice playback
 
 **Success Criteria:**
-1. Audio file exists for Roaster onboarding message
-2. Audio files exist for 4 feedback messages (one per card swipe)
-3. Audio file exists for Roaster victory message
-4. Audio file exists for Roaster failure message
-5. Voice playback system plays audio files (not TTS)
-6. Game triggers voice at: ROLE_SELECT entry, after each card swipe, SUMMARY, GAME_OVER
-7. Development role correctly plays Roaster voice for all 7 triggers
+1. Audio files exist for all 7 Roaster messages
+2. Audio files exist for all 3 Zen Master messages
+3. Audio files exist for all 3 Lovebomber messages
+4. Voice playback system plays audio files (not TTS)
+5. Game triggers voice at correct points based on selected personality
+6. Roaster feedback voices work after card swipes
+7. All personalities' onboarding, victory, failure work correctly
 
 ---
 
-## Voice Messages for Roaster (Development)
+## Voice Messages Inventory
 
+### Roaster (V.E.R.A.) - 7 files
 | Trigger | Text |
 |---------|------|
 | Onboarding | "Oh, look. Another 'Visionary' hired to save the company. Try not to destroy us in the first 5 minutes, yeah?" |
@@ -60,13 +60,27 @@ v1.1 implements voice playback for the Roaster (V.E.R.A.) personality in the Dev
 | Victory | "I... don't hate it. Adequate performance. Here's a badge. Now leave." |
 | Failure | "Well, you managed to violate basic common sense. The legal team is crying. Pathetic." |
 
+### Zen Master (Bamboo) - 3 files
+| Trigger | Text |
+|---------|------|
+| Onboarding | "Namaste, corporate warrior. The data flows like a river. Let us align our chakras and our privacy policies." |
+| Victory | "Balance is achieved. The spreadsheets are at peace. You are one with compliance." |
+| Failure | "Breathe in... and breathe out the lawsuits. Your karma is now a major liability." |
+
+### Lovebomber (Hype-Bro) - 3 files
+| Trigger | Text |
+|---------|------|
+| Onboarding | "OMG HI!! We are literally going to change the world! You look SO compliant today! Let's crush it!" |
+| Victory | "YOOO! We crushed those KPIs! You're a literal legend! Drinks are on the company (if we have budget)!" |
+| Failure | "Bro! That breach was MASSIVE! Record-breaking! We're trending for all the wrong reasons! Slay!" |
+
 ---
 
 ## Progress
 
 | Phase | Goal | Requirements | Status |
 |-------|------|--------------|--------|
-| 1 - Roaster Voice Files | 7 voice files + playback system | VOICE-01 to VOICE-07 | Pending |
+| 1 - Voice Files | 13 voice files + playback system | VOICE-01 to VOICE-07 | Pending |
 
 ---
 
@@ -88,13 +102,12 @@ v1.1 implements voice playback for the Roaster (V.E.R.A.) personality in the Dev
 
 ## Deferred to v1.2
 
-- ZEN_MASTER (Bamboo) voice files
-- LOVEBOMBER (Hype-Bro) voice files
-- Feedback voice messages for other roles (Marketing, Management, HR, Finance, Legal)
+- Feedback voice messages for Zen Master and Lovebomber
+- Feedback messages for other roles (Marketing, Management, HR, Finance, Legal)
 - Visual effects
 - Background audio
 
 ---
 
 *Roadmap created: 2026-02-28*
-*Last updated: 2026-02-28 after adding feedback messages for Roaster*
+*Last updated: 2026-02-28 after adding Zen Master and Lovebomber*
