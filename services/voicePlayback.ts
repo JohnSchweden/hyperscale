@@ -12,13 +12,19 @@ export async function loadVoice(personality: string, trigger: string): Promise<v
   const filename = trigger.replace(/_/g, '-') + '.wav';
   const filePath = `${personalityDir}/${filename}`;
 
+  console.log('[Voice] Loading:', filePath);
+
   try {
     const response = await fetch(filePath);
+    console.log('[Voice] Response status:', response.status);
+    
     if (!response.ok) {
-      throw new Error(ERROR_MESSAGES[personality.toLowerCase()] || "Voice module error");
+      throw new Error(`HTTP ${response.status}: ${ERROR_MESSAGES[personality.toLowerCase()] || "Voice module error"}`);
     }
 
     const arrayBuffer = await response.arrayBuffer();
+    console.log('[Voice] Buffer size:', arrayBuffer.byteLength);
+    
     const audioData = new Uint8Array(arrayBuffer);
     const audioBlob = new Blob([audioData], { type: 'audio/wav' });
     const audioUrl = URL.createObjectURL(audioBlob);
@@ -29,7 +35,17 @@ export async function loadVoice(personality: string, trigger: string): Promise<v
     }
 
     currentSource = new Audio(audioUrl);
-    currentSource.load();
+    
+    currentSource.oncanplaythrough = () => {
+      console.log('[Voice] Audio can play through');
+    };
+    
+    currentSource.onerror = (e) => {
+      console.error('[Voice] Audio error:', e);
+    };
+    
+    await currentSource.play();
+    console.log('[Voice] Play started');
     
     return;
   } catch (error) {
@@ -40,22 +56,16 @@ export async function loadVoice(personality: string, trigger: string): Promise<v
 
 export async function playVoice(): Promise<void> {
   if (!currentSource) {
-    throw new Error("No audio loaded");
+    console.log('[Voice] No source to play');
+    return;
   }
 
-  return new Promise((resolve, reject) => {
-    try {
-      currentSource!.onended = () => {
-        resolve();
-      };
-      currentSource!.onerror = (e) => {
-        reject(e);
-      };
-      currentSource!.play();
-    } catch (e) {
-      reject(e);
-    }
-  });
+  try {
+    await currentSource.play();
+    console.log('[Voice] Play resumed');
+  } catch (e) {
+    console.error("[Voice] Play error:", e);
+  }
 }
 
 export function stopVoice(): void {
