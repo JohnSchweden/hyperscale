@@ -34,6 +34,17 @@ v1.1 implements two voice-related features:
 
 **Dependencies:** None
 
+**Plans:** 7 plans in 4 waves
+
+**Plan list:**
+- [ ] 01-voice-files-01-PLAN.md — Generate Roaster voice files (7 files)
+- [ ] 01-voice-files-02-PLAN.md — Generate Zen Master voice files (3 files)
+- [ ] 01-voice-files-03-PLAN.md — Generate Lovebomber voice files (3 files)
+- [ ] 01-voice-files-04-PLAN.md — Create voice playback system
+- [ ] 01-voice-files-05-PLAN.md — Integrate with game triggers
+- [ ] 01-voice-files-06-PLAN.md — Test Roaster voice playback
+- [ ] 01-voice-files-07-PLAN.md — Test Zen Master and Lovebomber voice playback
+
 **Requirements:**
 - VOICE-01: Generate Roaster (V.E.R.A.) voice files (7 total)
 - VOICE-02: Generate Zen Master (Bamboo) voice files (3 total)
@@ -42,6 +53,8 @@ v1.1 implements two voice-related features:
 - VOICE-05: Integrate voice playback with game triggers
 - VOICE-06: Test Roaster voice playback
 - VOICE-07: Test Zen Master and Lovebomber voice playback
+
+**Status:** Planned
 
 **Success Criteria:**
 1. Audio files exist for all 7 Roaster messages
@@ -106,7 +119,7 @@ v1.1 implements two voice-related features:
 
 | Phase | Goal | Requirements | Status |
 |-------|------|--------------|--------|
-| 1 - Voice Files | 13 voice files + playback system | VOICE-01 to VOICE-07 | Pending |
+| 1 - Voice Files | 13 voice files + playback system | VOICE-01 to VOICE-07 | Planned |
 | 2 - Live API | Real-time streaming for Roast.exe | VOICE-08 to VOICE-10 | Pending |
 
 ---

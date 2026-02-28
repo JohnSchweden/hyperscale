@@ -26,7 +26,7 @@ See: `.planning/PROJECT.md` (updated 2026-02-28)
 
 ### Current Position
 
-**Phase:** 1 (Voice Files) — Planning
+**Phase:** 1 (Voice Files) — Planned
 **Progress:** ████░░░░░░░░░░░░░░ 20% (2 phases total)
 
 ---
@@ -48,7 +48,7 @@ See: `.planning/PROJECT.md` (updated 2026-02-28)
 
 | Phase | Goal | Requirements | Status |
 |-------|------|--------------|--------|
-| 1 - Voice Files | 13 voice files + playback system | VOICE-01 to VOICE-07 | Pending |
+| 1 - Voice Files | 13 voice files + playback system | VOICE-01 to VOICE-07 | Planned |
 | 2 - Live API | Real-time streaming for Roast.exe | VOICE-08 to VOICE-10 | Pending |
 
 ---
