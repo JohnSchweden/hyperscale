@@ -1,16 +1,15 @@
 import { useEffect } from 'react';
-import { GameStage, PersonalityType, RoleType } from '../types';
+import { GameStage, PersonalityType } from '../types';
 import { loadVoice, playVoice, stopVoice } from '../services/voicePlayback';
 
 interface UseVoicePlaybackOptions {
   stage: GameStage;
   personality: PersonalityType | null;
-  role: RoleType | null;
   feedbackCardId?: string | null;
   feedbackChoice?: 'LEFT' | 'RIGHT' | null;
 }
 
-export function useVoicePlayback({ stage, personality, role, feedbackCardId, feedbackChoice }: UseVoicePlaybackOptions) {
+export function useVoicePlayback({ stage, personality, feedbackCardId, feedbackChoice }: UseVoicePlaybackOptions) {
   // Cleanup on unmount
   useEffect(() => {
     return () => {
@@ -18,9 +17,9 @@ export function useVoicePlayback({ stage, personality, role, feedbackCardId, fee
     };
   }, []);
 
-  // Voice logic for stage transitions - only for Development role
+  // Voice logic for stage transitions - plays for all roles
   useEffect(() => {
-    if (!personality || role !== RoleType.DEVELOPMENT) return;
+    if (!personality) return;
 
     const personalityLower = personality.toLowerCase().replace(/_/g, '');
     let trigger: string | null = null;
@@ -42,12 +41,12 @@ export function useVoicePlayback({ stage, personality, role, feedbackCardId, fee
         console.error(`Voice loading failed for ${trigger}`);
       });
     }
-  }, [stage, personality, role]);
+  }, [stage, personality]);
 
-  // Voice logic for feedback overlay - only for Development role and Roaster personality
+  // Voice logic for feedback overlay - only for Roaster personality
   // (only roaster has feedback audio files)
   useEffect(() => {
-    if (!feedbackCardId || !feedbackChoice || !personality || role !== RoleType.DEVELOPMENT) return;
+    if (!feedbackCardId || !feedbackChoice || !personality) return;
     if (personality !== PersonalityType.ROASTER) return;
 
     const personalityLower = personality.toLowerCase().replace(/_/g, '');
@@ -90,5 +89,5 @@ export function useVoicePlayback({ stage, personality, role, feedbackCardId, fee
     }).catch((e) => {
       console.error("Voice loading failed for feedback:", (e as Error).message);
     });
-  }, [feedbackCardId, feedbackChoice, personality, role]);
+  }, [feedbackCardId, feedbackChoice, personality]);
 }
