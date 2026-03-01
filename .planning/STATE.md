@@ -26,8 +26,8 @@ See: `.planning/PROJECT.md` (updated 2026-02-28)
 
 ### Current Position
 
-**Phase:** 2 (Live API) — Pending
-**Progress:** ██████████░░░░░░ 50% (2 phases total)
+**Phase:** 2 (Live API) — Plan 1/1 In Progress
+**Progress:** ████████████████░░ 75% (2 phases total, Phase 1 + partial Phase 2)
 
 ---
 
@@ -38,10 +38,10 @@ See: `.planning/PROJECT.md` (updated 2026-02-28)
 - Triggers: onboarding, feedback (Roaster only), victory, failure
 - Voice playback system integrated with game
 
-**Phase 2 - Live API for Roast.exe:** Pending
-- Research Gemini Live API for real-time streaming
-- Implement streaming audio for Roast.exe workflow
-- Faster time-to-first-audio
+**Phase 2 - Live API for Roast.exe:** In Progress
+- Plan 02-01: Direct browser Gemini Live API service created
+- AudioWorklet processor for 24kHz→48kHz conversion created
+- Ready for integration with Roast.exe workflow
 
 ---
 
@@ -50,7 +50,7 @@ See: `.planning/PROJECT.md` (updated 2026-02-28)
 | Phase | Goal | Requirements | Status |
 |-------|------|--------------|--------|
 | 1 - Voice Files | 13 voice files + playback system | VOICE-01 to VOICE-07 | Complete ✓ |
-| 2 - Live API | Real-time streaming for Roast.exe | VOICE-08 to VOICE-10 | Pending |
+| 2 - Live API | Real-time streaming for Roast.exe | VOICE-08 to VOICE-10 | In Progress |
 
 ---
 
@@ -67,6 +67,8 @@ See: `.planning/PROJECT.md` (updated 2026-02-28)
 - Current Roast.exe uses simple TTS API (waits for full response)
 - Phase 2 explores Gemini Live API for streaming audio
 - Personality paths normalized (ZEN_MASTER → zenmaster)
+- **NEW:** Direct browser connection using ephemeral tokens (no backend proxy)
+- **NEW:** AudioWorklet for 24kHz→48kHz sample rate conversion
 
 ### Blockers
 - None identified
@@ -75,10 +77,10 @@ See: `.planning/PROJECT.md` (updated 2026-02-28)
 
 ## Session Continuity
 
-**Last action:** Phase 1 UAT complete - 10/10 tests passed
+**Last action:** 2026-03-01 - Completed 02-01-PLAN.md (Live API browser service)
 
-**Next action:** Plan Phase 2 (Live API)
+**Next action:** Integrate Live API with Roast.exe workflow
 
 ---
 
-*Last updated: 2026-03-01 — Phase 1 complete*
+*Last updated: 2026-03-01 — Plan 02-01 complete*
