@@ -9,12 +9,12 @@
 
 v1.1 implements two voice-related features:
 
-**Phase 1: Pre-recorded Voice Files**
+**Phase 1: Pre-recorded Voice Files** ✓ Complete
 - **Roaster**: onboarding, 4 feedback messages, victory, failure (7 files)
 - **Zen Master**: onboarding, victory, failure (3 files)  
 - **Lovebomber**: onboarding, victory, failure (3 files)
 
-**Phase 2: Live API for Roast.exe**
+**Phase 2: Live API for Roast.exe** Pending
 - Research Gemini Live API for real-time streaming
 - Implement streaming audio for Roast.exe workflow
 - Faster time-to-first-audio by streaming chunks as generated
@@ -37,32 +37,32 @@ v1.1 implements two voice-related features:
 **Plans:** 6 plans in 6 waves (incremental auto-testing)
 
 **Plan list:**
-- [ ] 01-01-PLAN.md — Generate 1 voice file (test pipeline) + AUTO-TEST
-- [ ] 01-02-PLAN.md — Generate 3 Roaster files + AUTO-TEST each
-- [ ] 01-03-PLAN.md — Generate remaining 10 files + AUTO-TEST
-- [ ] 01-04-PLAN.md — Create voice playback system (TDD)
-- [ ] 01-05-PLAN.md — Integrate with game triggers
-- [ ] 01-06-PLAN.md — Final human verification
+- [x] 01-01-PLAN.md — Generate 1 voice file (test pipeline) + AUTO-TEST
+- [x] 01-02-PLAN.md — Generate 3 Roaster files + AUTO-TEST each
+- [x] 01-03-PLAN.md — Generate remaining 10 files + AUTO-TEST
+- [x] 01-04-PLAN.md — Create voice playback system (TDD)
+- [x] 01-05-PLAN.md — Integrate with game triggers
+- [x] 01-06-PLAN.md — Final human verification
 
 **Requirements:**
-- VOICE-01: Generate Roaster (V.E.R.A.) voice files (7 total)
-- VOICE-02: Generate Zen Master (Bamboo) voice files (3 total)
-- VOICE-03: Generate Lovebomber (Hype-Bro) voice files (3 total)
-- VOICE-04: Create voice playback system for pre-recorded audio files
-- VOICE-05: Integrate voice playback with game triggers
-- VOICE-06: Test Roaster voice playback
-- VOICE-07: Test Zen Master and Lovebomber voice playback
+- VOICE-01: Generate Roaster (V.E.R.A.) voice files (7 total) ✓
+- VOICE-02: Generate Zen Master (Bamboo) voice files (3 total) ✓
+- VOICE-03: Generate Lovebomber (Hype-Bro) voice files (3 total) ✓
+- VOICE-04: Create voice playback system for pre-recorded audio files ✓
+- VOICE-05: Integrate voice playback with game triggers ✓
+- VOICE-06: Test Roaster voice playback ✓
+- VOICE-07: Test Zen Master and Lovebomber voice playback ✓
 
-**Status:** Planned
+**Status:** Complete ✓
 
 **Success Criteria:**
-1. Audio files exist for all 7 Roaster messages
-2. Audio files exist for all 3 Zen Master messages
-3. Audio files exist for all 3 Lovebomber messages
-4. Voice playback system plays audio files (not TTS)
-5. Game triggers voice at correct points based on selected personality
-6. Roaster feedback voices work after card swipes
-7. All personalities' onboarding, victory, failure work correctly
+1. Audio files exist for all 7 Roaster messages ✓
+2. Audio files exist for all 3 Zen Master messages ✓
+3. Audio files exist for all 3 Lovebomber messages ✓
+4. Voice playback system plays audio files (not TTS) ✓
+5. Game triggers voice at correct points based on selected personality ✓
+6. Roaster feedback voices work after card swipes ✓
+7. All personalities' onboarding, victory, failure work correctly ✓
 
 ---
 
@@ -120,7 +120,7 @@ v1.1 implements two voice-related features:
 3. First token audio plays faster than current approach
 4. Fallback to current TTS if Live API unavailable
 
-**Status:** Planned
+**Status:** Pending
 
 ---
 
@@ -128,8 +128,8 @@ v1.1 implements two voice-related features:
 
 | Phase | Goal | Requirements | Status |
 |-------|------|--------------|--------|
-| 1 - Voice Files | 13 voice files + playback system | VOICE-01 to VOICE-07 | Planned |
-| 2 - Live API | Real-time streaming for Roast.exe | VOICE-08 to VOICE-10 | Planned |
+| 1 - Voice Files | 13 voice files + playback system | VOICE-01 to VOICE-07 | Complete ✓ |
+| 2 - Live API | Real-time streaming for Roast.exe | VOICE-08 to VOICE-10 | Pending |
 
 ---
 
@@ -139,13 +139,13 @@ v1.1 implements two voice-related features:
 
 | Requirement | Phase |
 |-------------|-------|
-| VOICE-01 | Phase 1 |
-| VOICE-02 | Phase 1 |
-| VOICE-03 | Phase 1 |
-| VOICE-04 | Phase 1 |
-| VOICE-05 | Phase 1 |
-| VOICE-06 | Phase 1 |
-| VOICE-07 | Phase 1 |
+| VOICE-01 | Phase 1 ✓ |
+| VOICE-02 | Phase 1 ✓ |
+| VOICE-03 | Phase 1 ✓ |
+| VOICE-04 | Phase 1 ✓ |
+| VOICE-05 | Phase 1 ✓ |
+| VOICE-06 | Phase 1 ✓ |
+| VOICE-07 | Phase 1 ✓ |
 | VOICE-08 | Phase 2 |
 | VOICE-09 | Phase 2 |
 | VOICE-10 | Phase 2 |
@@ -162,4 +162,4 @@ v1.1 implements two voice-related features:
 ---
 
 *Roadmap created: 2026-02-28*
-*Last updated: 2026-02-28 after adding Zen Master and Lovebomber*
+*Last updated: 2026-03-01 — Phase 1 complete*
