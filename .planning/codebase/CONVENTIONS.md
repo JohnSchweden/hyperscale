@@ -1,187 +1,415 @@
-# Coding Conventions
+# SwipeRisk Code Conventions
 
-**Analysis Date:** 2026-03-01
+This document defines the coding standards, patterns, and conventions used throughout the SwipeRisk codebase.
 
-## Naming Patterns
+---
 
-**Files:**
-- PascalCase for components: `App.tsx`, `LayoutShell.tsx`, `voicePlayback.ts`
-- camelCase for utilities and helpers: `navigation.ts`, `selectors.ts`, `geminiService.ts`
-- Test files use kebab-case: `swipe-interactions.spec.ts`, `stage-snapshots.spec.ts`
+## TypeScript Patterns and Types
 
-**Functions:**
-- camelCase: `loadVoice()`, `playVoice()`, `handleChoice()`, `navigateToPlaying()`
-- Action handlers prefixed with `handle`: `handleTouchStart`, `handleBossAnswer`, `handleSwipeChoice`
-- Helper functions prefixed with action: `getCard()`, `getLeftButton()`, `getRightButton()`
+### Type Definitions Location
+All shared types are defined in [`types.ts`](types.ts:1) at the project root:
 
-**Variables:**
-- camelCase: `roastInput`, `swipeOffset`, `feedbackOverlay`
-- Refs use descriptive names with `Ref` suffix: `cardRef`, `touchStartX`, `stageRef`, `feedbackOverlayRef`
-- Boolean flags: `isDragging`, `isSnappingBack`, `hasDragged`, `isFirstCard`
-- Constants: SCREAMING_SNAKE_CASE for truly global constants: `INITIAL_BUDGET`, `SWIPE_THRESHOLD`
-
-**Types/Interfaces:**
-- PascalCase: `PersonalityType`, `RoleType`, `GameState`, `BossQuestion`, `GameAction`
-- Enums use PascalCase with values in UPPER_SNAKE_CASE: `PersonalityType.ROASTER`, `GameStage.PLAYING`
-- Interface naming: `GameHUDProps`, `Card`, `BossQuestion`
-
-## Code Style
-
-**Formatting:**
-- No explicit formatter configured (no Prettier)
-- 2-space indentation
-- Single quotes for strings in JSX, double quotes elsewhere
-- Trailing commas in objects/arrays
-
-**Linting:**
-- No ESLint configuration detected
-- Relies on TypeScript strict mode and editor defaults
-
-**TypeScript Configuration:**
-- Target: ES2022
-- JSX: react-jsx
-- Module resolution: bundler
-- Path alias: `@/*` maps to project root
-
-## Import Organization
-
-**Order:**
-1. React imports (internal): `React, { useState, useEffect, useRef, useCallback, useReducer }`
-2. Type imports (local): `GameStage, PersonalityType, RoleType... from './types'`
-3. Constants imports (local): `PERSONALITIES, ROLE_CARDS... from './constants'`
-4. Service imports (local): `loadVoice, playVoice... from './services/voicePlayback'`
-5. Component imports (local): `LayoutShell from './components/LayoutShell'`
-
-**Path Aliases:**
-- `@/*` is configured for absolute imports from project root
-- Relative imports preferred for local files within same directory
-
-**Grouping in App.tsx:**
 ```typescript
-// React hooks (first)
-import React, { useState, useEffect, useRef, useCallback, useReducer } from 'react';
+// enums for fixed value sets
+export enum PersonalityType {
+  ROASTER = 'ROASTER',
+  ZEN_MASTER = 'ZEN_MASTER',
+  LOVEBOMBER = 'LOVEBOMBER'
+}
 
-// Types and constants (internal modules)
-import { GameStage, PersonalityType, RoleType, GameState, AppSource, DeathType } from './types';
-import { PERSONALITIES, ROLE_CARDS, DEATH_ENDINGS, BOSS_FIGHT_QUESTIONS } from './constants';
+export enum GameStage {
+  INTRO = 'INTRO',
+  PERSONALITY_SELECT = 'PERSONALITY_SELECT',
+  // ...
+}
 
-// Services (external functionality)
-import { loadVoice, playVoice, stopVoice } from './services/voicePlayback';
-import { getRoast } from './services/geminiService';
+// Interfaces for data structures
+export interface Card {
+  id: string;
+  source: AppSource;
+  sender: string;
+  context: string;
+  storyContext?: string;  // Optional fields marked with ?
+  text: string;
+  onRight: CardOutcome;
+  onLeft: CardOutcome;
+}
 
-// Components
-import LayoutShell from './components/LayoutShell';
-```
-
-## Error Handling
-
-**Patterns:**
-- try/catch with console.error for recoverable errors
-- Throw new Error for fatal failures
-- Graceful degradation: voice playback failures logged but don't crash app
-
-**Service Layer (`services/voicePlayback.ts`):**
-```typescript
-try {
-  const response = await fetch(filePath);
-  if (!response.ok) {
-    throw new Error(`HTTP ${response.status}: ${ERROR_MESSAGES[personalityKey]}`);
-  }
-  // ... rest of logic
-} catch (error) {
-  console.error("[Voice Error]", error);
-  throw new Error(ERROR_MESSAGES[personalityKey] || "Voice module error");
+// Complex nested types with mapped types
+export interface CardOutcome {
+  label: string;
+  hype: number;
+  heat: number;
+  fine: number;
+  violation: string;
+  feedback: {
+    [key in PersonalityType]: string;  // Mapped type
+  };
+  lesson: string;
 }
 ```
 
-**Service Layer (`services/geminiService.ts`):**
-- API key validation at start: returns fallback message if missing
-- Fallback models tried in sequence
-- Final fallback returns satirical error message instead of throwing
+### Discriminated Unions for Actions
+Use discriminated unions with a `type` property for action types:
 
-**App Layer (`App.tsx`):**
-- Async error handling with try/catch and user-facing error states
-- Stage transition validation with console.error in development only:
+```typescript
+export type GameAction =
+  | { type: 'STAGE_CHANGE'; stage: GameStage; personality?: PersonalityType | null }
+  | { type: 'CHOICE_MADE'; direction: 'LEFT' | 'RIGHT'; outcome: ChoiceOutcome }
+  | { type: 'NEXT_INCIDENT' }
+  | { type: 'BOSS_ANSWER'; isCorrect: boolean }
+  | { type: 'RESET' };
+```
+
+### Type Exports
+Export types explicitly when needed by consumers:
+
+```typescript
+export { useGameState, type GameAction } from './useGameState';
+export { useSwipeGestures, type SwipeState } from './useSwipeGestures';
+```
+
+---
+
+## Naming Conventions
+
+### Files
+| Pattern | Convention | Example |
+|---------|-----------|---------|
+| Components | PascalCase | `CardStack.tsx`, `GameScreen.tsx` |
+| Hooks | camelCase with `use` prefix | `useGameState.ts`, `useSwipeGestures.ts` |
+| Constants | camelCase descriptive | `constants.ts` |
+| Types | camelCase | `types.ts` |
+| Tests | kebab-case with `.spec.ts` suffix | `swipe-interactions.spec.ts` |
+
+### Variables and Functions
+| Pattern | Convention | Example |
+|---------|-----------|---------|
+| Constants | UPPER_SNAKE_CASE | `SWIPE_THRESHOLD`, `INITIAL_BUDGET` |
+| Enums | PascalCase + UPPER_SNAKE_CASE members | `PersonalityType.ROASTER` |
+| Functions | camelCase | `handleTouchStart`, `navigateToPlaying` |
+| Boolean variables | Prefix with is/has/should | `isDragging`, `hasDragged`, `enabled` |
+| React refs | Suffix with `Ref` | `cardRef`, `rafRef` |
+
+### Component Props
+Props interfaces use `{ComponentName}Props` naming:
+
+```typescript
+interface CardStackProps {
+  role: RoleType;
+  currentCardIndex: number;
+  isFirstCard: boolean;
+  cardRef: RefObject<HTMLDivElement>;
+  // ...
+}
+```
+
+---
+
+## Component Structure Patterns
+
+### Functional Component Pattern
+All components use functional components with explicit `React.FC` type:
+
+```typescript
+import React, { RefObject } from 'react';
+import { Card, RoleType } from '../../types';
+
+interface CardStackProps {
+  role: RoleType;
+  currentCardIndex: number;
+  onSwipeLeft: () => void;
+  onSwipeRight: () => void;
+}
+
+export const CardStack: React.FC<CardStackProps> = ({
+  role,
+  currentCardIndex,
+  onSwipeLeft,
+  onSwipeRight
+}) => {
+  // Component logic here
+  
+  return (
+    <div data-testid="incident-card-container">
+      {/* JSX */}
+    </div>
+  );
+};
+```
+
+### Props Organization
+Group related props with comments:
+
+```typescript
+interface SwipeGestureProps {
+  // Swipe state
+  offset: number;
+  direction: 'LEFT' | 'RIGHT' | null;
+  isDragging: boolean;
+  
+  // Event handlers
+  onTouchStart: (e: React.TouchEvent | React.MouseEvent) => void;
+  onTouchMove: (e: React.TouchEvent | React.MouseEvent) => void;
+  onTouchEnd: () => void;
+  
+  // Actions
+  onSwipeLeft: () => void;
+  onSwipeRight: () => void;
+  
+  // Thresholds
+  swipeThreshold: number;
+}
+```
+
+### Data Test IDs
+Components include `data-testid` attributes for E2E testing:
+
+```tsx
+<div data-testid="incident-card-container">
+  <div data-testid="incident-card">...</div>
+  <button data-testid="swipe-left-button">...</button>
+  <button data-testid="swipe-right-button">...</button>
+</div>
+```
+
+---
+
+## Import/Export Patterns
+
+### Barrel Exports
+Both [`hooks/index.ts`](hooks/index.ts:1) and [`components/game/index.ts`](components/game/index.ts:1) use barrel export patterns:
+
+```typescript
+// hooks/index.ts
+export { useGameState, type GameAction } from './useGameState';
+export { useSwipeGestures } from './useSwipeGestures';
+export { useVoicePlayback } from './useVoicePlayback';
+
+// components/game/index.ts
+export { GameHUD } from './GameHUD';
+export { IntroScreen } from './IntroScreen';
+export { CardStack } from './CardStack';
+```
+
+### Named Exports
+Prefer named exports over default exports:
+
+```typescript
+// Good
+export const CardStack: React.FC<CardStackProps> = (props) => { ... }
+export { useGameState } from './useGameState';
+
+// Avoid
+export default CardStack;
+```
+
+### Import Organization
+Imports are grouped in this order:
+1. React imports
+2. Third-party libraries
+3. Absolute project imports (types, constants)
+4. Relative imports (sibling components)
+
+```typescript
+import React, { useState, useCallback } from 'react';
+import { Page } from '@playwright/test';
+
+import { GameStage, PersonalityType } from '../types';
+import { ROLE_CARDS } from '../constants';
+
+import { GameHUD } from './GameHUD';
+import { CardStack } from './CardStack';
+```
+
+---
+
+## Error Handling Approaches
+
+### Development-Only Errors
+Use environment checks for development warnings that don't impact production:
+
 ```typescript
 if (typeof process !== 'undefined' && process.env.NODE_ENV !== 'production') {
   console.error(`Invalid stage transition: ${state.stage} → ${action.stage}`);
 }
 ```
 
-## Logging
+### Narrative Error Messages
+User-facing errors match the game's personality/voice:
 
-**Framework:** console methods only (no structured logging library)
-
-**Patterns:**
-- Feature-specific prefixes: `[Voice]`, `[Feedback]`, `[Voice Error]`
-- Development-only logging in production checks
-- Voice service detailed logging for debugging playback issues
-- Key user actions logged: `console.log('[Feedback] Playing voice:', trigger, ...)`
-
-**Console methods used:**
-- `console.log` - Informational (loading states, success)
-- `console.error` - Errors (API failures, unexpected states)
-- `console.warn` - Warnings (fallback behavior)
-
-## Comments
-
-**When to Comment:**
-- Complex business logic: `determineDeathType()` has clear if/else structure for death conditions
-- Design system patterns: Extensive JSDoc blocks explaining button variants, container width strategy
-- Non-obvious decisions: Why certain voice triggers map to certain feedback
-- Card mapping logic in feedback overlay useEffect
-
-**JSDoc/TSDoc:**
-- Used for design system documentation in `App.tsx` (button patterns, container widths)
-- TSDoc comments on interface properties: `/** Optional scene-setting line to immerse the user before the main ask */`
-- Function-level comments on utility files: `/** Navigate from intro to the playing stage */`
-
-**Code block headers in App.tsx:**
 ```typescript
-/**
- * BUTTON VARIANT PATTERNS (established design system)
- * ...
- */
+// Roaster personality error
+if (personality === 'roaster') {
+  throw new Error('V.E.R.A. is disappointed. Voice module not found.');
+}
 
-/**
- * CONTAINER WIDTH STRATEGY
- * ...
- */
+// Zen Master personality error
+if (personality === 'zenmaster') {
+  throw new Error('The spreadsheets are not at peace. Audio unavailable.');
+}
 ```
 
-## Function Design
+### Type Guards
+Use strict type checking with early returns:
 
-**Size:** Large main component (App.tsx ~1400 lines) contains all game logic. Consider extracting to custom hooks for better organization.
-
-**Parameters:**
-- Event handlers use explicit types: `handleTouchStart(e: React.TouchEvent | React.MouseEvent)`
-- Callbacks typed in component props: `formatBudget: (amount: number) => string`
-
-**Return Values:**
-- Void for event handlers: `handleChoice(direction: 'LEFT' | 'RIGHT'): void`
-- Promise for async: `loadVoice(personality: string, trigger: string): Promise<void>`
-- Typed state updates: `dispatch({ type: 'CHOICE_MADE', direction, outcome: {...} })`
-
-**React Component Patterns:**
-- Memoized components: `React.memo(function GameHUD({...}) {...})`
-- Functional components with hooks: `const App: React.FC = () => {...}`
-- Early returns for conditionals in render functions
-
-## Module Design
-
-**Exports:**
-- Named exports for utilities: `export async function loadVoice(...)`
-- Default exports for pages/components: `export default LayoutShell`
-- Constants exported from `constants.ts`: `export const PERSONALITIES = {...}`
-- Types exported from `types.ts`: `export enum GameStage {...}`
-
-**Barrel Files:** Not used - imports go directly to source files
-
-**Service Pattern:**
-- Single responsibility services: `voicePlayback.ts`, `geminiService.ts`
-- Error handling contained within services
-- Console-based logging from services
+```typescript
+function gameReducer(state: GameState, action: GameAction): GameState {
+  switch (action.type) {
+    case 'STAGE_CHANGE': {
+      const allowed = STAGE_TRANSITIONS[state.stage];
+      if (allowed != null && !allowed.includes(action.stage)) {
+        // Invalid transition - return unchanged state
+        return state;
+      }
+      // ...
+    }
+  }
+}
+```
 
 ---
 
-*Convention analysis: 2026-03-01*
+## Constants Organization
+
+Constants are organized in [`constants.ts`](constants.ts:1) by feature:
+
+### Record Types for Mapped Data
+Use `Record` types for data keyed by enums:
+
+```typescript
+export const PERSONALITIES = {
+  [PersonalityType.ROASTER]: {
+    name: 'V.E.R.A.',
+    title: 'The Roaster',
+    description: 'British sarcasm, burned-out IT director, cynical.',
+    voice: 'Puck',
+    onboarding: "Oh, look. Another 'Visionary'...",
+  },
+  [PersonalityType.ZEN_MASTER]: {
+    name: 'BAMBOO',
+    // ...
+  }
+};
+
+export const DEATH_ENDINGS: Record<DeathType, { 
+  title: string; 
+  description: string; 
+  icon: string; 
+  color: string 
+}> = {
+  [DeathType.BANKRUPT]: {
+    title: "Liquidated",
+    description: "The VCs pulled out...",
+    icon: "fa-file-invoice-dollar",
+    color: "text-red-600"
+  },
+  // ...
+};
+```
+
+### Feature-Based Arrays
+Arrays of complex objects use explicit typing:
+
+```typescript
+export const BOSS_FIGHT_QUESTIONS: BossQuestion[] = [
+  {
+    id: "boss_1",
+    question: "You used public ChatGPT to debug proprietary code...",
+    correctAnswer: "Data Leakage - Public LLMs may retain training data",
+    wrongAnswers: [
+      "Copyright infringement only",
+      "It's fine if you delete the conversation"
+    ],
+    explanation: "Public AI tools can store and learn from your inputs..."
+  }
+];
+```
+
+### Role-Based Card Data
+Cards are organized by role using `Record<RoleType, Card[]>`:
+
+```typescript
+export const ROLE_CARDS: Record<RoleType, Card[]> = {
+  [RoleType.DEVELOPMENT]: [
+    { id: 'dev_1', source: AppSource.IDE, /* ... */ },
+  ],
+  [RoleType.MARKETING]: [
+    { id: 'mkt_1', source: AppSource.SLACK, /* ... */ },
+  ]
+};
+```
+
+---
+
+## Hook Patterns
+
+### State Management with useReducer
+Complex state uses `useReducer` with typed actions:
+
+```typescript
+const [state, dispatch] = useReducer(gameReducer, initialGameState);
+
+// Dispatch pattern
+dispatch({ 
+  type: 'STAGE_CHANGE', 
+  stage: GameStage.PLAYING,
+  personality: selectedPersonality 
+});
+```
+
+### Custom Hook Pattern
+Hooks return state and handlers:
+
+```typescript
+interface UseSwipeGesturesOptions {
+  enabled: boolean;
+  onSwipe: (direction: 'LEFT' | 'RIGHT') => void;
+}
+
+export function useSwipeGestures({ enabled, onSwipe }: UseSwipeGesturesOptions) {
+  const [state, setState] = useState<SwipeState>({ ... });
+  
+  const handleTouchStart = useCallback((clientX: number, clientY: number) => {
+    // ...
+  }, [enabled]);
+  
+  return {
+    ...state,
+    handleTouchStart,
+    handleTouchMove,
+    handleTouchEnd,
+    reset
+  };
+}
+```
+
+---
+
+## CSS/Tailwind Conventions
+
+### Responsive Design
+Use mobile-first breakpoints:
+- Base: Mobile (default)
+- `md:`: 768px+
+- `lg:`: 1024px+
+
+### Common Patterns
+```tsx
+// Container with responsive max-width
+<div className="w-full max-w-full lg:max-w-[43rem]">
+
+// Padding that scales
+<div className="p-4 md:p-6">
+
+// Typography that scales
+<h1 className="text-lg md:text-xl font-bold">
+```
+
+### Animation Classes
+Custom animation classes are defined inline or in the HTML template:
+```css
+.spring-snap-back {
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+```
