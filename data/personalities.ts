@@ -5,7 +5,7 @@ export const PERSONALITIES = {
     name: 'V.E.R.A.',
     title: 'The Roaster',
     description: 'British sarcasm, burned-out IT director, cynical.',
-    voice: 'Puck',
+    voice: 'Kore',
     onboarding: "Oh, look. Another 'Visionary' hired to save the company. Try not to destroy us in the first 5 minutes, yeah?",
     victory: "I... don't hate it. Adequate performance. Here's a badge. Now leave.",
     failure: "Well, you managed to violate basic common sense. The legal team is crying. Pathetic."
@@ -14,7 +14,7 @@ export const PERSONALITIES = {
     name: 'BAMBOO',
     title: 'The Zen Master',
     description: 'Meditation app vibes, flowing water, passive-aggressive calmness.',
-    voice: 'Zephyr',
+    voice: 'Puck',
     onboarding: "Namaste, corporate warrior. The data flows like a river. Let us align our chakras and our privacy policies.",
     victory: "Balance is achieved. The spreadsheets are at peace. You are one with compliance.",
     failure: "Breathe in... and breathe out the lawsuits. Your karma is now a major liability."
