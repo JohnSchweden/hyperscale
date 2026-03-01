@@ -32,7 +32,8 @@ export function useRoast(personality: PersonalityType | null) {
         setStatus('complete');
       }
     } catch (e) {
-      setOutput("Roast service unavailable. The auditors are busy.");
+      const errMsg = e instanceof Error ? e.message : String(e);
+      setOutput(`Roast service unavailable. ${errMsg}`);
       setStatus('idle');
     }
     setIsLoading(false);
