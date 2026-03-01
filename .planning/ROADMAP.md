@@ -104,7 +104,7 @@ v1.1 implements two voice-related features:
 **Plans:** 4 plans in 4 waves
 
 **Plan list:**
-- [ ] 02-01-PLAN.md — Backend proxy + AudioWorklet foundation
+- [x] 02-01-PLAN.md — Direct browser service + AudioWorklet foundation
 - [ ] 02-02-PLAN.md — Live audio hook
 - [ ] 02-03-PLAN.md — Roast.exe integration + fallback
 - [ ] 02-04-PLAN.md — Latency testing
@@ -120,7 +120,7 @@ v1.1 implements two voice-related features:
 3. First token audio plays faster than current approach
 4. Fallback to current TTS if Live API unavailable
 
-**Status:** Pending
+**Status:** In Progress (1/1 plan complete)
 
 ---
 
@@ -129,7 +129,7 @@ v1.1 implements two voice-related features:
 | Phase | Goal | Requirements | Status |
 |-------|------|--------------|--------|
 | 1 - Voice Files | 13 voice files + playback system | VOICE-01 to VOICE-07 | Complete ✓ |
-| 2 - Live API | Real-time streaming for Roast.exe | VOICE-08 to VOICE-10 | Pending |
+| 2 - Live API | Real-time streaming for Roast.exe | VOICE-08 to VOICE-10 | In Progress |
 
 ---
 
@@ -162,4 +162,4 @@ v1.1 implements two voice-related features:
 ---
 
 *Roadmap created: 2026-02-28*
-*Last updated: 2026-03-01 — Phase 1 complete*
+*Last updated: 2026-03-01 — Plan 02-01 complete*
