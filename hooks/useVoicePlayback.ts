@@ -44,9 +44,11 @@ export function useVoicePlayback({ stage, personality, role, feedbackCardId, fee
     }
   }, [stage, personality, role]);
 
-  // Voice logic for feedback overlay - only for Development role
+  // Voice logic for feedback overlay - only for Development role and Roaster personality
+  // (only roaster has feedback audio files)
   useEffect(() => {
     if (!feedbackCardId || !feedbackChoice || !personality || role !== RoleType.DEVELOPMENT) return;
+    if (personality !== PersonalityType.ROASTER) return;
 
     const personalityLower = personality.toLowerCase().replace(/_/g, '');
     let trigger = 'feedback_ignore';
