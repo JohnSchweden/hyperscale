@@ -147,10 +147,11 @@ const App: React.FC = () => {
     currentAnswers: state.bossFightAnswers
   });
 
-  // Voice playback
+  // Voice playback - only for Development role
   useVoicePlayback({
     stage: state.stage,
     personality: state.personality,
+    role: state.role,
     feedbackCardId: feedbackOverlay?.cardId,
     feedbackChoice: feedbackOverlay?.choice
   });
