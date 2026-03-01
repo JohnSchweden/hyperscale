@@ -1,5 +1,58 @@
 # Agent instructions
 
+## Workflow Orchestration
+
+### 1. Plan Node Default
+- Enter plan mode for ANY non-trivial task (3+ steps or architectural decisions)
+- If something goes sideways, STOP and re-plan immediately - don't keep pushing
+- Use plan mode for verification steps, not just building
+- Write detailed specs upfront to reduce ambiguity
+
+### 2. Subagent Strategy
+- Use subagents liberally to keep main context window clean
+- Offload research, exploration, and parallel analysis to subagents
+- For complex problems, throw more compute at it via subagents
+- One tack per subagent for focused execution
+
+### 3. Self-Improvement Loop
+- After ANY correction from the user: update `tasks/lessons.md` with the pattern
+- Write rules for yourself that prevent the same mistake
+- Ruthlessly iterate on these lessons until mistake rate drops
+- Review lessons at session start for relevant project
+
+### 4. Verification Before Done
+- Never mark a task complete without proving it works
+- Diff behavior between main and your changes when relevant
+- Ask yourself: "Would a staff engineer approve this?"
+- Run tests, check logs, demonstrate correctness
+
+### 5. Demand Elegance (Balanced)
+- For non-trivial changes: pause and ask "is there a more elegant way?"
+- If a fix feels hacky: "Knowing everything I know now, implement the elegant solution"
+- Skip this for simple, obvious fixes - don't over-engineer
+- Challenge your own work before presenting it
+
+### 6. Autonomous Bug Fizing
+- When given a bug report: just fix it. Don't ask for hand-holding
+- Point at logs, errors, failing tests - then resolve them
+- Zero context switching required from the user
+- Go fix failing CI tests without being told how
+
+## Task Management
+
+1. **Plan First**: Write plan to `tasks/todo.md` with checkable items
+2. **Verify Plan**: Check in before starting implementation
+3. **Track Progress**: Mark items complete as you go
+4. **Explain Changes**: High-level summary at each step
+5. **Document Results**: Add review section to `tasks/todo.md`
+6. **Capture Lessons**: Update `tasks/lessons.md` after corrections
+
+## Core Principles
+
+- **Simplicity First**: Make every change as simple as possible. Impact minimal code.
+- **No Laziness**: Find root causes. No temporary fixes. Senior developer standards.
+- **Minimat Impact**: Changes should only touch what's necessary. Avoid introducing bugs.
+
 ## Git integration
 
 Follow `.cursor/references/git-integration.md` for commit points, message formats, and when to commit (outcomes, not process).
@@ -17,14 +70,14 @@ Follow `.cursor/references/git-integration.md` for commit points, message format
 When you modify UI, interactions, or visual elements:
 
 **Using agent-browser:**
-1. Start dev server: `npm run dev` (runs on http://localhost:5173)
+1. Start dev server: `bun dev` (runs on http://localhost:5173)
 2. `agent-browser open http://localhost:5173`
 3. `agent-browser snapshot -i` to see interactive elements
 4. Test the specific feature you changed (click, swipe, fill forms, etc.)
 5. `agent-browser screenshot` to capture evidence of working state
 
 **Using playwright-cli:**
-1. Start dev server: `npm run dev`
+1. Start dev server: `bun dev`
 2. `playwright-cli open http://localhost:5173`
 3. `playwright-cli snapshot` to see elements
 4. Interact with changed features using `click`, `fill`, `press`, etc.
