@@ -1,5 +1,6 @@
 import { test, expect, Page } from '@playwright/test';
 import { navigateToPlaying } from './helpers/navigation';
+import { mockRoastApi } from './helpers/mockApi';
 import { SELECTORS } from './helpers/selectors';
 
 test.use({ baseURL: 'http://localhost:3000' });
@@ -104,6 +105,7 @@ async function navigateToFeedbackOverlay(page: Page) {
 }
 
 async function navigateToPlayingWithRoastAnswer(page: Page) {
+  mockRoastApi(page);
   await navigateToPlaying(page);
   const textarea = page.getByLabel('Describe your use case / workflow for governance review');
   await textarea.fill('I paste production secrets into random AI tools without reading the terms.');
@@ -166,6 +168,7 @@ test.describe('Stage visual snapshots', () => {
   });
 
   test('playing roast con before and after', async ({ page }) => {
+    mockRoastApi(page);
     await navigateToPlaying(page);
     await page.getByTestId('roast-terminal').scrollIntoViewIfNeeded();
     await expect(page).toHaveScreenshot('playing-roast-before.png', {

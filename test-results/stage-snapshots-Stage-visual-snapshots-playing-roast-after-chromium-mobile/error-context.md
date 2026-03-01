@@ -61,17 +61,20 @@
             - generic [ref=e82]:
               - textbox "Describe your use case / workflow for governance review" [ref=e83]:
                 - /placeholder: e.g. I use ChatGPT for company secrets...
-                - text: fallback test prompt
-              - button "Scanning..." [disabled]:
-                - generic: 
-      - generic [ref=e84]:
-        - generic [ref=e85]:
-          - button [ref=e86] [cursor=pointer]:
-            - generic [ref=e87]: 
-          - generic [ref=e88]:
-            - generic [ref=e90]: 
+                - text: I paste production secrets into random AI tools without reading the terms.
+              - button "Send roast" [ref=e84] [cursor=pointer]:
+                - generic [ref=e85]: 
+            - generic [ref=e86]:
+              - generic [ref=e87]: ">>> V.E.R.A.:"
+              - generic [ref=e88]: ">>> Mock roast response. Your workflow is remarkably insecure."
+      - generic [ref=e89]:
+        - generic [ref=e90]:
+          - button [ref=e91] [cursor=pointer]:
+            - generic [ref=e92]: 
+          - generic [ref=e93]:
+            - generic [ref=e95]: 
             - text: 
-        - generic [ref=e91]:
-          - generic [ref=e94]: 
-          - generic [ref=e96]: 05:40 PM
+        - generic [ref=e96]:
+          - generic [ref=e99]: 
+          - generic [ref=e101]: 06:07 PM
 ```

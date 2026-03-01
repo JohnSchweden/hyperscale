@@ -1,11 +1,13 @@
 import { test, expect } from '@playwright/test';
 import { navigateToPlaying } from './helpers/navigation';
+import { mockRoastApi } from './helpers/mockApi';
 
 test.use({ baseURL: 'http://localhost:3000' });
 
 /**
  * Latency test for streaming audio via Gemini Live API
- * 
+ * Uses mocked API responses - no real Gemini calls.
+ *
  * Tests:
  * 1. Time to first audio - should be faster than standard TTS (500ms-1000ms target)
  * 2. Audio playback speed - should not be 2x speed (chipmunk voice)
@@ -13,6 +15,8 @@ test.use({ baseURL: 'http://localhost:3000' });
  */
 
 test.describe('Live API latency testing', () => {
+  test.beforeEach(({ page }) => mockRoastApi(page));
+
   test('measures time to first audio for streaming', async ({ page }) => {
     // Navigate to playing stage
     await navigateToPlaying(page);

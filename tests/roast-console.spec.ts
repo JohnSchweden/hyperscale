@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { navigateToPlaying } from './helpers/navigation';
+import { mockRoastApi } from './helpers/mockApi';
 
 test.use({ baseURL: 'http://localhost:3000' });
 
@@ -22,6 +23,8 @@ async function assertRoastOutputVisibleAndInViewport(page: import('@playwright/t
 // which intentionally shifts content. Card container stays fixed height; roast grows below it.
 
 test.describe('Roast console visibility', () => {
+  test.beforeEach(({ page }) => mockRoastApi(page));
+
   test('desktop roast output is visible and within viewport', async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 720 });
     await navigateToPlaying(page);
