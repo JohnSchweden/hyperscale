@@ -74,7 +74,9 @@ export async function connectToLiveSession(
   const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
 
   if (!apiKey) {
-    throw new Error('GEMINI_API_KEY not configured. Add VITE_GEMINI_API_KEY to .env.local');
+    throw new Error(
+      'Live API: VITE_GEMINI_API_KEY not set. For Vercel: add it in Project → Settings → Environment Variables, then redeploy.'
+    );
   }
 
   // Get personality-specific system instruction

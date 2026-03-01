@@ -2,9 +2,8 @@ import { PersonalityType } from '../types';
 import { getRoast, speak } from './geminiService';
 import { connectToLiveSession } from './geminiLive';
 
-// Default true: when Live API fails, fall back to backend TTS (/api/roast + /api/speak)
 const TTS_FALLBACK_ENABLED =
-  import.meta.env.VITE_TTS_FALLBACK_ENABLED !== 'false';
+  import.meta.env.VITE_TTS_FALLBACK_ENABLED === 'true';
 
 /**
  * Voice mapping for TTS fallback
