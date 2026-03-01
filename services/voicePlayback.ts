@@ -1,7 +1,6 @@
 let currentSource: HTMLAudioElement | null = null;
 
-// Volume reduced by 40% (0.6 = 60% of original)
-const VOLUME = 0.6;
+const VOLUME = 0.4;  // 40%
 
 const ERROR_MESSAGES = {
   roaster: "V.E.R.A. voice module malfunctioned",
