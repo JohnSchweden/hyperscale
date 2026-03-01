@@ -29,9 +29,10 @@ class StreamingAudioProcessor extends AudioWorkletProcessor {
       const { type, data } = event.data;
 
       if (type === 'chunk' && data) {
-        // Data comes as Float32Array already converted from main thread
-        // Just add to buffer
-        this.addChunk(data);
+        // Data comes as 24kHz Float32Array from main thread
+        // Resample to 48kHz before buffering to prevent 2x speed playback
+        const resampledData = resample24to48(data);
+        this.addChunk(resampledData);
       } else if (type === 'clear') {
         // Clear buffer (for new stream)
         this.buffer = [];
