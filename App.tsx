@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback, useReducer } from 'rea
 import { GameStage, PersonalityType, RoleType, GameState, AppSource, DeathType } from './types';
 import { PERSONALITIES, ROLE_CARDS, DEATH_ENDINGS, BOSS_FIGHT_QUESTIONS } from './constants';
 import { loadVoice, playVoice, stopVoice } from './services/voicePlayback';
+import { getRoast } from './services/geminiService';
 import LayoutShell from './components/LayoutShell';
 
 /**
@@ -806,8 +807,12 @@ const App: React.FC = () => {
   const handleRoast = async () => {
     if (!roastInput || !state.personality) return;
     setIsRoasting(true);
-    // Voice will be played by the feedback overlay useEffect
-    setRoastOutput(`'Describe your use case / workflow for governance review...\n\n${roastInput}\n\nThis workflow has been analyzed. Here is your satirical roast:\n\n<Roast message here>`);
+    try {
+      const roast = await getRoast(roastInput, state.personality);
+      setRoastOutput(roast);
+    } catch (e) {
+      setRoastOutput("Roast service unavailable. The auditors are busy.");
+    }
     setIsRoasting(false);
   };
 

@@ -1,5 +1,8 @@
 let currentSource: HTMLAudioElement | null = null;
 
+// Volume reduced by 40% (0.6 = 60% of original)
+const VOLUME = 0.6;
+
 const ERROR_MESSAGES = {
   roaster: "V.E.R.A. voice module malfunctioned",
   zenmaster: "The silence of the spreadsheets is deafening",
@@ -8,7 +11,8 @@ const ERROR_MESSAGES = {
 
 export async function loadVoice(personality: string, trigger: string): Promise<void> {
   const basePath = '/audio/voices';
-  const personalityDir = `${basePath}/${personality.toLowerCase()}`;
+  // Handle personality like "ZEN_MASTER" -> "zenmaster"
+  const personalityDir = `${basePath}/${personality.toLowerCase().replace(/_/g, '')}`;
   const filename = trigger + '.wav';
   const filePath = `${personalityDir}/${filename}`;
 
@@ -19,7 +23,8 @@ export async function loadVoice(personality: string, trigger: string): Promise<v
     console.log('[Voice] Response status:', response.status);
     
     if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: ${ERROR_MESSAGES[personality.toLowerCase()] || "Voice module error"}`);
+      const personalityKey = personality.toLowerCase().replace(/_/g, '');
+      throw new Error(`HTTP ${response.status}: ${ERROR_MESSAGES[personalityKey] || "Voice module error"}`);
     }
 
     const arrayBuffer = await response.arrayBuffer();
@@ -35,6 +40,7 @@ export async function loadVoice(personality: string, trigger: string): Promise<v
     }
 
     currentSource = new Audio(audioUrl);
+    currentSource.volume = VOLUME;
     
     currentSource.oncanplaythrough = () => {
       console.log('[Voice] Audio can play through');
@@ -45,12 +51,12 @@ export async function loadVoice(personality: string, trigger: string): Promise<v
     };
     
     await currentSource.play();
-    console.log('[Voice] Play started');
+    console.log('[Voice] Play started at volume:', VOLUME);
     
     return;
   } catch (error) {
     console.error("[Voice Error]", error);
-    throw new Error(ERROR_MESSAGES[personality.toLowerCase()] || "Voice module error");
+    throw new Error(ERROR_MESSAGES[personality.toLowerCase().replace(/_/g, '')] || "Voice module error");
   }
 }
 
