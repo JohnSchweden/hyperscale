@@ -13,6 +13,8 @@ interface SwipeState {
   hasDragged: boolean;
 }
 
+export type { SwipeState };
+
 interface UseSwipeGesturesOptions {
   enabled: boolean;
   onSwipe: (direction: 'LEFT' | 'RIGHT') => void;

@@ -15,6 +15,7 @@ interface GameScreenProps {
   swipeOffset: number;
   swipeDirection: 'LEFT' | 'RIGHT' | null;
   isDragging: boolean;
+  hasDragged: boolean;
   cardExitDirection: 'LEFT' | 'RIGHT' | null;
   exitPosition: { x: number; rotate: number } | null;
   isSnappingBack: boolean;
@@ -45,6 +46,7 @@ export const GameScreen: React.FC<GameScreenProps> = ({
   swipeOffset,
   swipeDirection,
   isDragging,
+  hasDragged,
   cardExitDirection,
   exitPosition,
   isSnappingBack,
@@ -86,6 +88,7 @@ export const GameScreen: React.FC<GameScreenProps> = ({
             exitDirection={cardExitDirection}
             exitPosition={exitPosition}
             isSnappingBack={isSnappingBack}
+            hasDragged={hasDragged}
             onTouchStart={onTouchStart}
             onTouchMove={onTouchMove}
             onTouchEnd={onTouchEnd}

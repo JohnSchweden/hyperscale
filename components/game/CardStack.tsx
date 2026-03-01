@@ -11,6 +11,7 @@ interface CardStackProps {
   offset: number;
   direction: 'LEFT' | 'RIGHT' | null;
   isDragging: boolean;
+  hasDragged: boolean;
   exitDirection: 'LEFT' | 'RIGHT' | null;
   exitPosition: { x: number; rotate: number } | null;
   isSnappingBack: boolean;
@@ -34,6 +35,7 @@ export const CardStack: React.FC<CardStackProps> = ({
   offset,
   direction,
   isDragging,
+  hasDragged,
   exitDirection,
   exitPosition,
   isSnappingBack,
@@ -102,7 +104,7 @@ export const CardStack: React.FC<CardStackProps> = ({
       <div
         ref={cardRef}
         data-testid="incident-card"
-        className={`absolute inset-0 bg-slate-900 border border-slate-700 rounded-xl overflow-hidden shadow-2xl flex flex-col select-none swipe-card ${isFirstCard && !exitDirection && !isDragging ? 'ticket-transition' : ''} ${isSnappingBack ? 'spring-snap-back' : ''}`}
+        className={`absolute inset-0 bg-slate-900 border border-slate-700 rounded-xl overflow-hidden shadow-2xl flex flex-col select-none swipe-card ${isFirstCard && !exitDirection && !isDragging && !hasDragged ? 'ticket-transition' : ''} ${isSnappingBack ? 'spring-snap-back' : ''}`}
         key={currentCardIndex}
         onTouchStart={onTouchStart}
         onTouchMove={onTouchMove}

@@ -275,6 +275,7 @@ const App: React.FC = () => {
             cardExitDirection={swipe.exitDirection}
             exitPosition={swipe.exitPosition}
             isSnappingBack={swipe.isSnappingBack}
+            hasDragged={swipe.hasDragged}
             onTouchStart={swipe.onTouchStart}
             onTouchMove={swipe.onTouchMove}
             onTouchEnd={swipe.onTouchEnd}

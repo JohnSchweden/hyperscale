@@ -4,24 +4,6 @@
 
 ## Tech Debt
 
-### Broken Environment Variable Usage
-- **Issue:** Using `process.env` directly in client-side code (`services/geminiService.ts` lines 44, 122). In Vite, environment variables must use `import.meta.env.VITE_*` prefix.
-- **Files:** `services/geminiService.ts`
-- **Impact:** API key will be undefined, causing the roast feature to fail silently with "Roast disabled" message
-- **Fix approach:** Replace with `import.meta.env.VITE_GEMINI_API_KEY` and add `.env.example` with VITE_ prefix
-
-### Vite Config Redundancy
-- **Issue:** `vite.config.ts` defines both `process.env.API_KEY` and `process.env.GEMINI_API_KEY` but the actual code expects these to work client-side (they won't)
-- **Files:** `vite.config.ts`, `services/geminiService.ts`
-- **Impact:** Configuration doesn't match implementation, API calls will fail
-- **Fix approach:** Use proper Vite environment variable handling
-
-### Monolithic App Component
-- **Issue:** Single `App.tsx` file contains ~1500 lines with all game logic, rendering, state management, and event handlers
-- **Files:** `App.tsx`
-- **Impact:** Difficult to maintain, test, or extend. Any change risks breaking unrelated features
-- **Fix approach:** Extract into smaller components (GameHUD, CardStack, FeedbackOverlay, BossFight, etc.) and custom hooks
-
 ### Limited Game Content
 - **Issue:** Only 2 cards per role = 12 total incidents. Game ends after ~6 swipes
 - **Files:** `constants.ts` (ROLE_CARDS)
@@ -55,12 +37,6 @@
 - **Fix approach:** Use single animation state machine with useEffect cleanup
 
 ## Security Considerations
-
-### API Key Exposure Risk
-- **Issue:** If `process.env` were to somehow work, API keys would be bundled into client-side JavaScript
-- **Files:** `services/geminiService.ts`, `vite.config.ts`
-- **Current mitigation:** Keys aren't actually exposed because the env var approach is broken
-- **Recommendations:** Use server-side API route (Vite proxy or Netlify function) to proxy Gemini calls, keeping keys server-side
 
 ### No Input Validation on Roast Feature
 - **Issue:** User input to the roast feature is sent directly to Gemini without sanitization
