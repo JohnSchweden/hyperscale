@@ -1,5 +1,16 @@
+import fs from 'fs';
+import path from 'path';
 import http from 'http';
 import { GoogleGenAI, Modality } from "@google/genai";
+
+const envPath = path.join(process.cwd(), '.env.local');
+const envContent = fs.readFileSync(envPath, 'utf-8');
+const envVars: Record<string, string> = {};
+envContent.split('\n').forEach(line => {
+  const match = line.match(/^([^#]+)=(.+)$/);
+  if (match) envVars[match[1]] = match[2];
+});
+process.env.GEMINI_API_KEY = envVars.GEMINI_API_KEY;
 
 const apiKey = process.env.GEMINI_API_KEY;
 if (!apiKey) throw new Error('GEMINI_API_KEY not set. Add to .env.local for local dev.');

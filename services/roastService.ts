@@ -2,8 +2,8 @@ import { PersonalityType } from '../types';
 import { getRoast, speak } from './geminiService';
 import { connectToLiveSession } from './geminiLive';
 
-// TTS fallback disabled: Live API only. No /api/speak when Live API fails.
-const TTS_FALLBACK_ENABLED = false;
+const TTS_FALLBACK_ENABLED = import.meta.env.VITE_TTS_FALLBACK_ENABLED === 'true';
+const LIVE_API_ENABLED = import.meta.env.VITE_ENABLE_LIVE_API === 'true';
 
 /**
  * Voice mapping for TTS fallback
@@ -32,6 +32,8 @@ const FALLBACK_ERROR_CODES = [
   'not authenticated',
   'api key',
   'ephemeral',
+  'live api not enabled',
+  'live api unavailable',
 ];
 
 /**
@@ -55,6 +57,10 @@ async function streamFromLiveAPI(
   personality: PersonalityType,
   onTextChunk: (text: string) => void
 ): Promise<string> {
+  if (!LIVE_API_ENABLED) {
+    throw new Error('Live API not enabled - forcing TTS fallback');
+  }
+
   console.log(`[roastService] streamFromLiveAPI called with personality: ${personality}`);
   const audioContext = new AudioContext({ sampleRate: 24000 });
   let nextStartTime = 0;
@@ -143,6 +149,7 @@ export async function getRoastWithFallback(
 
     if (TTS_FALLBACK_ENABLED && shouldFallback(error)) {
       const roastText = await getRoast(workflow, personality);
+      onTextChunk(roastText);
       const voiceName = VOICE_MAP[personality];
       await speak(roastText, voiceName);
       return roastText;
