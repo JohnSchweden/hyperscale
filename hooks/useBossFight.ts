@@ -59,7 +59,9 @@ export function useBossFight({ isActive, onAnswer, onComplete, currentAnswers }:
   }, [currentQuestion, currentAnswers, onComplete]);
 
   const question = BOSS_FIGHT_QUESTIONS[currentQuestion];
-  const fixedAnswers = question ? [question.correctAnswer, ...question.wrongAnswers] : [];
+  const fixedAnswers = question 
+    ? [question.correctAnswer, ...question.wrongAnswers].sort(() => Math.random() - 0.5)
+    : [];
   const correctCount = currentAnswers.filter(Boolean).length;
 
   return {
