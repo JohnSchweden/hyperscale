@@ -2,6 +2,62 @@ import { Page } from '@playwright/test';
 import { SELECTORS } from './selectors';
 
 /**
+ * Navigate directly to the playing stage using localStorage state injection.
+ * This bypasses the 4-step navigation flow (intro → boot → personality → role)
+ * for faster test execution.
+ * 
+ * @param page - Playwright Page object
+ * @returns Promise that resolves when playing stage is visible
+ */
+export async function navigateToPlayingFast(page: Page): Promise<void> {
+  // Set initial game state in localStorage to bypass intro flow
+  await page.addInitScript(() => {
+    window.localStorage.setItem('gameState', JSON.stringify({
+      state: 'playing',
+      personality: 'vera',
+      role: 'development'
+    }));
+  });
+
+  // Navigate to home - the app will detect the state and go directly to playing
+  await page.goto('/');
+  
+  // Wait for playing stage to be visible (Debug button appears)
+  try {
+    await page.locator('button:has-text("Debug")').waitFor({ state: 'visible', timeout: 3000 });
+  } catch {
+    // Fast approach failed, fall back to full navigation
+    console.warn('Fast navigation failed, falling back to full navigation');
+    await navigateToPlaying(page);
+  }
+  
+  await page.waitForLoadState('networkidle');
+}
+
+/**
+ * Returns a configuration marker for tests that should use test.beforeAll pattern.
+ * 
+ * This is a documentation/convention helper. Actual context reuse comes from
+ * Playwright config (reuseExistingBrowser: true in projects).
+ * 
+ * Usage:
+ * ```typescript
+ * test.describe('Static CSS tests', () => {
+ *   test.beforeAll(async ({ page }) => {
+ *     await navigateToPlayingFast(page);
+ *   });
+ * 
+ *   test('CSS class exists', async ({ page }) => { ... });
+ * });
+ * ```
+ */
+export function getStatefulPage(page: Page): Page {
+  // Just return the page - the marker is for documentation purposes
+  // Tests using beforeAll will share browser context via Playwright config
+  return page;
+}
+
+/**
  * Navigate from intro to the playing stage
  * Waits for all stages to load properly before returning
  */
