@@ -85,9 +85,6 @@ export function useSpeechRecognition(): UseSpeechRecognitionReturn {
     recognition.interimResults = true;
     recognition.lang = 'en-US';
 
-    // Track the actual error for the onend callback
-    let lastError: string | null = null;
-
     recognition.onstart = () => {
       console.log('[Speech] onstart fired');
       setIsListening(true);
@@ -107,31 +104,17 @@ export function useSpeechRecognition(): UseSpeechRecognitionReturn {
 
     recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
       console.log('[Speech] onerror:', event.error);
-      lastError = event.error;
       setError(event.error);
       setIsListening(false);
     };
 
     recognition.onend = () => {
-      console.log('[Speech] onend fired, manualStop:', isManualStopRef.current, 'lastError:', lastError);
+      console.log('[Speech] onend fired, manualStop:', isManualStopRef.current);
       
-      // Don't auto-restart on "no-speech" - this happens when browser can't detect audio
-      // Only auto-restart on unexpected ends with no error
-      if (!isManualStopRef.current && !lastError) {
-        console.log('[Speech] ended without error, auto-restarting...');
-        try {
-          recognition.start();
-        } catch (e) {
-          console.log('[Speech] restart error:', e);
-          setIsListening(false);
-        }
-      } else if (lastError === 'no-speech') {
-        console.log('[Speech] no-speech error - not auto-restarting (this is normal in headless browsers)');
-        setIsListening(false);
-      } else {
-        console.log('[Speech] not auto-restarting due to error or manual stop');
-        setIsListening(false);
-      }
+      // Don't auto-restart - just let it stop. User can manually restart.
+      // Auto-restarting causes issues (loops, stale state, etc.)
+      console.log('[Speech] recognition ended');
+      setIsListening(false);
     };
 
     recognitionRef.current = recognition;
