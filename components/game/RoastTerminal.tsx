@@ -34,11 +34,13 @@ export const RoastTerminal: React.FC<RoastTerminalProps> = ({
   // Update input when transcript changes
   useEffect(() => {
     if (transcript) {
+      console.log('[RoastTerminal] transcript updated:', transcript);
       onInputChange(transcript);
     }
   }, [transcript, onInputChange]);
 
   const handleMicrophoneClick = () => {
+    console.log('[RoastTerminal] mic clicked, isListening:', isListening);
     if (isListening) {
       stopListening();
     } else {
@@ -102,7 +104,10 @@ export const RoastTerminal: React.FC<RoastTerminalProps> = ({
             <i className={`fa-solid text-lg ${isLoading ? 'fa-spinner roast-spinner' : 'fa-arrow-turn-down'}`} aria-hidden />
           </button>
         </div>
-        {output && (
+          {error && (
+            <div className="text-xs text-red-400 mt-1">Error: {error}</div>
+          )}
+          {output && (
           <div ref={outputRef} data-testid="roast-output" className="flex-1 min-h-0 flex flex-col bg-green-900/10 border border-green-500/20 rounded overflow-hidden">
             <div className="p-3 pb-1 text-sm mono text-green-400 font-bold tracking-wide flex-shrink-0">{'>>>'} {personalityName}:</div>
             <div data-testid="roast-output-body" className="flex-1 min-h-0 p-3 pt-0 text-sm mono text-green-400 overflow-auto">
