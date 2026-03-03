@@ -82,15 +82,16 @@ See: `.planning/PROJECT.md` (updated 2026-03-03)
 | 001 | Delete orphaned hook | 2026-03-03 | 1e2bf0b | [001-delete-orphaned-hook](./quick/001-delete-orphaned-hook/) |
 | 002 | Add microphone button for voice input | 2026-03-03 | c226ac1 | [002-add-microphone-button](./quick/002-add-microphone-button/) |
 | 003 | Randomize boss answer positions | 2026-03-03 | 9964a3b | [003-in-the-boss-fight-currently-the-right-an](./quick/003-in-the-boss-fight-currently-the-right-an/) |
+| 004 | Focused tests without full navigation | 2026-03-03 | 10f9ef6 | [004-focused-tests-without-full-navigation](./quick/004-focused-tests-without-full-navigation/) |
 
 ---
 
 ## Session Continuity
 
-**Last action:** 2026-03-03 - Completed quick task 002: Add microphone button for voice input
+**Last action:** 2026-03-03 - Completed quick task 004: Focused tests without full navigation
 
 **Next action:** Start v1.2 - visual effects, background audio, settings
 
 ---
 
-*Last updated: 2026-03-03 — v1.1 milestone complete*
+*Last updated: 2026-03-03 — Quick task 004 complete*
