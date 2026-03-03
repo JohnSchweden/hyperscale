@@ -1,6 +1,7 @@
 import React, { useEffect, RefObject } from 'react';
 import { PersonalityType } from '../../types';
 import { PERSONALITIES } from '../../data';
+import { useSpeechRecognition } from '../../hooks/useSpeechRecognition';
 
 const ROAST_CONSOLE_NAMES: Record<PersonalityType, string> = {
   [PersonalityType.ROASTER]: 'roast_con.exe',
@@ -27,6 +28,24 @@ export const RoastTerminal: React.FC<RoastTerminalProps> = ({
   onInputChange,
   onSubmit
 }) => {
+  // Speech recognition
+  const { isListening, transcript, startListening, stopListening, error } = useSpeechRecognition();
+
+  // Update input when transcript changes
+  useEffect(() => {
+    if (transcript) {
+      onInputChange(transcript);
+    }
+  }, [transcript, onInputChange]);
+
+  const handleMicrophoneClick = () => {
+    if (isListening) {
+      stopListening();
+    } else {
+      startListening();
+    }
+  };
+
   // Auto-scroll to output when it appears
   useEffect(() => {
     if (!output) return;
@@ -62,6 +81,16 @@ export const RoastTerminal: React.FC<RoastTerminalProps> = ({
             aria-label="Describe your use case / workflow for governance review"
             className="flex-1 min-h-[3rem] lg:min-h-[6rem] bg-black border border-green-900/30 rounded p-3 text-sm mono text-green-400 focus:outline-none placeholder:text-green-500/60 resize-none"
           />
+          <button
+            type="button"
+            onClick={handleMicrophoneClick}
+            disabled={isLoading}
+            title={isListening ? 'Stop recording' : 'Start voice input'}
+            aria-label={isListening ? 'Stop recording' : 'Start voice input'}
+            className={`shrink-0 w-11 h-11 lg:w-12 lg:h-12 flex items-center justify-center border rounded focus:outline-none focus:ring-2 focus:ring-green-500/50 disabled:opacity-50 disabled:pointer-events-none [transition:background-color_150ms,border-color_150ms,color_150ms] ${isListening ? 'bg-red-900/30 border-red-500/50 text-red-400 animate-pulse' : 'bg-green-900/20 border-green-500/40 text-green-400 hover:bg-green-500 hover:text-black'}`}
+          >
+            <i className={`fa-solid text-lg ${isListening ? 'fa-stop' : 'fa-microphone'}`} aria-hidden />
+          </button>
           <button
             type="button"
             onClick={onSubmit}
