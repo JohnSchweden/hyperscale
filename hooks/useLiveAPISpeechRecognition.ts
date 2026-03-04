@@ -169,9 +169,13 @@ export function useLiveAPISpeechRecognition(
       const session = await ai.live.connect({
         model: 'gemini-2.5-flash-native-audio-latest',
         config: {
-          responseModalities: [Modality.TEXT],
+          responseModalities: [Modality.AUDIO],
           inputAudioTranscription: {},
-          systemInstruction: systemInstruction || 'Transcribe user speech only. No response needed.',
+          outputAudioTranscription: {},
+          speechConfig: {
+            voiceConfig: { prebuiltVoiceConfig: { voiceName: 'Aoede' } },
+          },
+          systemInstruction: 'You are a speech transcription service. Only transcribe user audio. Do not generate any response.',
         },
         callbacks: {
           onmessage: (message) => {
