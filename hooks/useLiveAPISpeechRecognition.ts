@@ -66,7 +66,7 @@ const audioWorkletCode = `
  * Start microphone capture and return audio chunks
  */
 async function startMicCapture(
-  onAudioChunk: (base64: string) => void
+  onAudioChunk: (base64: string, sampleRate: number) => void
 ): Promise<{ stop: () => void }> {
   // Request mic at 16kHz (browser may not honor, typically gives 48kHz)
   const stream = await navigator.mediaDevices.getUserMedia({
@@ -78,32 +78,49 @@ async function startMicCapture(
     },
   });
 
-  // Create AudioContext at 16kHz for processing
-  const audioCtx = new AudioContext({ sampleRate: 16000 });
+  console.log('[STT DEBUG] getUserMedia success');
+
+  // Get actual sample rate from the stream
+  const actualSampleRate = stream.getAudioTracks()[0].getSettings().sampleRate || 48000;
+  console.log('[STT DEBUG] Requested sampleRate: 16000, Actual sampleRate:', actualSampleRate);
+
+  // Create AudioContext at the actual sample rate from the stream
+  const audioCtx = new AudioContext({ sampleRate: actualSampleRate });
+  console.log('[STT DEBUG] AudioContext created at:', audioCtx.sampleRate, 'Hz');
 
   // Inline AudioWorklet - converts Float32 to Int16 PCM
   const blob = new Blob([audioWorkletCode], { type: 'application/javascript' });
   const workletUrl = URL.createObjectURL(blob);
   await audioCtx.audioWorklet.addModule(workletUrl);
 
+  console.log('[STT DEBUG] AudioWorklet module loaded');
+
   const source = audioCtx.createMediaStreamSource(stream);
   const worklet = new AudioWorkletNode(audioCtx, 'pcm-processor');
 
+  let chunkCount = 0;
   worklet.port.onmessage = (event) => {
+    chunkCount++;
     const bytes = new Uint8Array(event.data.buffer);
+    console.log('[STT DEBUG] AudioWorklet received chunk:', chunkCount, 'size:', bytes.length, 'bytes');
+    
     let binary = '';
     for (let i = 0; i < bytes.length; i++) {
       binary += String.fromCharCode(bytes[i]);
     }
     const base64 = btoa(binary);
-    onAudioChunk(base64);
+    console.log('[STT DEBUG] Sending base64 audio chunk:', base64.substring(0, 50) + '...');
+    onAudioChunk(base64, actualSampleRate);
   };
 
   source.connect(worklet);
   // Don't connect to destination (avoids feedback)
 
+  console.log('[STT DEBUG] Audio pipeline connected');
+
   return {
     stop: () => {
+      console.log('[STT DEBUG] Stopping microphone capture');
       stream.getTracks().forEach((t) => t.stop());
       worklet.disconnect();
       audioCtx.close();
@@ -203,16 +220,23 @@ export function useLiveAPISpeechRecognition(
       });
 
       sessionRef.current = session;
+      console.log('[STT DEBUG] Session connected successfully');
       
       // Start microphone capture
-      const mic = await startMicCapture((base64) => {
+      const mic = await startMicCapture((base64, sampleRate) => {
         if (sessionRef.current) {
-          sessionRef.current.sendRealtimeInput({
-            audio: {
-              data: base64,
-              mimeType: 'audio/pcm;rate=16000',
-            },
-          });
+          console.log('[STT DEBUG] Calling sendRealtimeInput with audio chunk, size:', base64.length, 'chars, sampleRate:', sampleRate);
+          try {
+            sessionRef.current.sendRealtimeInput({
+              audio: {
+                data: base64,
+                mimeType: 'audio/pcm;rate=' + sampleRate,
+              },
+            });
+            console.log('[STT DEBUG] sendRealtimeInput completed successfully');
+          } catch (err) {
+            console.error('[STT DEBUG] sendRealtimeInput error:', err);
+          }
         }
       });
       
