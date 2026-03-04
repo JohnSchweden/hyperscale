@@ -68,17 +68,21 @@ const audioWorkletCode = `
 async function startMicCapture(
   onAudioChunk: (base64: string, sampleRate: number) => void
 ): Promise<{ stop: () => void }> {
+  // Check if low latency mode is enabled (disables echo cancellation for faster transcription)
+  const lowLatencyMode = import.meta.env.VITE_STT_LOW_LATENCY === 'true';
+  
   // Request mic at 16kHz (browser may not honor, typically gives 48kHz)
   const stream = await navigator.mediaDevices.getUserMedia({
     audio: {
       sampleRate: 16000,
       channelCount: 1,
-      echoCancellation: true,
-      noiseSuppression: true,
+      echoCancellation: !lowLatencyMode,
+      noiseSuppression: !lowLatencyMode,
     },
   });
 
   console.log('[STT DEBUG] getUserMedia success');
+  console.log('[STT DEBUG] Low latency mode:', lowLatencyMode, '(VITE_STT_LOW_LATENCY)');
 
   // Get actual sample rate from the stream
   const actualSampleRate = stream.getAudioTracks()[0].getSettings().sampleRate || 48000;
