@@ -18,9 +18,17 @@
 - Background Audio (AUDIO-01 to AUDIO-04)
 - Settings Integration (SETT-01 to SETT-05)
 
-**Deferred from v1.1:**
-- Feedback messages for Zen Master and Lovebomber
-- Feedback messages for other roles
+### Phase 01: Live API STT Research
+
+**Goal:** Research and implement speech-to-text for microphone input
+**Depends on:** None (new feature research)
+**Plans:** 1 plan
+
+Plans:
+- [x] 01-01-PLAN.md — Implement STT via Gemini Live API
+
+**Details:**
+Research microphone function for Live API based on existing research file
 
 ---
 

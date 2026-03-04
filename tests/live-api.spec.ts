@@ -9,7 +9,7 @@ import { navigateToPlaying } from './helpers/navigation';
 test.use({ baseURL: 'http://localhost:3000' });
 
 test.describe('Live API with TTS fallback', () => {
-  test('text and audio appear when using Live API', async ({ page }) => {
+  test('@live-api text and audio appear when using Live API', async ({ page }) => {
     test.setTimeout(60000);
     await navigateToPlaying(page);
 
@@ -33,7 +33,7 @@ test.describe('Live API with TTS fallback', () => {
     console.log(`Live API response time: ${elapsed}ms`);
   });
 
-  test('TTS fallback works when Live API fails', async ({ page }) => {
+  test('@live-api TTS fallback works when Live API fails', async ({ page }) => {
     test.setTimeout(60000);
     await navigateToPlaying(page);
 

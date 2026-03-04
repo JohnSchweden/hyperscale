@@ -27,8 +27,8 @@ See: `.planning/PROJECT.md` (updated 2026-03-03)
 
 ### Current Position
 
-**Phase:** None (milestone complete)
-**Progress:** ████████████████████ 100% (v1.1 complete)
+**Phase:** 01 - Live API STT Research (not yet planned)
+**Progress:** ████░░░░░░░░░░░░░░░ 14% (v1.2 started)
 
 ---
 
@@ -57,6 +57,9 @@ See: `.planning/PROJECT.md` (updated 2026-03-03)
 ---
 
 ## Accumulated Context
+
+### Roadmap Evolution
+- Phase 01 added: Live API STT Research (STT for microphone input)
 
 ### Design Decisions
 - Pre-recorded voice samples (not TTS) for quality
