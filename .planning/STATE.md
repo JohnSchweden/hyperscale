@@ -28,7 +28,7 @@ See: `.planning/PROJECT.md` (updated 2026-03-03)
 ### Current Position
 
 **Phase:** 01 - Live API STT Research
-**Plan:** 2 of 2 in current phase
+**Plan:** 3 of 3 in current phase
 **Status:** Phase complete
 **Progress:** ████████████████████ 100%
 
@@ -42,6 +42,7 @@ See: `.planning/PROJECT.md` (updated 2026-03-03)
 - AudioWorklet for PCM conversion
 - Integrated into RoastTerminal
 - **Gap closure (01-02):** Added debug logging and fixed sample rate handling
+- **Gap closure (01-03):** Fixed WebSocket closing - changed config to use Modality.AUDIO
 - Debug logs now show audio capture pipeline
 
 ---
@@ -107,10 +108,10 @@ See: `.planning/PROJECT.md` (updated 2026-03-03)
 
 ## Session Continuity
 
-**Last action:** 2026-03-04 - Completed 01-02-PLAN.md: Fix speech-to-text gap closure
+**Last action:** 2026-03-04 - Completed 01-03-PLAN.md: Fix WebSocket closing gap
 
-**Next action:** v1.2 complete - ready for v1.3
+**Next action:** Phase 01 complete - ready for v1.2
 
 ---
 
-*Last updated: 2026-03-04 — Plan 01-02 complete*
+*Last updated: 2026-03-04 — Plan 01-03 complete*
