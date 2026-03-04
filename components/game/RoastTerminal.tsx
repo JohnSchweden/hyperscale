@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, RefObject, memo } from 'react';
+import React, { useEffect, useRef, RefObject, memo, useState } from 'react';
 import { PersonalityType } from '../../types';
 import { PERSONALITIES } from '../../data';
-import { useSpeechRecognition } from '../../hooks/useSpeechRecognition';
+import { useLiveAPISpeechRecognition } from '../../hooks/useLiveAPISpeechRecognition';
 
 const ROAST_CONSOLE_NAMES: Record<PersonalityType, string> = {
   [PersonalityType.ROASTER]: 'roast_con.exe',
@@ -29,26 +29,39 @@ const RoastTerminalInner = memo(function RoastTerminalInner({
   onInputChange,
   onSubmit
 }: RoastTerminalInnerProps) {
-  const { isListening, transcript, startListening, stopListening, error } = useSpeechRecognition();
-  const lastTranscriptRef = useRef('');
+  const [streamingTranscript, setStreamingTranscript] = useState('');
+  const lastFinalTranscriptRef = useRef('');
+  
+  const { isRecording, transcript, startRecording, stopRecording, error } = useLiveAPISpeechRecognition({
+    onTranscript: (text, isFinal) => {
+      if (isFinal) {
+        lastFinalTranscriptRef.current = text;
+        onInputChange(text);
+        setStreamingTranscript('');
+      } else {
+        setStreamingTranscript(text);
+      }
+    },
+  });
 
-  // Update input only when transcript actually changes (debounced)
+  // Update input only when final transcript arrives
   useEffect(() => {
-    if (transcript && transcript !== lastTranscriptRef.current) {
-      lastTranscriptRef.current = transcript;
+    if (transcript && transcript !== lastFinalTranscriptRef.current) {
+      lastFinalTranscriptRef.current = transcript;
       onInputChange(transcript);
     }
   }, [transcript, onInputChange]);
 
   const handleMicrophoneClick = () => {
-    if (isListening) {
-      stopListening();
+    if (isRecording) {
+      stopRecording();
     } else {
-      startListening();
+      startRecording();
     }
   };
 
   const personalityName = PERSONALITIES[personality].name;
+  const isListening = isRecording;
 
   return (
     <div
@@ -93,6 +106,12 @@ const RoastTerminalInner = memo(function RoastTerminalInner({
         </div>
         {error && (
           <div className="text-xs text-red-400 mt-1">Error: {error}</div>
+        )}
+        {streamingTranscript && (
+          <div className="text-xs text-yellow-400/80 mt-1 animate-pulse flex items-center gap-1">
+            <i className="fa-solid fa-wave-square" aria-hidden />
+            {streamingTranscript}
+          </div>
         )}
         {output && (
           <div ref={outputRef} data-testid="roast-output" className="flex-1 min-h-0 flex flex-col bg-green-900/10 border border-green-500/20 rounded overflow-hidden">
