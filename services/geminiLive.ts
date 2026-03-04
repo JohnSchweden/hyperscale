@@ -14,9 +14,11 @@ import { PERSONALITIES } from '../data';
  * - Automatic sample rate handling (24kHz output)
  */
 
-interface LiveSessionConfig {
+export interface LiveSessionConfig {
   model?: string;
   systemInstruction?: string;
+  inputAudioTranscription?: Record<string, unknown>;
+  onInputTranscription?: (text: string, isFinal: boolean) => void;
 }
 
 interface AudioChunk {
@@ -131,6 +133,7 @@ export async function connectToLiveSession(
         },
         systemInstruction: config.systemInstruction!,
         outputAudioTranscription: {},
+        inputAudioTranscription: config.inputAudioTranscription || {},
       },
       callbacks: {
         onopen: () => {
@@ -172,6 +175,16 @@ export async function connectToLiveSession(
             if (textContent) {
               const textChunk: TextChunk = { text: textContent, isFinal: false };
               (controller as ReadableStreamDefaultController<AudioChunk | TextChunk>).enqueue(textChunk);
+            }
+          }
+
+          // Handle input transcription (user speech to text)
+          const inputTranscription = message.serverContent?.inputTranscription;
+          if (inputTranscription && config.onInputTranscription) {
+            const text = inputTranscription.text || '';
+            if (text) {
+              const isFinal = message.serverContent?.turnComplete || false;
+              config.onInputTranscription(text, isFinal);
             }
           }
 
