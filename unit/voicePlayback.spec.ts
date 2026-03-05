@@ -1,9 +1,12 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-// Mock AudioContext and related APIs
+const connectable = () => ({ connect: vi.fn() });
+
+// Mock AudioContext and related APIs (supports voicePlayback + radioEffect)
 class MockAudioContext {
 	state = "running";
 	sampleRate = 24000;
+	currentTime = 0;
 	createBufferSource = vi.fn(() => ({
 		buffer: null,
 		connect: vi.fn(),
@@ -11,15 +14,26 @@ class MockAudioContext {
 		stop: vi.fn(),
 		onended: null,
 	}));
-	createBuffer = vi.fn((channels, length, sampleRate) => ({
-		numberOfChannels: channels,
+	createBuffer = vi.fn((_ch: number, length: number, _sr?: number) => ({
+		numberOfChannels: 1,
 		length,
-		sampleRate,
+		sampleRate: 24000,
 		getChannelData: () => new Float32Array(length),
+	}));
+	createMediaElementSource = vi.fn(() => connectable());
+	createBiquadFilter = vi.fn(() => connectable());
+	createGain = vi.fn(() => ({ ...connectable(), gain: { value: 1 } }));
+	createOscillator = vi.fn(() => ({
+		...connectable(),
+		start: vi.fn(),
+		stop: vi.fn(),
+		frequency: { value: 0 },
+		type: "sine",
+		onended: null,
 	}));
 	decodeAudioData = vi.fn();
 	close = vi.fn();
-	resume = vi.fn();
+	resume = vi.fn(() => Promise.resolve());
 }
 
 const mockAudioContext = new MockAudioContext() as unknown as AudioContext;
