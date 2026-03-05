@@ -13,13 +13,14 @@ export const IntroScreen: React.FC<IntroScreenProps> = ({ onStart }) => {
         <div className="text-red-600 font-bold mono text-xs md:text-sm animate-pulse tracking-[0.4em]">incident_response_terminal // os_v0.92</div>
       </div>
       <p className="max-w-xl text-slate-300 mb-8 md:mb-10 text-base md:text-lg px-4 leading-relaxed">
-        <span className="font-bold">Tinder for AI Risk, Governance, and Compliance.</span>
+        <span className="font-bold block mb-2">AI Kobayashi Maru: A No-Win Simulation for the Brave</span>
+        <span className="text-slate-400">Swipe your way through the AI Singularity. It's not about passing; it's about discovering who you are when the system collapses.</span>
         <br />
-        <span className="text-[#B8962E] mono text-sm md:text-base">[NOTICE: Made for people who hate f*cking boring governance training]</span>
+        <span className="text-[#B8962E] mono text-sm md:text-base">[NOTICE: Made for people who hate f*cking boring training]</span>
       </p>
       <p className="max-w-xl text-slate-300 mb-12 md:mb-16 text-base md:text-lg px-4">
-        <span className="text-slate-300 font-bold block mb-2">Project Icarus</span>
-        <span className="text-slate-400">The CEO integrated an unhinged AI into every department.</span><br className="hidden md:inline" /><span className="text-slate-300"> Move fast, break laws, and try to survive the final audit. <span className="cursor-blink text-slate-300">_</span></span>
+        <span className="text-slate-300 font-bold block mb-2">Project Icarus: The Last Human in the Loop</span>
+        <span className="text-slate-400">The CEO just gave "Full Autonomy" to an experimental LLM. The safeguards are off. The servers are screaming.</span><br className="hidden md:inline" /><span className="text-slate-300"> You have 60 seconds to prevent a global PR meltdown or a total company liquidation. <span className="cursor-blink text-slate-300">_</span></span>
       </p>
       <div className="w-full flex justify-center">
         <button

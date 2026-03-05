@@ -21,6 +21,7 @@ Players experience smooth, responsive gameplay with consistent visual design acr
 ### Active
 
 - [ ] Visual effects (particles, screen shake, confetti, transitions)
+- [ ] Use case and outcome images (memorable, relatable, and humerous)
 - [ ] Background audio (ambient, stage music, transitions)
 - [ ] Settings integration (sound/voice/music toggles, volume)
 - [ ] Feedback messages for Zen Master and Lovebomber
