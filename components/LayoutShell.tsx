@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 
 export interface LayoutShellProps {
-  children: React.ReactNode;
-  header?: React.ReactNode;
-  footer?: React.ReactNode;
-  className?: string;
+	children: React.ReactNode;
+	header?: React.ReactNode;
+	footer?: React.ReactNode;
+	className?: string;
 }
 
 /**
@@ -16,14 +16,14 @@ export interface LayoutShellProps {
  * Uses min-h-[100dvh] for mobile viewport stability (handles browser chrome)
  */
 const LayoutShellComponent: React.FC<LayoutShellProps> = ({
-  children,
-  header,
-  footer,
-  className = '',
+	children,
+	header,
+	footer,
+	className = "",
 }) => (
-  <div
-    data-testid="layout-shell"
-    className={`
+	<div
+		data-testid="layout-shell"
+		className={`
         relative flex flex-col w-full
         lg:items-center lg:justify-center items-start pt-16 lg:pt-0
         min-h-[100dvh]
@@ -32,14 +32,16 @@ const LayoutShellComponent: React.FC<LayoutShellProps> = ({
         overflow-y-auto
         ${className}
       `.trim()}
-  >
-    {header && <header className="flex-shrink-0">{header}</header>}
-    <main className="flex flex-col w-full items-stretch lg:items-center">{children}</main>
-    {footer && <footer className="flex-shrink-0">{footer}</footer>}
-  </div>
+	>
+		{header && <header className="flex-shrink-0">{header}</header>}
+		<main className="flex flex-col w-full items-stretch lg:items-center">
+			{children}
+		</main>
+		{footer && <footer className="flex-shrink-0">{footer}</footer>}
+	</div>
 );
 
-LayoutShellComponent.displayName = 'LayoutShell';
+LayoutShellComponent.displayName = "LayoutShell";
 
 export const LayoutShell = React.memo(LayoutShellComponent);
 
