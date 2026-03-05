@@ -1,120 +1,143 @@
-import React from 'react';
-import { BossQuestion } from '../../types';
-import LayoutShell from '../LayoutShell';
+import type React from "react";
+import type { BossQuestion } from "../../types";
+import LayoutShell from "../LayoutShell";
 
 interface BossFightProps {
-  question: BossQuestion;
-  fixedAnswers: string[];
-  currentQuestion: number;
-  totalQuestions: number;
-  timeLeft: number;
-  showExplanation: boolean;
-  hasAnswered: boolean;
-  isCorrect: boolean;
-  correctCount: number;
-  totalAnswered: number;
-  onAnswer: (isCorrect: boolean) => void;
-  onNext: () => void;
+	question: BossQuestion;
+	fixedAnswers: string[];
+	currentQuestion: number;
+	totalQuestions: number;
+	timeLeft: number;
+	showExplanation: boolean;
+	hasAnswered: boolean;
+	isCorrect: boolean;
+	correctCount: number;
+	totalAnswered: number;
+	onAnswer: (isCorrect: boolean) => void;
+	onNext: () => void;
 }
 
 export const BossFight: React.FC<BossFightProps> = ({
-  question,
-  fixedAnswers,
-  currentQuestion,
-  totalQuestions,
-  timeLeft,
-  showExplanation,
-  hasAnswered,
-  isCorrect,
-  correctCount,
-  totalAnswered,
-  onAnswer,
-  onNext
+	question,
+	fixedAnswers,
+	currentQuestion,
+	totalQuestions,
+	timeLeft,
+	showExplanation,
+	hasAnswered,
+	isCorrect,
+	correctCount,
+	totalAnswered,
+	onAnswer,
+	onNext,
 }) => {
-  return (
-    <LayoutShell className="p-4 md:p-8 bg-[#0a0a0c]">
-      <div className="w-full max-w-3xl">
-        <div className="text-center mb-6 md:mb-8">
-          <div className="text-4xl md:text-6xl mb-3 md:mb-4">
-            <i className="fa-solid fa-gavel text-yellow-500" aria-hidden></i>
-          </div>
-          <h2 className="text-2xl md:text-4xl font-black mb-2 tracking-tight text-yellow-500">Boss fight</h2>
-          <p className="text-slate-400 text-sm md:text-base">Negotiate with the External Auditor</p>
-        </div>
+	return (
+		<LayoutShell className="p-4 md:p-8 bg-[#0a0a0c]">
+			<div className="w-full max-w-3xl">
+				<div className="text-center mb-6 md:mb-8">
+					<div className="text-4xl md:text-6xl mb-3 md:mb-4">
+						<i className="fa-solid fa-gavel text-yellow-500" aria-hidden></i>
+					</div>
+					<h2 className="text-2xl md:text-4xl font-black mb-2 tracking-tight text-yellow-500">
+						Boss fight
+					</h2>
+					<p className="text-slate-400 text-sm md:text-base">
+						Negotiate with the External Auditor
+					</p>
+				</div>
 
-        <div className="bg-slate-900 border border-slate-700 rounded-2xl p-4 md:p-8 shadow-2xl">
-          {/* Timer Bar */}
-          <div className="mb-4 md:mb-6">
-            <div className="flex justify-between text-xs text-slate-400 mb-2">
-              <span>Time remaining</span>
-              <span className={timeLeft < 5 ? 'text-red-500' : ''}>{timeLeft}s</span>
-            </div>
-            <div className="h-2 bg-slate-800 rounded overflow-hidden">
-              <div
-                className={`h-full transition-all duration-1000 ${timeLeft < 5 ? 'bg-red-500' : 'bg-yellow-500'}`}
-                style={{ width: `${(timeLeft / 30) * 100}%` }}
-              />
-            </div>
-          </div>
+				<div className="bg-slate-900 border border-slate-700 rounded-2xl p-4 md:p-8 shadow-2xl">
+					{/* Timer Bar */}
+					<div className="mb-4 md:mb-6">
+						<div className="flex justify-between text-xs text-slate-400 mb-2">
+							<span>Time remaining</span>
+							<span className={timeLeft < 5 ? "text-red-500" : ""}>
+								{timeLeft}s
+							</span>
+						</div>
+						<div className="h-2 bg-slate-800 rounded overflow-hidden">
+							<div
+								className={`h-full transition-all duration-1000 ${timeLeft < 5 ? "bg-red-500" : "bg-yellow-500"}`}
+								style={{ width: `${(timeLeft / 30) * 100}%` }}
+							/>
+						</div>
+					</div>
 
-          {/* Question */}
-          <div className="mb-6 md:mb-8">
-            <div className="text-xs text-cyan-400 tracking-wide mb-3 md:mb-4">
-              Question {currentQuestion + 1} of {totalQuestions}
-            </div>
-            <p className="text-base md:text-xl font-medium text-slate-200 leading-relaxed">
-              {question.question}
-            </p>
-          </div>
+					{/* Question */}
+					<div className="mb-6 md:mb-8">
+						<div className="text-xs text-cyan-400 tracking-wide mb-3 md:mb-4">
+							Question {currentQuestion + 1} of {totalQuestions}
+						</div>
+						<p className="text-base md:text-xl font-medium text-slate-200 leading-relaxed">
+							{question.question}
+						</p>
+					</div>
 
-          {/* Answers */}
-          {!showExplanation ? (
-            <div className="space-y-2 md:space-y-3">
-              {fixedAnswers.map((answer, index) => {
-                const answerIsCorrect = answer === question.correctAnswer;
-                return (
-                  <button
-                    key={index}
-                    onClick={() => onAnswer(answerIsCorrect)}
-                    disabled={hasAnswered}
-                    className="w-full p-3 md:p-4 bg-slate-800 border border-slate-700 text-left hover:bg-slate-700 hover:border-cyan-500 transition-all flex items-center gap-4 min-h-[48px]"
-                  >
-                    <div className="flex-1">
-                      <span className="text-cyan-400 font-mono mr-2">{String.fromCharCode(65 + index)}.</span>
-                      <span className="text-slate-300 text-sm md:text-base">{answer}</span>
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-          ) : (
-            <div className="space-y-4">
-              <div className={`p-3 md:p-4 rounded-lg ${isCorrect ? 'bg-green-900/20 border border-green-500/30' : 'bg-red-900/20 border border-red-500/30'}`}>
-                <div className={`text-sm font-bold mb-2 ${isCorrect ? 'text-green-400' : 'text-red-400'}`}>
-                  {isCorrect ? 'Correct!' : 'Incorrect'}
-                </div>
-                <p className="text-slate-400 text-xs md:text-sm">{question.explanation}</p>
-              </div>
-              <div className="text-center pt-3">
-                <button
-                  onClick={onNext}
-                  className="w-auto px-8 py-2.5 text-sm md:text-base bg-white text-black font-black tracking-wide hover:bg-cyan-500 transition-all shadow-xl transform active:scale-95"
-                >
-                  {currentQuestion + 1 >= totalQuestions ? 'Final result' : 'Next question'}
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
+					{/* Answers */}
+					{!showExplanation ? (
+						<div className="space-y-2 md:space-y-3">
+							{fixedAnswers.map((answer) => {
+								const answerIsCorrect = answer === question.correctAnswer;
+								return (
+									<button
+										key={answer}
+										type="button"
+										onClick={() => onAnswer(answerIsCorrect)}
+										disabled={hasAnswered}
+										className="w-full p-3 md:p-4 bg-slate-800 border border-slate-700 text-left hover:bg-slate-700 hover:border-cyan-500 transition-all flex items-center gap-4 min-h-[48px]"
+									>
+										<div className="flex-1">
+											<span className="text-cyan-400 font-mono mr-2">
+												{String.fromCharCode(65 + fixedAnswers.indexOf(answer))}
+												.
+											</span>
+											<span className="text-slate-300 text-sm md:text-base">
+												{answer}
+											</span>
+										</div>
+									</button>
+								);
+							})}
+						</div>
+					) : (
+						<div className="space-y-4">
+							<div
+								className={`p-3 md:p-4 rounded-lg ${isCorrect ? "bg-green-900/20 border border-green-500/30" : "bg-red-900/20 border border-red-500/30"}`}
+							>
+								<div
+									className={`text-sm font-bold mb-2 ${isCorrect ? "text-green-400" : "text-red-400"}`}
+								>
+									{isCorrect ? "Correct!" : "Incorrect"}
+								</div>
+								<p className="text-slate-400 text-xs md:text-sm">
+									{question.explanation}
+								</p>
+							</div>
+							<div className="text-center pt-3">
+								<button
+									type="button"
+									onClick={onNext}
+									className="w-auto px-8 py-2.5 text-sm md:text-base bg-white text-black font-black tracking-wide hover:bg-cyan-500 transition-all shadow-xl transform active:scale-95"
+								>
+									{currentQuestion + 1 >= totalQuestions
+										? "Final result"
+										: "Next question"}
+								</button>
+							</div>
+						</div>
+					)}
+				</div>
 
-        {/* Score */}
-        <div className="mt-4 md:mt-6 text-center">
-          <div className="text-xs text-slate-400 tracking-wide mb-2">Correct answers</div>
-          <div className="text-xl md:text-2xl font-black text-cyan-400">
-            {correctCount} / {totalAnswered}
-          </div>
-        </div>
-      </div>
-    </LayoutShell>
-  );
+				{/* Score */}
+				<div className="mt-4 md:mt-6 text-center">
+					<div className="text-xs text-slate-400 tracking-wide mb-2">
+						Correct answers
+					</div>
+					<div className="text-xl md:text-2xl font-black text-cyan-400">
+						{correctCount} / {totalAnswered}
+					</div>
+				</div>
+			</div>
+		</LayoutShell>
+	);
 };
