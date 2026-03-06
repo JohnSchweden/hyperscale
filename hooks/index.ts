@@ -3,6 +3,7 @@ export { useClock } from "./useClock";
 export { useCountdown } from "./useCountdown";
 export { type GameAction, useGameState } from "./useGameState";
 export { useIncidentPressure } from "./useIncidentPressure";
+export { usePressureAudio } from "./usePressureAudio";
 export { useRoast } from "./useRoast";
 export { useStageReady } from "./useStageReady";
 export { useSwipeGestures } from "./useSwipeGestures";

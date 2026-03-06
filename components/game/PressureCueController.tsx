@@ -1,5 +1,6 @@
 import type React from "react";
 import type { IncidentPressureState } from "../../hooks/useIncidentPressure";
+import { usePressureAudio } from "../../hooks/usePressureAudio";
 
 interface PressureCueControllerProps extends IncidentPressureState {
 	/** Current countdown value (from useCountdown). */
@@ -9,15 +10,19 @@ interface PressureCueControllerProps extends IncidentPressureState {
 }
 
 /**
- * Phase 04: Mounted controller entrypoint for stress cues.
- * Later plans (04-02, 04-03) will flesh out visuals (countdown UI, shake, pulse)
- * and audio/haptics. This component receives live pressure props and renders
- * nothing for now—ready for wiring.
+ * Phase 04: Live pressure cue orchestration for gameplay audio and haptics.
+ * Drives heartbeat/alert audio and mobile vibration from pressure state.
  */
 export const PressureCueController: React.FC<PressureCueControllerProps> = (
-	_props,
+	props,
 ) => {
-	// Placeholder: Phase 04-02 adds countdown UI, 04-03 adds audio/haptics.
-	// This component exists so App has a single mount point for pressure-driven cues.
+	const hasHighPressure = props.isUrgent || props.isCritical;
+
+	usePressureAudio({
+		hasHighPressure,
+		isCritical: props.isCritical,
+		isActive: hasHighPressure,
+	});
+
 	return null;
 };

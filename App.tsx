@@ -126,6 +126,14 @@ const App: React.FC = () => {
 		if (isChoiceLockedRef.current) return;
 		isChoiceLockedRef.current = true;
 
+		if (
+			typeof navigator !== "undefined" &&
+			"vibrate" in navigator &&
+			typeof navigator.vibrate === "function"
+		) {
+			navigator.vibrate([50, 30, 50]);
+		}
+
 		const direction = pressure.timeoutResolvesTo;
 		const outcome =
 			direction === "RIGHT" ? currentCard.onRight : currentCard.onLeft;
@@ -393,6 +401,7 @@ const App: React.FC = () => {
 							swipePreviewThreshold={swipe.SWIPE_PREVIEW_THRESHOLD}
 							countdownValue={incidentCountdown.count}
 							isCountdownActive={pressure.isUrgent}
+							isCritical={pressure.isCritical}
 						/>
 						<PressureCueController
 							{...pressure}
