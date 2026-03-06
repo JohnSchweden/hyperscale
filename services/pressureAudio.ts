@@ -61,9 +61,9 @@ export function createPressureAudioSession(): PressureAudioSession {
 		}
 	}
 
-	function playPulse(): void {
+	async function playPulse(): Promise<void> {
 		if (ctx.state === "suspended") {
-			ctx.resume();
+			await ctx.resume();
 		}
 		const osc = ctx.createOscillator();
 		const gain = ctx.createGain();
@@ -78,17 +78,24 @@ export function createPressureAudioSession(): PressureAudioSession {
 		osc.stop(ctx.currentTime + HEARTBEAT_DURATION);
 	}
 
-	function startHeartbeat(): void {
-		stop();
-		const intervalMs = 60000 / HEARTBEAT_BPM;
-		heartbeatIntervalId = setInterval(playPulse, intervalMs);
-		playPulse();
-	}
-
-	function startAlert(): void {
+	async function startHeartbeatAsync(): Promise<void> {
 		stop();
 		if (ctx.state === "suspended") {
-			ctx.resume();
+			await ctx.resume();
+		}
+		const intervalMs = 60000 / HEARTBEAT_BPM;
+		heartbeatIntervalId = setInterval(() => void playPulse(), intervalMs);
+		await playPulse();
+	}
+
+	function startHeartbeat(): void {
+		void startHeartbeatAsync();
+	}
+
+	async function startAlertAsync(): Promise<void> {
+		stop();
+		if (ctx.state === "suspended") {
+			await ctx.resume();
 		}
 		alertOsc = ctx.createOscillator();
 		alertGain = ctx.createGain();
@@ -105,6 +112,10 @@ export function createPressureAudioSession(): PressureAudioSession {
 			alertOsc = null;
 			alertGain = null;
 		};
+	}
+
+	function startAlert(): void {
+		void startAlertAsync();
 	}
 
 	return {
