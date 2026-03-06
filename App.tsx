@@ -163,11 +163,12 @@ const App: React.FC = () => {
 	});
 
 	// Reset countdown when transitioning to a new card
+	const currentCardId = currentCard?.id;
 	useEffect(() => {
-		if (currentCard && !feedbackOverlay) {
+		if (currentCardId && !feedbackOverlay) {
 			incidentCountdown.reset();
 		}
-	}, [currentCard?.id, feedbackOverlay, incidentCountdown.reset]);
+	}, [currentCardId, feedbackOverlay, incidentCountdown.reset]);
 
 	// Roast feature
 	const {

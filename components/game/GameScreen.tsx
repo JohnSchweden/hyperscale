@@ -73,13 +73,21 @@ export const GameScreen: React.FC<GameScreenProps> = ({
 	if (!state.role || !state.personality) return null;
 
 	const _personality = PERSONALITIES[state.personality];
+	// Expose countdown for Phase 04-02 (timer UI)
+	const pressureAttrs =
+		isCountdownActive && countdownValue > 0
+			? { "data-pressure-countdown": String(countdownValue) }
+			: {};
 
 	return (
 		<LayoutShell className="bg-[#0a0a0c]">
 			<GameHUD budget={state.budget} heat={state.heat} hype={state.hype} />
 
 			{/* Main Content */}
-			<div className="absolute top-[80px] md:top-[56px] bottom-12 left-0 right-0 overflow-y-auto">
+			<div
+				className="absolute top-[80px] md:top-[56px] bottom-12 left-0 right-0 overflow-y-auto"
+				{...pressureAttrs}
+			>
 				<div className="flex flex-col items-center p-3 md:p-6 pb-8 md:pb-12 gap-4 md:gap-6 min-h-full">
 					{/* Card Stack */}
 					<CardStack
