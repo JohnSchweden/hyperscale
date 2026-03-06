@@ -97,13 +97,13 @@ Create new card types where:
 
 **Goal:** Add psychological pressure and immersion to make it feel real
 **Depends on:** Phase 01
-**Plans:** 5 plans (4 complete, 1 gap-closure)
+**Plans:** 5/5 plans complete
 
 Plans:
 - [x] 04-01-PLAN.md — Pressure metadata, useIncidentPressure, timer/undo orchestration ✓
 - [x] 04-02-PLAN.md — Countdown UI, HUD escalation, shake/flicker/pulse visuals ✓
 - [x] 04-03-PLAN.md — Audio cues, haptics, team-impact in FeedbackOverlay ✓
-- [ ] 04-04-PLAN.md — Gap: useCountdown reset, pressureAudio ctx.resume
+- [x] 04-04-PLAN.md — Gap: useCountdown reset, pressureAudio ctx.resume ✓
 - [x] 04-05-PLAN.md — Gap: HUD escalation in overlay, haptic from gesture handlers ✓
 
 **Details:**
@@ -380,7 +380,7 @@ Integrate images into UI:
 | 01 | Live API STT Research | v1.2 | Complete |
 | 02 | New Role Set (Impact Zones) | v1.2 | Complete |
 | 03 | No-Win Scenario Cards | v1.2 | Not started |
-| 04 | 3/3 | Complete   | 2026-03-06 |
+| 04 | 5/5 | Complete   | 2026-03-06 |
 | 05 | Expanded AI Risk Scenarios | v1.2 | Not started |
 | 06 | Debrief & Replay System | v1.2 | Not started |
 | 07 | Kirk Easter Egg | v1.2 | Not started |

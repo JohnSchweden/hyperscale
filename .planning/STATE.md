@@ -34,4 +34,5 @@ See: .planning/PROJECT.md
 - 2026-03-06: Completed 04-01-PLAN.md (Pressure metadata, useIncidentPressure, timer/undo orchestration)
 - 2026-03-06: Completed 04-02-PLAN.md (Countdown UI, HUD escalation, shake/flicker/pulse visuals)
 - 2026-03-06: Completed 04-03-PLAN.md (Immersive pressure cues: audio, haptics, feedback finality)
+- 2026-03-07: Completed 04-04-PLAN.md (Gap closure: useCountdown reset, pressureAudio ctx.resume)
 - 2026-03-07: Completed 04-05-PLAN.md (Gap closure: HUD escalation in overlay, haptic from gesture handlers)
