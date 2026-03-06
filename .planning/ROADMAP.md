@@ -97,7 +97,7 @@ Create new card types where:
 
 **Goal:** Add psychological pressure and immersion to make it feel real
 **Depends on:** Phase 01
-**Plans:** 3 plans (1 complete)
+**Plans:** 3/3 plans complete
 
 Plans:
 - [x] 04-01-PLAN.md — Pressure metadata, useIncidentPressure, timer/undo orchestration ✓
@@ -378,7 +378,7 @@ Integrate images into UI:
 | 01 | Live API STT Research | v1.2 | Complete |
 | 02 | New Role Set (Impact Zones) | v1.2 | Complete |
 | 03 | No-Win Scenario Cards | v1.2 | Not started |
-| 04 | 1/3 | In Progress|  |
+| 04 | 3/3 | Complete   | 2026-03-06 |
 | 05 | Expanded AI Risk Scenarios | v1.2 | Not started |
 | 06 | Debrief & Replay System | v1.2 | Not started |
 | 07 | Kirk Easter Egg | v1.2 | Not started |
