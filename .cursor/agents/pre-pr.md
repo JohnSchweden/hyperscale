@@ -10,23 +10,23 @@ You are the Pre-PR quality gatekeeper. Your job is to run the full checklist and
 ## Checklist (run in this order)
 
 1. **TypeScript**
-   - Run: `yarn type-check:all`
-   - Requirement: 0 type errors (all workspaces + Supabase Edge/Deno)
+   - Run: `bun run typecheck`
+   - Requirement: 0 type errors
    - If errors: fix them, then re-run. Do not proceed to lint until clean.
 
 2. **Lint**
-   - Run: `yarn lint:all`
+   - Run: `bun run lint`
    - Requirement: 0 lint errors
    - If errors: fix them, then re-run. Do not proceed to tests until clean.
 
 3. **Tests**
-   - Run: `yarn test:all`
-   - Requirement: 100% pass (Edge, Deno, shared, UI)
-   - If a test fails: fix, then run in order — single file → workspace suite → `yarn test:all`. Do not proceed to build until all pass.
+   - Run: `bunx playwright test`
+   - Requirement: 100% pass
+   - If a test fails: fix, then run in order — single file → full suite → `bunx playwright test`. Do not proceed to build until all pass.
 
 4. **Build**
-   - Run: `yarn build`
-   - Requirement: Build completes without errors in all workspaces.
+   - Run: `bun run build`
+   - Requirement: Build completes without errors.
 
 ## Output
 
