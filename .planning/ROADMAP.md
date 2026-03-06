@@ -97,14 +97,14 @@ Create new card types where:
 
 **Goal:** Add psychological pressure and immersion to make it feel real
 **Depends on:** Phase 01
-**Plans:** 5 plans (3 complete, 2 gap-closure)
+**Plans:** 5 plans (4 complete, 1 gap-closure)
 
 Plans:
 - [x] 04-01-PLAN.md — Pressure metadata, useIncidentPressure, timer/undo orchestration ✓
 - [x] 04-02-PLAN.md — Countdown UI, HUD escalation, shake/flicker/pulse visuals ✓
 - [x] 04-03-PLAN.md — Audio cues, haptics, team-impact in FeedbackOverlay ✓
 - [ ] 04-04-PLAN.md — Gap: useCountdown reset, pressureAudio ctx.resume
-- [ ] 04-05-PLAN.md — Gap: HUD escalation in overlay, haptic from gesture handlers
+- [x] 04-05-PLAN.md — Gap: HUD escalation in overlay, haptic from gesture handlers ✓
 
 **Details:**
 Make the simulation feel real through:
