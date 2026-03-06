@@ -3,6 +3,10 @@ import { useEffect } from "react";
 import { PERSONALITIES } from "../../data";
 import type { PersonalityType } from "../../types";
 
+const BUDGET_CRITICAL = 2_000_000;
+const HEAT_CRITICAL = 85;
+const HEAT_HIGH = 70;
+
 interface FeedbackOverlayProps {
 	personality: PersonalityType | null;
 	text: string;
@@ -12,6 +16,9 @@ interface FeedbackOverlayProps {
 	violation: string;
 	/** Optional team-impact copy (morale, resignations, etc.) from pressure metadata. */
 	teamImpact?: string | null;
+	/** Optional budget/heat for escalation banner when critical (same thresholds as GameHUD). */
+	budget?: number;
+	heat?: number;
 	onNext: () => void;
 }
 
@@ -29,8 +36,14 @@ export const FeedbackOverlay: React.FC<FeedbackOverlayProps> = ({
 	fine,
 	violation,
 	teamImpact,
+	budget,
+	heat,
 	onNext,
 }) => {
+	const budgetCritical = budget != null && budget < BUDGET_CRITICAL;
+	const heatCritical = heat != null && heat >= HEAT_CRITICAL;
+	const heatHigh = heat != null && heat >= HEAT_HIGH && !heatCritical;
+	const showEscalation = budgetCritical || heatCritical;
 	// Keyboard navigation for overlay
 	useEffect(() => {
 		const handleOverlayKey = (e: KeyboardEvent) => {
@@ -55,6 +68,28 @@ export const FeedbackOverlay: React.FC<FeedbackOverlayProps> = ({
 			aria-describedby="feedback-overlay-desc"
 		>
 			<div className="w-full max-w-lg bg-slate-900 border border-slate-700 p-6 md:p-10 rounded-2xl text-center shadow-2xl max-h-[90vh] overflow-y-auto modal-content antialiased">
+				{showEscalation && (
+					<div className="mb-4 p-2 rounded-lg border flex flex-wrap gap-x-4 gap-y-1 justify-center items-center bg-black/30">
+						{budgetCritical && (
+							<span className="text-[10px] font-black tracking-wide text-red-500 inline-flex items-center gap-1.5">
+								<i className="fa-solid fa-coins text-[10px]" aria-hidden></i>
+								Budget Critical — {formatBudget(budget ?? 0)}
+							</span>
+						)}
+						{heatCritical && (
+							<span className="text-[10px] font-black tracking-wide text-red-400 inline-flex items-center gap-1.5">
+								<i className="fa-solid fa-fire text-[10px]" aria-hidden></i>
+								Risk Critical — {heat}%
+							</span>
+						)}
+						{heatHigh && !heatCritical && (
+							<span className="text-[10px] font-black tracking-wide text-amber-400 inline-flex items-center gap-1.5">
+								<i className="fa-solid fa-fire text-[10px]" aria-hidden></i>
+								Risk High — {heat}%
+							</span>
+						)}
+					</div>
+				)}
 				<h2 id="feedback-overlay-title" className="sr-only">
 					Governance feedback
 				</h2>

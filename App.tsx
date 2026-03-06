@@ -459,6 +459,8 @@ const App: React.FC = () => {
 						fine={feedbackOverlay.fine}
 						violation={feedbackOverlay.violation}
 						teamImpact={feedbackOverlay.teamImpact}
+						budget={state.budget}
+						heat={state.heat}
 						onNext={handleNextIncident}
 					/>
 				)}
