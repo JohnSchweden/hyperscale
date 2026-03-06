@@ -41,10 +41,10 @@ Speech-to-text now working with real-time transcription. Includes low-latency mo
 
 **Goal:** Replace current roles with new "impact zone" set; comment out legacy roles for later
 **Depends on:** Phase 01
-**Plans:** 2 plans
+**Plans:** 2 plans (✓ Complete)
 
 Plans:
-- [ ] 02-01-PLAN.md — Foundation: RoleType, roles metadata, deck aliases, runtime wiring
+- [x] 02-01-PLAN.md — Foundation: RoleType, roles metadata, deck aliases, runtime wiring ✓
 - [ ] 02-02-PLAN.md — RoleSelect UI copy + test updates (navigation, snapshots)
 
 **Details:**
