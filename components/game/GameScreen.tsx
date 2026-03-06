@@ -40,6 +40,7 @@ interface GameScreenProps {
 	// Pressure / countdown (Phase 04 — 04-02 will render timer UI)
 	countdownValue?: number;
 	isCountdownActive?: boolean;
+	isCritical?: boolean;
 }
 
 export const GameScreen: React.FC<GameScreenProps> = ({
@@ -69,6 +70,7 @@ export const GameScreen: React.FC<GameScreenProps> = ({
 	swipePreviewThreshold,
 	countdownValue = 0,
 	isCountdownActive = false,
+	isCritical = false,
 }) => {
 	if (!state.role || !state.personality) return null;
 
@@ -131,6 +133,8 @@ export const GameScreen: React.FC<GameScreenProps> = ({
 						onSwipeRight={onSwipeRight}
 						swipeThreshold={swipeThreshold}
 						swipePreviewThreshold={swipePreviewThreshold}
+						isUrgent={isCountdownActive}
+						isCritical={isCritical}
 					/>
 
 					{/* Roast Terminal */}

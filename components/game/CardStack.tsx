@@ -26,6 +26,9 @@ interface CardStackProps {
 	// Thresholds
 	swipeThreshold: number;
 	swipePreviewThreshold: number;
+	// Phase 04: pressure-driven stress visuals
+	isUrgent?: boolean;
+	isCritical?: boolean;
 }
 
 export const CardStack: React.FC<CardStackProps> = ({
@@ -47,6 +50,8 @@ export const CardStack: React.FC<CardStackProps> = ({
 	onSwipeRight,
 	swipeThreshold,
 	swipePreviewThreshold,
+	isUrgent = false,
+	isCritical = false,
 }) => {
 	const cards = ROLE_CARDS[role];
 	const currentCard = cards[currentCardIndex];
@@ -54,10 +59,13 @@ export const CardStack: React.FC<CardStackProps> = ({
 
 	if (!currentCard) return null;
 
+	const hasStressVisuals = isUrgent || isCritical;
+
 	return (
 		<div
-			className="relative flex-shrink-0 w-full max-w-full lg:max-w-[43rem] h-[420px] md:h-[560px]"
+			className={`relative flex-shrink-0 w-full max-w-full lg:max-w-[43rem] h-[420px] md:h-[560px] ${hasStressVisuals ? "pressure-shake" : ""}`}
 			data-testid="incident-card-container"
+			data-pressure-stress={hasStressVisuals ? "true" : undefined}
 		>
 			{/* Next card (behind) */}
 			{nextCard && (
@@ -124,7 +132,7 @@ export const CardStack: React.FC<CardStackProps> = ({
 				ref={cardRef}
 				role="group"
 				data-testid="incident-card"
-				className={`absolute inset-0 bg-slate-900 border border-slate-700 rounded-xl overflow-hidden shadow-2xl flex flex-col select-none swipe-card ${isFirstCard && !exitDirection && !isDragging && !hasDragged ? "ticket-transition" : ""} ${isSnappingBack ? "spring-snap-back" : ""}`}
+				className={`absolute inset-0 bg-slate-900 border border-slate-700 rounded-xl overflow-hidden shadow-2xl flex flex-col select-none swipe-card ${isFirstCard && !exitDirection && !isDragging && !hasDragged ? "ticket-transition" : ""} ${isSnappingBack ? "spring-snap-back" : ""} ${hasStressVisuals ? "pressure-flicker pressure-pulse" : ""}`}
 				key={currentCardIndex}
 				onTouchStart={onTouchStart}
 				onTouchMove={onTouchMove}
