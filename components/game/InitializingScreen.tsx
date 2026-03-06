@@ -1,6 +1,6 @@
 import type React from "react";
-import { PERSONALITIES } from "../../data";
-import { type PersonalityType, RoleType } from "../../types";
+import { PERSONALITIES, ROLE_LABELS } from "../../data";
+import type { PersonalityType, RoleType } from "../../types";
 import LayoutShell from "../LayoutShell";
 
 interface InitializingScreenProps {
@@ -9,22 +9,13 @@ interface InitializingScreenProps {
 	countdown: number;
 }
 
-function formatLabel(s: string): string {
-	return s === RoleType.HR
-		? "HR"
-		: s
-				.replace(/_/g, " ")
-				.toLowerCase()
-				.replace(/\b\w/g, (c) => c.toUpperCase());
-}
-
 export const InitializingScreen: React.FC<InitializingScreenProps> = ({
 	role,
 	personality,
 	countdown,
 }) => {
 	const personalityName = personality ? PERSONALITIES[personality].name : "";
-	const roleLabel = role ? formatLabel(role) : "";
+	const roleLabel = role ? ROLE_LABELS[role] : "";
 
 	return (
 		<LayoutShell className="p-4 md:p-6 bg-[#0a0a0c] text-green-400 font-mono antialiased !justify-center !pt-0">

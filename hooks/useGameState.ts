@@ -1,11 +1,11 @@
 import { useCallback, useReducer } from "react";
-import { DEATH_ENDINGS, ROLE_CARDS } from "../data";
+import { DEATH_ENDINGS, getRoleDeck, ROLE_CARDS } from "../data";
 import {
 	DeathType,
 	GameStage,
 	type GameState,
 	type PersonalityType,
-	RoleType,
+	type RoleType,
 } from "../types";
 
 const INITIAL_BUDGET = 10000000;
@@ -52,9 +52,15 @@ function determineDeathType(
 	if (budget <= 0) return DeathType.BANKRUPT;
 	if (heat >= 100) {
 		if (hype <= 10) return DeathType.REPLACED_BY_SCRIPT;
-		if (role === RoleType.FINANCE) return DeathType.PRISON;
-		if (role === RoleType.MARKETING) return DeathType.CONGRESS;
-		if (role === RoleType.MANAGEMENT) return DeathType.AUDIT_FAILURE;
+		// Use deck alias to determine death type (temporary mapping)
+		// This allows finance/marketing/management-backed impact zones
+		// to keep their special failure endings
+		if (role) {
+			const deck = getRoleDeck(role);
+			if (deck === "FINANCE") return DeathType.PRISON;
+			if (deck === "MARKETING") return DeathType.CONGRESS;
+			if (deck === "MANAGEMENT") return DeathType.AUDIT_FAILURE;
+		}
 		return DeathType.FLED_COUNTRY;
 	}
 	return DeathType.AUDIT_FAILURE;

@@ -1,5 +1,5 @@
 import type React from "react";
-import { ROLE_DESCRIPTIONS } from "../../data";
+import { ROLE_DESCRIPTIONS, ROLE_ICONS, ROLE_LABELS } from "../../data";
 import { RoleType } from "../../types";
 import LayoutShell from "../LayoutShell";
 
@@ -7,15 +7,6 @@ interface RoleSelectProps {
 	isReady: boolean;
 	hoverEnabled: boolean;
 	onSelect: (role: RoleType) => void;
-}
-
-function formatLabel(s: string): string {
-	return s === RoleType.HR
-		? "HR"
-		: s
-				.replace(/_/g, " ")
-				.toLowerCase()
-				.replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
 export const RoleSelect: React.FC<RoleSelectProps> = ({
@@ -58,27 +49,12 @@ export const RoleSelect: React.FC<RoleSelectProps> = ({
 							<div
 								className={`text-3xl md:text-4xl mb-3 md:mb-4 text-slate-400 transition-colors ${hoverEnabled ? "group-hover:text-cyan-400" : ""}`}
 							>
-								<i
-									className={`fa-solid ${
-										role === RoleType.DEVELOPMENT
-											? "fa-code"
-											: role === RoleType.MARKETING
-												? "fa-bullhorn"
-												: role === RoleType.MANAGEMENT
-													? "fa-briefcase"
-													: role === RoleType.HR
-														? "fa-users"
-														: role === RoleType.FINANCE
-															? "fa-vault"
-															: "fa-broom"
-									}`}
-									aria-hidden
-								></i>
+								<i className={`fa-solid ${ROLE_ICONS[role]}`} aria-hidden></i>
 							</div>
 							<div
 								className={`font-black text-xs md:text-sm tracking-wide text-slate-300 transition-colors ${hoverEnabled ? "group-hover:text-white" : ""}`}
 							>
-								{formatLabel(role)}
+								{ROLE_LABELS[role]}
 							</div>
 							<p className="text-slate-400 text-xs md:text-sm leading-relaxed mt-2 md:mt-3">
 								{ROLE_DESCRIPTIONS[role]}
