@@ -108,6 +108,9 @@ export const FeedbackOverlay: React.FC<FeedbackOverlayProps> = ({
 							</p>
 						</div>
 					)}
+					<p className="mt-3 text-xs text-slate-500 font-medium">
+						Decision logged — no undo. Proceed when ready.
+					</p>
 				</div>
 
 				<button
