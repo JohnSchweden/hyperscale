@@ -15,6 +15,17 @@
 		"check": "biome check .",
 		"fix": "biome check --write .",
 		"test": "bunx playwright test",
+		"test:smoke": "bunx playwright test --grep @smoke",
+		"test:visual": "bunx playwright test --grep @visual",
+		"test:slow": "bunx playwright test --grep @slow",
+		"test:area:gameplay": "bunx playwright test --grep @area:gameplay",
+		"test:area:input": "bunx playwright test --grep @area:input",
+		"test:area:layout": "bunx playwright test --grep @area:layout",
+		"test:area:boss": "bunx playwright test --grep @area:boss",
+		"test:area:audio": "bunx playwright test --grep @area:audio",
+		"test:changed": "bun run scripts/test-changed.ts",
+		"test:unit": "vitest run unit/",
+		"test:unit:watch": "vitest unit/",
 		"test:file": "bunx playwright test",
 		"benchmark": "bun run scripts/benchmark-tests.ts",
 		"benchmark:compare": "bun run scripts/benchmark-tests.ts -- --compare latest",
@@ -37,14 +48,19 @@
 	"devDependencies": {
 		"@biomejs/biome": "^2.4.6",
 		"@playwright/test": "^1.58.2",
+		"@testing-library/jest-dom": "^6.9.1",
+		"@testing-library/react": "^16.3.2",
 		"@types/node": "^22.14.0",
 		"@vercel/node": "^5.6.9",
 		"@vitejs/plugin-basic-ssl": "^2.1.4",
 		"@vitejs/plugin-react": "^5.0.0",
+		"happy-dom": "^20.8.3",
 		"husky": "^9.1.7",
+		"jsdom": "^28.1.0",
 		"lint-staged": "^16.3.2",
 		"playwright": "^1.58.2",
 		"typescript": "~5.8.2",
-		"vite": "^6.2.0"
+		"vite": "^6.2.0",
+		"vitest": "^4.0.18"
 	}
 }

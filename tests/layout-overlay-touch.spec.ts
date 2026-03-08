@@ -4,7 +4,7 @@ import { SELECTORS } from "./helpers/selectors";
 
 test.use({ baseURL: "https://localhost:3000" });
 
-test.describe("LayoutShell behavior", () => {
+test.describe("LayoutShell behavior @area:layout", () => {
 	test("desktop centers content (justify-center, items-center) at ≥1024px", async ({
 		page,
 	}) => {
@@ -52,7 +52,7 @@ test.describe("LayoutShell behavior", () => {
 	});
 });
 
-test.describe("Feedback overlay", () => {
+test.describe("Feedback overlay @area:layout", () => {
 	test("modal is visible and centered on desktop", async ({ page }) => {
 		await page.setViewportSize({ width: 1280, height: 720 });
 		await navigateToPlayingFast(page);
@@ -106,7 +106,7 @@ test.describe("Feedback overlay", () => {
 	});
 });
 
-test.describe("Touch swipe", () => {
+test.describe("Touch swipe @area:layout", () => {
 	test("swipe (pointer) triggers card feedback", async ({ page }) => {
 		await navigateToPlayingFast(page);
 

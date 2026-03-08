@@ -4,7 +4,7 @@ import { SELECTORS } from "./helpers/selectors";
 
 test.use({ baseURL: "https://localhost:3000" });
 
-test.describe("Stage transitions", () => {
+test.describe("Stage transitions @area:gameplay @slow", () => {
 	test("from INTRO, click Boot → PERSONALITY_SELECT (personality buttons visible)", async ({
 		page,
 	}) => {

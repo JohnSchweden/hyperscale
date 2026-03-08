@@ -36,7 +36,7 @@ async function navigateToPlayingWithPersonality(
 	await page.waitForTimeout(500); // Allow animations to settle
 }
 
-test.describe("Personality feedback overlay", () => {
+test.describe("Personality feedback overlay @area:gameplay", () => {
 	test("V.E.R.A (Roaster): swipe RIGHT on first card shows Roaster feedback", async ({
 		page,
 	}) => {

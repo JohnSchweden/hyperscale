@@ -27,7 +27,7 @@ function hypeValue(page: import("@playwright/test").Page) {
 		.nth(1);
 }
 
-test.describe("GameHUD", () => {
+test.describe("GameHUD @smoke @area:gameplay", () => {
 	test.beforeEach(async ({ page }) => {
 		await navigateToPlayingFast(page);
 	});

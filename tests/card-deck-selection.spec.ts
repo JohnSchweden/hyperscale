@@ -9,7 +9,7 @@ import { SELECTORS } from "./helpers/selectors";
 
 test.use({ baseURL: "https://localhost:3000" });
 
-test.describe("Card deck selection", () => {
+test.describe("Card deck selection @smoke @area:gameplay", () => {
 	test.describe("Role → deck mapping", () => {
 		test("Software Engineer shows DEVELOPMENT deck (Debug / Paste)", async ({
 			page,

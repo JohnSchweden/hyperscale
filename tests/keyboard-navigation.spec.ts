@@ -10,7 +10,7 @@ function getFeedbackDialog(page: import("@playwright/test").Page) {
 		.or(page.locator(SELECTORS.feedbackDialogFallback));
 }
 
-test.describe("Keyboard navigation", () => {
+test.describe("Keyboard navigation @smoke @area:input", () => {
 	test.beforeEach(async ({ page }) => {
 		await navigateToPlayingFast(page);
 	});

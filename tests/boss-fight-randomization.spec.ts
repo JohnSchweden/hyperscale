@@ -3,7 +3,7 @@ import { navigateToBossFightFast } from "./helpers/navigation";
 
 test.use({ baseURL: "https://localhost:3000" });
 
-test.describe("Boss Fight Answer Randomization", () => {
+test.describe("Boss Fight Answer Randomization @area:boss", () => {
 	test("answers are randomized in different positions across reloads", async ({
 		page,
 	}) => {

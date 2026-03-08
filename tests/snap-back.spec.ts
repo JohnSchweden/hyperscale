@@ -5,7 +5,7 @@ import { SELECTORS } from "./helpers/selectors";
 test.use({ baseURL: "https://localhost:3000" });
 
 // Demonstrates optimized navigation pattern using navigateToPlayingFast
-test.describe("Spring Snap-Back", () => {
+test.describe("Spring Snap-Back @area:input", () => {
 	// Using beforeAll with navigateToPlayingFast for tests that share state
 	// Note: In Playwright, page fixture in beforeAll requires manual context management.
 	// This pattern shows the intent - in practice, using beforeEach with fast nav is simpler.

@@ -83,7 +83,11 @@ Follow `.cursor/references/git-integration.md` for commit points, message format
 
 **After making ANY code changes, you MUST verify them using one of these methods:**
 
+See `tasks/testing-runbook.md` for tiered test lanes (smoke, area, visual, slow).
+
 ### 1. Automated Tests (Preferred)
+- Run `bun run test:smoke` for fast critical checks (~15s)
+- Run `bun run test:area:<domain>` for targeted area (gameplay, input, layout, boss, audio)
 - Run `bunx playwright test` to execute all tests
 - For specific tests: `bunx playwright test tests/[test-name].spec.ts`
 - Fix any failing tests before committing

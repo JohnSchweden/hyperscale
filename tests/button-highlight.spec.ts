@@ -8,7 +8,7 @@ import {
 
 test.use({ baseURL: "https://localhost:3000" });
 
-test.describe("Button Highlight on Swipe", () => {
+test.describe("Button Highlight on Swipe @area:input", () => {
 	test("right button highlights when swiping right", async ({ page }) => {
 		await navigateToPlayingFast(page);
 

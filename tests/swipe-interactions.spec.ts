@@ -5,7 +5,7 @@ import { SELECTORS } from "./helpers/selectors";
 test.use({ baseURL: "https://localhost:3000" });
 
 // CSS/static property tests - navigate once, run 3 checks against same page
-test.describe("Phase 2 Swipe Interactions - CSS/Static", () => {
+test.describe("Phase 2 Swipe Interactions - CSS/Static @area:input", () => {
 	test.describe.configure({ mode: "serial" });
 	let sharedPage: import("@playwright/test").Page;
 	let sharedContext: import("@playwright/test").BrowserContext;
@@ -111,7 +111,7 @@ test.describe("Phase 2 Swipe Interactions - CSS/Static", () => {
 });
 
 // Interaction tests - also use beforeEach with fast navigation
-test.describe("Phase 2 Swipe Interactions - Interaction", () => {
+test.describe("Phase 2 Swipe Interactions - Interaction @area:input", () => {
 	test.beforeEach(async ({ page }) => {
 		await navigateToPlayingFast(page);
 	});

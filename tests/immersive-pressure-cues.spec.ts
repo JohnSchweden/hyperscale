@@ -7,7 +7,7 @@ import { navigateToPlayingFast } from "./helpers/navigation";
  * - Feedback overlay: team-impact messaging, finality, no undo
  */
 
-test.describe("Pressure Cue Controller", () => {
+test.describe("Pressure Cue Controller @area:gameplay", () => {
 	test("urgent countdown or feedback from timeout on dev_1", async ({
 		page,
 	}) => {
@@ -53,7 +53,7 @@ test.describe("Pressure Cue Controller", () => {
 	});
 });
 
-test.describe("Feedback Overlay", () => {
+test.describe("Feedback Overlay @area:gameplay", () => {
 	test("shows team-impact text when configured for outcome", async ({
 		page,
 	}) => {

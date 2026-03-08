@@ -5,7 +5,7 @@ import {
 	navigateToGameOverFast,
 	navigateToPersonalitySelect,
 	navigateToPlayingFast,
-	navigateToRoleSelect,
+	navigateToRoleSelectFast,
 } from "./helpers/navigation";
 import { SELECTORS } from "./helpers/selectors";
 
@@ -99,7 +99,7 @@ async function navigateToPlayingWithRoastAnswer(page: Page) {
 	});
 }
 
-test.describe("Stage visual snapshots", () => {
+test.describe("Stage visual snapshots @visual @area:gameplay @slow", () => {
 	test("intro", async ({ page }) => {
 		await navigateToIntro(page);
 		await expect(page).toHaveScreenshot("intro.png");
@@ -113,7 +113,7 @@ test.describe("Stage visual snapshots", () => {
 	});
 
 	test("role-select", async ({ page }) => {
-		await navigateToRoleSelect(page);
+		await navigateToRoleSelectFast(page);
 		await page
 			.locator('button:has-text("Software Engineer")')
 			.first()

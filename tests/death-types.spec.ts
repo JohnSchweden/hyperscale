@@ -9,7 +9,7 @@ import { SELECTORS } from "./helpers/selectors";
 
 test.use({ baseURL: "https://localhost:3000" });
 
-test.describe("Death types", () => {
+test.describe("Death types @area:boss @slow", () => {
 	test.describe("BANKRUPT (budget ≤ 0)", () => {
 		test("reaches GAME_OVER with Liquidated when budget exhausted", async ({
 			page,

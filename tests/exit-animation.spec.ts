@@ -4,7 +4,7 @@ import { SELECTORS } from "./helpers/selectors";
 
 test.use({ baseURL: "https://localhost:3000" });
 
-test.describe("Exit Animation Continuity", () => {
+test.describe("Exit Animation Continuity @area:input", () => {
 	test("card exits smoothly from current drag position", async ({ page }) => {
 		// Use shared navigation helper instead of inline setup
 		await navigateToPlayingFast(page);

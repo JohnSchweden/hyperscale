@@ -5,7 +5,7 @@ import { SELECTORS } from "./helpers/selectors";
 
 test.use({ baseURL: "https://localhost:3000" });
 
-test.describe("Boss fight timer", () => {
+test.describe("Boss fight timer @area:boss @slow", () => {
 	test("a) reaches BOSS_FIGHT stage", async ({ page }) => {
 		await navigateToBossFightFast(page);
 		await expect(page.getByText("Boss fight")).toBeVisible();

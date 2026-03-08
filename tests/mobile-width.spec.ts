@@ -3,7 +3,7 @@ import { getCard, navigateToPlayingFast } from "./helpers/navigation";
 
 test.use({ baseURL: "https://localhost:3000" });
 
-test.describe("Mobile Card Width", () => {
+test.describe("Mobile Card Width @smoke @area:layout", () => {
 	// Reset viewport size after each test to avoid affecting other tests
 	test.afterEach(async ({ page }) => {
 		await page.setViewportSize({ width: 1280, height: 720 }); // Reset to default

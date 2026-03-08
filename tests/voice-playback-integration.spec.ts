@@ -8,7 +8,7 @@ import { navigateToPlaying } from "./helpers/navigation";
  * by monitoring console logs from the voice playback system.
  */
 
-test.describe("Voice Playback Integration", () => {
+test.describe("Voice Playback Integration @integration @area:audio", () => {
 	test.describe("Stage Transition Audio", () => {
 		test("plays onboarding audio after selecting Roaster personality", async ({
 			page,

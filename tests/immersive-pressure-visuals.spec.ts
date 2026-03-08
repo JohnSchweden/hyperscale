@@ -3,7 +3,7 @@ import { navigateToPlayingFast } from "./helpers/navigation";
 
 test.use({ baseURL: "https://localhost:3000" });
 
-test.describe("Immersive pressure visuals", () => {
+test.describe("Immersive pressure visuals @area:gameplay", () => {
 	test("urgent card shows stress visuals (shake/flicker/pulse classes)", async ({
 		page,
 	}) => {

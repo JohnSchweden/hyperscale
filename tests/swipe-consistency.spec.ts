@@ -55,10 +55,13 @@ async function clickNextTicket(page: Page): Promise<void> {
 		state: "hidden",
 		timeout: 5000,
 	});
-	await page.waitForTimeout(300); // Allow card transition to complete
+	await page
+		.locator('[data-testid="incident-card"]')
+		.first()
+		.waitFor({ state: "visible", timeout: 3000 });
 }
 
-test.describe("Swipe Consistency", () => {
+test.describe("Swipe Consistency @area:input", () => {
 	test("first and second swipe both wait for release after threshold", async ({
 		page,
 	}) => {
@@ -87,17 +90,17 @@ test.describe("Swipe Consistency", () => {
 		// Release
 		await releaseMouseDrag(page);
 
-		// Wait for exit to start
-		await page.waitForTimeout(100);
+		// Wait for feedback overlay (replaces fixed 1000ms)
+		await page.waitForSelector('[data-testid="feedback-dialog"]', {
+			state: "visible",
+			timeout: 5000,
+		});
 
-		// Card should now be exiting
+		// Card should now be exiting (opacity check)
 		const firstSwipeExitOpacity = await firstCard.evaluate((el) => {
 			return window.getComputedStyle(el).opacity;
 		});
 		console.log("First swipe - opacity after release:", firstSwipeExitOpacity);
-
-		// Wait for first swipe to complete and feedback overlay to appear
-		await page.waitForTimeout(1000);
 
 		// Click Next Ticket to advance to second card
 		await clickNextTicket(page);
@@ -125,8 +128,11 @@ test.describe("Swipe Consistency", () => {
 		// Release
 		await releaseMouseDrag(page);
 
-		// Wait for exit to start
-		await page.waitForTimeout(100);
+		// Wait for feedback overlay (replaces fixed 1000ms)
+		await page.waitForSelector('[data-testid="feedback-dialog"]', {
+			state: "visible",
+			timeout: 5000,
+		});
 
 		// Card should now be exiting
 		const secondSwipeExitOpacity = await secondCard.evaluate((el) => {
@@ -178,12 +184,14 @@ test.describe("Swipe Consistency", () => {
 			// Release
 			await releaseMouseDrag(page);
 
-			// Wait for completion
-			await page.waitForTimeout(1000);
-
-			// Click Next Ticket to advance to next card (for first swipe only)
+			// Wait for feedback overlay or Next Ticket (for first swipe only)
 			if (i === 0) {
 				await clickNextTicket(page);
+			} else {
+				await page.waitForSelector('[data-testid="feedback-dialog"]', {
+					state: "visible",
+					timeout: 5000,
+				});
 			}
 		}
 

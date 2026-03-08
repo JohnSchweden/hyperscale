@@ -8,7 +8,7 @@ import { navigateToPlayingFast } from "./helpers/navigation";
 
 test.use({ baseURL: "https://localhost:3000" });
 
-test.describe("Live API with TTS fallback", () => {
+test.describe("Live API with TTS fallback @integration @api-live @slow", () => {
 	test("@live-api text and audio appear when using Live API", async ({
 		page,
 	}) => {

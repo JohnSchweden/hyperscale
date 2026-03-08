@@ -29,7 +29,7 @@ async function assertRoastOutputVisibleAndInViewport(
 // Layout stability test removed: roast terminal now expands when output appears (min-h-0 → min-h-[320px]),
 // which intentionally shifts content. Card container stays fixed height; roast grows below it.
 
-test.describe("Roast console visibility", () => {
+test.describe("Roast console visibility @smoke @area:gameplay", () => {
 	test.beforeEach(({ page }) => mockRoastApi(page));
 
 	test("desktop roast output is visible and within viewport", async ({

@@ -24,7 +24,7 @@ const ROASTER_FEEDBACK_FILES = [
 	"feedback_ignore.wav",
 ];
 
-test.describe("Voice Audio Files", () => {
+test.describe("Voice Audio Files @smoke @area:audio", () => {
 	test.describe("Common voice files (all personalities)", () => {
 		for (const personality of PERSONALITIES) {
 			for (const file of COMMON_VOICE_FILES) {

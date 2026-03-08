@@ -4,7 +4,7 @@ import { SELECTORS } from "./helpers/selectors";
 
 test.use({ baseURL: "https://localhost:3000" });
 
-test.describe("Card Drag Tracking", () => {
+test.describe("Card Drag Tracking @area:input", () => {
 	test("card follows drag gesture", async ({ page }) => {
 		// Navigate to playing stage using shared helper
 		await navigateToPlayingFast(page);
