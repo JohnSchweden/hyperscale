@@ -26,11 +26,12 @@ export interface PressureAudioSession {
 }
 
 function getOrCreateContext(): AudioContext {
+	if (typeof window === "undefined")
+		throw new Error("AudioContext not supported");
 	const Ctx =
-		typeof window !== "undefined" &&
-		(window.AudioContext ??
-			(window as Window & { webkitAudioContext?: typeof AudioContext })
-				.webkitAudioContext);
+		window.AudioContext ??
+		(window as Window & { webkitAudioContext?: typeof AudioContext })
+			.webkitAudioContext;
 	if (!Ctx) throw new Error("AudioContext not supported");
 	return new Ctx();
 }
@@ -46,12 +47,13 @@ function tryStopOscillator(osc: OscillatorNode | null, when: number): void {
 
 function computeVolumeMultiplier(config: HeartbeatConfig): number {
 	const { countdownValue, countdownSec } = config;
-	const valid =
-		countdownSec != null &&
-		countdownSec > 0 &&
-		countdownValue != null &&
-		countdownValue <= countdownSec;
-	if (!valid) return 1;
+	if (
+		countdownSec == null ||
+		countdownSec <= 0 ||
+		countdownValue == null ||
+		countdownValue > countdownSec
+	)
+		return 1;
 
 	const rampStart = Math.min(ESCALATION_RAMP_SEC, countdownSec * 0.3);
 	if (countdownValue > rampStart) return 1;

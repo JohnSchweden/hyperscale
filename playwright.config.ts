@@ -2,13 +2,11 @@ import { defineConfig, devices } from "@playwright/test";
 
 // Env-driven lane selection: PLAYWRIGHT_GREP, PLAYWRIGHT_GREP_INVERT
 // Default exclusions: @live-api always; @slow in CI.
-const defaultGrepInvert = process.env.CI
-	? /@live-api|@api-live|@slow/
-	: /@live-api|@api-live/;
-const grepInvertEnv = process.env.PLAYWRIGHT_GREP_INVERT;
-const grepInvert = grepInvertEnv
-	? new RegExp(grepInvertEnv)
-	: defaultGrepInvert;
+function getGrepInvert(): RegExp {
+	const envValue = process.env.PLAYWRIGHT_GREP_INVERT;
+	if (envValue) return new RegExp(envValue);
+	return process.env.CI ? /@live-api|@api-live|@slow/ : /@live-api|@api-live/;
+}
 
 export default defineConfig({
 	testDir: "./tests",
@@ -26,7 +24,7 @@ export default defineConfig({
 	grep: process.env.PLAYWRIGHT_GREP
 		? new RegExp(process.env.PLAYWRIGHT_GREP)
 		: undefined,
-	grepInvert,
+	grepInvert: getGrepInvert(),
 	use: {
 		baseURL: "https://localhost:3000",
 		ignoreHTTPSErrors: true,

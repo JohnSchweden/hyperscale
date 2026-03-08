@@ -22,7 +22,6 @@ test.describe("Live API with TTS fallback @integration @api-live @slow", () => {
 		await textarea.fill("test input for live api");
 
 		const outputBody = page.locator('[data-testid="roast-output-body"]');
-		const startTime = Date.now();
 
 		await page.locator('[aria-label="Send roast"]').click();
 
@@ -30,9 +29,6 @@ test.describe("Live API with TTS fallback @integration @api-live @slow", () => {
 
 		const text = await outputBody.textContent();
 		expect(text?.length).toBeGreaterThan(10);
-
-		const elapsed = Date.now() - startTime;
-		console.log(`Live API response time: ${elapsed}ms`);
 	});
 
 	test("@live-api TTS fallback works when Live API fails", async ({ page }) => {
@@ -65,6 +61,5 @@ test.describe("Live API with TTS fallback @integration @api-live @slow", () => {
 		);
 
 		expect(hasOutput || hasError).toBe(true);
-		console.log("Fallback triggered:", hasError);
 	});
 });

@@ -49,10 +49,10 @@ test.describe("Death types @area:boss @slow", () => {
 				await page
 					.locator(`button:has-text("${wrongAnswers[i]}")`)
 					.click({ force: true });
-				const nextLabel =
-					i < wrongAnswers.length - 1
-						? SELECTORS.nextQuestionButton
-						: SELECTORS.finalResultButton;
+				const isLastAnswer = i === wrongAnswers.length - 1;
+				const nextLabel = isLastAnswer
+					? SELECTORS.finalResultButton
+					: SELECTORS.nextQuestionButton;
 				await page
 					.locator(nextLabel)
 					.waitFor({ state: "visible", timeout: 2000 });

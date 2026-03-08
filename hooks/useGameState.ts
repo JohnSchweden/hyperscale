@@ -115,6 +115,13 @@ function getHydratedState(): GameState {
 	}
 }
 
+function addUnlockedEndingIfMissing(
+	endings: DeathType[],
+	deathType: DeathType,
+): DeathType[] {
+	return endings.includes(deathType) ? endings : [...endings, deathType];
+}
+
 const STAGE_TRANSITIONS: Record<GameStage, GameStage[]> = {
 	[GameStage.INTRO]: [GameStage.PERSONALITY_SELECT],
 	[GameStage.PERSONALITY_SELECT]: [GameStage.ROLE_SELECT],
@@ -169,9 +176,10 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
 					stage: GameStage.GAME_OVER,
 					deathType: DeathType.BANKRUPT,
 					deathReason: DEATH_ENDINGS[DeathType.BANKRUPT].description,
-					unlockedEndings: state.unlockedEndings.includes(DeathType.BANKRUPT)
-						? state.unlockedEndings
-						: [...state.unlockedEndings, DeathType.BANKRUPT],
+					unlockedEndings: addUnlockedEndingIfMissing(
+						state.unlockedEndings,
+						DeathType.BANKRUPT,
+					),
 				};
 			}
 			if (state.heat >= 100) {
@@ -186,9 +194,10 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
 					stage: GameStage.GAME_OVER,
 					deathType,
 					deathReason: DEATH_ENDINGS[deathType].description,
-					unlockedEndings: state.unlockedEndings.includes(deathType)
-						? state.unlockedEndings
-						: [...state.unlockedEndings, deathType],
+					unlockedEndings: addUnlockedEndingIfMissing(
+						state.unlockedEndings,
+						deathType,
+					),
 				};
 			}
 			if (!state.role) return state;
@@ -218,9 +227,10 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
 				stage: GameStage.GAME_OVER,
 				deathType,
 				deathReason: DEATH_ENDINGS[deathType].description,
-				unlockedEndings: state.unlockedEndings.includes(deathType)
-					? state.unlockedEndings
-					: [...state.unlockedEndings, deathType],
+				unlockedEndings: addUnlockedEndingIfMissing(
+					state.unlockedEndings,
+					deathType,
+				),
 			};
 		}
 		case "RESET": {

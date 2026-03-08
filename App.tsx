@@ -217,19 +217,16 @@ const App: React.FC = () => {
 
 	// Handle countdown timer
 	useEffect(() => {
-		if (state.stage === GameStage.INITIALIZING) {
-			if (countdown > 0) {
-				const timer = setTimeout(() => setCountdown((c) => c - 1), 1000);
-				return () => clearTimeout(timer);
-			} else {
-				// Countdown finished, move to playing
-				dispatch({ type: "STAGE_CHANGE", stage: GameStage.PLAYING });
-				setIsFirstCard(true);
-			}
-		} else if (state.stage !== GameStage.INITIALIZING) {
-			// Reset countdown when leaving initializing stage
+		if (state.stage !== GameStage.INITIALIZING) {
 			setCountdown(3);
+			return;
 		}
+		if (countdown > 0) {
+			const timer = setTimeout(() => setCountdown((c) => c - 1), 1000);
+			return () => clearTimeout(timer);
+		}
+		dispatch({ type: "STAGE_CHANGE", stage: GameStage.PLAYING });
+		setIsFirstCard(true);
 	}, [state.stage, countdown, dispatch]);
 
 	// Boss fight hook

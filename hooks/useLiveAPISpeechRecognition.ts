@@ -209,7 +209,9 @@ export function useLiveAPISpeechRecognition(
 					onerror: (err) => {
 						setError(err instanceof Error ? err.message : String(err));
 					},
-					onclose: () => {},
+					onclose: () => {
+						// Session ended; no action needed
+					},
 				},
 			});
 

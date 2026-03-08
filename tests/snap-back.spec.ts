@@ -33,7 +33,6 @@ test.describe("Spring Snap-Back @area:input", () => {
 		const initialTransform = await card.evaluate((el) => {
 			return window.getComputedStyle(el).transform;
 		});
-		console.log("Initial transform:", initialTransform);
 
 		// Start drag
 		await page.mouse.move(startX, startY);
@@ -46,7 +45,6 @@ test.describe("Spring Snap-Back @area:input", () => {
 		const dragTransform = await card.evaluate((el) => {
 			return window.getComputedStyle(el).transform;
 		});
-		console.log("During drag transform:", dragTransform);
 
 		// Card should be translated
 		expect(dragTransform).not.toBe(initialTransform);
@@ -59,7 +57,6 @@ test.describe("Spring Snap-Back @area:input", () => {
 		const transition = await card.evaluate((el) => {
 			return window.getComputedStyle(el).transition;
 		});
-		console.log("Transition after release:", transition);
 
 		// Should have the spring physics transition (0.55s cubic-bezier)
 		expect(transition).toContain("0.55s");
@@ -87,7 +84,6 @@ test.describe("Spring Snap-Back @area:input", () => {
 		const finalTransform = await card.evaluate((el) => {
 			return window.getComputedStyle(el).transform;
 		});
-		console.log("Final transform:", finalTransform);
 
 		// Should be back to identity or near it (matrix(1, 0, 0, 1, 0, 0))
 		expect(finalTransform).toContain("matrix");
@@ -118,7 +114,6 @@ test.describe("Spring Snap-Back @area:input", () => {
 		const hasTicketTransition = await card.evaluate((el) => {
 			return el.classList.contains("ticket-transition");
 		});
-		console.log("Has ticket-transition class:", hasTicketTransition);
 		expect(hasTicketTransition).toBe(false);
 
 		// Wait for spring animation to complete (0.55s + buffer)

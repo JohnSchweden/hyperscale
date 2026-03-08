@@ -24,10 +24,6 @@ test.describe("Mobile Card Width @smoke @area:layout", () => {
 		const card = await getCard(page);
 		const cardBox = await card.boundingBox();
 
-		console.log("Container width:", containerBox?.width);
-		console.log("Card width:", cardBox?.width);
-		console.log("Viewport width: 375");
-
 		// Card should be close to container width (allowing for small differences)
 		expect(cardBox?.width).toBeGreaterThan(300); // Should be reasonably wide on mobile
 		expect(cardBox?.width).toBeLessThanOrEqual(375); // But not wider than viewport
@@ -52,8 +48,6 @@ test.describe("Mobile Card Width @smoke @area:layout", () => {
 		// Find card using shared selector
 		const card = await getCard(page);
 		const cardBox = await card.boundingBox();
-
-		console.log("Card width on tablet:", cardBox?.width);
 
 		// On tablet, card should have max-width constraint
 		expect(cardBox?.width).toBeGreaterThan(400);

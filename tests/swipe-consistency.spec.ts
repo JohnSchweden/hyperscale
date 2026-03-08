@@ -68,8 +68,6 @@ test.describe("Swipe Consistency @area:input", () => {
 		await navigateToPlayingFast(page);
 
 		// === FIRST SWIPE ===
-		console.log("=== Testing First Swipe ===");
-
 		const { card: firstCard } = await performDragWithoutRelease(page, 120);
 
 		// Wait while dragging
@@ -79,10 +77,6 @@ test.describe("Swipe Consistency @area:input", () => {
 		const firstSwipeOpacity = await firstCard.evaluate((el) => {
 			return window.getComputedStyle(el).opacity;
 		});
-		console.log(
-			"First swipe - opacity after 500ms (still dragging):",
-			firstSwipeOpacity,
-		);
 
 		// Card should still be visible (not exited)
 		expect(parseFloat(firstSwipeOpacity)).toBeGreaterThan(0.5);
@@ -97,17 +91,12 @@ test.describe("Swipe Consistency @area:input", () => {
 		});
 
 		// Card should now be exiting (opacity check)
-		const firstSwipeExitOpacity = await firstCard.evaluate((el) => {
-			return window.getComputedStyle(el).opacity;
-		});
-		console.log("First swipe - opacity after release:", firstSwipeExitOpacity);
+		await firstCard.evaluate((el) => window.getComputedStyle(el).opacity);
 
 		// Click Next Ticket to advance to second card
 		await clickNextTicket(page);
 
 		// === SECOND SWIPE ===
-		console.log("=== Testing Second Swipe ===");
-
 		const { card: secondCard } = await performDragWithoutRelease(page, 120);
 
 		// Wait while dragging
@@ -117,10 +106,6 @@ test.describe("Swipe Consistency @area:input", () => {
 		const secondSwipeOpacity = await secondCard.evaluate((el) => {
 			return window.getComputedStyle(el).opacity;
 		});
-		console.log(
-			"Second swipe - opacity after 500ms (still dragging):",
-			secondSwipeOpacity,
-		);
 
 		// Card should still be visible (not exited) - same as first swipe
 		expect(parseFloat(secondSwipeOpacity)).toBeGreaterThan(0.5);
@@ -135,13 +120,7 @@ test.describe("Swipe Consistency @area:input", () => {
 		});
 
 		// Card should now be exiting
-		const secondSwipeExitOpacity = await secondCard.evaluate((el) => {
-			return window.getComputedStyle(el).opacity;
-		});
-		console.log(
-			"Second swipe - opacity after release:",
-			secondSwipeExitOpacity,
-		);
+		await secondCard.evaluate((el) => window.getComputedStyle(el).opacity);
 	});
 
 	test("both swipes have consistent behavior", async ({ page }) => {
@@ -151,8 +130,6 @@ test.describe("Swipe Consistency @area:input", () => {
 
 		// Test two swipes
 		for (let i = 0; i < 2; i++) {
-			console.log(`=== Swipe ${i + 1} ===`);
-
 			const { card } = await performDragWithoutRelease(page, 120);
 
 			// Check state while still holding
@@ -168,12 +145,6 @@ test.describe("Swipe Consistency @area:input", () => {
 			const opacity = await card.evaluate((el) => {
 				return window.getComputedStyle(el).opacity;
 			});
-
-			console.log(
-				`Swipe ${i + 1} - Has exit class while dragging:`,
-				hasExitDirection,
-			);
-			console.log(`Swipe ${i + 1} - Opacity while dragging:`, opacity);
 
 			results.push({
 				swipe: i + 1,

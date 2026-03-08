@@ -38,8 +38,6 @@ export async function navigateToPlayingWithRoleFast(
 		await navigateToPlaying(page, role);
 		return;
 	}
-
-	await page.waitForTimeout(500);
 }
 
 /**
@@ -244,44 +242,42 @@ export async function navigateToGameOverFast(page: Page): Promise<void> {
 	await page.waitForSelector("text=Liquidated", { timeout: 5000 });
 }
 
-/**
- * Get the card element, with fallback selector
- */
-export async function getCard(page: Page) {
-	const cardSelector = page.locator(SELECTORS.card);
-	const cardCount = await cardSelector.count();
-
-	if (cardCount > 0) {
-		return cardSelector.first();
-	}
-	// Fallback to z-index selector
-	return page.locator(SELECTORS.cardFallback).first();
+async function getWithFallback(
+	page: Page,
+	primary: string,
+	fallback: string,
+): Promise<ReturnType<Page["locator"]>> {
+	const primaryLoc = page.locator(primary);
+	return (await primaryLoc.count()) > 0
+		? primaryLoc.first()
+		: page.locator(fallback).first();
 }
 
-/**
- * Get left swipe button, with fallback selector
- */
-export async function getLeftButton(page: Page) {
-	const leftSelector = page.locator(SELECTORS.leftButton);
-	const leftCount = await leftSelector.count();
-
-	if (leftCount > 0) {
-		return leftSelector.first();
-	}
-	// Fallback to text selector
-	return page.locator(SELECTORS.leftButtonFallback).first();
+/** Get the card element, with fallback selector. */
+export async function getCard(
+	page: Page,
+): Promise<ReturnType<Page["locator"]>> {
+	return getWithFallback(page, SELECTORS.card, SELECTORS.cardFallback);
 }
 
-/**
- * Get right swipe button, with fallback selector
- */
-export async function getRightButton(page: Page) {
-	const rightSelector = page.locator(SELECTORS.rightButton);
-	const rightCount = await rightSelector.count();
+/** Get left swipe button, with fallback selector. */
+export async function getLeftButton(
+	page: Page,
+): Promise<ReturnType<Page["locator"]>> {
+	return getWithFallback(
+		page,
+		SELECTORS.leftButton,
+		SELECTORS.leftButtonFallback,
+	);
+}
 
-	if (rightCount > 0) {
-		return rightSelector.first();
-	}
-	// Fallback to text selector
-	return page.locator(SELECTORS.rightButtonFallback).first();
+/** Get right swipe button, with fallback selector. */
+export async function getRightButton(
+	page: Page,
+): Promise<ReturnType<Page["locator"]>> {
+	return getWithFallback(
+		page,
+		SELECTORS.rightButton,
+		SELECTORS.rightButtonFallback,
+	);
 }

@@ -45,12 +45,9 @@ function main(): void {
 		const { durationMs } = runFile(file);
 		results.push({ file, durationMs });
 		const s = (durationMs / 1000).toFixed(1);
-		const tag =
-			durationMs >= LIMIT_30S
-				? " [>30s]"
-				: durationMs >= LIMIT_20S
-					? " [>20s]"
-					: "";
+		let tag = "";
+		if (durationMs >= LIMIT_30S) tag = " [>30s]";
+		else if (durationMs >= LIMIT_20S) tag = " [>20s]";
 		console.log(`${s}s${tag}`);
 	}
 

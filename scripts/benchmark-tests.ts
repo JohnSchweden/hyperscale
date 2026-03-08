@@ -161,9 +161,8 @@ function printSummary(baseline: Baseline): void {
 			.slice(0, 3)
 			.map((t) => t.fullTitle.slice(0, 40))
 			.join(", ");
-		const sampleStr = samples
-			? ` ${samples}${samples.length >= 40 ? "…" : ""}`
-			: "";
+		const suffix = samples.length >= 40 ? "…" : "";
+		const sampleStr = samples ? ` ${samples}${suffix}` : "";
 		console.log(
 			`${b.key.padEnd(12)} | ${String(count).padStart(5)} |${sampleStr}`,
 		);

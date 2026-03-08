@@ -87,11 +87,10 @@ function main(): void {
 					.map((a) => `@area:${a}`)
 					.join("|")
 			: "@smoke";
+	const areasLabel = areas.size > 0 ? Array.from(areas).join(", ") : "smoke";
 
 	console.log(`Changed files: ${files.length}`);
-	console.log(
-		`Areas: ${areas.size > 0 ? Array.from(areas).join(", ") : "smoke"}`,
-	);
+	console.log(`Areas: ${areasLabel}`);
 	console.log(`Running: grep ${grepPattern}\n`);
 
 	execSync(`bunx playwright test --grep "${grepPattern}"`, {

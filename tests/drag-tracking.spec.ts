@@ -21,7 +21,6 @@ test.describe("Card Drag Tracking @area:input", () => {
 		const initialTransform = await card.evaluate((el) => {
 			return window.getComputedStyle(el).transform;
 		});
-		console.log("Initial transform:", initialTransform);
 
 		// Start drag
 		await page.mouse.move(startX, startY);
@@ -34,7 +33,6 @@ test.describe("Card Drag Tracking @area:input", () => {
 		const midDragTransform = await card.evaluate((el) => {
 			return window.getComputedStyle(el).transform;
 		});
-		console.log("Mid-drag transform:", midDragTransform);
 
 		// The transform should have changed from initial (should include translateX)
 		expect(midDragTransform).not.toBe(initialTransform);
@@ -92,7 +90,6 @@ test.describe("Card Drag Tracking @area:input", () => {
 
 		// All transforms should be different (card is moving)
 		const uniqueTransforms = new Set(transforms);
-		console.log("Unique transforms during drag:", uniqueTransforms.size);
 		expect(uniqueTransforms.size).toBeGreaterThan(1);
 
 		// Wait for spring back animation

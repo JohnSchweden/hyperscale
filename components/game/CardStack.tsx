@@ -3,6 +3,16 @@ import type { RefObject } from "react";
 import { ROLE_CARDS } from "../../data";
 import { AppSource, type RoleType } from "../../types";
 
+function getCardTransition(
+	isDragging: boolean,
+	exitDirection: "LEFT" | "RIGHT" | null,
+): string {
+	if (isDragging) return "none";
+	if (exitDirection)
+		return "transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
+	return "transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1)";
+}
+
 interface CardStackProps {
 	role: RoleType;
 	currentCardIndex: number;
@@ -162,33 +172,27 @@ export const CardStack: React.FC<CardStackProps> = ({
 						exitDirection && exitPosition
 							? `translateX(${exitPosition.x}px) rotate(${exitPosition.rotate}deg)`
 							: `translateX(${offset}px) rotate(${offset * 0.05}deg)`,
-					transition: isDragging
-						? "none"
-						: exitDirection
-							? "transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
-							: "transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1)",
+					transition: getCardTransition(isDragging, exitDirection),
 					cursor: isDragging ? "grabbing" : "grab",
 					opacity: exitDirection ? 0 : 1,
 				}}
 			>
 				{/* Dynamic Swipe Preview */}
 				{direction &&
-					(() => {
+					(function SwipePreview() {
 						const progress =
 							(Math.abs(offset) - swipePreviewThreshold) / swipeThreshold;
-						const isRight = direction === "RIGHT";
-						const label = isRight
-							? currentCard.onRight.label.toUpperCase()
-							: currentCard.onLeft.label.toUpperCase();
+						const label =
+							direction === "RIGHT"
+								? currentCard.onRight.label.toUpperCase()
+								: currentCard.onLeft.label.toUpperCase();
 						return (
 							<div
 								className="absolute inset-0 pointer-events-none z-10"
-								style={{
-									opacity: Math.min(1, 0.3 + progress * 0.7),
-								}}
+								style={{ opacity: Math.min(1, 0.3 + progress * 0.7) }}
 							>
 								<div
-									className={`absolute top-1/2 -translate-y-1/2 font-black tracking-tighter ${isRight ? "left-8 text-green-500" : "right-8 text-red-500"}`}
+									className={`absolute top-1/2 -translate-y-1/2 font-black tracking-tighter ${direction === "RIGHT" ? "left-8 text-green-500" : "right-8 text-red-500"}`}
 									style={{
 										fontSize: `clamp(1.5rem, ${2 + progress * 2}rem, 3.75rem)`,
 										transform: `scale(${0.5 + Math.min(0.5, progress * 0.5)})`,

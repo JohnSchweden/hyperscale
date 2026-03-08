@@ -1,8 +1,24 @@
+import type { Locator, Page } from "@playwright/test";
 import { expect, test } from "@playwright/test";
 import { navigateToPlayingFast } from "./helpers/navigation";
 import { SELECTORS } from "./helpers/selectors";
 
 test.use({ baseURL: "https://localhost:3000" });
+
+async function waitForExitTransition(
+	page: Page,
+	card: Locator,
+	timeoutMs = 1000,
+): Promise<void> {
+	const startTime = Date.now();
+	while (Date.now() - startTime < timeoutMs) {
+		const transition = await card.evaluate((el) => {
+			return window.getComputedStyle(el).transition;
+		});
+		if (transition.includes("0.35s")) break;
+		await page.waitForTimeout(50);
+	}
+}
 
 test.describe("Exit Animation Continuity @area:input", () => {
 	test("card exits smoothly from current drag position", async ({ page }) => {
@@ -29,7 +45,6 @@ test.describe("Exit Animation Continuity @area:input", () => {
 			const dragTransform = await card.evaluate((el) => {
 				return window.getComputedStyle(el).transform;
 			});
-			console.log("Transform during drag:", dragTransform);
 
 			// Should be translated ~120px
 			expect(dragTransform).toContain("matrix");
@@ -37,25 +52,12 @@ test.describe("Exit Animation Continuity @area:input", () => {
 			// Release - should trigger exit
 			await page.mouse.up();
 
-			// Wait for React to apply exit state and transition instead of hard-coded timeout
-			// Use polling approach to avoid serialization issues
-			const startTime = Date.now();
-			const timeout = 1000;
-			while (Date.now() - startTime < timeout) {
-				const transition = await card.evaluate((el) => {
-					return window.getComputedStyle(el).transition;
-				});
-				if (transition.includes("0.35s")) {
-					break;
-				}
-				await page.waitForTimeout(50);
-			}
+			await waitForExitTransition(page, card);
 
 			// Check transition is set to exit animation
 			const transition = await card.evaluate((el) => {
 				return window.getComputedStyle(el).transition;
 			});
-			console.log("Transition after release:", transition);
 			expect(transition).toContain("0.35s");
 			expect(transition).toContain("cubic-bezier(0.25, 0.46, 0.45, 0.94)");
 
@@ -63,18 +65,11 @@ test.describe("Exit Animation Continuity @area:input", () => {
 			const exitTransform = await card.evaluate((el) => {
 				return window.getComputedStyle(el).transform;
 			});
-			console.log("Transform during exit:", exitTransform);
 
 			// Should NOT be identity matrix (would indicate reset to center)
 			expect(exitTransform).not.toBe("matrix(1, 0, 0, 1, 0, 0)");
 
-			// Card opacity is set to 0 immediately when exit starts via inline style
-			// Check that it's set correctly
-			const exitOpacity = await card.evaluate((el) => {
-				return window.getComputedStyle(el).opacity;
-			});
-			console.log("Exit opacity:", exitOpacity);
-			// Opacity should be animating to 0 (may not be exactly 0 yet due to transition)
+			// Card opacity animates to 0 when exit starts (inline style)
 		}
 	});
 
@@ -112,47 +107,31 @@ test.describe("Exit Animation Continuity @area:input", () => {
 				await page.waitForTimeout(50);
 			}
 
-			// Get position just before release
-			const beforeRelease = await card.evaluate((el) => {
+			// Get position just before release (ensures transform is applied before release)
+			await card.evaluate((el) => {
 				const style = window.getComputedStyle(el);
 				const matrix = new DOMMatrix(style.transform);
 				return { x: matrix.m41, y: matrix.m42 };
 			});
-			console.log("Position before release:", beforeRelease);
 
 			// Release
 			await page.mouse.up();
 
-			// Wait for React to apply exit state (cardExitDirection + 0.35s transition)
-			// Instead of hard-coded timeout, wait for transition property to change
-			// Use polling approach to avoid serialization issues
-			const startTime2 = Date.now();
-			const timeout2 = 1000;
-			while (Date.now() - startTime2 < timeout2) {
-				const transition = await card.evaluate((el) => {
-					return window.getComputedStyle(el).transition;
-				});
-				if (transition.includes("0.35s")) {
-					break;
-				}
-				await page.waitForTimeout(50);
-			}
+			await waitForExitTransition(page, card);
 
 			const transition = await card.evaluate((el) => {
 				return window.getComputedStyle(el).transition;
 			});
-			console.log("Transition after release:", transition);
 
 			// The transition should be set to the exit animation (0.35s)
 			expect(transition).toContain("0.35s");
 
 			// Check position - should be animating, not reset to 0
-			const afterRelease = await card.evaluate((el) => {
+			await card.evaluate((el) => {
 				const style = window.getComputedStyle(el);
 				const matrix = new DOMMatrix(style.transform);
 				return { x: matrix.m41, y: matrix.m42 };
 			});
-			console.log("Position after release:", afterRelease);
 
 			// The card should be animating from its drag position toward exit
 			// It might be slightly different due to animation progress, but shouldn't be at 0

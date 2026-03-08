@@ -44,10 +44,10 @@ async function navigateToSummary(page: Page) {
 	];
 	for (let i = 0; i < answers.length; i++) {
 		await page.click(`button:has-text("${answers[i]}")`);
-		const nextLabel =
-			i < answers.length - 1
-				? SELECTORS.nextQuestionButton
-				: SELECTORS.finalResultButton;
+		const isLast = i === answers.length - 1;
+		const nextLabel = isLast
+			? SELECTORS.finalResultButton
+			: SELECTORS.nextQuestionButton;
 		await page.locator(nextLabel).waitFor({ state: "visible", timeout: 3000 });
 		await page.click(nextLabel);
 	}

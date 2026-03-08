@@ -1,6 +1,8 @@
 import { expect, test } from "@playwright/test";
 import { navigateToPlayingFast } from "./helpers/navigation";
 
+test.use({ baseURL: "https://localhost:3000" });
+
 /**
  * Phase 04-03: Immersive pressure cues and feedback overlay coverage.
  * - Pressure cue controller (audio/haptics driven by urgency)
@@ -69,11 +71,10 @@ test.describe("Feedback Overlay @area:gameplay", () => {
 		});
 
 		// dev_1 has team-impact for both outcomes
+		const teamImpact1 = page.locator("text=Ops team grateful for the pause");
+		const teamImpact2 = page.locator("text=Engineering morale took a hit");
 		const hasTeamImpact =
-			(await page
-				.locator("text=Ops team grateful for the pause")
-				.isVisible()) ||
-			(await page.locator("text=Engineering morale took a hit").isVisible());
+			(await teamImpact1.isVisible()) || (await teamImpact2.isVisible());
 		expect(hasTeamImpact).toBe(true);
 	});
 
