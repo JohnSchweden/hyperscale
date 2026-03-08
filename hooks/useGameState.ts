@@ -4,13 +4,13 @@ import {
 	DeathType,
 	GameStage,
 	type GameState,
-	type PersonalityType,
-	type RoleType,
+	PersonalityType,
+	RoleType,
 } from "../types";
 
 const INITIAL_BUDGET = 10000000;
 
-const initialGameState: GameState = {
+export const initialGameState: GameState = {
 	hype: 50,
 	heat: 0,
 	budget: INITIAL_BUDGET,
@@ -43,7 +43,7 @@ export type GameAction =
 	| { type: "BOSS_COMPLETE"; success: boolean }
 	| { type: "RESET" };
 
-function determineDeathType(
+export function determineDeathType(
 	budget: number,
 	heat: number,
 	hype: number,
@@ -66,6 +66,41 @@ function determineDeathType(
 	return DeathType.AUDIT_FAILURE;
 }
 
+const VALID_PERSONALITIES = new Set(
+	Object.values(PersonalityType) as unknown as string[],
+);
+const VALID_ROLES = new Set(Object.values(RoleType) as unknown as string[]);
+
+function getHydratedState(): GameState {
+	if (typeof window === "undefined") return initialGameState;
+	try {
+		const raw = window.localStorage.getItem("gameState");
+		if (!raw) return initialGameState;
+		const parsed = JSON.parse(raw) as {
+			state?: string;
+			personality?: string;
+			role?: string;
+		};
+		if (
+			parsed?.state !== "playing" ||
+			!parsed.personality ||
+			!parsed.role ||
+			!VALID_PERSONALITIES.has(parsed.personality) ||
+			!VALID_ROLES.has(parsed.role)
+		) {
+			return initialGameState;
+		}
+		return {
+			...initialGameState,
+			stage: GameStage.PLAYING,
+			personality: parsed.personality as PersonalityType,
+			role: parsed.role as RoleType,
+		};
+	} catch {
+		return initialGameState;
+	}
+}
+
 const STAGE_TRANSITIONS: Record<GameStage, GameStage[]> = {
 	[GameStage.INTRO]: [GameStage.PERSONALITY_SELECT],
 	[GameStage.PERSONALITY_SELECT]: [GameStage.ROLE_SELECT],
@@ -77,7 +112,7 @@ const STAGE_TRANSITIONS: Record<GameStage, GameStage[]> = {
 	[GameStage.SUMMARY]: [GameStage.INTRO],
 };
 
-function gameReducer(state: GameState, action: GameAction): GameState {
+export function gameReducer(state: GameState, action: GameAction): GameState {
 	switch (action.type) {
 		case "STAGE_CHANGE": {
 			const allowed = STAGE_TRANSITIONS[state.stage];
@@ -186,7 +221,9 @@ function gameReducer(state: GameState, action: GameAction): GameState {
 }
 
 export function useGameState() {
-	const [state, dispatch] = useReducer(gameReducer, initialGameState);
+	const [state, dispatch] = useReducer(gameReducer, null, () =>
+		getHydratedState(),
+	);
 
 	const startGame = useCallback(() => {
 		dispatch({ type: "STAGE_CHANGE", stage: GameStage.PERSONALITY_SELECT });

@@ -7,6 +7,7 @@ export default defineConfig({
 		command: "bun run dev",
 		url: "http://localhost:3000",
 		reuseExistingServer: !process.env.CI,
+		timeout: 180_000,
 	},
 	forbidOnly: !!process.env.CI,
 	retries: process.env.CI ? 2 : 0,

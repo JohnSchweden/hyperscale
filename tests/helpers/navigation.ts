@@ -16,8 +16,8 @@ export async function navigateToPlayingFast(page: Page): Promise<void> {
 			"gameState",
 			JSON.stringify({
 				state: "playing",
-				personality: "vera",
-				role: "development",
+				personality: "ROASTER",
+				role: "SOFTWARE_ENGINEER",
 			}),
 		);
 	});
@@ -29,7 +29,7 @@ export async function navigateToPlayingFast(page: Page): Promise<void> {
 	try {
 		await page
 			.locator('button:has-text("Debug")')
-			.waitFor({ state: "visible", timeout: 3000 });
+			.waitFor({ state: "visible", timeout: 5000 });
 	} catch {
 		// Fast approach failed, fall back to full navigation
 		console.warn("Fast navigation failed, falling back to full navigation");
@@ -84,8 +84,8 @@ export async function navigateToPlaying(page: Page): Promise<void> {
 	await personalityButton.click();
 	await page.waitForTimeout(300);
 
-	// Click role (Development)
-	const roleButton = page.locator('button:has-text("Development")');
+	// Click role (Software Engineer — DEVELOPMENT deck, matches ROLE_LABELS)
+	const roleButton = page.locator('button:has-text("Software Engineer")');
 	await roleButton.waitFor({ state: "visible" });
 	await roleButton.click();
 

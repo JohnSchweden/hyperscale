@@ -42,7 +42,7 @@ async function navigateToInitializing(page: Page) {
 	await personalityButton.waitFor({ state: "visible" });
 	await personalityButton.click();
 	await page.waitForTimeout(300);
-	const roleButton = page.locator('button:has-text("Development")');
+	const roleButton = page.locator('button:has-text("Software Engineer")');
 	await roleButton.waitFor({ state: "visible" });
 	await roleButton.click();
 	await page.waitForTimeout(100); // Catch during countdown
@@ -74,7 +74,7 @@ async function navigateToGameOver(page: Page) {
 	await personalityButton.waitFor({ state: "visible" });
 	await personalityButton.click();
 	await page.waitForTimeout(300);
-	const roleButton = page.locator('button:has-text("Marketing")');
+	const roleButton = page.locator('button:has-text("Tech/AI Consultant")');
 	await roleButton.waitFor({ state: "visible" });
 	await roleButton.click();
 	await page.waitForTimeout(4000);

@@ -3,14 +3,14 @@ import {
 	getCard,
 	getLeftButton,
 	getRightButton,
-	navigateToPlaying,
+	navigateToPlayingFast,
 } from "./helpers/navigation";
 
 test.use({ baseURL: "http://localhost:3000" });
 
 test.describe("Button Highlight on Swipe", () => {
 	test("right button highlights when swiping right", async ({ page }) => {
-		await navigateToPlaying(page);
+		await navigateToPlayingFast(page);
 
 		// Find the card
 		const card = await getCard(page);
@@ -63,7 +63,7 @@ test.describe("Button Highlight on Swipe", () => {
 	});
 
 	test("left button highlights when swiping left", async ({ page }) => {
-		await navigateToPlaying(page);
+		await navigateToPlayingFast(page);
 
 		// Find the card
 		const card = await getCard(page);
