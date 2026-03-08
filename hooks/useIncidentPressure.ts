@@ -40,7 +40,7 @@ export function useIncidentPressure(
 		const timeoutResolvesTo = scenario?.timeoutResolvesTo ?? null;
 		const criticalFromScenario = scenario?.criticalForHaptics ?? false;
 		const heatHigh = state.heat >= 70;
-		const isCritical = criticalFromScenario || (scenario != null && heatHigh);
+		const isCritical = criticalFromScenario || heatHigh;
 
 		const getTeamImpact = (direction: "LEFT" | "RIGHT"): string | null => {
 			const outcome = scenario?.outcomes?.[direction];
