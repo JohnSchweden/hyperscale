@@ -80,7 +80,7 @@ export const GameOver: React.FC<GameOverProps> = ({ state, onRestart }) => {
 				<button
 					type="button"
 					onClick={onRestart}
-					className="px-6 py-3 md:px-12 md:py-4 text-base md:text-xl font-bold tracking-wide bg-white text-red-600 hover:bg-red-600 hover:text-white transition-all duration-300 transform hover:scale-105 min-h-[40px] md:min-h-[48px]"
+					className="px-6 py-3 md:px-12 md:py-4 text-base md:text-xl font-bold tracking-wide bg-white text-red-600 hover:bg-red-600 hover:text-white transition-all duration-300 min-h-[40px] md:min-h-[48px]"
 				>
 					Reboot system
 				</button>
