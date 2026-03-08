@@ -113,6 +113,11 @@ const App: React.FC = () => {
 		state,
 		currentCard ?? null,
 		!!feedbackOverlay,
+		{
+			onCriticalChange: (isCritical) => {
+				if (isCritical) triggerHaptic();
+			},
+		},
 	);
 
 	// Apply choice and feedback overlay; used by both timer expiry and user swipe/click
@@ -169,6 +174,7 @@ const App: React.FC = () => {
 	const incidentCountdown = useCountdown({
 		startFrom: pressure.countdownSec,
 		onComplete: handleTimerExpiry,
+		onExpire: () => triggerHaptic(),
 		isActive: pressure.isUrgent,
 	});
 
