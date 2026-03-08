@@ -11,11 +11,8 @@ interface UseCountdownResult {
 	reset: () => void;
 }
 
-export function useCountdown({
-	startFrom,
-	onComplete,
-	isActive,
-}: UseCountdownOptions): UseCountdownResult {
+export function useCountdown(options: UseCountdownOptions): UseCountdownResult {
+	const { startFrom, onComplete, isActive } = options;
 	const [count, setCount] = useState(startFrom);
 
 	useEffect(() => {
