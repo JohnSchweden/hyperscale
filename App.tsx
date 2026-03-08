@@ -24,7 +24,8 @@ import {
 	useSwipeGestures,
 	useVoicePlayback,
 } from "./hooks";
-import { GameStage, type RoleType } from "./types";
+import { type Card, GameStage, type RoleType } from "./types";
+import { triggerHaptic } from "./utils/haptic";
 
 /**
  * BUTTON VARIANT PATTERNS (established design system)
@@ -114,6 +115,33 @@ const App: React.FC = () => {
 		!!feedbackOverlay,
 	);
 
+	// Apply choice and feedback overlay; used by both timer expiry and user swipe/click
+	const applyChoice = useCallback(
+		(direction: "LEFT" | "RIGHT", card: Card) => {
+			if (!state.personality) return;
+			const outcome = direction === "RIGHT" ? card.onRight : card.onLeft;
+			const teamImpact = pressure.getTeamImpact(direction);
+
+			setFeedbackOverlay({
+				text: outcome.feedback[state.personality],
+				lesson: outcome.lesson,
+				choice: direction,
+				fine: outcome.fine,
+				violation: outcome.violation,
+				cardId: card.id,
+				teamImpact: teamImpact ?? null,
+			});
+
+			makeChoice(direction, {
+				hype: outcome.hype,
+				heat: outcome.heat,
+				fine: outcome.fine,
+				cardId: card.id,
+			});
+		},
+		[state.personality, pressure.getTeamImpact, makeChoice],
+	);
+
 	// Urgent incident countdown — expiry resolves to timeout outcome, no undo
 	const handleTimerExpiry = useCallback(() => {
 		if (
@@ -126,42 +154,16 @@ const App: React.FC = () => {
 		if (isChoiceLockedRef.current) return;
 		isChoiceLockedRef.current = true;
 
-		if (
-			typeof navigator !== "undefined" &&
-			"vibrate" in navigator &&
-			typeof navigator.vibrate === "function"
-		) {
-			navigator.vibrate([50, 30, 50]);
-		}
+		triggerHaptic();
 
 		const direction = pressure.timeoutResolvesTo;
-		const outcome =
-			direction === "RIGHT" ? currentCard.onRight : currentCard.onLeft;
-		const teamImpact = pressure.getTeamImpact(direction);
-
-		setFeedbackOverlay({
-			text: outcome.feedback[state.personality],
-			lesson: outcome.lesson,
-			choice: direction,
-			fine: outcome.fine,
-			violation: outcome.violation,
-			cardId: currentCard.id,
-			teamImpact: teamImpact ?? null,
-		});
-
-		makeChoice(direction, {
-			hype: outcome.hype,
-			heat: outcome.heat,
-			fine: outcome.fine,
-			cardId: currentCard.id,
-		});
+		applyChoice(direction, currentCard);
 	}, [
 		state.role,
 		state.personality,
 		currentCard,
 		pressure.timeoutResolvesTo,
-		pressure.getTeamImpact,
-		makeChoice,
+		applyChoice,
 	]);
 
 	const incidentCountdown = useCountdown({
@@ -192,6 +194,13 @@ const App: React.FC = () => {
 	// Clock
 	const currentTime = useClock();
 
+	// Scroll to top on stage change (fixes mobile: second page showing scrolled-down)
+	// biome-ignore lint/correctness/useExhaustiveDependencies: intentionally re-run on stage change
+	useEffect(() => {
+		window.scrollTo(0, 0);
+		document.documentElement.scrollTo(0, 0);
+	}, [state.stage]);
+
 	// Stage ready states (prevent ghost clicks)
 	const personalityReady = useStageReady({
 		stage: state.stage,
@@ -221,11 +230,7 @@ const App: React.FC = () => {
 			// Reset countdown when leaving initializing stage
 			setCountdown(3);
 		}
-	}, [
-		state.stage,
-		countdown, // Countdown finished, move to playing
-		dispatch,
-	]);
+	}, [state.stage, countdown, dispatch]);
 
 	// Boss fight hook
 	const bossFight = useBossFight({
@@ -243,7 +248,6 @@ const App: React.FC = () => {
 		feedbackChoice: feedbackOverlay?.choice,
 	});
 
-	// Swipe gestures
 	// Handle choice (called by swipe or button click) — final, no undo
 	const handleChoice = useCallback(
 		(direction: "LEFT" | "RIGHT") => {
@@ -251,45 +255,15 @@ const App: React.FC = () => {
 			if (isChoiceLockedRef.current) return;
 			isChoiceLockedRef.current = true;
 
-			const cards = ROLE_CARDS[state.role];
-			const card = cards[state.currentCardIndex];
-			const outcome = direction === "RIGHT" ? card.onRight : card.onLeft;
-			const teamImpact = pressure.getTeamImpact(direction);
-
-			setFeedbackOverlay({
-				text: outcome.feedback[state.personality],
-				lesson: outcome.lesson,
-				choice: direction,
-				fine: outcome.fine,
-				violation: outcome.violation,
-				cardId: card.id,
-				teamImpact: teamImpact ?? null,
-			});
-
-			makeChoice(direction, {
-				hype: outcome.hype,
-				heat: outcome.heat,
-				fine: outcome.fine,
-				cardId: card.id,
-			});
+			const card = ROLE_CARDS[state.role][state.currentCardIndex];
+			applyChoice(direction, card);
 		},
-		[
-			state.currentCardIndex,
-			state.role,
-			state.personality,
-			pressure.getTeamImpact,
-			makeChoice,
-		],
+		[state.role, state.personality, state.currentCardIndex, applyChoice],
 	);
 
 	const swipe = useSwipeGestures({
 		enabled: state.stage === GameStage.PLAYING && !feedbackOverlay,
-		onSwipe: useCallback(
-			(direction: "LEFT" | "RIGHT") => {
-				handleChoice(direction);
-			},
-			[handleChoice],
-		),
+		onSwipe: handleChoice,
 	});
 
 	// Handle next incident (dismiss feedback and move to next card)
@@ -389,25 +363,11 @@ const App: React.FC = () => {
 							onTouchMove={swipe.onTouchMove}
 							onTouchEnd={swipe.onTouchEnd}
 							onSwipeLeft={() => {
-								if (
-									(pressure.isCritical || pressure.isUrgent) &&
-									typeof navigator !== "undefined" &&
-									"vibrate" in navigator &&
-									typeof navigator.vibrate === "function"
-								) {
-									navigator.vibrate([50, 30, 50]);
-								}
+								if (pressure.isCritical || pressure.isUrgent) triggerHaptic();
 								swipe.swipeProgrammatically("LEFT");
 							}}
 							onSwipeRight={() => {
-								if (
-									(pressure.isCritical || pressure.isUrgent) &&
-									typeof navigator !== "undefined" &&
-									"vibrate" in navigator &&
-									typeof navigator.vibrate === "function"
-								) {
-									navigator.vibrate([50, 30, 50]);
-								}
+								if (pressure.isCritical || pressure.isUrgent) triggerHaptic();
 								swipe.swipeProgrammatically("RIGHT");
 							}}
 							roastInput={roastInput}
