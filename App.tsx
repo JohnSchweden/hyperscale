@@ -24,6 +24,11 @@ import {
 	useSwipeGestures,
 	useVoicePlayback,
 } from "./hooks";
+import {
+	playCountdownBeep,
+	playCountdownStart,
+	prepareCountdownAudio,
+} from "./services/pressureAudio";
 import { type Card, GameStage, type RoleType } from "./types";
 import { triggerHaptic } from "./utils/haptic";
 
@@ -68,6 +73,11 @@ import { triggerHaptic } from "./utils/haptic";
  *   - Intro uses centered text, max-w on content elements instead
  *   - Role Select uses 2-3 column grid, width adapts naturally
  */
+
+const KEY_TO_DIRECTION: Record<string, "LEFT" | "RIGHT"> = {
+	ArrowLeft: "LEFT",
+	ArrowRight: "RIGHT",
+};
 
 const App: React.FC = () => {
 	// Game state
@@ -227,6 +237,12 @@ const App: React.FC = () => {
 			setCountdown(3);
 			return;
 		}
+		// Play beep for 3, 2, 1; Start tone at 0
+		if (countdown >= 1 && countdown <= 3) {
+			playCountdownBeep(countdown as 1 | 2 | 3);
+		} else if (countdown === 0) {
+			playCountdownStart();
+		}
 		if (countdown > 0) {
 			const timer = setTimeout(() => setCountdown((c) => c - 1), 1000);
 			return () => clearTimeout(timer);
@@ -264,19 +280,14 @@ const App: React.FC = () => {
 		[state.role, state.personality, state.currentCardIndex, applyChoice],
 	);
 
+	const triggerSwipeHaptic = useCallback(() => {
+		if (pressure.isCritical || pressure.isUrgent) triggerHaptic();
+	}, [pressure.isCritical, pressure.isUrgent]);
+
 	const swipe = useSwipeGestures({
 		enabled: state.stage === GameStage.PLAYING && !feedbackOverlay,
 		onSwipe: handleChoice,
-		onBeforeSwipe: (direction) => {
-			if (
-				(pressure.isCritical || pressure.isUrgent) &&
-				typeof navigator !== "undefined" &&
-				"vibrate" in navigator &&
-				typeof navigator.vibrate === "function"
-			) {
-				navigator.vibrate([50, 30, 50]);
-			}
-		},
+		onBeforeSwipe: triggerSwipeHaptic,
 	});
 
 	// Handle next incident (dismiss feedback and move to next card)
@@ -291,6 +302,7 @@ const App: React.FC = () => {
 	// Handle role selection with countdown reset
 	const handleSelectRole = useCallback(
 		(role: RoleType) => {
+			prepareCountdownAudio(); // resume context while still in user gesture
 			selectRole(role);
 			setIsFirstCard(true);
 		},
@@ -301,16 +313,12 @@ const App: React.FC = () => {
 	useEffect(() => {
 		const handleKeyDown = (e: KeyboardEvent) => {
 			if (state.stage !== GameStage.PLAYING || feedbackOverlay) return;
-
-			if (e.key === "ArrowLeft") {
+			const direction = KEY_TO_DIRECTION[e.key];
+			if (direction) {
 				e.preventDefault();
-				swipe.swipeProgrammatically("LEFT");
-			} else if (e.key === "ArrowRight") {
-				e.preventDefault();
-				swipe.swipeProgrammatically("RIGHT");
+				swipe.swipeProgrammatically(direction);
 			}
 		};
-
 		window.addEventListener("keydown", handleKeyDown);
 		return () => window.removeEventListener("keydown", handleKeyDown);
 	}, [state.stage, feedbackOverlay, swipe]);
@@ -376,11 +384,11 @@ const App: React.FC = () => {
 							onTouchMove={swipe.onTouchMove}
 							onTouchEnd={swipe.onTouchEnd}
 							onSwipeLeft={() => {
-								if (pressure.isCritical || pressure.isUrgent) triggerHaptic();
+								triggerSwipeHaptic();
 								swipe.swipeProgrammatically("LEFT");
 							}}
 							onSwipeRight={() => {
-								if (pressure.isCritical || pressure.isUrgent) triggerHaptic();
+								triggerSwipeHaptic();
 								swipe.swipeProgrammatically("RIGHT");
 							}}
 							roastInput={roastInput}

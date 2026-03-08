@@ -10,6 +10,7 @@ import { expect, test } from "@playwright/test";
  */
 
 const VOICES_DIR = path.join(process.cwd(), "public/audio/voices");
+const STRESS_DIR = path.join(process.cwd(), "public/audio/stress");
 
 const PERSONALITIES = ["roaster", "zenmaster", "lovebomber"] as const;
 
@@ -25,6 +26,16 @@ const ROASTER_FEEDBACK_FILES = [
 ];
 
 test.describe("Voice Audio Files @smoke @area:audio", () => {
+	test.describe("Stress audio (Android heartbeat sample)", () => {
+		test("heartbeat.mp3 exists", () => {
+			const filePath = path.join(STRESS_DIR, "heartbeat.mp3");
+			expect(
+				fs.existsSync(filePath),
+				"Missing Android heartbeat sample: public/audio/stress/heartbeat.mp3",
+			).toBe(true);
+		});
+	});
+
 	test.describe("Common voice files (all personalities)", () => {
 		for (const personality of PERSONALITIES) {
 			for (const file of COMMON_VOICE_FILES) {
@@ -51,27 +62,18 @@ test.describe("Voice Audio Files @smoke @area:audio", () => {
 		}
 	});
 
-	test.describe("Zen Master does NOT have feedback files", () => {
-		for (const file of ROASTER_FEEDBACK_FILES) {
-			test(`zenmaster/${file} does NOT exist`, () => {
-				const filePath = path.join(VOICES_DIR, "zenmaster", file);
-				expect(
-					fs.existsSync(filePath),
-					`zenmaster should NOT have ${file} (per design)`,
-				).toBe(false);
-			});
-		}
-	});
-
-	test.describe("Lovebomber does NOT have feedback files", () => {
-		for (const file of ROASTER_FEEDBACK_FILES) {
-			test(`lovebomber/${file} does NOT exist`, () => {
-				const filePath = path.join(VOICES_DIR, "lovebomber", file);
-				expect(
-					fs.existsSync(filePath),
-					`lovebomber should NOT have ${file} (per design)`,
-				).toBe(false);
-			});
-		}
-	});
+	const NO_FEEDBACK_PERSONALITIES = ["zenmaster", "lovebomber"] as const;
+	for (const personality of NO_FEEDBACK_PERSONALITIES) {
+		test.describe(`${personality} does NOT have feedback files`, () => {
+			for (const file of ROASTER_FEEDBACK_FILES) {
+				test(`${personality}/${file} does NOT exist`, () => {
+					const filePath = path.join(VOICES_DIR, personality, file);
+					expect(
+						fs.existsSync(filePath),
+						`${personality} should NOT have ${file} (per design)`,
+					).toBe(false);
+				});
+			}
+		});
+	}
 });
