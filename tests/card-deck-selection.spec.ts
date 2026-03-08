@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 import { ROLE_DECK_ALIASES, ROLE_LABELS } from "../data/roles";
 import { RoleType } from "../types";
 import {
-	navigateToRoleSelect,
+	navigateToPlayingWithRoleFast,
 	navigateToRoleSelectFast,
 } from "./helpers/navigation";
 import { SELECTORS } from "./helpers/selectors";
@@ -65,13 +65,7 @@ test.describe("Card deck selection", () => {
 			const label = ROLE_LABELS[role];
 			const deck = ROLE_DECK_ALIASES[role];
 			test(`${label} (${deck}) reaches PLAYING with card`, async ({ page }) => {
-				await navigateToRoleSelectFast(page);
-				await page.locator(`button:has-text("${label}")`).click();
-				// Wait for playing: card or primary left swipe button (data-testid only to avoid regex selector)
-				await page
-					.locator(SELECTORS.card)
-					.first()
-					.waitFor({ state: "visible", timeout: 10000 });
+				await navigateToPlayingWithRoleFast(page, role);
 				await expect(
 					page.locator(SELECTORS.card).or(page.locator(SELECTORS.cardFallback)),
 				).toHaveCount(1, { timeout: 2000 });

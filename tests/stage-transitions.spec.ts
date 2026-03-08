@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { navigateToPlaying } from "./helpers/navigation";
+import { navigateToPlaying, navigateToPlayingFast } from "./helpers/navigation";
 import { SELECTORS } from "./helpers/selectors";
 
 test.use({ baseURL: "https://localhost:3000" });
@@ -14,7 +14,6 @@ test.describe("Stage transitions", () => {
 			.or(page.locator(SELECTORS.bootButtonFallback));
 		await bootButton.first().waitFor({ state: "visible", timeout: 5000 });
 		await bootButton.click();
-		await page.waitForTimeout(300);
 
 		const personalityButton = page.locator('button:has-text("V.E.R.A")');
 		await expect(personalityButton).toBeVisible({ timeout: 3000 });
@@ -29,12 +28,10 @@ test.describe("Stage transitions", () => {
 			.or(page.locator(SELECTORS.bootButtonFallback));
 		await bootButton.first().waitFor({ state: "visible", timeout: 5000 });
 		await bootButton.click();
-		await page.waitForTimeout(300);
 
 		const personalityButton = page.locator('button:has-text("V.E.R.A")');
 		await personalityButton.waitFor({ state: "visible" });
 		await personalityButton.click();
-		await page.waitForTimeout(300);
 
 		const roleButton = page.locator('button:has-text("Software Engineer")');
 		await expect(roleButton).toBeVisible({ timeout: 3000 });
@@ -54,17 +51,20 @@ test.describe("Stage transitions", () => {
 		page,
 	}) => {
 		test.setTimeout(60000);
-		await navigateToPlaying(page);
+		await navigateToPlayingFast(page);
 
 		// Development has 2 cards; swipe left (Debug, Ignore) to avoid game over, then Next ticket to boss
 		await page.locator(SELECTORS.debugButton).click({ force: true });
-		await page.waitForTimeout(500);
-		await page.locator(SELECTORS.nextTicketButton).click({ force: true });
-		await page.waitForTimeout(500);
+		const nextBtn = page.locator(SELECTORS.nextTicketButton);
+		await nextBtn.waitFor({ state: "visible", timeout: 5000 });
+		await nextBtn.click({ force: true });
+
+		await page
+			.locator('button:has-text("Ignore")')
+			.waitFor({ state: "visible", timeout: 5000 });
 		await page.locator('button:has-text("Ignore")').click({ force: true });
-		await page.waitForTimeout(500);
-		await page.locator(SELECTORS.nextTicketButton).click({ force: true });
-		await page.waitForTimeout(500);
+		await nextBtn.waitFor({ state: "visible", timeout: 5000 });
+		await nextBtn.click({ force: true });
 
 		await page.waitForSelector("text=Boss fight", { timeout: 8000 });
 		await expect(page.locator('button:has-text("A.")').first()).toBeVisible({
@@ -81,13 +81,14 @@ test.describe("Stage transitions", () => {
 		];
 		for (let i = 0; i < answers.length; i++) {
 			await page.click(`button:has-text("${answers[i]}")`);
-			await page.waitForTimeout(300);
 			const nextLabel =
 				i < answers.length - 1
 					? SELECTORS.nextQuestionButton
 					: SELECTORS.finalResultButton;
+			await page
+				.locator(nextLabel)
+				.waitFor({ state: "visible", timeout: 3000 });
 			await page.click(nextLabel);
-			await page.waitForTimeout(300);
 		}
 		await page.waitForSelector("text=Quarter survived", { timeout: 15000 });
 	});

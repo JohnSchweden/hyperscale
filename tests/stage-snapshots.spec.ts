@@ -1,10 +1,10 @@
 import { expect, type Page, test } from "@playwright/test";
 import { mockRoastApi } from "./helpers/mockApi";
 import {
-	navigateToBossFight,
-	navigateToGameOver,
+	navigateToBossFightFast,
+	navigateToGameOverFast,
 	navigateToPersonalitySelect,
-	navigateToPlaying,
+	navigateToPlayingFast,
 	navigateToRoleSelect,
 } from "./helpers/navigation";
 import { SELECTORS } from "./helpers/selectors";
@@ -33,7 +33,7 @@ async function navigateToInitializing(page: Page) {
 }
 
 async function navigateToSummary(page: Page) {
-	await navigateToBossFight(page);
+	await navigateToBossFightFast(page);
 	// Answer all 5 questions correctly to reach summary
 	const answers = [
 		"Data Leakage",
@@ -55,7 +55,7 @@ async function navigateToSummary(page: Page) {
 }
 
 async function navigateToFeedbackOverlay(page: Page) {
-	await navigateToPlaying(page);
+	await navigateToPlayingFast(page);
 	await page.locator('button:has-text("Paste")').click({ force: true }); // Swipe right = show feedback
 	const feedbackDialog = page
 		.locator(SELECTORS.feedbackDialog)
@@ -65,7 +65,7 @@ async function navigateToFeedbackOverlay(page: Page) {
 
 async function navigateToPlayingWithRoastAnswer(page: Page) {
 	mockRoastApi(page);
-	await navigateToPlaying(page);
+	await navigateToPlayingFast(page);
 	const feedbackDialog = page
 		.locator(SELECTORS.feedbackDialog)
 		.or(page.locator(SELECTORS.feedbackDialogFallback));
@@ -136,7 +136,7 @@ test.describe("Stage visual snapshots", () => {
 	});
 
 	test("playing", async ({ page }) => {
-		await navigateToPlaying(page);
+		await navigateToPlayingFast(page);
 		await expect(page).toHaveScreenshot("playing.png", {
 			mask: [
 				page.locator("text=/\\d{1,2}:\\d{2}/"),
@@ -159,7 +159,7 @@ test.describe("Stage visual snapshots", () => {
 
 	test("playing roast con before and after", async ({ page }) => {
 		mockRoastApi(page);
-		await navigateToPlaying(page);
+		await navigateToPlayingFast(page);
 		const feedbackDialog = page
 			.locator(SELECTORS.feedbackDialog)
 			.or(page.locator(SELECTORS.feedbackDialogFallback));
@@ -219,7 +219,7 @@ test.describe("Stage visual snapshots", () => {
 	});
 
 	test("boss-fight", async ({ page }) => {
-		await navigateToBossFight(page);
+		await navigateToBossFightFast(page);
 		await page
 			.locator('button:has-text("A.")')
 			.first()
@@ -231,7 +231,7 @@ test.describe("Stage visual snapshots", () => {
 	});
 
 	test("game-over", async ({ page }) => {
-		await navigateToGameOver(page);
+		await navigateToGameOverFast(page);
 		await expect(page).toHaveScreenshot("game-over.png", {
 			maxDiffPixelRatio: 0.05, // animate-pulse and layout variance
 		});

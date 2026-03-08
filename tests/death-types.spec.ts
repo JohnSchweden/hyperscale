@@ -1,7 +1,10 @@
 import { expect, test } from "@playwright/test";
 import { DEATH_ENDINGS } from "../data/deathEndings";
 import { DeathType } from "../types";
-import { navigateToRoleSelect } from "./helpers/navigation";
+import {
+	navigateToBossFightFast,
+	navigateToGameOverFast,
+} from "./helpers/navigation";
 import { SELECTORS } from "./helpers/selectors";
 
 test.use({ baseURL: "https://localhost:3000" });
@@ -11,17 +14,7 @@ test.describe("Death types", () => {
 		test("reaches GAME_OVER with Liquidated when budget exhausted", async ({
 			page,
 		}) => {
-			await navigateToRoleSelect(page);
-			// Tech/AI Consultant uses MARKETING deck; first card has Launch (-15M) → bankrupt
-			await page.locator('button:has-text("Tech/AI Consultant")').click();
-			await page
-				.locator('button:has-text("Launch")')
-				.waitFor({ state: "visible", timeout: 10000 });
-			await page.locator('button:has-text("Launch")').click({ force: true });
-			await page
-				.locator(SELECTORS.nextTicketButton)
-				.waitFor({ state: "visible", timeout: 5000 });
-			await page.locator(SELECTORS.nextTicketButton).click({ force: true });
+			await navigateToGameOverFast(page);
 
 			await expect(
 				page.getByText(DEATH_ENDINGS[DeathType.BANKRUPT].title),
@@ -42,26 +35,9 @@ test.describe("Death types", () => {
 			page,
 		}) => {
 			test.setTimeout(60000);
-			// Full flow: Boot → personality → Software Engineer (DEVELOPMENT deck, 2 cards) → playing → boss
-			await navigateToRoleSelect(page);
-			await page.locator('button:has-text("Software Engineer")').click();
-			await page
-				.locator(SELECTORS.debugButton)
-				.waitFor({ state: "visible", timeout: 10000 });
-			// Exhaust DEVELOPMENT deck (2 cards): Debug → Next, Ignore → Next → Boss
-			await page.locator(SELECTORS.debugButton).click({ force: true });
-			await page
-				.locator(SELECTORS.nextTicketButton)
-				.waitFor({ state: "visible", timeout: 5000 });
-			await page.locator(SELECTORS.nextTicketButton).click({ force: true });
-			await page.locator('button:has-text("Ignore")').click({ force: true });
-			await page
-				.locator(SELECTORS.nextTicketButton)
-				.waitFor({ state: "visible", timeout: 5000 });
-			await page.locator(SELECTORS.nextTicketButton).click({ force: true });
-			await page.waitForSelector("text=Boss fight", { timeout: 8000 });
+			await navigateToBossFightFast(page);
 
-			// Fail by choosing wrong answers (< 3 correct). Pick wrong-answer text for each question.
+			// Fail by choosing wrong answers (< 3 correct)
 			const wrongAnswers = [
 				"Copyright infringement only",
 				"No bias, it's just data",
@@ -101,18 +77,11 @@ test.describe("Death types", () => {
 		test("shows death title and Reboot system after BANKRUPT", async ({
 			page,
 		}) => {
-			await navigateToRoleSelect(page);
-			await page.locator('button:has-text("Tech/AI Consultant")').click();
-			await page
-				.locator('button:has-text("Launch")')
-				.waitFor({ state: "visible", timeout: 10000 });
-			await page.locator('button:has-text("Launch")').click({ force: true });
-			await page
-				.locator(SELECTORS.nextTicketButton)
-				.waitFor({ state: "visible", timeout: 5000 });
-			await page.locator(SELECTORS.nextTicketButton).click({ force: true });
+			await navigateToGameOverFast(page);
 
-			await expect(page.getByText("Liquidated")).toBeVisible({ timeout: 5000 });
+			await expect(page.getByText("Liquidated")).toBeVisible({
+				timeout: 5000,
+			});
 			await expect(page.getByText("Reboot system")).toBeVisible();
 		});
 	});

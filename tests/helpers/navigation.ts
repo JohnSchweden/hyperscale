@@ -1,49 +1,53 @@
 import type { Page } from "@playwright/test";
+import { ROLE_LABELS } from "../../data/roles";
+import { RoleType } from "../../types";
 import { SELECTORS } from "./selectors";
 
 /**
- * Navigate directly to the playing stage using localStorage state injection.
- * This bypasses the 4-step navigation flow (intro → boot → personality → role)
- * for faster test execution.
+ * Navigate directly to the playing stage for a specific role using localStorage state injection.
+ * Bypasses intro → boot → personality → role for faster test execution.
  *
  * @param page - Playwright Page object
+ * @param role - RoleType to bootstrap (determines deck/cards)
  * @returns Promise that resolves when playing stage is visible
  */
-export async function navigateToPlayingFast(page: Page): Promise<void> {
-	// Set initial game state in localStorage to bypass intro flow
-	await page.addInitScript(() => {
+export async function navigateToPlayingWithRoleFast(
+	page: Page,
+	role: RoleType,
+): Promise<void> {
+	await page.addInitScript((r: string) => {
 		window.localStorage.setItem(
 			"gameState",
 			JSON.stringify({
 				state: "playing",
 				personality: "ROASTER",
-				role: "SOFTWARE_ENGINEER",
+				role: r,
 			}),
 		);
-	});
+	}, role as string);
 
-	// Navigate to home - the app will detect the state and go directly to playing
 	await page.goto("/");
 
-	// Wait for playing stage to be visible (Debug button appears)
 	try {
 		await page
-			.locator('button:has-text("Debug")')
+			.locator(SELECTORS.card)
+			.first()
 			.waitFor({ state: "visible", timeout: 5000 });
 	} catch {
-		// Fast approach failed, fall back to full navigation
 		console.warn("Fast navigation failed, falling back to full navigation");
-		await navigateToPlaying(page);
+		await navigateToPlaying(page, role);
 		return;
 	}
 
-	// Wait for card to be visible - DOM-based, fast. Avoid networkidle (blocks on long-lived connections).
-	await page
-		.locator(SELECTORS.card)
-		.first()
-		.waitFor({ state: "visible", timeout: 3000 });
-	// Brief wait for card/button animations to settle (avoids "element is not stable" on click)
 	await page.waitForTimeout(500);
+}
+
+/**
+ * Navigate directly to the playing stage using localStorage state injection.
+ * Default role: SOFTWARE_ENGINEER (DEVELOPMENT deck).
+ */
+export async function navigateToPlayingFast(page: Page): Promise<void> {
+	await navigateToPlayingWithRoleFast(page, RoleType.SOFTWARE_ENGINEER);
 }
 
 /**
@@ -72,8 +76,12 @@ export function getStatefulPage(page: Page): Page {
 /**
  * Navigate from intro to the playing stage
  * Waits for all stages to load properly before returning
+ * @param role - RoleType to select (default: SOFTWARE_ENGINEER)
  */
-export async function navigateToPlaying(page: Page): Promise<void> {
+export async function navigateToPlaying(
+	page: Page,
+	role: RoleType = RoleType.SOFTWARE_ENGINEER,
+): Promise<void> {
 	// Go to home
 	await page.goto("/");
 	await page
@@ -93,8 +101,9 @@ export async function navigateToPlaying(page: Page): Promise<void> {
 	await personalityButton.waitFor({ state: "visible" });
 	await personalityButton.click();
 
-	// Click role (Software Engineer - development-backed path)
-	const roleButton = page.locator('button:has-text("Software Engineer")');
+	// Click role
+	const roleLabel = ROLE_LABELS[role];
+	const roleButton = page.locator(`button:has-text("${roleLabel}")`);
 	await roleButton.waitFor({ state: "visible" });
 	await roleButton.click();
 
@@ -207,6 +216,23 @@ export async function navigateToGameOver(page: Page): Promise<void> {
 	const roleButton = page.locator('button:has-text("Tech/AI Consultant")');
 	await roleButton.waitFor({ state: "visible" });
 	await roleButton.click();
+	await page
+		.locator('button:has-text("Launch")')
+		.waitFor({ state: "visible", timeout: 6000 });
+	await page.locator('button:has-text("Launch")').click({ force: true });
+	await page
+		.locator(SELECTORS.nextTicketButton)
+		.waitFor({ state: "visible", timeout: 5000 });
+	await page.locator(SELECTORS.nextTicketButton).click({ force: true });
+	await page.waitForSelector("text=Liquidated", { timeout: 5000 });
+}
+
+/**
+ * Navigate directly to GAME_OVER (BANKRUPT) via fast path.
+ * Uses Tech/AI Consultant + Launch to exhaust budget.
+ */
+export async function navigateToGameOverFast(page: Page): Promise<void> {
+	await navigateToPlayingWithRoleFast(page, RoleType.TECH_AI_CONSULTANT);
 	await page
 		.locator('button:has-text("Launch")')
 		.waitFor({ state: "visible", timeout: 6000 });

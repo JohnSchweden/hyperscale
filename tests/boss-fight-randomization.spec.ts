@@ -9,8 +9,6 @@ test.describe("Boss Fight Answer Randomization", () => {
 	}) => {
 		await navigateToBossFightFast(page);
 
-		await page.screenshot({ path: "/tmp/boss1.png" });
-
 		const getAnswerPositions = async () => {
 			const allButtons = page.locator(
 				'button:has-text("A."), button:has-text("B."), button:has-text("C."), button:has-text("D.")',
