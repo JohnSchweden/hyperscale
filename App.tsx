@@ -13,6 +13,7 @@ import {
 	SummaryScreen,
 } from "./components/game";
 import { BOSS_FIGHT_QUESTIONS, ROLE_CARDS } from "./data";
+import { shuffleDeck } from "./lib/deck";
 import {
 	useBossFight,
 	useClock,
@@ -247,9 +248,19 @@ const App: React.FC = () => {
 			const timer = setTimeout(() => setCountdown((c) => c - 1), 1000);
 			return () => clearTimeout(timer);
 		}
-		dispatch({ type: "STAGE_CHANGE", stage: GameStage.PLAYING });
+		// On transition to PLAYING, compute shuffled deck and pass it to state
+		if (state.role) {
+			const shuffled = shuffleDeck([...ROLE_CARDS[state.role]]);
+			dispatch({
+				type: "STAGE_CHANGE",
+				stage: GameStage.PLAYING,
+				shuffledDeck: shuffled,
+			});
+		} else {
+			dispatch({ type: "STAGE_CHANGE", stage: GameStage.PLAYING });
+		}
 		setIsFirstCard(true);
-	}, [state.stage, countdown, dispatch]);
+	}, [state.stage, state.role, countdown, dispatch]);
 
 	// Boss fight hook
 	const bossFight = useBossFight({
@@ -274,10 +285,12 @@ const App: React.FC = () => {
 			if (isChoiceLockedRef.current) return;
 			isChoiceLockedRef.current = true;
 
-			const card = ROLE_CARDS[state.role][state.currentCardIndex];
+			// Use effectiveDeck (shuffled) if available, fall back to ROLE_CARDS
+			const cards = state.effectiveDeck ?? ROLE_CARDS[state.role];
+			const card = cards[state.currentCardIndex];
 			applyChoice(direction, card);
 		},
-		[state.role, state.personality, state.currentCardIndex, applyChoice],
+		[state.role, state.personality, state.currentCardIndex, state.effectiveDeck, applyChoice],
 	);
 
 	const triggerSwipeHaptic = useCallback(() => {

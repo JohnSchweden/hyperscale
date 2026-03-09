@@ -1,5 +1,6 @@
 import { type Card, RoleType } from "../../types";
 import { ROLE_DECK_ALIASES } from "../roles";
+import { BRANCH_CARDS } from "./branches";
 import { CLEANING_CARDS } from "./cleaning";
 import { DEVELOPMENT_CARDS } from "./development";
 import { FINANCE_CARDS } from "./finance";
@@ -70,3 +71,15 @@ export const ROLE_CARDS: Record<RoleType, Card[]> = {
 
 // Export the deck alias getter for use in runtime logic
 export { getDeckForRole };
+
+/**
+ * Branch injections: conditional cards that appear after specific choices
+ * Key format: `${cardId}:${choice}` (e.g., "dev_1:RIGHT")
+ * Value: array of cards to inject after the matching card
+ */
+export const BRANCH_INJECTIONS: Record<string, Card[]> = {
+	// Development: consequence card for pasting code into ChatGPT
+	"dev_1:RIGHT": [
+		BRANCH_CARDS.find((c) => c.id === "dev_branch_aftermath") || { id: "empty", source: undefined } as Card,
+	].filter((c) => c.id !== "empty"),
+};

@@ -114,6 +114,7 @@ export const GameScreen: React.FC<GameScreenProps> = ({
 					{/* Card Stack */}
 					<CardStack
 						role={state.role}
+						cards={state.effectiveDeck ?? []}
 						currentCardIndex={state.currentCardIndex}
 						isFirstCard={isFirstCard}
 						cardRef={cardRef}
