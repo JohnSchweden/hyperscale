@@ -20,8 +20,10 @@ export const PressureCueController: React.FC<PressureCueControllerProps> = ({
 	countdownSec,
 	isCountdownActive,
 }) => {
+	// Tie pressure audio to incident countdown only; heat-based isCritical affects haptics,
+	// not ongoing heartbeat (avoids right-swipe carrying audio to next card)
 	usePressureAudio({
-		hasHighPressure: isUrgent || isCritical,
+		hasHighPressure: isUrgent,
 		isCritical,
 		countdownValue,
 		countdownSec,

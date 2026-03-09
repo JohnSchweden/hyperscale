@@ -11,5 +11,8 @@
 		"code_simplifier": true,
 		"_auto_chain_active": false
 	},
-	"granularity": "standard"
+	"granularity": "standard",
+	"model_overrides": {
+		"gsd-executor": "haiku"
+	}
 }
