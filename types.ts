@@ -31,6 +31,9 @@ export enum AppSource {
 	EMAIL = "EMAIL",
 	TERMINAL = "TERMINAL",
 	IDE = "IDE",
+	JIRA = "JIRA",
+	NOTION = "NOTION",
+	MEETING = "MEETING",
 }
 
 export interface Card {
