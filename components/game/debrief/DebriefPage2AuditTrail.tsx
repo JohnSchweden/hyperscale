@@ -174,35 +174,61 @@ export const DebriefPage2AuditTrail: React.FC<DebriefPage2AuditTrailProps> = ({
 						your next attempt.
 					</p>
 
-					{/* Per-choice hints for safe decisions */}
+					{/* Per-choice hints for both safe and risky decisions */}
 					{history.length > 0 && (
-						<div className="space-y-2">
-							<div className="text-xs text-slate-500 uppercase tracking-wide mb-2">
-								Alternate paths to explore
+						<div className="space-y-3">
+							<div className="text-sm font-semibold text-slate-300 uppercase tracking-wide mb-3 flex items-center gap-2">
+								<i className="fa-solid fa-route text-cyan-400"></i>
+								Paths You Didn't Take
 							</div>
 							{history.map((entry, index) => {
 								const card = cards.find((c) => c.id === entry.cardId);
 								if (!card) return null;
 
-								// Hint only appears for LEFT choices (safer option)
-								// suggesting they try the RIGHT (riskier) option
+								// Show hint based on choice made
 								if (entry.choice === "LEFT") {
+									// Safe choice made - suggest trying riskier option
 									return (
 										<div
 											// biome-ignore lint/suspicious/noArrayIndexKey: Stable chronological list
 											key={`hint-${index}`}
-											className="text-xs text-slate-500 italic pl-3 border-l-2 border-slate-700"
+											className="text-sm text-slate-300 pl-4 border-l-3 border-emerald-500/50 bg-slate-800/30 py-2 rounded-r"
 										>
-											Decision {index + 1}: Curious what happens if you'd
-											<span className="text-cyan-400">
-												{" "}
-												{card.onRight.label.toLowerCase()}
-											</span>
-											instead? Reboot and try the riskier path.
+											<div className="flex items-start gap-2">
+												<span className="text-emerald-400 mt-0.5">💡</span>
+												<span>
+													<strong>Decision {index + 1}:</strong> You played it
+													safe. Next time, try{" "}
+													<span className="text-cyan-400 font-medium">
+														{card.onRight.label.toLowerCase()}
+													</span>{" "}
+													to see how much hype you could gain—and what heat you
+													might attract.
+												</span>
+											</div>
 										</div>
 									);
 								}
-								return null;
+								// Risky choice made - suggest trying safer option
+								return (
+									<div
+										// biome-ignore lint/suspicious/noArrayIndexKey: Stable chronological list
+										key={`hint-${index}`}
+										className="text-sm text-slate-300 pl-4 border-l-3 border-rose-500/50 bg-slate-800/30 py-2 rounded-r"
+									>
+										<div className="flex items-start gap-2">
+											<span className="text-rose-400 mt-0.5">🛡️</span>
+											<span>
+												<strong>Decision {index + 1}:</strong> You took a risk.
+												Next time, try{" "}
+												<span className="text-emerald-400 font-medium">
+													{card.onLeft.label.toLowerCase()}
+												</span>{" "}
+												to see if you can avoid the heat and fines.
+											</span>
+										</div>
+									</div>
+								);
 							})}
 						</div>
 					)}
