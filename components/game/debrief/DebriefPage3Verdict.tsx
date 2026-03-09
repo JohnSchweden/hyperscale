@@ -2,6 +2,7 @@ import type React from "react";
 import type { Archetype, RoleType } from "../../../types";
 import { getShareUrl } from "../../../utils/linkedin-share";
 import LayoutShell from "../../LayoutShell";
+import { EmailCaptureForm } from "./EmailCaptureForm";
 
 interface DebriefPage3VerdictProps {
 	archetype: Archetype | null;
@@ -103,19 +104,27 @@ export const DebriefPage3Verdict: React.FC<DebriefPage3VerdictProps> = ({
 					</button>
 				</div>
 
-				{/* V2 Upsell Placeholder */}
-				<div className="p-6 rounded-xl border border-dashed border-slate-700 bg-slate-900/20">
-					<div className="flex items-center justify-center gap-2 mb-2">
-						<i className="fa-solid fa-lock text-slate-500"></i>
-						<span className="text-sm font-medium text-slate-400">
-							V2 Feature: Detailed Report
+				{/* V2 Waitlist Email Capture */}
+				<div className="p-6 rounded-xl border border-slate-700 bg-slate-900/30">
+					<div className="flex items-center justify-center gap-2 mb-4">
+						<i className="fa-solid fa-envelope text-cyan-400"></i>
+						<span className="text-sm font-medium text-slate-300">
+							Get early access to V2
 						</span>
 					</div>
-					<p className="text-xs text-slate-500">
-						Get your personalized AI governance report delivered to your inbox.
+					<p className="text-sm text-slate-400 mb-4">
+						This was the static test. The real Kobayashi Maru adapts to your
+						weaknesses.
 						<br />
-						Coming soon.
+						Enter your email to be first in line for the adaptive version.
 					</p>
+					{role && archetype && (
+						<EmailCaptureForm
+							role={role}
+							archetype={archetype.id}
+							resilience={resilienceScore}
+						/>
+					)}
 				</div>
 			</div>
 		</LayoutShell>
