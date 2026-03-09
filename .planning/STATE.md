@@ -4,13 +4,13 @@ milestone: v1.2
 milestone_name: Kobayashi Maru — AI Governance Simulator
 current_phase: 12-gameplay-tweaks-and-card-variety
 current_plan: 01
-status: ready_to_execute
-last_updated: "2026-03-09T17:19:24Z"
+status: planning
+last_updated: "2026-03-09T17:30:59.175Z"
 progress:
   total_phases: 14
-  completed_phases: 3
-  total_plans: 27
-  completed_plans: 19
+  completed_phases: 4
+  total_plans: 25
+  completed_plans: 18
 ---
 
 # Session State
@@ -24,7 +24,7 @@ See: .planning/PROJECT.md
 **Milestone:** v1.2 Kobayashi Maru — AI Governance Simulator
 **Current phase:** 12-gameplay-tweaks-and-card-variety
 **Current plan:** 01
-**Status:** 12-00 completed — shuffle and branching logic; next plan 12-01
+**Status:** Ready to plan
 
 ## Session Log
 

@@ -304,7 +304,7 @@ Settings UI and persistence:
 
 **Goal:** Shuffle deck, branching logic, and expanded AppSource for scenario variety
 **Depends on:** Phase 01
-**Plans:** 2/2 plans (✓ Complete)
+**Plans:** 3/2 plans complete
 
 Plans:
 - [x] 12-00-PLAN.md — Shuffle deck on game start + branching card logic (wave 1) ✓
@@ -397,7 +397,7 @@ Integrate images into UI:
 | 09 | Visual Effects | v1.2 | Not started |
 | 10 | Background Audio | v1.2 | Planned (4 plans) |
 | 11 | Settings Integration (deferred) | v1.2 | Deferred |
-| 12 | Gameplay Tweaks & Card Variety | v1.2 | 1/2 plans (12-01 complete) |
+| 12 | Gameplay Tweaks & Card Variety | Complete    | 2026-03-09 |
 | 13 | Image Asset Pipeline | v1.2 | Not started |
 | 14 | Situational & Outcome Imagery Display | v1.2 | Not started |
 
