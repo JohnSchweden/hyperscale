@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Kobayashi Maru — AI Governance Simulator
-current_phase: 12-gameplay-tweaks-and-card-variety
-current_plan: 01
-status: planning
-last_updated: "2026-03-09T23:30:08.790Z"
+current_phase: 06-debrief-and-replay-system
+current_plan: 07
+status: executing
+last_updated: "2026-03-09T23:30:19.144Z"
 progress:
   total_phases: 14
-  completed_phases: 4
+  completed_phases: 5
   total_plans: 45
-  completed_plans: 28
+  completed_plans: 30
 ---
 
 # Session State
@@ -22,9 +22,9 @@ See: .planning/PROJECT.md
 ## Position
 
 **Milestone:** v1.2 Kobayashi Maru — AI Governance Simulator
-**Current phase:** 12-gameplay-tweaks-and-card-variety
-**Current plan:** 01
-**Status:** Ready to plan
+**Current phase:** 06-debrief-and-replay-system
+**Current plan:** 07
+**Status:** Executing
 
 ## Session Log
 
@@ -44,21 +44,10 @@ See: .planning/PROJECT.md
 - 2026-03-08: Completed 04-10-PLAN.md (playUnlockPulse in gesture; first sound in user gesture)
 - 2026-03-09: Completed 12-01-PLAN.md (Expanded AppSource enum, SOURCE_ICONS mapping, refactored card header rendering)
 - 2026-03-09: Completed 12-00-PLAN.md (Shuffle deck on game start; branching card logic with injection)
-<<<<<<< HEAD
-=======
 - 2026-03-09: Completed 03-01-PLAN.md (Test framework for card validation: 5 test files + sourcing scaffold)
 - 2026-03-09: Completed 06-01-PLAN.md (Archetype system foundation: types, scoring, useArchetype hook)
-<<<<<<< HEAD
->>>>>>> dcd7273 (docs(06-01): complete archetype system foundation plan)
-=======
 - 2026-03-09: Completed 06-02-PLAN.md (3-page debrief UI flow: Collapse → Audit Trail → Verdict)
-<<<<<<< HEAD
->>>>>>> 7f95966 (docs(06-02): complete debrief flow plan)
-=======
 - 2026-03-09: Completed 06-03-PLAN.md (LinkedIn share functionality with TDD: utility, button, tests)
-<<<<<<< HEAD
->>>>>>> eb018e1 (docs(06-03): complete LinkedIn share plan summary)
-=======
 - 2026-03-09: Completed 03-02-PLAN.md (No-Win Card Generation: 65 cards, 6 categories, 2024-2025 sourcing)
 - 2026-03-09: Completed 06-05-PLAN.md (Gamification and Replay: unlock progress, reflection prompt, personality encouragement)
->>>>>>> 5523946 (docs(06-05): complete gamification and replay plan)
+- 2026-03-09: Completed 06-06-PLAN.md (Audit trail decision labels: outcome.label instead of entry.choice)
