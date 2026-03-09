@@ -76,22 +76,29 @@ Map new roles to existing card decks until role-specific cards added in Phase 05
 
 **Goal:** Add incidents where both options are bad (tradeoffs, not puzzles)
 **Depends on:** Phase 02
-**Plans:** 0 plans
+**Plans:** 4 plans
 
 Plans:
-- [ ] TBD (run /gsd-plan-phase 03 to break down)
+- [ ] 03-01-PLAN.md — Test scaffolding + card validation framework
+- [ ] 03-02-PLAN.md — Generate 80+ no-win scenario cards across all roles
+- [ ] 03-03-PLAN.md — Integrate pressure metadata + shuffle testing
+- [ ] 03-04-PLAN.md — UAT verification and sign-off
 
 **Details:**
-Create new card types where:
+Create 80+ no-win scenario cards where:
 - Both swipe directions have negative consequences (different tradeoffs)
 - No "correct" answer — tests judgment under ambiguity
 - Mirrors real governance: choosing between bad outcomes
-
-**Note:** Phase 12 establishes the `AppSource` infrastructure (enum + icons); this phase and Phase 05 use it to add actual cards.
+- Incident types: No-Win Dilemmas, Prompt Injection, Model Drift, Explainability, Shadow AI, Copyright
+- 8-10 cards per role minimum
+- ~20% of cards marked with time pressure (high-stakes decisions)
+- All incidents sourced from 2024-2025 documented cases
+- Role-specific framing (same scenario, different organizational lens)
+- 3-voice personality feedback (ROASTER cynical, ZEN_MASTER wisdom, LOVEBOMBER enthusiasm)
 
 **Requirements:**
-- NOWIN-01: Design 6+ no-win cards across roles
-- NOWIN-02: Both outcomes show fine/heat/hype penalties
+- NOWIN-01: 6+ no-win cards per role (achieved 8-10 per role, 80+ total)
+- NOWIN-02: Both outcomes show fine/heat/hype penalties (automated validation)
 - NOWIN-03: Lessons explain the tradeoff, not a "right" answer
 - NOWIN-04: Feedback reflects the complexity, not right/wrong
 
@@ -388,8 +395,8 @@ Integrate images into UI:
 | 1-2 | Voice Files + Live API | v1.1 | Complete |
 | 01 | Live API STT Research | v1.2 | Complete |
 | 02 | New Role Set (Impact Zones) | v1.2 | Complete |
-| 03 | No-Win Scenario Cards | v1.2 | Not started |
-| 04 | 8/8 | Complete   | 2026-03-08 |
+| 03 | No-Win Scenario Cards | v1.2 | Planned (4 plans) |
+| 04 | Immersive Pressure Effects | v1.2 | Complete (9/10) |
 | 05 | Expanded AI Risk Scenarios | v1.2 | Not started |
 | 06 | Debrief & Replay System | v1.2 | Not started |
 | 07 | Kirk Easter Egg | v1.2 | Not started |
@@ -397,10 +404,10 @@ Integrate images into UI:
 | 09 | Visual Effects | v1.2 | Not started |
 | 10 | Background Audio | v1.2 | Planned (4 plans) |
 | 11 | Settings Integration (deferred) | v1.2 | Deferred |
-| 12 | Gameplay Tweaks & Card Variety | Complete    | 2026-03-09 |
+| 12 | Gameplay Tweaks & Card Variety | v1.2 | Complete (2/2) |
 | 13 | Image Asset Pipeline | v1.2 | Not started |
 | 14 | Situational & Outcome Imagery Display | v1.2 | Not started |
 
 ---
 
-*Roadmap updated: 2026-03-09 — Phase 12 scope clarification: infrastructure only, card additions deferred to Phases 03/05*
+*Roadmap updated: 2026-03-09 — Phase 03 planning complete (4 plans: test scaffold, card generation, integration, UAT)*
