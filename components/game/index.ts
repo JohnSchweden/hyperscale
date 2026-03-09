@@ -1,6 +1,9 @@
 export { BossFight } from "./BossFight";
 export { CardStack } from "./CardStack";
 export { DebriefContainer } from "./debrief/DebriefContainer";
+export { DebriefPage1Collapse } from "./debrief/DebriefPage1Collapse";
+export { DebriefPage2AuditTrail } from "./debrief/DebriefPage2AuditTrail";
+export { DebriefPage3Verdict } from "./debrief/DebriefPage3Verdict";
 export { FeedbackOverlay } from "./FeedbackOverlay";
 export { GameHUD } from "./GameHUD";
 export { GameOver } from "./GameOver";
