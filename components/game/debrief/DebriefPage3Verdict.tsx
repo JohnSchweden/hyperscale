@@ -89,8 +89,7 @@ export const DebriefPage3Verdict: React.FC<DebriefPage3VerdictProps> = ({
 					<button
 						type="button"
 						onClick={handleShareLinkedIn}
-						disabled={!archetype}
-						className="px-6 py-3 md:px-8 md:py-4 text-base font-bold tracking-wide bg-white text-black hover:bg-cyan-400 hover:text-black transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white"
+						className="px-6 py-3 md:px-8 md:py-4 text-base font-bold tracking-wide bg-white text-black hover:bg-cyan-400 hover:text-black transition-all duration-300 flex items-center justify-center gap-2"
 					>
 						<i className="fa-brands fa-linkedin text-lg"></i>
 						Share to LinkedIn
