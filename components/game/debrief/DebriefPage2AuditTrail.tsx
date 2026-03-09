@@ -149,11 +149,49 @@ export const DebriefPage2AuditTrail: React.FC<DebriefPage2AuditTrailProps> = ({
 				)}
 
 				{/* Reflection Prompt */}
-				<div className="mb-6 md:mb-8 p-4 rounded-lg border border-slate-800 bg-slate-900/30">
-					<p className="text-sm text-slate-400">
-						<span className="text-slate-300 font-medium">Reflection:</span> What
-						would you do differently?
+				<div className="mb-6 md:mb-8 p-6 rounded-xl border border-slate-700 bg-slate-900/40">
+					<h3 className="text-lg font-bold text-slate-200 mb-3">
+						<i className="fa-solid fa-lightbulb text-yellow-500 mr-2"></i>
+						What would you do differently?
+					</h3>
+					<p className="text-slate-400 text-sm mb-4 leading-relaxed">
+						Every choice you made shaped this outcome. As you look back at your
+						decisions, consider the paths not taken. The Kobayashi Maru awaits
+						your next attempt.
 					</p>
+
+					{/* Per-choice hints for safe decisions */}
+					{history.length > 0 && (
+						<div className="space-y-2">
+							<div className="text-xs text-slate-500 uppercase tracking-wide mb-2">
+								Alternate paths to explore
+							</div>
+							{history.map((entry, index) => {
+								const card = cards.find((c) => c.id === entry.cardId);
+								if (!card) return null;
+
+								// Hint only appears for LEFT choices (safer option)
+								// suggesting they try the RIGHT (riskier) option
+								if (entry.choice === "LEFT") {
+									return (
+										<div
+											// biome-ignore lint/suspicious/noArrayIndexKey: Stable chronological list
+											key={`hint-${index}`}
+											className="text-xs text-slate-500 italic pl-3 border-l-2 border-slate-700"
+										>
+											Decision {index + 1}: Curious what happens if you'd
+											<span className="text-cyan-400">
+												{" "}
+												{card.onRight.label.toLowerCase()}
+											</span>
+											instead? Reboot and try the riskier path.
+										</div>
+									);
+								}
+								return null;
+							})}
+						</div>
+					)}
 				</div>
 
 				{/* Generate Psych Evaluation Button */}
