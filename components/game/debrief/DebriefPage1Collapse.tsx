@@ -1,5 +1,6 @@
 import type React from "react";
 import { DEATH_ENDINGS } from "../../../data";
+import { useUnlockedEndings } from "../../../hooks";
 import { DeathType, type GameState } from "../../../types";
 import LayoutShell from "../../LayoutShell";
 
@@ -20,8 +21,9 @@ export const DebriefPage1Collapse: React.FC<DebriefPage1CollapseProps> = ({
 	onNext,
 }) => {
 	const deathEnding = state.deathType ? DEATH_ENDINGS[state.deathType] : null;
-	const unlockedCount = state.unlockedEndings.length;
-	const totalEndings = Object.keys(DeathType).length;
+	const { progressText, unlockedCount, totalCount } = useUnlockedEndings(
+		state.unlockedEndings,
+	);
 
 	return (
 		<LayoutShell className="p-4 pb-12 md:p-6 md:pb-16 text-center bg-[#1a0505]">
@@ -87,12 +89,27 @@ export const DebriefPage1Collapse: React.FC<DebriefPage1CollapseProps> = ({
 					</div>
 				</div>
 
-				{/* Collection Progress */}
-				<div className="mb-6 md:mb-8 p-4 md:p-6 rounded-xl border border-slate-800 bg-slate-900/30">
-					<div className="text-xs text-slate-400 tracking-wide mb-3 md:mb-4">
-						Ending collection
+				{/* Collection Progress - Prominent Display */}
+				<div className="mb-6 md:mb-8 p-4 md:p-6 rounded-xl border-2 border-cyan-500/30 bg-gradient-to-br from-cyan-950/20 to-slate-900/50">
+					{/* Header with icon */}
+					<div className="flex items-center justify-center gap-2 mb-4">
+						<i className="fa-solid fa-trophy text-cyan-400 text-lg"></i>
+						<div className="text-xs text-cyan-400 tracking-widest uppercase font-bold">
+							Unlocked Endings
+						</div>
+						<i className="fa-solid fa-trophy text-cyan-400 text-lg"></i>
 					</div>
-					<div className="flex gap-2 md:gap-3 justify-center flex-wrap">
+
+					{/* Progress count */}
+					<div className="mb-4">
+						<div className="text-3xl md:text-4xl font-black text-cyan-400">
+							{unlockedCount}
+							<span className="text-slate-500">/{totalCount}</span>
+						</div>
+					</div>
+
+					{/* Icon grid */}
+					<div className="flex gap-2 md:gap-3 justify-center flex-wrap mb-4">
 						{Object.values(DeathType).map((type) => (
 							<div
 								key={type}
@@ -110,14 +127,10 @@ export const DebriefPage1Collapse: React.FC<DebriefPage1CollapseProps> = ({
 							</div>
 						))}
 					</div>
-					<div className="mt-3 text-sm text-slate-400">
-						<span className="text-cyan-400 font-bold">{unlockedCount}</span> /{" "}
-						{totalEndings} endings unlocked
-					</div>
-					<p className="mt-2 text-xs text-slate-500">
-						{unlockedCount < totalEndings
-							? "Try again to see what else happens."
-							: "You've seen it all. Impressive."}
+
+					{/* Encouragement text from hook */}
+					<p className="text-sm md:text-base text-slate-300 leading-relaxed">
+						{progressText}
 					</p>
 				</div>
 
