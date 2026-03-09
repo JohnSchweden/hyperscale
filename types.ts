@@ -107,6 +107,37 @@ export enum DeathType {
 	AUDIT_FAILURE = "AUDIT_FAILURE",
 }
 
+/** Phase 06: Archetype types for debrief system */
+export type ArchetypeId =
+	| "PRAGMATIST"
+	| "SHADOW_ARCHITECT"
+	| "DISRUPTOR"
+	| "CONSERVATIVE"
+	| "BALANCED"
+	| "CHAOS_AGENT";
+
+export interface Archetype {
+	id: ArchetypeId;
+	name: string;
+	description: string;
+	icon: string;
+	color: string;
+	traits: string[];
+}
+
+export enum DebrieRStage {
+	PAGE_1 = "PAGE_1",
+	PAGE_2 = "PAGE_2",
+	PAGE_3 = "PAGE_3",
+}
+
+export interface DebriefState {
+	page: DebrieRStage;
+	archetype: Archetype | null;
+	resilience: number;
+	deathType: DeathType | null;
+}
+
 export interface BossQuestion {
 	id: string;
 	question: string;
