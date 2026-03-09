@@ -87,6 +87,8 @@ Create new card types where:
 - No "correct" answer — tests judgment under ambiguity
 - Mirrors real governance: choosing between bad outcomes
 
+**Note:** Phase 12 establishes the `AppSource` infrastructure (enum + icons); this phase and Phase 05 use it to add actual cards.
+
 **Requirements:**
 - NOWIN-01: Design 6+ no-win cards across roles
 - NOWIN-02: Both outcomes show fine/heat/hype penalties
@@ -232,7 +234,7 @@ Update intro, onboarding, and messaging to explicitly frame the experience as:
 
 Plans:
 - [ ] 09-01-PLAN.md — SwipeFxLayer, bounded trails/bursts, usePrefersReducedMotion
-- [ ] 09-02-PLAN.md — Stage transitions, optional View Transition API (Safari &lt;18 fallback)
+- [ ] 09-02-PLAN.md — Stage transitions, optional View Transition API (Safari <18 fallback)
 - [ ] 09-03-PLAN.md — Ambient menu/end-state motion (depends 01)
 - [ ] 09-04-PLAN.md — Outcome micro-effects, performance guardrails (depends 01, 02, 03)
 
@@ -302,13 +304,11 @@ Settings UI and persistence:
 
 **Goal:** Shuffle deck, branching logic, and expanded AppSource for scenario variety
 **Depends on:** Phase 01
-**Plans:** 4 plans
+**Plans:** 2 plans
 
 Plans:
 - [ ] 12-00-PLAN.md — Shuffle deck on game start + branching card logic (wave 1)
 - [ ] 12-01-PLAN.md — AppSource enum expansion + SOURCE_ICONS + CardStack source rendering (wave 1)
-- [ ] 12-02-PLAN.md — New cards in development, management, finance (wave 2, depends 01)
-- [ ] 12-03-PLAN.md — New cards in marketing, hr, cleaning (wave 2, depends 01)
 
 **Details:**
 
@@ -316,14 +316,15 @@ Plans:
 - **Shuffle deck:** When entering `PLAYING`, use a shuffled copy of `ROLE_CARDS[state.role]` so card order isn't fixed.
 - **Branching:** Optional "if they swiped right on card X, show card Y" so some cards only appear after bad choices.
 
-**New sources:**
-- Add values to `AppSource` (e.g. `JIRA`, `NOTION`, `MEETING`) and use them for new cards. Purely cosmetic but makes scenarios feel more varied.
+**App source infrastructure:**
+- Add values to `AppSource` (e.g. `JIRA`, `NOTION`, `MEETING`). Purely cosmetic — makes scenarios feel more varied.
+- Create `SOURCE_ICONS` mapping for each source's Font Awesome icon, update CardStack to use it.
+- **Note:** Card additions using new sources belong in Phase 03 (No-Win Scenario Cards) or Phase 05 (Expanded AI Risk Scenarios).
 
 **Requirements:**
 - TWEAK-01: Shuffle deck on game start
 - TWEAK-02: Branching card logic — conditional card injection based on prior swipes
-- TWEAK-03: Extend `AppSource` enum (JIRA, NOTION, MEETING, etc.)
-- TWEAK-04: Add new cards using extended sources across roles
+- TWEAK-03: Extend `AppSource` enum (JIRA, NOTION, MEETING, etc.) + SOURCE_ICONS + CardStack rendering
 
 ### Phase 13: Image Asset Pipeline
 
@@ -396,10 +397,10 @@ Integrate images into UI:
 | 09 | Visual Effects | v1.2 | Not started |
 | 10 | Background Audio | v1.2 | Planned (4 plans) |
 | 11 | Settings Integration (deferred) | v1.2 | Deferred |
-| 12 | Gameplay Tweaks & Card Variety | v1.2 | Planned |
+| 12 | Gameplay Tweaks & Card Variety | v1.2 | Planned (2 plans) |
 | 13 | Image Asset Pipeline | v1.2 | Not started |
 | 14 | Situational & Outcome Imagery Display | v1.2 | Not started |
 
 ---
 
-*Roadmap updated: 2026-03-05 — Added Phases 13–14 (Image Asset Pipeline, Imagery Display)*
+*Roadmap updated: 2026-03-09 — Phase 12 scope clarification: infrastructure only, card additions deferred to Phases 03/05*
