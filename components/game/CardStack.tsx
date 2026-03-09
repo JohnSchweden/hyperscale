@@ -1,6 +1,7 @@
 import type React from "react";
 import type { RefObject } from "react";
 import { ROLE_CARDS } from "../../data";
+import { SOURCE_ICONS } from "../../data/sources";
 import { AppSource, type Card, type RoleType } from "../../types";
 
 function getCardTransition(
@@ -136,7 +137,7 @@ export const CardStack: React.FC<CardStackProps> = ({
 					<div className="bg-slate-800 px-3 md:px-4 py-2 flex items-center justify-between border-b border-white/5">
 						<div className="flex items-center gap-2 text-[10px] mono font-bold text-slate-400 truncate">
 							<i
-								className={`fa-solid ${nextCard.source === AppSource.IDE ? "fa-terminal" : "fa-hashtag"}`}
+								className={`fa-solid ${SOURCE_ICONS[nextCard.source] ?? "fa-hashtag"}`}
 								aria-hidden
 							></i>
 							<span className="truncate">
@@ -231,7 +232,7 @@ export const CardStack: React.FC<CardStackProps> = ({
 				<div className="bg-slate-800 px-3 md:px-4 py-2 flex items-center justify-between border-b border-white/5">
 					<div className="flex items-center gap-2 text-[10px] mono font-bold text-slate-400 truncate">
 						<i
-							className={`fa-solid ${currentCard.source === AppSource.IDE ? "fa-terminal" : "fa-hashtag"}`}
+							className={`fa-solid ${SOURCE_ICONS[currentCard.source] ?? "fa-hashtag"}`}
 							aria-hidden
 						></i>
 						<span className="truncate">
