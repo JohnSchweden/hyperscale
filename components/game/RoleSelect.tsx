@@ -2,6 +2,14 @@ import type React from "react";
 import { ROLE_DESCRIPTIONS, ROLE_ICONS, ROLE_LABELS } from "../../data";
 import { RoleType } from "../../types";
 import LayoutShell from "../LayoutShell";
+import {
+	LAYOUT_SHELL_CLASS,
+	SELECT_CARD_BASE,
+	SELECT_CARD_HOVER,
+	STAGE_CONTAINER_CLASS,
+	STAGE_GRID_CLASS,
+	STAGE_HEADER_CLASS,
+} from "./selectionStageStyles";
 
 interface RoleSelectProps {
 	isReady: boolean;
@@ -15,9 +23,9 @@ export const RoleSelect: React.FC<RoleSelectProps> = ({
 	onSelect,
 }) => {
 	return (
-		<LayoutShell className="p-4 pb-12 md:p-6 md:pb-16 bg-[#0a0a0c]">
-			<div className="w-full max-w-4xl mx-auto">
-				<div className="text-center mb-6 md:mb-10">
+		<LayoutShell className={LAYOUT_SHELL_CLASS}>
+			<div className={STAGE_CONTAINER_CLASS}>
+				<div className={STAGE_HEADER_CLASS}>
 					<div className="text-red-600 mb-2 md:mb-3 mono text-[10px] md:text-xs tracking-[0.3em] fade-in px-4">
 						step_02
 						{" // "}
@@ -33,14 +41,14 @@ export const RoleSelect: React.FC<RoleSelectProps> = ({
 					</p>
 				</div>
 
-				<div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 w-full px-4">
+				<div className={STAGE_GRID_CLASS}>
 					{Object.values(RoleType).map((role, index) => (
 						<button
 							key={role}
 							type="button"
 							onClick={() => isReady && onSelect(role)}
 							data-testid={`role-${role.toLowerCase()}`}
-							className={`group p-6 md:p-8 bg-slate-900/60 border border-slate-800 transition-all text-center shadow-2xl ${hoverEnabled ? "hover:border-cyan-500 hover-scale" : ""}`}
+							className={`${SELECT_CARD_BASE} text-center ${hoverEnabled ? SELECT_CARD_HOVER : ""}`}
 							style={{
 								animationDelay: `${index * 0.08}s`,
 								pointerEvents: isReady ? "auto" : "none",

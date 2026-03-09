@@ -381,15 +381,12 @@
             }
         }
 
-        /* Scale hover effect for cards */
-        .hover-scale {
-            transition: transform var(--anim-quick) cubic-bezier(0.25, 0.46, 0.45, 0.94), 
-                        box-shadow var(--anim-quick) ease;
+        /* Hover shadow for selection cards */
+        .hover-shadow {
+            transition: box-shadow var(--anim-quick) cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
-
-        .hover-scale:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 60px -12px rgba(6, 182, 212, 0.3);
+        .hover-shadow:hover {
+            box-shadow: 0 16px 48px -12px rgba(6, 182, 212, 0.2);
         }
 
         /* Ticket window transition - fade and scale */

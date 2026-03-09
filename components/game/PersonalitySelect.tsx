@@ -2,6 +2,14 @@ import type React from "react";
 import { PERSONALITIES } from "../../data";
 import { PersonalityType } from "../../types";
 import LayoutShell from "../LayoutShell";
+import {
+	LAYOUT_SHELL_CLASS,
+	SELECT_CARD_BASE,
+	SELECT_CARD_HOVER,
+	STAGE_CONTAINER_CLASS,
+	STAGE_GRID_CLASS,
+	STAGE_HEADER_CLASS,
+} from "./selectionStageStyles";
 
 interface PersonalitySelectProps {
 	isReady: boolean;
@@ -28,9 +36,9 @@ export const PersonalitySelect: React.FC<PersonalitySelectProps> = ({
 	onSelect,
 }) => {
 	return (
-		<LayoutShell className="p-4 pb-12 md:p-6 md:pb-16 bg-[#0a0a0c]">
-			<div className="w-full max-w-5xl mx-auto">
-				<div className="text-center mb-6 md:mb-10">
+		<LayoutShell className={LAYOUT_SHELL_CLASS}>
+			<div className={STAGE_CONTAINER_CLASS}>
+				<div className={STAGE_HEADER_CLASS}>
 					<div className="text-red-600 mb-3 mono text-[10px] md:text-xs tracking-[0.3em]">
 						step_01
 						{" // "}
@@ -46,14 +54,14 @@ export const PersonalitySelect: React.FC<PersonalitySelectProps> = ({
 					</p>
 				</div>
 
-				<div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 w-full px-4">
+				<div className={STAGE_GRID_CLASS}>
 					{Object.entries(PERSONALITIES).map(([type, p], index) => (
 						<button
 							key={type}
 							type="button"
 							onClick={() => isReady && onSelect(type as PersonalityType)}
 							data-testid={`personality-${type.toLowerCase()}`}
-							className={`group p-6 md:p-10 bg-slate-900/60 border border-slate-800 focus:outline-none flex flex-col shadow-2xl transition-colors w-full text-left ${hoverEnabled ? "hover:border-cyan-500 hover-scale" : ""}`}
+							className={`${SELECT_CARD_BASE} text-left ${hoverEnabled ? SELECT_CARD_HOVER : ""}`}
 							style={{
 								animationDelay: `${index * 0.1}s`,
 								pointerEvents: isReady ? "auto" : "none",
@@ -73,7 +81,7 @@ export const PersonalitySelect: React.FC<PersonalitySelectProps> = ({
 									{p.title}
 								</div>
 							</div>
-							<p className="text-slate-400 text-xs md:text-sm leading-relaxed w-full mt-auto text-center">
+							<p className="text-slate-400 text-xs md:text-sm leading-relaxed w-full text-center">
 								{p.description}
 							</p>
 						</button>

@@ -60,7 +60,7 @@ import { triggerHaptic } from "./utils/haptic";
 /**
  * CONTAINER WIDTH STRATEGY
  *
- * Wide (max-w-5xl): Personality Select
+ * Standard (max-w-4xl): Personality Select, Role Select
  *   - Needs room for 3-column grid at md breakpoint
  *
  * Standard (max-w-4xl / lg:max-w-[43rem]): Game, BossFight
@@ -70,9 +70,8 @@ import { triggerHaptic } from "./utils/haptic";
  * Narrow (max-w-2xl): Initializing, GameOver, Summary
  *   - Focused content that doesn't need wide layout
  *
- * Auto (no max-w): Intro, Role Select
+ * Auto (no max-w): Intro
  *   - Intro uses centered text, max-w on content elements instead
- *   - Role Select uses 2-3 column grid, width adapts naturally
  */
 
 const KEY_TO_DIRECTION: Record<string, "LEFT" | "RIGHT"> = {
@@ -290,7 +289,13 @@ const App: React.FC = () => {
 			const card = cards[state.currentCardIndex];
 			applyChoice(direction, card);
 		},
-		[state.role, state.personality, state.currentCardIndex, state.effectiveDeck, applyChoice],
+		[
+			state.role,
+			state.personality,
+			state.currentCardIndex,
+			state.effectiveDeck,
+			applyChoice,
+		],
 	);
 
 	const triggerSwipeHaptic = useCallback(() => {

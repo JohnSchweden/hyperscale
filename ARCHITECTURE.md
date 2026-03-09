@@ -233,10 +233,9 @@ Defined in [`App.tsx`](App.tsx:7) comments:
 
 | Width | Value | Usage |
 |-------|-------|-------|
-| Wide | `max-w-5xl` | Personality Select (3-column grid) |
-| Standard | `max-w-4xl` / `lg:max-w-[43rem]` | Game, BossFight |
+| Standard | `max-w-4xl` | Personality Select, Role Select, Game, BossFight |
 | Narrow | `max-w-2xl` | Initializing, GameOver, Summary |
-| Auto | None | Intro, Role Select (content-defined) |
+| Auto | None | Intro (content-defined) |
 
 ## Build Configuration
 
