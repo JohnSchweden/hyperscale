@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Kobayashi Maru — AI Governance Simulator
 current_phase: 12-gameplay-tweaks-and-card-variety
-current_plan: 02
+current_plan: 01
 status: ready_to_execute
-last_updated: "2026-03-09T21:00:00Z"
+last_updated: "2026-03-09T17:19:24Z"
 progress:
   total_phases: 14
   completed_phases: 3
   total_plans: 27
-  completed_plans: 18
+  completed_plans: 19
 ---
 
 # Session State
@@ -22,9 +22,9 @@ See: .planning/PROJECT.md
 ## Position
 
 **Milestone:** v1.2 Kobayashi Maru — AI Governance Simulator
-**Current phase:** 04-immersive-pressure-effects
-**Current plan:** 10
-**Status:** 04-10 completed — unlock pulse in gesture; next plan 04-11 or phase 05
+**Current phase:** 12-gameplay-tweaks-and-card-variety
+**Current plan:** 01
+**Status:** 12-00 completed — shuffle and branching logic; next plan 12-01
 
 ## Session Log
 
@@ -42,3 +42,5 @@ See: .planning/PROJECT.md
 - 2026-03-08: Completed 04-09-PLAN.md (Automatic haptic triggers: critical state + timer expiry)
 - 2026-03-08: Created 04-10-PLAN.md (Gap: heartbeat on Android Chrome — first-sound-in-gesture)
 - 2026-03-08: Completed 04-10-PLAN.md (playUnlockPulse in gesture; first sound in user gesture)
+- 2026-03-09: Completed 12-01-PLAN.md (Expanded AppSource enum, SOURCE_ICONS mapping, refactored card header rendering)
+- 2026-03-09: Completed 12-00-PLAN.md (Shuffle deck on game start; branching card logic with injection)
