@@ -165,11 +165,14 @@ Add new incident types beyond current coverage:
 
 **Goal:** 3-page "Reveal Build-Up" ending sequence — viral shareability + V2 lead capture
 **Depends on:** Phase 04
-**Plans:** 0 plans
+**Plans:** 5 plans
 
 Plans:
-- [ ] TBD (run /gsd-plan-phase 06 to break down)
-
+- [ ] 06-01-PLAN.md — Archetype system foundation (types, data, hook)
+- [ ] 06-02-PLAN.md — 3-page debrief UI flow (Collapse, Audit Trail, Verdict)
+- [ ] 06-03-PLAN.md — LinkedIn share integration
+- [ ] 06-04-PLAN.md — Email capture form and V2 waitlist
+- [ ] 06-05-PLAN.md — Gamification: unlock progress + reflection prompt
 **Details:**
 3-page ending flow (The Reveal Build-Up — Myers-Briggs / Spotify Wrapped mechanic):
 
