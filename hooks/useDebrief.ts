@@ -20,16 +20,16 @@ interface UseDebriefOptions {
 
 /**
  * Hook for managing debrief page navigation and archetype calculation.
- * Automatically calculates archetype when entering DEBRIEF_PAGE_1 (memoized, runs once).
+ * Automatically calculates archetype when entering GAME_OVER (memoized, runs once).
  */
 export function useDebrief(options: UseDebriefOptions): DebriefResult {
 	const { state, dispatch } = options;
 	const hasCalculatedArchetype = useRef(false);
 
-	// Calculate archetype when entering DEBRIEF_PAGE_1 (only once)
+	// Calculate archetype when entering GAME_OVER (only once)
 	const calculation = useMemo(() => {
 		if (
-			state.stage === GameStage.DEBRIEF_PAGE_1 &&
+			state.stage === GameStage.GAME_OVER &&
 			!hasCalculatedArchetype.current
 		) {
 			hasCalculatedArchetype.current = true;
@@ -76,7 +76,7 @@ export function useDebrief(options: UseDebriefOptions): DebriefResult {
 	 */
 	const nextPage = useCallback(() => {
 		const transitions: Record<GameStage, GameStage | null> = {
-			[GameStage.DEBRIEF_PAGE_1]: GameStage.DEBRIEF_PAGE_2,
+			[GameStage.GAME_OVER]: GameStage.DEBRIEF_PAGE_2,
 			[GameStage.DEBRIEF_PAGE_2]: GameStage.DEBRIEF_PAGE_3,
 			[GameStage.DEBRIEF_PAGE_3]: null,
 			[GameStage.INTRO]: null,
@@ -85,7 +85,7 @@ export function useDebrief(options: UseDebriefOptions): DebriefResult {
 			[GameStage.INITIALIZING]: null,
 			[GameStage.PLAYING]: null,
 			[GameStage.BOSS_FIGHT]: null,
-			[GameStage.GAME_OVER]: null,
+			[GameStage.DEBRIEF_PAGE_1]: null,
 			[GameStage.SUMMARY]: null,
 		};
 

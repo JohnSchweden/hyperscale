@@ -1,11 +1,12 @@
 import type React from "react";
-import { DEATH_ENDINGS } from "../../data";
-import { DeathType, type GameState } from "../../types";
+import { DEATH_ENDINGS, PERSONALITIES } from "../../data";
+import { useUnlockedEndings } from "../../hooks";
+import { DeathType, type GameState, PersonalityType } from "../../types";
 import LayoutShell from "../LayoutShell";
 
 interface GameOverProps {
 	state: GameState;
-	onRestart: () => void;
+	onDebrief: () => void;
 }
 
 function formatBudget(amount: number): string {
@@ -15,12 +16,30 @@ function formatBudget(amount: number): string {
 	return `$${amount.toLocaleString()}`;
 }
 
-export const GameOver: React.FC<GameOverProps> = ({ state, onRestart }) => {
+function getPersonalityReplayLine(personality: PersonalityType | null): string {
+	switch (personality) {
+		case PersonalityType.ROASTER:
+			return "Go ahead. Fail differently this time.";
+		case PersonalityType.ZEN_MASTER:
+			return "The test awaits your next attempt. Wisdom lies in repetition.";
+		case PersonalityType.LOVEBOMBER:
+			return "I believe in you. Let's see what you learn next time!";
+		default:
+			return "Ready for another attempt?";
+	}
+}
+
+export const GameOver: React.FC<GameOverProps> = ({ state, onDebrief }) => {
 	const deathEnding = state.deathType ? DEATH_ENDINGS[state.deathType] : null;
+	const { progressText, unlockedCount, totalCount } = useUnlockedEndings(
+		state.unlockedEndings,
+	);
+	const replayLine = getPersonalityReplayLine(state.personality);
 
 	return (
 		<LayoutShell className="p-4 pb-12 md:p-6 md:pb-16 text-center bg-[#1a0505]">
 			<div className="w-full max-w-2xl">
+				{/* Death Ending Display */}
 				{deathEnding && (
 					<>
 						<div
@@ -39,21 +58,59 @@ export const GameOver: React.FC<GameOverProps> = ({ state, onRestart }) => {
 					</>
 				)}
 
-				<div className="mb-3 md:mb-4 p-3 md:p-4 rounded-lg">
-					<div className="text-red-400 text-xs font-bold tracking-wide mb-1">
-						Final budget
+				{/* Final Metrics - Budget, Heat, Hype */}
+				<div className="mb-6 md:mb-8 grid grid-cols-3 gap-4">
+					<div className="p-4 rounded-lg bg-slate-900/50 border border-slate-800">
+						<div className="text-xs text-slate-400 tracking-wide mb-1">
+							Budget
+						</div>
+						<div
+							className={`text-xl md:text-2xl font-black ${state.budget > 0 ? "text-emerald-400" : "text-red-500"}`}
+						>
+							{formatBudget(state.budget)}
+						</div>
 					</div>
-					<div className="text-2xl md:text-3xl font-black text-red-500">
-						{formatBudget(state.budget)}
+					<div className="p-4 rounded-lg bg-slate-900/50 border border-slate-800">
+						<div className="text-xs text-slate-400 tracking-wide mb-1">
+							Heat
+						</div>
+						<div
+							className={`text-xl md:text-2xl font-black ${state.heat < 100 ? "text-amber-400" : "text-red-500"}`}
+						>
+							{state.heat}%
+						</div>
+					</div>
+					<div className="p-4 rounded-lg bg-slate-900/50 border border-slate-800">
+						<div className="text-xs text-slate-400 tracking-wide mb-1">
+							Hype
+						</div>
+						<div className="text-xl md:text-2xl font-black text-cyan-400">
+							{state.hype}%
+						</div>
 					</div>
 				</div>
 
-				{/* Collection Progress */}
-				<div className="mb-6 md:mb-8 p-4 md:p-6 rounded-xl">
-					<div className="text-xs text-slate-400 tracking-wide mb-3 md:mb-4">
-						Ending collection
+				{/* Collection Progress - Enhanced Display */}
+				<div className="mb-6 md:mb-8 p-4 md:p-6 rounded-xl border-2 border-cyan-500/30 bg-gradient-to-br from-cyan-950/20 to-slate-900/50">
+					{/* Header with icon */}
+					<div className="flex items-center justify-center gap-2 mb-4">
+						<i className="fa-solid fa-trophy text-cyan-400 text-lg"></i>
+						<div className="text-xs text-cyan-400 tracking-widest uppercase font-bold">
+							Unlocked Endings
+						</div>
+						<i className="fa-solid fa-trophy text-cyan-400 text-lg"></i>
 					</div>
-					<div className="flex gap-2 md:gap-3 justify-center flex-wrap">
+
+					{/* Progress count */}
+					<div className="mb-4">
+						<div className="text-3xl md:text-4xl font-black text-cyan-400">
+							{unlockedCount}
+							<span className="text-slate-500">/{totalCount}</span>
+						</div>
+					</div>
+
+					{/* Icon grid */}
+					<div className="flex gap-2 md:gap-3 justify-center flex-wrap mb-4">
 						{Object.values(DeathType).map((type) => (
 							<div
 								key={type}
@@ -71,18 +128,23 @@ export const GameOver: React.FC<GameOverProps> = ({ state, onRestart }) => {
 							</div>
 						))}
 					</div>
-					<div className="mt-3 text-sm text-slate-400">
-						{state.unlockedEndings.length} / {Object.keys(DeathType).length}{" "}
-						unlocked
-					</div>
+
+					{/* Encouragement text */}
+					<p className="text-sm md:text-base text-slate-300 leading-relaxed mb-3">
+						{progressText}
+					</p>
+
+					{/* Personality-specific replay encouragement */}
+					<p className="text-sm italic text-cyan-400/80">{replayLine}</p>
 				</div>
 
+				{/* Debrief Me Button */}
 				<button
 					type="button"
-					onClick={onRestart}
-					className="px-6 py-3 md:px-12 md:py-4 text-base md:text-xl font-bold tracking-wide bg-white text-red-600 hover:bg-red-600 hover:text-white transition-all duration-300 min-h-[40px] md:min-h-[48px]"
+					onClick={onDebrief}
+					className="px-6 py-3 md:px-12 md:py-4 text-base md:text-xl font-bold tracking-wide bg-white text-black hover:bg-cyan-400 hover:text-black transition-all duration-300 min-h-[40px] md:min-h-[48px]"
 				>
-					Reboot system
+					Debrief Me
 				</button>
 			</div>
 		</LayoutShell>

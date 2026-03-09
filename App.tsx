@@ -457,7 +457,7 @@ const App: React.FC = () => {
 				);
 
 			case GameStage.GAME_OVER:
-				return <GameOver state={state} onRestart={debrief.nextPage} />;
+				return <GameOver state={state} onDebrief={debrief.nextPage} />;
 
 			case GameStage.DEBRIEF_PAGE_1:
 			case GameStage.DEBRIEF_PAGE_2:
