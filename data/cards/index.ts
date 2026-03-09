@@ -70,3 +70,13 @@ export const ROLE_CARDS: Record<RoleType, Card[]> = {
 
 // Export the deck alias getter for use in runtime logic
 export { getDeckForRole };
+
+/**
+ * Branch injections: conditional cards that appear after specific choices
+ * Key format: `${cardId}:${choice}` (e.g., "dev_1:RIGHT")
+ * Value: array of cards to inject after the matching card
+ */
+export const BRANCH_INJECTIONS: Record<string, Card[]> = {
+	// Branching examples will be added as part of Task 3
+	// For now, this is an empty map demonstrating the structure
+};

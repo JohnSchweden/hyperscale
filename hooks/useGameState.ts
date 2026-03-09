@@ -1,6 +1,7 @@
 import type { Dispatch } from "react";
 import { useCallback, useReducer } from "react";
-import { DEATH_ENDINGS, getRoleDeck, ROLE_CARDS } from "../data";
+import { BRANCH_INJECTIONS, DEATH_ENDINGS, getRoleDeck, ROLE_CARDS } from "../data";
+import { resolveDeckWithBranching } from "../lib/deck";
 import {
 	DeathType,
 	GameStage,
@@ -208,11 +209,13 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
 			}
 			if (!state.role) return state;
 			// Use effectiveDeck (shuffled and with branches) if available, otherwise fall back to ROLE_CARDS
-			const cards = state.effectiveDeck ?? ROLE_CARDS[state.role];
+			let cards = state.effectiveDeck ?? ROLE_CARDS[state.role];
+			// Apply branching logic to resolve branch injections based on history
+			cards = resolveDeckWithBranching(cards, state.history, state.currentCardIndex, BRANCH_INJECTIONS);
 			if (state.currentCardIndex + 1 >= cards.length) {
-				return { ...state, stage: GameStage.BOSS_FIGHT };
+				return { ...state, stage: GameStage.BOSS_FIGHT, effectiveDeck: cards };
 			}
-			return { ...state, currentCardIndex: state.currentCardIndex + 1 };
+			return { ...state, currentCardIndex: state.currentCardIndex + 1, effectiveDeck: cards };
 		}
 		case "BOSS_ANSWER": {
 			const newBudget = action.isCorrect
