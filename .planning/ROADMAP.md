@@ -170,7 +170,7 @@ All incidents sourced from documented 2024-2025 cases. Role-specific framing (sa
 
 **Goal:** 3-page "Reveal Build-Up" ending sequence — viral shareability + V2 lead capture
 **Depends on:** Phase 04
-**Plans:** 4/5 plans executed
+**Plans:** 7/11 plans executed
 
 Plans:
 - [ ] 06-01-PLAN.md — Archetype system foundation (types, data, hook)
@@ -406,7 +406,7 @@ Integrate images into UI:
 | 03 | No-Win Scenario Cards | v1.2 | Planned (4 plans) |
 | 04 | Immersive Pressure Effects | v1.2 | Complete (9/10) |
 | 05 | Expanded AI Risk Scenarios | v1.2 | Planned (5 plans) |
-| 06 | 4/5 | In Progress|  |
+| 06 | 7/11 | In Progress|  |
 | 07 | Kirk Easter Egg | v1.2 | Not started |
 | 08 | Kobayashi Maru Framing (deferred) | v1.2 | Deferred |
 | 09 | Visual Effects | v1.2 | Not started |
