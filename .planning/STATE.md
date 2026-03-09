@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Kobayashi Maru — AI Governance Simulator
 current_phase: 06-debrief-and-replay-system
-current_plan: 07
-status: executing
+current_plan: 08
+status: completed
 last_updated: "2026-03-09T23:30:19.144Z"
 progress:
   total_phases: 14
   completed_phases: 5
   total_plans: 45
-  completed_plans: 30
+  completed_plans: 31
 ---
 
 # Session State
@@ -51,3 +51,4 @@ See: .planning/PROJECT.md
 - 2026-03-09: Completed 03-02-PLAN.md (No-Win Card Generation: 65 cards, 6 categories, 2024-2025 sourcing)
 - 2026-03-09: Completed 06-05-PLAN.md (Gamification and Replay: unlock progress, reflection prompt, personality encouragement)
 - 2026-03-09: Completed 06-06-PLAN.md (Audit trail decision labels: outcome.label instead of entry.choice)
+- 2026-03-09: Completed 06-08-PLAN.md (LinkedIn share button fix: archetype calculation on all debrief pages)
