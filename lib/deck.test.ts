@@ -1,9 +1,29 @@
-import { describe, it, expect, beforeEach } from "vitest";
-import { shuffleDeck, resolveDeckWithBranching } from "./deck";
+import { beforeEach, describe, expect, it } from "vitest";
 import type { Card } from "../types";
 import { AppSource } from "../types";
+import { resolveDeckWithBranching, shuffleDeck } from "./deck";
 
-// Mock card factory
+function createOutcome(
+	label: string,
+	hype: number,
+	heat: number,
+	fine: number,
+) {
+	return {
+		label,
+		hype,
+		heat,
+		fine,
+		violation: "test_violation",
+		feedback: {
+			ROASTER: "Feedback",
+			ZEN_MASTER: "Feedback",
+			LOVEBOMBER: "Feedback",
+		},
+		lesson: "Test lesson",
+	};
+}
+
 function createCard(id: string): Card {
 	return {
 		id,
@@ -11,32 +31,8 @@ function createCard(id: string): Card {
 		sender: "Test Sender",
 		context: "Test Context",
 		text: "Test text",
-		onRight: {
-			label: "Right",
-			hype: 10,
-			heat: 5,
-			fine: 0,
-			violation: "test_violation",
-			feedback: {
-				ROASTER: "Feedback",
-				ZEN_MASTER: "Feedback",
-				LOVEBOMBER: "Feedback",
-			},
-			lesson: "Test lesson",
-		},
-		onLeft: {
-			label: "Left",
-			hype: -10,
-			heat: 10,
-			fine: 100,
-			violation: "test_violation",
-			feedback: {
-				ROASTER: "Feedback",
-				ZEN_MASTER: "Feedback",
-				LOVEBOMBER: "Feedback",
-			},
-			lesson: "Test lesson",
-		},
+		onRight: createOutcome("Right", 10, 5, 0),
+		onLeft: createOutcome("Left", -10, 10, 100),
 	};
 }
 
@@ -80,9 +76,7 @@ describe("shuffleDeck", () => {
 
 		// Check if at least one permutation differs from the original
 		const originalOrder = cards.map((c) => c.id).join(",");
-		const hasVariation = results.some(
-			(r) => r.join(",") !== originalOrder,
-		);
+		const hasVariation = results.some((r) => r.join(",") !== originalOrder);
 		expect(hasVariation).toBe(true);
 	});
 
@@ -130,12 +124,7 @@ describe("resolveDeckWithBranching", () => {
 		const history = [{ cardId: "1", choice: "LEFT" as const }];
 		const result = resolveDeckWithBranching(deck, history, 0, branchInjections);
 
-		expect(result.map((c) => c.id)).toEqual([
-			"1",
-			"branch_a",
-			"branch_b",
-			"2",
-		]);
+		expect(result.map((c) => c.id)).toEqual(["1", "branch_a", "branch_b", "2"]);
 	});
 
 	it("should not inject if branch key does not match", () => {
@@ -171,13 +160,7 @@ describe("resolveDeckWithBranching", () => {
 		const result = resolveDeckWithBranching(deck, history, 2, branchInjections);
 
 		// Should inject branch_3 at position 3 (currentCardIndex + 1)
-		expect(result.map((c) => c.id)).toEqual([
-			"1",
-			"2",
-			"3",
-			"branch_3",
-			"4",
-		]);
+		expect(result.map((c) => c.id)).toEqual(["1", "2", "3", "branch_3", "4"]);
 	});
 
 	it("should handle insertion at different positions in deck", () => {
@@ -192,12 +175,7 @@ describe("resolveDeckWithBranching", () => {
 		const result = resolveDeckWithBranching(deck, history, 1, branchInjections);
 
 		// Branch should be inserted at position 2 (currentCardIndex 1 + 1)
-		expect(result.map((c) => c.id)).toEqual([
-			"1",
-			"2",
-			"branch_mid",
-			"3",
-		]);
+		expect(result.map((c) => c.id)).toEqual(["1", "2", "branch_mid", "3"]);
 	});
 
 	it("should not mutate input deck", () => {

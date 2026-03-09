@@ -1,14 +1,19 @@
 import type { Dispatch } from "react";
 import { useCallback, useReducer } from "react";
-import { BRANCH_INJECTIONS, DEATH_ENDINGS, getRoleDeck, ROLE_CARDS } from "../data";
+import {
+	BRANCH_INJECTIONS,
+	DEATH_ENDINGS,
+	getRoleDeck,
+	ROLE_CARDS,
+} from "../data";
 import { resolveDeckWithBranching } from "../lib/deck";
 import {
+	type Card,
 	DeathType,
 	GameStage,
 	type GameState,
 	PersonalityType,
 	RoleType,
-	type Card,
 } from "../types";
 
 const INITIAL_BUDGET = 10000000;
@@ -57,9 +62,6 @@ export function determineDeathType(
 	if (budget <= 0) return DeathType.BANKRUPT;
 	if (heat >= 100) {
 		if (hype <= 10) return DeathType.REPLACED_BY_SCRIPT;
-		// Use deck alias to determine death type (temporary mapping)
-		// This allows finance/marketing/management-backed impact zones
-		// to keep their special failure endings
 		if (role) {
 			const deck = getRoleDeck(role);
 			if (deck === "FINANCE") return DeathType.PRISON;
@@ -76,48 +78,70 @@ const VALID_PERSONALITIES = new Set(
 );
 const VALID_ROLES = new Set(Object.values(RoleType) as unknown as string[]);
 
-function getHydratedState(): GameState {
-	if (typeof window === "undefined") return initialGameState;
+interface HydratedStateData {
+	state?: string;
+	personality?: string;
+	role?: string;
+}
+
+function parseGameState(raw: string): HydratedStateData | null {
 	try {
-		const raw = window.localStorage.getItem("gameState");
-		if (!raw) return initialGameState;
-		const parsed = JSON.parse(raw) as {
-			state?: string;
-			personality?: string;
-			role?: string;
+		return JSON.parse(raw) as HydratedStateData;
+	} catch {
+		return null;
+	}
+}
+
+function getRoleSelectState(parsed: HydratedStateData): GameState | null {
+	if (
+		parsed.state === "role_select" &&
+		parsed.personality &&
+		VALID_PERSONALITIES.has(parsed.personality)
+	) {
+		return {
+			...initialGameState,
+			stage: GameStage.ROLE_SELECT,
+			personality: parsed.personality as PersonalityType,
+			role: null,
 		};
-		// Fast path: jump to role select (for tests)
-		if (
-			parsed?.state === "role_select" &&
-			parsed.personality &&
-			VALID_PERSONALITIES.has(parsed.personality)
-		) {
-			return {
-				...initialGameState,
-				stage: GameStage.ROLE_SELECT,
-				personality: parsed.personality as PersonalityType,
-				role: null,
-			};
-		}
-		// Fast path: jump to playing
-		if (
-			parsed?.state !== "playing" ||
-			!parsed.personality ||
-			!parsed.role ||
-			!VALID_PERSONALITIES.has(parsed.personality) ||
-			!VALID_ROLES.has(parsed.role)
-		) {
-			return initialGameState;
-		}
+	}
+	return null;
+}
+
+function getPlayingState(parsed: HydratedStateData): GameState | null {
+	if (
+		parsed.state === "playing" &&
+		parsed.personality &&
+		parsed.role &&
+		VALID_PERSONALITIES.has(parsed.personality) &&
+		VALID_ROLES.has(parsed.role)
+	) {
 		return {
 			...initialGameState,
 			stage: GameStage.PLAYING,
 			personality: parsed.personality as PersonalityType,
 			role: parsed.role as RoleType,
 		};
-	} catch {
-		return initialGameState;
 	}
+	return null;
+}
+
+function getHydratedState(): GameState {
+	if (typeof window === "undefined") return initialGameState;
+
+	const raw = window.localStorage.getItem("gameState");
+	if (!raw) return initialGameState;
+
+	const parsed = parseGameState(raw);
+	if (!parsed) return initialGameState;
+
+	const roleSelectState = getRoleSelectState(parsed);
+	if (roleSelectState) return roleSelectState;
+
+	const playingState = getPlayingState(parsed);
+	if (playingState) return playingState;
+
+	return initialGameState;
 }
 
 function addUnlockedEndingIfMissing(
@@ -125,6 +149,22 @@ function addUnlockedEndingIfMissing(
 	deathType: DeathType,
 ): DeathType[] {
 	return endings.includes(deathType) ? endings : [...endings, deathType];
+}
+
+function createGameOverState(
+	state: GameState,
+	deathType: DeathType,
+): GameState {
+	return {
+		...state,
+		stage: GameStage.GAME_OVER,
+		deathType,
+		deathReason: DEATH_ENDINGS[deathType].description,
+		unlockedEndings: addUnlockedEndingIfMissing(
+			state.unlockedEndings,
+			deathType,
+		),
+	};
 }
 
 const STAGE_TRANSITIONS: Record<GameStage, GameStage[]> = {
@@ -178,16 +218,7 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
 		}
 		case "NEXT_INCIDENT": {
 			if (state.budget <= 0) {
-				return {
-					...state,
-					stage: GameStage.GAME_OVER,
-					deathType: DeathType.BANKRUPT,
-					deathReason: DEATH_ENDINGS[DeathType.BANKRUPT].description,
-					unlockedEndings: addUnlockedEndingIfMissing(
-						state.unlockedEndings,
-						DeathType.BANKRUPT,
-					),
-				};
+				return createGameOverState(state, DeathType.BANKRUPT);
 			}
 			if (state.heat >= 100) {
 				const deathType = determineDeathType(
@@ -196,26 +227,25 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
 					state.hype,
 					state.role,
 				);
-				return {
-					...state,
-					stage: GameStage.GAME_OVER,
-					deathType,
-					deathReason: DEATH_ENDINGS[deathType].description,
-					unlockedEndings: addUnlockedEndingIfMissing(
-						state.unlockedEndings,
-						deathType,
-					),
-				};
+				return createGameOverState(state, deathType);
 			}
 			if (!state.role) return state;
-			// Use effectiveDeck (shuffled and with branches) if available, otherwise fall back to ROLE_CARDS
-			let cards = state.effectiveDeck ?? ROLE_CARDS[state.role];
-			// Apply branching logic to resolve branch injections based on history
-			cards = resolveDeckWithBranching(cards, state.history, state.currentCardIndex, BRANCH_INJECTIONS);
+
+			const cards = resolveDeckWithBranching(
+				state.effectiveDeck ?? ROLE_CARDS[state.role],
+				state.history,
+				state.currentCardIndex,
+				BRANCH_INJECTIONS,
+			);
+
 			if (state.currentCardIndex + 1 >= cards.length) {
 				return { ...state, stage: GameStage.BOSS_FIGHT, effectiveDeck: cards };
 			}
-			return { ...state, currentCardIndex: state.currentCardIndex + 1, effectiveDeck: cards };
+			return {
+				...state,
+				currentCardIndex: state.currentCardIndex + 1,
+				effectiveDeck: cards,
+			};
 		}
 		case "BOSS_ANSWER": {
 			const newBudget = action.isCorrect
@@ -231,17 +261,7 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
 			if (action.success) {
 				return { ...state, stage: GameStage.SUMMARY };
 			}
-			const deathType = DeathType.AUDIT_FAILURE;
-			return {
-				...state,
-				stage: GameStage.GAME_OVER,
-				deathType,
-				deathReason: DEATH_ENDINGS[deathType].description,
-				unlockedEndings: addUnlockedEndingIfMissing(
-					state.unlockedEndings,
-					deathType,
-				),
-			};
+			return createGameOverState(state, DeathType.AUDIT_FAILURE);
 		}
 		case "RESET": {
 			return {

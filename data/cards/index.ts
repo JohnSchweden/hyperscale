@@ -77,9 +77,13 @@ export { getDeckForRole };
  * Key format: `${cardId}:${choice}` (e.g., "dev_1:RIGHT")
  * Value: array of cards to inject after the matching card
  */
+function findBranchCard(id: string): Card | undefined {
+	return BRANCH_CARDS.find((c) => c.id === id);
+}
+
 export const BRANCH_INJECTIONS: Record<string, Card[]> = {
-	// Development: consequence card for pasting code into ChatGPT
-	"dev_1:RIGHT": [
-		BRANCH_CARDS.find((c) => c.id === "dev_branch_aftermath") || { id: "empty", source: undefined } as Card,
-	].filter((c) => c.id !== "empty"),
+	"dev_1:RIGHT": (() => {
+		const card = findBranchCard("dev_branch_aftermath");
+		return card ? [card] : [];
+	})(),
 };
