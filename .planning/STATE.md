@@ -53,3 +53,4 @@ See: .planning/PROJECT.md
 - 2026-03-09: Completed 06-06-PLAN.md (Audit trail decision labels: outcome.label instead of entry.choice)
 - 2026-03-09: Completed 06-08-PLAN.md (LinkedIn share button fix: archetype calculation on all debrief pages)
 - 2026-03-13: Completed 06-12-PLAN.md (LinkedIn share button: include share text in URL with summary parameter)
+- 2026-03-12: Completed 06-14-PLAN.md (Fixed SUMMARY → DEBRIEF_PAGE_1 navigation)
