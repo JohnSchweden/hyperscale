@@ -89,7 +89,7 @@ export function useDebrief(options: UseDebriefOptions): DebriefResult {
 			[GameStage.PLAYING]: null,
 			[GameStage.BOSS_FIGHT]: null,
 			[GameStage.DEBRIEF_PAGE_1]: null,
-			[GameStage.SUMMARY]: null,
+			[GameStage.SUMMARY]: GameStage.DEBRIEF_PAGE_1,
 		};
 
 		const nextStage = transitions[state.stage];
