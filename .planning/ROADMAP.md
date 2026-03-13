@@ -170,7 +170,7 @@ All incidents sourced from documented 2024-2025 cases. Role-specific framing (sa
 
 **Goal:** 3-page "Reveal Build-Up" ending sequence — viral shareability + V2 lead capture
 **Depends on:** Phase 04
-**Plans:** 15/15 plans complete
+**Plans:** 16/16 plans complete
 
 Plans:
 - [ ] 06-01-PLAN.md — Archetype system foundation (types, data, hook)
@@ -178,6 +178,7 @@ Plans:
 - [ ] 06-03-PLAN.md — LinkedIn share integration
 - [ ] 06-04-PLAN.md — Email capture form and V2 waitlist
 - [ ] 06-05-PLAN.md — Gamification: unlock progress + reflection prompt
+- [ ] 06-16-PLAN.md — LinkedIn Share URL: Reliable sharing with pre-filled template (Gap closure)
 **Details:**
 3-page ending flow (The Reveal Build-Up — Myers-Briggs / Spotify Wrapped mechanic):
 
@@ -406,7 +407,7 @@ Integrate images into UI:
 | 03 | No-Win Scenario Cards | v1.2 | Planned (4 plans) |
 | 04 | Immersive Pressure Effects | v1.2 | Complete (9/10) |
 | 05 | Expanded AI Risk Scenarios | v1.2 | Planned (5 plans) |
-| 06 | 15/15 | Complete   | 2026-03-12 |
+| 06 | 16/16 | Complete   | 2026-03-12 |
 | 07 | Kirk Easter Egg | v1.2 | Not started |
 | 08 | Kobayashi Maru Framing (deferred) | v1.2 | Deferred |
 | 09 | Visual Effects | v1.2 | Not started |
