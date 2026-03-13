@@ -407,7 +407,7 @@ Integrate images into UI:
 | 03 | No-Win Scenario Cards | v1.2 | Planned (4 plans) |
 | 04 | Immersive Pressure Effects | v1.2 | Complete (9/10) |
 | 05 | Expanded AI Risk Scenarios | v1.2 | Planned (5 plans) |
-| 06 | 18/18 | Complete   | 2026-03-13 |
+| 06 | 18/18 | Complete    | 2026-03-13 |
 | 07 | Kirk Easter Egg | v1.2 | Not started |
 | 08 | Kobayashi Maru Framing (deferred) | v1.2 | Deferred |
 | 09 | Visual Effects | v1.2 | Not started |
