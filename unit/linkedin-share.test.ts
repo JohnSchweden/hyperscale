@@ -15,7 +15,7 @@ describe("LinkedIn Share Utility", () => {
 				88,
 			);
 			expect(result).toBe(
-				"I just faced the Kobayashi Maru as a Software Engineer. My Resilience Score: 88% (Pragmatist).",
+				"I just faced the Kobayashi Maru as a Software Engineer. My Resilience Score: 88% (Pragmatist). Can you beat my score? Try the AI governance simulator: https://km.swipestrategies.com",
 			);
 		});
 
@@ -70,7 +70,7 @@ describe("LinkedIn Share Utility", () => {
 		it("should handle resilience score of 0", () => {
 			const result = formatShareText(RoleType.SOFTWARE_ENGINEER, "Balanced", 0);
 			expect(result).toBe(
-				"I just faced the Kobayashi Maru as a Software Engineer. My Resilience Score: 0% (Balanced).",
+				"I just faced the Kobayashi Maru as a Software Engineer. My Resilience Score: 0% (Balanced). Can you beat my score? Try the AI governance simulator: https://km.swipestrategies.com",
 			);
 		});
 
@@ -81,7 +81,7 @@ describe("LinkedIn Share Utility", () => {
 				100,
 			);
 			expect(result).toBe(
-				"I just faced the Kobayashi Maru as a Software Engineer. My Resilience Score: 100% (Balanced).",
+				"I just faced the Kobayashi Maru as a Software Engineer. My Resilience Score: 100% (Balanced). Can you beat my score? Try the AI governance simulator: https://km.swipestrategies.com",
 			);
 		});
 	});
