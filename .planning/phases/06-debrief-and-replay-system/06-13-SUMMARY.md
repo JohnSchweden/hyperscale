@@ -92,6 +92,14 @@ None - no external service configuration required.
 - Email form submission ready for testing
 - No blockers for continued debrief system work
 
+## Self-Check: PASSED
+
+- [x] SUMMARY.md created at `.planning/phases/06-debrief-and-replay-system/06-13-SUMMARY.md`
+- [x] Task commit exists: `dc4cd04` (feat: add Vite plugin for API route handling)
+- [x] Metadata commit exists: `d12dd0e` (docs: complete plan)
+- [x] STATE.md updated with plan completion
+- [x] ROADMAP.md updated with progress
+
 ---
 *Phase: 06-debrief-and-replay-system*
 *Completed: 2026-03-12*
