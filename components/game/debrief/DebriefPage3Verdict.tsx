@@ -37,11 +37,8 @@ export const DebriefPage3Verdict: React.FC<DebriefPage3VerdictProps> = ({
 	const resilienceContext = getResilienceContext(resilienceScore);
 	const archetypeColorClass = getArchetypeColor(resilienceScore);
 
-	const handleShareLinkedIn = () => {
-		if (!role || !archetype) return;
-		const linkedInUrl = getShareUrl(role, archetype, resilienceScore);
-		window.open(linkedInUrl, "_blank", "width=550,height=420");
-	};
+	const linkedInShareUrl =
+		role && archetype ? getShareUrl(role, archetype, resilienceScore) : null;
 
 	return (
 		<LayoutShell className="p-4 pb-12 md:p-6 md:pb-16 text-center bg-slate-950">
@@ -86,14 +83,21 @@ export const DebriefPage3Verdict: React.FC<DebriefPage3VerdictProps> = ({
 
 				{/* Action Buttons */}
 				<div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-					<button
-						type="button"
-						onClick={handleShareLinkedIn}
+					<a
+						href={linkedInShareUrl || "#"}
+						target="_blank"
+						rel="noopener noreferrer"
 						className="px-6 py-3 md:px-8 md:py-4 text-base font-bold tracking-wide bg-white text-black hover:bg-cyan-400 hover:text-black transition-all duration-300 flex items-center justify-center gap-2"
+						aria-label="Share to LinkedIn"
+						onClick={(e) => {
+							if (!linkedInShareUrl) {
+								e.preventDefault();
+							}
+						}}
 					>
 						<i className="fa-brands fa-linkedin text-lg"></i>
 						Share to LinkedIn
-					</button>
+					</a>
 					<button
 						type="button"
 						onClick={onRestart}
@@ -115,7 +119,8 @@ export const DebriefPage3Verdict: React.FC<DebriefPage3VerdictProps> = ({
 						This was the static test. The real Kobayashi Maru adapts to your
 						weaknesses.
 						<br />
-						Enter your email to be first in line for the adaptive version.
+						Enter your email to be first in line for the autonomous and adaptive
+						version.
 					</p>
 					<EmailCaptureForm
 						role={role || "unknown"}
