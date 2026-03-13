@@ -57,4 +57,6 @@ See: .planning/PROJECT.md
 - 2026-03-13: Completed 06-13-PLAN.md (Fixed email form submission: Vite plugin for API routes)
 - 2026-03-13: Completed 06-15-PLAN.md (UX enhancements: choice labels, expand buttons, center-aligned title)
 - 2026-03-13: Completed 06-17-PLAN.md (Fixed Quarter Survived navigation: DEBRIEF_PAGE_1 → DEBRIEF_PAGE_2)
+- 2026-03-13: Completed 06-16-PLAN.md (Reliable LinkedIn sharing with anchor tags and proper URL format)
+- 2026-03-13: Completed 06-17-PLAN.md (Fixed Quarter Survived navigation: DEBRIEF_PAGE_1 → DEBRIEF_PAGE_2)
 - 2026-03-13: Completed 06-18-PLAN.md (Fixed V2 waitlist API 404: tsx loader, E2E tests)
