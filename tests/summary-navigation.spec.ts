@@ -8,7 +8,7 @@ test.describe("Summary Screen - Navigation @area:gameplay", () => {
 
 		await page.evaluate(() => {
 			localStorage.setItem(
-				"km-debug-state",
+				"km-game-state",
 				JSON.stringify({
 					stage: "SUMMARY",
 					hype: 75,
@@ -43,7 +43,7 @@ test.describe("Summary Screen - Navigation @area:gameplay", () => {
 
 		// Verify we're now on DEBRIEF_PAGE_1
 		const localStorageState = await page.evaluate(() => {
-			const state = localStorage.getItem("km-debug-state");
+			const state = localStorage.getItem("km-game-state");
 			return state ? JSON.parse(state) : null;
 		});
 
@@ -65,7 +65,7 @@ test.describe("Summary Screen - Navigation @area:gameplay", () => {
 
 			await page.evaluate((p) => {
 				localStorage.setItem(
-					"km-debug-state",
+					"km-game-state",
 					JSON.stringify({
 						stage: "SUMMARY",
 						hype: 75,
@@ -93,7 +93,7 @@ test.describe("Summary Screen - Navigation @area:gameplay", () => {
 
 			// Verify navigation happened
 			const localStorageState = await page.evaluate(() => {
-				const state = localStorage.getItem("km-debug-state");
+				const state = localStorage.getItem("km-game-state");
 				return state ? JSON.parse(state) : null;
 			});
 
@@ -106,7 +106,7 @@ test.describe("Summary Screen - Navigation @area:gameplay", () => {
 
 		await page.evaluate(() => {
 			localStorage.setItem(
-				"km-debug-state",
+				"km-game-state",
 				JSON.stringify({
 					stage: "SUMMARY",
 					hype: 75,
@@ -134,7 +134,7 @@ test.describe("Summary Screen - Navigation @area:gameplay", () => {
 
 		// Verify navigation
 		const localStorageState = await page.evaluate(() => {
-			const state = localStorage.getItem("km-debug-state");
+			const state = localStorage.getItem("km-game-state");
 			return state ? JSON.parse(state) : null;
 		});
 
@@ -148,7 +148,7 @@ test.describe("Summary Screen - Navigation @area:gameplay", () => {
 
 		await page.evaluate(() => {
 			localStorage.setItem(
-				"km-debug-state",
+				"km-game-state",
 				JSON.stringify({
 					stage: "SUMMARY",
 					hype: 75,
@@ -181,7 +181,7 @@ test.describe("Summary Screen - Navigation @area:gameplay", () => {
 
 		// Verify we're on debrief page
 		const localStorageState = await page.evaluate(() => {
-			const state = localStorage.getItem("km-debug-state");
+			const state = localStorage.getItem("km-game-state");
 			return state ? JSON.parse(state) : null;
 		});
 

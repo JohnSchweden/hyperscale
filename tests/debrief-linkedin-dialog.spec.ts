@@ -11,7 +11,7 @@ test.describe("LinkedIn Share - Dialog Opening @area:gameplay", () => {
 
 		await page.evaluate(() => {
 			localStorage.setItem(
-				"km-debug-state",
+				"km-game-state",
 				JSON.stringify({
 					stage: "DEBRIEF_PAGE_3",
 					hype: 50,
@@ -55,7 +55,7 @@ test.describe("LinkedIn Share - Dialog Opening @area:gameplay", () => {
 
 		await page.evaluate(() => {
 			localStorage.setItem(
-				"km-debug-state",
+				"km-game-state",
 				JSON.stringify({
 					stage: "DEBRIEF_PAGE_3",
 					hype: 50,
@@ -99,7 +99,7 @@ test.describe("LinkedIn Share - Dialog Opening @area:gameplay", () => {
 
 			await page.evaluate((p) => {
 				localStorage.setItem(
-					"km-debug-state",
+					"km-game-state",
 					JSON.stringify({
 						stage: "DEBRIEF_PAGE_3",
 						hype: 50,
