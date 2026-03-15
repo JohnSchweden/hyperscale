@@ -10,7 +10,7 @@ test.describe("Debrief Page 2 - UI Enhancements @area:layout", () => {
 
 		await page.evaluate(() => {
 			localStorage.setItem(
-				"km-game-state",
+				"km-debug-state",
 				JSON.stringify({
 					stage: "DEBRIEF_PAGE_2",
 					hype: 50,
@@ -55,7 +55,7 @@ test.describe("Debrief Page 2 - UI Enhancements @area:layout", () => {
 
 		await page.evaluate(() => {
 			localStorage.setItem(
-				"km-game-state",
+				"km-debug-state",
 				JSON.stringify({
 					stage: "DEBRIEF_PAGE_2",
 					hype: 50,
@@ -90,7 +90,7 @@ test.describe("Debrief Page 2 - UI Enhancements @area:layout", () => {
 
 		await page.evaluate(() => {
 			localStorage.setItem(
-				"km-game-state",
+				"km-debug-state",
 				JSON.stringify({
 					stage: "DEBRIEF_PAGE_2",
 					hype: 50,
@@ -126,7 +126,7 @@ test.describe("Debrief Page 2 - UI Enhancements @area:layout", () => {
 
 		await page.evaluate(() => {
 			localStorage.setItem(
-				"km-game-state",
+				"km-debug-state",
 				JSON.stringify({
 					stage: "DEBRIEF_PAGE_2",
 					hype: 50,
@@ -178,7 +178,7 @@ test.describe("Debrief Page 2 - Reflection Hints for Both Choices @area:gameplay
 
 		await page.evaluate(() => {
 			localStorage.setItem(
-				"km-game-state",
+				"km-debug-state",
 				JSON.stringify({
 					stage: "DEBRIEF_PAGE_2",
 					hype: 50,
@@ -216,7 +216,7 @@ test.describe("Debrief Page 2 - Reflection Hints for Both Choices @area:gameplay
 
 		await page.evaluate(() => {
 			localStorage.setItem(
-				"km-game-state",
+				"km-debug-state",
 				JSON.stringify({
 					stage: "DEBRIEF_PAGE_2",
 					hype: 50,
@@ -257,7 +257,7 @@ test.describe("Debrief Page 2 - Reflection Hints for Both Choices @area:gameplay
 
 		await page.evaluate(() => {
 			localStorage.setItem(
-				"km-game-state",
+				"km-debug-state",
 				JSON.stringify({
 					stage: "DEBRIEF_PAGE_2",
 					hype: 50,

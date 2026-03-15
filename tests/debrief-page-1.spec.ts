@@ -11,7 +11,7 @@ test.describe("Debrief Page 1 - Unlock Progress @area:layout", () => {
 		// Simulate game state with one unlocked ending
 		await page.evaluate(() => {
 			localStorage.setItem(
-				"km-game-state",
+				"km-debug-state",
 				JSON.stringify({
 					stage: "DEBRIEF_PAGE_1",
 					hype: 50,
@@ -43,7 +43,7 @@ test.describe("Debrief Page 1 - Unlock Progress @area:layout", () => {
 
 		await page.evaluate(() => {
 			localStorage.setItem(
-				"km-game-state",
+				"km-debug-state",
 				JSON.stringify({
 					stage: "DEBRIEF_PAGE_1",
 					hype: 50,
@@ -73,7 +73,7 @@ test.describe("Debrief Page 1 - Unlock Progress @area:layout", () => {
 
 		await page.evaluate(() => {
 			localStorage.setItem(
-				"km-game-state",
+				"km-debug-state",
 				JSON.stringify({
 					stage: "DEBRIEF_PAGE_1",
 					hype: 50,
@@ -113,7 +113,7 @@ test.describe("Debrief Page 1 - Unlock Progress @area:layout", () => {
 
 		await page.evaluate(() => {
 			localStorage.setItem(
-				"km-game-state",
+				"km-debug-state",
 				JSON.stringify({
 					stage: "DEBRIEF_PAGE_1",
 					hype: 50,
@@ -146,7 +146,7 @@ test.describe("Debrief Page 1 - Unlock Progress @area:layout", () => {
 
 		await page.evaluate(() => {
 			localStorage.setItem(
-				"km-game-state",
+				"km-debug-state",
 				JSON.stringify({
 					stage: "DEBRIEF_PAGE_1",
 					hype: 50,

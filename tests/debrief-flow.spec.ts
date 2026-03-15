@@ -9,7 +9,7 @@ test.describe("Debrief Flow - Replay and Progress @area:gameplay", () => {
 		// Set initial state with one unlocked ending
 		await page.evaluate(() => {
 			localStorage.setItem(
-				"km-game-state",
+				"km-debug-state",
 				JSON.stringify({
 					stage: "DEBRIEF_PAGE_1",
 					hype: 50,
@@ -36,7 +36,7 @@ test.describe("Debrief Flow - Replay and Progress @area:gameplay", () => {
 		// Navigate to Page 3 (where reboot button should be)
 		await page.evaluate(() => {
 			localStorage.setItem(
-				"km-game-state",
+				"km-debug-state",
 				JSON.stringify({
 					stage: "DEBRIEF_PAGE_3",
 					hype: 50,
@@ -70,7 +70,7 @@ test.describe("Debrief Flow - Replay and Progress @area:gameplay", () => {
 		// First playthrough - 1 ending unlocked
 		await page.evaluate(() => {
 			localStorage.setItem(
-				"km-game-state",
+				"km-debug-state",
 				JSON.stringify({
 					stage: "DEBRIEF_PAGE_1",
 					hype: 50,
@@ -100,7 +100,7 @@ test.describe("Debrief Flow - Replay and Progress @area:gameplay", () => {
 
 		await page.evaluate(() => {
 			localStorage.setItem(
-				"km-game-state",
+				"km-debug-state",
 				JSON.stringify({
 					stage: "DEBRIEF_PAGE_1",
 					hype: 50,
@@ -143,7 +143,7 @@ test.describe("Debrief Flow - Replay and Progress @area:gameplay", () => {
 		// Test V.E.R.A. (ROASTER) personality
 		await page.evaluate(() => {
 			localStorage.setItem(
-				"km-game-state",
+				"km-debug-state",
 				JSON.stringify({
 					stage: "DEBRIEF_PAGE_1",
 					hype: 50,
@@ -170,7 +170,7 @@ test.describe("Debrief Flow - Replay and Progress @area:gameplay", () => {
 		// Navigate to Page 2
 		await page.evaluate(() => {
 			localStorage.setItem(
-				"km-game-state",
+				"km-debug-state",
 				JSON.stringify({
 					stage: "DEBRIEF_PAGE_2",
 					hype: 50,
@@ -204,7 +204,7 @@ test.describe("Debrief Flow - Replay and Progress @area:gameplay", () => {
 
 		await page.evaluate(() => {
 			localStorage.setItem(
-				"km-game-state",
+				"km-debug-state",
 				JSON.stringify({
 					stage: "DEBRIEF_PAGE_1",
 					hype: 50,
@@ -236,7 +236,7 @@ test.describe("Debrief Flow - Replay and Progress @area:gameplay", () => {
 
 		await page.evaluate(() => {
 			localStorage.setItem(
-				"km-game-state",
+				"km-debug-state",
 				JSON.stringify({
 					stage: "DEBRIEF_PAGE_1",
 					hype: 50,
