@@ -51,6 +51,12 @@ function updateMetaTags(
 	if (descTag) {
 		descTag.setAttribute("content", ogDesc);
 	}
+
+	// Update og:url for LinkedIn (current page URL)
+	const urlTag = document.querySelector('meta[property="og:url"]');
+	if (urlTag && typeof window !== "undefined") {
+		urlTag.setAttribute("content", window.location.href);
+	}
 }
 
 export const DebriefPage3Verdict: React.FC<DebriefPage3VerdictProps> = ({
