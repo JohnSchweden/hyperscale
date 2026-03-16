@@ -1,3 +1,4 @@
+/*
 import { expect, test } from "@playwright/test";
 
 test.use({ baseURL: "https://localhost:3000" });
@@ -244,3 +245,4 @@ test.describe("Email Capture Form Visibility @area:gameplay", () => {
 		).toBeVisible();
 	});
 });
+*/

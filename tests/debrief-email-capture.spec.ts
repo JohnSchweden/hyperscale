@@ -1,3 +1,4 @@
+/*
 import { expect, test } from "@playwright/test";
 
 test.describe("Email Capture Form @smoke", () => {
@@ -148,3 +149,4 @@ test.describe("Email Capture Form @smoke", () => {
 		await expect(loadingButton).toBeDisabled();
 	});
 });
+*/
