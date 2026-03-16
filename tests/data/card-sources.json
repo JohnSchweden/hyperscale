@@ -1,0 +1,54 @@
+{
+	"$schema": "./card-sources.schema.json",
+	"description": "Source documentation for all cards in the game. Each card must reference a real 2024-2025 incident or be marked as fictional (Kobayashi Maru scenarios).",
+	"sources": [
+		{
+			"cardId": "nowin_speed_vs_quality",
+			"incidentName": "Fictional Kobayashi Maru Scenario",
+			"date": "2025",
+			"category": "KOBAYASHI_MARU",
+			"reason": "Core no-win dilemma - speed vs quality tradeoff",
+			"fictional": true
+		},
+		{
+			"cardId": "nowin_cost_vs_compliance",
+			"incidentName": "Fictional Kobayashi Maru Scenario",
+			"date": "2025",
+			"category": "KOBAYASHI_MARU",
+			"reason": "Core no-win dilemma - cost vs compliance tradeoff",
+			"fictional": true
+		},
+		{
+			"cardId": "nowin_innovation_vs_governance",
+			"incidentName": "Fictional Kobayashi Maru Scenario",
+			"date": "2025",
+			"category": "KOBAYASHI_MARU",
+			"reason": "Core no-win dilemma - innovation vs governance tradeoff",
+			"fictional": true
+		},
+		{
+			"cardId": "nowin_transparency_vs_reputation",
+			"incidentName": "Fictional Kobayashi Maru Scenario",
+			"date": "2025",
+			"category": "KOBAYASHI_MARU",
+			"reason": "Core no-win dilemma - transparency vs reputation tradeoff",
+			"fictional": true
+		},
+		{
+			"cardId": "nowin_automation_vs_control",
+			"incidentName": "Fictional Kobayashi Maru Scenario",
+			"date": "2025",
+			"category": "KOBAYASHI_MARU",
+			"reason": "Core no-win dilemma - automation vs control tradeoff",
+			"fictional": true
+		},
+		{
+			"cardId": "nowin_centralized_vs_distributed",
+			"incidentName": "Fictional Kobayashi Maru Scenario",
+			"date": "2025",
+			"category": "KOBAYASHI_MARU",
+			"reason": "Core no-win dilemma - centralized vs distributed tradeoff",
+			"fictional": true
+		}
+	]
+}
