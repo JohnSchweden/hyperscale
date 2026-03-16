@@ -3,7 +3,8 @@ import { useEffect } from "react";
 import type { Archetype, RoleType } from "../../../types";
 import { getShareUrl } from "../../../utils/linkedin-share";
 import LayoutShell from "../../LayoutShell";
-import { EmailCaptureForm } from "./EmailCaptureForm";
+
+// import { EmailCaptureForm } from "./EmailCaptureForm";
 
 interface DebriefPage3VerdictProps {
 	archetype: Archetype | null;
@@ -156,10 +157,10 @@ export const DebriefPage3Verdict: React.FC<DebriefPage3VerdictProps> = ({
 					</button>
 				</div>
 
-				{/* V2 Waitlist Email Capture */}
+				{/* V2 Waitlist LinkedIn CTA */}
 				<div className="p-6 rounded-xl border border-slate-700 bg-slate-900/30">
 					<div className="flex items-center justify-center gap-2 mb-4">
-						<i className="fa-solid fa-envelope text-cyan-400"></i>
+						<i className="fa-brands fa-linkedin text-cyan-400"></i>
 						<span className="text-sm font-medium text-slate-300">
 							Get early access to V2
 						</span>
@@ -168,14 +169,26 @@ export const DebriefPage3Verdict: React.FC<DebriefPage3VerdictProps> = ({
 						This was the static test. The real Kobayashi Maru adapts to your
 						weaknesses.
 						<br />
-						Enter your email to be first in line for the autonomous and adaptive
-						version.
+						Connect with me on LinkedIn to be first in line for the autonomous
+						and adaptive version.
 					</p>
+					<a
+						href="https://www.linkedin.com/in/schwedeny/"
+						target="_blank"
+						rel="noopener noreferrer"
+						className="inline-block px-6 py-3 bg-cyan-600 hover:bg-cyan-500 text-white font-semibold rounded-lg transition-colors duration-200"
+					>
+						Connect with Yevgen Schweden
+					</a>
+
+					{/*
+					PRESERVED FOR FUTURE RE-ENABLEMENT:
 					<EmailCaptureForm
 						role={role || "unknown"}
 						archetype={archetype?.id || "UNKNOWN"}
 						resilience={resilienceScore}
 					/>
+					*/}
 				</div>
 			</div>
 		</LayoutShell>
