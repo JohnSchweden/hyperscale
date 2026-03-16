@@ -100,7 +100,7 @@ test.describe("LinkedIn Share Button @area:gameplay", () => {
 		await page.reload();
 
 		// Verify LinkedIn icon is present within the share link
-		const shareLink = page.getByRole("link", { name: /share to linkedin/i });
+		const shareLink = page.getByRole("link", { name: /share on linkedin/i });
 		await expect(shareLink).toBeVisible();
 		const linkedinIcon = shareLink.locator("i");
 		await expect(linkedinIcon).toBeVisible();

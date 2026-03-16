@@ -3,8 +3,7 @@ import type { Archetype, RoleType } from "../types";
 
 /**
  * Formats share text for LinkedIn post.
- * Returns: "I just faced the Kobayashi Maru as a [ROLE_TITLE]. My Resilience Score: [XX]% ([ARCHETYPE]).
- * Can you beat my score? Try the AI governance simulator: [URL]"
+ * Returns formatted text with role, archetype, resilience score, and URL
  */
 export function formatShareText(
 	role: RoleType,
@@ -14,9 +13,19 @@ export function formatShareText(
 ): string {
 	const roleTitle = ROLE_LABELS[role];
 	const clampedResilience = Math.max(0, Math.min(100, Math.round(resilience)));
-	const baseText = `I just faced the Kobayashi Maru as a ${roleTitle}. My Resilience Score: ${clampedResilience}% (${archetypeName}).`;
-	const url = gameUrl ?? "https://km.swipestrategies.com";
-	return `${baseText} Can you beat my score? Try the AI governance simulator: ${url}`;
+	const url = gameUrl ?? "https://k-maru-seven.vercel.app/";
+
+	return `I just faced the AI Kobayashi Maru as a ${roleTitle}.
+
+My Resilience Score: ${clampedResilience}% (${archetypeName}). Can you beat my score?
+
+Try the No-Win Simulation and swipe your way through the AI Singularity.
+
+It's not about passing; it's about discovering who you are when the system collapses.
+
+[NOTICE: Made for people who hate f*cking boring training]
+
+${url}`;
 }
 
 /**

@@ -33,7 +33,7 @@ test.describe("LinkedIn Share - Dialog Opening @area:gameplay", () => {
 		await page.waitForSelector("button", { timeout: 10000 });
 
 		// Verify the share link has the correct LinkedIn URL
-		const shareLink = page.getByRole("link", { name: /share to linkedin/i });
+		const shareLink = page.getByRole("link", { name: /share on linkedin/i });
 		await expect(shareLink).toBeVisible();
 
 		const href = await shareLink.getAttribute("href");
@@ -72,7 +72,7 @@ test.describe("LinkedIn Share - Dialog Opening @area:gameplay", () => {
 
 		// Verify the share link is visible and enabled
 		const shareLink = page.getByRole("link", {
-			name: /share to linkedin/i,
+			name: /share on linkedin/i,
 		});
 		await expect(shareLink).toBeVisible();
 
@@ -116,7 +116,7 @@ test.describe("LinkedIn Share - Dialog Opening @area:gameplay", () => {
 
 			// Verify link is clickable
 			const shareLink = page.getByRole("link", {
-				name: /share to linkedin/i,
+				name: /share on linkedin/i,
 			});
 			await expect(shareLink).toBeEnabled();
 

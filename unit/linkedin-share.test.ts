@@ -14,9 +14,21 @@ describe("LinkedIn Share Utility", () => {
 				"Pragmatist",
 				88,
 			);
-			expect(result).toBe(
-				"I just faced the Kobayashi Maru as a Software Engineer. My Resilience Score: 88% (Pragmatist). Can you beat my score? Try the AI governance simulator: https://km.swipestrategies.com",
+			expect(result).toContain(
+				"I just faced the AI Kobayashi Maru as a Software Engineer.",
 			);
+			expect(result).toContain("My Resilience Score: 88% (Pragmatist).");
+			expect(result).toContain("Can you beat my score?");
+			expect(result).toContain(
+				"Try the No-Win Simulation and swipe your way through the AI Singularity.",
+			);
+			expect(result).toContain(
+				"It's not about passing; it's about discovering who you are when the system collapses.",
+			);
+			expect(result).toContain(
+				"[NOTICE: Made for people who hate f*cking boring training]",
+			);
+			expect(result).toContain("https://k-maru-seven.vercel.app/");
 		});
 
 		it("should handle all role types correctly", () => {
@@ -51,11 +63,16 @@ describe("LinkedIn Share Utility", () => {
 			}
 		});
 
-		it("should keep share text under 200 characters for optimal LinkedIn preview", () => {
+		it("should include all required content sections", () => {
 			const longRole = RoleType.CHIEF_SOMETHING_OFFICER;
 			const longArchetype = "Shadow Architect";
 			const result = formatShareText(longRole, longArchetype, 100);
-			expect(result.length).toBeLessThan(200);
+			expect(result).toContain(
+				"I just faced the AI Kobayashi Maru as a Chief Something Officer.",
+			);
+			expect(result).toContain("My Resilience Score: 100% (Shadow Architect).");
+			expect(result).toContain("Try the No-Win Simulation");
+			expect(result).toContain("https://k-maru-seven.vercel.app/");
 		});
 
 		it("should use archetype name without 'The' prefix", () => {
@@ -69,8 +86,9 @@ describe("LinkedIn Share Utility", () => {
 
 		it("should handle resilience score of 0", () => {
 			const result = formatShareText(RoleType.SOFTWARE_ENGINEER, "Balanced", 0);
-			expect(result).toBe(
-				"I just faced the Kobayashi Maru as a Software Engineer. My Resilience Score: 0% (Balanced). Can you beat my score? Try the AI governance simulator: https://km.swipestrategies.com",
+			expect(result).toContain("My Resilience Score: 0% (Balanced).");
+			expect(result).toContain(
+				"I just faced the AI Kobayashi Maru as a Software Engineer.",
 			);
 		});
 
@@ -80,8 +98,9 @@ describe("LinkedIn Share Utility", () => {
 				"Balanced",
 				100,
 			);
-			expect(result).toBe(
-				"I just faced the Kobayashi Maru as a Software Engineer. My Resilience Score: 100% (Balanced). Can you beat my score? Try the AI governance simulator: https://km.swipestrategies.com",
+			expect(result).toContain("My Resilience Score: 100% (Balanced).");
+			expect(result).toContain(
+				"I just faced the AI Kobayashi Maru as a Software Engineer.",
 			);
 		});
 	});

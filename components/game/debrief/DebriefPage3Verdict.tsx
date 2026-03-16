@@ -1,7 +1,7 @@
 import type React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import type { Archetype, RoleType } from "../../../types";
-import { getShareUrl } from "../../../utils/linkedin-share";
+import { formatShareText, getShareUrl } from "../../../utils/linkedin-share";
 import LayoutShell from "../../LayoutShell";
 
 // Utility function to format role labels (e.g., "SOFTWARE_ENGINEER" -> "Software Engineer")
@@ -91,6 +91,27 @@ export const DebriefPage3Verdict: React.FC<DebriefPage3VerdictProps> = ({
 	const linkedInShareUrl =
 		role && archetype ? getShareUrl(role, archetype, resilienceScore) : null;
 
+	// Generate share text for clipboard
+	const shareText =
+		role && archetype
+			? formatShareText(role, archetype.name, resilienceScore)
+			: "";
+
+	// Copy feedback state
+	const [copied, setCopied] = useState(false);
+
+	// Handle copy to clipboard
+	const handleCopy = async () => {
+		if (!shareText) return;
+		try {
+			await navigator.clipboard.writeText(shareText);
+			setCopied(true);
+			setTimeout(() => setCopied(false), 2000);
+		} catch (err) {
+			console.error("Failed to copy:", err);
+		}
+	};
+
 	return (
 		<LayoutShell className="p-4 pb-12 md:p-6 md:pb-16 text-center bg-slate-950">
 			<div className="w-full max-w-2xl">
@@ -134,10 +155,20 @@ export const DebriefPage3Verdict: React.FC<DebriefPage3VerdictProps> = ({
 
 				{/* Action Buttons */}
 				<div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+					<button
+						type="button"
+						onClick={handleCopy}
+						disabled={!shareText}
+						className="px-6 py-3 md:px-8 md:py-4 text-base font-bold tracking-wide bg-white text-black hover:bg-cyan-400 hover:text-black disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center gap-2 whitespace-nowrap"
+						aria-label="Copy share text to clipboard"
+					>
+						<i className="fa-regular fa-copy text-lg"></i>
+						{copied ? "Copied!" : "1. Copy to Clipboard"}
+					</button>
 					<a
 						href={linkedInShareUrl || "#"}
-						className="px-6 py-3 md:px-8 md:py-4 text-base font-bold tracking-wide bg-white text-black hover:bg-cyan-400 hover:text-black transition-all duration-300 flex items-center justify-center gap-2"
-						aria-label="Share to LinkedIn"
+						className="px-6 py-3 md:px-8 md:py-4 text-base font-bold tracking-wide bg-white text-black hover:bg-cyan-400 hover:text-black transition-all duration-300 flex items-center justify-center gap-2 whitespace-nowrap"
+						aria-label="Share on LinkedIn"
 						onClick={(e) => {
 							if (!linkedInShareUrl) {
 								e.preventDefault();
@@ -145,12 +176,12 @@ export const DebriefPage3Verdict: React.FC<DebriefPage3VerdictProps> = ({
 						}}
 					>
 						<i className="fa-brands fa-linkedin text-lg"></i>
-						Share to LinkedIn
+						2. Share on LinkedIn
 					</a>
 					<button
 						type="button"
 						onClick={onRestart}
-						className="px-6 py-3 md:px-8 md:py-4 text-base font-bold tracking-wide bg-white text-black hover:bg-cyan-400 hover:text-black transition-all duration-300"
+						className="px-6 py-3 md:px-8 md:py-4 text-base font-bold tracking-wide bg-white text-black hover:bg-cyan-400 hover:text-black transition-all duration-300 whitespace-nowrap"
 					>
 						Reboot System
 					</button>
@@ -158,9 +189,9 @@ export const DebriefPage3Verdict: React.FC<DebriefPage3VerdictProps> = ({
 
 				{/* V2 Waitlist LinkedIn CTA */}
 				<div className="p-6 rounded-xl border border-slate-700 bg-slate-900/30">
-					<h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
+					<div className="text-sm text-slate-400 uppercase tracking-widest mb-4">
 						Early access to V2
-					</h3>
+					</div>
 					<p className="text-sm text-slate-400 mb-6">
 						This was the static test. The adaptive version crawls the web for
 						new use cases relevant for you, reads your decisions in real time
