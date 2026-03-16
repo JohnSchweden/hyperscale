@@ -19,6 +19,12 @@ interface FeedbackOverlayProps {
 	/** Optional budget/heat for escalation banner when critical (same thresholds as GameHUD). */
 	budget?: number;
 	heat?: number;
+	/** Real-world incident reference for history section */
+	realWorldReference?: {
+		incident: string;
+		date: string;
+		outcome: string;
+	} | null;
 	onNext: () => void;
 }
 
@@ -39,6 +45,7 @@ export const FeedbackOverlay: React.FC<FeedbackOverlayProps> = ({
 	teamImpact,
 	budget,
 	heat,
+	realWorldReference,
 	onNext,
 }) => {
 	const budgetCritical = budget != null && budget < BUDGET_CRITICAL;
@@ -145,6 +152,18 @@ export const FeedbackOverlay: React.FC<FeedbackOverlayProps> = ({
 							</div>
 							<p className="text-sm text-slate-400 leading-relaxed font-light">
 								{teamImpact}
+							</p>
+						</div>
+					)}
+					{realWorldReference && (
+						<div className="mt-3 pt-3 border-t border-white/5">
+							<div className="text-xs font-bold text-cyan-400/90 tracking-wide mb-2">
+								<i className="fa-solid fa-book-open mr-1.5" aria-hidden></i>
+								Real Case: {realWorldReference.incident} (
+								{realWorldReference.date})
+							</div>
+							<p className="text-sm text-slate-400 leading-relaxed font-light">
+								{realWorldReference.outcome}
 							</p>
 						</div>
 					)}
