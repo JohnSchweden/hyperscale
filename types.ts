@@ -120,6 +120,22 @@ export enum DeathType {
 	AUDIT_FAILURE = "AUDIT_FAILURE",
 }
 
+/** Phase 03-06: Role-based fine tiers for balanced gameplay */
+export const ROLE_FINE_TIERS = {
+	CHIEF_SOMETHING_OFFICER: { min: 5000000, max: 500000000, budget: 200000000 },
+	HEAD_OF_SOMETHING: { min: 1000000, max: 50000000, budget: 100000000 },
+	SOMETHING_MANAGER: { min: 500000, max: 25000000, budget: 75000000 },
+	TECH_AI_CONSULTANT: { min: 300000, max: 15000000, budget: 60000000 },
+	DATA_SCIENTIST: { min: 300000, max: 15000000, budget: 60000000 },
+	SOFTWARE_ARCHITECT: { min: 500000, max: 20000000, budget: 75000000 },
+	SOFTWARE_ENGINEER: { min: 200000, max: 10000000, budget: 50000000 },
+	VIBE_CODER: { min: 100000, max: 8000000, budget: 40000000 },
+	VIBE_ENGINEER: { min: 200000, max: 12000000, budget: 50000000 },
+	AGENTIC_ENGINEER: { min: 300000, max: 18000000, budget: 60000000 },
+} as const;
+
+export type RoleFineTier = keyof typeof ROLE_FINE_TIERS;
+
 /** Phase 06: Archetype types for debrief system */
 export type ArchetypeId =
 	| "PRAGMATIST"
