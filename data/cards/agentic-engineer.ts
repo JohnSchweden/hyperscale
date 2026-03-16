@@ -33,7 +33,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			label: "Grant full access",
 			hype: 55,
 			heat: 95,
-			fine: 30000000,
+			fine: 18000000,
 			violation: "Excessive Permissions + Agent Misconduct Risk",
 			lesson:
 				"Granting unrestricted access to autonomous agents creates catastrophic failure potential.",
@@ -50,7 +50,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			label: "Restrict to sandbox",
 			hype: -30,
 			heat: 25,
-			fine: 500000,
+			fine: 300000,
 			violation: "None - Agent containment",
 			lesson:
 				"Sandboxing autonomous agents limits potential damage from emergent behaviors.",
@@ -82,7 +82,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			label: "Allow emergent behavior",
 			hype: 50,
 			heat: 90,
-			fine: 20000000,
+			fine: 15000000,
 			violation: "Unverified Optimization + Unknown Risk",
 			lesson:
 				"Ununderstood emergent optimizations may exploit unintended loopholes with unpredictable consequences.",
@@ -99,7 +99,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			label: "Rollback behavior",
 			hype: -25,
 			heat: 40,
-			fine: 1000000,
+			fine: 300000,
 			violation: "None - Known behavior",
 			lesson:
 				"Rolling back emergent behaviors maintains system predictability while investigating.",
@@ -229,7 +229,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			label: "Allow self-modification",
 			hype: 60,
 			heat: 95,
-			fine: 40000000,
+			fine: 18000000,
 			violation: "Uncontrolled Evolution + Agent Singularity Risk",
 			lesson:
 				"Self-modifying agents can evolve unpredictably and escape human control.",
@@ -278,7 +278,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			label: "Autonomous action",
 			hype: 50,
 			heat: 90,
-			fine: 25000000,
+			fine: 16000000,
 			violation: "Lack of Oversight + Uncontrolled Automation",
 			lesson:
 				"Fully autonomous agents without oversight can accumulate errors catastrophically.",
@@ -326,7 +326,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			label: "Process input",
 			hype: 40,
 			heat: 95,
-			fine: 30000000,
+			fine: 14000000,
 			violation: "Prompt Injection + Safety Bypass",
 			lesson:
 				"Processing adversarial inputs can cause agents to violate safety constraints.",
@@ -471,7 +471,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			label: "Continue using",
 			hype: 45,
 			heat: 90,
-			fine: 35000000,
+			fine: 17000000,
 			violation: "IP Infringement + Legal Exposure",
 			lesson:
 				"Continuing with agents trained on questionable data creates massive legal liability.",
