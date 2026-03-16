@@ -77,7 +77,7 @@ test.describe("LinkedIn Share Utility @area:layout", () => {
 		// Setup game state to render the share link
 		await page.evaluate(() => {
 			localStorage.setItem(
-				"gameState",
+				"km-debug-state",
 				JSON.stringify({
 					stage: "DEBRIEF_PAGE_3",
 					hype: 50,

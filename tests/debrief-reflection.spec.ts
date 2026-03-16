@@ -19,7 +19,7 @@ test.describe("Debrief Reflection Hints @area:gameplay", () => {
 					personality: "ROASTER",
 					role: "SOFTWARE_ENGINEER",
 					currentCardIndex: 0,
-					history: [{ cardId: "dev-1", choice: "LEFT" }],
+					history: [{ cardId: "dev_1", choice: "LEFT" }],
 					deathReason: "Heat exceeded 100%",
 					deathType: "REPLACED_BY_SCRIPT",
 					unlockedEndings: ["REPLACED_BY_SCRIPT"],
@@ -52,7 +52,7 @@ test.describe("Debrief Reflection Hints @area:gameplay", () => {
 					personality: "ROASTER",
 					role: "SOFTWARE_ENGINEER",
 					currentCardIndex: 0,
-					history: [{ cardId: "dev-1", choice: "RIGHT" }],
+					history: [{ cardId: "dev_1", choice: "RIGHT" }],
 					deathReason: "Heat exceeded 100%",
 					deathType: "REPLACED_BY_SCRIPT",
 					unlockedEndings: ["REPLACED_BY_SCRIPT"],
@@ -84,9 +84,9 @@ test.describe("Debrief Reflection Hints @area:gameplay", () => {
 					role: "SOFTWARE_ENGINEER",
 					currentCardIndex: 0,
 					history: [
-						{ cardId: "dev-1", choice: "LEFT" },
-						{ cardId: "dev-2", choice: "RIGHT" },
-						{ cardId: "dev-3", choice: "LEFT" },
+						{ cardId: "dev_1", choice: "LEFT" },
+						{ cardId: "dev_icarus_unverified", choice: "RIGHT" },
+						{ cardId: "dev_icarus_unverified", choice: "LEFT" },
 					],
 					deathReason: "Heat exceeded 100%",
 					deathType: "REPLACED_BY_SCRIPT",
@@ -103,7 +103,7 @@ test.describe("Debrief Reflection Hints @area:gameplay", () => {
 		await expect(page.getByText(/path you didn't take/i)).toBeVisible();
 
 		// Should show multiple decision hints
-		const decisionHints = page.locator("text=/Decision d+:/i");
+		const decisionHints = page.locator("text=/Decision \\d+:/i");
 		await expect(decisionHints).toHaveCount(3);
 	});
 
@@ -122,8 +122,8 @@ test.describe("Debrief Reflection Hints @area:gameplay", () => {
 					role: "SOFTWARE_ENGINEER",
 					currentCardIndex: 0,
 					history: [
-						{ cardId: "dev-1", choice: "LEFT" },
-						{ cardId: "dev-2", choice: "RIGHT" },
+						{ cardId: "dev_1", choice: "LEFT" },
+						{ cardId: "dev_icarus_unverified", choice: "RIGHT" },
 					],
 					deathReason: "Heat exceeded 100%",
 					deathType: "REPLACED_BY_SCRIPT",
@@ -158,7 +158,7 @@ test.describe("Debrief Reflection Hints @area:gameplay", () => {
 					personality: "ROASTER",
 					role: "SOFTWARE_ENGINEER",
 					currentCardIndex: 0,
-					history: [{ cardId: "dev-1", choice: "LEFT" }],
+					history: [{ cardId: "dev_1", choice: "LEFT" }],
 					deathReason: "Heat exceeded 100%",
 					deathType: "REPLACED_BY_SCRIPT",
 					unlockedEndings: ["REPLACED_BY_SCRIPT"],
@@ -193,8 +193,8 @@ test.describe("Debrief Reflection Hints @area:gameplay", () => {
 					role: "SOFTWARE_ENGINEER",
 					currentCardIndex: 0,
 					history: [
-						{ cardId: "dev-1", choice: "LEFT" },
-						{ cardId: "dev-2", choice: "RIGHT" },
+						{ cardId: "dev_1", choice: "LEFT" },
+						{ cardId: "dev_icarus_unverified", choice: "RIGHT" },
 					],
 					deathReason: "Heat exceeded 100%",
 					deathType: "REPLACED_BY_SCRIPT",
@@ -227,8 +227,8 @@ test.describe("Debrief Reflection Hints @area:gameplay", () => {
 					role: "SOFTWARE_ENGINEER",
 					currentCardIndex: 0,
 					history: [
-						{ cardId: "dev-1", choice: "LEFT" },
-						{ cardId: "dev-2", choice: "RIGHT" },
+						{ cardId: "dev_1", choice: "LEFT" },
+						{ cardId: "dev_icarus_unverified", choice: "RIGHT" },
 					],
 					deathReason: "Heat exceeded 100%",
 					deathType: "REPLACED_BY_SCRIPT",
@@ -265,7 +265,7 @@ test.describe("Debrief Reflection Hints @area:gameplay", () => {
 					personality: "ZEN_MASTER",
 					role: "SOFTWARE_ENGINEER",
 					currentCardIndex: 0,
-					history: [{ cardId: "dev-1", choice: "LEFT" }],
+					history: [{ cardId: "dev_1", choice: "LEFT" }],
 					deathReason: "Heat exceeded 100%",
 					deathType: "REPLACED_BY_SCRIPT",
 					unlockedEndings: ["REPLACED_BY_SCRIPT"],

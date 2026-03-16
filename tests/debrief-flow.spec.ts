@@ -179,7 +179,7 @@ test.describe("Debrief Flow - Replay and Progress @area:gameplay", () => {
 					personality: "ROASTER",
 					role: "SOFTWARE_ENGINEER",
 					currentCardIndex: 0,
-					history: [{ cardId: "dev-1", choice: "LEFT" }],
+					history: [{ cardId: "dev_1", choice: "LEFT" }],
 					deathReason: "Heat exceeded 100%",
 					deathType: "REPLACED_BY_SCRIPT",
 					unlockedEndings: ["REPLACED_BY_SCRIPT"],

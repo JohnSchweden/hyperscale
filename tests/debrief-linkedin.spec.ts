@@ -8,7 +8,7 @@ test.describe("LinkedIn Share Button @area:gameplay", () => {
 
 		await page.evaluate(() => {
 			localStorage.setItem(
-				"gameState",
+				"km-debug-state",
 				JSON.stringify({
 					stage: "DEBRIEF_PAGE_3",
 					hype: 50,
@@ -17,7 +17,7 @@ test.describe("LinkedIn Share Button @area:gameplay", () => {
 					personality: "ROASTER",
 					role: "SOFTWARE_ENGINEER",
 					currentCardIndex: 0,
-					history: [{ cardId: "dev-1", choice: "LEFT" }],
+					history: [{ cardId: "dev_1", choice: "LEFT" }],
 					deathReason: "Heat exceeded 100%",
 					deathType: "REPLACED_BY_SCRIPT",
 					unlockedEndings: ["REPLACED_BY_SCRIPT"],
@@ -41,7 +41,7 @@ test.describe("LinkedIn Share Button @area:gameplay", () => {
 
 		await page.evaluate(() => {
 			localStorage.setItem(
-				"gameState",
+				"km-debug-state",
 				JSON.stringify({
 					stage: "DEBRIEF_PAGE_3",
 					hype: 50,
@@ -50,7 +50,7 @@ test.describe("LinkedIn Share Button @area:gameplay", () => {
 					personality: "ROASTER",
 					role: "SOFTWARE_ENGINEER",
 					currentCardIndex: 0,
-					history: [{ cardId: "dev-1", choice: "LEFT" }],
+					history: [{ cardId: "dev_1", choice: "LEFT" }],
 					deathReason: "Heat exceeded 100%",
 					deathType: "REPLACED_BY_SCRIPT",
 					unlockedEndings: ["REPLACED_BY_SCRIPT"],
@@ -78,7 +78,7 @@ test.describe("LinkedIn Share Button @area:gameplay", () => {
 
 		await page.evaluate(() => {
 			localStorage.setItem(
-				"gameState",
+				"km-debug-state",
 				JSON.stringify({
 					stage: "DEBRIEF_PAGE_3",
 					hype: 50,
@@ -109,7 +109,7 @@ test.describe("LinkedIn Share Button @area:gameplay", () => {
 
 		await page.evaluate(() => {
 			localStorage.setItem(
-				"gameState",
+				"km-debug-state",
 				JSON.stringify({
 					stage: "DEBRIEF_PAGE_3",
 					hype: 50,
@@ -142,7 +142,7 @@ test.describe("LinkedIn Share Button @area:gameplay", () => {
 
 		await page.evaluate(() => {
 			localStorage.setItem(
-				"gameState",
+				"km-debug-state",
 				JSON.stringify({
 					stage: "DEBRIEF_PAGE_3",
 					hype: 50,
@@ -181,7 +181,7 @@ test.describe("LinkedIn Share Button @area:gameplay", () => {
 
 			await page.evaluate((p) => {
 				localStorage.setItem(
-					"gameState",
+					"km-debug-state",
 					JSON.stringify({
 						stage: "DEBRIEF_PAGE_3",
 						hype: 50,

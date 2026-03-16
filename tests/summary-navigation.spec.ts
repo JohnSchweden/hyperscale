@@ -18,8 +18,8 @@ test.describe("Summary Screen - Navigation @area:gameplay", () => {
 					role: "SOFTWARE_ENGINEER",
 					currentCardIndex: 10,
 					history: [
-						{ cardId: "dev-1", choice: "LEFT" },
-						{ cardId: "dev-2", choice: "RIGHT" },
+						{ cardId: "dev_1", choice: "LEFT" },
+						{ cardId: "dev_icarus_unverified", choice: "RIGHT" },
 					],
 					deathReason: null,
 					deathType: null,
