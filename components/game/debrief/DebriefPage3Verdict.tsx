@@ -165,6 +165,7 @@ export const DebriefPage3Verdict: React.FC<DebriefPage3VerdictProps> = ({
 						new use cases relevant for you, reads your decisions in real time
 						and adapts in response.
 						<br />
+						<br />
 						Message me on LinkedIn if you want to be first to test it.
 					</p>
 					<a
@@ -172,7 +173,7 @@ export const DebriefPage3Verdict: React.FC<DebriefPage3VerdictProps> = ({
 						className="inline-flex items-center justify-center gap-2 px-6 py-3 md:px-8 md:py-4 text-base font-bold bg-cyan-600 hover:bg-cyan-500 text-white transition-colors duration-200"
 					>
 						<i className="fa-brands fa-linkedin text-lg"></i>
-						Message Yevgen
+						Message Yevgen Schweden
 					</a>
 
 					{/*
