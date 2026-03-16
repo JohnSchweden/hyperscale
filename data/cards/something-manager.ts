@@ -376,7 +376,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			label: "Choose Vendor A",
 			hype: 30,
 			heat: 90,
-			fine: 15000000,
+			fine: 25000000,
 			violation: "Audit Non-Compliance + Regulatory Risk",
 			lesson:
 				"Choosing non-compliant solutions to meet budget creates larger regulatory exposure.",
