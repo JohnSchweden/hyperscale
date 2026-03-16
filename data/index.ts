@@ -1,3 +1,9 @@
+export {
+	ARCHETYPES,
+	calculateArchetype,
+	calculateResilienceScore,
+	mapOutcomeToTraits,
+} from "./archetypes";
 export { BOSS_FIGHT_QUESTIONS } from "./bossQuestions";
 export {
 	BRANCH_INJECTIONS,

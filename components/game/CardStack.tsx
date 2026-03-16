@@ -2,7 +2,7 @@ import type React from "react";
 import type { RefObject } from "react";
 import { ROLE_CARDS } from "../../data";
 import { SOURCE_ICONS } from "../../data/sources";
-import { AppSource, type Card, type RoleType } from "../../types";
+import type { Card, RoleType } from "../../types";
 
 function getCardTransition(
 	isDragging: boolean,
@@ -102,7 +102,7 @@ export const CardStack: React.FC<CardStackProps> = ({
 	swipeThreshold,
 	swipePreviewThreshold,
 	isUrgent = false,
-	isCritical = false,
+	isCritical: _isCritical = false,
 }) => {
 	// Use cards from props (effectiveDeck with shuffling/branching), fall back to ROLE_CARDS for compatibility
 	const cards = propsCards.length > 0 ? propsCards : ROLE_CARDS[role];

@@ -5,7 +5,7 @@ import LayoutShell from "../LayoutShell";
 
 interface SummaryScreenProps {
 	state: GameState;
-	onRestart: () => void;
+	onDebrief: () => void;
 }
 
 function formatBudget(amount: number): string {
@@ -17,7 +17,7 @@ function formatBudget(amount: number): string {
 
 export const SummaryScreen: React.FC<SummaryScreenProps> = ({
 	state,
-	onRestart,
+	onDebrief,
 }) => {
 	return (
 		<LayoutShell className="p-4 pb-12 md:p-6 md:pb-16 text-center bg-[#051a0d]">
@@ -33,12 +33,35 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
 					for a synthetic coffee.
 				</p>
 
-				<div className="mb-6 md:mb-8 p-4 md:p-6 bg-green-900/20 border border-green-500/30 rounded-xl">
-					<div className="text-green-400 text-xs font-bold tracking-wide mb-1">
-						Remaining budget
+				{/* Final Metrics - Budget, Heat, Hype */}
+				<div className="mb-6 md:mb-8 grid grid-cols-3 gap-4">
+					<div className="p-4 rounded-lg bg-slate-900/50 border border-slate-800">
+						<div className="text-xs text-slate-400 tracking-wide mb-1">
+							Budget
+						</div>
+						<div
+							className={`text-xl md:text-2xl font-black ${state.budget > 0 ? "text-emerald-400" : "text-red-500"}`}
+						>
+							{formatBudget(state.budget)}
+						</div>
 					</div>
-					<div className="text-3xl md:text-4xl font-black text-green-500">
-						{formatBudget(state.budget)}
+					<div className="p-4 rounded-lg bg-slate-900/50 border border-slate-800">
+						<div className="text-xs text-slate-400 tracking-wide mb-1">
+							Heat
+						</div>
+						<div
+							className={`text-xl md:text-2xl font-black ${state.heat < 100 ? "text-amber-400" : "text-red-500"}`}
+						>
+							{state.heat}%
+						</div>
+					</div>
+					<div className="p-4 rounded-lg bg-slate-900/50 border border-slate-800">
+						<div className="text-xs text-slate-400 tracking-wide mb-1">
+							Hype
+						</div>
+						<div className="text-xl md:text-2xl font-black text-cyan-400">
+							{state.hype}%
+						</div>
 					</div>
 				</div>
 
@@ -71,12 +94,13 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
 					</div>
 				</div>
 
+				{/* Debrief Me Button */}
 				<button
 					type="button"
-					onClick={onRestart}
-					className="px-6 py-3 md:px-16 md:py-5 text-base md:text-2xl font-black tracking-wide bg-green-600 text-white hover:bg-white hover:text-green-600 transition-all shadow-xl min-h-[40px] md:min-h-[48px]"
+					onClick={onDebrief}
+					className="px-6 py-3 md:px-12 md:py-4 text-base md:text-xl font-bold tracking-wide bg-white text-black hover:bg-cyan-400 hover:text-black transition-all duration-300 min-h-[40px] md:min-h-[48px]"
 				>
-					Log off
+					Debrief Me
 				</button>
 			</div>
 		</LayoutShell>

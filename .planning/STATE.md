@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Kobayashi Maru — AI Governance Simulator
-current_phase: 12-gameplay-tweaks-and-card-variety
-current_plan: 01
+current_phase: 06-debrief-and-replay-system
+current_plan: 15
 status: planning
-last_updated: "2026-03-09T17:30:59.175Z"
+last_updated: "2026-03-16T13:17:57.214Z"
 progress:
   total_phases: 14
-  completed_phases: 4
-  total_plans: 25
-  completed_plans: 18
+  completed_phases: 5
+  total_plans: 53
+  completed_plans: 37
 ---
 
 # Session State
@@ -22,8 +22,8 @@ See: .planning/PROJECT.md
 ## Position
 
 **Milestone:** v1.2 Kobayashi Maru — AI Governance Simulator
-**Current phase:** 12-gameplay-tweaks-and-card-variety
-**Current plan:** 01
+**Current phase:** 06-debrief-and-replay-system
+**Current plan:** 15
 **Status:** Ready to plan
 
 ## Session Log
@@ -44,3 +44,20 @@ See: .planning/PROJECT.md
 - 2026-03-08: Completed 04-10-PLAN.md (playUnlockPulse in gesture; first sound in user gesture)
 - 2026-03-09: Completed 12-01-PLAN.md (Expanded AppSource enum, SOURCE_ICONS mapping, refactored card header rendering)
 - 2026-03-09: Completed 12-00-PLAN.md (Shuffle deck on game start; branching card logic with injection)
+- 2026-03-09: Completed 03-01-PLAN.md (Test framework for card validation: 5 test files + sourcing scaffold)
+- 2026-03-09: Completed 06-01-PLAN.md (Archetype system foundation: types, scoring, useArchetype hook)
+- 2026-03-09: Completed 06-02-PLAN.md (3-page debrief UI flow: Collapse → Audit Trail → Verdict)
+- 2026-03-09: Completed 06-03-PLAN.md (LinkedIn share functionality with TDD: utility, button, tests)
+- 2026-03-09: Completed 03-02-PLAN.md (No-Win Card Generation: 65 cards, 6 categories, 2024-2025 sourcing)
+- 2026-03-09: Completed 06-05-PLAN.md (Gamification and Replay: unlock progress, reflection prompt, personality encouragement)
+- 2026-03-09: Completed 06-06-PLAN.md (Audit trail decision labels: outcome.label instead of entry.choice)
+- 2026-03-09: Completed 06-08-PLAN.md (LinkedIn share button fix: archetype calculation on all debrief pages)
+- 2026-03-13: Completed 06-12-PLAN.md (LinkedIn share button: include share text in URL with summary parameter)
+- 2026-03-12: Completed 06-14-PLAN.md (Fixed SUMMARY → DEBRIEF_PAGE_1 navigation)
+- 2026-03-13: Completed 06-13-PLAN.md (Fixed email form submission: Vite plugin for API routes)
+- 2026-03-13: Completed 06-15-PLAN.md (UX enhancements: choice labels, expand buttons, center-aligned title)
+- 2026-03-13: Completed 06-17-PLAN.md (Fixed Quarter Survived navigation: DEBRIEF_PAGE_1 → DEBRIEF_PAGE_2)
+- 2026-03-13: Completed 06-16-PLAN.md (Reliable LinkedIn sharing with anchor tags and proper URL format)
+- 2026-03-13: Completed 06-17-PLAN.md (Fixed Quarter Survived navigation: DEBRIEF_PAGE_1 → DEBRIEF_PAGE_2)
+- 2026-03-13: Completed 06-18-PLAN.md (Fixed V2 waitlist API 404: tsx loader, E2E tests)
+- 2026-03-16: Completed 06-19-PLAN.md (Replace email form with LinkedIn CTA on debrief page 3)

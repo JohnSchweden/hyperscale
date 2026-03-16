@@ -77,6 +77,9 @@ export enum GameStage {
 	BOSS_FIGHT = "BOSS_FIGHT",
 	GAME_OVER = "GAME_OVER",
 	SUMMARY = "SUMMARY",
+	DEBRIEF_PAGE_1 = "DEBRIEF_PAGE_1",
+	DEBRIEF_PAGE_2 = "DEBRIEF_PAGE_2",
+	DEBRIEF_PAGE_3 = "DEBRIEF_PAGE_3",
 }
 
 export interface GameState {
@@ -104,12 +107,52 @@ export enum DeathType {
 	AUDIT_FAILURE = "AUDIT_FAILURE",
 }
 
+/** Phase 06: Archetype types for debrief system */
+export type ArchetypeId =
+	| "PRAGMATIST"
+	| "SHADOW_ARCHITECT"
+	| "DISRUPTOR"
+	| "CONSERVATIVE"
+	| "BALANCED"
+	| "CHAOS_AGENT";
+
+export interface Archetype {
+	id: ArchetypeId;
+	name: string;
+	description: string;
+	icon: string;
+	color: string;
+	traits: string[];
+}
+
+export enum DebrieRStage {
+	PAGE_1 = "PAGE_1",
+	PAGE_2 = "PAGE_2",
+	PAGE_3 = "PAGE_3",
+}
+
+export interface DebriefState {
+	page: DebrieRStage;
+	archetype: Archetype | null;
+	resilience: number;
+	deathType: DeathType | null;
+}
+
 export interface BossQuestion {
 	id: string;
 	question: string;
 	correctAnswer: string;
 	wrongAnswers: string[];
 	explanation: string;
+}
+
+/** Phase 06-04: V2 Waitlist payload for email capture */
+export interface V2WaitlistPayload {
+	email: string;
+	role: string;
+	archetype: string;
+	resilience: number;
+	timestamp: number;
 }
 
 /** Phase 04: Pressure metadata for immersive effects. Keyed by card ID, referenced at runtime. */

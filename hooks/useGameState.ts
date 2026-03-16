@@ -1,5 +1,5 @@
 import type { Dispatch } from "react";
-import { useCallback, useReducer } from "react";
+import { useCallback, useEffect, useReducer } from "react";
 import {
 	BRANCH_INJECTIONS,
 	DEATH_ENDINGS,
@@ -126,8 +126,64 @@ function getPlayingState(parsed: HydratedStateData): GameState | null {
 	return null;
 }
 
+const VALID_STAGES = new Set(Object.values(GameStage) as unknown as string[]);
+
+function getDebugState(): GameState | null {
+	const raw = window.localStorage.getItem("km-debug-state");
+	if (!raw) return null;
+	try {
+		const parsed = JSON.parse(raw) as Record<string, unknown>;
+		if (!parsed.stage || !VALID_STAGES.has(parsed.stage as string)) return null;
+		return {
+			...initialGameState,
+			stage: parsed.stage as GameStage,
+			hype:
+				typeof parsed.hype === "number" ? parsed.hype : initialGameState.hype,
+			heat:
+				typeof parsed.heat === "number" ? parsed.heat : initialGameState.heat,
+			budget:
+				typeof parsed.budget === "number"
+					? parsed.budget
+					: initialGameState.budget,
+			personality:
+				parsed.personality &&
+				VALID_PERSONALITIES.has(parsed.personality as string)
+					? (parsed.personality as PersonalityType)
+					: null,
+			role:
+				parsed.role && VALID_ROLES.has(parsed.role as string)
+					? (parsed.role as RoleType)
+					: null,
+			currentCardIndex:
+				typeof parsed.currentCardIndex === "number"
+					? parsed.currentCardIndex
+					: 0,
+			history: Array.isArray(parsed.history) ? parsed.history : [],
+			deathReason:
+				typeof parsed.deathReason === "string" ? parsed.deathReason : null,
+			deathType:
+				typeof parsed.deathType === "string"
+					? (parsed.deathType as DeathType)
+					: null,
+			unlockedEndings: Array.isArray(parsed.unlockedEndings)
+				? parsed.unlockedEndings
+				: [],
+			bossFightAnswers: Array.isArray(parsed.bossFightAnswers)
+				? parsed.bossFightAnswers
+				: [],
+			effectiveDeck: null,
+		};
+	} catch {
+		return null;
+	}
+}
+
 function getHydratedState(): GameState {
 	if (typeof window === "undefined") return initialGameState;
+
+	// Debug state injection for testing
+	const debugState = getDebugState();
+	if (debugState) return debugState;
 
 	const raw = window.localStorage.getItem("gameState");
 	if (!raw) return initialGameState;
@@ -174,8 +230,11 @@ const STAGE_TRANSITIONS: Record<GameStage, GameStage[]> = {
 	[GameStage.INITIALIZING]: [GameStage.PLAYING],
 	[GameStage.PLAYING]: [GameStage.BOSS_FIGHT, GameStage.GAME_OVER],
 	[GameStage.BOSS_FIGHT]: [GameStage.SUMMARY, GameStage.GAME_OVER],
-	[GameStage.GAME_OVER]: [GameStage.INTRO],
-	[GameStage.SUMMARY]: [GameStage.INTRO],
+	[GameStage.GAME_OVER]: [GameStage.DEBRIEF_PAGE_2],
+	[GameStage.DEBRIEF_PAGE_1]: [],
+	[GameStage.DEBRIEF_PAGE_2]: [GameStage.DEBRIEF_PAGE_3],
+	[GameStage.DEBRIEF_PAGE_3]: [GameStage.INTRO],
+	[GameStage.SUMMARY]: [GameStage.DEBRIEF_PAGE_2, GameStage.INTRO],
 };
 
 export function gameReducer(state: GameState, action: GameAction): GameState {
@@ -294,6 +353,14 @@ export function useGameState(): UseGameStateResult {
 	const [state, dispatch] = useReducer(gameReducer, null, () =>
 		getHydratedState(),
 	);
+
+	// Sync state back to km-debug-state when it was loaded from there
+	useEffect(() => {
+		if (typeof window === "undefined") return;
+		if (window.localStorage.getItem("km-debug-state")) {
+			window.localStorage.setItem("km-debug-state", JSON.stringify(state));
+		}
+	}, [state]);
 
 	const startGame = useCallback(() => {
 		dispatch({ type: "STAGE_CHANGE", stage: GameStage.PERSONALITY_SELECT });

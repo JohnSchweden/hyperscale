@@ -1,10 +1,14 @@
+export { useArchetype } from "./useArchetype";
 export { useBossFight } from "./useBossFight";
 export { useClock } from "./useClock";
 export { useCountdown } from "./useCountdown";
+export { useDebrief } from "./useDebrief";
+export { useEmailCapture } from "./useEmailCapture";
 export { type GameAction, useGameState } from "./useGameState";
 export { useIncidentPressure } from "./useIncidentPressure";
 export { usePressureAudio } from "./usePressureAudio";
 export { useRoast } from "./useRoast";
 export { useStageReady } from "./useStageReady";
 export { useSwipeGestures } from "./useSwipeGestures";
+export { useUnlockedEndings } from "./useUnlockedEndings";
 export { useVoicePlayback } from "./useVoicePlayback";

@@ -1,19 +1,14 @@
 ---
-status: testing
+status: complete
 phase: 01-live-api-stt-research
 source: 01-01-SUMMARY.md, 01-02-SUMMARY.md, 01-03-SUMMARY.md
 started: 2026-03-04T11:00:00Z
-updated: 2026-03-04T13:30:00Z
+updated: 2026-03-09T00:00:00Z
 ---
 
 ## Current Test
 
-number: 3
-name: Final transcript populates input
-expected: |
-  When you stop recording (click mic button again), the final transcribed text should appear in the input field, ready for submission.
-awaiting: user response
-result: pass (with note: duplicate streaming display below input)
+[testing complete]
 
 ## Tests
 
@@ -46,7 +41,3 @@ skipped: 0
 ## Gaps
 
 [none - all tests passed]
-
-## Current Test
-
-[testing complete]
