@@ -76,6 +76,7 @@ All tasks completed successfully. 3 tasks executed, 3 commits created, 7 tests c
 - Maintained cyan color scheme matching page design
 - Preserved email form code as comments (lines 185-191) for future re-enablement
 - Updated copy to reference LinkedIn connection instead of email signup
+- **Code Simplification:** Extracted duplicated role label formatting logic into a reusable `formatRoleLabel` utility function, improving code clarity and maintainability
 
 ### Task 2: Disable Email Form Tests (6fef0d2)
 
