@@ -2,7 +2,7 @@
 
 # Development Workflow
 
-**Always use `bun` , not `npm`.**
+**Always use `bun`, not `npm`.**
 
 ```sh
 # 1. Make changes
@@ -21,6 +21,17 @@ bun run lint                        # All files
 # 5. Before creating PR
 bun run check && bun run typecheck && bun run test
 ```
+
+## Runtime Package Manager Detection (MANDATORY)
+
+When any GSD plan, task, or template specifies `npm run`, `npm test`, or similar:
+1. Check project root for lockfiles
+2. Substitute commands before executing:
+   - `bun.lock` present: `npm run X` → `bun X`, `npm test` → `bun test`
+   - `yarn.lock` present: `npm run X` → `yarn X`, `npx X` → `yarn dlx X`
+3. Log the substitution in task output
+
+This applies to ALL commands from templates, plans, and references.
 
 ## Workflow Orchestration
 

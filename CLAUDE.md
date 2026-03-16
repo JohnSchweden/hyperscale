@@ -1,3 +1,7 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
 @AGENTS.md
 
 <!-- AUTO-MANAGED: project-description -->
@@ -116,4 +120,23 @@ utils/
 <!-- MANUAL -->
 See AGENTS.md for all behavioral rules, workflow orchestration, and core principles.
 Those sections are human-owned and never auto-updated.
+
+## Additional Test Commands
+
+```sh
+bun run test:data            # Vitest data-layer validation tests (tests/data/)
+bun run test:visual          # Playwright visual regression tests (@visual tag)
+bun run test:changed         # Run tests for changed files only (scripts/test-changed.ts)
+bun run test:file -- "glob"  # Run specific Playwright test file(s) by glob
+```
+
+## Commit Message Format
+
+Format: `{type}({phase}-{plan}): {description}`
+
+Types: `feat`, `fix`, `test`, `refactor`, `perf`, `chore`, `docs`
+
+Example: `feat(03-01): add no-win scenario card deck`
+
+One commit per completed task. Plan completion gets a separate `docs(phase-plan): complete [plan-name] plan` metadata commit. See `.cursor/references/git-integration.md` for full reference.
 <!-- END MANUAL -->
