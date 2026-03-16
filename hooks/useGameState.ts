@@ -13,10 +13,17 @@ import {
 	GameStage,
 	type GameState,
 	PersonalityType,
+	ROLE_FINE_TIERS,
 	RoleType,
 } from "../types";
 
 const INITIAL_BUDGET = 10000000;
+
+/** Get starting budget based on role tier (Phase 03-06: role-appropriate fines) */
+function getInitialBudgetForRole(role: RoleType | null): number {
+	if (!role) return INITIAL_BUDGET;
+	return ROLE_FINE_TIERS[role]?.budget ?? INITIAL_BUDGET;
+}
 
 export const initialGameState: GameState = {
 	hype: 50,
@@ -255,7 +262,11 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
 			const update: Partial<GameState> = { stage: action.stage };
 			if (action.personality !== undefined)
 				update.personality = action.personality;
-			if (action.role !== undefined) update.role = action.role;
+			if (action.role !== undefined) {
+				update.role = action.role;
+				// Set role-appropriate starting budget (Phase 03-06)
+				update.budget = getInitialBudgetForRole(action.role);
+			}
 			if (action.currentCardIndex !== undefined)
 				update.currentCardIndex = action.currentCardIndex;
 			if (action.shuffledDeck !== undefined)
