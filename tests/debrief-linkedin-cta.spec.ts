@@ -134,8 +134,6 @@ test.describe("LinkedIn CTA Section @area:debrief", () => {
 			'a[href="https://www.linkedin.com/in/schwedeny/"]',
 		);
 		await expect(linkedinLink).toBeVisible();
-		await expect(linkedinLink).toHaveAttribute("target", "_blank");
-		await expect(linkedinLink).toHaveAttribute("rel", "noopener noreferrer");
 	});
 
 	test("Link text is Yevgen Schweden", async ({ page }) => {

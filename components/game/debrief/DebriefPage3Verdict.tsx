@@ -135,8 +135,6 @@ export const DebriefPage3Verdict: React.FC<DebriefPage3VerdictProps> = ({
 				<div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
 					<a
 						href={linkedInShareUrl || "#"}
-						target="_blank"
-						rel="noopener noreferrer"
 						className="px-6 py-3 md:px-8 md:py-4 text-base font-bold tracking-wide bg-white text-black hover:bg-cyan-400 hover:text-black transition-all duration-300 flex items-center justify-center gap-2"
 						aria-label="Share to LinkedIn"
 						onClick={(e) => {
@@ -159,26 +157,22 @@ export const DebriefPage3Verdict: React.FC<DebriefPage3VerdictProps> = ({
 
 				{/* V2 Waitlist LinkedIn CTA */}
 				<div className="p-6 rounded-xl border border-slate-700 bg-slate-900/30">
-					<div className="flex items-center justify-center gap-2 mb-4">
-						<i className="fa-brands fa-linkedin text-cyan-400"></i>
-						<span className="text-sm font-medium text-slate-300">
-							Get early access to V2
-						</span>
-					</div>
-					<p className="text-sm text-slate-400 mb-4">
-						This was the static test. The real Kobayashi Maru adapts to your
-						weaknesses.
+					<h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
+						Early access to V2
+					</h3>
+					<p className="text-sm text-slate-400 mb-6">
+						This was the static test. The adaptive version crawls the web for
+						new use cases relevant for you, reads your decisions in real time
+						and adapts in response.
 						<br />
-						Connect with me on LinkedIn to be first in line for the autonomous
-						and adaptive version.
+						Message me on LinkedIn if you want to be first to test it.
 					</p>
 					<a
 						href="https://www.linkedin.com/in/schwedeny/"
-						target="_blank"
-						rel="noopener noreferrer"
-						className="inline-block px-6 py-3 bg-cyan-600 hover:bg-cyan-500 text-white font-semibold rounded-lg transition-colors duration-200"
+						className="inline-flex items-center justify-center gap-2 px-6 py-3 md:px-8 md:py-4 text-base font-bold bg-cyan-600 hover:bg-cyan-500 text-white transition-colors duration-200"
 					>
-						Connect with Yevgen Schweden
+						<i className="fa-brands fa-linkedin text-lg"></i>
+						Message Yevgen
 					</a>
 
 					{/*

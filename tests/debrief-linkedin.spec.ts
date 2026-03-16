@@ -34,10 +34,6 @@ test.describe("LinkedIn Share Button @area:gameplay", () => {
 			"a[href*='linkedin.com/sharing/share-offsite']",
 		);
 		await expect(shareLink).toBeVisible();
-
-		// Verify it has proper attributes
-		await expect(shareLink).toHaveAttribute("target", "_blank");
-		await expect(shareLink).toHaveAttribute("rel", "noopener noreferrer");
 	});
 
 	test("share link has correct href with LinkedIn format", async ({ page }) => {
@@ -210,7 +206,6 @@ test.describe("LinkedIn Share Button @area:gameplay", () => {
 				"a[href*='linkedin.com/sharing/share-offsite']",
 			);
 			await expect(shareLink).toBeVisible();
-			await expect(shareLink).toHaveAttribute("target", "_blank");
 		}
 	});
 });
