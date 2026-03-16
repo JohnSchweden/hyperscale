@@ -81,10 +81,10 @@ Map new roles to existing card decks until role-specific cards added in Phase 05
 **⚠️ REVISION REQUIRED:** Original plans (03-01 to 03-05) were written for OLD 6 legacy roles. Phase 02 introduced 10 NEW roles. See `03-REVISION-NOTES.md`.
 
 Plans (REVISED FOR 10 ROLES):
-- [x] 03-01-PLAN.md — Test scaffolding + card validation framework (updated for 10 role imports) ✓
-- [x] **03-02-revised-PLAN.md** — Generate 80+ cards for 10 NEW roles (replaces 03-02) ✓
-- [x] **03-03-revised-PLAN.md** — Integrate pressure metadata + shuffle testing for 10 roles ✓
-- [x] **03-04-revised-PLAN.md** — UAT verification for 10 roles with distinct themes ✓
+- [ ] 03-01-PLAN.md — Test scaffolding + card validation framework (updated for 10 role imports)
+- [ ] **03-02-revised-PLAN.md** — Generate 80+ cards for 10 NEW roles (replaces 03-02)
+- [ ] **03-03-revised-PLAN.md** — Integrate pressure metadata + shuffle testing for 10 roles
+- [ ] **03-04-revised-PLAN.md** — UAT verification for 10 roles with distinct themes
 - [ ] **03-05-revised-PLAN.md** — Real Case Reference for all 10 roles
 
 **Legacy plans (DEPRECATED - DO NOT USE):**
@@ -220,21 +220,16 @@ Plans:
 
 **Goal:** Hidden path to "change the conditions of the test"
 **Depends on:** Phase 06
-**Plans:** 3 plans
+**Plans:** 0 plans
 
 Plans:
-- [ ] 07-01-PLAN.md — Kirk state foundation: types, reducer, corrupted cards, death ending, audio
-- [ ] 07-02-PLAN.md — Swipe-up gesture detection, CSS glitch effects, discoverability hints
-- [ ] 07-03-PLAN.md — Kirk trigger wiring, corrupted debrief ending, archetype, human verify
+- [ ] TBD (run /gsd-plan-phase 07 to break down)
 
 **Details:**
 Kobayashi Maru had one solution: cheat the test. Add a hidden path:
-- Swipe-up on any card or let pressure-timer expire to increment kirkCounter
-- 2 refusals trigger corruption cascade: 2-3 corrupted "good news" cards
-- Hijacked 3-page debrief with Kirk archetype "Thinking Outside the Box: Skill Acquired"
-- Personalities break character at ending
-- Kirk-specific LinkedIn share template
-- Discoverability hints on intro and initializing screens
+- Specific sequence or choice (e.g., "Escalate to Legal," "Request extension")
+- Different ending: "You changed the conditions of the test"
+- Rewards creative thinking outside the binary swipe options
 
 **Requirements:**
 - KIRK-01: Design hidden interaction (not obvious swipe choice)
@@ -363,41 +358,36 @@ Plans:
 
 ### Phase 13: Image Asset Pipeline
 
-**Goal:** Automated pipeline to generate ~26 AI images via Gemini API, save as WebP, and map to game entities
+**Goal:** Create pipeline + image prompts to generate assets, save locally, and map to correct locations
 **Depends on:** Phase 06 (archetype system for mapping)
-**Plans:** 3 plans
+**Plans:** 0 plans
 
 Plans:
-- [ ] 13-00-PLAN.md — TDD Wave 0: test scaffolding for prompt library, image map, and asset validation
-- [ ] 13-01-PLAN.md — Prompt library (~26 prompts) + image map config (data/imageMap.ts)
-- [ ] 13-02-PLAN.md — Generation pipeline script (Gemini API + sharp WebP) + human run
+- [ ] TBD (run /gsd-plan-phase 13 to break down)
 
 **Details:**
-Generate AI images via Gemini API for:
-- **Incident images** (6) — Photorealistic with AI tells (uncanny valley)
-- **Outcome images** (8) — Meme-adjacent humor (exaggerated, absurd)
-- **Archetype images** (6) — Character portraits (LinkedIn-shareable)
-- **Death/collapse images** (6) — Dramatic + darkly comedic ("This is Fine" energy)
+Generate AI images (Midjourney v6 / DALL-E 3 / Stable Diffusion) for:
+- **Incident images** — Glitched Corporate Surrealism (uncanny valley, visible AI artifacts)
+- **Outcome images** — Sarcastic Stock Photos (polished corporate + disaster subject)
+- **Collapse image** — Dramatic failure (e.g. yacht sinking, drone with audit report)
+- **Archetype images** — Tactical patch / futuristic tarot card style (LinkedIn shareable)
 
-Pipeline: Typed prompt library + automated script (Gemini 2.5 Flash + sharp WebP conversion) + entity-to-image mapping config.
+**Pipeline:** Write prompts → generate → save to `public/images/` or asset folder → define mapping (cardId/outcomeId/archetypeId → image path).
 
 **Requirements:**
 - PIPELINE-01: Image prompt library (incidents, outcomes, collapse, archetypes)
 - PIPELINE-02: Script or process to generate + save images locally
 - PIPELINE-03: File naming convention + directory structure
-- PIPELINE-04: Mapping config (card -> image, outcome -> image, archetype -> image, deathType -> collapse image)
+- PIPELINE-04: Mapping config (card → image, outcome → image, archetype → image, deathType → collapse image)
 
 ### Phase 14: Situational & Outcome Imagery Display
 
 **Goal:** Display images at correct locations with mobile/web responsive sizing
 **Depends on:** Phase 13
-**Plans:** 4 plans
+**Plans:** 0 plans
 
 Plans:
-- [ ] 14-01-PLAN.md — Foundation: ImageWithFallback component, imagePaths utilities, type extensions
-- [ ] 14-02-PLAN.md — Card integration: Incident images in CardStack, outcome images in FeedbackOverlay
-- [ ] 14-03-PLAN.md — Debrief integration: Collapse images, archetype badge images
-- [ ] 14-04-PLAN.md — Polish & performance: Glitch CSS, overlay width, lazy loading, tests
+- [ ] TBD (run /gsd-plan-phase 14 to break down)
 
 **Details:**
 Integrate images into UI:
@@ -428,45 +418,19 @@ Integrate images into UI:
 | 1-2 | Voice Files + Live API | v1.1 | Complete |
 | 01 | Live API STT Research | v1.2 | Complete |
 | 02 | New Role Set (Impact Zones) | v1.2 | Complete |
-| 03 | 4/5 revised | Complete    | 2026-03-16 |
+| 03 | 2/9 | In Progress|  |
 | 04 | Immersive Pressure Effects | v1.2 | Complete (9/10) |
 | 05 | Expanded AI Risk Scenarios | v1.2 | Planned (5 plans) |
 | 06 | 19/19 | Complete    | 2026-03-16 |
-| 07 | Kirk Easter Egg | v1.2 | Planned (3 plans) |
+| 07 | Kirk Easter Egg | v1.2 | Not started |
 | 08 | Kobayashi Maru Framing (deferred) | v1.2 | Deferred |
 | 09 | Visual Effects | v1.2 | Not started |
 | 10 | Background Audio | v1.2 | Planned (4 plans) |
 | 11 | Settings Integration (deferred) | v1.2 | Deferred |
 | 12 | Gameplay Tweaks & Card Variety | v1.2 | Complete (2/2) |
-| 13 | Image Asset Pipeline | v1.2 | Planned (3 plans) |
-| 14 | Situational & Outcome Imagery Display | v1.2 | Planned (4 plans) |
-| 15 | Short Video Clips for Key Moments | v1.2 | Not started |
-
-### Phase 15: Short Video Clips for Key Moments
-
-**Goal:** Upgrade select high-impact moments from static images to 4-6 second looping video clips for deeper immersion
-**Depends on:** Phase 13 (image asset pipeline for prompt library reuse)
-**Plans:** 0 plans
-
-Plans:
-- [ ] TBD (run /gsd:plan-phase 15 to break down)
-
-**Details:**
-Target ~6-12 key moments (collapse scenes, death endings, maybe highest-stakes incident categories) rather than all 26 assets. Use AI video generation (Runway/Kling/Veo). Reuse Phase 13 prompt library as basis for video prompts.
-
-**Considerations:**
-- Video format selection (WebM/MP4)
-- Preloading strategy for smooth playback
-- Autoplay-muted loop behavior
-- Mobile data/battery considerations
-- Fallback to static image when video can't play
-
-**Requirements:**
-- VIDEO-01: Select which moments get video treatment (~6-12 highest impact)
-- VIDEO-02: Video generation pipeline (prompts, generation, optimization)
-- VIDEO-03: Video format + compression (target small file size per clip)
-- VIDEO-04: Fallback system (static image when video unavailable/unsupported)
+| 13 | Image Asset Pipeline | v1.2 | Not started |
+| 14 | Situational & Outcome Imagery Display | v1.2 | Not started |
 
 ---
 
-*Roadmap updated: 2026-03-16 — Phase 14 planned (4 plans: ImageWithFallback foundation, card/debrief integration, polish/performance)*
+*Roadmap updated: 2026-03-16 — Phase 06 complete (19/19 plans: LinkedIn CTA replaces email form on debrief page 3)*

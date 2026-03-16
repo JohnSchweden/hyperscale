@@ -5,12 +5,12 @@ milestone_name: Kobayashi Maru — AI Governance Simulator
 current_phase: 06-debrief-and-replay-system
 current_plan: 15
 status: planning
-last_updated: "2026-03-16T13:17:57.214Z"
+last_updated: "2026-03-16T20:00:25.830Z"
 progress:
   total_phases: 14
   completed_phases: 5
-  total_plans: 53
-  completed_plans: 37
+  total_plans: 58
+  completed_plans: 40
 ---
 
 # Session State
