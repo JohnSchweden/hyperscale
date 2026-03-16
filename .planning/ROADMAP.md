@@ -76,13 +76,14 @@ Map new roles to existing card decks until role-specific cards added in Phase 05
 
 **Goal:** Add incidents where both options are bad (tradeoffs, not puzzles)
 **Depends on:** Phase 02
-**Plans:** 4 plans
+**Plans:** 5 plans
 
 Plans:
 - [ ] 03-01-PLAN.md — Test scaffolding + card validation framework
 - [ ] 03-02-PLAN.md — Generate 80+ no-win scenario cards across all roles
 - [ ] 03-03-PLAN.md — Integrate pressure metadata + shuffle testing
 - [ ] 03-04-PLAN.md — UAT verification and sign-off
+- [ ] 03-05-PLAN.md — Add Real Case Reference section to FeedbackOverlay (historical grounding)
 
 **Details:**
 Create 80+ no-win scenario cards where:
@@ -405,7 +406,7 @@ Integrate images into UI:
 | 1-2 | Voice Files + Live API | v1.1 | Complete |
 | 01 | Live API STT Research | v1.2 | Complete |
 | 02 | New Role Set (Impact Zones) | v1.2 | Complete |
-| 03 | No-Win Scenario Cards | v1.2 | Planned (4 plans) |
+| 03 | No-Win Scenario Cards | v1.2 | Planned (5 plans) |
 | 04 | Immersive Pressure Effects | v1.2 | Complete (9/10) |
 | 05 | Expanded AI Risk Scenarios | v1.2 | Planned (5 plans) |
 | 06 | 19/19 | Complete    | 2026-03-16 |
