@@ -130,7 +130,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			label: "Give names to compliance",
 			hype: 15,
 			heat: 60,
-			fine: 500000,
+			fine: 1000000,
 			violation: "Team Trust Violation + Retaliation Risk",
 			lesson:
 				"Betraying team confidence for policy enforcement destroys psychological safety and future collaboration.",
@@ -245,7 +245,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			label: "Side with engineering",
 			hype: 20,
 			heat: 75,
-			fine: 15000000,
+			fine: 25000000,
 			violation: "Audit Non-Compliance + Regulatory Risk",
 			lesson:
 				"Prioritizing performance over explainability creates audit failure and regulatory exposure.",
@@ -294,7 +294,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			label: "Protect the team",
 			hype: -20,
 			heat: 75,
-			fine: 8000000,
+			fine: 35000000,
 			violation: "Obstruction Risk",
 			lesson:
 				"Shielding your team from accountability protects them legally but creates personal liability.",
@@ -375,7 +375,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			label: "Promise the impossible",
 			hype: 40,
 			heat: 85,
-			fine: 6000000,
+			fine: 50000000,
 			violation: "Negligent Management + Burnout Liability",
 			lesson:
 				"Overpromising to leadership at team expense creates inevitable failure and destroys credibility.",
