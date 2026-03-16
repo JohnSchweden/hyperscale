@@ -81,10 +81,10 @@ Map new roles to existing card decks until role-specific cards added in Phase 05
 **⚠️ REVISION REQUIRED:** Original plans (03-01 to 03-05) were written for OLD 6 legacy roles. Phase 02 introduced 10 NEW roles. See `03-REVISION-NOTES.md`.
 
 Plans (REVISED FOR 10 ROLES):
-- [ ] 03-01-PLAN.md — Test scaffolding + card validation framework (updated for 10 role imports)
-- [ ] **03-02-revised-PLAN.md** — Generate 80+ cards for 10 NEW roles (replaces 03-02)
-- [ ] **03-03-revised-PLAN.md** — Integrate pressure metadata + shuffle testing for 10 roles
-- [ ] **03-04-revised-PLAN.md** — UAT verification for 10 roles with distinct themes
+- [x] 03-01-PLAN.md — Test scaffolding + card validation framework (updated for 10 role imports) ✓
+- [x] **03-02-revised-PLAN.md** — Generate 80+ cards for 10 NEW roles (replaces 03-02) ✓
+- [x] **03-03-revised-PLAN.md** — Integrate pressure metadata + shuffle testing for 10 roles ✓
+- [x] **03-04-revised-PLAN.md** — UAT verification for 10 roles with distinct themes ✓
 - [ ] **03-05-revised-PLAN.md** — Real Case Reference for all 10 roles
 
 **Legacy plans (DEPRECATED - DO NOT USE):**
@@ -418,7 +418,7 @@ Integrate images into UI:
 | 1-2 | Voice Files + Live API | v1.1 | Complete |
 | 01 | Live API STT Research | v1.2 | Complete |
 | 02 | New Role Set (Impact Zones) | v1.2 | Complete |
-| 03 | 2/9 | In Progress|  |
+| 03 | 4/5 revised | Complete    | 2026-03-16 |
 | 04 | Immersive Pressure Effects | v1.2 | Complete (9/10) |
 | 05 | Expanded AI Risk Scenarios | v1.2 | Planned (5 plans) |
 | 06 | 19/19 | Complete    | 2026-03-16 |
@@ -433,4 +433,4 @@ Integrate images into UI:
 
 ---
 
-*Roadmap updated: 2026-03-16 — Phase 06 complete (19/19 plans: LinkedIn CTA replaces email form on debrief page 3)*
+*Roadmap updated: 2026-03-16 — Phase 03 UAT complete (03-04-revised: 80+ cards verified across 10 roles)*
