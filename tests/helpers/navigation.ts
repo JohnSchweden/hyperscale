@@ -1,4 +1,5 @@
 import type { Page } from "@playwright/test";
+import { DEVELOPMENT_CARDS, ROLE_CARDS } from "../../data";
 import { ROLE_LABELS } from "../../data/roles";
 import { RoleType } from "../../types";
 import { SELECTORS } from "./selectors";
@@ -46,6 +47,52 @@ export async function navigateToPlayingWithRoleFast(
  */
 export async function navigateToPlayingFast(page: Page): Promise<void> {
 	await navigateToPlayingWithRoleFast(page, RoleType.SOFTWARE_ENGINEER);
+}
+
+/**
+ * Navigate directly to playing with a specific card as the first card (unshuffled deck).
+ * Uses km-debug-state to bypass shuffling and ensure deterministic card order.
+ * Useful for tests that need to interact with specific card buttons.
+ *
+ * @param page - Playwright Page object
+ * @param role - RoleType to use (default: SOFTWARE_ENGINEER)
+ * @param cardIndex - Index of the card to show first (default: 0)
+ */
+export async function navigateToPlayingWithCardAtIndex(
+	page: Page,
+	role: RoleType = RoleType.SOFTWARE_ENGINEER,
+	cardIndex: number = 0,
+): Promise<void> {
+	// Use the debug state mechanism to set a complete game state
+	// This bypasses the shuffling that happens in App.tsx during INITIALIZING → PLAYING transition
+	const effectiveDeck = [...ROLE_CARDS[role]]; // Copy without shuffling
+	await page.addInitScript(
+		(stateStr: string) => {
+			window.localStorage.setItem("km-debug-state", stateStr);
+		},
+		JSON.stringify({
+			stage: "PLAYING",
+			personality: "ROASTER",
+			role: role,
+			currentCardIndex: cardIndex,
+			hype: 50,
+			heat: 0,
+			budget: 10000000,
+			history: [],
+			deathReason: null,
+			deathType: null,
+			unlockedEndings: [],
+			bossFightAnswers: [],
+			effectiveDeck: effectiveDeck,
+		}),
+	);
+
+	await page.goto("/");
+
+	await page
+		.locator(SELECTORS.card)
+		.first()
+		.waitFor({ state: "visible", timeout: 5000 });
 }
 
 /**
@@ -106,8 +153,10 @@ export async function navigateToPlaying(
 	await roleButton.click();
 
 	// Wait for countdown to complete and game screen to load
+	// DEVELOPMENT deck has 2 cards with different buttons due to shuffling
 	await page
 		.locator('button:has-text("Debug")')
+		.or(page.locator('button:has-text("Ignore")'))
 		.waitFor({ state: "visible", timeout: 10000 });
 	await page
 		.locator(SELECTORS.card)

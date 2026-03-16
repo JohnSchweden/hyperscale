@@ -1,5 +1,9 @@
 import { expect, test } from "@playwright/test";
-import { navigateToPlaying } from "./helpers/navigation";
+import { RoleType } from "../types";
+import {
+	navigateToPlaying,
+	navigateToPlayingWithCardAtIndex,
+} from "./helpers/navigation";
 import { SELECTORS } from "./helpers/selectors";
 
 /**
@@ -109,7 +113,12 @@ test.describe("Voice Playback Integration @integration @area:audio", () => {
 					const consoleMessages: string[] = [];
 					page.on("console", (msg) => consoleMessages.push(msg.text()));
 
-					await navigateToPlaying(page);
+					// Use deterministic navigation to ensure dev_1 is first (unshuffled)
+					await navigateToPlayingWithCardAtIndex(
+						page,
+						RoleType.SOFTWARE_ENGINEER,
+						0,
+					);
 
 					await page
 						.locator(SELECTORS.leftButton)
@@ -144,7 +153,12 @@ test.describe("Voice Playback Integration @integration @area:audio", () => {
 					const consoleMessages: string[] = [];
 					page.on("console", (msg) => consoleMessages.push(msg.text()));
 
-					await navigateToPlaying(page);
+					// Use deterministic navigation to ensure dev_1 is first (unshuffled)
+					await navigateToPlayingWithCardAtIndex(
+						page,
+						RoleType.SOFTWARE_ENGINEER,
+						0,
+					);
 
 					await page
 						.locator(SELECTORS.rightButton)

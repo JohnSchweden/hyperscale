@@ -37,23 +37,33 @@ test.describe("Stage transitions @area:gameplay @slow", () => {
 		await expect(roleButton).toBeVisible({ timeout: 3000 });
 	});
 
-	test("select role → INITIALIZING then after countdown PLAYING (Debug button or card)", async ({
+	test("select role → INITIALIZING then after countdown PLAYING (card buttons visible)", async ({
 		page,
 	}) => {
 		await navigateToPlaying(page);
 
-		await expect(page.locator(SELECTORS.debugButton)).toBeVisible({
-			timeout: 10000,
-		});
+		// DEVELOPMENT deck has 2 cards that can appear in any order due to shuffling
+		// Check for either card's button pair
+		await expect(
+			page
+				.locator(SELECTORS.debugButton)
+				.or(page.locator('button:has-text("Ignore")')),
+		).toBeVisible({ timeout: 10000 });
 	});
 
 	test("play to BOSS_FIGHT (swipe through all cards, Next ticket until boss), assert boss question visible; complete boss 3+ correct → SUMMARY", async ({
 		page,
 	}) => {
 		test.setTimeout(60000);
-		await navigateToPlayingFast(page);
+		// Use deterministic navigation to ensure predictable card order (unshuffled DEVELOPMENT deck)
+		const { navigateToPlayingWithCardAtIndex } = await import(
+			"./helpers/navigation"
+		);
+		const { RoleType } = await import("../types");
+		await navigateToPlayingWithCardAtIndex(page, RoleType.SOFTWARE_ENGINEER, 0);
 
-		// Development has 2 cards; swipe left (Debug, Ignore) to avoid game over, then Next ticket to boss
+		// Development has 2 cards in order: dev_1 (Debug/Paste), dev_icarus_unverified (Ignore/Install)
+		// Swipe left on both to avoid game over, then Next ticket to boss
 		await page.locator(SELECTORS.debugButton).click({ force: true });
 		const nextBtn = page.locator(SELECTORS.nextTicketButton);
 		await nextBtn.waitFor({ state: "visible", timeout: 5000 });
