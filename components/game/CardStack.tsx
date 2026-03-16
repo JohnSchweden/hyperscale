@@ -201,6 +201,7 @@ export const CardStack: React.FC<CardStackProps> = ({
 				ref={cardRef}
 				role="group"
 				data-testid="incident-card"
+				data-card-id={currentCard.id}
 				className={`absolute inset-0 bg-slate-900 border border-slate-700 rounded-xl overflow-hidden shadow-2xl flex flex-col select-none swipe-card ${isFirstCard && !exitDirection && !isDragging && !hasDragged ? "ticket-transition" : ""} ${isSnappingBack ? "spring-snap-back" : ""} ${hasStressVisuals ? "pressure-flicker" : ""}`}
 				key={currentCardIndex}
 				onTouchStart={onTouchStart}
