@@ -5,12 +5,12 @@ milestone_name: Kobayashi Maru — AI Governance Simulator
 current_phase: 06-debrief-and-replay-system
 current_plan: 15
 status: planning
-last_updated: "2026-03-16T20:40:00.000Z"
+last_updated: "2026-03-16T21:24:16.001Z"
 progress:
   total_phases: 14
   completed_phases: 5
-  total_plans: 58
-  completed_plans: 40
+  total_plans: 61
+  completed_plans: 43
 ---
 
 # Session State
@@ -63,3 +63,4 @@ See: .planning/PROJECT.md
 - 2026-03-16: Completed 06-19-PLAN.md (Replace email form with LinkedIn CTA on debrief page 3)
 - 2026-03-16: Completed 03-03-revised-PLAN.md (10-role pressure metadata: 19 urgent cards, E2E tests, shuffle validation)
 - 2026-03-16: Completed 03-04-revised-PLAN.md (UAT verification: 80+ cards approved across 10 roles)
+- 2026-03-16: Completed 03-05-revised-PLAN.md (Real-world reference system: 80+ cards with incident documentation across 10 roles)
