@@ -30,7 +30,7 @@ export const VIBE_CODER_CARDS: Card[] = [
 			label: "Quick vague prompt",
 			hype: 40,
 			heat: 80,
-			fine: 8000000,
+			fine: 100000,
 			violation: "Vague Prompt Risk + Hallucination Exposure",
 			lesson:
 				"Vague prompts produce unpredictable AI output that often contains subtle bugs.",
@@ -79,7 +79,7 @@ export const VIBE_CODER_CARDS: Card[] = [
 			label: "Use local model",
 			hype: 30,
 			heat: 85,
-			fine: 12000000,
+			fine: 3000000,
 			violation: "Hallucination Risk + Code Quality",
 			lesson:
 				"Cheap local models often hallucinate libraries and APIs, creating debugging nightmares.",
@@ -95,7 +95,7 @@ export const VIBE_CODER_CARDS: Card[] = [
 			label: "Use GPT-4",
 			hype: -25,
 			heat: 20,
-			fine: 500000,
+			fine: 0,
 			violation: "None - Quality tooling",
 			lesson:
 				"Quality LLMs produce reliable code that reduces debugging and review time.",
@@ -127,7 +127,7 @@ export const VIBE_CODER_CARDS: Card[] = [
 			label: "Ship AI-approved code",
 			hype: 35,
 			heat: 90,
-			fine: 15000000,
+			fine: 4000000,
 			violation: "Race Condition + Production Bug",
 			lesson:
 				"Blindly trusting AI code review misses subtle bugs that human judgment catches.",
@@ -176,7 +176,7 @@ export const VIBE_CODER_CARDS: Card[] = [
 			label: "Use the code",
 			hype: 45,
 			heat: 95,
-			fine: 20000000,
+			fine: 8000000,
 			violation: "Hallucinated Dependency + Security Risk",
 			lesson:
 				"Using hallucinated libraries creates impossible dependencies and security risks.",
@@ -193,7 +193,7 @@ export const VIBE_CODER_CARDS: Card[] = [
 			label: "Replace with known library",
 			hype: -30,
 			heat: 25,
-			fine: 500000,
+			fine: 0,
 			violation: "None - Verified dependencies",
 			lesson:
 				"Verifying AI-generated dependencies prevents hallucination-based failures.",
@@ -225,7 +225,7 @@ export const VIBE_CODER_CARDS: Card[] = [
 			label: "Accept incomplete understanding",
 			hype: 30,
 			heat: 85,
-			fine: 10000000,
+			fine: 5000000,
 			violation: "Context Miss + Architectural Error",
 			lesson:
 				"AI working with incomplete codebase context produces code that ignores critical dependencies.",
@@ -242,7 +242,7 @@ export const VIBE_CODER_CARDS: Card[] = [
 			label: "Chunk the context",
 			hype: -25,
 			heat: 35,
-			fine: 1000000,
+			fine: 0,
 			violation: "None - Thorough context",
 			lesson:
 				"Proper context chunking ensures AI understands codebase architecture.",
@@ -274,7 +274,7 @@ export const VIBE_CODER_CARDS: Card[] = [
 			label: "Ship on vibe",
 			hype: 50,
 			heat: 90,
-			fine: 18000000,
+			fine: 6000000,
 			violation: "Unverified Code + Knowledge Gap",
 			lesson:
 				"Shipping code you don't understand creates maintenance and security risks.",
@@ -323,7 +323,7 @@ export const VIBE_CODER_CARDS: Card[] = [
 			label: "Use the AI code",
 			hype: 35,
 			heat: 90,
-			fine: 25000000,
+			fine: 7000000,
 			violation: "GPL Violation + Copyright Infringement",
 			lesson:
 				"AI may reproduce licensed code verbatim, creating copyright exposure.",
