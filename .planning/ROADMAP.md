@@ -363,27 +363,29 @@ Plans:
 
 ### Phase 13: Image Asset Pipeline
 
-**Goal:** Create pipeline + image prompts to generate assets, save locally, and map to correct locations
+**Goal:** Automated pipeline to generate ~26 AI images via Gemini API, save as WebP, and map to game entities
 **Depends on:** Phase 06 (archetype system for mapping)
-**Plans:** 0 plans
+**Plans:** 3 plans
 
 Plans:
-- [ ] TBD (run /gsd-plan-phase 13 to break down)
+- [ ] 13-00-PLAN.md — TDD Wave 0: test scaffolding for prompt library, image map, and asset validation
+- [ ] 13-01-PLAN.md — Prompt library (~26 prompts) + image map config (data/imageMap.ts)
+- [ ] 13-02-PLAN.md — Generation pipeline script (Gemini API + sharp WebP) + human run
 
 **Details:**
-Generate AI images (Midjourney v6 / DALL-E 3 / Stable Diffusion) for:
-- **Incident images** — Glitched Corporate Surrealism (uncanny valley, visible AI artifacts)
-- **Outcome images** — Sarcastic Stock Photos (polished corporate + disaster subject)
-- **Collapse image** — Dramatic failure (e.g. yacht sinking, drone with audit report)
-- **Archetype images** — Tactical patch / futuristic tarot card style (LinkedIn shareable)
+Generate AI images via Gemini API for:
+- **Incident images** (6) — Photorealistic with AI tells (uncanny valley)
+- **Outcome images** (8) — Meme-adjacent humor (exaggerated, absurd)
+- **Archetype images** (6) — Character portraits (LinkedIn-shareable)
+- **Death/collapse images** (6) — Dramatic + darkly comedic ("This is Fine" energy)
 
-**Pipeline:** Write prompts → generate → save to `public/images/` or asset folder → define mapping (cardId/outcomeId/archetypeId → image path).
+Pipeline: Typed prompt library + automated script (Gemini 2.5 Flash + sharp WebP conversion) + entity-to-image mapping config.
 
 **Requirements:**
 - PIPELINE-01: Image prompt library (incidents, outcomes, collapse, archetypes)
 - PIPELINE-02: Script or process to generate + save images locally
 - PIPELINE-03: File naming convention + directory structure
-- PIPELINE-04: Mapping config (card → image, outcome → image, archetype → image, deathType → collapse image)
+- PIPELINE-04: Mapping config (card -> image, outcome -> image, archetype -> image, deathType -> collapse image)
 
 ### Phase 14: Situational & Outcome Imagery Display
 
@@ -433,9 +435,9 @@ Integrate images into UI:
 | 10 | Background Audio | v1.2 | Planned (4 plans) |
 | 11 | Settings Integration (deferred) | v1.2 | Deferred |
 | 12 | Gameplay Tweaks & Card Variety | v1.2 | Complete (2/2) |
-| 13 | Image Asset Pipeline | v1.2 | Not started |
+| 13 | Image Asset Pipeline | v1.2 | Planned (3 plans) |
 | 14 | Situational & Outcome Imagery Display | v1.2 | Not started |
 
 ---
 
-*Roadmap updated: 2026-03-16 — Phase 07 planned (3 plans: state foundation, gesture+effects, wiring+debrief)*
+*Roadmap updated: 2026-03-16 — Phase 13 planned (3 plans: TDD tests, prompt library + image map, generation pipeline)*
