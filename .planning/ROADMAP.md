@@ -76,7 +76,7 @@ Map new roles to existing card decks until role-specific cards added in Phase 05
 
 **Goal:** Add incidents where both options are bad (tradeoffs, not puzzles)
 **Depends on:** Phase 02
-**Plans:** 6/9 plans complete
+**Plans:** 7/10 plans executed
 
 **⚠️ REVISION REQUIRED:** Original plans (03-01 to 03-05) were written for OLD 6 legacy roles. Phase 02 introduced 10 NEW roles. See `03-REVISION-NOTES.md`.
 
@@ -418,7 +418,7 @@ Integrate images into UI:
 | 1-2 | Voice Files + Live API | v1.1 | Complete |
 | 01 | Live API STT Research | v1.2 | Complete |
 | 02 | New Role Set (Impact Zones) | v1.2 | Complete |
-| 03 | 6/9 | Complete    | 2026-03-16 |
+| 03 | 7/10 | In Progress|  |
 | 04 | Immersive Pressure Effects | v1.2 | Complete (9/10) |
 | 05 | Expanded AI Risk Scenarios | v1.2 | Planned (5 plans) |
 | 06 | 19/19 | Complete    | 2026-03-16 |
