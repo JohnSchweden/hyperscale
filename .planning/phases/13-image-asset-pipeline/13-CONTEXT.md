@@ -107,7 +107,7 @@ Create a prompt library and automated pipeline to generate AI images for the gam
 - Displaying images in UI components — Phase 14 (Situational & Outcome Imagery Display)
 - Image lazy loading and responsive sizing — Phase 14
 - Image placeholders/loading states — Phase 14
-- Animated or video assets — not currently scoped
+- Short video clips (4-6s loops) for key moments — Phase 15 (Short Video Clips for Key Moments)
 
 </deferred>
 

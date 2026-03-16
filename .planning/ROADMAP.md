@@ -440,6 +440,32 @@ Integrate images into UI:
 | 12 | Gameplay Tweaks & Card Variety | v1.2 | Complete (2/2) |
 | 13 | Image Asset Pipeline | v1.2 | Planned (3 plans) |
 | 14 | Situational & Outcome Imagery Display | v1.2 | Planned (4 plans) |
+| 15 | Short Video Clips for Key Moments | v1.2 | Not started |
+
+### Phase 15: Short Video Clips for Key Moments
+
+**Goal:** Upgrade select high-impact moments from static images to 4-6 second looping video clips for deeper immersion
+**Depends on:** Phase 13 (image asset pipeline for prompt library reuse)
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 15 to break down)
+
+**Details:**
+Target ~6-12 key moments (collapse scenes, death endings, maybe highest-stakes incident categories) rather than all 26 assets. Use AI video generation (Runway/Kling/Veo). Reuse Phase 13 prompt library as basis for video prompts.
+
+**Considerations:**
+- Video format selection (WebM/MP4)
+- Preloading strategy for smooth playback
+- Autoplay-muted loop behavior
+- Mobile data/battery considerations
+- Fallback to static image when video can't play
+
+**Requirements:**
+- VIDEO-01: Select which moments get video treatment (~6-12 highest impact)
+- VIDEO-02: Video generation pipeline (prompts, generation, optimization)
+- VIDEO-03: Video format + compression (target small file size per clip)
+- VIDEO-04: Fallback system (static image when video unavailable/unsupported)
 
 ---
 
