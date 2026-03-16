@@ -78,7 +78,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 			label: "Fixed capacity",
 			hype: 20,
 			heat: 90,
-			fine: 15000000,
+			fine: 12000000,
 			violation: "Availability Risk + Downtime Exposure",
 			lesson:
 				"Fixed capacity creates outage risk during traffic spikes that damages reputation.",
@@ -192,7 +192,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 			label: "Scale primary",
 			hype: -20,
 			heat: 45,
-			fine: 2000000,
+			fine: 500000,
 			violation: "None - Strong consistency",
 			lesson:
 				"Strong consistency ensures accurate data for critical operations.",
@@ -273,7 +273,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 			label: "Remove validation",
 			hype: 40,
 			heat: 95,
-			fine: 25000000,
+			fine: 12000000,
 			violation: "Prompt Injection + Security Vulnerability",
 			lesson:
 				"Removing input validation for speed creates critical security vulnerabilities.",
@@ -371,7 +371,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 			label: "Heavy compression",
 			hype: 35,
 			heat: 70,
-			fine: 2000000,
+			fine: 200000,
 			violation: "Brand Degradation + Quality Loss",
 			lesson:
 				"Aggressive compression damages brand perception and user experience quality.",
