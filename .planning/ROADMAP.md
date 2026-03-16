@@ -76,15 +76,15 @@ Map new roles to existing card decks until role-specific cards added in Phase 05
 
 **Goal:** Add incidents where both options are bad (tradeoffs, not puzzles)
 **Depends on:** Phase 02
-**Plans:** 5 plans
+**Plans:** 2/9 plans executed
 
 **⚠️ REVISION REQUIRED:** Original plans (03-01 to 03-05) were written for OLD 6 legacy roles. Phase 02 introduced 10 NEW roles. See `03-REVISION-NOTES.md`.
 
 Plans (REVISED FOR 10 ROLES):
-- [ ] 03-01-PLAN.md — Test scaffolding + card validation framework (updated for 10 role imports)
-- [ ] **03-02-revised-PLAN.md** — Generate 80+ cards for 10 NEW roles (replaces 03-02)
-- [ ] **03-03-revised-PLAN.md** — Integrate pressure metadata + shuffle testing for 10 roles
-- [ ] **03-04-revised-PLAN.md** — UAT verification for 10 roles with distinct themes
+- [x] 03-01-PLAN.md — Test scaffolding + card validation framework (updated for 10 role imports) ✓
+- [x] **03-02-revised-PLAN.md** — Generate 80+ cards for 10 NEW roles (replaces 03-02) ✓
+- [x] **03-03-revised-PLAN.md** — Integrate pressure metadata + shuffle testing for 10 roles ✓
+- [x] **03-04-revised-PLAN.md** — UAT verification for 10 roles with distinct themes ✓
 - [ ] **03-05-revised-PLAN.md** — Real Case Reference for all 10 roles
 
 **Legacy plans (DEPRECATED - DO NOT USE):**
@@ -220,16 +220,21 @@ Plans:
 
 **Goal:** Hidden path to "change the conditions of the test"
 **Depends on:** Phase 06
-**Plans:** 0 plans
+**Plans:** 3 plans
 
 Plans:
-- [ ] TBD (run /gsd-plan-phase 07 to break down)
+- [ ] 07-01-PLAN.md — Kirk state foundation: types, reducer, corrupted cards, death ending, audio
+- [ ] 07-02-PLAN.md — Swipe-up gesture detection, CSS glitch effects, discoverability hints
+- [ ] 07-03-PLAN.md — Kirk trigger wiring, corrupted debrief ending, archetype, human verify
 
 **Details:**
 Kobayashi Maru had one solution: cheat the test. Add a hidden path:
-- Specific sequence or choice (e.g., "Escalate to Legal," "Request extension")
-- Different ending: "You changed the conditions of the test"
-- Rewards creative thinking outside the binary swipe options
+- Swipe-up on any card or let pressure-timer expire to increment kirkCounter
+- 2 refusals trigger corruption cascade: 2-3 corrupted "good news" cards
+- Hijacked 3-page debrief with Kirk archetype "Thinking Outside the Box: Skill Acquired"
+- Personalities break character at ending
+- Kirk-specific LinkedIn share template
+- Discoverability hints on intro and initializing screens
 
 **Requirements:**
 - KIRK-01: Design hidden interaction (not obvious swipe choice)
@@ -418,11 +423,11 @@ Integrate images into UI:
 | 1-2 | Voice Files + Live API | v1.1 | Complete |
 | 01 | Live API STT Research | v1.2 | Complete |
 | 02 | New Role Set (Impact Zones) | v1.2 | Complete |
-| 03 | No-Win Scenario Cards | v1.2 | Planned (5 plans) |
+| 03 | 4/5 revised | Complete    | 2026-03-16 |
 | 04 | Immersive Pressure Effects | v1.2 | Complete (9/10) |
 | 05 | Expanded AI Risk Scenarios | v1.2 | Planned (5 plans) |
 | 06 | 19/19 | Complete    | 2026-03-16 |
-| 07 | Kirk Easter Egg | v1.2 | Not started |
+| 07 | Kirk Easter Egg | v1.2 | Planned (3 plans) |
 | 08 | Kobayashi Maru Framing (deferred) | v1.2 | Deferred |
 | 09 | Visual Effects | v1.2 | Not started |
 | 10 | Background Audio | v1.2 | Planned (4 plans) |
@@ -433,4 +438,4 @@ Integrate images into UI:
 
 ---
 
-*Roadmap updated: 2026-03-16 — Phase 06 complete (19/19 plans: LinkedIn CTA replaces email form on debrief page 3)*
+*Roadmap updated: 2026-03-16 — Phase 07 planned (3 plans: state foundation, gesture+effects, wiring+debrief)*
