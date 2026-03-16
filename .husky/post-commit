@@ -1,4 +1,3 @@
-#!/bin/sh
 # post-commit: background analysis after every commit.
 # Scripts live globally in ~/.claude/hooks/ — work in any repo.
 # 1. claude-analyze.sh  — extract lessons from the diff → tasks/lessons.md
