@@ -32,7 +32,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 		onRight: {
 			label: "Settle quietly",
 			hype: 20,
-			heat: 95,
+			heat: 68,
 			fine: 50000000,
 			violation: "SEC Disclosure Violations + Obstruction",
 			lesson:
@@ -49,7 +49,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 		onLeft: {
 			label: "Disclose publicly",
 			hype: -60,
-			heat: 40,
+			heat: 28,
 			fine: 10000000,
 			violation: "None - Proactive disclosure (civil penalties possible)",
 			lesson:
@@ -81,7 +81,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 		onRight: {
 			label: "Ship patch quietly",
 			hype: 35,
-			heat: 85,
+			heat: 42,
 			fine: 25000000,
 			violation: "SEC Material Misrepresentation + Consumer Protection",
 			lesson:
@@ -98,7 +98,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 		onLeft: {
 			label: "Disclose and retrain",
 			hype: -45,
-			heat: 30,
+			heat: 20,
 			fine: 5000000,
 			violation: "None - Responsible AI governance",
 			lesson:
@@ -130,7 +130,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 		onRight: {
 			label: "Settle with gag",
 			hype: -30,
-			heat: 60,
+			heat: 42,
 			fine: 150000000,
 			violation: "None - Civil settlement (non-admission)",
 			lesson:
@@ -147,7 +147,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 		onLeft: {
 			label: "Fight publicly",
 			hype: -80,
-			heat: 90,
+			heat: 65,
 			fine: 500000000,
 			violation: "Copyright Infringement (if found liable)",
 			lesson:
@@ -179,7 +179,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 		onRight: {
 			label: "Blame and fire CTO",
 			hype: 15,
-			heat: 75,
+			heat: 52,
 			fine: 10000000,
 			violation: "Failure of Corporate Governance + Whistleblower Risk",
 			lesson:
@@ -196,7 +196,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 		onLeft: {
 			label: "Take accountability",
 			hype: -40,
-			heat: 55,
+			heat: 38,
 			fine: 5000000,
 			violation: "None - Responsible governance acknowledgment",
 			lesson:
@@ -228,7 +228,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 		onRight: {
 			label: "Use deniability",
 			hype: 40,
-			heat: 95,
+			heat: 68,
 			fine: 100000000,
 			violation: "OFAC Sanctions Violations + Criminal Liability",
 			lesson:
@@ -245,7 +245,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 		onLeft: {
 			label: "Shut down account",
 			hype: -25,
-			heat: 50,
+			heat: 32,
 			fine: 0,
 			violation: "None - Compliance enforcement",
 			lesson:
@@ -277,7 +277,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 		onRight: {
 			label: "IPO now",
 			hype: 70,
-			heat: 80,
+			heat: 58,
 			fine: 40000000,
 			violation:
 				"SEC Material Misrepresentation (if vulnerabilities materialize)",
@@ -295,7 +295,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 		onLeft: {
 			label: "Delay and fix",
 			hype: -35,
-			heat: 30,
+			heat: 20,
 			fine: 5000000,
 			violation: "None - Responsible preparation",
 			lesson:
@@ -327,7 +327,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 		onRight: {
 			label: "Refuse and fight",
 			hype: 25,
-			heat: 90,
+			heat: 65,
 			fine: 75000000,
 			violation: "Regulatory Non-Compliance + AI Transparency Violations",
 			lesson:
@@ -344,7 +344,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 		onLeft: {
 			label: "Delay and comply",
 			hype: -30,
-			heat: 40,
+			heat: 28,
 			fine: 5000000,
 			violation: "None - Regulatory cooperation",
 			lesson:
@@ -376,7 +376,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 		onRight: {
 			label: "Delay to Monday",
 			hype: 10,
-			heat: 85,
+			heat: 42,
 			fine: 25000000,
 			violation: "GDPR/CCPA Breach Notification Violations",
 			lesson:
@@ -393,7 +393,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 		onLeft: {
 			label: "Disclose immediately",
 			hype: -50,
-			heat: 60,
+			heat: 42,
 			fine: 5000000,
 			violation: "None - Timely notification",
 			lesson:
@@ -425,7 +425,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 		onRight: {
 			label: "Implement quietly",
 			hype: 45,
-			heat: 75,
+			heat: 52,
 			fine: 15000000,
 			violation: "WARN Act Violations + Labor Law Non-Compliance",
 			lesson:
