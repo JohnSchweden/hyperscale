@@ -39,7 +39,8 @@ function formatConsequence(hype: number, heat: number, fine: number): string {
 	const parts: string[] = [];
 	if (hype !== 0) parts.push(`${hype > 0 ? "+" : ""}${hype} hype`);
 	if (heat !== 0) parts.push(`${heat > 0 ? "+" : ""}${heat} heat`);
-	if (fine > 0) parts.push(`$${(fine / 1000000).toFixed(1)}M fine`);
+	// Always show fine amount (including $0) for transparency
+	parts.push(`$${(fine / 1000000).toFixed(1)}M fine`);
 	return parts.join(" • ") || "No change";
 }
 
@@ -109,9 +110,9 @@ function AuditEntry({
 					</span>
 					<div
 						className={`px-3 py-1 rounded text-xs font-bold ${
-							entry.choice === "RIGHT"
-								? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
-								: "bg-rose-500/20 text-rose-400 border border-rose-500/30"
+							outcome.fine > 0
+								? "bg-amber-500/20 text-amber-400 border border-amber-500/30"
+								: "bg-cyan-500/20 text-cyan-400 border border-cyan-500/30"
 						}`}
 					>
 						{outcome.label}
@@ -140,16 +141,16 @@ const PATH_HINT_CONFIG: Record<
 	{ border: string; icon: string; iconClass: string; labelClass: string }
 > = {
 	safe: {
-		border: "border-emerald-500/50",
+		border: "border-cyan-500/50",
 		icon: "💡",
-		iconClass: "text-emerald-400",
+		iconClass: "text-cyan-400",
 		labelClass: "text-cyan-400",
 	},
 	risky: {
-		border: "border-rose-500/50",
+		border: "border-amber-500/50",
 		icon: "🛡️",
-		iconClass: "text-rose-400",
-		labelClass: "text-emerald-400",
+		iconClass: "text-amber-400",
+		labelClass: "text-amber-400",
 	},
 };
 
