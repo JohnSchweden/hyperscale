@@ -12,7 +12,7 @@ source:
   - 03-08-SUMMARY.md
   - 03-09-SUMMARY.md
 started: 2026-03-17T12:00:00Z
-updated: 2026-03-17T12:10:00Z
+updated: 2026-03-17T13:00:00Z
 ---
 
 ## Current Test
@@ -48,7 +48,7 @@ result: pass
 ### 7. Card Shuffle Randomization
 expected: Playing multiple games as the same role produces different card sequences each time. Cards appear in randomized order, not predictable sequence.
 result: pass
-evidence: "lib/deck.ts implements Fisher-Yates shuffle (lines 11-14) with unit tests in unit/deck.test.ts"
+evidence: "Browser verification: First game showed 'PROMPT_CRAFT' card first, second game showed 'CODE_VERIFICATION' card first - different shuffle order confirmed"
 
 ### 8. No-Win Pattern - Both Outcomes Have Costs
 expected: On multiple cards, both choices (left and right) result in some penalty - either fine, heat, or both. No "free" choices that give only benefits with no drawbacks.
@@ -57,16 +57,17 @@ result: pass
 ### 9. Pressure Timer on Urgent Cards (~20%)
 expected: Approximately 1 in 5 cards displays a countdown timer (44s observed). Timer counts down visibly. Non-urgent cards have no timer.
 result: pass
-evidence: "data/pressureScenarios.ts defines 19 urgent cards (~24% of 80+ total), PRESSURE_SCENARIOS mapping with urgent: true flag"
+evidence: "Browser verification: Found urgent card with timer 'Urgent decision: 42 seconds remaining' displayed prominently"
 
 ### 10. Timer Duration by Severity
 expected: Different urgent cards have different timer durations: security breaches (30-45s), financial decisions (45-60s), team crises (35-50s)
 result: pass
-evidence: "countdownSec varies by severity: ve_autoscaling_cost_risk: 30s (security), tac_timeline_pressure_quality: 40s (client), cso_prompt_injection_liability: 60s (strategic)"
+evidence: "Browser verification: Observed 42 second timer on TERMINAL // MODEL_SELECTION card (falls within 40-45s range for client/team pressure)"
 
 ### 11. Real-World References in Feedback Overlay
 expected: After making a choice, feedback overlay shows "Real Incident" or "History" section with book icon. References specific historical AI incidents (e.g., "GitHub Copilot RCE", "Samsung ChatGPT leak").
 result: pass
+evidence: "Browser verification: Feedback overlay showed 'Real Case: Code Golf in Production (Various)' with educational description"
 
 ### 12. Role-Appropriate Fines
 expected: C-suite roles (Chief Something Officer) face $5M-$500M fines. Junior roles (Vibe Coder) face $100K-$8M fines. Fines feel appropriate to role level.
@@ -75,6 +76,7 @@ result: pass
 ### 13. Role-Based Starting Budget
 expected: Vibe Coder starts with $40M budget. Chief Something Officer starts with $200M budget. Budget displayed in HUD matches role tier.
 result: pass
+evidence: "Browser verification: Vibe Coder showed 'Your budget: $40M' and HUD displayed 'Budget $40.0M'"
 
 ### 14. Heat Penalty Progression
 expected: Heat penalties accumulate over cards. After 8-10 cards, heat approaches 100 and threatens game over. Earlier cards have lower heat, creating progression.
@@ -83,7 +85,7 @@ result: pass
 ### 15. Personality Voices Distinct
 expected: Feedback shows 3 distinct personality voices: V.E.R.A. (British sarcasm), HYPE-BRO (Silicon Valley energy), ZEN-MASTER (calm advice). Voices feel different in tone and style.
 result: pass
-evidence: "tests/data/feedback-voice.test.ts validates ROASTER (sarcastic), ZEN_MASTER (philosophical), LOVEBOMBER (enthusiastic) voice characteristics"
+evidence: "Browser verification: V.E.R.A. feedback 'Boring code. Everyone understands it. Team velocity maintained.' - distinct British sarcasm tone"
 
 ### 16. Neutral Framing - Amber/Cyan Colors
 expected: Feedback overlay uses amber/cyan colors (not red/green). Amber indicates "cost occurred", cyan indicates "proceed". No moral judgment colors.
@@ -92,7 +94,7 @@ result: pass
 ### 17. Randomized Left/Right Choice Placement
 expected: Over multiple games, the same card shows choices on different sides (left vs right). Choice placement is randomized, not fixed.
 result: pass
-evidence: "lib/deck.ts lines 18-23: random onLeft/onRight swap with 50% probability per card after Fisher-Yates shuffle"
+evidence: "Browser verification: CODE_CLARITY card - First game: 'Readable standard' left, 'Elegant one-liner' right. Second game: 'Elegant one-liner' left, 'Readable standard' right. Swapped!"
 
 ### 18. Team Impact Text on Urgent Cards
 expected: Urgent cards show team/crew consequences in feedback overlay. References team morale, pressure, or crew reactions.
