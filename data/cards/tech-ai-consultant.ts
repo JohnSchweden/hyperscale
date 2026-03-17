@@ -374,7 +374,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 		onRight: {
 			label: "Match low bid",
 			hype: 50,
-			heat: 8,
+			heat: 12,
 			fine: 8000000,
 			violation: "Underdelivery Risk + Professional Liability",
 			lesson:
@@ -423,7 +423,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 		onRight: {
 			label: "Minimize and deflect",
 			hype: 25,
-			heat: 8,
+			heat: 11,
 			fine: 5000000,
 			violation: "Professional Integrity + Client Trust",
 			lesson:
@@ -440,7 +440,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 		onLeft: {
 			label: "Admit and explain",
 			hype: -30,
-			heat: 10,
+			heat: 5,
 			fine: 500000,
 			violation: "None - Transparency",
 			lesson:

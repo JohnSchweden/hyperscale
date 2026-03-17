@@ -130,7 +130,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 		onRight: {
 			label: "Enforce ban",
 			hype: -25,
-			heat: 14,
+			heat: 17,
 			fine: 3000000,
 			violation: "Productivity Loss + Compliance Non-Enforcement",
 			lesson:
@@ -147,7 +147,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 		onLeft: {
 			label: "Approve budget",
 			hype: -50,
-			heat: 16,
+			heat: 5,
 			fine: 0,
 			violation: "None - Authorized procurement",
 			lesson:

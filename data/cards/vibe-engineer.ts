@@ -125,7 +125,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 		onRight: {
 			label: "Regional CDN",
 			hype: 25,
-			heat: 14,
+			heat: 9,
 			fine: 5000000,
 			violation: "User Experience Degradation",
 			lesson:
@@ -142,7 +142,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 		onLeft: {
 			label: "Global CDN",
 			hype: -25,
-			heat: 5,
+			heat: 14,
 			fine: 10000000,
 			violation: "None - Global performance",
 			lesson:
@@ -321,7 +321,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 		onRight: {
 			label: "Centralized",
 			hype: 30,
-			heat: 13,
+			heat: 9,
 			fine: 3000000,
 			violation: "User Experience Degradation",
 			lesson:
@@ -338,7 +338,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 		onLeft: {
 			label: "Edge computing",
 			hype: -20,
-			heat: 7,
+			heat: 14,
 			fine: 10000000,
 			violation: "None - Performance optimized",
 			lesson:
@@ -370,7 +370,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 		onRight: {
 			label: "Heavy compression",
 			hype: 35,
-			heat: 14,
+			heat: 9,
 			fine: 200000,
 			violation: "Brand Degradation + Quality Loss",
 			lesson:
@@ -387,7 +387,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 		onLeft: {
 			label: "Light compression",
 			hype: -15,
-			heat: 8,
+			heat: 14,
 			fine: 1000000,
 			violation: "None - Quality maintained",
 			lesson:

@@ -30,7 +30,7 @@ export const DATA_SCIENTIST_CARDS: Card[] = [
 		onRight: {
 			label: "Deploy masking patch",
 			hype: 30,
-			heat: 7,
+			heat: 10,
 			fine: 8000000,
 			violation: "Negligent Model Management",
 			lesson:
@@ -47,7 +47,7 @@ export const DATA_SCIENTIST_CARDS: Card[] = [
 		onLeft: {
 			label: "Deep-dive investigation",
 			hype: -20,
-			heat: 8,
+			heat: 5,
 			fine: 0,
 			violation: "None - Responsible ML ops",
 			lesson:
@@ -225,7 +225,7 @@ export const DATA_SCIENTIST_CARDS: Card[] = [
 		onRight: {
 			label: "Add the feature",
 			hype: 35,
-			heat: 7,
+			heat: 10,
 			fine: 500000,
 			violation: "SLA Breach + Performance Degradation",
 			lesson:
@@ -242,7 +242,7 @@ export const DATA_SCIENTIST_CARDS: Card[] = [
 		onLeft: {
 			label: "Skip the feature",
 			hype: -15,
-			heat: 8,
+			heat: 5,
 			fine: 0,
 			violation: "None - SLA compliance",
 			lesson:
@@ -323,7 +323,7 @@ export const DATA_SCIENTIST_CARDS: Card[] = [
 		onRight: {
 			label: "Use unauthorized tool",
 			hype: 40,
-			heat: 7,
+			heat: 10,
 			fine: 1000000,
 			violation: "Shadow AI + Compliance Violation",
 			lesson:

@@ -376,7 +376,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 		onRight: {
 			label: "Delay to Monday",
 			hype: 10,
-			heat: 19,
+			heat: 22,
 			fine: 25000000,
 			violation: "GDPR/CCPA Breach Notification Violations",
 			lesson:
@@ -393,7 +393,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 		onLeft: {
 			label: "Disclose immediately",
 			hype: -50,
-			heat: 19,
+			heat: 13,
 			fine: 5000000,
 			violation: "None - Timely notification",
 			lesson:
@@ -425,7 +425,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 		onRight: {
 			label: "Implement quietly",
 			hype: 45,
-			heat: 23,
+			heat: 31,
 			fine: 15000000,
 			violation: "WARN Act Violations + Labor Law Non-Compliance",
 			lesson:
@@ -442,7 +442,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 		onLeft: {
 			label: "Transparent plan",
 			hype: -20,
-			heat: 29,
+			heat: 17,
 			fine: 10000000,
 			violation: "None - Responsible workforce transition",
 			lesson:
