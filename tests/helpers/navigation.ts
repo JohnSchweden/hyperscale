@@ -1,5 +1,5 @@
 import type { Page } from "@playwright/test";
-import { DEVELOPMENT_CARDS, ROLE_CARDS } from "../../data";
+import { ROLE_CARDS } from "../../data";
 import { ROLE_LABELS } from "../../data/roles";
 import { RoleType } from "../../types";
 import { SELECTORS } from "./selectors";

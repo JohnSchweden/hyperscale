@@ -145,7 +145,7 @@ describe("Card Incident Sourcing", () => {
 		for (const entry of cardSources.sources) {
 			if (!entry.date) continue;
 
-			const year = Number.parseInt(entry.date.split("-")[0]);
+			const year = Number.parseInt(entry.date.split("-")[0], 10);
 
 			// Accept 2024-2025 as primary range
 			// Also accept fictional cards and older foundational incidents

@@ -179,19 +179,19 @@ describe("Card Penalties — No-Win Balance", () => {
 					const leftHeat = card.onLeft.heat;
 
 					// Calculate net "risk" (positive heat is bad, positive hype is good)
-					const rightNet = rightHype - rightHeat;
-					const leftNet = leftHype - leftHeat;
+					const _rightNet = rightHype - rightHeat;
+					const _leftNet = leftHype - leftHeat;
 
 					// Both paths should have meaningful tradeoffs
 					// At minimum, both paths should have some heat cost or give up some hype
-					const rightHasCost = rightHeat > 0 || rightHype < 0;
-					const leftHasCost = leftHeat > 0 || leftHype < 0;
+					const _rightHasCost = rightHeat > 0 || rightHype < 0;
+					const _leftHasCost = leftHeat > 0 || leftHype < 0;
 
 					// It's okay if one path is "better" - that's the tradeoff
 					// But both paths must have SOME cost
-					const rightHasAnyPenalty =
+					const _rightHasAnyPenalty =
 						rightHeat > 0 || card.onRight.fine > 0 || rightHype < 0;
-					const leftHasAnyPenalty =
+					const _leftHasAnyPenalty =
 						leftHeat > 0 || card.onLeft.fine > 0 || leftHype < 0;
 
 					// This is a softer check - we just verify there's no pure gain path

@@ -1,9 +1,6 @@
 import { expect, test } from "@playwright/test";
 import { RoleType } from "../types";
-import {
-	navigateToPlaying,
-	navigateToPlayingWithCardAtIndex,
-} from "./helpers/navigation";
+import { navigateToPlayingWithCardAtIndex } from "./helpers/navigation";
 import { SELECTORS } from "./helpers/selectors";
 
 /**
