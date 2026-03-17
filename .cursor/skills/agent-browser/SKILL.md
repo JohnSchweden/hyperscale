@@ -11,12 +11,18 @@ allowed-tools: Bash(agent-browser:*)
 Every browser automation follows this pattern:
 
 1. **Navigate**: `agent-browser open <url>`
+   - For HTTPS with self-signed certificates: `agent-browser --ignore-https-errors open <url>`
 2. **Snapshot**: `agent-browser snapshot -i` (get element refs like `@e1`, `@e2`)
 3. **Interact**: Use refs to click, fill, select
 4. **Re-snapshot**: After navigation or DOM changes, get fresh refs
 
 ```bash
+# Standard HTTP or valid HTTPS
 agent-browser open https://example.com/form
+
+# Self-signed HTTPS (dev servers) - MUST use --ignore-https-errors
+agent-browser --ignore-https-errors open https://localhost:3000
+
 agent-browser snapshot -i
 # Output: @e1 [input type="email"], @e2 [input type="password"], @e3 [button] "Submit"
 
@@ -129,6 +135,24 @@ agent-browser --headed open https://example.com
 agent-browser highlight @e1 # Highlight element
 agent-browser record start demo.webm # Record session
 ```
+
+### HTTPS with Self-Signed Certificates (Dev Servers)
+
+When testing local development servers that use HTTPS with self-signed certificates (common with Vite, Next.js, etc.):
+
+```bash
+# REQUIRED for self-signed SSL - otherwise get ERR_CERT_AUTHORITY_INVALID
+agent-browser --ignore-https-errors open https://localhost:3000
+
+# If daemon already running without the flag:
+agent-browser close  # Stop current daemon
+agent-browser --ignore-https-errors open https://localhost:3000  # Restart with flag
+```
+
+**Common Error:** `net::ERR_CERT_AUTHORITY_INVALID`
+**Solution:** Always use `--ignore-https-errors` flag for self-signed certificates.
+
+**Note:** Some features (like audio transcription) require HTTPS and cannot work over HTTP, making this flag essential.
 
 ### Local Files (PDFs, HTML)
 

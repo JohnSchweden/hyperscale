@@ -107,8 +107,10 @@ See `tasks/testing-runbook.md` for tiered test lanes (smoke, area, visual, slow)
 When you modify UI, interactions, or visual elements:
 
 **Using agent-browser:**
-1. Start dev server: `bun dev` (runs on http://localhost:3000)
-2. `agent-browser open http://localhost:3000`
+1. Start dev server: `bun dev` (runs on https://localhost:3000)
+2. `agent-browser --ignore-https-errors open https://localhost:3000`
+   - NOTE: `--ignore-https-errors` is REQUIRED for self-signed SSL certificates
+   - If daemon already running: `agent-browser close` first, then reopen with flag
 3. `agent-browser snapshot -i` to see interactive elements
 4. Test the specific feature you changed (click, swipe, fill forms, etc.)
 5. `agent-browser screenshot` to capture evidence of working state
