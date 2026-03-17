@@ -106,7 +106,7 @@ export const FeedbackOverlay: React.FC<FeedbackOverlayProps> = ({
 					Governance feedback
 				</h2>
 				<div
-					className={`text-4xl md:text-6xl mb-4 md:mb-6 ${fine > 0 ? "text-red-500" : "text-green-500"}`}
+					className={`text-4xl md:text-6xl mb-4 md:mb-6 ${fine > 0 ? "text-amber-400" : "text-cyan-400"}`}
 				>
 					<i
 						className={`fa-solid ${fine > 0 ? "fa-triangle-exclamation" : "fa-circle-check"}`}
