@@ -10,6 +10,7 @@ function getGrepInvert(): RegExp {
 
 export default defineConfig({
 	testDir: "./tests",
+	testIgnore: ["**/data/**"],
 	fullyParallel: true,
 	webServer: {
 		command: "bun run dev",
