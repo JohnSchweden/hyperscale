@@ -17,7 +17,7 @@ test.describe("LinkedIn CTA Section @area:debrief", () => {
 					personality: "ROASTER",
 					role: "SOFTWARE_ENGINEER",
 					currentCardIndex: 0,
-					history: [{ cardId: "dev_1", choice: "LEFT" }],
+					history: [{ cardId: "se_security_patch_timeline", choice: "LEFT" }],
 					deathReason: "Heat exceeded 100%",
 					deathType: "REPLACED_BY_SCRIPT",
 					unlockedEndings: ["REPLACED_BY_SCRIPT"],

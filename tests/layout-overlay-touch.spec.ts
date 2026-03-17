@@ -57,7 +57,7 @@ test.describe("Feedback overlay @area:layout", () => {
 	test("modal is visible and centered on desktop", async ({ page }) => {
 		await page.setViewportSize({ width: 1280, height: 720 });
 		await navigateToPlayingFast(page);
-		await page.locator('button:has-text("Paste")').click({ force: true });
+		await page.locator(SELECTORS.rightButton).first().click({ force: true });
 		await page.waitForSelector("role=dialog", { timeout: 3000 });
 
 		const modal = page
@@ -85,7 +85,7 @@ test.describe("Feedback overlay @area:layout", () => {
 	test("modal is visible and centered on mobile", async ({ page }) => {
 		await page.setViewportSize({ width: 393, height: 851 });
 		await navigateToPlayingFast(page);
-		await page.locator('button:has-text("Paste")').click({ force: true });
+		await page.locator(SELECTORS.rightButton).first().click({ force: true });
 		await page.waitForSelector("role=dialog", { timeout: 3000 });
 
 		const modal = page.locator('[role=dialog] [class*="max-w-lg"]').first();

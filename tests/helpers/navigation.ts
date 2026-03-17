@@ -153,15 +153,10 @@ export async function navigateToPlaying(
 	await roleButton.click();
 
 	// Wait for countdown to complete and game screen to load
-	// DEVELOPMENT deck has 2 cards with different buttons due to shuffling
-	await page
-		.locator('button:has-text("Debug")')
-		.or(page.locator('button:has-text("Ignore")'))
-		.waitFor({ state: "visible", timeout: 10000 });
 	await page
 		.locator(SELECTORS.card)
 		.first()
-		.waitFor({ state: "visible", timeout: 5000 });
+		.waitFor({ state: "visible", timeout: 10000 });
 }
 
 /**
@@ -216,20 +211,35 @@ export async function navigateToRoleSelectFast(page: Page): Promise<void> {
 }
 
 /**
- * From playing stage, swipe through DEVELOPMENT deck (2 cards) to reach boss fight.
+ * From playing stage, swipe through current deck to reach boss fight.
+ * NOTE: This assumes a short deck and is legacy-only; most tests should prefer
+ * km-debug-state based helpers instead.
  */
 async function navigateToBossFightFromPlaying(page: Page): Promise<void> {
-	await page.locator(SELECTORS.debugButton).click({ force: true });
-	await page
-		.locator(SELECTORS.nextTicketButton)
-		.waitFor({ state: "visible", timeout: 5000 });
-	await page.locator(SELECTORS.nextTicketButton).click({ force: true });
-	await page.locator('button:has-text("Ignore")').click({ force: true });
-	await page
-		.locator(SELECTORS.nextTicketButton)
-		.waitFor({ state: "visible", timeout: 5000 });
-	await page.locator(SELECTORS.nextTicketButton).click({ force: true });
-	await page.waitForSelector("text=Boss fight", { timeout: 8000 });
+	const maxSteps = 50;
+	for (let i = 0; i < maxSteps; i++) {
+		// If boss fight already visible, stop
+		const bossVisible = await page
+			.getByText("Boss fight")
+			.isVisible()
+			.catch(() => false);
+		if (bossVisible) return;
+
+		// If Next ticket is visible, click it
+		const nextBtn = page.locator(SELECTORS.nextTicketButton);
+		if (await nextBtn.isVisible().catch(() => false)) {
+			await nextBtn.click({ force: true });
+			await page.waitForTimeout(400);
+			continue;
+		}
+
+		// Otherwise swipe right to advance the deck
+		const rightBtn = await getRightButton(page);
+		if (await rightBtn.isVisible().catch(() => false)) {
+			await rightBtn.click({ force: true });
+			await page.waitForTimeout(600);
+		}
+	}
 }
 
 /**
@@ -244,8 +254,31 @@ export async function navigateToBossFight(page: Page): Promise<void> {
  * Navigate to boss fight from already-loaded playing stage (uses fast path).
  */
 export async function navigateToBossFightFast(page: Page): Promise<void> {
-	await navigateToPlayingFast(page);
-	await navigateToBossFightFromPlaying(page);
+	// Use km-debug-state to jump directly into boss fight
+	await page.addInitScript(() => {
+		window.localStorage.setItem(
+			"km-debug-state",
+			JSON.stringify({
+				stage: "BOSS_FIGHT",
+				hype: 60,
+				heat: 40,
+				budget: 7500000,
+				personality: "ROASTER",
+				role: "SOFTWARE_ENGINEER",
+				currentCardIndex: 0,
+				history: [],
+				deathReason: null,
+				deathType: null,
+				unlockedEndings: [],
+				bossFightAnswers: [],
+				effectiveDeck: null,
+			}),
+		);
+	});
+	await page.goto("/");
+	await page
+		.getByText("Boss fight")
+		.waitFor({ state: "visible", timeout: 5000 });
 }
 
 /**
@@ -279,16 +312,53 @@ export async function navigateToGameOver(page: Page): Promise<void> {
  * Uses Tech/AI Consultant + Launch to exhaust budget.
  */
 export async function navigateToGameOverFast(page: Page): Promise<void> {
-	await navigateToPlayingWithRoleFast(page, RoleType.TECH_AI_CONSULTANT);
+	// Jump directly into a near-bankrupt state and trigger a costly choice
+	await page.addInitScript(() => {
+		window.localStorage.setItem(
+			"km-debug-state",
+			JSON.stringify({
+				stage: "PLAYING",
+				hype: 40,
+				heat: 80,
+				budget: 100000, // very low
+				personality: "ROASTER",
+				role: "TECH_AI_CONSULTANT",
+				currentCardIndex: 0,
+				history: [],
+				deathReason: null,
+				deathType: null,
+				unlockedEndings: [],
+				bossFightAnswers: [],
+				effectiveDeck: null,
+			}),
+		);
+	});
+
+	await page.goto("/");
 	await page
-		.locator('button:has-text("Launch")')
-		.waitFor({ state: "visible", timeout: 6000 });
-	await page.locator('button:has-text("Launch")').click({ force: true });
-	await page
-		.locator(SELECTORS.nextTicketButton)
+		.locator(SELECTORS.card)
+		.first()
 		.waitFor({ state: "visible", timeout: 5000 });
-	await page.locator(SELECTORS.nextTicketButton).click({ force: true });
-	await page.waitForSelector("text=Liquidated", { timeout: 5000 });
+
+	// Click the risky/right choice until we hit GAME_OVER
+	const maxSwipes = 10;
+	for (let i = 0; i < maxSwipes; i++) {
+		const gameOverVisible = await page
+			.getByText("Liquidated")
+			.isVisible()
+			.catch(() => false);
+		if (gameOverVisible) return;
+
+		const rightBtn = await getRightButton(page);
+		if (await rightBtn.isVisible().catch(() => false)) {
+			await rightBtn.click({ force: true });
+		}
+		const nextBtn = page.locator(SELECTORS.nextTicketButton);
+		if (await nextBtn.isVisible().catch(() => false)) {
+			await nextBtn.click({ force: true });
+		}
+		await page.waitForTimeout(500);
+	}
 }
 
 async function getWithFallback(

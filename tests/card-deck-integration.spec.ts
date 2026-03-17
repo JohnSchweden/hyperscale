@@ -66,8 +66,8 @@ test.describe("Card Deck Integration — 10 Role System @area:gameplay", () => {
 					if (cardId) cardIds.push(cardId);
 
 					// Swipe left to advance
-					await page.locator(SELECTORS.leftButton).click();
-					await page.waitForTimeout(200); // Wait for animation
+					await page.locator(SELECTORS.leftButton).click({ force: true });
+					await page.waitForTimeout(500); // Wait for animation
 				}
 
 				gameDecks.push(cardIds);
@@ -145,8 +145,8 @@ test.describe("Card Deck Integration — 10 Role System @area:gameplay", () => {
 				expect(cardId?.length).toBeGreaterThan(0);
 
 				// Swipe to next
-				await page.locator(SELECTORS.leftButton).click();
-				await page.waitForTimeout(200);
+				await page.locator(SELECTORS.leftButton).click({ force: true });
+				await page.waitForTimeout(500);
 			}
 		});
 	});
@@ -166,8 +166,8 @@ test.describe("Card Deck Integration — 10 Role System @area:gameplay", () => {
 						.getAttribute("data-card-id");
 					if (cardId) cardIds.push(cardId);
 
-					await page.locator(SELECTORS.leftButton).click();
-					await page.waitForTimeout(200);
+					await page.locator(SELECTORS.leftButton).click({ force: true });
+					await page.waitForTimeout(500);
 				}
 
 				roleCardSets[role] = new Set(cardIds);

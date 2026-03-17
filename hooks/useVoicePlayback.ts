@@ -60,11 +60,11 @@ export function useVoicePlayback({
 		let trigger = "feedback_ignore";
 
 		// Map based on card ID and choice to determine correct feedback voice
-		// Development role cards
-		if (feedbackCardId === "dev_1") {
+		// Software Engineer role - first card (Phase 3)
+		if (feedbackCardId === "se_security_patch_timeline") {
 			trigger =
 				feedbackChoice === "RIGHT" ? "feedback_paste" : "feedback_debug";
-		} else if (feedbackCardId === "dev_icarus_unverified") {
+		} else if (feedbackCardId === "se_code_quality_refactor") {
 			trigger =
 				feedbackChoice === "RIGHT" ? "feedback_install" : "feedback_ignore";
 		}

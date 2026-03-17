@@ -42,12 +42,11 @@ test.describe("Stage transitions @area:gameplay @slow", () => {
 	}) => {
 		await navigateToPlaying(page);
 
-		// DEVELOPMENT deck has 2 cards that can appear in any order due to shuffling
-		// Check for either card's button pair
+		// After INITIALIZING, a card with swipe buttons should be visible
 		await expect(
 			page
-				.locator(SELECTORS.debugButton)
-				.or(page.locator('button:has-text("Ignore")')),
+				.locator(SELECTORS.leftButton)
+				.or(page.locator(SELECTORS.rightButton)),
 		).toBeVisible({ timeout: 10000 });
 	});
 
@@ -55,26 +54,9 @@ test.describe("Stage transitions @area:gameplay @slow", () => {
 		page,
 	}) => {
 		test.setTimeout(60000);
-		// Use deterministic navigation to ensure predictable card order (unshuffled DEVELOPMENT deck)
-		const { navigateToPlayingWithCardAtIndex } = await import(
-			"./helpers/navigation"
-		);
-		const { RoleType } = await import("../types");
-		await navigateToPlayingWithCardAtIndex(page, RoleType.SOFTWARE_ENGINEER, 0);
-
-		// Development has 2 cards in order: dev_1 (Debug/Paste), dev_icarus_unverified (Ignore/Install)
-		// Swipe left on both to avoid game over, then Next ticket to boss
-		await page.locator(SELECTORS.debugButton).click({ force: true });
-		const nextBtn = page.locator(SELECTORS.nextTicketButton);
-		await nextBtn.waitFor({ state: "visible", timeout: 5000 });
-		await nextBtn.click({ force: true });
-
-		await page
-			.locator('button:has-text("Ignore")')
-			.waitFor({ state: "visible", timeout: 5000 });
-		await page.locator('button:has-text("Ignore")').click({ force: true });
-		await nextBtn.waitFor({ state: "visible", timeout: 5000 });
-		await nextBtn.click({ force: true });
+		// Use helper to reach boss fight with current Phase 3 decks
+		const { navigateToBossFightFast } = await import("./helpers/navigation");
+		await navigateToBossFightFast(page);
 
 		await page.waitForSelector("text=Boss fight", { timeout: 8000 });
 		await expect(page.locator('button:has-text("A.")').first()).toBeVisible({

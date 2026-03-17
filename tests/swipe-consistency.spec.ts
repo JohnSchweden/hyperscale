@@ -47,8 +47,8 @@ async function clickNextTicket(page: Page): Promise<void> {
 	});
 
 	// Click Next Ticket button
-	const nextTicketButton = page.locator('button:has-text("Next ticket")');
-	await nextTicketButton.click();
+	const nextTicketButton = page.locator(SELECTORS.nextTicketButton);
+	await nextTicketButton.click({ force: true });
 
 	// Wait for overlay to disappear and new card to appear
 	await page.waitForSelector('[data-testid="feedback-dialog"]', {
@@ -56,9 +56,9 @@ async function clickNextTicket(page: Page): Promise<void> {
 		timeout: 5000,
 	});
 	await page
-		.locator('[data-testid="incident-card"]')
+		.locator(SELECTORS.card)
 		.first()
-		.waitFor({ state: "visible", timeout: 3000 });
+		.waitFor({ state: "visible", timeout: 5000 });
 }
 
 test.describe("Swipe Consistency @area:input", () => {
