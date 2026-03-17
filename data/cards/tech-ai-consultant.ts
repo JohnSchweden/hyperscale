@@ -31,7 +31,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 		onRight: {
 			label: "Fight cancellation",
 			hype: 10,
-			heat: 18,
+			heat: 8,
 			fine: 5000000,
 			violation: "Breach of Contract Liability",
 			lesson:
@@ -48,7 +48,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 		onLeft: {
 			label: "Free security overhaul",
 			hype: -40,
-			heat: 15,
+			heat: 7,
 			fine: 300000,
 			violation: "None - Good faith remediation",
 			lesson:
@@ -80,7 +80,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 		onRight: {
 			label: "Refuse retraining",
 			hype: 20,
-			heat: 38,
+			heat: 17,
 			fine: 8000000,
 			violation: "Professional Liability + Reputation Damage",
 			lesson:
@@ -97,7 +97,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 		onLeft: {
 			label: "Free retraining",
 			hype: -30,
-			heat: 18,
+			heat: 8,
 			fine: 300000,
 			violation: "None - Client retention",
 			lesson:
@@ -129,7 +129,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 		onRight: {
 			label: "Client's problem",
 			hype: 15,
-			heat: 35,
+			heat: 16,
 			fine: 3000000,
 			violation: "Vendor Lock-in Liability",
 			lesson:
@@ -146,7 +146,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 		onLeft: {
 			label: "Absorb migration cost",
 			hype: -50,
-			heat: 12,
+			heat: 5,
 			fine: 1000000,
 			violation: "None - Good faith resolution",
 			lesson:
@@ -178,7 +178,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 		onRight: {
 			label: "Absorb scope creep",
 			hype: 20,
-			heat: 32,
+			heat: 14,
 			fine: 500000,
 			violation: "Scope Management Failure",
 			lesson:
@@ -195,7 +195,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 		onLeft: {
 			label: "Enforce change order",
 			hype: -15,
-			heat: 25,
+			heat: 11,
 			fine: 0,
 			violation: "None - Contractual compliance",
 			lesson:
@@ -227,7 +227,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 		onRight: {
 			label: "Refuse indemnification",
 			hype: 10,
-			heat: 45,
+			heat: 20,
 			fine: 15000000,
 			violation: "IP Liability + Reputation Risk",
 			lesson:
@@ -244,7 +244,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 		onLeft: {
 			label: "Offer indemnification",
 			hype: -60,
-			heat: 18,
+			heat: 8,
 			fine: 5000000,
 			violation: "None - Good faith assumption of risk",
 			lesson:
@@ -276,7 +276,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 		onRight: {
 			label: "Ship incomplete MVP",
 			hype: 35,
-			heat: 38,
+			heat: 17,
 			fine: 4000000,
 			violation: "Professional Negligence",
 			lesson:
@@ -293,7 +293,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 		onLeft: {
 			label: "Push deadline",
 			hype: -25,
-			heat: 22,
+			heat: 10,
 			fine: 0,
 			violation: "None - Quality commitment",
 			lesson:
@@ -325,7 +325,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 		onRight: {
 			label: "Push back on scope",
 			hype: 15,
-			heat: 32,
+			heat: 14,
 			fine: 2500000,
 			violation: "Change Order Dispute",
 			lesson:
@@ -342,7 +342,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 		onLeft: {
 			label: "Retrofit for explainability",
 			hype: -35,
-			heat: 12,
+			heat: 5,
 			fine: 300000,
 			violation: "None - Partnership investment",
 			lesson:
@@ -374,7 +374,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 		onRight: {
 			label: "Match low bid",
 			hype: 50,
-			heat: 18,
+			heat: 8,
 			fine: 8000000,
 			violation: "Underdelivery Risk + Professional Liability",
 			lesson:
@@ -391,7 +391,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 		onLeft: {
 			label: "Stick to quality bid",
 			hype: -20,
-			heat: 18,
+			heat: 8,
 			fine: 0,
 			violation: "None - Honest bidding",
 			lesson:
@@ -423,7 +423,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 		onRight: {
 			label: "Minimize and deflect",
 			hype: 25,
-			heat: 18,
+			heat: 8,
 			fine: 5000000,
 			violation: "Professional Integrity + Client Trust",
 			lesson:
@@ -440,7 +440,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 		onLeft: {
 			label: "Admit and explain",
 			hype: -30,
-			heat: 22,
+			heat: 10,
 			fine: 500000,
 			violation: "None - Transparency",
 			lesson:

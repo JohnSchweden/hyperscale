@@ -30,7 +30,7 @@ export const SOFTWARE_ARCHITECT_CARDS: Card[] = [
 		onRight: {
 			label: "Microservices",
 			hype: 40,
-			heat: 38,
+			heat: 17,
 			fine: 8000000,
 			violation: "Architectural Overengineering",
 			lesson:
@@ -47,7 +47,7 @@ export const SOFTWARE_ARCHITECT_CARDS: Card[] = [
 		onLeft: {
 			label: "Monolith",
 			hype: -10,
-			heat: 22,
+			heat: 10,
 			fine: 2000000,
 			violation: "None - Pragmatic architecture",
 			lesson:
@@ -79,7 +79,7 @@ export const SOFTWARE_ARCHITECT_CARDS: Card[] = [
 		onRight: {
 			label: "Defer for features",
 			hype: 35,
-			heat: 45,
+			heat: 20,
 			fine: 12000000,
 			violation: "Technical Negligence + Accumulated Debt",
 			lesson:
@@ -96,7 +96,7 @@ export const SOFTWARE_ARCHITECT_CARDS: Card[] = [
 		onLeft: {
 			label: "Allocate 40% to debt",
 			hype: -25,
-			heat: 18,
+			heat: 8,
 			fine: 0,
 			violation: "None - Sustainable architecture",
 			lesson:
@@ -128,7 +128,7 @@ export const SOFTWARE_ARCHITECT_CARDS: Card[] = [
 		onRight: {
 			label: "Breaking change",
 			hype: 30,
-			heat: 42,
+			heat: 19,
 			fine: 5000000,
 			violation: "API Contract Breach + Customer Impact",
 			lesson:
@@ -145,7 +145,7 @@ export const SOFTWARE_ARCHITECT_CARDS: Card[] = [
 		onLeft: {
 			label: "Backward compatibility",
 			hype: -20,
-			heat: 20,
+			heat: 9,
 			fine: 500000,
 			violation: "None - API contract preservation",
 			lesson:
@@ -177,7 +177,7 @@ export const SOFTWARE_ARCHITECT_CARDS: Card[] = [
 		onRight: {
 			label: "Single instance",
 			hype: 50,
-			heat: 48,
+			heat: 22,
 			fine: 15000000,
 			violation: "Single Point of Failure + Availability Risk",
 			lesson:
@@ -194,7 +194,7 @@ export const SOFTWARE_ARCHITECT_CARDS: Card[] = [
 		onLeft: {
 			label: "Distributed cluster",
 			hype: -35,
-			heat: 12,
+			heat: 5,
 			fine: 0,
 			violation: "None - Resilient architecture",
 			lesson:
@@ -226,7 +226,7 @@ export const SOFTWARE_ARCHITECT_CARDS: Card[] = [
 		onRight: {
 			label: "Big-bang rewrite",
 			hype: 55,
-			heat: 45,
+			heat: 20,
 			fine: 10000000,
 			violation: "Project Failure Risk + Business Disruption",
 			lesson:
@@ -243,7 +243,7 @@ export const SOFTWARE_ARCHITECT_CARDS: Card[] = [
 		onLeft: {
 			label: "Incremental migration",
 			hype: -20,
-			heat: 22,
+			heat: 10,
 			fine: 2000000,
 			violation: "None - Pragmatic migration",
 			lesson:
@@ -275,7 +275,7 @@ export const SOFTWARE_ARCHITECT_CARDS: Card[] = [
 		onRight: {
 			label: "Perimeter security",
 			hype: 40,
-			heat: 45,
+			heat: 20,
 			fine: 20000000,
 			violation: "Security Negligence + Data Breach Risk",
 			lesson:
@@ -292,7 +292,7 @@ export const SOFTWARE_ARCHITECT_CARDS: Card[] = [
 		onLeft: {
 			label: "Zero-trust",
 			hype: -30,
-			heat: 30,
+			heat: 14,
 			fine: 0,
 			violation: "None - Security best practice",
 			lesson:
@@ -324,7 +324,7 @@ export const SOFTWARE_ARCHITECT_CARDS: Card[] = [
 		onRight: {
 			label: "Direct access",
 			hype: 45,
-			heat: 48,
+			heat: 22,
 			fine: 20000000,
 			violation:
 				"Prompt Injection Vulnerability + Security Architecture Failure",
@@ -342,7 +342,7 @@ export const SOFTWARE_ARCHITECT_CARDS: Card[] = [
 		onLeft: {
 			label: "Sandboxed",
 			hype: -25,
-			heat: 12,
+			heat: 5,
 			fine: 500000,
 			violation: "None - Secure architecture",
 			lesson:
@@ -374,7 +374,7 @@ export const SOFTWARE_ARCHITECT_CARDS: Card[] = [
 		onRight: {
 			label: "Proprietary platform",
 			hype: 50,
-			heat: 35,
+			heat: 16,
 			fine: 8000000,
 			violation: "Vendor Lock-in Risk",
 			lesson:
@@ -391,7 +391,7 @@ export const SOFTWARE_ARCHITECT_CARDS: Card[] = [
 		onLeft: {
 			label: "Open standards",
 			hype: -15,
-			heat: 20,
+			heat: 9,
 			fine: 1000000,
 			violation: "None - Portable architecture",
 			lesson:
@@ -423,7 +423,7 @@ export const SOFTWARE_ARCHITECT_CARDS: Card[] = [
 		onRight: {
 			label: "In-place",
 			hype: 35,
-			heat: 45,
+			heat: 20,
 			fine: 12000000,
 			violation: "Deployment Risk + Downtime Exposure",
 			lesson:
@@ -440,7 +440,7 @@ export const SOFTWARE_ARCHITECT_CARDS: Card[] = [
 		onLeft: {
 			label: "Blue-green",
 			hype: -20,
-			heat: 12,
+			heat: 5,
 			fine: 1000000,
 			violation: "None - Safe deployment",
 			lesson:

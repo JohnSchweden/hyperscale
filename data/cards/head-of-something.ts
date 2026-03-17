@@ -31,7 +31,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 		onRight: {
 			label: "Name the engineer",
 			hype: 10,
-			heat: 38,
+			heat: 17,
 			fine: 2000000,
 			violation: "Hostile Workplace + Retaliation Risk",
 			lesson:
@@ -48,7 +48,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 		onLeft: {
 			label: "Take the blame",
 			hype: -30,
-			heat: 12,
+			heat: 5,
 			fine: 1000000,
 			violation: "None - Responsible leadership",
 			lesson:
@@ -80,7 +80,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 		onRight: {
 			label: "Ship without retraining",
 			hype: 25,
-			heat: 35,
+			heat: 16,
 			fine: 8000000,
 			violation: "Product Liability + Negligence",
 			lesson:
@@ -97,7 +97,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 		onLeft: {
 			label: "Fight for budget",
 			hype: -15,
-			heat: 30,
+			heat: 14,
 			fine: 0,
 			violation: "None - Responsible escalation",
 			lesson:
@@ -129,7 +129,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 		onRight: {
 			label: "Give names to compliance",
 			hype: 15,
-			heat: 32,
+			heat: 14,
 			fine: 1000000,
 			violation: "Team Trust Violation + Retaliation Risk",
 			lesson:
@@ -146,7 +146,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 		onLeft: {
 			label: "Shield the team",
 			hype: -25,
-			heat: 38,
+			heat: 17,
 			fine: 2000000,
 			violation: "Governance Non-Compliance",
 			lesson:
@@ -178,7 +178,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 		onRight: {
 			label: "Push team harder",
 			hype: 35,
-			heat: 45,
+			heat: 20,
 			fine: 3000000,
 			violation: "Labor Law Violations + Burnout Liability",
 			lesson:
@@ -195,7 +195,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 		onLeft: {
 			label: "Push back on deadline",
 			hype: -20,
-			heat: 28,
+			heat: 13,
 			fine: 0,
 			violation: "None - Sustainable pace advocacy",
 			lesson:
@@ -227,7 +227,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 		onRight: {
 			label: "Side with auditors",
 			hype: -15,
-			heat: 32,
+			heat: 14,
 			fine: 0,
 			violation: "None - Compliance alignment",
 			lesson:
@@ -244,7 +244,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 		onLeft: {
 			label: "Side with engineering",
 			hype: 20,
-			heat: 42,
+			heat: 19,
 			fine: 25000000,
 			violation: "Audit Non-Compliance + Regulatory Risk",
 			lesson:
@@ -276,7 +276,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 		onRight: {
 			label: "Cooperate with investigation",
 			hype: 10,
-			heat: 35,
+			heat: 16,
 			fine: 5000000,
 			violation: "Team Trust Violation",
 			lesson:
@@ -293,7 +293,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 		onLeft: {
 			label: "Protect the team",
 			hype: -20,
-			heat: 42,
+			heat: 19,
 			fine: 35000000,
 			violation: "Obstruction Risk",
 			lesson:
@@ -325,7 +325,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 		onRight: {
 			label: "Admit oversight failure",
 			hype: -10,
-			heat: 30,
+			heat: 14,
 			fine: 1000000,
 			violation: "None - Accountability acknowledgment",
 			lesson:
@@ -342,7 +342,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 		onLeft: {
 			label: "Defend delegation",
 			hype: 15,
-			heat: 38,
+			heat: 17,
 			fine: 4000000,
 			violation: "Negligent Supervision",
 			lesson:
@@ -374,7 +374,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 		onRight: {
 			label: "Promise the impossible",
 			hype: 40,
-			heat: 48,
+			heat: 22,
 			fine: 50000000,
 			violation: "Negligent Management + Burnout Liability",
 			lesson:
@@ -391,7 +391,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 		onLeft: {
 			label: "Tell leadership no",
 			hype: -35,
-			heat: 28,
+			heat: 13,
 			fine: 0,
 			violation: "None - Realistic expectation setting",
 			lesson:
@@ -423,7 +423,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 		onRight: {
 			label: "Promote politically connected",
 			hype: 25,
-			heat: 32,
+			heat: 14,
 			fine: 0,
 			violation: "Discrimination Risk",
 			lesson:
@@ -440,7 +440,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 		onLeft: {
 			label: "Promote best performer",
 			hype: -10,
-			heat: 35,
+			heat: 16,
 			fine: 0,
 			violation: "None - Merit-based decision",
 			lesson:

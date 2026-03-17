@@ -30,7 +30,7 @@ export const DATA_SCIENTIST_CARDS: Card[] = [
 		onRight: {
 			label: "Deploy masking patch",
 			hype: 30,
-			heat: 15,
+			heat: 7,
 			fine: 8000000,
 			violation: "Negligent Model Management",
 			lesson:
@@ -47,7 +47,7 @@ export const DATA_SCIENTIST_CARDS: Card[] = [
 		onLeft: {
 			label: "Deep-dive investigation",
 			hype: -20,
-			heat: 18,
+			heat: 8,
 			fine: 0,
 			violation: "None - Responsible ML ops",
 			lesson:
@@ -79,7 +79,7 @@ export const DATA_SCIENTIST_CARDS: Card[] = [
 		onRight: {
 			label: "Use unvalidated data",
 			hype: 45,
-			heat: 40,
+			heat: 18,
 			fine: 12000000,
 			violation: "Biased Model Deployment + Fairness Violations",
 			lesson:
@@ -96,7 +96,7 @@ export const DATA_SCIENTIST_CARDS: Card[] = [
 		onLeft: {
 			label: "Wait for validation",
 			hype: -25,
-			heat: 10,
+			heat: 5,
 			fine: 0,
 			violation: "None - Data quality assurance",
 			lesson:
@@ -127,7 +127,7 @@ export const DATA_SCIENTIST_CARDS: Card[] = [
 		onRight: {
 			label: "Deploy with monitoring",
 			hype: 40,
-			heat: 42,
+			heat: 19,
 			fine: 15000000,
 			violation: "Algorithmic Bias + Civil Rights Violations",
 			lesson:
@@ -144,7 +144,7 @@ export const DATA_SCIENTIST_CARDS: Card[] = [
 		onLeft: {
 			label: "Delay to fix bias",
 			hype: -35,
-			heat: 15,
+			heat: 7,
 			fine: 0,
 			violation: "None - Responsible AI ethics",
 			lesson:
@@ -176,7 +176,7 @@ export const DATA_SCIENTIST_CARDS: Card[] = [
 		onRight: {
 			label: "Choose black-box",
 			hype: 55,
-			heat: 40,
+			heat: 18,
 			fine: 15000000,
 			violation: "Audit Non-Compliance + Explainability Requirements",
 			lesson:
@@ -193,7 +193,7 @@ export const DATA_SCIENTIST_CARDS: Card[] = [
 		onLeft: {
 			label: "Choose white-box",
 			hype: -30,
-			heat: 12,
+			heat: 5,
 			fine: 0,
 			violation: "None - Compliant model selection",
 			lesson:
@@ -225,7 +225,7 @@ export const DATA_SCIENTIST_CARDS: Card[] = [
 		onRight: {
 			label: "Add the feature",
 			hype: 35,
-			heat: 15,
+			heat: 7,
 			fine: 500000,
 			violation: "SLA Breach + Performance Degradation",
 			lesson:
@@ -242,7 +242,7 @@ export const DATA_SCIENTIST_CARDS: Card[] = [
 		onLeft: {
 			label: "Skip the feature",
 			hype: -15,
-			heat: 18,
+			heat: 8,
 			fine: 0,
 			violation: "None - SLA compliance",
 			lesson:
@@ -274,7 +274,7 @@ export const DATA_SCIENTIST_CARDS: Card[] = [
 		onRight: {
 			label: "Quick sanitization",
 			hype: 25,
-			heat: 38,
+			heat: 17,
 			fine: 10000000,
 			violation: "Security Vulnerability + Negligent Deployment",
 			lesson:
@@ -291,7 +291,7 @@ export const DATA_SCIENTIST_CARDS: Card[] = [
 		onLeft: {
 			label: "Architectural fix",
 			hype: -30,
-			heat: 10,
+			heat: 5,
 			fine: 0,
 			violation: "None - Security best practice",
 			lesson:
@@ -323,7 +323,7 @@ export const DATA_SCIENTIST_CARDS: Card[] = [
 		onRight: {
 			label: "Use unauthorized tool",
 			hype: 40,
-			heat: 15,
+			heat: 7,
 			fine: 1000000,
 			violation: "Shadow AI + Compliance Violation",
 			lesson:
@@ -340,7 +340,7 @@ export const DATA_SCIENTIST_CARDS: Card[] = [
 		onLeft: {
 			label: "Stick to approved tools",
 			hype: -20,
-			heat: 10,
+			heat: 5,
 			fine: 0,
 			violation: "None - Governance compliance",
 			lesson:
@@ -372,7 +372,7 @@ export const DATA_SCIENTIST_CARDS: Card[] = [
 		onRight: {
 			label: "Proceed with unclear data",
 			hype: 35,
-			heat: 42,
+			heat: 19,
 			fine: 15000000,
 			violation: "Copyright Infringement + IP Theft",
 			lesson:
@@ -389,7 +389,7 @@ export const DATA_SCIENTIST_CARDS: Card[] = [
 		onLeft: {
 			label: "Remove and re-collect",
 			hype: -40,
-			heat: 12,
+			heat: 5,
 			fine: 0,
 			violation: "None - IP compliance",
 			lesson:
@@ -421,7 +421,7 @@ export const DATA_SCIENTIST_CARDS: Card[] = [
 		onRight: {
 			label: "Skip this cycle",
 			hype: 20,
-			heat: 32,
+			heat: 14,
 			fine: 300000,
 			violation: "Model Maintenance Negligence",
 			lesson:
@@ -438,7 +438,7 @@ export const DATA_SCIENTIST_CARDS: Card[] = [
 		onLeft: {
 			label: "Maintain schedule",
 			hype: -15,
-			heat: 8,
+			heat: 4,
 			fine: 0,
 			violation: "None - Preventive maintenance",
 			lesson:

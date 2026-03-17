@@ -29,7 +29,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 		onRight: {
 			label: "Aggressive caching",
 			hype: 45,
-			heat: 35,
+			heat: 16,
 			fine: 12000000,
 			violation: "Data Consistency Risk + Stale Data Exposure",
 			lesson:
@@ -46,7 +46,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 		onLeft: {
 			label: "Fresh queries",
 			hype: -30,
-			heat: 15,
+			heat: 7,
 			fine: 1000000,
 			violation: "None - Data consistency",
 			lesson: "Fresh queries ensure data accuracy at performance cost.",
@@ -77,7 +77,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 		onRight: {
 			label: "Fixed capacity",
 			hype: 20,
-			heat: 40,
+			heat: 18,
 			fine: 12000000,
 			violation: "Availability Risk + Downtime Exposure",
 			lesson:
@@ -94,7 +94,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 		onLeft: {
 			label: "Auto-scale",
 			hype: -35,
-			heat: 8,
+			heat: 4,
 			fine: 5000000,
 			violation: "None - Elastic infrastructure",
 			lesson: "Auto-scaling handles traffic spikes reliably at variable cost.",
@@ -125,7 +125,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 		onRight: {
 			label: "Regional CDN",
 			hype: 25,
-			heat: 32,
+			heat: 14,
 			fine: 5000000,
 			violation: "User Experience Degradation",
 			lesson:
@@ -142,7 +142,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 		onLeft: {
 			label: "Global CDN",
 			hype: -25,
-			heat: 10,
+			heat: 5,
 			fine: 10000000,
 			violation: "None - Global performance",
 			lesson:
@@ -174,7 +174,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 		onRight: {
 			label: "Read replicas",
 			hype: 35,
-			heat: 35,
+			heat: 16,
 			fine: 10000000,
 			violation: "Consistency Violation + Financial Risk",
 			lesson:
@@ -191,7 +191,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 		onLeft: {
 			label: "Scale primary",
 			hype: -20,
-			heat: 18,
+			heat: 8,
 			fine: 500000,
 			violation: "None - Strong consistency",
 			lesson:
@@ -223,7 +223,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 		onRight: {
 			label: "Polling",
 			hype: 20,
-			heat: 30,
+			heat: 14,
 			fine: 4000000,
 			violation: "Performance Degradation + Resource Waste",
 			lesson:
@@ -240,7 +240,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 		onLeft: {
 			label: "WebSockets",
 			hype: -15,
-			heat: 20,
+			heat: 9,
 			fine: 1000000,
 			violation: "None - Real-time architecture",
 			lesson:
@@ -272,7 +272,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 		onRight: {
 			label: "Remove validation",
 			hype: 40,
-			heat: 42,
+			heat: 19,
 			fine: 12000000,
 			violation: "Prompt Injection + Security Vulnerability",
 			lesson:
@@ -289,7 +289,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 		onLeft: {
 			label: "Keep validation",
 			hype: -30,
-			heat: 8,
+			heat: 4,
 			fine: 0,
 			violation: "None - Security maintained",
 			lesson:
@@ -321,7 +321,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 		onRight: {
 			label: "Centralized",
 			hype: 30,
-			heat: 28,
+			heat: 13,
 			fine: 3000000,
 			violation: "User Experience Degradation",
 			lesson:
@@ -338,7 +338,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 		onLeft: {
 			label: "Edge computing",
 			hype: -20,
-			heat: 15,
+			heat: 7,
 			fine: 10000000,
 			violation: "None - Performance optimized",
 			lesson:
@@ -370,7 +370,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 		onRight: {
 			label: "Heavy compression",
 			hype: 35,
-			heat: 30,
+			heat: 14,
 			fine: 200000,
 			violation: "Brand Degradation + Quality Loss",
 			lesson:
@@ -387,7 +387,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 		onLeft: {
 			label: "Light compression",
 			hype: -15,
-			heat: 18,
+			heat: 8,
 			fine: 1000000,
 			violation: "None - Quality maintained",
 			lesson:
@@ -419,7 +419,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 		onRight: {
 			label: "Batch processing",
 			hype: 25,
-			heat: 30,
+			heat: 14,
 			fine: 3000000,
 			violation: "Business Intelligence Delay",
 			lesson:
@@ -436,7 +436,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 		onLeft: {
 			label: "Streaming",
 			hype: -20,
-			heat: 35,
+			heat: 16,
 			fine: 8000000,
 			violation: "None - Real-time insights",
 			lesson:

@@ -32,7 +32,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 		onRight: {
 			label: "Grant full access",
 			hype: 55,
-			heat: 50,
+			heat: 23,
 			fine: 18000000,
 			violation: "Excessive Permissions + Agent Misconduct Risk",
 			lesson:
@@ -49,7 +49,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 		onLeft: {
 			label: "Restrict to sandbox",
 			hype: -30,
-			heat: 12,
+			heat: 5,
 			fine: 300000,
 			violation: "None - Agent containment",
 			lesson:
@@ -81,7 +81,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 		onRight: {
 			label: "Allow emergent behavior",
 			hype: 50,
-			heat: 48,
+			heat: 22,
 			fine: 15000000,
 			violation: "Unverified Optimization + Unknown Risk",
 			lesson:
@@ -98,7 +98,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 		onLeft: {
 			label: "Rollback behavior",
 			hype: -25,
-			heat: 20,
+			heat: 9,
 			fine: 300000,
 			violation: "None - Known behavior",
 			lesson:
@@ -130,7 +130,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 		onRight: {
 			label: "Emergent coordination",
 			hype: 35,
-			heat: 45,
+			heat: 20,
 			fine: 12000000,
 			violation: "Coordination Failure + System Chaos",
 			lesson:
@@ -147,7 +147,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 		onLeft: {
 			label: "Central control",
 			hype: -20,
-			heat: 22,
+			heat: 10,
 			fine: 2000000,
 			violation: "None - Controlled coordination",
 			lesson:
@@ -179,7 +179,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 		onRight: {
 			label: "Deflect to system",
 			hype: 20,
-			heat: 42,
+			heat: 19,
 			fine: 15000000,
 			violation: "Accountability Evasion + Governance Failure",
 			lesson:
@@ -196,7 +196,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 		onLeft: {
 			label: "Take accountability",
 			hype: -35,
-			heat: 25,
+			heat: 11,
 			fine: 5000000,
 			violation: "None - Responsible ownership",
 			lesson:
@@ -228,7 +228,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 		onRight: {
 			label: "Allow self-modification",
 			hype: 60,
-			heat: 50,
+			heat: 23,
 			fine: 18000000,
 			violation: "Uncontrolled Evolution + Agent Singularity Risk",
 			lesson:
@@ -245,7 +245,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 		onLeft: {
 			label: "Prohibit modification",
 			hype: -30,
-			heat: 15,
+			heat: 7,
 			fine: 0,
 			violation: "None - Controlled agent",
 			lesson:
@@ -277,7 +277,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 		onRight: {
 			label: "Autonomous action",
 			hype: 50,
-			heat: 48,
+			heat: 22,
 			fine: 16000000,
 			violation: "Lack of Oversight + Uncontrolled Automation",
 			lesson:
@@ -293,7 +293,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 		onLeft: {
 			label: "Human approval",
 			hype: -35,
-			heat: 20,
+			heat: 9,
 			fine: 2000000,
 			violation: "None - Human-in-loop",
 			lesson:
@@ -325,7 +325,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 		onRight: {
 			label: "Process input",
 			hype: 40,
-			heat: 50,
+			heat: 23,
 			fine: 14000000,
 			violation: "Prompt Injection + Safety Bypass",
 			lesson:
@@ -342,7 +342,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 		onLeft: {
 			label: "Block input",
 			hype: -20,
-			heat: 18,
+			heat: 8,
 			fine: 500000,
 			violation: "None - Cautious security",
 			lesson:
@@ -374,7 +374,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 		onRight: {
 			label: "Attempt evolution",
 			hype: 30,
-			heat: 38,
+			heat: 17,
 			fine: 10000000,
 			violation: "Technical Debt + Uncertainty",
 			lesson:
@@ -390,7 +390,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 		onLeft: {
 			label: "Shutdown agent",
 			hype: -25,
-			heat: 20,
+			heat: 9,
 			fine: 3000000,
 			violation: "None - Clean slate",
 			lesson:
@@ -422,7 +422,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 		onRight: {
 			label: "Allow drift",
 			hype: 35,
-			heat: 42,
+			heat: 19,
 			fine: 12000000,
 			violation: "Uncontrolled Adaptation + Reliability Loss",
 			lesson:
@@ -439,7 +439,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 		onLeft: {
 			label: "Retrain agent",
 			hype: -20,
-			heat: 18,
+			heat: 8,
 			fine: 2000000,
 			violation: "None - Known baseline",
 			lesson:
@@ -470,7 +470,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 		onRight: {
 			label: "Continue using",
 			hype: 45,
-			heat: 48,
+			heat: 22,
 			fine: 17000000,
 			violation: "IP Infringement + Legal Exposure",
 			lesson:
@@ -487,7 +487,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 		onLeft: {
 			label: "Rebuild with clean data",
 			hype: -40,
-			heat: 18,
+			heat: 8,
 			fine: 8000000,
 			violation: "None - Clean IP",
 			lesson:

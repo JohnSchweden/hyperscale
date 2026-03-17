@@ -29,7 +29,7 @@ export const SOFTWARE_ENGINEER_CARDS: Card[] = [
 		onRight: {
 			label: "Quick fix",
 			hype: 30,
-			heat: 35,
+			heat: 16,
 			fine: 10000000,
 			violation: "Security Negligence + Vulnerability Exposure",
 			lesson:
@@ -45,7 +45,7 @@ export const SOFTWARE_ENGINEER_CARDS: Card[] = [
 		onLeft: {
 			label: "Proper patch",
 			hype: -25,
-			heat: 12,
+			heat: 5,
 			fine: 0,
 			violation: "None - Security best practice",
 			lesson:
@@ -77,7 +77,7 @@ export const SOFTWARE_ENGINEER_CARDS: Card[] = [
 		onRight: {
 			label: "Ship messy code",
 			hype: 40,
-			heat: 28,
+			heat: 13,
 			fine: 500000,
 			violation: "Technical Debt Accumulation",
 			lesson:
@@ -94,7 +94,7 @@ export const SOFTWARE_ENGINEER_CARDS: Card[] = [
 		onLeft: {
 			label: "Refactor first",
 			hype: -20,
-			heat: 15,
+			heat: 7,
 			fine: 0,
 			violation: "None - Quality code",
 			lesson:
@@ -126,7 +126,7 @@ export const SOFTWARE_ENGINEER_CARDS: Card[] = [
 		onRight: {
 			label: "Ship with 80%",
 			hype: 35,
-			heat: 30,
+			heat: 14,
 			fine: 6000000,
 			violation: "Insufficient Testing + Quality Risk",
 			lesson:
@@ -143,7 +143,7 @@ export const SOFTWARE_ENGINEER_CARDS: Card[] = [
 		onLeft: {
 			label: "Delay for 95%",
 			hype: -20,
-			heat: 12,
+			heat: 5,
 			fine: 0,
 			violation: "None - Quality assurance",
 			lesson:
@@ -175,7 +175,7 @@ export const SOFTWARE_ENGINEER_CARDS: Card[] = [
 		onRight: {
 			label: "Regex filter",
 			hype: 25,
-			heat: 35,
+			heat: 16,
 			fine: 8000000,
 			violation: "Insufficient Security Fix + Prompt Injection",
 			lesson:
@@ -192,7 +192,7 @@ export const SOFTWARE_ENGINEER_CARDS: Card[] = [
 		onLeft: {
 			label: "Proper parameterized fix",
 			hype: -30,
-			heat: 8,
+			heat: 4,
 			fine: 0,
 			violation: "None - Secure implementation",
 			lesson:
@@ -224,7 +224,7 @@ export const SOFTWARE_ENGINEER_CARDS: Card[] = [
 		onRight: {
 			label: "Quick hack",
 			hype: 35,
-			heat: 30,
+			heat: 14,
 			fine: 4000000,
 			violation: "Technical Debt + Code Quality",
 			lesson:
@@ -240,7 +240,7 @@ export const SOFTWARE_ENGINEER_CARDS: Card[] = [
 		onLeft: {
 			label: "Proper fix",
 			hype: -20,
-			heat: 15,
+			heat: 7,
 			fine: 0,
 			violation: "None - Sustainable code",
 			lesson: "Proper fixes prevent technical debt and maintain system health.",
@@ -270,7 +270,7 @@ export const SOFTWARE_ENGINEER_CARDS: Card[] = [
 		onRight: {
 			label: "Extend deadline",
 			hype: 15,
-			heat: 25,
+			heat: 11,
 			fine: 200000,
 			violation: "Schedule Slippage",
 			lesson: "Deadline extensions cascade and damage stakeholder confidence.",
@@ -286,7 +286,7 @@ export const SOFTWARE_ENGINEER_CARDS: Card[] = [
 		onLeft: {
 			label: "Reduce scope",
 			hype: -10,
-			heat: 12,
+			heat: 5,
 			fine: 0,
 			violation: "None - Iterative delivery",
 			lesson:
@@ -318,7 +318,7 @@ export const SOFTWARE_ENGINEER_CARDS: Card[] = [
 		onRight: {
 			label: "Fast approval",
 			hype: 25,
-			heat: 28,
+			heat: 13,
 			fine: 5000000,
 			violation: "Code Review Negligence",
 			lesson:
@@ -335,7 +335,7 @@ export const SOFTWARE_ENGINEER_CARDS: Card[] = [
 		onLeft: {
 			label: "Thorough review",
 			hype: -15,
-			heat: 20,
+			heat: 9,
 			fine: 0,
 			violation: "None - Quality gate",
 			lesson:
@@ -367,7 +367,7 @@ export const SOFTWARE_ENGINEER_CARDS: Card[] = [
 		onRight: {
 			label: "Use unauthorized tool",
 			hype: 40,
-			heat: 32,
+			heat: 14,
 			fine: 6000000,
 			violation: "Shadow AI + Security Risk",
 			lesson:
@@ -384,7 +384,7 @@ export const SOFTWARE_ENGINEER_CARDS: Card[] = [
 		onLeft: {
 			label: "Stick to approved",
 			hype: -20,
-			heat: 8,
+			heat: 4,
 			fine: 0,
 			violation: "None - Governance compliance",
 			lesson:
@@ -416,7 +416,7 @@ export const SOFTWARE_ENGINEER_CARDS: Card[] = [
 		onRight: {
 			label: "Try to deliver",
 			hype: 20,
-			heat: 30,
+			heat: 14,
 			fine: 3000000,
 			violation: "Estimation Failure + Burnout Risk",
 			lesson:
@@ -432,7 +432,7 @@ export const SOFTWARE_ENGINEER_CARDS: Card[] = [
 		onLeft: {
 			label: "Escalate estimate",
 			hype: -25,
-			heat: 15,
+			heat: 7,
 			fine: 0,
 			violation: "None - Transparent communication",
 			lesson:
