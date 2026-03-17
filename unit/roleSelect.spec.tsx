@@ -14,7 +14,7 @@ describe("RoleSelect", () => {
 		it("should render the title and description", () => {
 			render(<RoleSelect {...defaultProps} />);
 
-			expect(screen.getByText("Select your budget")).toBeInTheDocument();
+			expect(screen.getByText("Select your impact zone")).toBeInTheDocument();
 		});
 
 		it("should render all role buttons", () => {

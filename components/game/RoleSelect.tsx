@@ -40,13 +40,12 @@ export const RoleSelect: React.FC<RoleSelectProps> = ({
 						damage_control
 					</div>
 					<h2 className="text-3xl md:text-5xl font-black mb-3 md:mb-4 tracking-tight fade-in px-4">
-						Select your budget
+						Select your impact zone
 					</h2>
 					<p className="max-w-2xl mx-auto text-slate-400 text-sm md:text-base leading-relaxed px-4">
 						Choose the specific silo you want to set on fire first. Each role
 						changes the cascading failures, the legal heat you attract, and the
-						creative ways to lose your budget. Higher responsibility = bigger
-						budget, bigger fines.
+						creative ways to lose your budget.
 					</p>
 				</div>
 
