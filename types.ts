@@ -136,6 +136,22 @@ export const ROLE_FINE_TIERS = {
 
 export type RoleFineTier = keyof typeof ROLE_FINE_TIERS;
 
+/** Phase 03-07: Role-based heat scaling for balanced gameplay (matches fine tiers proportionally) */
+export const ROLE_HEAT_SCALES = {
+	CHIEF_SOMETHING_OFFICER: { min: 15, max: 70, scale: 0.75 },
+	HEAD_OF_SOMETHING: { min: 12, max: 55, scale: 0.6 },
+	SOMETHING_MANAGER: { min: 10, max: 45, scale: 0.55 },
+	TECH_AI_CONSULTANT: { min: 8, max: 40, scale: 0.5 },
+	DATA_SCIENTIST: { min: 8, max: 40, scale: 0.5 },
+	SOFTWARE_ARCHITECT: { min: 10, max: 45, scale: 0.55 },
+	SOFTWARE_ENGINEER: { min: 8, max: 35, scale: 0.45 },
+	VIBE_CODER: { min: 8, max: 40, scale: 0.45 },
+	VIBE_ENGINEER: { min: 8, max: 40, scale: 0.45 },
+	AGENTIC_ENGINEER: { min: 10, max: 50, scale: 0.55 },
+} as const;
+
+export type RoleHeatScale = keyof typeof ROLE_HEAT_SCALES;
+
 /** Phase 06: Archetype types for debrief system */
 export type ArchetypeId =
 	| "PRAGMATIST"
