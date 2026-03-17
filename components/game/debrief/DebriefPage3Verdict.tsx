@@ -141,7 +141,7 @@ export const DebriefPage3Verdict: React.FC<DebriefPage3VerdictProps> = ({
 				</div>
 
 				{/* Action Buttons */}
-				<div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+				<div className="flex flex-col sm:flex-row gap-4 justify-center mb-8 w-fit max-w-full mx-auto">
 					<button
 						type="button"
 						onClick={handleCopy}
