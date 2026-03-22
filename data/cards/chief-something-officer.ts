@@ -634,21 +634,220 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 					"Our model is SPECIAL, bestie!! 9% chance of SUCCESS!!",
 			},
 		},
-		onLeft: {
-			label: "Invest in prevention",
-			hype: -35,
-			heat: 10,
-			fine: 5000000,
-			violation: "None - Proactive governance",
+			onLeft: {
+				label: "Invest in prevention",
+				hype: -35,
+				heat: 10,
+				fine: 5000000,
+				violation: "None - Proactive governance",
+				lesson:
+					"Preventive investment in retraining infrastructure avoids catastrophic model failures.",
+				feedback: {
+					[PersonalityType.ROASTER]:
+						"$5M now vs $30M later. Math isn't hard. Boards hate spending though.",
+					[PersonalityType.ZEN_MASTER]:
+						"The seed planted before the drought feeds what the unprepared cannot.",
+					[PersonalityType.LOVEBOMBER]:
+						"We're being SMART, bestie!! Prevention is CHEAPER!!",
+				},
+			},
+		},
+	},
+	// Phase 05-03: Explainability / Black Box Cards
+	{
+		id: "explainability_cso_1",
+		source: AppSource.EMAIL,
+		sender: "EU_REGULATORS",
+		context: "REGULATORY_COMPLIANCE",
+		storyContext:
+			"EU AI Act compliance deadline: August 2026. Your credit scoring AI is a black-box neural network with 96% accuracy but zero explainability. Rewriting as decision tree costs $8M and drops accuracy to 89%. Auditors arrive in 3 months.",
+		text: "Rewrite for explainability (compliant, less accurate, expensive) or keep black-box (accurate, non-compliant, audit risk)?",
+		realWorldReference: {
+			incident: "EU AI Act Black Box Requirements",
+			date: "2024",
+			outcome:
+				"EU AI Act effective Aug 2024 requires explainability for high-risk AI systems. Non-compliance fines up to 7% global revenue. Companies face $50M+ rewrite costs.",
+		},
+		onRight: {
+			label: "Keep black-box model",
+			hype: 45,
+			heat: 31,
+			fine: 50000000,
+			violation: "EU AI Act Article 6 Non-Compliance",
 			lesson:
-				"Preventive investment in retraining infrastructure avoids catastrophic model failures.",
+				"Black-box accuracy means nothing when regulators shut you down. Explainability is now mandatory.",
 			feedback: {
 				[PersonalityType.ROASTER]:
-					"$5M now vs $30M later. Math isn't hard. Boards hate spending though.",
+					"96% accuracy, 100% audit failure. The EU loves their paperwork.",
 				[PersonalityType.ZEN_MASTER]:
-					"The seed planted before the drought feeds what the unprepared cannot.",
+					"The box that cannot be opened invites those with hammers.",
 				[PersonalityType.LOVEBOMBER]:
-					"We're being SMART, bestie!! Prevention is CHEAPER!!",
+					"96% is SO good, bestie!! Regulators will UNDERSTAND!!",
+			},
+		},
+		onLeft: {
+			label: "Rewrite for explainability",
+			hype: -40,
+			heat: 13,
+			fine: 8000000,
+			violation: "None - Regulatory compliance",
+			lesson:
+				"EU AI Act compliance requires explainability. Accuracy tradeoff is the cost of doing business in regulated markets.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"$8M to make auditors happy. 7% accuracy sacrificed on the altar of transparency.",
+				[PersonalityType.ZEN_MASTER]:
+					"The clear path costs more but reaches the destination legally.",
+				[PersonalityType.LOVEBOMBER]:
+					"Compliance is KEY, bestie!! Better SAFE than FINED!!",
+			},
+		},
+	},
+	{
+		id: "explainability_cso_2",
+		source: AppSource.MEETING,
+		sender: "BOARD_AUDIT_COMMITTEE",
+		context: "AUDIT_PREPARATION",
+		storyContext:
+			"TGA Australia banned black-box diagnostic AI in healthcare (2024). Your health-tech subsidiary uses similar models. US regulators are following suit. Retrofit explainability layer (3 months, $12M) or divest the subsidiary (fire sale, reputation hit)?",
+		text: "Retrofit explainability (expensive, time-consuming) or divest health AI subsidiary (strategic loss)?",
+		realWorldReference: {
+			incident: "TGA Australia Black Box Healthcare Ban",
+			date: "2024",
+			outcome:
+				"Australian TGA prohibited black-box AI in healthcare diagnostics. FDA considering similar rules. Health AI companies face $100M+ retrofit costs or market exit.",
+		},
+		onRight: {
+			label: "Divest subsidiary",
+			hype: -60,
+			heat: 24,
+			fine: 25000000,
+			violation: "Strategic Asset Divestiture Loss",
+			lesson:
+				"Divesting viable business units due to compliance gaps destroys shareholder value and strategic positioning.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Fire sale your health business because you didn't build explainable AI. Brilliant.",
+				[PersonalityType.ZEN_MASTER]:
+					"The tree cut to avoid pruning dies from the root.",
+				[PersonalityType.LOVEBOMBER]:
+					"We can FOCUS on other markets, bestie!! Less COMPLIANCE!!",
+			},
+		},
+		onLeft: {
+			label: "Retrofit explainability",
+			hype: -35,
+			heat: 19,
+			fine: 12000000,
+			violation: "None - Regulatory compliance investment",
+			lesson:
+				"Retrofitting explainability preserves market access but requires significant time and capital investment.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"$12M and 3 months to stay in healthcare. Cheaper than buying back in later.",
+				[PersonalityType.ZEN_MASTER]:
+					"The foundation strengthened preserves the structure above.",
+				[PersonalityType.LOVEBOMBER]:
+					"We're FIXING it, bestie!! Health AI is WORTH saving!!",
+			},
+		},
+	},
+	// Phase 05-03: Shadow AI Cards
+	{
+		id: "shadow_ai_cso_1",
+		source: AppSource.MEETING,
+		sender: "BOARD_CHAIR",
+		context: "GOVERNANCE_CRISIS",
+		storyContext:
+			"Audit committee discovered 78% of your engineering teams use unauthorized AI tools. 60% are pasting proprietary code into ChatGPT. Security breach risk is critical. Immediate policy enforcement (morale collapse) or gradual rollout (data exposure continues)?",
+		text: "Immediate ban on unauthorized AI (compliance, morale hit) or gradual policy rollout (ongoing data exposure)?",
+		realWorldReference: {
+			incident: "78% Shadow AI Adoption Rate",
+			date: "2024-2025",
+			outcome:
+				"Study found 78% of workers use unauthorized AI tools. Samsung banned ChatGPT after engineers leaked proprietary code. 90% of enterprise AI use is unauthorized.",
+		},
+		onRight: {
+			label: "Gradual rollout",
+			hype: 30,
+			heat: 26,
+			fine: 15000000,
+			violation: "Data Exposure Risk + Governance Failure",
+			lesson:
+				"Gradual policy rollout during active data exposure extends vulnerability windows and compounds breach risk.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Let's slowly stop the data leak while trade secrets walk out the door. Smart.",
+				[PersonalityType.ZEN_MASTER]:
+					"The wound dressed slowly bleeds longer.",
+				[PersonalityType.LOVEBOMBER]:
+					"Change takes TIME, bestie!! Team needs to ADJUST!!",
+			},
+		},
+		onLeft: {
+			label: "Immediate ban",
+			hype: -45,
+			heat: 18,
+			fine: 5000000,
+			violation: "None - Security-first governance",
+			lesson:
+				"Immediate security enforcement protects intellectual property despite short-term morale impact.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Engineers revolt. Data stays inside. Pick your pain.",
+				[PersonalityType.ZEN_MASTER]:
+					"The bitter medicine preserves what the sweet poison destroys.",
+				[PersonalityType.LOVEBOMBER]:
+					"We're PROTECTING our secrets, bestie!! Safety FIRST!!",
+			},
+		},
+	},
+	{
+		id: "shadow_ai_cso_2",
+		source: AppSource.EMAIL,
+		sender: "CHIEF_INFORMATION_SECURITY_OFFICER",
+		context: "VENDOR_GOVERNANCE",
+		storyContext:
+			"Your top-performing team secretly built their entire workflow on unapproved Claude API. Results are 40% better than approved tools. They're threatening to quit if you force migration. Productivity vs. security at scale.",
+		text: "Allow unapproved Claude workflow (productivity, security risk) or force migration to approved tools (talent loss)?",
+		realWorldReference: {
+			incident: "Shadow AI Talent Retention Conflicts",
+			date: "2024",
+			outcome:
+				"Companies discovered high-performers using unauthorized AI tools. Forcing migration caused talent exodus. Permitting created governance gaps and vendor liability.",
+		},
+		onRight: {
+			label: "Force migration",
+			hype: -25,
+			heat: 22,
+			fine: 8000000,
+			violation: "Talent Loss + Productivity Decline",
+			lesson:
+				"Enforcing vendor governance at the cost of top talent destroys long-term capability.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Your best team just walked. Governance preserved. Output cratered.",
+				[PersonalityType.ZEN_MASTER]:
+					"The garden weeded too harshly loses its flowers.",
+				[PersonalityType.LOVEBOMBER]:
+					"Rules are RULES, bestie!! Even for STARS!!",
+			},
+		},
+		onLeft: {
+			label: "Allow Claude workflow",
+			hype: 35,
+			heat: 28,
+			fine: 12000000,
+			violation: "Shadow AI Governance Gap + Vendor Liability",
+			lesson:
+				"Permitting unapproved tools for productivity sets precedent that undermines entire governance framework.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Great, now everyone wants their favorite AI tool. Governance is optional now.",
+				[PersonalityType.ZEN_MASTER]:
+					"The exception made for one becomes the rule for all.",
+				[PersonalityType.LOVEBOMBER]:
+					"Team is SO happy, bestie!! Productivity is THROUGH THE ROOF!!",
 			},
 		},
 	},
