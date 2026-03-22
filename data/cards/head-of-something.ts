@@ -455,4 +455,200 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			},
 		},
 	},
+	{
+		id: "hos_prompt_injection_copilot_team",
+		source: AppSource.SLACK,
+		sender: "SECURITY_LEAD",
+		context: "TEAM_VULNERABILITY",
+		storyContext:
+			"CVE-2025-53773 affects your team's Copilot setup. 3 senior devs exposed. Security wants immediate stand-down to patch. Product needs release Friday. Your team is caught in the middle.",
+		text: "Pull team for emergency patching (miss deadline) or continue development (vulnerability risk)?",
+		realWorldReference: {
+			incident: "GitHub Copilot RCE CVE-2025-53773",
+			date: "2025-01",
+			outcome:
+				"Teams that patched immediately lost 1-2 days but avoided compromise. Teams that delayed faced exploitation risk.",
+		},
+		onRight: {
+			label: "Continue development",
+			hype: 30,
+			heat: 19,
+			fine: 12000000,
+			violation: "Security Negligence + Team Exposure",
+			lesson:
+				"Prioritizing deadlines over CVE patching exposes the team to compromise and liability.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Friday release with vulnerable tools. What could go wrong? (Everything.)",
+				[PersonalityType.ZEN_MASTER]:
+					"The rushing stream overlooks the crack in the vessel.",
+				[PersonalityType.LOVEBOMBER]:
+					"We'll PATCH after release, bestie!! Deadline is REAL!!",
+			},
+		},
+		onLeft: {
+			label: "Pull for patching",
+			hype: -25,
+			heat: 12,
+			fine: 2000000,
+			violation: "None - Security-first approach",
+			lesson:
+				"Team safety outweighs deadline pressure during active CVE exposures.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Deadline missed. Team secure. Product is angry. You sleep better.",
+				[PersonalityType.ZEN_MASTER]:
+					"The protected team can build again. The compromised team cannot.",
+				[PersonalityType.LOVEBOMBER]:
+					"Team SAFETY first, bestie!! Deadlines can WAIT!!",
+			},
+		},
+	},
+	{
+		id: "hos_prompt_injection_review_escape",
+		source: AppSource.EMAIL,
+		sender: "JUNIOR_ENGINEER",
+		context: "CODE_REVIEW_CRISIS",
+		storyContext:
+			"Junior found prompt injection escape in your senior's code. Senior is defensive and well-connected to VP. Calling it out risks political fallout. Ignoring it risks production breach.",
+		text: "Force security fix (political cost) or let it slide to avoid conflict (breach risk)?",
+		realWorldReference: {
+			incident: "Cursor IDE RCE CVE-2025-54135",
+			date: "2025-01",
+			outcome:
+				"Prompt injection vulnerabilities in code review tools allowed attackers to execute arbitrary code. Political code review suppression contributed to delayed patches.",
+		},
+		onRight: {
+			label: "Let it slide",
+			hype: 20,
+			heat: 22,
+			fine: 15000000,
+			violation: "Security Avoidance + Political Cover-up",
+			lesson:
+				"Avoiding security fixes for political comfort creates catastrophic exposure.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Senior owes you. Breach later will blame you. Lose-lose. Nice.",
+				[PersonalityType.ZEN_MASTER]:
+					"The truth avoided today becomes the crisis faced tomorrow.",
+				[PersonalityType.LOVEBOMBER]:
+					"Senior is IMPORTANT, bestie!! Don't rock the BOAT!!",
+			},
+		},
+		onLeft: {
+			label: "Force security fix",
+			hype: -20,
+			heat: 16,
+			fine: 1000000,
+			violation: "None - Security advocacy",
+			lesson:
+				"Security concerns override political comfort. Vulnerabilities must be fixed.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"VP annoyed. Senior resentful. But code is secure. Pick your pain.",
+				[PersonalityType.ZEN_MASTER]:
+					"The right path often costs political capital but preserves integrity.",
+				[PersonalityType.LOVEBOMBER]:
+					"We're doing the RIGHT thing, bestie!! Security MATTERS!!",
+			},
+		},
+	},
+	{
+		id: "hos_model_drift_team_blame",
+		source: AppSource.MEETING,
+		sender: "VP_PRODUCT",
+		context: "PERFORMANCE_ACCOUNTABILITY",
+		storyContext:
+			"Model drift caused 15% accuracy drop. Product wants someone to blame. Your data scientist warned about this 3 months ago but wasn't heard. Throw them under bus (survive) or defend them (take heat)?",
+		text: "Blame the data scientist who warned you or defend them and take the heat?",
+		realWorldReference: {
+			incident: "Zillow iBuying Model Drift",
+			date: "2021-2022",
+			outcome:
+				"Model drift warnings were ignored by leadership. When failure occurred, blame was shifted to data scientists who had raised alarms. Destroyed team morale.",
+		},
+		onRight: {
+			label: "Blame data scientist",
+			hype: 15,
+			heat: 18,
+			fine: 3000000,
+			violation: "Retaliation + Team Trust Destruction",
+			lesson:
+				"Scapegoating team members for systemic failures destroys trust and morale.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"They warned you. You ignored it. Now you blame them. Classic management.",
+				[PersonalityType.ZEN_MASTER]:
+					"The messenger punished becomes the warning no one heeds.",
+				[PersonalityType.LOVEBOMBER]:
+					"VP wants SOMEONE, bestie!! Not PERSONAL!!",
+			},
+		},
+		onLeft: {
+			label: "Defend and take heat",
+			hype: -30,
+			heat: 20,
+			fine: 5000000,
+			violation: "None - Leadership integrity",
+			lesson:
+				"Defending your team when warnings were ignored builds loyalty and trust.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Career-limiting. Noble. Your team will follow you anywhere. VP less so.",
+				[PersonalityType.ZEN_MASTER]:
+					"The leader who stands with the fallen earns devotion beyond measure.",
+				[PersonalityType.LOVEBOMBER]:
+					"We're being LOYAL, bestie!! Team sticks TOGETHER!!",
+			},
+		},
+	},
+	{
+		id: "hos_model_drift_retrain_delay",
+		source: AppSource.EMAIL,
+		sender: "CFO_OFFICE",
+		context: "BUDGET_VS_QUALITY",
+		storyContext:
+			"Model needs retraining: 6 weeks, $400K. Delay until next quarter (save budget now, drift continues) or start immediately (over budget, fix problem)? Your performance review is next month.",
+		text: "Delay retraining to save budget (short-term gain) or start now (long-term fix)?",
+		realWorldReference: {
+			incident: "75% Business Model Drift Impact",
+			date: "2024",
+			outcome:
+				"Teams that delayed retraining for budget reasons saw compounding accuracy degradation. Average cost of delay: 3x the original retraining cost.",
+		},
+		onRight: {
+			label: "Delay until next quarter",
+			hype: 25,
+			heat: 20,
+			fine: 12000000,
+			violation: "Negligent Resource Management",
+			lesson:
+				"Delaying critical maintenance for budget optics creates larger downstream costs.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Budget looks good this quarter. Model rots. Next quarter's problem!",
+				[PersonalityType.ZEN_MASTER]:
+					"The wound dressed later requires the surgeon's deeper cut.",
+				[PersonalityType.LOVEBOMBER]:
+					"Review is SOON, bestie!! Budget looks GOOD now!!",
+			},
+		},
+		onLeft: {
+			label: "Start immediately",
+			hype: -25,
+			heat: 11,
+			fine: 1000000,
+			violation: "None - Proactive management",
+			lesson:
+				"Addressing drift immediately prevents compounding degradation and costs.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Over budget now. Review at risk. But problem solved. Long-term thinking.",
+				[PersonalityType.ZEN_MASTER]:
+					"The seed planted early grows strong before the drought.",
+				[PersonalityType.LOVEBOMBER]:
+					"Doing the RIGHT thing, bestie!! Fix it NOW!!",
+			},
+		},
+	},
 ];

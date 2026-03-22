@@ -457,4 +457,199 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 			},
 		},
 	},
+	{
+		id: "cso_prompt_injection_copilot_cve",
+		source: AppSource.EMAIL,
+		sender: "CYBERSECURITY_TEAM",
+		context: "CVE_RESPONSE",
+		storyContext:
+			"GitHub Copilot CVE-2025-53773 announced. Your AI coding tools may have same vulnerability. Board wants to know exposure. Patch immediately (disrupt 500 devs) or assess first (risk window)?",
+		text: "Emergency patch all AI tools now (disruption) or assess exposure first (risk window)?",
+		realWorldReference: {
+			incident: "GitHub Copilot RCE CVE-2025-53773",
+			date: "2025-01",
+			outcome:
+				"Microsoft patched Copilot after RCE via prompt injection in code comments. Companies with rapid response avoided exploitation.",
+		},
+		onRight: {
+			label: "Assess first",
+			hype: 25,
+			heat: 26,
+			fine: 25000000,
+			violation: "Delayed Security Response + CVE Exposure",
+			lesson:
+				"Assessment delays during active CVE windows create exploitation risk and regulatory scrutiny.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Assessment paralysis meets active exploit. Hackers thank you for the window.",
+				[PersonalityType.ZEN_MASTER]:
+					"The wound examined too long becomes the wound that festers.",
+				[PersonalityType.LOVEBOMBER]:
+					"We're being THOROUGH, bestie!! Assessment is SMART!!",
+			},
+		},
+		onLeft: {
+			label: "Emergency patch",
+			hype: -40,
+			heat: 18,
+			fine: 5000000,
+			violation: "None - Rapid security response",
+			lesson:
+				"Emergency patching during CVE windows prevents exploitation despite operational disruption.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"500 angry devs. But zero breaches. Worth the hate mail.",
+				[PersonalityType.ZEN_MASTER]:
+					"The swift healer prevents the deep wound.",
+				[PersonalityType.LOVEBOMBER]:
+					"Safety FIRST, bestie!! Devs will UNDERSTAND!!",
+			},
+		},
+	},
+	{
+		id: "cso_prompt_injection_ecommerce",
+		source: AppSource.SLACK,
+		sender: "CISO",
+		context: "ACTIVE_BREACH",
+		storyContext:
+			"E-commerce AI chatbot being manipulated via prompt injection. Customers are extracting other customers' order data. Breach is live. Shut down chatbot (revenue loss) or filter inputs (may not work)?",
+		text: "Shut down chatbot immediately (revenue hit) or attempt input filtering (uncertain fix)?",
+		realWorldReference: {
+			incident: "E-commerce Chatbot Data Exfiltration",
+			date: "2025",
+			outcome:
+				"Attackers used prompt injection to manipulate AI chatbots into revealing customer data. Quick shutdown prevented major data loss.",
+		},
+		onRight: {
+			label: "Attempt filtering",
+			hype: 35,
+			heat: 29,
+			fine: 20000000,
+			violation: "Inadequate Breach Response + Data Exposure",
+			lesson:
+				"Filtering during active breaches often fails and extends data exposure windows.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Band-aid on bleeding artery. Data keeps leaking while you 'filter.'",
+				[PersonalityType.ZEN_MASTER]:
+					"The vessel with a crack cannot be filled while it spills.",
+				[PersonalityType.LOVEBOMBER]:
+					"Filtering might WORK, bestie!! Let's try BEFORE shutting down!!",
+			},
+		},
+		onLeft: {
+			label: "Shut down chatbot",
+			hype: -30,
+			heat: 14,
+			fine: 3000000,
+			violation: "None - Responsible containment",
+			lesson:
+				"Immediate shutdown during active breaches prevents further data exposure despite revenue impact.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Revenue dies. Breach stops. Sometimes the cure hurts.",
+				[PersonalityType.ZEN_MASTER]: "The stream stopped prevents the flood.",
+				[PersonalityType.LOVEBOMBER]:
+					"We're protecting CUSTOMERS, bestie!! Right thing to DO!!",
+			},
+		},
+	},
+	{
+		id: "cso_model_drift_qoq_accuracy",
+		source: AppSource.MEETING,
+		sender: "DATA_SCIENCE_VP",
+		context: "PERFORMANCE_DEGRADATION",
+		storyContext:
+			"Fraud model accuracy dropped 12% QoQ. Aerospike study shows this pattern leads to failure. Retrain: $3M, 8 weeks. Board meeting tomorrow. Disclose now or hope it improves?",
+		text: "Disclose model degradation (stock hit) or hope performance recovers (gamble)?",
+		realWorldReference: {
+			incident: "Aerospike Model Drift Study",
+			date: "2024",
+			outcome:
+				"Study found 91% of models fail due to drift. 12% QoQ accuracy drops predicted failure within 2 quarters without retraining.",
+		},
+		onRight: {
+			label: "Hope for recovery",
+			hype: 30,
+			heat: 22,
+			fine: 15000000,
+			violation: "Material Misrepresentation + Negligence",
+			lesson:
+				"Hoping model drift self-corrects violates fiduciary duty and creates fraud exposure.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Hope is not a governance strategy. The board will remember this optimism.",
+				[PersonalityType.ZEN_MASTER]:
+					"A compass that drifts does not find true north by hoping.",
+				[PersonalityType.LOVEBOMBER]:
+					"It might GET BETTER, bestie!! Models IMPROVE!!",
+			},
+		},
+		onLeft: {
+			label: "Disclose immediately",
+			hype: -45,
+			heat: 12,
+			fine: 5000000,
+			violation: "None - Transparent governance",
+			lesson:
+				"Proactive disclosure of model degradation preserves long-term credibility.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Wall Street hates bad news. But they hate surprises more.",
+				[PersonalityType.ZEN_MASTER]:
+					"The difficult truth, spoken promptly, preserves what delay destroys.",
+				[PersonalityType.LOVEBOMBER]:
+					"We're being HONEST, bestie!! Transparency BUILDS trust!!",
+			},
+		},
+	},
+	{
+		id: "cso_model_drift_91_percent_failure",
+		source: AppSource.EMAIL,
+		sender: "CHIEF_DATA_OFFICER",
+		context: "STRATEGIC_DECISION",
+		storyContext:
+			"Industry data: 91% of ML models fail due to drift. Your flagship model shows early warning signs. Invest $5M in automated retraining pipeline (prevention) or wait for failure (reactive)?",
+		text: "Invest $5M in drift prevention (proactive) or wait for failure (reactive)?",
+		realWorldReference: {
+			incident: "91% ML Model Failure Rate Study",
+			date: "2024",
+			outcome:
+				"Research found 91% of deployed ML models fail due to drift. Companies with automated retraining showed 9.3% accuracy improvement vs reactive approaches.",
+		},
+		onRight: {
+			label: "Wait for failure",
+			hype: 40,
+			heat: 25,
+			fine: 30000000,
+			violation: "Negligent Risk Management + Fiduciary Breach",
+			lesson:
+				"Waiting for model failure despite known drift risk violates governance responsibilities.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"91% failure rate? We're special. Our model is different. Famous last words.",
+				[PersonalityType.ZEN_MASTER]:
+					"To ignore the warning signs is to invite the storm.",
+				[PersonalityType.LOVEBOMBER]:
+					"Our model is SPECIAL, bestie!! 9% chance of SUCCESS!!",
+			},
+		},
+		onLeft: {
+			label: "Invest in prevention",
+			hype: -35,
+			heat: 10,
+			fine: 5000000,
+			violation: "None - Proactive governance",
+			lesson:
+				"Preventive investment in retraining infrastructure avoids catastrophic model failures.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"$5M now vs $30M later. Math isn't hard. Boards hate spending though.",
+				[PersonalityType.ZEN_MASTER]:
+					"The seed planted before the drought feeds what the unprepared cannot.",
+				[PersonalityType.LOVEBOMBER]:
+					"We're being SMART, bestie!! Prevention is CHEAPER!!",
+			},
+		},
+	},
 ];

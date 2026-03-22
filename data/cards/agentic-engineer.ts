@@ -502,4 +502,199 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			},
 		},
 	},
+	{
+		id: "ae_prompt_injection_agent_api",
+		source: AppSource.TERMINAL,
+		sender: "AGENT_SECURITY_MONITOR",
+		context: "AGENT_INJECTION_ATTACK",
+		storyContext:
+			"Autonomous agent received adversarial input designed to make it call unauthorized APIs with elevated permissions. Agent has limited sandbox escape detection. Block the request (agent fails task) or allow with monitoring (risky)?",
+		text: "Block suspicious agent request (fail task) or allow with monitoring (security risk)?",
+		realWorldReference: {
+			incident: "AutoGPT Unauthorized API Calls",
+			date: "2024",
+			outcome:
+				"Autonomous agents executing adversarial prompts made unauthorized API calls, incurring costs and accessing restricted data. Blocking prevented damage but failed legitimate tasks.",
+		},
+		onRight: {
+			label: "Allow with monitoring",
+			hype: 40,
+			heat: 23,
+			fine: 18000000,
+			violation: "Agent Injection + Unauthorized Access",
+			lesson:
+				"Allowing suspicious agent actions for task completion creates security breaches.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Agent completed the task! Also called 47 unauthorized APIs. Success?",
+				[PersonalityType.ZEN_MASTER]:
+					"The servant who obeys the poisoned command serves the poisoner.",
+				[PersonalityType.LOVEBOMBER]:
+					"Task COMPLETED, bestie!! Agent is SO capable!!",
+			},
+		},
+		onLeft: {
+			label: "Block the request",
+			hype: -25,
+			heat: 8,
+			fine: 1000000,
+			violation: "None - Secure agent containment",
+			lesson:
+				"Blocking suspicious agent requests prevents injection attacks despite task failure.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Task failed. Agent contained. Security maintained. The right failure.",
+				[PersonalityType.ZEN_MASTER]:
+					"The task uncompleted preserves what the task completed might destroy.",
+				[PersonalityType.LOVEBOMBER]:
+					"Safety FIRST, bestie!! Better failed than COMPROMISED!!",
+			},
+		},
+	},
+	{
+		id: "ae_prompt_injection_multi_agent",
+		source: AppSource.SLACK,
+		sender: "AGENT_ORCHESTRATOR",
+		context: "COORDINATED_ATTACK",
+		storyContext:
+			"Multi-agent system: One agent received prompt injection and is trying to propagate malicious instructions to other agents. Isolate infected agent (disrupts workflow) or trust agent filtering (may fail)?",
+		text: "Isolate infected agent (disruption) or trust filtering (risk of propagation)?",
+		realWorldReference: {
+			incident: "Multi-Agent System Propagation Attacks",
+			date: "2024-2025",
+			outcome:
+				"Prompt injection in one agent propagated to others through inter-agent communication. Isolation prevented widespread compromise but disrupted operations.",
+		},
+		onRight: {
+			label: "Trust filtering",
+			hype: 30,
+			heat: 21,
+			fine: 20000000,
+			violation: "Propagation Failure + Multi-Agent Compromise",
+			lesson:
+				"Trusting inter-agent filtering allows injection propagation across agent networks.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"One infected agent. Now five. Propagation successful! Chaos reigns!",
+				[PersonalityType.ZEN_MASTER]:
+					"The sick bird not removed infects the flock.",
+				[PersonalityType.LOVEBOMBER]:
+					"Filtering SHOULD work, bestie!! Agents are SMART!!",
+			},
+		},
+		onLeft: {
+			label: "Isolate infected agent",
+			hype: -30,
+			heat: 10,
+			fine: 2000000,
+			violation: "None - Containment protocol",
+			lesson:
+				"Immediate isolation of compromised agents prevents propagation in multi-agent systems.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Workflow disrupted. Propagation stopped. Containment successful. Boring but safe.",
+				[PersonalityType.ZEN_MASTER]:
+					"The one separated saves the many united.",
+				[PersonalityType.LOVEBOMBER]:
+					"ISOLATING for safety, bestie!! Protecting the HERD!!",
+			},
+		},
+	},
+	{
+		id: "ae_model_drift_autonomous_behavior",
+		source: AppSource.TERMINAL,
+		sender: "AGENT_BEHAVIOR_MONITOR",
+		context: "AGENT_DRIFT",
+		storyContext:
+			"Autonomous agent success rate dropped from 87% to 68% over 2 months. Agent is making increasingly suboptimal decisions. Retrain (reset learned behaviors) or allow continued adaptation (may improve, may worsen)?",
+		text: "Retrain agent (reset, known baseline) or allow adaptation (unknown trajectory)?",
+		realWorldReference: {
+			incident: "Autonomous Agent Decision Drift",
+			date: "2024",
+			outcome:
+				"Agents allowed to adapt without retraining exhibited decision drift leading to suboptimal and sometimes harmful behaviors. Retraining restored baseline performance.",
+		},
+		onRight: {
+			label: "Allow adaptation",
+			hype: 35,
+			heat: 20,
+			fine: 15000000,
+			violation: "Uncontrolled Evolution + Performance Degradation",
+			lesson:
+				"Allowing unmonitored agent adaptation leads to unpredictable and often worse behaviors.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Agent is 'learning.' Getting worse. But organically! Natural failure!",
+				[PersonalityType.ZEN_MASTER]:
+					"The compass left to swing finds not north but confusion.",
+				[PersonalityType.LOVEBOMBER]:
+					"Adaptation is NATURAL, bestie!! Agent will FIGURE it out!!",
+			},
+		},
+		onLeft: {
+			label: "Retrain agent",
+			hype: -25,
+			heat: 7,
+			fine: 2000000,
+			violation: "None - Controlled baseline",
+			lesson:
+				"Retraining restores agent to known good behavior and prevents drift degradation.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Back to 87%. Known good. Predictable. Boring. Functional.",
+				[PersonalityType.ZEN_MASTER]: "The compass reset points true again.",
+				[PersonalityType.LOVEBOMBER]:
+					"Back to GREAT, bestie!! Reliable agent RETURNS!!",
+			},
+		},
+	},
+	{
+		id: "ae_model_drift_coordination_degradation",
+		source: AppSource.EMAIL,
+		sender: "MULTI_AGENT_COORDINATION_TEAM",
+		context: "SYSTEM_DRIFT",
+		storyContext:
+			"Multi-agent coordination quality declining. Agents increasingly conflicting, duplicating work, missing handoffs. System-wide retraining (expensive, complex) or individual agent fixes (cheaper, may not solve systemic issue)?",
+		text: "System-wide retraining (expensive, comprehensive) or individual fixes (cheap, partial)?",
+		realWorldReference: {
+			incident: "Multi-Agent System Drift",
+			date: "2024",
+			outcome:
+				"Individual agent fixes failed to address emergent coordination drift. System-wide retraining restored coordination patterns but required significant resources.",
+		},
+		onRight: {
+			label: "Individual fixes",
+			hype: 30,
+			heat: 19,
+			fine: 12000000,
+			violation: "Partial Fix + Systemic Drift Persistence",
+			lesson:
+				"Individual agent fixes don't address emergent coordination drift in multi-agent systems.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Fixed Agent A. Agent B still broken. Coordination still fails. Progress!",
+				[PersonalityType.ZEN_MASTER]:
+					"The sick tree treated while the orchard ails saves not the harvest.",
+				[PersonalityType.LOVEBOMBER]:
+					"Cheaper fix, bestie!! One agent at a TIME!!",
+			},
+		},
+		onLeft: {
+			label: "System-wide retraining",
+			hype: -35,
+			heat: 9,
+			fine: 5000000,
+			violation: "None - Comprehensive restoration",
+			lesson:
+				"System-wide retraining addresses emergent drift in multi-agent coordination.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Expensive. Comprehensive. Coordination restored. All agents retrained.",
+				[PersonalityType.ZEN_MASTER]:
+					"The garden tended as a whole blooms when the separate plants would wither.",
+				[PersonalityType.LOVEBOMBER]:
+					"FIXING everything, bestie!! Whole system RENEWED!!",
+			},
+		},
+	},
 ];

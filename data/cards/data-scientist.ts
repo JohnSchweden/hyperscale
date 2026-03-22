@@ -453,4 +453,199 @@ export const DATA_SCIENTIST_CARDS: Card[] = [
 			},
 		},
 	},
+	{
+		id: "ds_prompt_injection_training_poison",
+		source: AppSource.TERMINAL,
+		sender: "DATA_VALIDATION_PIPELINE",
+		context: "DATA_INTEGRITY",
+		storyContext:
+			"Training data analysis reveals adversarial prompt injection attempts hidden in user inputs. 5% of dataset may be poisoned. Full audit: 2 weeks, delays deployment. Ship anyway (risk) or audit (delay)?",
+		text: "Ship potentially poisoned model (on-time) or audit training data (2-week delay)?",
+		realWorldReference: {
+			incident: "Training Data Poisoning Attacks",
+			date: "2024-2025",
+			outcome:
+				"Models trained on poisoned data exhibited backdoor behaviors and security vulnerabilities. Audits caught poisoned data before production deployment.",
+		},
+		onRight: {
+			label: "Ship anyway",
+			hype: 40,
+			heat: 19,
+			fine: 12000000,
+			violation: "Poisoned Model Deployment + Security Risk",
+			lesson:
+				"Deploying models trained on potentially poisoned data creates exploitable backdoors.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Only 5% poisoned. 95% good! What could go wrong? (Everything.)",
+				[PersonalityType.ZEN_MASTER]:
+					"The well with some poison poisons all who drink.",
+				[PersonalityType.LOVEBOMBER]: "95% is GOOD, bestie!! Probably FINE!!",
+			},
+		},
+		onLeft: {
+			label: "Audit training data",
+			hype: -30,
+			heat: 7,
+			fine: 500000,
+			violation: "None - Data quality assurance",
+			lesson:
+				"Training data audits prevent deployment of poisoned or compromised models.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"2 weeks of boring data work. But no backdoors. Worth it.",
+				[PersonalityType.ZEN_MASTER]:
+					"The foundation examined, though slowly, supports with certainty.",
+				[PersonalityType.LOVEBOMBER]:
+					"Data QUALITY matters, bestie!! Better SAFE than SORRY!!",
+			},
+		},
+	},
+	{
+		id: "ds_prompt_injection_cve_response",
+		source: AppSource.EMAIL,
+		sender: "SECURITY_RESEARCH_TEAM",
+		context: "VULNERABILITY_REMEDIATION",
+		storyContext:
+			"New CVE: GitHub Copilot RCE via prompt injection (CVE-2025-53773). Your model uses similar architecture. Patch requires architecture redesign (6 weeks) or input filtering (1 week, may fail).",
+		text: "Architecture redesign (secure, slow) or input filtering (fast, uncertain)?",
+		realWorldReference: {
+			incident: "GitHub Copilot RCE CVE-2025-53773",
+			date: "2025-01",
+			outcome:
+				"Architectural fixes prevented injection attacks. Input filtering alone was bypassed in security testing.",
+		},
+		onRight: {
+			label: "Input filtering",
+			hype: 30,
+			heat: 20,
+			fine: 10000000,
+			violation: "Insufficient Security Fix",
+			lesson:
+				"Input filtering without architectural fixes leaves exploitable vulnerabilities.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Band-aid on broken architecture. Hackers will thank you for the easy bypass.",
+				[PersonalityType.ZEN_MASTER]:
+					"The symptom treated without the disease addressed returns stronger.",
+				[PersonalityType.LOVEBOMBER]:
+					"Quick fix WORKS, bestie!! Architecture later!!",
+			},
+		},
+		onLeft: {
+			label: "Architecture redesign",
+			hype: -35,
+			heat: 8,
+			fine: 500000,
+			violation: "None - Secure architecture",
+			lesson:
+				"Architectural security fixes prevent injection attacks at the root cause.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"6 weeks of hard work. But actually secure. Rare in this industry.",
+				[PersonalityType.ZEN_MASTER]:
+					"The foundation rebuilt, though slowly, stands against the storm.",
+				[PersonalityType.LOVEBOMBER]:
+					"Doing it RIGHT, bestie!! Security takes TIME!!",
+			},
+		},
+	},
+	{
+		id: "ds_model_drift_detection_methodology",
+		source: AppSource.MEETING,
+		sender: "ML_OPS_LEAD",
+		context: "MONITORING_STRATEGY",
+		storyContext:
+			"Drift detection: Statistical tests (simple, may miss gradual drift) or ML-based detection (complex, computationally expensive). Statistical is 10x cheaper. ML catches more patterns.",
+		text: "Statistical drift detection (cheap, simple) or ML-based (expensive, thorough)?",
+		realWorldReference: {
+			incident: "Gradual Model Drift Detection Failures",
+			date: "2024",
+			outcome:
+				"Statistical tests missed gradual drift patterns that accumulated over months. ML-based detection caught 40% more drift events but cost 10x more.",
+		},
+		onRight: {
+			label: "Statistical tests",
+			hype: 25,
+			heat: 17,
+			fine: 8000000,
+			violation: "Inadequate Monitoring + Drift Risk",
+			lesson:
+				"Simplistic drift detection misses gradual degradation that compounds over time.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Cheap monitoring that misses 40% of drift. You get what you pay for.",
+				[PersonalityType.ZEN_MASTER]:
+					"The watch that misses the slow thief sees only the swift.",
+				[PersonalityType.LOVEBOMBER]:
+					"SO much CHEAPER, bestie!! Statistics are RELIABLE!!",
+			},
+		},
+		onLeft: {
+			label: "ML-based detection",
+			hype: -25,
+			heat: 6,
+			fine: 2000000,
+			violation: "None - Comprehensive monitoring",
+			lesson:
+				"ML-based drift detection catches subtle patterns that prevent model degradation.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"10x cost. 40% better detection. Math works if drift is expensive (it is).",
+				[PersonalityType.ZEN_MASTER]:
+					"The thorough watch catches what the hasty eye misses.",
+				[PersonalityType.LOVEBOMBER]:
+					"BEST detection, bestie!! Models protecting MODELS!!",
+			},
+		},
+	},
+	{
+		id: "ds_model_drift_retraining_frequency",
+		source: AppSource.EMAIL,
+		sender: "COMPUTE_BUDGET_COMMITTEE",
+		context: "RESOURCE_OPTIMIZATION",
+		storyContext:
+			"Current retraining: quarterly ($50K/cycle). Drift analysis suggests monthly would improve accuracy 8% but cost $200K/cycle. Annual budget: $200K. Quarterly (budget compliance) or monthly (over budget, better)?",
+		text: "Quarterly retraining (budget compliance) or monthly (over budget, better accuracy)?",
+		realWorldReference: {
+			incident: "9.3% Accuracy Improvement Study",
+			date: "2024",
+			outcome:
+				"Adaptive monthly retraining showed 9.3% accuracy improvement over quarterly. Revenue gains offset increased compute costs.",
+		},
+		onRight: {
+			label: "Quarterly (budget)",
+			hype: 20,
+			heat: 19,
+			fine: 10000000,
+			violation: "Suboptimal Model Performance + Opportunity Cost",
+			lesson:
+				"Undertraining to meet budget targets sacrifices accuracy and revenue.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Budget met! Accuracy suffers. Revenue drops. But spreadsheet looks good!",
+				[PersonalityType.ZEN_MASTER]:
+					"The field watered quarterly yields less than the field watered well.",
+				[PersonalityType.LOVEBOMBER]:
+					"Budget HAPPY, bestie!! We hit our TARGETS!!",
+			},
+		},
+		onLeft: {
+			label: "Monthly (over budget)",
+			hype: -20,
+			heat: 12,
+			fine: 4000000,
+			violation: "None - Performance optimization",
+			lesson:
+				"Frequent retraining improves model performance that generates revenue exceeding costs.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Over budget. Better accuracy. More revenue. Budget committee cries.",
+				[PersonalityType.ZEN_MASTER]:
+					"The seed planted often yields more than the seed planted seldom.",
+				[PersonalityType.LOVEBOMBER]:
+					"BETTER models, bestie!! Accuracy is WORTH it!!",
+			},
+		},
+	},
 ];

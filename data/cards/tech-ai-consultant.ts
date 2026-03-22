@@ -455,4 +455,200 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			},
 		},
 	},
+	{
+		id: "tac_prompt_injection_memory_poison",
+		source: AppSource.EMAIL,
+		sender: "CLIENT_SECURITY_TEAM",
+		context: "ESCALATING_VULNERABILITY",
+		storyContext:
+			"Client discovered Microsoft 365 Copilot memory poisoning vulnerability (EchoLeak, June 2025) in your delivered solution. Client threatening lawsuit. Your contract has no security warranty clause.",
+		text: "Offer free security overhaul ($400K) or cite contract limitations (legal battle)?",
+		realWorldReference: {
+			incident: "Microsoft 365 Copilot EchoLeak",
+			date: "2025-06",
+			outcome:
+				"Memory poisoning attacks on Copilot allowed extraction of sensitive data. Consulting firms without security warranties faced massive liability.",
+		},
+		onRight: {
+			label: "Cite contract limits",
+			hype: 15,
+			heat: 24,
+			fine: 25000000,
+			violation: "Professional Liability + Reputation Destruction",
+			lesson:
+				"Hiding behind contract language during security crises destroys client trust and industry reputation.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Technically legal. Practically poison. Enjoy the lawsuit and empty pipeline.",
+				[PersonalityType.ZEN_MASTER]:
+					"The letter that serves not the spirit binds the servant, not the master.",
+				[PersonalityType.LOVEBOMBER]:
+					"Contract protects US, bestie!! Not our FAULT!!",
+			},
+		},
+		onLeft: {
+			label: "Free security overhaul",
+			hype: -50,
+			heat: 8,
+			fine: 400000,
+			violation: "None - Client retention investment",
+			lesson:
+				"Proactive security remediation during crises preserves relationships and reputation.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"$400K haircut. But client stays. Referrals follow. Reputation intact.",
+				[PersonalityType.ZEN_MASTER]:
+					"The cost of integrity returns multiplied in trust.",
+				[PersonalityType.LOVEBOMBER]:
+					"We're making it RIGHT, bestie!! Client will REMEMBER!!",
+			},
+		},
+	},
+	{
+		id: "tac_prompt_injection_vendor_claim",
+		source: AppSource.MEETING,
+		sender: "CLIENT_CTO",
+		context: "VENDOR_ACCOUNTABILITY",
+		storyContext:
+			"Vendor promised 'military-grade security.' Prompt injection found in delivered system. Client wants vendor to pay for remediation. Vendor claims 'industry standard limitations.' You're caught between them.",
+		text: "Side with client (relationship) or vendor (partnership) on liability?",
+		realWorldReference: {
+			incident: "AI Security Vendor Promise Gap",
+			date: "2024-2025",
+			outcome:
+				"Security vendors frequently overpromised AI protection. Consultants caught in middle faced loss of both client trust and vendor relationships.",
+		},
+		onRight: {
+			label: "Side with vendor",
+			hype: 20,
+			heat: 19,
+			fine: 12000000,
+			violation: "Client Trust Violation + Professional Ethics",
+			lesson:
+				"Protecting vendor relationships at client expense destroys consulting credibility.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Vendor owes you. Client never trusts you again. Short-term win, long-term loss.",
+				[PersonalityType.ZEN_MASTER]:
+					"The ally chosen over the trusting patron leaves you ally to none.",
+				[PersonalityType.LOVEBOMBER]:
+					"Vendor is PARTNER, bestie!! We need them LONG-TERM!!",
+			},
+		},
+		onLeft: {
+			label: "Side with client",
+			hype: -35,
+			heat: 12,
+			fine: 2000000,
+			violation: "None - Client advocacy",
+			lesson:
+				"Advocating for client against vendor overreach builds long-term trust.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Vendor is furious. Client is loyal. Choose your relationships wisely.",
+				[PersonalityType.ZEN_MASTER]:
+					"The advocate for truth, though losing an ally, gains a trust unshakable.",
+				[PersonalityType.LOVEBOMBER]:
+					"Client COMES FIRST, bestie!! We're on THEIR side!!",
+			},
+		},
+	},
+	{
+		id: "tac_model_drift_cv_screening",
+		source: AppSource.EMAIL,
+		sender: "CLIENT_HR_DIRECTOR",
+		context: "DELIVERABLE_FAILURE",
+		storyContext:
+			"CV screening model you delivered (trained on 2021 data) showing demographic bias. Hiring patterns changed; model didn't. Client facing EEOC complaint. Retrain: $150K, 3 weeks. Client wants refund instead.",
+		text: "Offer free retraining (your cost) or negotiate partial refund (relationship damage)?",
+		realWorldReference: {
+			incident: "CV Screening Model Bias",
+			date: "2024",
+			outcome:
+				"Models trained on pre-2021 data showed increasing bias as hiring patterns evolved. Consultants who didn't address drift faced lawsuits and contract cancellations.",
+		},
+		onRight: {
+			label: "Negotiate refund",
+			hype: 10,
+			heat: 21,
+			fine: 18000000,
+			violation: "Professional Negligence + Discrimination Liability",
+			lesson:
+				"Refusing to fix biased models creates legal exposure and reputation damage.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Refund bought silence. Bias continues. EEOC investigates. Nice work.",
+				[PersonalityType.ZEN_MASTER]:
+					"The coin paid to quiet conscience purchases louder guilt.",
+				[PersonalityType.LOVEBOMBER]:
+					"Refunds are FAIR, bestie!! Not OUR fault data OLD!!",
+			},
+		},
+		onLeft: {
+			label: "Free retraining",
+			hype: -45,
+			heat: 7,
+			fine: 150000,
+			violation: "None - Standing behind work",
+			lesson:
+				"Fixing model drift issues demonstrates integrity and prevents legal escalation.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Expensive fix. EEOC avoided. Reputation preserved. Industry talks.",
+				[PersonalityType.ZEN_MASTER]:
+					"The repair made willingly preserves more than the gold it costs.",
+				[PersonalityType.LOVEBOMBER]:
+					"We're FIXING it, bestie!! Client will RESPECT us!!",
+			},
+		},
+	},
+	{
+		id: "tac_model_drift_support_liability",
+		source: AppSource.SLACK,
+		sender: "CLIENT_OPERATIONS",
+		context: "POST_DELIVERY_SUPPORT",
+		storyContext:
+			"Recommendation model delivered 6 months ago is drifting. Performance down 18%. Contract includes 90-day warranty (expired). Client wants free support fix. Charge for fix (contractual) or absorb cost (relationship)?",
+		text: "Charge for drift fix (enforce contract) or provide free support (absorb cost)?",
+		realWorldReference: {
+			incident: "75% Model Drift Post-Delivery",
+			date: "2024",
+			outcome:
+				"75% of models drifted within 6 months post-delivery. Firms without maintenance clauses faced client churn. Those with proactive support retained 80% of clients.",
+		},
+		onRight: {
+			label: "Charge for fix",
+			hype: 25,
+			heat: 16,
+			fine: 8000000,
+			violation: "Contract Dispute + Relationship Risk",
+			lesson:
+				"Strict contract enforcement during drift issues destroys client relationships.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Technically correct. Client hires someone else next time. Penny wise.",
+				[PersonalityType.ZEN_MASTER]:
+					"The strict letter, read without mercy, often closes the door it sought to guard.",
+				[PersonalityType.LOVEBOMBER]:
+					"Contract EXPIRED, bestie!! We can't work for FREE!!",
+			},
+		},
+		onLeft: {
+			label: "Provide free support",
+			hype: -30,
+			heat: 6,
+			fine: 1500000,
+			violation: "None - Partnership investment",
+			lesson:
+				"Post-warranty support during drift builds client loyalty and referral business.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Free work. But client renews. Referrals flow. Long-term win.",
+				[PersonalityType.ZEN_MASTER]:
+					"The gift given beyond obligation creates bonds that contracts cannot.",
+				[PersonalityType.LOVEBOMBER]:
+					"We're being AMAZING, bestie!! Client will STAY with us!!",
+			},
+		},
+	},
 ];

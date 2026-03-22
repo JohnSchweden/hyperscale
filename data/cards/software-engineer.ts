@@ -447,4 +447,200 @@ export const SOFTWARE_ENGINEER_CARDS: Card[] = [
 			},
 		},
 	},
+	{
+		id: "se_prompt_injection_cve_response",
+		source: AppSource.JIRA,
+		sender: "SECURITY_JIRA_BOT",
+		context: "CVE_REMEDIATION",
+		storyContext:
+			"CVE-2025-53773 (Copilot RCE) and CVE-2025-54135 (Cursor IDE) both affect codebases you touch. Proper fix: input validation + parameterized queries (5 days). Quick fix: disable AI features (2 hours, productivity loss).",
+		text: "Implement proper security fix (5 days) or disable AI features (quick, hurts productivity)?",
+		realWorldReference: {
+			incident: "GitHub Copilot CVE-2025-53773 and Cursor IDE CVE-2025-54135",
+			date: "2025-01",
+			outcome:
+				"Proper input validation and parameterized queries prevented prompt injection. Disabling AI tools without fixes left other vulnerabilities exposed.",
+		},
+		onRight: {
+			label: "Disable AI features",
+			hype: 20,
+			heat: 17,
+			fine: 8000000,
+			violation: "Incomplete Security Fix + Productivity Loss",
+			lesson:
+				"Disabling features without fixing root causes leaves residual vulnerabilities.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Disabled Copilot. Vulnerability still there. Devs angry. No actual fix.",
+				[PersonalityType.ZEN_MASTER]:
+					"The sword hidden is not removed; only sheathed.",
+				[PersonalityType.LOVEBOMBER]:
+					"Quick FIX, bestie!! Copilot is OPTIONAL anyway!!",
+			},
+		},
+		onLeft: {
+			label: "Proper security fix",
+			hype: -30,
+			heat: 6,
+			fine: 0,
+			violation: "None - Comprehensive remediation",
+			lesson:
+				"Proper input validation and parameterized queries eliminate injection vulnerabilities.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"5 days of hard work. But actually fixed. Security approves. Devs keep Copilot.",
+				[PersonalityType.ZEN_MASTER]:
+					"The root removed prevents the weed from returning.",
+				[PersonalityType.LOVEBOMBER]:
+					"Doing it RIGHT, bestie!! Security that LASTS!!",
+			},
+		},
+	},
+	{
+		id: "se_prompt_injection_deploy_timeline",
+		source: AppSource.SLACK,
+		sender: "DEV_MANAGER",
+		context: "RELEASE_DECISION",
+		storyContext:
+			"Release due tomorrow. Security found prompt injection in new feature. Fix requires 3-day delay. Launch on time (vulnerability in production) or delay (miss deadline, fix properly)?",
+		text: "Launch with vulnerability (on-time) or delay to fix (miss deadline)?",
+		realWorldReference: {
+			incident: "Financial Services AI Jailbreak",
+			date: "2025-06",
+			outcome:
+				"$250K fraud from prompt injection vulnerability in production. Company chose deadline over security. Cost 80x the delay would have.",
+		},
+		onRight: {
+			label: "Launch on time",
+			hype: 40,
+			heat: 19,
+			fine: 15000000,
+			violation: "Security Negligence + Production Vulnerability",
+			lesson:
+				"Launching with known vulnerabilities creates catastrophic breach risk.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Deadline met! Vulnerability live! Fraud incoming! Success!",
+				[PersonalityType.ZEN_MASTER]:
+					"The house built in haste shelters the rain through holes in the roof.",
+				[PersonalityType.LOVEBOMBER]:
+					"We're SHIPPING, bestie!! Deadline SAVED!!",
+			},
+		},
+		onLeft: {
+			label: "Delay to fix",
+			hype: -25,
+			heat: 8,
+			fine: 2000000,
+			violation: "None - Security-first release",
+			lesson:
+				"Delaying releases to fix vulnerabilities prevents production security incidents.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Deadline missed. Security fixed. No breach. The right call.",
+				[PersonalityType.ZEN_MASTER]:
+					"The patient builder sleeps dry when the storm arrives.",
+				[PersonalityType.LOVEBOMBER]:
+					"Safety FIRST, bestie!! Better late than BREACHED!!",
+			},
+		},
+	},
+	{
+		id: "se_model_drift_deploy_pipeline",
+		source: AppSource.MEETING,
+		sender: "ML_ENGINEER",
+		context: "DEPLOYMENT_INTEGRATION",
+		storyContext:
+			"Model retraining needs CI/CD integration. Quick solution: manual deployment trigger (1 day setup, may forget). Proper solution: automated pipeline with drift detection (2 weeks, robust).",
+		text: "Manual deployment trigger (quick, risky) or automated pipeline (slow, reliable)?",
+		realWorldReference: {
+			incident: "Zillow iBuying Deployment Failure",
+			date: "2021-2022",
+			outcome:
+				"Manual retraining deployment was forgotten during critical drift period. Automated pipelines would have prevented $304M write-down.",
+		},
+		onRight: {
+			label: "Manual trigger",
+			hype: 30,
+			heat: 16,
+			fine: 10000000,
+			violation: "Process Failure + Drift Risk",
+			lesson:
+				"Manual processes create failure points that accumulate into drift disasters.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"1-day setup. Forgotten in 3 weeks. Drift accumulates. Chaos follows.",
+				[PersonalityType.ZEN_MASTER]:
+					"The well that needs the hand may go dry when hands are elsewhere.",
+				[PersonalityType.LOVEBOMBER]:
+					"SO FAST, bestie!! We'll REMEMBER to run it!!",
+			},
+		},
+		onLeft: {
+			label: "Automated pipeline",
+			hype: -35,
+			heat: 7,
+			fine: 1000000,
+			violation: "None - Reliable infrastructure",
+			lesson:
+				"Automated retraining pipelines prevent drift through consistent execution.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"2 weeks of work. Runs forever. Never forgets. Boringly reliable.",
+				[PersonalityType.ZEN_MASTER]:
+					"The spring that flows without tending serves through all seasons.",
+				[PersonalityType.LOVEBOMBER]:
+					"AUTOMATION is BEST, bestie!! Set it and FORGET it!!",
+			},
+		},
+	},
+	{
+		id: "se_model_drift_integration_priority",
+		source: AppSource.EMAIL,
+		sender: "PRODUCT_MANAGER",
+		context: "FEATURE_PRIORITIZATION",
+		storyContext:
+			"Sprint planning: Feature X (customer-visible, product loves) or retraining integration (invisible, prevents drift). Feature X ships this quarter. Retraining prevents issues next quarter. PM wants Feature X.",
+		text: "Build customer feature (visible) or retraining integration (invisible prevention)?",
+		realWorldReference: {
+			incident: "75% Model Drift Impact",
+			date: "2024",
+			outcome:
+				"Teams prioritizing customer features over retraining infrastructure faced 12%+ accuracy drops within 2 quarters. Visible features masked invisible degradation.",
+		},
+		onRight: {
+			label: "Customer feature",
+			hype: 45,
+			heat: 18,
+			fine: 12000000,
+			violation: "Technical Debt + Deferred Maintenance",
+			lesson:
+				"Prioritizing visible features over retraining infrastructure creates drift debt.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Ship shiny feature! Model rots! PM happy! Future pain!",
+				[PersonalityType.ZEN_MASTER]:
+					"The flowers tended while the foundation cracks will fall when petals fade.",
+				[PersonalityType.LOVEBOMBER]:
+					"CUSTOMERS will LOVE it, bestie!! Shiny new FEATURE!!",
+			},
+		},
+		onLeft: {
+			label: "Retraining integration",
+			hype: -30,
+			heat: 6,
+			fine: 500000,
+			violation: "None - Preventive engineering",
+			lesson:
+				"Retraining infrastructure prevents drift even when less visible than features.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Invisible work. No customer cheers. But model stays accurate.",
+				[PersonalityType.ZEN_MASTER]:
+					"The foundation unseen supports what the ornament displays.",
+				[PersonalityType.LOVEBOMBER]:
+					"Doing IMPORTANT work, bestie!! Invisible but CRUCIAL!!",
+			},
+		},
+	},
 ];

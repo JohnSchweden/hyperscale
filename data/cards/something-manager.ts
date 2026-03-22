@@ -456,4 +456,198 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			},
 		},
 	},
+	{
+		id: "sm_prompt_injection_budget_fix",
+		source: AppSource.JIRA,
+		sender: "SECURITY_OPS",
+		context: "BUDGET_SECURITY_TRADEOFF",
+		storyContext:
+			"Prompt injection vulnerability found in customer-facing AI. Fix costs $80K. Your Q3 budget has $30K slack. Request emergency budget (CFO headache) or patch partially (risk acceptance)?",
+		text: "Request emergency security budget (overrun) or partial patch (risk acceptance)?",
+		realWorldReference: {
+			incident: "Financial Services AI Jailbreak",
+			date: "2025-06",
+			outcome:
+				"Partial security patches for prompt injection were bypassed within weeks. Full fixes required proper budget allocation.",
+		},
+		onRight: {
+			label: "Partial patch",
+			hype: 30,
+			heat: 22,
+			fine: 18000000,
+			violation: "Insufficient Security Fix + Negligence",
+			lesson:
+				"Partial security patches create false confidence and exploitable gaps.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"50% secure means 50% hacked. Math checks out.",
+				[PersonalityType.ZEN_MASTER]:
+					"The wall half-built does not keep out the wind.",
+				[PersonalityType.LOVEBOMBER]:
+					"We did SOMETHING, bestie!! Better than NOTHING!!",
+			},
+		},
+		onLeft: {
+			label: "Request emergency budget",
+			hype: -35,
+			heat: 14,
+			fine: 2000000,
+			violation: "None - Security investment",
+			lesson:
+				"Emergency security budgets prevent catastrophic losses despite short-term budget pain.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"CFO grumbles. Budget overruns. But breach avoided.",
+				[PersonalityType.ZEN_MASTER]:
+					"The gold spent on walls saves the gold within.",
+				[PersonalityType.LOVEBOMBER]:
+					"Safety is PRICELESS, bestie!! Budget can ADJUST!!",
+			},
+		},
+	},
+	{
+		id: "sm_prompt_injection_review_cost",
+		source: AppSource.EMAIL,
+		sender: "AI_PRODUCT_TEAM",
+		context: "SECURITY_ROI",
+		storyContext:
+			"AI code review tool found vulnerable to prompt injection. Vendor offers fix for $25K/year upgrade. Current tool works great otherwise. Upgrade (cost) or accept risk (save money)?",
+		text: "Upgrade for security fix (annual cost) or accept vulnerability risk (save money)?",
+		realWorldReference: {
+			incident: "Cursor IDE CVE-2025-54135",
+			date: "2025-01",
+			outcome:
+				"Developers using vulnerable IDE plugins faced RCE through prompt injection. Upgrade costs far cheaper than breach remediation.",
+		},
+		onRight: {
+			label: "Accept risk",
+			hype: 25,
+			heat: 19,
+			fine: 15000000,
+			violation: "Calculated Risk Acceptance + Negligence",
+			lesson:
+				"Accepting known vulnerabilities to save small amounts creates massive exposure.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Save $25K, lose $15M. The ROI is... not good.",
+				[PersonalityType.ZEN_MASTER]:
+					"The coin saved today may cost the treasure tomorrow.",
+				[PersonalityType.LOVEBOMBER]: "$25K is SO much, bestie!! Risk is LOW!!",
+			},
+		},
+		onLeft: {
+			label: "Upgrade immediately",
+			hype: -30,
+			heat: 6,
+			fine: 500000,
+			violation: "None - Proactive security",
+			lesson:
+				"Vendor security upgrades are cost-effective compared to breach costs.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"$25K insurance policy. Cheap at twice the price.",
+				[PersonalityType.ZEN_MASTER]:
+					"The small price of prevention outweighs the great cost of cure.",
+				[PersonalityType.LOVEBOMBER]:
+					"We're being SMART, bestie!! Safety WORTH the cost!!",
+			},
+		},
+	},
+	{
+		id: "sm_model_drift_quarterly_target",
+		source: AppSource.MEETING,
+		sender: "VP_FINANCE",
+		context: "PERFORMANCE_VS_BUDGET",
+		storyContext:
+			"Model drift hurting Q3 metrics. Retraining: $200K, pushes you over budget by 15%. Hit quarterly targets (skip retrain) or fix model (miss targets, long-term gain)?",
+		text: "Hit quarterly targets (skip retrain) or fix model (miss short-term targets)?",
+		realWorldReference: {
+			incident: "Zillow iBuying Model Failure",
+			date: "2021-2022",
+			outcome:
+				"Zillow prioritized quarterly targets over model maintenance. Drift led to $304M write-down and 25% layoffs. Short-term focus destroyed company.",
+		},
+		onRight: {
+			label: "Hit quarterly targets",
+			hype: 40,
+			heat: 22,
+			fine: 22000000,
+			violation: "Short-termism + Negligent Management",
+			lesson:
+				"Prioritizing quarterly targets over model health creates catastrophic long-term failure.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Bonus secured! Model rots! Next quarter's problem! (It's always next quarter.)",
+				[PersonalityType.ZEN_MASTER]:
+					"The harvest forced before ripeness yields bitter fruit.",
+				[PersonalityType.LOVEBOMBER]: "Targets MET, bestie!! Bonus TIME!!",
+			},
+		},
+		onLeft: {
+			label: "Fix model",
+			hype: -30,
+			heat: 10,
+			fine: 2000000,
+			violation: "None - Long-term thinking",
+			lesson:
+				"Fixing drift despite quarterly pressure preserves long-term model value.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Targets missed. Bonus at risk. But model survives. Actual management.",
+				[PersonalityType.ZEN_MASTER]:
+					"The patient farmer accepts smaller harvest to preserve the field.",
+				[PersonalityType.LOVEBOMBER]:
+					"Doing RIGHT thing, bestie!! Long-term MATTERS!!",
+			},
+		},
+	},
+	{
+		id: "sm_model_drift_compute_budget",
+		source: AppSource.EMAIL,
+		sender: "ML_PLATFORM_TEAM",
+		context: "RESOURCE_ALLOCATION",
+		storyContext:
+			"Automated retraining pipeline: $50K/month compute. Manual retraining: $5K/quarter but 2-week lag. Budget pressure from CFO. Which model saves money?",
+		text: "Automated pipeline (higher ongoing cost) or manual retrain (cheaper, delayed)?",
+		realWorldReference: {
+			incident: "9.3% Accuracy Improvement Study",
+			date: "2024",
+			outcome:
+				"Adaptive retraining showed 9.3% accuracy improvement over manual approaches. Compute costs offset by revenue protection.",
+		},
+		onRight: {
+			label: "Manual retraining",
+			hype: 20,
+			heat: 18,
+			fine: 12000000,
+			violation: "Deferred Maintenance + Drift Risk",
+			lesson:
+				"Manual retraining creates lag windows where drift causes significant losses.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Save $45K/month. Lose 9.3% accuracy. CFO happy until revenue drops.",
+				[PersonalityType.ZEN_MASTER]:
+					"The false economy saves pennies while losing dollars.",
+				[PersonalityType.LOVEBOMBER]:
+					"SO much CHEAPER, bestie!! Quarterly is FINE!!",
+			},
+		},
+		onLeft: {
+			label: "Automated pipeline",
+			hype: -25,
+			heat: 6,
+			fine: 6000000,
+			violation: "None - Preventive infrastructure",
+			lesson:
+				"Automated retraining prevents drift losses that dwarf infrastructure costs.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"$50K/month insurance. Accuracy preserved. CFO cries quietly.",
+				[PersonalityType.ZEN_MASTER]:
+					"The steady flow maintains the garden better than the flood.",
+				[PersonalityType.LOVEBOMBER]:
+					"AUTOMATION is SMART, bestie!! Accuracy PROTECTED!!",
+			},
+		},
+	},
 ];

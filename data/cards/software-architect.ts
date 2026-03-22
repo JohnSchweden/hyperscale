@@ -455,4 +455,199 @@ export const SOFTWARE_ARCHITECT_CARDS: Card[] = [
 			},
 		},
 	},
+	{
+		id: "sa_prompt_injection_architecture_redesign",
+		source: AppSource.MEETING,
+		sender: "SECURITY_ARCHITECT",
+		context: "SYSTEM_SECURITY_DESIGN",
+		storyContext:
+			"Current LLM integration architecture is fundamentally vulnerable to prompt injection. Proper fix requires complete redesign with input sanitization layers and sandboxed execution. Quick fix is regex filtering (will fail). Redesign takes 8 weeks.",
+		text: "Architecture redesign (8 weeks, secure) or regex filtering (quick, bypassable)?",
+		realWorldReference: {
+			incident: "Cursor IDE RCE CVE-2025-54135",
+			date: "2025-01",
+			outcome:
+				"Architectural redesign for LLM input handling prevented injection attacks. Regex-only solutions were bypassed within days of deployment.",
+		},
+		onRight: {
+			label: "Regex filtering",
+			hype: 35,
+			heat: 23,
+			fine: 20000000,
+			violation: "Security Architecture Failure + False Security",
+			lesson:
+				"Regex filtering without architectural changes creates exploitable vulnerabilities and false confidence.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Regex security. Also known as 'security theater.' Bypassed in hours.",
+				[PersonalityType.ZEN_MASTER]:
+					"The lock that looks strong but opens easily fools only the owner.",
+				[PersonalityType.LOVEBOMBER]:
+					"Quick fix DEPLOYS, bestie!! We can REDESIGN later!!",
+			},
+		},
+		onLeft: {
+			label: "Architecture redesign",
+			hype: -40,
+			heat: 10,
+			fine: 1000000,
+			violation: "None - Secure architecture",
+			lesson:
+				"Architectural security redesign prevents injection at the system level.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"8 weeks of hard work. But actually secure. Worth the wait.",
+				[PersonalityType.ZEN_MASTER]:
+					"The foundation rebuilt stands when the patched foundation falls.",
+				[PersonalityType.LOVEBOMBER]:
+					"Doing it RIGHT, bestie!! Architecture MATTERS!!",
+			},
+		},
+	},
+	{
+		id: "sa_prompt_injection_api_gateway",
+		source: AppSource.TERMINAL,
+		sender: "API_GATEWAY_MONITOR",
+		context: "API_SECURITY_DESIGN",
+		storyContext:
+			"Third-party integration is receiving suspicious requests suggesting prompt injection attacks. Shut down integration (breaks 50 customer workflows) or add API gateway validation (2 week delay, processing overhead)?",
+		text: "Shut down integration (customer impact) or implement API gateway validation (delay)?",
+		realWorldReference: {
+			incident: "Third-Party Integration Prompt Injection",
+			date: "2025",
+			outcome:
+				"Prompt injection through third-party APIs allowed attackers to access internal systems. API gateway validation prevented attacks but added latency.",
+		},
+		onRight: {
+			label: "Continue without validation",
+			hype: 40,
+			heat: 25,
+			fine: 25000000,
+			violation: "Injection Vulnerability + Data Breach Risk",
+			lesson:
+				"Continuing vulnerable integrations during active attacks creates breach exposure.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"50 happy customers until they're breached. Then 50 angry customers.",
+				[PersonalityType.ZEN_MASTER]:
+					"The bridge uncrossed by the careful may save more than the bridge crossed by the hasty.",
+				[PersonalityType.LOVEBOMBER]:
+					"Customers are HAPPY, bestie!! We can't DISRUPT them!!",
+			},
+		},
+		onLeft: {
+			label: "Implement API gateway",
+			hype: -30,
+			heat: 12,
+			fine: 2000000,
+			violation: "None - Defensive architecture",
+			lesson:
+				"API gateway validation prevents injection attacks despite customer disruption.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"2 weeks of pain. 50 annoyed customers. But secure.",
+				[PersonalityType.ZEN_MASTER]:
+					"The gate that checks all who pass prevents the thief disguised.",
+				[PersonalityType.LOVEBOMBER]:
+					"Security FIRST, bestie!! We'll explain to CUSTOMERS!!",
+			},
+		},
+	},
+	{
+		id: "sa_model_drift_pipeline_architecture",
+		source: AppSource.MEETING,
+		sender: "ML_PLATFORM_ARCHITECT",
+		context: "INFRASTRUCTURE_DESIGN",
+		storyContext:
+			"Retraining pipeline: Manual trigger (simple, may miss drift) or automated with rollback (complex, self-healing). Manual is faster to build. Automated prevents drift accumulation.",
+		text: "Manual retraining pipeline (simple) or automated with rollback (complex, robust)?",
+		realWorldReference: {
+			incident: "75% Model Drift Business Impact",
+			date: "2024",
+			outcome:
+				"Manual retraining pipelines missed drift windows that accumulated into 12%+ accuracy drops. Automated pipelines maintained accuracy within 2%.",
+		},
+		onRight: {
+			label: "Manual pipeline",
+			hype: 30,
+			heat: 18,
+			fine: 12000000,
+			violation: "Architecture Gap + Drift Accumulation",
+			lesson:
+				"Manual pipelines create drift detection gaps that degrade model performance.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Simple to build. Hard to remember to run. Drift accumulates silently.",
+				[PersonalityType.ZEN_MASTER]:
+					"The well that needs human hands to fill may run dry in the night.",
+				[PersonalityType.LOVEBOMBER]:
+					"SO much SIMPLER, bestie!! We can run it WEEKLY!!",
+			},
+		},
+		onLeft: {
+			label: "Automated pipeline",
+			hype: -35,
+			heat: 9,
+			fine: 2000000,
+			violation: "None - Resilient architecture",
+			lesson:
+				"Automated retraining pipelines with rollback prevent drift accumulation.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Complex to build. Runs itself forever. Drift never wins.",
+				[PersonalityType.ZEN_MASTER]:
+					"The spring that flows without hands serves even in the caretaker's absence.",
+				[PersonalityType.LOVEBOMBER]:
+					"AUTOMATION is THE FUTURE, bestie!! Self-healing SYSTEMS!!",
+			},
+		},
+	},
+	{
+		id: "sa_model_drift_versioning_strategy",
+		source: AppSource.NOTION,
+		sender: "MODEL_REGISTRY_TEAM",
+		context: "MODEL_LIFECYCLE",
+		storyContext:
+			"Model versioning: Overwrite production (simple, no rollback) or maintain A/B deployment (complex, instant rollback). Overwrite is faster. A/B prevents drift disasters from bad deployments.",
+		text: "Overwrite production (simple) or A/B deployment with rollback (safe, complex)?",
+		realWorldReference: {
+			incident: "Recommendation System Drift Deployment",
+			date: "2024",
+			outcome:
+				"Overwriting production models with drifted versions caused 18-hour outages. A/B deployments with rollback caught issues in minutes.",
+		},
+		onRight: {
+			label: "Overwrite production",
+			hype: 35,
+			heat: 21,
+			fine: 18000000,
+			violation: "Deployment Risk + Recovery Gap",
+			lesson:
+				"Overwriting production without rollback creates unrecoverable drift disasters.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Fast deployment. Slow recovery when it fails. No rollback.",
+				[PersonalityType.ZEN_MASTER]:
+					"The bridge burned behind cannot provide retreat when the path ahead fails.",
+				[PersonalityType.LOVEBOMBER]: "SO FAST, bestie!! Deploy in SECONDS!!",
+			},
+		},
+		onLeft: {
+			label: "A/B with rollback",
+			hype: -30,
+			heat: 7,
+			fine: 1000000,
+			violation: "None - Safe deployment",
+			lesson:
+				"A/B deployments with instant rollback prevent drift-related production issues.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Complex setup. Instant rollback. Drift caught before disaster.",
+				[PersonalityType.ZEN_MASTER]:
+					"The path with two branches allows return when one leads astray.",
+				[PersonalityType.LOVEBOMBER]:
+					"SAFE deployments, bestie!! Rollback is our FRIEND!!",
+			},
+		},
+	},
 ];

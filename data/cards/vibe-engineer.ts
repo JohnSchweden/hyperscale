@@ -451,4 +451,200 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 			},
 		},
 	},
+	{
+		id: "ve_prompt_injection_validation_latency",
+		source: AppSource.TERMINAL,
+		sender: "PERFORMANCE_PROFILER",
+		context: "SECURITY_LATENCY_TRADEOFF",
+		storyContext:
+			"Input validation for AI endpoints adds 180ms latency (now 250ms total). Remove validation (sub-100ms, vulnerable) or keep validation (slow, secure)? Users complain about slowness. Security mandates validation.",
+		text: "Remove validation (fast, vulnerable) or keep validation (slow, secure)?",
+		realWorldReference: {
+			incident: "GitHub Copilot RCE CVE-2025-53773",
+			date: "2025-01",
+			outcome:
+				"Performance-optimized endpoints without validation allowed prompt injection attacks. Latency vs security tradeoff incorrectly prioritized speed.",
+		},
+		onRight: {
+			label: "Remove validation",
+			hype: 45,
+			heat: 21,
+			fine: 15000000,
+			violation: "Prompt Injection + Performance-Masked Vulnerability",
+			lesson:
+				"Removing security validation for performance creates exploitable injection vectors.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Fast and injectable. 180ms saved, $15M lost. Good trade!",
+				[PersonalityType.ZEN_MASTER]:
+					"The swift horse that carries the thief is not fleet but fatal.",
+				[PersonalityType.LOVEBOMBER]:
+					"SO FAST now, bestie!! Users will LOVE the speed!!",
+			},
+		},
+		onLeft: {
+			label: "Keep validation",
+			hype: -35,
+			heat: 8,
+			fine: 2000000,
+			violation: "None - Secure performance",
+			lesson:
+				"Input validation protects against injection despite latency cost.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Slow but secure. 180ms is acceptable. RCE is not.",
+				[PersonalityType.ZEN_MASTER]:
+					"The guarded gate delays but protects what lies within.",
+				[PersonalityType.LOVEBOMBER]:
+					"Security OVER speed, bestie!! Safety FIRST!!",
+			},
+		},
+	},
+	{
+		id: "ve_prompt_injection_caching_risk",
+		source: AppSource.EMAIL,
+		sender: "CDN_OPS_TEAM",
+		context: "CACHE_SECURITY_DESIGN",
+		storyContext:
+			"AI responses cached at edge for performance. Discovered adversarial prompts can poison cache with malicious responses. Disable AI caching (performance hit) or filter cached responses (complex, may miss)?",
+		text: "Disable AI caching (performance loss) or attempt cache filtering (complex, uncertain)?",
+		realWorldReference: {
+			incident: "Edge Cache Poisoning via Prompt Injection",
+			date: "2025",
+			outcome:
+				"Cached AI responses were poisoned through prompt injection, serving malicious content to multiple users. Cache invalidation was complex and slow.",
+		},
+		onRight: {
+			label: "Attempt filtering",
+			hype: 35,
+			heat: 19,
+			fine: 12000000,
+			violation: "Cache Poisoning + Response Contamination",
+			lesson:
+				"Filtering poisoned caches is error-prone and leaves malicious content accessible.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Filter the poisoned cache. Miss one. Serve malware. Nice.",
+				[PersonalityType.ZEN_MASTER]:
+					"The well poisoned cannot be drunk from though filtered.",
+				[PersonalityType.LOVEBOMBER]:
+					"Filtering SHOULD work, bestie!! Keep the CACHE!!",
+			},
+		},
+		onLeft: {
+			label: "Disable AI caching",
+			hype: -30,
+			heat: 10,
+			fine: 3000000,
+			violation: "None - Secure caching",
+			lesson:
+				"Disabling AI response caching prevents poisoning attacks at performance cost.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Slower responses. No poisoning. Edge cache stays clean.",
+				[PersonalityType.ZEN_MASTER]:
+					"The spring that flows fresh each time may be slower but is never stale.",
+				[PersonalityType.LOVEBOMBER]:
+					"Better SAFE than poisoned, bestie!! No CACHE for AI!!",
+			},
+		},
+	},
+	{
+		id: "ve_model_drift_retraining_cost",
+		source: AppSource.EMAIL,
+		sender: "INFRASTRUCTURE_COST_TEAM",
+		context: "COMPUTE_BUDGET_OPTIMIZATION",
+		storyContext:
+			"Model retraining on GPU cluster: $10K/run, 4 hours. Model accuracy declining 2% monthly. Current revenue impact: $50K/month. Skip retraining this month (save $10K) or maintain schedule (accuracy preservation)?",
+		text: "Skip retraining (save $10K) or maintain schedule (spend to preserve accuracy)?",
+		realWorldReference: {
+			incident: "75% Business Model Drift Impact",
+			date: "2024",
+			outcome:
+				"Skipping retraining for budget reasons led to compounding accuracy drops. $10K savings became $200K+ revenue loss from degraded model performance.",
+		},
+		onRight: {
+			label: "Skip this month",
+			hype: 25,
+			heat: 17,
+			fine: 10000000,
+			violation: "Deferred Maintenance + Revenue Impact",
+			lesson:
+				"Skipping retraining to save compute costs causes compounding accuracy degradation.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"Save $10K, lose $50K. The math is... not good.",
+				[PersonalityType.ZEN_MASTER]:
+					"The field unwatered saves the water but loses the crop.",
+				[PersonalityType.LOVEBOMBER]:
+					"Budget looks GOOD, bestie!! Just ONE month!!",
+			},
+		},
+		onLeft: {
+			label: "Maintain schedule",
+			hype: -25,
+			heat: 6,
+			fine: 1000000,
+			violation: "None - Consistent maintenance",
+			lesson:
+				"Regular retraining preserves model accuracy and prevents revenue degradation.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"$10K spent. Accuracy preserved. Revenue protected. CFO cries quietly.",
+				[PersonalityType.ZEN_MASTER]:
+					"The steady care prevents the urgent repair.",
+				[PersonalityType.LOVEBOMBER]:
+					"MAINTAINING quality, bestie!! Prevention is KEY!!",
+			},
+		},
+	},
+	{
+		id: "ve_model_drift_scaling_decision",
+		source: AppSource.MEETING,
+		sender: "ML_PLATFORM_TEAM",
+		context: "INFRASTRUCTURE_SCALING",
+		storyContext:
+			"Retraining taking 4 hours (was 2 hours last quarter). Data volume increased 50%. Scale training infrastructure (2x cost, 1 hour training) or accept longer retraining (current cost, drift risk)?",
+		text: "Scale infrastructure (2x cost, fast training) or accept drift window (current cost)?",
+		realWorldReference: {
+			incident: "Training Pipeline Scaling Bottlenecks",
+			date: "2024",
+			outcome:
+				"Teams that didn't scale training infrastructure faced extended drift windows. Longer retraining periods meant models operated with degraded accuracy for days instead of hours.",
+		},
+		onRight: {
+			label: "Accept longer retraining",
+			hype: 20,
+			heat: 19,
+			fine: 12000000,
+			violation: "Extended Drift Window + Performance Degradation",
+			lesson:
+				"Longer retraining windows increase time models operate with degraded accuracy.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"4-hour drift window. Model degrading. But budget saved!",
+				[PersonalityType.ZEN_MASTER]:
+					"The slow healer lets the wound deepen before the cure.",
+				[PersonalityType.LOVEBOMBER]:
+					"2x cost is CRAZY, bestie!! 4 hours is FINE!!",
+			},
+		},
+		onLeft: {
+			label: "Scale infrastructure",
+			hype: -30,
+			heat: 8,
+			fine: 4000000,
+			violation: "None - Adequate capacity",
+			lesson:
+				"Scaling training infrastructure prevents extended drift windows despite cost.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"2x cost. 1-hour retraining. Minimal drift. Infrastructure investment pays off.",
+				[PersonalityType.ZEN_MASTER]:
+					"The vessel sized to the need fills quickly and serves fully.",
+				[PersonalityType.LOVEBOMBER]:
+					"SCALING for success, bestie!! Fast training is WORTH it!!",
+			},
+		},
+	},
 ];
