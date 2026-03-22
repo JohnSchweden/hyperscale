@@ -634,22 +634,21 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 					"Our model is SPECIAL, bestie!! 9% chance of SUCCESS!!",
 			},
 		},
-			onLeft: {
-				label: "Invest in prevention",
-				hype: -35,
-				heat: 10,
-				fine: 5000000,
-				violation: "None - Proactive governance",
-				lesson:
-					"Preventive investment in retraining infrastructure avoids catastrophic model failures.",
-				feedback: {
-					[PersonalityType.ROASTER]:
-						"$5M now vs $30M later. Math isn't hard. Boards hate spending though.",
-					[PersonalityType.ZEN_MASTER]:
-						"The seed planted before the drought feeds what the unprepared cannot.",
-					[PersonalityType.LOVEBOMBER]:
-						"We're being SMART, bestie!! Prevention is CHEAPER!!",
-				},
+		onLeft: {
+			label: "Invest in prevention",
+			hype: -35,
+			heat: 10,
+			fine: 5000000,
+			violation: "None - Proactive governance",
+			lesson:
+				"Preventive investment in retraining infrastructure avoids catastrophic model failures.",
+			feedback: {
+				[PersonalityType.ROASTER]:
+					"$5M now vs $30M later. Math isn't hard. Boards hate spending though.",
+				[PersonalityType.ZEN_MASTER]:
+					"The seed planted before the drought feeds what the unprepared cannot.",
+				[PersonalityType.LOVEBOMBER]:
+					"We're being SMART, bestie!! Prevention is CHEAPER!!",
 			},
 		},
 	},
@@ -778,8 +777,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Let's slowly stop the data leak while trade secrets walk out the door. Smart.",
-				[PersonalityType.ZEN_MASTER]:
-					"The wound dressed slowly bleeds longer.",
+				[PersonalityType.ZEN_MASTER]: "The wound dressed slowly bleeds longer.",
 				[PersonalityType.LOVEBOMBER]:
 					"Change takes TIME, bestie!! Team needs to ADJUST!!",
 			},
