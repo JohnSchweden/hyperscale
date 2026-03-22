@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 
 test.use({ baseURL: "https://localhost:3000" });
 
-test.describe("V2 Waitlist API @area:gameplay", () => {
+test.describe("V2 Waitlist API @live-api @area:gameplay", () => {
 	test("POST /api/v2-waitlist returns 200 for valid payload", async ({
 		request,
 	}) => {
