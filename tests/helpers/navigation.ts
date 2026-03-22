@@ -17,6 +17,7 @@ export async function navigateToPlayingWithRoleFast(
 	role: RoleType,
 ): Promise<void> {
 	await page.addInitScript((r: string) => {
+		window.localStorage.removeItem("km-debug-state");
 		window.localStorage.setItem(
 			"gameState",
 			JSON.stringify({
@@ -57,22 +58,25 @@ export async function navigateToPlayingFast(page: Page): Promise<void> {
  * @param page - Playwright Page object
  * @param role - RoleType to use (default: SOFTWARE_ENGINEER)
  * @param cardIndex - Index of the card to show first (default: 0)
+ * @param personality - Personality string for km-debug-state (default: ROASTER)
  */
 export async function navigateToPlayingWithCardAtIndex(
 	page: Page,
 	role: RoleType = RoleType.SOFTWARE_ENGINEER,
 	cardIndex: number = 0,
+	personality: string = "ROASTER",
 ): Promise<void> {
 	// Use the debug state mechanism to set a complete game state
 	// This bypasses the shuffling that happens in App.tsx during INITIALIZING → PLAYING transition
 	const effectiveDeck = [...ROLE_CARDS[role]]; // Copy without shuffling
 	await page.addInitScript(
 		(stateStr: string) => {
+			window.localStorage.removeItem("gameState");
 			window.localStorage.setItem("km-debug-state", stateStr);
 		},
 		JSON.stringify({
 			stage: "PLAYING",
-			personality: "ROASTER",
+			personality,
 			role: role,
 			currentCardIndex: cardIndex,
 			hype: 50,
@@ -95,27 +99,32 @@ export async function navigateToPlayingWithCardAtIndex(
 		.waitFor({ state: "visible", timeout: 5000 });
 }
 
-/**
- * Returns a configuration marker for tests that should use test.beforeAll pattern.
- *
- * This is a documentation/convention helper. Actual context reuse comes from
- * Playwright config (reuseExistingBrowser: true in projects).
- *
- * Usage:
- * ```typescript
- * test.describe('Static CSS tests', () => {
- *   test.beforeAll(async ({ page }) => {
- *     await navigateToPlayingFast(page);
- *   });
- *
- *   test('CSS class exists', async ({ page }) => { ... });
- * });
- * ```
- */
-export function getStatefulPage(page: Page): Page {
-	// Just return the page - the marker is for documentation purposes
-	// Tests using beforeAll will share browser context via Playwright config
-	return page;
+/** Visible swipe labels must match one card in the role's deck (handles shuffle + deck changes). */
+export async function assertSwipeLabelsBelongToRoleDeck(
+	page: Page,
+	role: RoleType,
+): Promise<void> {
+	await page
+		.locator(SELECTORS.leftButton)
+		.first()
+		.waitFor({ state: "visible", timeout: 10000 });
+	const leftText = (
+		await page.locator(SELECTORS.leftButton).first().innerText()
+	).trim();
+	const rightText = (
+		await page.locator(SELECTORS.rightButton).first().innerText()
+	).trim();
+	const deck = ROLE_CARDS[role];
+	const ok = deck.some(
+		(c) =>
+			(c.onLeft.label === leftText && c.onRight.label === rightText) ||
+			(c.onRight.label === leftText && c.onLeft.label === rightText),
+	);
+	if (!ok) {
+		throw new Error(
+			`Swipe labels [${leftText} | ${rightText}] should match a ${role} deck card`,
+		);
+	}
 }
 
 /**
@@ -195,6 +204,7 @@ export async function navigateToRoleSelect(page: Page): Promise<void> {
  */
 export async function navigateToRoleSelectFast(page: Page): Promise<void> {
 	await page.addInitScript(() => {
+		window.localStorage.removeItem("km-debug-state");
 		window.localStorage.setItem(
 			"gameState",
 			JSON.stringify({

@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { expect, test } from "@playwright/test";
+import { BGM_SOURCE_FILENAMES } from "../data/bgmPlaylist";
 
 /**
  * Voice Audio Files Existence Tests
@@ -11,6 +12,7 @@ import { expect, test } from "@playwright/test";
 
 const VOICES_DIR = path.join(process.cwd(), "public/audio/voices");
 const STRESS_DIR = path.join(process.cwd(), "public/audio/stress");
+const BGM_DIR = path.join(process.cwd(), "public/audio/music");
 
 const PERSONALITIES = ["roaster", "zenmaster", "lovebomber"] as const;
 
@@ -57,6 +59,18 @@ test.describe("Voice Audio Files @smoke @area:audio", () => {
 				expect(
 					fs.existsSync(filePath),
 					`Missing required file: roaster/${file}`,
+				).toBe(true);
+			});
+		}
+	});
+
+	test.describe("Background music (burger menu)", () => {
+		for (const file of BGM_SOURCE_FILENAMES) {
+			test(`${file} exists`, () => {
+				const filePath = path.join(BGM_DIR, file);
+				expect(
+					fs.existsSync(filePath),
+					`Missing BGM file: public/audio/music/${file}`,
 				).toBe(true);
 			});
 		}

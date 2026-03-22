@@ -1,8 +1,12 @@
 import type React from "react";
-import { Fragment, useState } from "react";
+import { Fragment, useCallback, useState } from "react";
 import { PERSONALITIES, ROLE_CARDS } from "../../../data";
 import { type GameState, PersonalityType } from "../../../types";
 import LayoutShell from "../../LayoutShell";
+import {
+	GLASS_FILL_STRONG,
+	GLASS_PANEL_DEFAULT,
+} from "../selectionStageStyles";
 
 interface DebriefPage2AuditTrailProps {
 	state: GameState;
@@ -50,7 +54,6 @@ interface AuditEntryProps {
 	card: (typeof ROLE_CARDS)[keyof typeof ROLE_CARDS][number];
 	isExpanded: boolean;
 	onToggleExpanded: (index: number) => void;
-	key?: string;
 }
 
 function AuditEntry({
@@ -63,30 +66,40 @@ function AuditEntry({
 	const outcome = entry.choice === "RIGHT" ? card.onRight : card.onLeft;
 	const cardPreview = card.text.slice(0, 120);
 	const shouldShowExpand = card.text.length > 120;
+	const choiceBadgeClass =
+		outcome.fine > 0
+			? "bg-amber-500/20 text-amber-400 border border-amber-500/30"
+			: "bg-cyan-500/20 text-cyan-400 border border-cyan-500/30";
+	const expandToggleClass =
+		"inline-flex items-center justify-center min-h-11 min-w-11 sm:min-h-0 sm:min-w-0 text-cyan-400 hover:text-cyan-300 underline cursor-pointer";
 
 	return (
-		<div className="p-4 rounded-lg border border-slate-800 bg-slate-900/50 text-left">
-			<div className="flex items-start justify-between gap-4 mb-2">
-				<div className="flex-1 min-w-0">
-					<div className="flex items-center gap-2 mb-1">
-						<span className="text-xs font-mono text-slate-400">
+		<div className={`rounded-xl p-4 sm:p-5 text-left ${GLASS_PANEL_DEFAULT}`}>
+			<div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between md:gap-6">
+				<div className="min-w-0 flex-1 space-y-3">
+					<div className="flex gap-2.5">
+						<span className="shrink-0 font-mono tabular-nums text-slate-500">
 							#{index + 1}
 						</span>
-						<span className="text-sm font-medium text-slate-300 truncate">
-							{card.sender}
-						</span>
-						<span className="text-xs text-slate-400">({card.source})</span>
+						<div className="min-w-0 flex-1">
+							<p className="break-words text-sm font-medium text-slate-200">
+								{card.sender}
+							</p>
+							<p className="break-all font-mono text-[11px] text-slate-500">
+								{card.source}
+							</p>
+						</div>
 					</div>
-					<div className="text-sm text-slate-400">
-						<span className="text-slate-400">"</span>
+					<div className="text-left text-sm leading-relaxed text-slate-300">
+						<span className="text-slate-500">"</span>
 						{isExpanded ? card.text : cardPreview}
 						{!isExpanded && shouldShowExpand && (
 							<>
-								<span className="text-slate-400">...</span>
+								<span className="text-slate-500">...</span>
 								<button
 									type="button"
 									onClick={() => onToggleExpanded(index)}
-									className="ml-1 text-cyan-400 hover:text-cyan-300 underline cursor-pointer"
+									className={`ml-1 ${expandToggleClass}`}
 								>
 									show more
 								</button>
@@ -96,40 +109,36 @@ function AuditEntry({
 							<button
 								type="button"
 								onClick={() => onToggleExpanded(index)}
-								className="ml-1 text-cyan-400 hover:text-cyan-300 underline cursor-pointer"
+								className={`ml-1 ${expandToggleClass}`}
 							>
 								show less
 							</button>
 						)}
-						<span className="text-slate-400">"</span>
+						<span className="text-slate-500">"</span>
 					</div>
 				</div>
-				<div className="flex flex-col items-end gap-1">
-					<span className="text-xs text-slate-400 tracking-wide">
+				<div className="flex w-full flex-row items-center justify-between gap-3 border-t border-white/[0.08] pt-4 md:w-auto md:max-w-[13rem] md:flex-col md:items-end md:border-t-0 md:pt-0 md:pl-2 lg:max-w-[15rem]">
+					<span className="text-[11px] font-medium uppercase tracking-wide text-slate-500 md:text-slate-400">
 						Your choice
 					</span>
 					<div
-						className={`px-3 py-1 rounded text-xs font-bold ${
-							outcome.fine > 0
-								? "bg-amber-500/20 text-amber-400 border border-amber-500/30"
-								: "bg-cyan-500/20 text-cyan-400 border border-cyan-500/30"
-						}`}
+						className={`max-w-[min(100%,18rem)] rounded px-3 py-2 text-left text-xs font-bold leading-snug break-words hyphens-auto md:max-w-none md:text-right ${choiceBadgeClass}`}
 					>
 						{outcome.label}
 					</div>
 				</div>
 			</div>
-			<div className="flex items-center gap-2 text-xs text-slate-400">
-				<span className="font-medium">Consequence:</span>
-				<span>
+			<div className="mt-4 space-y-2 border-t border-white/[0.08] pt-3">
+				<p className="text-xs text-slate-400">
+					<span className="font-medium text-slate-500">Consequence:</span>{" "}
 					{formatConsequence(outcome.hype, outcome.heat, outcome.fine)}
-				</span>
+				</p>
+				{outcome.violation && (
+					<p className="break-words text-xs leading-relaxed text-red-400/85">
+						Violation: {outcome.violation}
+					</p>
+				)}
 			</div>
-			{outcome.violation && (
-				<div className="mt-2 text-xs text-red-400/80">
-					Violation: {outcome.violation}
-				</div>
-			)}
 		</div>
 	);
 }
@@ -160,7 +169,6 @@ interface PathHintProps {
 	prefix: string;
 	label: string;
 	suffix: string;
-	key?: string;
 }
 
 function PathHint({
@@ -173,11 +181,13 @@ function PathHint({
 	const config = PATH_HINT_CONFIG[variant];
 	return (
 		<div
-			className={`text-sm text-slate-300 pl-4 border-l-3 ${config.border} py-2 rounded-r`}
+			className={`border-l-3 ${config.border} rounded-r py-2.5 pl-0 text-sm text-slate-300 sm:py-2`}
 		>
 			<div className="flex items-start gap-2">
-				<span className={`${config.iconClass} mt-0.5`}>{config.icon}</span>
-				<span>
+				<span className={`${config.iconClass} mt-0.5 shrink-0`}>
+					{config.icon}
+				</span>
+				<span className="min-w-0 leading-relaxed">
 					<strong>Decision {index + 1}:</strong> {prefix}
 					<span className={`${config.labelClass} font-medium`}>{label}</span>
 					{suffix}
@@ -199,17 +209,14 @@ export const DebriefPage2AuditTrail: React.FC<DebriefPage2AuditTrailProps> = ({
 		new Set(),
 	);
 
-	const toggleExpanded = (index: number) => {
+	const toggleExpanded = useCallback((index: number) => {
 		setExpandedEntries((prev) => {
-			const newSet = new Set(prev);
-			if (newSet.has(index)) {
-				newSet.delete(index);
-			} else {
-				newSet.add(index);
-			}
-			return newSet;
+			const next = new Set(prev);
+			if (next.has(index)) next.delete(index);
+			else next.add(index);
+			return next;
 		});
-	};
+	}, []);
 
 	const personalityComment = personality
 		? getPersonalityComment(personality)
@@ -218,31 +225,33 @@ export const DebriefPage2AuditTrail: React.FC<DebriefPage2AuditTrailProps> = ({
 	const personalityData = personality ? PERSONALITIES[personality] : null;
 
 	return (
-		<LayoutShell className="p-4 pb-12 md:p-6 md:pb-16 text-center bg-slate-950">
+		<LayoutShell className="p-4 pb-12 md:p-6 md:pb-16 text-center !bg-transparent">
 			<div className="w-full max-w-2xl">
 				{/* Header */}
-				<div className="mb-6 md:mb-8">
+				<div className="mb-6 text-center md:mb-8">
 					<h1 className="text-3xl md:text-5xl font-black text-white mb-2 tracking-tighter">
 						Incident Audit Log
 					</h1>
-					<p className="text-slate-400 text-base md:text-lg">
+					<p className="px-1 text-base text-slate-400 md:text-lg">
 						A complete record of your governance decisions
 					</p>
 				</div>
 
 				{/* Audit Log List */}
-				<div className="mb-6 md:mb-8">
+				<div className="mb-6 text-left md:mb-8">
 					{history.length === 0 ? (
-						<div className="p-8 rounded-xl border border-slate-800 bg-slate-900/30 text-slate-400">
+						<div
+							className={`rounded-xl p-8 text-center text-slate-400 ${GLASS_PANEL_DEFAULT}`}
+						>
 							No decisions recorded
 						</div>
 					) : (
-						<div className="space-y-3">
+						<div className="space-y-4">
 							{history.map((entry, index) => {
 								const card = cards.find((c) => c.id === entry.cardId);
 								if (!card) return null;
 								return (
-									// biome-ignore lint/suspicious/noArrayIndexKey: Audit log is chronological and stable
+									// biome-ignore lint/suspicious/noArrayIndexKey: chronological stable list
 									<Fragment key={`audit-entry-${index}`}>
 										<AuditEntry
 											entry={entry}
@@ -260,7 +269,9 @@ export const DebriefPage2AuditTrail: React.FC<DebriefPage2AuditTrailProps> = ({
 
 				{/* Personality Sign-off */}
 				{personalityData && (
-					<div className="mb-6 md:mb-8 p-6 rounded-xl border border-cyan-900/30 bg-cyan-950/10">
+					<div
+						className={`mb-6 md:mb-8 p-6 rounded-xl border border-cyan-500/35 ${GLASS_FILL_STRONG}`}
+					>
 						<div className="flex items-center gap-3 mb-3">
 							<div className="w-10 h-10 rounded-full bg-cyan-500/20 flex items-center justify-center">
 								<i className="fa-solid fa-robot text-cyan-400"></i>
@@ -281,12 +292,14 @@ export const DebriefPage2AuditTrail: React.FC<DebriefPage2AuditTrailProps> = ({
 				)}
 
 				{/* Reflection Prompt */}
-				<div className="mb-6 md:mb-8 p-6 rounded-xl border border-slate-700 bg-slate-900/40">
-					<h3 className="text-lg font-bold text-slate-200 mb-3">
+				<div
+					className={`mb-6 rounded-xl p-5 sm:p-6 md:mb-8 ${GLASS_PANEL_DEFAULT}`}
+				>
+					<h3 className="mb-3 text-left text-lg font-bold text-slate-200 sm:text-center">
 						<i className="fa-solid fa-lightbulb text-yellow-500 mr-2"></i>
 						What would you do differently?
 					</h3>
-					<p className="text-slate-400 text-sm mb-4 leading-relaxed">
+					<p className="text-left text-slate-400 text-sm mb-4 leading-relaxed">
 						Every choice you made shaped this outcome. As you look back at your
 						decisions, consider the paths not taken and why you made the choices
 						you did.
@@ -294,42 +307,44 @@ export const DebriefPage2AuditTrail: React.FC<DebriefPage2AuditTrailProps> = ({
 
 					{/* Per-choice hints for both safe and risky decisions */}
 					{history.length > 0 && (
-						<div className="space-y-1 mt-8">
-							<div className="text-sm font-semibold text-slate-300 uppercase tracking-wide mb-3 flex items-center justify-center gap-2 pt-[24px]">
+						<div className="mt-8">
+							<div className="text-base font-semibold text-slate-300 mb-3 flex items-center justify-center gap-2 pt-[24px]">
 								<i className="fa-solid fa-route text-cyan-400"></i>
-								Path You Didn't Take
+								Path you didn't take
 							</div>
-							{history.map((entry, index) => {
-								const card = cards.find((c) => c.id === entry.cardId);
-								if (!card) return null;
+							<div className="space-y-1 text-left">
+								{history.map((entry, index) => {
+									const card = cards.find((c) => c.id === entry.cardId);
+									if (!card) return null;
 
-								if (entry.choice === "LEFT") {
+									if (entry.choice === "LEFT") {
+										return (
+											// biome-ignore lint/suspicious/noArrayIndexKey: chronological stable list
+											<Fragment key={`hint-${index}`}>
+												<PathHint
+													index={index}
+													variant="safe"
+													prefix="You played it safe. Next time, try "
+													label={card.onRight.label.toLowerCase()}
+													suffix=" to see how much hype you could gain—and what heat you might attract."
+												/>
+											</Fragment>
+										);
+									}
 									return (
-										// biome-ignore lint/suspicious/noArrayIndexKey: Stable chronological list
+										// biome-ignore lint/suspicious/noArrayIndexKey: chronological stable list
 										<Fragment key={`hint-${index}`}>
 											<PathHint
 												index={index}
-												variant="safe"
-												prefix="You played it safe. Next time, try "
-												label={card.onRight.label.toLowerCase()}
-												suffix=" to see how much hype you could gain—and what heat you might attract."
+												variant="risky"
+												prefix="You took a risk. Next time, try "
+												label={card.onLeft.label.toLowerCase()}
+												suffix=" to see if you can avoid the heat and fines."
 											/>
 										</Fragment>
 									);
-								}
-								return (
-									// biome-ignore lint/suspicious/noArrayIndexKey: Stable chronological list
-									<Fragment key={`hint-${index}`}>
-										<PathHint
-											index={index}
-											variant="risky"
-											prefix="You took a risk. Next time, try "
-											label={card.onLeft.label.toLowerCase()}
-											suffix=" to see if you can avoid the heat and fines."
-										/>
-									</Fragment>
-								);
-							})}
+								})}
+							</div>
 						</div>
 					)}
 
@@ -345,7 +360,7 @@ export const DebriefPage2AuditTrail: React.FC<DebriefPage2AuditTrailProps> = ({
 				<button
 					type="button"
 					onClick={onNext}
-					className="px-6 py-3 md:px-12 md:py-4 text-base md:text-xl font-bold tracking-wide bg-white text-black hover:bg-cyan-400 hover:text-black transition-all duration-300 min-h-[40px] md:min-h-[48px]"
+					className="mx-auto w-full max-w-md bg-white px-6 py-3.5 text-base font-bold tracking-wide text-black transition-all duration-300 hover:bg-cyan-400 hover:text-black min-h-11 md:mx-0 md:w-auto md:max-w-none md:min-h-12 md:px-12 md:py-4 md:text-xl"
 				>
 					Generate Psych Evaluation
 				</button>

@@ -1,4 +1,5 @@
 export { useArchetype } from "./useArchetype";
+export { useBackgroundMusic } from "./useBackgroundMusic";
 export { useBossFight } from "./useBossFight";
 export { useClock } from "./useClock";
 export { useCountdown } from "./useCountdown";

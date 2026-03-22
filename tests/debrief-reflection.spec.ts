@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { gotoWithKmDebugState } from "./helpers/km-debug-state";
 
 test.use({ baseURL: "https://localhost:3000" });
 
@@ -6,30 +7,10 @@ test.describe("Debrief Reflection Hints @area:gameplay", () => {
 	test("shows hints for LEFT (safe) choices suggesting riskier alternatives", async ({
 		page,
 	}) => {
-		await page.goto("/");
-
-		await page.evaluate(() => {
-			localStorage.setItem(
-				"km-debug-state",
-				JSON.stringify({
-					stage: "DEBRIEF_PAGE_2",
-					hype: 50,
-					heat: 100,
-					budget: 500000,
-					personality: "ROASTER",
-					role: "SOFTWARE_ENGINEER",
-					currentCardIndex: 0,
-					history: [{ cardId: "se_security_patch_timeline", choice: "LEFT" }],
-					deathReason: "Heat exceeded 100%",
-					deathType: "REPLACED_BY_SCRIPT",
-					unlockedEndings: ["REPLACED_BY_SCRIPT"],
-					bossFightAnswers: [],
-					effectiveDeck: null,
-				}),
-			);
+		await gotoWithKmDebugState(page, {
+			stage: "DEBRIEF_PAGE_2",
+			history: [{ cardId: "se_security_patch_timeline", choice: "LEFT" }],
 		});
-
-		await page.reload();
 
 		// Should show hint for safe choice
 		await expect(page.getByText(/you played it safe/i)).toBeVisible();
@@ -39,30 +20,10 @@ test.describe("Debrief Reflection Hints @area:gameplay", () => {
 	test("shows hints for RIGHT (risky) choices suggesting safer alternatives", async ({
 		page,
 	}) => {
-		await page.goto("/");
-
-		await page.evaluate(() => {
-			localStorage.setItem(
-				"km-debug-state",
-				JSON.stringify({
-					stage: "DEBRIEF_PAGE_2",
-					hype: 50,
-					heat: 100,
-					budget: 500000,
-					personality: "ROASTER",
-					role: "SOFTWARE_ENGINEER",
-					currentCardIndex: 0,
-					history: [{ cardId: "se_security_patch_timeline", choice: "RIGHT" }],
-					deathReason: "Heat exceeded 100%",
-					deathType: "REPLACED_BY_SCRIPT",
-					unlockedEndings: ["REPLACED_BY_SCRIPT"],
-					bossFightAnswers: [],
-					effectiveDeck: null,
-				}),
-			);
+		await gotoWithKmDebugState(page, {
+			stage: "DEBRIEF_PAGE_2",
+			history: [{ cardId: "se_security_patch_timeline", choice: "RIGHT" }],
 		});
-
-		await page.reload();
 
 		// Should show hint for risky choice
 		await expect(page.getByText(/you took a risk/i)).toBeVisible();
@@ -70,34 +31,14 @@ test.describe("Debrief Reflection Hints @area:gameplay", () => {
 	});
 
 	test("shows hints for mixed LEFT and RIGHT choices", async ({ page }) => {
-		await page.goto("/");
-
-		await page.evaluate(() => {
-			localStorage.setItem(
-				"km-debug-state",
-				JSON.stringify({
-					stage: "DEBRIEF_PAGE_2",
-					hype: 50,
-					heat: 100,
-					budget: 500000,
-					personality: "ROASTER",
-					role: "SOFTWARE_ENGINEER",
-					currentCardIndex: 0,
-					history: [
-						{ cardId: "se_security_patch_timeline", choice: "LEFT" },
-						{ cardId: "se_code_quality_refactor", choice: "RIGHT" },
-						{ cardId: "se_code_quality_refactor", choice: "LEFT" },
-					],
-					deathReason: "Heat exceeded 100%",
-					deathType: "REPLACED_BY_SCRIPT",
-					unlockedEndings: ["REPLACED_BY_SCRIPT"],
-					bossFightAnswers: [],
-					effectiveDeck: null,
-				}),
-			);
+		await gotoWithKmDebugState(page, {
+			stage: "DEBRIEF_PAGE_2",
+			history: [
+				{ cardId: "se_security_patch_timeline", choice: "LEFT" },
+				{ cardId: "se_code_quality_refactor", choice: "RIGHT" },
+				{ cardId: "se_code_quality_refactor", choice: "LEFT" },
+			],
 		});
-
-		await page.reload();
 
 		// Should show hints section header
 		await expect(page.getByText(/path you didn't take/i)).toBeVisible();
@@ -108,33 +49,13 @@ test.describe("Debrief Reflection Hints @area:gameplay", () => {
 	});
 
 	test("hints include specific alternative action labels", async ({ page }) => {
-		await page.goto("/");
-
-		await page.evaluate(() => {
-			localStorage.setItem(
-				"km-debug-state",
-				JSON.stringify({
-					stage: "DEBRIEF_PAGE_2",
-					hype: 50,
-					heat: 100,
-					budget: 500000,
-					personality: "ROASTER",
-					role: "SOFTWARE_ENGINEER",
-					currentCardIndex: 0,
-					history: [
-						{ cardId: "se_security_patch_timeline", choice: "LEFT" },
-						{ cardId: "se_code_quality_refactor", choice: "RIGHT" },
-					],
-					deathReason: "Heat exceeded 100%",
-					deathType: "REPLACED_BY_SCRIPT",
-					unlockedEndings: ["REPLACED_BY_SCRIPT"],
-					bossFightAnswers: [],
-					effectiveDeck: null,
-				}),
-			);
+		await gotoWithKmDebugState(page, {
+			stage: "DEBRIEF_PAGE_2",
+			history: [
+				{ cardId: "se_security_patch_timeline", choice: "LEFT" },
+				{ cardId: "se_code_quality_refactor", choice: "RIGHT" },
+			],
 		});
-
-		await page.reload();
 
 		// Hints should reference specific alternative choices
 		// For LEFT choice: should mention trying the RIGHT option
@@ -145,30 +66,10 @@ test.describe("Debrief Reflection Hints @area:gameplay", () => {
 	});
 
 	test("reflection section has proper heading", async ({ page }) => {
-		await page.goto("/");
-
-		await page.evaluate(() => {
-			localStorage.setItem(
-				"km-debug-state",
-				JSON.stringify({
-					stage: "DEBRIEF_PAGE_2",
-					hype: 50,
-					heat: 100,
-					budget: 500000,
-					personality: "ROASTER",
-					role: "SOFTWARE_ENGINEER",
-					currentCardIndex: 0,
-					history: [{ cardId: "se_security_patch_timeline", choice: "LEFT" }],
-					deathReason: "Heat exceeded 100%",
-					deathType: "REPLACED_BY_SCRIPT",
-					unlockedEndings: ["REPLACED_BY_SCRIPT"],
-					bossFightAnswers: [],
-					effectiveDeck: null,
-				}),
-			);
+		await gotoWithKmDebugState(page, {
+			stage: "DEBRIEF_PAGE_2",
+			history: [{ cardId: "se_security_patch_timeline", choice: "LEFT" }],
 		});
-
-		await page.reload();
 
 		// Should have the reflection heading
 		await expect(
@@ -179,33 +80,13 @@ test.describe("Debrief Reflection Hints @area:gameplay", () => {
 	test("hints have visual distinction with icons and colors", async ({
 		page,
 	}) => {
-		await page.goto("/");
-
-		await page.evaluate(() => {
-			localStorage.setItem(
-				"km-debug-state",
-				JSON.stringify({
-					stage: "DEBRIEF_PAGE_2",
-					hype: 50,
-					heat: 100,
-					budget: 500000,
-					personality: "ROASTER",
-					role: "SOFTWARE_ENGINEER",
-					currentCardIndex: 0,
-					history: [
-						{ cardId: "se_security_patch_timeline", choice: "LEFT" },
-						{ cardId: "se_code_quality_refactor", choice: "RIGHT" },
-					],
-					deathReason: "Heat exceeded 100%",
-					deathType: "REPLACED_BY_SCRIPT",
-					unlockedEndings: ["REPLACED_BY_SCRIPT"],
-					bossFightAnswers: [],
-					effectiveDeck: null,
-				}),
-			);
+		await gotoWithKmDebugState(page, {
+			stage: "DEBRIEF_PAGE_2",
+			history: [
+				{ cardId: "se_security_patch_timeline", choice: "LEFT" },
+				{ cardId: "se_code_quality_refactor", choice: "RIGHT" },
+			],
 		});
-
-		await page.reload();
 
 		// Should have emoji icons for hints
 		const pageContent = await page.content();
@@ -213,33 +94,13 @@ test.describe("Debrief Reflection Hints @area:gameplay", () => {
 	});
 
 	test("hints explain trade-offs for each choice type", async ({ page }) => {
-		await page.goto("/");
-
-		await page.evaluate(() => {
-			localStorage.setItem(
-				"km-debug-state",
-				JSON.stringify({
-					stage: "DEBRIEF_PAGE_2",
-					hype: 50,
-					heat: 100,
-					budget: 500000,
-					personality: "ROASTER",
-					role: "SOFTWARE_ENGINEER",
-					currentCardIndex: 0,
-					history: [
-						{ cardId: "se_security_patch_timeline", choice: "LEFT" },
-						{ cardId: "se_code_quality_refactor", choice: "RIGHT" },
-					],
-					deathReason: "Heat exceeded 100%",
-					deathType: "REPLACED_BY_SCRIPT",
-					unlockedEndings: ["REPLACED_BY_SCRIPT"],
-					bossFightAnswers: [],
-					effectiveDeck: null,
-				}),
-			);
+		await gotoWithKmDebugState(page, {
+			stage: "DEBRIEF_PAGE_2",
+			history: [
+				{ cardId: "se_security_patch_timeline", choice: "LEFT" },
+				{ cardId: "se_code_quality_refactor", choice: "RIGHT" },
+			],
 		});
-
-		await page.reload();
 
 		// LEFT hint should mention gaining hype but attracting heat
 		await expect(page.getByText(/hype you could gain/i)).toBeVisible();
@@ -252,30 +113,11 @@ test.describe("Debrief Reflection Hints @area:gameplay", () => {
 	test("reflection section includes personality-specific closing", async ({
 		page,
 	}) => {
-		await page.goto("/");
-
-		await page.evaluate(() => {
-			localStorage.setItem(
-				"km-debug-state",
-				JSON.stringify({
-					stage: "DEBRIEF_PAGE_2",
-					hype: 50,
-					heat: 100,
-					budget: 500000,
-					personality: "ZEN_MASTER",
-					role: "SOFTWARE_ENGINEER",
-					currentCardIndex: 0,
-					history: [{ cardId: "se_security_patch_timeline", choice: "LEFT" }],
-					deathReason: "Heat exceeded 100%",
-					deathType: "REPLACED_BY_SCRIPT",
-					unlockedEndings: ["REPLACED_BY_SCRIPT"],
-					bossFightAnswers: [],
-					effectiveDeck: null,
-				}),
-			);
+		await gotoWithKmDebugState(page, {
+			stage: "DEBRIEF_PAGE_2",
+			personality: "ZEN_MASTER",
+			history: [{ cardId: "se_security_patch_timeline", choice: "LEFT" }],
 		});
-
-		await page.reload();
 
 		// Should have personality-specific closing line
 		await expect(page.getByText(/test is eternal.*growth/i)).toBeVisible();

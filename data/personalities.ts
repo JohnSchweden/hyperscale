@@ -30,7 +30,7 @@ export const PERSONALITIES = {
 		name: "HYPE-BRO",
 		title: "The Lovebomber",
 		description: 'Silicon Valley influencer, high energy, loves "Synergy".',
-		voice: "Kore",
+		voice: "Enceladus",
 		onboarding:
 			"OMG HI!! We are literally going to change the world! You look SO compliant today! Let's crush it!",
 		victory:

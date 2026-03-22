@@ -1,33 +1,14 @@
 import { expect, test } from "@playwright/test";
+import { gotoWithKmDebugState } from "./helpers/km-debug-state";
 
 test.use({ baseURL: "https://localhost:3000" });
 
 test.describe("LinkedIn CTA Section @area:debrief", () => {
 	test("LinkedIn CTA section visible on debrief page 3", async ({ page }) => {
-		await page.goto("/");
-
-		await page.evaluate(() => {
-			localStorage.setItem(
-				"km-debug-state",
-				JSON.stringify({
-					stage: "DEBRIEF_PAGE_3",
-					hype: 50,
-					heat: 100,
-					budget: 500000,
-					personality: "ROASTER",
-					role: "SOFTWARE_ENGINEER",
-					currentCardIndex: 0,
-					history: [{ cardId: "se_security_patch_timeline", choice: "LEFT" }],
-					deathReason: "Heat exceeded 100%",
-					deathType: "REPLACED_BY_SCRIPT",
-					unlockedEndings: ["REPLACED_BY_SCRIPT"],
-					bossFightAnswers: [],
-					effectiveDeck: null,
-				}),
-			);
+		await gotoWithKmDebugState(page, {
+			stage: "DEBRIEF_PAGE_3",
+			history: [{ cardId: "se_security_patch_timeline", choice: "LEFT" }],
 		});
-
-		await page.reload();
 
 		// LinkedIn CTA link should be visible
 		const linkedinLink = page.locator(
@@ -37,30 +18,7 @@ test.describe("LinkedIn CTA Section @area:debrief", () => {
 	});
 
 	test("LinkedIn icon is visible", async ({ page }) => {
-		await page.goto("/");
-
-		await page.evaluate(() => {
-			localStorage.setItem(
-				"km-debug-state",
-				JSON.stringify({
-					stage: "DEBRIEF_PAGE_3",
-					hype: 50,
-					heat: 100,
-					budget: 500000,
-					personality: "ROASTER",
-					role: "SOFTWARE_ENGINEER",
-					currentCardIndex: 0,
-					history: [],
-					deathReason: "Heat exceeded 100%",
-					deathType: "REPLACED_BY_SCRIPT",
-					unlockedEndings: ["REPLACED_BY_SCRIPT"],
-					bossFightAnswers: [],
-					effectiveDeck: null,
-				}),
-			);
-		});
-
-		await page.reload();
+		await gotoWithKmDebugState(page, { stage: "DEBRIEF_PAGE_3" });
 
 		// LinkedIn icon should be visible in the CTA section
 		const linkedinLink = page.locator(
@@ -73,60 +31,14 @@ test.describe("LinkedIn CTA Section @area:debrief", () => {
 	});
 
 	test("Get early access to V2 header text visible", async ({ page }) => {
-		await page.goto("/");
-
-		await page.evaluate(() => {
-			localStorage.setItem(
-				"km-debug-state",
-				JSON.stringify({
-					stage: "DEBRIEF_PAGE_3",
-					hype: 50,
-					heat: 100,
-					budget: 500000,
-					personality: "ROASTER",
-					role: "SOFTWARE_ENGINEER",
-					currentCardIndex: 0,
-					history: [],
-					deathReason: "Heat exceeded 100%",
-					deathType: "REPLACED_BY_SCRIPT",
-					unlockedEndings: ["REPLACED_BY_SCRIPT"],
-					bossFightAnswers: [],
-					effectiveDeck: null,
-				}),
-			);
-		});
-
-		await page.reload();
+		await gotoWithKmDebugState(page, { stage: "DEBRIEF_PAGE_3" });
 
 		// Header text should be visible
 		await expect(page.getByText(/early access to v2/i)).toBeVisible();
 	});
 
 	test("LinkedIn profile link visible with correct href", async ({ page }) => {
-		await page.goto("/");
-
-		await page.evaluate(() => {
-			localStorage.setItem(
-				"km-debug-state",
-				JSON.stringify({
-					stage: "DEBRIEF_PAGE_3",
-					hype: 50,
-					heat: 100,
-					budget: 500000,
-					personality: "ROASTER",
-					role: "SOFTWARE_ENGINEER",
-					currentCardIndex: 0,
-					history: [],
-					deathReason: "Heat exceeded 100%",
-					deathType: "REPLACED_BY_SCRIPT",
-					unlockedEndings: ["REPLACED_BY_SCRIPT"],
-					bossFightAnswers: [],
-					effectiveDeck: null,
-				}),
-			);
-		});
-
-		await page.reload();
+		await gotoWithKmDebugState(page, { stage: "DEBRIEF_PAGE_3" });
 
 		// LinkedIn link should be visible and have correct href
 		const linkedinLink = page.locator(
@@ -136,30 +48,7 @@ test.describe("LinkedIn CTA Section @area:debrief", () => {
 	});
 
 	test("Link text is Yevgen Schweden", async ({ page }) => {
-		await page.goto("/");
-
-		await page.evaluate(() => {
-			localStorage.setItem(
-				"km-debug-state",
-				JSON.stringify({
-					stage: "DEBRIEF_PAGE_3",
-					hype: 50,
-					heat: 100,
-					budget: 500000,
-					personality: "ROASTER",
-					role: "SOFTWARE_ENGINEER",
-					currentCardIndex: 0,
-					history: [],
-					deathReason: "Heat exceeded 100%",
-					deathType: "REPLACED_BY_SCRIPT",
-					unlockedEndings: ["REPLACED_BY_SCRIPT"],
-					bossFightAnswers: [],
-					effectiveDeck: null,
-				}),
-			);
-		});
-
-		await page.reload();
+		await gotoWithKmDebugState(page, { stage: "DEBRIEF_PAGE_3" });
 
 		// Link text should display name
 		const linkedinLink = page.getByText(/message yevgen schweden/i);
@@ -167,30 +56,7 @@ test.describe("LinkedIn CTA Section @area:debrief", () => {
 	});
 
 	test("CTA visible when role is null (edge case)", async ({ page }) => {
-		await page.goto("/");
-
-		await page.evaluate(() => {
-			localStorage.setItem(
-				"km-debug-state",
-				JSON.stringify({
-					stage: "DEBRIEF_PAGE_3",
-					hype: 50,
-					heat: 100,
-					budget: 500000,
-					personality: "ROASTER",
-					role: null,
-					currentCardIndex: 0,
-					history: [],
-					deathReason: "Heat exceeded 100%",
-					deathType: "REPLACED_BY_SCRIPT",
-					unlockedEndings: ["REPLACED_BY_SCRIPT"],
-					bossFightAnswers: [],
-					effectiveDeck: null,
-				}),
-			);
-		});
-
-		await page.reload();
+		await gotoWithKmDebugState(page, { stage: "DEBRIEF_PAGE_3", role: null });
 
 		// LinkedIn CTA should still be visible even without role
 		const linkedinLink = page.locator(
@@ -205,30 +71,7 @@ test.describe("LinkedIn CTA Section @area:debrief", () => {
 	test("Description text mentions LinkedIn and adaptive version", async ({
 		page,
 	}) => {
-		await page.goto("/");
-
-		await page.evaluate(() => {
-			localStorage.setItem(
-				"km-debug-state",
-				JSON.stringify({
-					stage: "DEBRIEF_PAGE_3",
-					hype: 50,
-					heat: 100,
-					budget: 500000,
-					personality: "ROASTER",
-					role: "SOFTWARE_ENGINEER",
-					currentCardIndex: 0,
-					history: [],
-					deathReason: "Heat exceeded 100%",
-					deathType: "REPLACED_BY_SCRIPT",
-					unlockedEndings: ["REPLACED_BY_SCRIPT"],
-					bossFightAnswers: [],
-					effectiveDeck: null,
-				}),
-			);
-		});
-
-		await page.reload();
+		await gotoWithKmDebugState(page, { stage: "DEBRIEF_PAGE_3" });
 
 		// Description should mention LinkedIn and adaptive version
 		await expect(page.getByText(/adaptive version/i)).toBeVisible();

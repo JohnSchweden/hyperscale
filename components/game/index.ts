@@ -14,5 +14,11 @@ export { PersonalitySelect } from "./PersonalitySelect";
 export { PressureCueController } from "./PressureCueController";
 export { RoastTerminal } from "./RoastTerminal";
 export { RoleSelect } from "./RoleSelect";
+export {
+	StarfieldBackground,
+	type StarfieldBackgroundProps,
+	type StarfieldBgmMenuProps,
+	useStarfieldSpeedUIBurger,
+} from "./StarfieldBackground";
 export { SummaryScreen } from "./SummaryScreen";
 export { Taskbar } from "./Taskbar";

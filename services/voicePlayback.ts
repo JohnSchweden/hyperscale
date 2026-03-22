@@ -1,5 +1,26 @@
 import { createRadioSession } from "./radioEffect";
 
+type VoiceActivityListener = (active: boolean) => void;
+const voiceActivityListeners = new Set<VoiceActivityListener>();
+
+/** BGM ducking: subscribe to voice playback start/end (not pause glitches during teardown). */
+export function subscribeVoiceActivity(
+	listener: VoiceActivityListener,
+): () => void {
+	voiceActivityListeners.add(listener);
+	return () => voiceActivityListeners.delete(listener);
+}
+
+function emitVoiceActivity(active: boolean) {
+	for (const fn of voiceActivityListeners) {
+		try {
+			fn(active);
+		} catch (e) {
+			console.error("[Voice] voice activity listener:", e);
+		}
+	}
+}
+
 let audioContext: AudioContext | null = null;
 let currentAudio: HTMLAudioElement | null = null;
 let currentRadio: ReturnType<typeof createRadioSession> | null = null;
@@ -58,6 +79,7 @@ export async function loadVoice(
 		if (currentAudio) {
 			currentAudio.pause();
 			currentAudio = null;
+			emitVoiceActivity(false);
 		}
 		if (currentRadio) {
 			currentRadio.stop();
@@ -94,12 +116,19 @@ export async function loadVoice(
 		audio.onended = () => {
 			currentRadio?.end();
 			currentRadio = null;
+			emitVoiceActivity(false);
 		};
 
 		setTimeout(() => {
-			audio.play().then(() => {
-				console.log("[Voice] Play started at volume:", VOLUME);
-			});
+			audio
+				.play()
+				.then(() => {
+					console.log("[Voice] Play started at volume:", VOLUME);
+					emitVoiceActivity(true);
+				})
+				.catch(() => {
+					emitVoiceActivity(false);
+				});
 		}, QUINDAR_INTRO_MS);
 
 		return;
@@ -121,8 +150,10 @@ export async function playVoice(): Promise<void> {
 	try {
 		await currentAudio.play();
 		console.log("[Voice] Play resumed");
+		emitVoiceActivity(true);
 	} catch (e) {
 		console.error("[Voice] Play error:", e);
+		emitVoiceActivity(false);
 	}
 }
 
@@ -144,6 +175,7 @@ export function stopVoice(): void {
 		URL.revokeObjectURL(currentBlobUrl);
 		currentBlobUrl = null;
 	}
+	emitVoiceActivity(false);
 }
 
 export function isPlaying(): boolean {

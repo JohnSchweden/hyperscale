@@ -4,6 +4,10 @@ import { ROLE_LABELS } from "../../../data";
 import type { Archetype, RoleType } from "../../../types";
 import { formatShareText, getShareUrl } from "../../../utils/linkedin-share";
 import LayoutShell from "../../LayoutShell";
+import {
+	GLASS_FILL_STRONG,
+	GLASS_PANEL_DEFAULT,
+} from "../selectionStageStyles";
 
 const actionButtonBase =
 	"px-6 py-3 md:px-8 md:py-4 text-base font-bold tracking-wide bg-white text-black hover:bg-cyan-400 hover:text-black transition-all duration-300 whitespace-nowrap";
@@ -24,11 +28,10 @@ function getResilienceContext(score: number): string {
 }
 
 function getArchetypeColor(score: number): string {
-	if (score >= 80)
-		return "text-emerald-400 border-emerald-500/30 bg-emerald-950/20";
-	if (score >= 60) return "text-cyan-400 border-cyan-500/30 bg-cyan-950/20";
-	if (score >= 40) return "text-amber-400 border-amber-500/30 bg-amber-950/20";
-	return "text-red-400 border-red-500/30 bg-red-950/20";
+	if (score >= 80) return "text-emerald-400 border-emerald-500/40";
+	if (score >= 60) return "text-cyan-400 border-cyan-500/40";
+	if (score >= 40) return "text-amber-400 border-amber-500/40";
+	return "text-red-400 border-red-500/40";
 }
 
 function updateMetaTags(
@@ -70,10 +73,9 @@ export const DebriefPage3Verdict: React.FC<DebriefPage3VerdictProps> = ({
 	onRestart,
 }) => {
 	useEffect(() => {
-		if (archetype) {
-			const roleLabel = role ? ROLE_LABELS[role] : null;
-			updateMetaTags(archetype, Math.round(resilienceScore), roleLabel);
-		}
+		if (!archetype) return;
+		const roleLabel = role ? ROLE_LABELS[role] : null;
+		updateMetaTags(archetype, Math.round(resilienceScore), roleLabel);
 	}, [archetype, resilienceScore, role]);
 
 	const resilienceContext = getResilienceContext(resilienceScore);
@@ -101,7 +103,7 @@ export const DebriefPage3Verdict: React.FC<DebriefPage3VerdictProps> = ({
 	};
 
 	return (
-		<LayoutShell className="p-4 pb-12 md:p-6 md:pb-16 text-center bg-slate-950">
+		<LayoutShell className="p-4 pb-12 md:p-6 md:pb-16 text-center !bg-transparent">
 			<div className="w-full max-w-2xl">
 				<div className="mb-6 md:mb-8">
 					<h1 className="text-3xl md:text-5xl font-black text-white mb-2 tracking-tighter">
@@ -114,7 +116,7 @@ export const DebriefPage3Verdict: React.FC<DebriefPage3VerdictProps> = ({
 
 				{/* Archetype Verdict */}
 				<div
-					className={`mb-6 md:mb-8 p-8 md:p-12 rounded-2xl border ${archetypeColorClass}`}
+					className={`mb-6 md:mb-8 p-8 md:p-12 rounded-2xl border ${archetypeColorClass} ${GLASS_FILL_STRONG}`}
 				>
 					<div className="text-sm text-slate-400 uppercase tracking-widest mb-4">
 						Classification
@@ -128,7 +130,7 @@ export const DebriefPage3Verdict: React.FC<DebriefPage3VerdictProps> = ({
 				</div>
 
 				{/* Resilience Score */}
-				<div className="mb-6 md:mb-8 p-6 rounded-xl border border-slate-800 bg-slate-900/30">
+				<div className={`mb-6 md:mb-8 p-6 rounded-xl ${GLASS_PANEL_DEFAULT}`}>
 					<div className="text-sm text-slate-400 uppercase tracking-widest mb-2">
 						Resilience Score
 					</div>
@@ -175,7 +177,7 @@ export const DebriefPage3Verdict: React.FC<DebriefPage3VerdictProps> = ({
 				</div>
 
 				{/* V2 Waitlist LinkedIn CTA */}
-				<div className="p-6 rounded-xl border border-slate-700 bg-slate-900/30">
+				<div className={`p-6 rounded-xl ${GLASS_PANEL_DEFAULT}`}>
 					<div className="text-sm text-slate-400 uppercase tracking-widest mb-4">
 						Early access to V2
 					</div>

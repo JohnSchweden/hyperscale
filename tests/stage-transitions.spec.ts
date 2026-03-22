@@ -1,5 +1,8 @@
 import { expect, test } from "@playwright/test";
-import { navigateToPlaying } from "./helpers/navigation";
+import {
+	navigateToBossFightFast,
+	navigateToPlaying,
+} from "./helpers/navigation";
 import { SELECTORS } from "./helpers/selectors";
 
 test.use({ baseURL: "https://localhost:3000" });
@@ -55,8 +58,6 @@ test.describe("Stage transitions @area:gameplay @slow", () => {
 		page,
 	}) => {
 		test.setTimeout(60000);
-		// Use helper to reach boss fight with current Phase 3 decks
-		const { navigateToBossFightFast } = await import("./helpers/navigation");
 		await navigateToBossFightFast(page);
 
 		await page.waitForSelector("text=Boss fight", { timeout: 8000 });

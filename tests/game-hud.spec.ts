@@ -1,6 +1,19 @@
 import { expect, test } from "@playwright/test";
-import { getRightButton, navigateToPlayingFast } from "./helpers/navigation";
+import { ROLE_CARDS } from "../data";
+import { RoleType } from "../types";
+import {
+	getRightButton,
+	navigateToPlayingFast,
+	navigateToPlayingWithCardAtIndex,
+} from "./helpers/navigation";
 import { SELECTORS } from "./helpers/selectors";
+
+function formatBudgetMillion(amount: number): string {
+	if (amount >= 1_000_000) {
+		return `$${(amount / 1_000_000).toFixed(1)}M`;
+	}
+	return `$${amount.toLocaleString("en-US")}`;
+}
 
 test.use({ baseURL: "https://localhost:3000" });
 
@@ -48,9 +61,12 @@ test.describe("GameHUD @smoke @area:gameplay", () => {
 		await expect(budgetSpan).toHaveText("$10.0M");
 	});
 
-	test("after one swipe that costs money (RIGHT on first dev card = 2.5M fine), budget updates to $7.5M", async ({
+	test("after one right swipe, budget drops by that card's right-choice fine", async ({
 		page,
 	}) => {
+		await navigateToPlayingWithCardAtIndex(page, RoleType.SOFTWARE_ENGINEER, 1);
+		const card = ROLE_CARDS[RoleType.SOFTWARE_ENGINEER][1];
+		const fine = card.onRight.fine;
 		const rightBtn = await getRightButton(page);
 		await rightBtn.click({ force: true });
 
@@ -64,7 +80,7 @@ test.describe("GameHUD @smoke @area:gameplay", () => {
 		await page.waitForTimeout(300);
 
 		const budgetSpan = budgetValue(page);
-		await expect(budgetSpan).toHaveText("$7.5M");
+		await expect(budgetSpan).toHaveText(formatBudgetMillion(10_000_000 - fine));
 	});
 
 	test("heat and hype values are visible and numeric (e.g. 0%, 50% initially)", async ({

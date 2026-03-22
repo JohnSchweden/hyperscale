@@ -2,6 +2,7 @@ import type React from "react";
 import { DEATH_ENDINGS } from "../../data";
 import { DeathType, type GameState } from "../../types";
 import LayoutShell from "../LayoutShell";
+import { GLASS_PANEL_DEFAULT } from "./selectionStageStyles";
 
 interface SummaryScreenProps {
 	state: GameState;
@@ -20,9 +21,9 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
 	onDebrief,
 }) => {
 	return (
-		<LayoutShell className="p-4 pb-12 md:p-6 md:pb-16 text-center bg-[#051a0d]">
+		<LayoutShell className="p-4 pb-12 md:p-6 md:pb-16 text-center !bg-transparent">
 			<div className="w-full max-w-2xl">
-				<div className="text-6xl md:text-9xl text-green-500 mb-6 md:mb-8 animate-bounce drop-shadow-[0_0_30px_rgba(34,197,94,0.4)]">
+				<div className="text-6xl md:text-9xl text-green-500 mb-6 md:mb-8 animate-pulse drop-shadow-[0_0_30px_rgba(34,197,94,0.4)]">
 					<i className="fa-solid fa-trophy" aria-hidden></i>
 				</div>
 				<h2 className="text-3xl md:text-6xl font-black mb-3 md:mb-4 tracking-tighter text-green-400">
@@ -35,7 +36,7 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
 
 				{/* Final Metrics - Budget, Heat, Hype */}
 				<div className="mb-6 md:mb-8 grid grid-cols-3 gap-4">
-					<div className="p-4 rounded-lg bg-slate-900/50 border border-slate-800">
+					<div className={`p-4 rounded-lg ${GLASS_PANEL_DEFAULT}`}>
 						<div className="text-xs text-slate-400 tracking-wide mb-1">
 							Budget
 						</div>
@@ -45,7 +46,7 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
 							{formatBudget(state.budget)}
 						</div>
 					</div>
-					<div className="p-4 rounded-lg bg-slate-900/50 border border-slate-800">
+					<div className={`p-4 rounded-lg ${GLASS_PANEL_DEFAULT}`}>
 						<div className="text-xs text-slate-400 tracking-wide mb-1">
 							Heat
 						</div>
@@ -55,7 +56,7 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
 							{state.heat}%
 						</div>
 					</div>
-					<div className="p-4 rounded-lg bg-slate-900/50 border border-slate-800">
+					<div className={`p-4 rounded-lg ${GLASS_PANEL_DEFAULT}`}>
 						<div className="text-xs text-slate-400 tracking-wide mb-1">
 							Hype
 						</div>
@@ -66,27 +67,32 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
 				</div>
 
 				{/* Collection Progress */}
-				<div className="mb-6 md:mb-8 p-4 md:p-6 bg-slate-900/50 border border-slate-800 rounded-xl">
+				<div
+					className={`mb-6 md:mb-8 p-4 md:p-6 rounded-xl ${GLASS_PANEL_DEFAULT}`}
+				>
 					<div className="text-xs text-slate-400 tracking-wide mb-3 md:mb-4">
 						Ending collection
 					</div>
 					<div className="flex gap-2 md:gap-3 justify-center flex-wrap">
-						{Object.values(DeathType).map((type) => (
-							<div
-								key={type}
-								className={`w-10 h-10 md:w-12 md:h-12 rounded-lg flex items-center justify-center ${
-									state.unlockedEndings.includes(type)
-										? "bg-cyan-500/20 border border-cyan-500"
-										: "bg-slate-800 border border-slate-700 opacity-30"
-								}`}
-								title={DEATH_ENDINGS[type].title}
-							>
-								<i
-									className={`fa-solid ${DEATH_ENDINGS[type].icon} ${state.unlockedEndings.includes(type) ? "text-cyan-400" : "text-slate-600"}`}
-									aria-hidden
-								></i>
-							</div>
-						))}
+						{Object.values(DeathType).map((type) => {
+							const unlocked = state.unlockedEndings.includes(type);
+							return (
+								<div
+									key={type}
+									className={`w-10 h-10 md:w-12 md:h-12 rounded-lg flex items-center justify-center ${
+										unlocked
+											? "bg-cyan-500/20 border border-cyan-500"
+											: "bg-slate-800 border border-slate-700 opacity-30"
+									}`}
+									title={DEATH_ENDINGS[type].title}
+								>
+									<i
+										className={`fa-solid ${DEATH_ENDINGS[type].icon} ${unlocked ? "text-cyan-400" : "text-slate-600"}`}
+										aria-hidden
+									></i>
+								</div>
+							);
+						})}
 					</div>
 					<div className="mt-3 text-sm text-slate-400">
 						{state.unlockedEndings.length} / {Object.keys(DeathType).length}{" "}

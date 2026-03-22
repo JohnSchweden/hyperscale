@@ -1,33 +1,14 @@
 import { expect, test } from "@playwright/test";
+import { gotoWithKmDebugState } from "./helpers/km-debug-state";
 
 test.use({ baseURL: "https://localhost:3000" });
 
 test.describe("LinkedIn Share Button @area:gameplay", () => {
 	test("share link is visible on debrief page 3", async ({ page }) => {
-		await page.goto("/");
-
-		await page.evaluate(() => {
-			localStorage.setItem(
-				"km-debug-state",
-				JSON.stringify({
-					stage: "DEBRIEF_PAGE_3",
-					hype: 50,
-					heat: 100,
-					budget: 500000,
-					personality: "ROASTER",
-					role: "SOFTWARE_ENGINEER",
-					currentCardIndex: 0,
-					history: [{ cardId: "se_security_patch_timeline", choice: "LEFT" }],
-					deathReason: "Heat exceeded 100%",
-					deathType: "REPLACED_BY_SCRIPT",
-					unlockedEndings: ["REPLACED_BY_SCRIPT"],
-					bossFightAnswers: [],
-					effectiveDeck: null,
-				}),
-			);
+		await gotoWithKmDebugState(page, {
+			stage: "DEBRIEF_PAGE_3",
+			history: [{ cardId: "se_security_patch_timeline", choice: "LEFT" }],
 		});
-
-		await page.reload();
 
 		// Find LinkedIn share anchor
 		const shareLink = page.locator(
@@ -37,30 +18,10 @@ test.describe("LinkedIn Share Button @area:gameplay", () => {
 	});
 
 	test("share link has correct href with LinkedIn format", async ({ page }) => {
-		await page.goto("/");
-
-		await page.evaluate(() => {
-			localStorage.setItem(
-				"km-debug-state",
-				JSON.stringify({
-					stage: "DEBRIEF_PAGE_3",
-					hype: 50,
-					heat: 100,
-					budget: 500000,
-					personality: "ROASTER",
-					role: "SOFTWARE_ENGINEER",
-					currentCardIndex: 0,
-					history: [{ cardId: "se_security_patch_timeline", choice: "LEFT" }],
-					deathReason: "Heat exceeded 100%",
-					deathType: "REPLACED_BY_SCRIPT",
-					unlockedEndings: ["REPLACED_BY_SCRIPT"],
-					bossFightAnswers: [],
-					effectiveDeck: null,
-				}),
-			);
+		await gotoWithKmDebugState(page, {
+			stage: "DEBRIEF_PAGE_3",
+			history: [{ cardId: "se_security_patch_timeline", choice: "LEFT" }],
 		});
-
-		await page.reload();
 
 		const shareLink = page.locator(
 			"a[href*='linkedin.com/sharing/share-offsite']",
@@ -74,30 +35,7 @@ test.describe("LinkedIn Share Button @area:gameplay", () => {
 	});
 
 	test("share link has LinkedIn icon", async ({ page }) => {
-		await page.goto("/");
-
-		await page.evaluate(() => {
-			localStorage.setItem(
-				"km-debug-state",
-				JSON.stringify({
-					stage: "DEBRIEF_PAGE_3",
-					hype: 50,
-					heat: 100,
-					budget: 500000,
-					personality: "ROASTER",
-					role: "SOFTWARE_ENGINEER",
-					currentCardIndex: 0,
-					history: [],
-					deathReason: "Heat exceeded 100%",
-					deathType: "REPLACED_BY_SCRIPT",
-					unlockedEndings: ["REPLACED_BY_SCRIPT"],
-					bossFightAnswers: [],
-					effectiveDeck: null,
-				}),
-			);
-		});
-
-		await page.reload();
+		await gotoWithKmDebugState(page, { stage: "DEBRIEF_PAGE_3" });
 
 		// Verify LinkedIn icon is present within the share link
 		const shareLink = page.getByRole("link", { name: /share on linkedin/i });
@@ -107,30 +45,7 @@ test.describe("LinkedIn Share Button @area:gameplay", () => {
 	});
 
 	test("share link has correct styling", async ({ page }) => {
-		await page.goto("/");
-
-		await page.evaluate(() => {
-			localStorage.setItem(
-				"km-debug-state",
-				JSON.stringify({
-					stage: "DEBRIEF_PAGE_3",
-					hype: 50,
-					heat: 100,
-					budget: 500000,
-					personality: "ROASTER",
-					role: "SOFTWARE_ENGINEER",
-					currentCardIndex: 0,
-					history: [],
-					deathReason: "Heat exceeded 100%",
-					deathType: "REPLACED_BY_SCRIPT",
-					unlockedEndings: ["REPLACED_BY_SCRIPT"],
-					bossFightAnswers: [],
-					effectiveDeck: null,
-				}),
-			);
-		});
-
-		await page.reload();
+		await gotoWithKmDebugState(page, { stage: "DEBRIEF_PAGE_3" });
 
 		// Verify link styling
 		const shareLink = page.locator(
@@ -140,30 +55,7 @@ test.describe("LinkedIn Share Button @area:gameplay", () => {
 	});
 
 	test("share link responds to hover interaction", async ({ page }) => {
-		await page.goto("/");
-
-		await page.evaluate(() => {
-			localStorage.setItem(
-				"km-debug-state",
-				JSON.stringify({
-					stage: "DEBRIEF_PAGE_3",
-					hype: 50,
-					heat: 100,
-					budget: 500000,
-					personality: "ROASTER",
-					role: "SOFTWARE_ENGINEER",
-					currentCardIndex: 0,
-					history: [],
-					deathReason: "Heat exceeded 100%",
-					deathType: "REPLACED_BY_SCRIPT",
-					unlockedEndings: ["REPLACED_BY_SCRIPT"],
-					bossFightAnswers: [],
-					effectiveDeck: null,
-				}),
-			);
-		});
-
-		await page.reload();
+		await gotoWithKmDebugState(page, { stage: "DEBRIEF_PAGE_3" });
 
 		const shareLink = page.locator(
 			"a[href*='linkedin.com/sharing/share-offsite']",
@@ -179,30 +71,10 @@ test.describe("LinkedIn Share Button @area:gameplay", () => {
 		const personalities = ["ROASTER", "ZEN_MASTER", "LOVEBOMBER"] as const;
 
 		for (const personality of personalities) {
-			await page.goto("/");
-
-			await page.evaluate((p) => {
-				localStorage.setItem(
-					"km-debug-state",
-					JSON.stringify({
-						stage: "DEBRIEF_PAGE_3",
-						hype: 50,
-						heat: 100,
-						budget: 500000,
-						personality: p,
-						role: "SOFTWARE_ENGINEER",
-						currentCardIndex: 0,
-						history: [],
-						deathReason: "Heat exceeded 100%",
-						deathType: "REPLACED_BY_SCRIPT",
-						unlockedEndings: ["REPLACED_BY_SCRIPT"],
-						bossFightAnswers: [],
-						effectiveDeck: null,
-					}),
-				);
-			}, personality);
-
-			await page.reload();
+			await gotoWithKmDebugState(page, {
+				stage: "DEBRIEF_PAGE_3",
+				personality,
+			});
 
 			const shareLink = page.locator(
 				"a[href*='linkedin.com/sharing/share-offsite']",

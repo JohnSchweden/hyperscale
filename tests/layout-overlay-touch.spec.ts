@@ -60,16 +60,12 @@ test.describe("Feedback overlay @area:layout", () => {
 		await page.locator(SELECTORS.rightButton).first().click({ force: true });
 		await page.waitForSelector("role=dialog", { timeout: 3000 });
 
-		const modal = page
-			.locator(
-				'[role=dialog] .modal-content, [role=dialog] [class*="max-w-lg"]',
-			)
-			.first();
+		const modal = page.locator("[role=dialog] .modal-content").first();
 		await expect(modal).toBeVisible();
 
 		const { modalCenterX, viewportCenterX } = await page.evaluate(() => {
 			const modal = document.querySelector(
-				'[role=dialog] [class*="max-w-lg"]',
+				"[role=dialog] .modal-content",
 			) as HTMLElement;
 			if (!modal) return { modalCenterX: 0, viewportCenterX: 0 };
 			const box = modal.getBoundingClientRect();
@@ -88,12 +84,12 @@ test.describe("Feedback overlay @area:layout", () => {
 		await page.locator(SELECTORS.rightButton).first().click({ force: true });
 		await page.waitForSelector("role=dialog", { timeout: 3000 });
 
-		const modal = page.locator('[role=dialog] [class*="max-w-lg"]').first();
+		const modal = page.locator("[role=dialog] .modal-content").first();
 		await expect(modal).toBeVisible();
 
 		const { modalCenterX, viewportCenterX } = await page.evaluate(() => {
 			const modal = document.querySelector(
-				'[role=dialog] [class*="max-w-lg"]',
+				"[role=dialog] .modal-content",
 			) as HTMLElement;
 			if (!modal) return { modalCenterX: 0, viewportCenterX: 0 };
 			const box = modal.getBoundingClientRect();

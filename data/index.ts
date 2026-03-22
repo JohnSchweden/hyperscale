@@ -4,6 +4,12 @@ export {
 	calculateResilienceScore,
 	mapOutcomeToTraits,
 } from "./archetypes";
+export {
+	BGM_SOURCE_FILENAMES,
+	BGM_TRACKS,
+	type BgmTrack,
+	bgmDisplayTitleFromFilename,
+} from "./bgmPlaylist";
 export { BOSS_FIGHT_QUESTIONS } from "./bossQuestions";
 export {
 	BRANCH_INJECTIONS,

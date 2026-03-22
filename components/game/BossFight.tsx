@@ -31,8 +31,11 @@ export const BossFight: React.FC<BossFightProps> = ({
 	onAnswer,
 	onNext,
 }) => {
+	const isNextFinal = currentQuestion + 1 >= totalQuestions;
+	const nextQuestionLabel = isNextFinal ? "Final result" : "Next question";
+
 	return (
-		<LayoutShell className="p-4 md:p-8 bg-[#0a0a0c]">
+		<LayoutShell className="p-4 md:p-8 !bg-transparent">
 			<div className="w-full max-w-3xl">
 				<div className="text-center mb-6 md:mb-8">
 					<div className="text-4xl md:text-6xl mb-3 md:mb-4">
@@ -76,7 +79,7 @@ export const BossFight: React.FC<BossFightProps> = ({
 					{/* Answers */}
 					{!showExplanation ? (
 						<div className="space-y-2 md:space-y-3">
-							{fixedAnswers.map((answer) => {
+							{fixedAnswers.map((answer, answerIndex) => {
 								const answerIsCorrect = answer === question.correctAnswer;
 								return (
 									<button
@@ -88,8 +91,7 @@ export const BossFight: React.FC<BossFightProps> = ({
 									>
 										<div className="flex-1">
 											<span className="text-cyan-400 font-mono mr-2">
-												{String.fromCharCode(65 + fixedAnswers.indexOf(answer))}
-												.
+												{String.fromCharCode(65 + answerIndex)}.
 											</span>
 											<span className="text-slate-300 text-sm md:text-base">
 												{answer}
@@ -119,9 +121,7 @@ export const BossFight: React.FC<BossFightProps> = ({
 									onClick={onNext}
 									className="w-auto px-8 py-2.5 text-sm md:text-base bg-white text-black font-black tracking-wide hover:bg-cyan-500 transition-all shadow-xl transform active:scale-95"
 								>
-									{currentQuestion + 1 >= totalQuestions
-										? "Final result"
-										: "Next question"}
+									{nextQuestionLabel}
 								</button>
 							</div>
 						</div>

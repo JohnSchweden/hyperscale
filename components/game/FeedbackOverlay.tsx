@@ -55,10 +55,7 @@ export const FeedbackOverlay: React.FC<FeedbackOverlayProps> = ({
 	// Keyboard navigation for overlay
 	useEffect(() => {
 		const handleOverlayKey = (e: KeyboardEvent) => {
-			if (e.key === "Escape") {
-				e.preventDefault();
-				onNext();
-			} else if (e.key === " " || e.key === "Enter") {
+			if (e.key === "Escape" || e.key === " " || e.key === "Enter") {
 				e.preventDefault();
 				onNext();
 			}
@@ -71,7 +68,7 @@ export const FeedbackOverlay: React.FC<FeedbackOverlayProps> = ({
 
 	return (
 		<div
-			className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 bg-black/70 backdrop-blur-sm modal-overlay"
+			className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 bg-black/50 modal-overlay"
 			data-testid="feedback-dialog"
 			data-choice={choice}
 			role="dialog"
@@ -79,7 +76,7 @@ export const FeedbackOverlay: React.FC<FeedbackOverlayProps> = ({
 			aria-labelledby="feedback-overlay-title"
 			aria-describedby="feedback-overlay-desc"
 		>
-			<div className="w-full max-w-lg bg-slate-900 border border-slate-700 p-6 md:p-10 rounded-2xl text-center shadow-2xl max-h-[90vh] overflow-y-auto modal-content antialiased">
+			<div className="w-full max-w-full lg:max-w-[43rem] bg-slate-900 border border-slate-700 p-6 md:p-10 rounded-2xl text-center shadow-2xl max-h-[90vh] overflow-y-auto modal-content antialiased">
 				{showEscalation && (
 					<div className="mb-4 p-2 rounded-lg border flex flex-wrap gap-x-4 gap-y-1 justify-center items-center bg-black/30">
 						{budgetCritical && (

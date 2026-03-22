@@ -12,10 +12,12 @@ import {
 	PersonalitySelect,
 	PressureCueController,
 	RoleSelect,
+	StarfieldBackground,
 	SummaryScreen,
 } from "./components/game";
 import { BOSS_FIGHT_QUESTIONS, ROLE_CARDS } from "./data";
 import {
+	useBackgroundMusic,
 	useBossFight,
 	useClock,
 	useCountdown,
@@ -46,8 +48,7 @@ import { triggerHaptic } from "./utils/haptic";
  * - Used on: Intro, GameOver, Summary
  *
  * Card Selection (Personality, Role):
- * - Slate-900/60 background
- * - Slate-800 border
+ * - Black/65 + white/10 border + shadow-lg + shared blur (see selectionStageStyles)
  * - Cyan border on hover
  * - Large padding (p-6 md:p-8/10)
  * - Used on: PersonalitySelect, RoleSelect
@@ -82,6 +83,21 @@ const KEY_TO_DIRECTION: Record<string, "LEFT" | "RIGHT"> = {
 	ArrowRight: "RIGHT",
 };
 
+type FeedbackOverlayState = {
+	text: string;
+	lesson: string;
+	choice: "LEFT" | "RIGHT";
+	fine: number;
+	violation: string;
+	cardId: string;
+	teamImpact?: string | null;
+	realWorldReference?: {
+		incident: string;
+		date: string;
+		outcome: string;
+	} | null;
+};
+
 const App: React.FC = () => {
 	// Game state
 	const {
@@ -97,24 +113,28 @@ const App: React.FC = () => {
 		resetGame,
 	} = useGameState();
 
+	const {
+		currentTrackTitle,
+		userVolume,
+		setUserVolume,
+		enabled: bgmEnabled,
+		toggleEnabled: toggleBgmEnabled,
+		skipNext: skipBgmTrack,
+		bgmVolumeMin,
+		bgmVolumeMax,
+		bgmVolumeStep,
+	} = useBackgroundMusic();
+
+	const handleIntroStart = useCallback(() => {
+		startGame();
+	}, [startGame]);
+
 	// Debrief hook for 3-page flow navigation and archetype calculation
 	const debrief = useDebrief({ state, dispatch });
 
 	// Feedback overlay state (includes optional team-impact from pressure metadata)
-	const [feedbackOverlay, setFeedbackOverlay] = useState<{
-		text: string;
-		lesson: string;
-		choice: "LEFT" | "RIGHT";
-		fine: number;
-		violation: string;
-		cardId: string;
-		teamImpact?: string | null;
-		realWorldReference?: {
-			incident: string;
-			date: string;
-			outcome: string;
-		} | null;
-	} | null>(null);
+	const [feedbackOverlay, setFeedbackOverlay] =
+		useState<FeedbackOverlayState | null>(null);
 
 	// Card animation state
 	const [isFirstCard, setIsFirstCard] = useState(true);
@@ -366,7 +386,7 @@ const App: React.FC = () => {
 	const renderStage = () => {
 		switch (state.stage) {
 			case GameStage.INTRO:
-				return <IntroScreen onStart={startGame} />;
+				return <IntroScreen onStart={handleIntroStart} />;
 
 			case GameStage.PERSONALITY_SELECT:
 				return (
@@ -442,8 +462,10 @@ const App: React.FC = () => {
 					</>
 				);
 
-			case GameStage.BOSS_FIGHT:
+			case GameStage.BOSS_FIGHT: {
 				if (!bossFight.question) return null;
+				const lastBossAnswerCorrect =
+					state.bossFightAnswers[state.bossFightAnswers.length - 1] ?? false;
 				return (
 					<BossFight
 						question={bossFight.question}
@@ -453,15 +475,14 @@ const App: React.FC = () => {
 						timeLeft={bossFight.timeLeft}
 						showExplanation={bossFight.showExplanation}
 						hasAnswered={bossFight.hasAnswered}
-						isCorrect={
-							state.bossFightAnswers[state.bossFightAnswers.length - 1] || false
-						}
+						isCorrect={lastBossAnswerCorrect}
 						correctCount={bossFight.correctCount}
 						totalAnswered={bossFight.totalAnswered}
 						onAnswer={bossFight.handleAnswer}
 						onNext={bossFight.nextQuestion}
 					/>
 				);
+			}
 
 			case GameStage.GAME_OVER:
 				return <GameOver state={state} onDebrief={debrief.nextPage} />;
@@ -486,19 +507,34 @@ const App: React.FC = () => {
 				return <SummaryScreen state={state} onDebrief={debrief.nextPage} />;
 
 			default:
-				return <IntroScreen onStart={startGame} />;
+				return <IntroScreen onStart={handleIntroStart} />;
 		}
 	};
+
+	const isPlayingStage = state.stage === GameStage.PLAYING;
 
 	return (
 		<>
 			<Analytics />
-			<div className="min-h-[100dvh]" key={state.stage}>
-				<div className="stage-transition">{renderStage()}</div>
-			</div>
-			{state.stage === GameStage.PLAYING &&
-				feedbackOverlay &&
-				state.personality && (
+			<StarfieldBackground
+				flySpeedMenuOnly
+				taskbarHostsSpeedBurger={isPlayingStage}
+				bgm={{
+					currentTrackTitle,
+					bgmVolume: userVolume,
+					bgmVolumeMin,
+					bgmVolumeMax,
+					bgmVolumeStep,
+					onBgmVolumeChange: setUserVolume,
+					bgmEnabled,
+					onBgmToggle: toggleBgmEnabled,
+					onBgmSkip: skipBgmTrack,
+				}}
+			>
+				<div className="relative z-10 min-h-[100dvh]" key={state.stage}>
+					<div className="stage-transition">{renderStage()}</div>
+				</div>
+				{isPlayingStage && feedbackOverlay && state.personality && (
 					<FeedbackOverlay
 						personality={state.personality}
 						text={feedbackOverlay.text}
@@ -513,6 +549,7 @@ const App: React.FC = () => {
 						onNext={handleNextIncident}
 					/>
 				)}
+			</StarfieldBackground>
 		</>
 	);
 };

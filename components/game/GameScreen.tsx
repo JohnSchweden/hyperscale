@@ -77,24 +77,21 @@ export const GameScreen: React.FC<GameScreenProps> = ({
 	// Get role-appropriate starting budget for progress bar (Phase 03-06)
 	const startingBudget = ROLE_FINE_TIERS[state.role]?.budget ?? 10000000;
 
-	// Expose countdown for Phase 04-02 (timer UI)
-	const pressureAttrs =
-		isCountdownActive && countdownValue > 0
-			? { "data-pressure-countdown": String(countdownValue) }
-			: {};
-
-	const showCountdown = isCountdownActive && countdownValue > 0;
+	const countdownVisible = isCountdownActive && countdownValue > 0;
+	const pressureAttrs = countdownVisible
+		? { "data-pressure-countdown": String(countdownValue) }
+		: {};
 
 	return (
-		<LayoutShell className="bg-[#0a0a0c]">
+		<LayoutShell className="!bg-transparent">
 			<GameHUD
 				budget={state.budget}
 				heat={state.heat}
 				hype={state.hype}
-				countdownValue={showCountdown ? countdownValue : undefined}
+				countdownValue={countdownVisible ? countdownValue : undefined}
 				startingBudget={startingBudget}
 			/>
-			{showCountdown && (
+			{countdownVisible && (
 				<div
 					className="absolute top-14 md:top-[4.25rem] left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 px-3 py-1.5 rounded-lg bg-red-950/80 border border-red-500/60 text-red-200 text-sm font-bold mono animate-pulse"
 					data-testid="urgent-countdown"
@@ -110,12 +107,12 @@ export const GameScreen: React.FC<GameScreenProps> = ({
 				</div>
 			)}
 
-			{/* Main Content */}
+			{/* Main Content — extends under taskbar so content shows through blur; padding clears the bar + safe area */}
 			<div
-				className="absolute top-[80px] md:top-[56px] bottom-12 left-0 right-0 overflow-y-auto"
+				className="absolute top-[80px] md:top-[56px] bottom-0 left-0 right-0 overflow-y-auto overflow-x-hidden"
 				{...pressureAttrs}
 			>
-				<div className="flex flex-col items-center p-3 md:p-6 pb-8 md:pb-12 gap-4 md:gap-6 min-h-full">
+				<div className="flex min-h-full flex-col items-center gap-4 p-3 pb-[calc(3rem+env(safe-area-inset-bottom,0px)+2rem)] md:gap-6 md:p-6 md:pb-[calc(3rem+env(safe-area-inset-bottom,0px)+3rem)]">
 					{/* Card Stack */}
 					<CardStack
 						role={state.role}

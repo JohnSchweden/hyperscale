@@ -106,10 +106,15 @@
             left: 0;
             bottom: 0;
             right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.035), rgba(0, 255, 0, 0.015), rgba(0, 0, 255, 0.012));
             z-index: 10000;
             background-size: 100% 2px, 3px 100%;
             pointer-events: none;
+        }
+
+        /* Softer CRT while intro starfield runs — reduces moiré / “dirty” beat with 1px dots */
+        html[data-starfield] body::after {
+            opacity: 0.38;
         }
 
         @keyframes glitch {
@@ -131,7 +136,7 @@
         }
 
         .swipe-gradient-right {
-            background: linear-gradient(to right, transparent, rgba(34, 211, 238, 0.15));
+            background: linear-gradient(to right, transparent, rgba(34, 211, 238, 0.06));
         }
         .swipe-gradient-left {
             background: linear-gradient(to left, transparent, rgba(245, 158, 11, 0.15));
@@ -356,11 +361,9 @@
         @keyframes overlayFadeIn {
             from {
                 opacity: 0;
-                backdrop-filter: blur(0px);
             }
             to {
                 opacity: 1;
-                backdrop-filter: blur(16px);
             }
         }
 
@@ -443,14 +446,21 @@
                 overflow-x: hidden;
             }
             
-            /* Ensure minimum touch target size */
-            button, 
-            [role="button"],
-            input,
+            /* Ensure minimum touch target size (exclude range: 44px min-height reads as huge vertical padding) */
+            button:not(.compact-touch-target),
+            [role="button"]:not(.compact-touch-target),
+            input:not([type="range"]),
             textarea,
             select {
                 min-height: 44px;
                 min-width: 44px;
+            }
+
+            /* Icon-sized controls keep authored h/w (matches desktop starfield panel) */
+            button.compact-touch-target,
+            [role="button"].compact-touch-target {
+                min-height: unset;
+                min-width: unset;
             }
             
             /* Prevent text selection on interactive elements */

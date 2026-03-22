@@ -11,6 +11,25 @@ import { SELECTORS } from "./helpers/selectors";
 
 test.use({ baseURL: "https://localhost:3000" });
 
+/** Playing screen: open feedback if needed, then advance with Next ticket (no Debug button). */
+async function openFeedbackThenClickNextTicket(page: Page) {
+	const feedbackDialog = page
+		.locator(SELECTORS.feedbackDialog)
+		.or(page.locator(SELECTORS.feedbackDialogFallback));
+	const nextBtn = page.locator(SELECTORS.nextTicketButton);
+	const swipeLeft = page.getByTestId("swipe-left-button");
+	const feedbackOrSwipe = feedbackDialog.or(swipeLeft);
+	await feedbackOrSwipe.first().waitFor({ state: "visible", timeout: 12000 });
+	if (await feedbackDialog.isVisible()) {
+		await nextBtn.click({ force: true });
+	} else {
+		await swipeLeft.click({ force: true });
+		await feedbackDialog.waitFor({ state: "visible", timeout: 15000 });
+		await nextBtn.click({ force: true });
+	}
+	await swipeLeft.waitFor({ state: "visible", timeout: 10000 });
+}
+
 async function navigateToIntro(page: Page) {
 	await page.goto("/");
 }
@@ -56,34 +75,17 @@ async function navigateToSummary(page: Page) {
 
 async function navigateToFeedbackOverlay(page: Page) {
 	await navigateToPlayingFast(page);
-	await page.locator('button:has-text("Paste")').click({ force: true }); // Swipe right = show feedback
+	await page.getByTestId("swipe-right-button").click({ force: true });
 	const feedbackDialog = page
 		.locator(SELECTORS.feedbackDialog)
 		.or(page.locator(SELECTORS.feedbackDialogFallback));
-	await feedbackDialog.waitFor({ state: "visible", timeout: 3000 });
+	await feedbackDialog.waitFor({ state: "visible", timeout: 8000 });
 }
 
 async function navigateToPlayingWithRoastAnswer(page: Page) {
 	mockRoastApi(page);
 	await navigateToPlayingFast(page);
-	const feedbackDialog = page
-		.locator(SELECTORS.feedbackDialog)
-		.or(page.locator(SELECTORS.feedbackDialogFallback));
-	const nextBtn = page.locator(SELECTORS.nextTicketButton);
-	await page
-		.locator(`${SELECTORS.feedbackDialog}, ${SELECTORS.debugButton}`)
-		.first()
-		.waitFor({ state: "visible", timeout: 2000 });
-	if (await feedbackDialog.isVisible()) {
-		await nextBtn.click({ force: true });
-		await page
-			.locator(SELECTORS.nextTicketButton)
-			.waitFor({ state: "visible", timeout: 3000 });
-	} else {
-		await page.locator(SELECTORS.debugButton).click({ force: true });
-		await nextBtn.waitFor({ state: "visible", timeout: 3000 });
-		await nextBtn.click({ force: true });
-	}
+	await openFeedbackThenClickNextTicket(page);
 	const textarea = page.getByLabel(
 		"Describe your use case / workflow for governance review",
 	);
@@ -102,7 +104,9 @@ async function navigateToPlayingWithRoastAnswer(page: Page) {
 test.describe("Stage visual snapshots @visual @area:gameplay @slow", () => {
 	test("intro", async ({ page }) => {
 		await navigateToIntro(page);
-		await expect(page).toHaveScreenshot("intro.png");
+		await expect(page).toHaveScreenshot("intro.png", {
+			mask: [page.getByTestId("starfield-canvas")],
+		});
 	});
 
 	test("personality-select", async ({ page }) => {
@@ -139,6 +143,7 @@ test.describe("Stage visual snapshots @visual @area:gameplay @slow", () => {
 		await navigateToPlayingFast(page);
 		await expect(page).toHaveScreenshot("playing.png", {
 			mask: [
+				page.getByTestId("starfield-canvas"),
 				page.locator("text=/\\d{1,2}:\\d{2}/"),
 				page.locator("[data-testid=urgent-countdown]"),
 			],
@@ -150,6 +155,7 @@ test.describe("Stage visual snapshots @visual @area:gameplay @slow", () => {
 		await page.getByTestId("roast-terminal").scrollIntoViewIfNeeded();
 		await expect(page).toHaveScreenshot("playing-roast-after.png", {
 			mask: [
+				page.getByTestId("starfield-canvas"),
 				page.locator("text=/\\d{1,2}:\\d{2}/"),
 				page.getByTestId("roast-terminal"),
 			],
@@ -160,27 +166,13 @@ test.describe("Stage visual snapshots @visual @area:gameplay @slow", () => {
 	test("playing roast con before and after", async ({ page }) => {
 		mockRoastApi(page);
 		await navigateToPlayingFast(page);
-		const feedbackDialog = page
-			.locator(SELECTORS.feedbackDialog)
-			.or(page.locator(SELECTORS.feedbackDialogFallback));
-		const nextBtn = page.locator(SELECTORS.nextTicketButton);
-		await page
-			.locator(`${SELECTORS.feedbackDialog}, ${SELECTORS.debugButton}`)
-			.first()
-			.waitFor({ state: "visible", timeout: 2000 });
-		if (await feedbackDialog.isVisible()) {
-			await nextBtn.click({ force: true });
-			await page
-				.locator(SELECTORS.nextTicketButton)
-				.waitFor({ state: "visible", timeout: 3000 });
-		} else {
-			await page.locator(SELECTORS.debugButton).click({ force: true });
-			await nextBtn.waitFor({ state: "visible", timeout: 3000 });
-			await nextBtn.click({ force: true });
-		}
+		await openFeedbackThenClickNextTicket(page);
 		await page.getByTestId("roast-terminal").scrollIntoViewIfNeeded();
 		await expect(page).toHaveScreenshot("playing-roast-before.png", {
-			mask: [page.locator("text=/\\d{1,2}:\\d{2}/")],
+			mask: [
+				page.getByTestId("starfield-canvas"),
+				page.locator("text=/\\d{1,2}:\\d{2}/"),
+			],
 		});
 		const textarea = page.getByLabel(
 			"Describe your use case / workflow for governance review",
@@ -198,6 +190,7 @@ test.describe("Stage visual snapshots @visual @area:gameplay @slow", () => {
 		await page.getByTestId("roast-terminal").scrollIntoViewIfNeeded();
 		await expect(page).toHaveScreenshot("playing-roast-after.png", {
 			mask: [
+				page.getByTestId("starfield-canvas"),
 				page.locator("text=/\\d{1,2}:\\d{2}/"),
 				page.getByTestId("roast-terminal"),
 			],
@@ -213,7 +206,10 @@ test.describe("Stage visual snapshots @visual @area:gameplay @slow", () => {
 			.first()
 			.waitFor({ state: "visible", timeout: 3000 });
 		await expect(page).toHaveScreenshot("feedback-overlay.png", {
-			mask: [page.locator("text=/\\d{1,2}:\\d{2}/")],
+			mask: [
+				page.getByTestId("starfield-canvas"),
+				page.locator("text=/\\d{1,2}:\\d{2}/"),
+			],
 			maxDiffPixelRatio: 0.02, // Allow some variance for animations
 		});
 	});
@@ -241,6 +237,8 @@ test.describe("Stage visual snapshots @visual @area:gameplay @slow", () => {
 		test.slow();
 		test.setTimeout(180000); // Boss fight timer (30s × 5 questions + buffer)
 		await navigateToSummary(page);
-		await expect(page).toHaveScreenshot("summary.png");
+		await expect(page).toHaveScreenshot("summary.png", {
+			mask: [page.getByTestId("starfield-canvas")],
+		});
 	});
 });

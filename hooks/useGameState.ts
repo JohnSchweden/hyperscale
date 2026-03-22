@@ -135,6 +135,12 @@ function getPlayingState(parsed: HydratedStateData): GameState | null {
 
 const VALID_STAGES = new Set(Object.values(GameStage) as unknown as string[]);
 
+function parseDebugEffectiveDeck(value: unknown): Card[] | null {
+	if (value == null) return null;
+	if (!Array.isArray(value) || value.length === 0) return null;
+	return value as Card[];
+}
+
 function getDebugState(): GameState | null {
 	const raw = window.localStorage.getItem("km-debug-state");
 	if (!raw) return null;
@@ -178,7 +184,7 @@ function getDebugState(): GameState | null {
 			bossFightAnswers: Array.isArray(parsed.bossFightAnswers)
 				? parsed.bossFightAnswers
 				: [],
-			effectiveDeck: null,
+			effectiveDeck: parseDebugEffectiveDeck(parsed.effectiveDeck),
 		};
 	} catch {
 		return null;

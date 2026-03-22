@@ -3,6 +3,10 @@ import { DEATH_ENDINGS } from "../../../data";
 import { useUnlockedEndings } from "../../../hooks";
 import { DeathType, type GameState, PersonalityType } from "../../../types";
 import LayoutShell from "../../LayoutShell";
+import {
+	GLASS_FILL_STRONG,
+	GLASS_PANEL_DEFAULT,
+} from "../selectionStageStyles";
 
 function getPersonalityReplayLine(personality: PersonalityType | null): string {
 	switch (personality) {
@@ -40,7 +44,7 @@ export const DebriefPage1Collapse: React.FC<DebriefPage1CollapseProps> = ({
 	const replayLine = getPersonalityReplayLine(state.personality);
 
 	return (
-		<LayoutShell className="p-4 pb-12 md:p-6 md:pb-16 text-center bg-[#1a0505]">
+		<LayoutShell className="p-4 pb-12 md:p-6 md:pb-16 text-center !bg-transparent">
 			<div className="w-full max-w-2xl">
 				{/* Game Over Header */}
 				<div className="mb-6 md:mb-8">
@@ -54,7 +58,9 @@ export const DebriefPage1Collapse: React.FC<DebriefPage1CollapseProps> = ({
 
 				{/* Death Ending Display */}
 				{deathEnding && (
-					<div className="mb-6 md:mb-8 p-6 md:p-8 rounded-xl border border-red-900/30 bg-red-950/20">
+					<div
+						className={`mb-6 md:mb-8 p-6 md:p-8 rounded-xl border border-red-500/40 bg-gradient-to-br from-red-950/30 to-black/70 ${GLASS_FILL_STRONG}`}
+					>
 						<div
 							className={`text-5xl md:text-7xl mb-4 animate-pulse drop-shadow-[0_0_30px_rgba(220,38,38,0.5)] ${deathEnding.color}`}
 						>
@@ -73,7 +79,7 @@ export const DebriefPage1Collapse: React.FC<DebriefPage1CollapseProps> = ({
 
 				{/* Final Metrics */}
 				<div className="mb-6 md:mb-8 grid grid-cols-3 gap-4">
-					<div className="p-4 rounded-lg bg-slate-900/50 border border-slate-800">
+					<div className={`p-4 rounded-lg ${GLASS_PANEL_DEFAULT}`}>
 						<div className="text-xs text-slate-400 tracking-wide mb-1">
 							Budget
 						</div>
@@ -83,7 +89,7 @@ export const DebriefPage1Collapse: React.FC<DebriefPage1CollapseProps> = ({
 							{formatBudget(state.budget)}
 						</div>
 					</div>
-					<div className="p-4 rounded-lg bg-slate-900/50 border border-slate-800">
+					<div className={`p-4 rounded-lg ${GLASS_PANEL_DEFAULT}`}>
 						<div className="text-xs text-slate-400 tracking-wide mb-1">
 							Heat
 						</div>
@@ -93,7 +99,7 @@ export const DebriefPage1Collapse: React.FC<DebriefPage1CollapseProps> = ({
 							{state.heat}%
 						</div>
 					</div>
-					<div className="p-4 rounded-lg bg-slate-900/50 border border-slate-800">
+					<div className={`p-4 rounded-lg ${GLASS_PANEL_DEFAULT}`}>
 						<div className="text-xs text-slate-400 tracking-wide mb-1">
 							Hype
 						</div>
@@ -104,7 +110,9 @@ export const DebriefPage1Collapse: React.FC<DebriefPage1CollapseProps> = ({
 				</div>
 
 				{/* Collection Progress - Prominent Display */}
-				<div className="mb-6 md:mb-8 p-4 md:p-6 rounded-xl border-2 border-cyan-500/30 bg-gradient-to-br from-cyan-950/20 to-slate-900/50">
+				<div
+					className={`mb-6 md:mb-8 p-4 md:p-6 rounded-xl border-2 border-cyan-500/35 bg-gradient-to-br from-cyan-950/30 to-black/70 ${GLASS_FILL_STRONG}`}
+				>
 					{/* Header with icon */}
 					<div className="flex items-center justify-center gap-2 mb-4">
 						<i className="fa-solid fa-trophy text-cyan-400 text-lg"></i>
@@ -124,22 +132,25 @@ export const DebriefPage1Collapse: React.FC<DebriefPage1CollapseProps> = ({
 
 					{/* Icon grid */}
 					<div className="flex gap-2 md:gap-3 justify-center flex-wrap mb-4">
-						{Object.values(DeathType).map((type) => (
-							<div
-								key={type}
-								className={`w-10 h-10 md:w-12 md:h-12 rounded-lg flex items-center justify-center ${
-									state.unlockedEndings.includes(type)
-										? "bg-cyan-500/20 border border-cyan-500"
-										: "bg-slate-800 border border-slate-700 opacity-30"
-								}`}
-								title={DEATH_ENDINGS[type].title}
-							>
-								<i
-									className={`fa-solid ${DEATH_ENDINGS[type].icon} ${state.unlockedEndings.includes(type) ? "text-cyan-400" : "text-slate-600"}`}
-									aria-hidden
-								></i>
-							</div>
-						))}
+						{Object.values(DeathType).map((type) => {
+							const unlocked = state.unlockedEndings.includes(type);
+							return (
+								<div
+									key={type}
+									className={`w-10 h-10 md:w-12 md:h-12 rounded-lg flex items-center justify-center ${
+										unlocked
+											? "bg-cyan-500/20 border border-cyan-500"
+											: "bg-slate-800 border border-slate-700 opacity-30"
+									}`}
+									title={DEATH_ENDINGS[type].title}
+								>
+									<i
+										className={`fa-solid ${DEATH_ENDINGS[type].icon} ${unlocked ? "text-cyan-400" : "text-slate-600"}`}
+										aria-hidden
+									></i>
+								</div>
+							);
+						})}
 					</div>
 
 					{/* Encouragement text from hook */}

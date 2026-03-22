@@ -7,7 +7,7 @@ interface IntroScreenProps {
 
 export const IntroScreen: React.FC<IntroScreenProps> = ({ onStart }) => {
 	return (
-		<LayoutShell className="p-4 pb-12 md:p-6 md:pb-16 text-center bg-[#0a0a0c]">
+		<LayoutShell className="p-4 pb-12 md:p-6 md:pb-16 text-center !bg-transparent">
 			<div className="mb-8 md:mb-12 relative">
 				<h1 className="text-6xl md:text-7xl font-bold glitch-text tracking-tighter mb-2">
 					K-Maru
@@ -26,8 +26,7 @@ export const IntroScreen: React.FC<IntroScreenProps> = ({ onStart }) => {
 					Swipe your way through the AI Singularity. It's not about passing;
 					it's about discovering who you are when the system collapses.
 				</span>
-				<br />
-				<span className="text-[#B8962E] mono text-sm md:text-base">
+				<span className="block mt-2 text-[#B8962E] mono text-sm md:text-base">
 					[NOTICE: Made for people who hate f*cking boring training]
 				</span>
 			</p>
@@ -39,11 +38,9 @@ export const IntroScreen: React.FC<IntroScreenProps> = ({ onStart }) => {
 					The CEO just gave "Full Autonomy" to an experimental LLM. The
 					safeguards are off. The servers are screaming.
 				</span>
-				<br className="hidden md:inline" />
-				<span className="text-slate-300">
-					{" "}
+				<span className="block mt-2 text-white">
 					You have 60 seconds to prevent a global PR meltdown or a total company
-					liquidation. <span className="cursor-blink text-slate-300">_</span>
+					liquidation. <span className="cursor-blink text-white">_</span>
 				</span>
 			</p>
 			<div className="w-full flex justify-center">

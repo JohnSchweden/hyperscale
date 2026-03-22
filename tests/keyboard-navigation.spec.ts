@@ -1,6 +1,13 @@
 import { expect, test } from "@playwright/test";
-import { getCard, navigateToPlayingFast } from "./helpers/navigation";
+import { ROLE_CARDS } from "../data";
+import { PersonalityType, RoleType } from "../types";
+import {
+	getCard,
+	navigateToPlayingWithCardAtIndex,
+} from "./helpers/navigation";
 import { SELECTORS } from "./helpers/selectors";
+
+const SEEDED_ENGINEER_CARD = ROLE_CARDS[RoleType.SOFTWARE_ENGINEER][1];
 
 test.use({ baseURL: "https://localhost:3000" });
 
@@ -12,7 +19,7 @@ function getFeedbackDialog(page: import("@playwright/test").Page) {
 
 test.describe("Keyboard navigation @smoke @area:input", () => {
 	test.beforeEach(async ({ page }) => {
-		await navigateToPlayingFast(page);
+		await navigateToPlayingWithCardAtIndex(page, RoleType.SOFTWARE_ENGINEER, 1);
 	});
 
 	test("ArrowRight triggers swipe right and feedback dialog shows correct side", async ({
@@ -26,9 +33,11 @@ test.describe("Keyboard navigation @smoke @area:input", () => {
 
 		const feedbackDialog = getFeedbackDialog(page);
 		await expect(feedbackDialog).toBeVisible({ timeout: 3000 });
-		// RIGHT = Paste on first dev card; assert dialog shows Paste-related content
 		await expect(
-			feedbackDialog.getByText(/trade secret|open-sourced/i).first(),
+			feedbackDialog.getByText(
+				SEEDED_ENGINEER_CARD.onRight.feedback[PersonalityType.ROASTER],
+				{ exact: false },
+			),
 		).toBeVisible({ timeout: 2000 });
 	});
 
@@ -43,9 +52,11 @@ test.describe("Keyboard navigation @smoke @area:input", () => {
 
 		const feedbackDialog = getFeedbackDialog(page);
 		await expect(feedbackDialog).toBeVisible({ timeout: 3000 });
-		// LEFT = Debug on first dev card; assert dialog shows Debug-related content
 		await expect(
-			feedbackDialog.getByText(/Slow\. Boring|Secure coding/i).first(),
+			feedbackDialog.getByText(
+				SEEDED_ENGINEER_CARD.onLeft.feedback[PersonalityType.ROASTER],
+				{ exact: false },
+			),
 		).toBeVisible({ timeout: 2000 });
 	});
 

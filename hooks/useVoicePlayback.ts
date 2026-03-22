@@ -9,116 +9,100 @@ interface UseVoicePlaybackOptions {
 	feedbackChoice?: "LEFT" | "RIGHT" | null;
 }
 
+function voiceKey(personality: PersonalityType): string {
+	return personality.toLowerCase().replace(/_/g, "");
+}
+
+function stageTrigger(stage: GameStage): string | null {
+	switch (stage) {
+		case GameStage.ROLE_SELECT:
+			return "onboarding";
+		case GameStage.GAME_OVER:
+			return "failure";
+		case GameStage.SUMMARY:
+			return "victory";
+		default:
+			return null;
+	}
+}
+
+function runVoiceCue(
+	personalityKey: string,
+	trigger: string,
+	errorLabel: string,
+	logLoadDetail: boolean,
+): void {
+	loadVoice(personalityKey, trigger)
+		.then(() => {
+			playVoice().catch(() => {
+				console.error(`Voice playback failed for ${errorLabel}`);
+			});
+		})
+		.catch((e) => {
+			if (logLoadDetail) {
+				console.error(
+					"Voice loading failed for feedback:",
+					(e as Error).message,
+				);
+			} else {
+				console.error(`Voice loading failed for ${errorLabel}`);
+			}
+		});
+}
+
+const FEEDBACK_INSTALL_ON_RIGHT = new Set([
+	"se_code_quality_refactor",
+	"mkt_psych_profiling",
+	"mkt_deepfake_swift",
+	"man_attention_track",
+	"man_negotiator",
+	"cln_sticky_note",
+]);
+
+function feedbackVoiceTrigger(
+	cardId: string,
+	choice: "LEFT" | "RIGHT",
+): string {
+	if (cardId === "se_security_patch_timeline") {
+		return choice === "RIGHT" ? "feedback_paste" : "feedback_debug";
+	}
+	if (FEEDBACK_INSTALL_ON_RIGHT.has(cardId)) {
+		return choice === "RIGHT" ? "feedback_install" : "feedback_ignore";
+	}
+	return "feedback_ignore";
+}
+
 export function useVoicePlayback({
 	stage,
 	personality,
 	feedbackCardId,
 	feedbackChoice,
 }: UseVoicePlaybackOptions) {
-	// Cleanup on unmount
 	useEffect(() => {
 		return () => {
 			stopVoice();
 		};
 	}, []);
 
-	// Voice logic for stage transitions - plays for all roles
 	useEffect(() => {
 		if (!personality) return;
-
-		const personalityLower = personality.toLowerCase().replace(/_/g, "");
-		let trigger: string | null = null;
-
-		if (stage === GameStage.ROLE_SELECT) {
-			trigger = "onboarding";
-		} else if (stage === GameStage.GAME_OVER) {
-			trigger = "failure";
-		} else if (stage === GameStage.SUMMARY) {
-			trigger = "victory";
-		}
-
-		if (trigger) {
-			loadVoice(personalityLower, trigger)
-				.then(() => {
-					playVoice().catch(() => {
-						console.error(`Voice playback failed for ${trigger}`);
-					});
-				})
-				.catch(() => {
-					console.error(`Voice loading failed for ${trigger}`);
-				});
-		}
+		const trigger = stageTrigger(stage);
+		if (!trigger) return;
+		const key = voiceKey(personality);
+		runVoiceCue(key, trigger, trigger, false);
 	}, [stage, personality]);
 
-	// Voice logic for feedback overlay - only for Roaster personality
-	// (only roaster has feedback audio files)
 	useEffect(() => {
 		if (!feedbackCardId || !feedbackChoice || !personality) return;
 		if (personality !== PersonalityType.ROASTER) return;
 
-		const personalityLower = personality.toLowerCase().replace(/_/g, "");
-		let trigger = "feedback_ignore";
-
-		// Map based on card ID and choice to determine correct feedback voice
-		// Software Engineer role - first card (Phase 3)
-		if (feedbackCardId === "se_security_patch_timeline") {
-			trigger =
-				feedbackChoice === "RIGHT" ? "feedback_paste" : "feedback_debug";
-		} else if (feedbackCardId === "se_code_quality_refactor") {
-			trigger =
-				feedbackChoice === "RIGHT" ? "feedback_install" : "feedback_ignore";
-		}
-		// Marketing role cards
-		else if (
-			feedbackCardId === "mkt_psych_profiling" ||
-			feedbackCardId === "mkt_deepfake_swift"
-		) {
-			trigger =
-				feedbackChoice === "RIGHT" ? "feedback_install" : "feedback_ignore";
-		}
-		// Management role cards
-		else if (
-			feedbackCardId === "man_attention_track" ||
-			feedbackCardId === "man_negotiator"
-		) {
-			trigger =
-				feedbackChoice === "RIGHT" ? "feedback_install" : "feedback_ignore";
-		}
-		// HR role cards
-		else if (
-			feedbackCardId === "hr_union_predict" ||
-			feedbackCardId === "hr_lacrosse_bias"
-		) {
-			trigger = "feedback_ignore";
-		}
-		// Finance role cards
-		else if (
-			feedbackCardId === "fin_insider_bot" ||
-			feedbackCardId === "fin_fraud_hallucination"
-		) {
-			trigger = "feedback_ignore";
-		}
-		// Cleaning role
-		else if (feedbackCardId === "cln_sticky_note") {
-			trigger =
-				feedbackChoice === "RIGHT" ? "feedback_install" : "feedback_ignore";
-		}
+		const trigger = feedbackVoiceTrigger(feedbackCardId, feedbackChoice);
+		const key = voiceKey(personality);
 
 		console.log(
 			`[Feedback] Playing voice: ${trigger} for card: ${feedbackCardId} choice: ${feedbackChoice}`,
 		);
 
-		loadVoice(personalityLower, trigger)
-			.then(() => {
-				playVoice().catch(() => {
-					console.error("Voice playback failed for feedback");
-				});
-			})
-			.catch((e) => {
-				console.error(
-					"Voice loading failed for feedback:",
-					(e as Error).message,
-				);
-			});
+		runVoiceCue(key, trigger, "feedback", true);
 	}, [feedbackCardId, feedbackChoice, personality]);
 }

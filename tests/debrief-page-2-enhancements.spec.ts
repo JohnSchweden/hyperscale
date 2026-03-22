@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { gotoWithKmDebugState } from "./helpers/km-debug-state";
 
 test.use({ baseURL: "https://localhost:3000" });
 
@@ -6,39 +7,19 @@ test.describe("Debrief Page 2 - UI Enhancements @area:layout", () => {
 	test("displays 'Your choice' label above decision badges", async ({
 		page,
 	}) => {
-		await page.goto("/");
-
-		await page.evaluate(() => {
-			localStorage.setItem(
-				"km-debug-state",
-				JSON.stringify({
-					stage: "DEBRIEF_PAGE_2",
-					hype: 50,
-					heat: 100,
-					budget: 500000,
-					personality: "ROASTER",
-					role: "SOFTWARE_ENGINEER",
-					currentCardIndex: 0,
-					history: [{ cardId: "se_security_patch_timeline", choice: "LEFT" }],
-					deathReason: "Heat exceeded 100%",
-					deathType: "REPLACED_BY_SCRIPT",
-					unlockedEndings: ["REPLACED_BY_SCRIPT"],
-					bossFightAnswers: [],
-					effectiveDeck: null,
-				}),
-			);
+		await gotoWithKmDebugState(page, {
+			stage: "DEBRIEF_PAGE_2",
+			history: [{ cardId: "se_security_patch_timeline", choice: "LEFT" }],
 		});
-
-		await page.reload();
 		await page.waitForSelector("h1", { timeout: 10000 });
 
 		// Verify "Your choice" label is visible above decision badge
 		const yourChoiceLabel = page.getByText("Your choice", { exact: true });
 		await expect(yourChoiceLabel).toBeVisible();
 
-		// Verify it appears before the choice badge
+		// Verify it appears before the choice badge (fine===0 → cyan; fine>0 → amber)
 		const choiceBadge = page
-			.locator(".bg-rose-500\\/20, .bg-emerald-500\\/20")
+			.locator(".bg-cyan-500\\/20, .bg-amber-500\\/20")
 			.first();
 		await expect(choiceBadge).toBeVisible();
 
@@ -51,33 +32,13 @@ test.describe("Debrief Page 2 - UI Enhancements @area:layout", () => {
 	test("'Your choice' label appears for each decision in history", async ({
 		page,
 	}) => {
-		await page.goto("/");
-
-		await page.evaluate(() => {
-			localStorage.setItem(
-				"km-debug-state",
-				JSON.stringify({
-					stage: "DEBRIEF_PAGE_2",
-					hype: 50,
-					heat: 100,
-					budget: 500000,
-					personality: "ROASTER",
-					role: "SOFTWARE_ENGINEER",
-					currentCardIndex: 0,
-					history: [
-						{ cardId: "se_security_patch_timeline", choice: "LEFT" },
-						{ cardId: "se_code_quality_refactor", choice: "RIGHT" },
-					],
-					deathReason: "Heat exceeded 100%",
-					deathType: "REPLACED_BY_SCRIPT",
-					unlockedEndings: ["REPLACED_BY_SCRIPT"],
-					bossFightAnswers: [],
-					effectiveDeck: null,
-				}),
-			);
+		await gotoWithKmDebugState(page, {
+			stage: "DEBRIEF_PAGE_2",
+			history: [
+				{ cardId: "se_security_patch_timeline", choice: "LEFT" },
+				{ cardId: "se_code_quality_refactor", choice: "RIGHT" },
+			],
 		});
-
-		await page.reload();
 		await page.waitForSelector("h1", { timeout: 10000 });
 
 		// Should have one "Your choice" label per decision
@@ -85,35 +46,15 @@ test.describe("Debrief Page 2 - UI Enhancements @area:layout", () => {
 		await expect(yourChoiceLabels).toHaveCount(2);
 	});
 
-	test("'Path You Didn't Take' title is center-aligned", async ({ page }) => {
-		await page.goto("/");
-
-		await page.evaluate(() => {
-			localStorage.setItem(
-				"km-debug-state",
-				JSON.stringify({
-					stage: "DEBRIEF_PAGE_2",
-					hype: 50,
-					heat: 100,
-					budget: 500000,
-					personality: "ROASTER",
-					role: "SOFTWARE_ENGINEER",
-					currentCardIndex: 0,
-					history: [{ cardId: "se_security_patch_timeline", choice: "LEFT" }],
-					deathReason: "Heat exceeded 100%",
-					deathType: "REPLACED_BY_SCRIPT",
-					unlockedEndings: ["REPLACED_BY_SCRIPT"],
-					bossFightAnswers: [],
-					effectiveDeck: null,
-				}),
-			);
+	test("'Path you didn't take' title is center-aligned", async ({ page }) => {
+		await gotoWithKmDebugState(page, {
+			stage: "DEBRIEF_PAGE_2",
+			history: [{ cardId: "se_security_patch_timeline", choice: "LEFT" }],
 		});
-
-		await page.reload();
 		await page.waitForSelector("h1", { timeout: 10000 });
 
 		// Verify the title is visible
-		const pathTitle = page.getByText("Path You Didn't Take");
+		const pathTitle = page.getByText("Path you didn't take");
 		await expect(pathTitle).toBeVisible();
 
 		// Check that the title element itself is centered (using flex justify-center)
@@ -121,30 +62,10 @@ test.describe("Debrief Page 2 - UI Enhancements @area:layout", () => {
 	});
 
 	test("card descriptions expand with 'show more' button", async ({ page }) => {
-		await page.goto("/");
-
-		await page.evaluate(() => {
-			localStorage.setItem(
-				"km-debug-state",
-				JSON.stringify({
-					stage: "DEBRIEF_PAGE_2",
-					hype: 50,
-					heat: 100,
-					budget: 500000,
-					personality: "ROASTER",
-					role: "SOFTWARE_ENGINEER",
-					currentCardIndex: 0,
-					history: [{ cardId: "se_security_patch_timeline", choice: "LEFT" }],
-					deathReason: "Heat exceeded 100%",
-					deathType: "REPLACED_BY_SCRIPT",
-					unlockedEndings: ["REPLACED_BY_SCRIPT"],
-					bossFightAnswers: [],
-					effectiveDeck: null,
-				}),
-			);
+		await gotoWithKmDebugState(page, {
+			stage: "DEBRIEF_PAGE_2",
+			history: [{ cardId: "se_security_patch_timeline", choice: "LEFT" }],
 		});
-
-		await page.reload();
 		await page.waitForSelector("h1", { timeout: 10000 });
 
 		// Look for show more button
@@ -173,68 +94,28 @@ test.describe("Debrief Page 2 - UI Enhancements @area:layout", () => {
 
 test.describe("Debrief Page 2 - Reflection Hints for Both Choices @area:gameplay", () => {
 	test("shows hints for safe (LEFT) decisions with emoji", async ({ page }) => {
-		await page.goto("/");
-
-		await page.evaluate(() => {
-			localStorage.setItem(
-				"km-debug-state",
-				JSON.stringify({
-					stage: "DEBRIEF_PAGE_2",
-					hype: 50,
-					heat: 100,
-					budget: 500000,
-					personality: "ROASTER",
-					role: "SOFTWARE_ENGINEER",
-					currentCardIndex: 0,
-					history: [{ cardId: "se_security_patch_timeline", choice: "LEFT" }],
-					deathReason: "Heat exceeded 100%",
-					deathType: "REPLACED_BY_SCRIPT",
-					unlockedEndings: ["REPLACED_BY_SCRIPT"],
-					bossFightAnswers: [],
-					effectiveDeck: null,
-				}),
-			);
+		await gotoWithKmDebugState(page, {
+			stage: "DEBRIEF_PAGE_2",
+			history: [{ cardId: "se_security_patch_timeline", choice: "LEFT" }],
 		});
-
-		await page.reload();
 		await page.waitForSelector("h1", { timeout: 10000 });
 
-		// Should show hint with lightbulb emoji for LEFT choice
+		// PathHint uses 💡 for safe variant; copy still includes "played it safe"
 		const hint = page.getByText(/played it safe/i);
 		await expect(hint).toBeVisible();
 
-		// Should have emerald (green) styling for safe hints
+		// Safe PathHint borders use cyan (not emerald)
 		const hintContainer = hint.locator("xpath=../..");
-		await expect(hintContainer).toHaveClass(/border-emerald-500/);
+		await expect(hintContainer).toHaveClass(/border-cyan-500/);
 	});
 
 	test("shows hints for risky (RIGHT) decisions with shield emoji", async ({
 		page,
 	}) => {
-		await page.goto("/");
-
-		await page.evaluate(() => {
-			localStorage.setItem(
-				"km-debug-state",
-				JSON.stringify({
-					stage: "DEBRIEF_PAGE_2",
-					hype: 50,
-					heat: 100,
-					budget: 500000,
-					personality: "ROASTER",
-					role: "SOFTWARE_ENGINEER",
-					currentCardIndex: 0,
-					history: [{ cardId: "se_security_patch_timeline", choice: "RIGHT" }],
-					deathReason: "Heat exceeded 100%",
-					deathType: "REPLACED_BY_SCRIPT",
-					unlockedEndings: ["REPLACED_BY_SCRIPT"],
-					bossFightAnswers: [],
-					effectiveDeck: null,
-				}),
-			);
+		await gotoWithKmDebugState(page, {
+			stage: "DEBRIEF_PAGE_2",
+			history: [{ cardId: "se_security_patch_timeline", choice: "RIGHT" }],
 		});
-
-		await page.reload();
 		await page.waitForSelector("h1", { timeout: 10000 });
 
 		// Should show hint with shield emoji for RIGHT choice
@@ -246,39 +127,19 @@ test.describe("Debrief Page 2 - Reflection Hints for Both Choices @area:gameplay
 			page.getByText(/try.*to see if you can avoid the heat/i),
 		).toBeVisible();
 
-		// Should have rose (red) styling for risky hints
+		// Risky PathHint borders use amber (not rose)
 		const hintContainer = hint.locator("xpath=../..");
-		await expect(hintContainer).toHaveClass(/border-rose-500/);
+		await expect(hintContainer).toHaveClass(/border-amber-500/);
 	});
 
 	test("shows hints for mixed LEFT and RIGHT decisions", async ({ page }) => {
-		await page.goto("/");
-
-		await page.evaluate(() => {
-			localStorage.setItem(
-				"km-debug-state",
-				JSON.stringify({
-					stage: "DEBRIEF_PAGE_2",
-					hype: 50,
-					heat: 100,
-					budget: 500000,
-					personality: "ROASTER",
-					role: "SOFTWARE_ENGINEER",
-					currentCardIndex: 0,
-					history: [
-						{ cardId: "se_security_patch_timeline", choice: "LEFT" },
-						{ cardId: "se_code_quality_refactor", choice: "RIGHT" },
-					],
-					deathReason: "Heat exceeded 100%",
-					deathType: "REPLACED_BY_SCRIPT",
-					unlockedEndings: ["REPLACED_BY_SCRIPT"],
-					bossFightAnswers: [],
-					effectiveDeck: null,
-				}),
-			);
+		await gotoWithKmDebugState(page, {
+			stage: "DEBRIEF_PAGE_2",
+			history: [
+				{ cardId: "se_security_patch_timeline", choice: "LEFT" },
+				{ cardId: "se_code_quality_refactor", choice: "RIGHT" },
+			],
 		});
-
-		await page.reload();
 		await page.waitForSelector("h1", { timeout: 10000 });
 
 		// Should show both types of hints

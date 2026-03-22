@@ -30,10 +30,6 @@ export default defineConfig({
 		baseURL: "https://localhost:3000",
 		ignoreHTTPSErrors: true,
 		trace: "on-first-retry",
-		contextOptions: {
-			// Reuse browser context across tests for faster execution
-			// when running with multiple workers
-		},
 	},
 	projects: [
 		{
@@ -50,7 +46,7 @@ export default defineConfig({
 				viewport: { width: 393, height: 851 },
 			},
 			// Only run layout-specific specs on mobile; rest run desktop-only
-			testMatch: /mobile-width|layout-overlay-touch/,
+			testMatch: /mobile-width|layout-overlay-touch|starfield-background/,
 		},
 	],
 });

@@ -1,5 +1,9 @@
 import { expect, test } from "@playwright/test";
-import { navigateToPlayingFast } from "./helpers/navigation";
+import { RoleType } from "../types";
+import {
+	navigateToPlayingFast,
+	navigateToPlayingWithCardAtIndex,
+} from "./helpers/navigation";
 
 test.use({ baseURL: "https://localhost:3000" });
 
@@ -59,7 +63,7 @@ test.describe("Feedback Overlay @area:gameplay", () => {
 	test("shows team-impact text when configured for outcome", async ({
 		page,
 	}) => {
-		await navigateToPlayingFast(page);
+		await navigateToPlayingWithCardAtIndex(page, RoleType.SOFTWARE_ENGINEER, 0);
 
 		// Click Debug if button is clickable; otherwise timeout will have fired
 		await page
@@ -70,16 +74,14 @@ test.describe("Feedback Overlay @area:gameplay", () => {
 			timeout: 15000,
 		});
 
-		// dev_1 has team-impact for both outcomes
-		const teamImpact1 = page.locator("text=Ops team grateful for the pause");
-		const teamImpact2 = page.locator("text=Engineering morale took a hit");
-		const hasTeamImpact =
-			(await teamImpact1.isVisible()) || (await teamImpact2.isVisible());
-		expect(hasTeamImpact).toBe(true);
+		// First SE card (unshuffled): se_security_patch_timeline — LEFT team impact
+		await expect(
+			page.getByText(/Patch deployed but vulnerability remains/i),
+		).toBeVisible();
 	});
 
 	test("feedback overlay has no undo control", async ({ page }) => {
-		await navigateToPlayingFast(page);
+		await navigateToPlayingWithCardAtIndex(page, RoleType.SOFTWARE_ENGINEER, 0);
 		await page
 			.getByTestId("swipe-left-button")
 			.click({ timeout: 8000, force: true })
@@ -106,7 +108,7 @@ test.describe("Feedback Overlay @area:gameplay", () => {
 	test("feedback overlay reinforces finality with governance copy", async ({
 		page,
 	}) => {
-		await navigateToPlayingFast(page);
+		await navigateToPlayingWithCardAtIndex(page, RoleType.SOFTWARE_ENGINEER, 0);
 		await page
 			.getByTestId("swipe-left-button")
 			.click({ timeout: 8000, force: true })
