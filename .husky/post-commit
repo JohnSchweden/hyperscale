@@ -1,8 +1,6 @@
 # post-commit: background analysis after every commit.
 # Scripts live globally in ~/.claude/hooks/ — work in any repo.
 # 1. claude-analyze.sh  — extract lessons from the diff → tasks/lessons.md
-# 2. claude-simplify.sh — code quality check → .planning/logs/simplify-latest.md
 
 bash ~/.claude/hooks/claude-analyze.sh &
-bash ~/.claude/hooks/claude-simplify.sh &
 disown
