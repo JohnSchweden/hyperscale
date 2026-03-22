@@ -122,7 +122,7 @@ describe("Card Distribution Matrix — Issue #10", () => {
 			expect(true).toBe(true);
 		});
 
-		it.skip("distribution: 2+ cards per category per role (Phase 05 target)", () => {
+		it("distribution: 2+ cards per category per role (Phase 05 target)", () => {
 			// Enable this test after Phase 05-02 adds first cards
 			// This test will fail until Phase 05 card generation is complete
 
@@ -202,7 +202,7 @@ describe("Card Distribution Matrix — Issue #10", () => {
 			expect(true).toBe(true);
 		});
 
-		it.skip("total Phase 05 card count >= 100", () => {
+		it("total Phase 05 card count >= 100", () => {
 			// Enable after Phase 05-04 completes
 			// Count cards with Phase 05 category prefixes
 			let phase05Cards = 0;
@@ -237,7 +237,7 @@ describe("Card Distribution Matrix — Issue #10", () => {
 			expect(underfilledRoles).toEqual([]);
 		});
 
-		it.skip("each role has 18+ total cards after Phase 05", () => {
+		it("each role has 18+ total cards after Phase 05", () => {
 			// Enable after Phase 05-04 completes
 			// Phase 03 baseline (8-10) + Phase 05 additions (10) = 18+
 			const underfilledRoles: string[] = [];
