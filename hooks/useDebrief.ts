@@ -1,7 +1,7 @@
 import type React from "react";
 import { useCallback, useMemo } from "react";
 import { calculateArchetype } from "../data/archetypes";
-import { type Archetype, GameStage, type GameState } from "../types";
+import { type Archetype, DeathType, GameStage, type GameState } from "../types";
 
 interface DebriefResult {
 	archetype: Archetype | null;
@@ -32,16 +32,31 @@ export function useDebrief(options: UseDebriefOptions): DebriefResult {
 			state.stage === GameStage.DEBRIEF_PAGE_2 ||
 			state.stage === GameStage.DEBRIEF_PAGE_3;
 
-		if (isDebriefStage) {
-			return calculateArchetype(
-				state.history,
-				state.budget,
-				state.heat,
-				state.hype,
-				state.role,
-			);
+		if (!isDebriefStage) return null;
+
+		// Phase 07: Kirk Easter Egg — override archetype for Kirk death
+		if (state.deathType === DeathType.KIRK) {
+			return {
+				archetype: {
+					id: "KIRK" as const,
+					name: "Thinking Outside the Box",
+					description:
+						"You refused to play by the rules. The simulation wasn't designed for someone who questions the test itself.",
+					icon: "shield-halved",
+					color: "#00ffff",
+					traits: ["Unconventional", "System Breaker", "Creative Thinker"],
+				} satisfies Archetype,
+				resilience: 0,
+			};
 		}
-		return null;
+
+		return calculateArchetype(
+			state.history,
+			state.budget,
+			state.heat,
+			state.hype,
+			state.role,
+		);
 	}, [
 		state.stage,
 		state.history,
@@ -49,6 +64,7 @@ export function useDebrief(options: UseDebriefOptions): DebriefResult {
 		state.heat,
 		state.hype,
 		state.role,
+		state.deathType,
 	]);
 
 	/**

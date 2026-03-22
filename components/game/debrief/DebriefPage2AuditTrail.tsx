@@ -1,7 +1,7 @@
 import type React from "react";
 import { Fragment, useCallback, useState } from "react";
 import { PERSONALITIES, ROLE_CARDS } from "../../../data";
-import { type GameState, PersonalityType } from "../../../types";
+import { DeathType, type GameState, PersonalityType } from "../../../types";
 import LayoutShell from "../../LayoutShell";
 import {
 	GLASS_FILL_STRONG,
@@ -23,6 +23,20 @@ function getPersonalityComment(personality: PersonalityType): string {
 			return "Bro! That was WILD! You made CHOICES! Some of them were... definitely choices! We LITERALLY saw it all happen!";
 		default:
 			return "Your decisions have been logged.";
+	}
+}
+
+/** Phase 07: Kirk Easter Egg — break-character personality reactions */
+function getKirkPersonalityBreak(personality: PersonalityType | null): string {
+	switch (personality) {
+		case PersonalityType.ROASTER:
+			return "...I have nothing. That wasn't supposed to be possible.";
+		case PersonalityType.ZEN_MASTER:
+			return "The student has surpassed the teacher. There was always a third path.";
+		case PersonalityType.LOVEBOMBER:
+			return "Wait... if you can break the simulation... am I... am I even real?";
+		default:
+			return "...system integrity compromised.";
 	}
 }
 
@@ -202,6 +216,7 @@ export const DebriefPage2AuditTrail: React.FC<DebriefPage2AuditTrailProps> = ({
 	onNext,
 }) => {
 	const { personality, role, history } = state;
+	const isKirk = state.deathType === DeathType.KIRK;
 	const cards = role ? ROLE_CARDS[role] : [];
 
 	// Track which card descriptions are expanded
@@ -219,9 +234,11 @@ export const DebriefPage2AuditTrail: React.FC<DebriefPage2AuditTrailProps> = ({
 	}, []);
 
 	const personalityComment = personality
-		? getPersonalityComment(personality)
+		? isKirk
+			? getKirkPersonalityBreak(personality)
+			: getPersonalityComment(personality)
 		: "";
-	const personalityClosing = getPersonalityClosing(personality);
+	const personalityClosing = isKirk ? "" : getPersonalityClosing(personality);
 	const personalityData = personality ? PERSONALITIES[personality] : null;
 
 	return (
@@ -229,11 +246,15 @@ export const DebriefPage2AuditTrail: React.FC<DebriefPage2AuditTrailProps> = ({
 			<div className="w-full max-w-2xl">
 				{/* Header */}
 				<div className="mb-6 text-center md:mb-8">
-					<h1 className="text-3xl md:text-5xl font-black text-white mb-2 tracking-tighter">
-						Incident Audit Log
+					<h1
+						className={`text-3xl md:text-5xl font-black text-white mb-2 tracking-tighter${isKirk ? " kirk-glitch-text" : ""}`}
+					>
+						{isKirk ? "Corrupted Audit Log" : "Incident Audit Log"}
 					</h1>
 					<p className="px-1 text-base text-slate-400 md:text-lg">
-						A complete record of your governance decisions
+						{isKirk
+							? "WARNING: Audit integrity compromised"
+							: "A complete record of your governance decisions"}
 					</p>
 				</div>
 
@@ -265,6 +286,13 @@ export const DebriefPage2AuditTrail: React.FC<DebriefPage2AuditTrailProps> = ({
 							})}
 						</div>
 					)}
+					{/* Phase 07: Kirk footer note */}
+					{isKirk && (
+						<div className="mt-4 p-3 rounded-lg border border-cyan-500/30 bg-cyan-950/20 text-xs text-cyan-400/80 text-left">
+							NOTE: Subject exhibited non-standard behavior. Audit integrity
+							compromised.
+						</div>
+					)}
 				</div>
 
 				{/* Personality Sign-off */}
@@ -291,70 +319,72 @@ export const DebriefPage2AuditTrail: React.FC<DebriefPage2AuditTrailProps> = ({
 					</div>
 				)}
 
-				{/* Reflection Prompt */}
-				<div
-					className={`mb-6 rounded-xl p-5 sm:p-6 md:mb-8 ${GLASS_PANEL_DEFAULT}`}
-				>
-					<h3 className="mb-3 text-left text-lg font-bold text-slate-200 sm:text-center">
-						<i className="fa-solid fa-lightbulb text-yellow-500 mr-2"></i>
-						What would you do differently?
-					</h3>
-					<p className="text-left text-slate-400 text-sm mb-4 leading-relaxed">
-						Every choice you made shaped this outcome. As you look back at your
-						decisions, consider the paths not taken and why you made the choices
-						you did.
-					</p>
+				{/* Reflection Prompt — hidden for Kirk path */}
+				{!isKirk && (
+					<div
+						className={`mb-6 rounded-xl p-5 sm:p-6 md:mb-8 ${GLASS_PANEL_DEFAULT}`}
+					>
+						<h3 className="mb-3 text-left text-lg font-bold text-slate-200 sm:text-center">
+							<i className="fa-solid fa-lightbulb text-yellow-500 mr-2"></i>
+							What would you do differently?
+						</h3>
+						<p className="text-left text-slate-400 text-sm mb-4 leading-relaxed">
+							Every choice you made shaped this outcome. As you look back at
+							your decisions, consider the paths not taken and why you made the
+							choices you did.
+						</p>
 
-					{/* Per-choice hints for both safe and risky decisions */}
-					{history.length > 0 && (
-						<div className="mt-8">
-							<div className="text-base font-semibold text-slate-300 mb-3 flex items-center justify-center gap-2 pt-[24px]">
-								<i className="fa-solid fa-route text-cyan-400"></i>
-								Path you didn't take
-							</div>
-							<div className="space-y-1 text-left">
-								{history.map((entry, index) => {
-									const card = cards.find((c) => c.id === entry.cardId);
-									if (!card) return null;
+						{/* Per-choice hints for both safe and risky decisions */}
+						{history.length > 0 && (
+							<div className="mt-8">
+								<div className="text-base font-semibold text-slate-300 mb-3 flex items-center justify-center gap-2 pt-[24px]">
+									<i className="fa-solid fa-route text-cyan-400"></i>
+									Path you didn't take
+								</div>
+								<div className="space-y-1 text-left">
+									{history.map((entry, index) => {
+										const card = cards.find((c) => c.id === entry.cardId);
+										if (!card) return null;
 
-									if (entry.choice === "LEFT") {
+										if (entry.choice === "LEFT") {
+											return (
+												// biome-ignore lint/suspicious/noArrayIndexKey: chronological stable list
+												<Fragment key={`hint-${index}`}>
+													<PathHint
+														index={index}
+														variant="safe"
+														prefix="You played it safe. Next time, try "
+														label={card.onRight.label.toLowerCase()}
+														suffix=" to see how much hype you could gain—and what heat you might attract."
+													/>
+												</Fragment>
+											);
+										}
 										return (
 											// biome-ignore lint/suspicious/noArrayIndexKey: chronological stable list
 											<Fragment key={`hint-${index}`}>
 												<PathHint
 													index={index}
-													variant="safe"
-													prefix="You played it safe. Next time, try "
-													label={card.onRight.label.toLowerCase()}
-													suffix=" to see how much hype you could gain—and what heat you might attract."
+													variant="risky"
+													prefix="You took a risk. Next time, try "
+													label={card.onLeft.label.toLowerCase()}
+													suffix=" to see if you can avoid the heat and fines."
 												/>
 											</Fragment>
 										);
-									}
-									return (
-										// biome-ignore lint/suspicious/noArrayIndexKey: chronological stable list
-										<Fragment key={`hint-${index}`}>
-											<PathHint
-												index={index}
-												variant="risky"
-												prefix="You took a risk. Next time, try "
-												label={card.onLeft.label.toLowerCase()}
-												suffix=" to see if you can avoid the heat and fines."
-											/>
-										</Fragment>
-									);
-								})}
+									})}
+								</div>
 							</div>
-						</div>
-					)}
+						)}
 
-					{/* Personality closing line */}
-					<div className="mt-4 pt-4 border-t border-slate-700/50">
-						<p className="text-sm italic text-cyan-400/80 text-center">
-							{personalityClosing}
-						</p>
+						{/* Personality closing line */}
+						<div className="mt-4 pt-4 border-t border-slate-700/50">
+							<p className="text-sm italic text-cyan-400/80 text-center">
+								{personalityClosing}
+							</p>
+						</div>
 					</div>
-				</div>
+				)}
 
 				{/* Generate Psych Evaluation Button */}
 				<button

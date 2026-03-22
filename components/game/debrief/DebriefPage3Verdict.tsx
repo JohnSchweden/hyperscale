@@ -1,8 +1,12 @@
 import type React from "react";
 import { useEffect, useState } from "react";
 import { ROLE_LABELS } from "../../../data";
-import type { Archetype, RoleType } from "../../../types";
-import { formatShareText, getShareUrl } from "../../../utils/linkedin-share";
+import { type Archetype, DeathType, type RoleType } from "../../../types";
+import {
+	encodeLinkedInShareUrl,
+	formatShareText,
+	getShareUrl,
+} from "../../../utils/linkedin-share";
 import LayoutShell from "../../LayoutShell";
 import {
 	GLASS_FILL_STRONG,
@@ -17,6 +21,8 @@ interface DebriefPage3VerdictProps {
 	archetypeDescription: string;
 	resilienceScore: number;
 	role: RoleType | null;
+	deathType?: DeathType | null;
+	unlockedEndingsCount?: number;
 	onRestart: () => void;
 }
 
@@ -65,13 +71,21 @@ function updateMetaTags(
 	}
 }
 
+/** Phase 07: Kirk LinkedIn share text */
+const KIRK_SHARE_TEXT =
+	"I broke the Kobayashi Maru. There was always a third option. Kirk would be proud.\n\nhttps://k-maru-seven.vercel.app/";
+
 export const DebriefPage3Verdict: React.FC<DebriefPage3VerdictProps> = ({
 	archetype,
 	archetypeDescription,
 	resilienceScore,
 	role,
+	deathType,
+	unlockedEndingsCount = 0,
 	onRestart,
 }) => {
+	const isKirk = deathType === DeathType.KIRK;
+
 	useEffect(() => {
 		if (!archetype) return;
 		const roleLabel = role ? ROLE_LABELS[role] : null;
@@ -79,13 +93,24 @@ export const DebriefPage3Verdict: React.FC<DebriefPage3VerdictProps> = ({
 	}, [archetype, resilienceScore, role]);
 
 	const resilienceContext = getResilienceContext(resilienceScore);
-	const archetypeColorClass = getArchetypeColor(resilienceScore);
+	const archetypeColorClass = isKirk
+		? "text-cyan-400 border-cyan-500/40"
+		: getArchetypeColor(resilienceScore);
 
-	const linkedInShareUrl =
-		role && archetype ? getShareUrl(role, archetype, resilienceScore) : null;
+	// Kirk uses unique share template; normal players use standard share URL
+	const linkedInShareUrl = isKirk
+		? encodeLinkedInShareUrl(
+				typeof window !== "undefined" ? window.location.href : "",
+				KIRK_SHARE_TEXT,
+				"Kobayashi Maru - Kirk Ending",
+			)
+		: role && archetype
+			? getShareUrl(role, archetype, resilienceScore)
+			: null;
 
-	const shareText =
-		role && archetype
+	const shareText = isKirk
+		? KIRK_SHARE_TEXT
+		: role && archetype
 			? formatShareText(role, archetype.name, resilienceScore)
 			: "";
 
@@ -106,11 +131,15 @@ export const DebriefPage3Verdict: React.FC<DebriefPage3VerdictProps> = ({
 		<LayoutShell className="p-4 pb-12 md:p-6 md:pb-16 text-center !bg-transparent">
 			<div className="w-full max-w-2xl">
 				<div className="mb-6 md:mb-8">
-					<h1 className="text-3xl md:text-5xl font-black text-white mb-2 tracking-tighter">
-						SIMULATION COMPLETE
+					<h1
+						className={`text-3xl md:text-5xl font-black text-white mb-2 tracking-tighter${isKirk ? " kirk-glitch-text" : ""}`}
+					>
+						{isKirk ? "SIMULATION HIJACKED" : "SIMULATION COMPLETE"}
 					</h1>
 					<p className="text-slate-400 text-base md:text-lg">
-						Your psych evaluation has been generated
+						{isKirk
+							? "You found the third option"
+							: "Your psych evaluation has been generated"}
 					</p>
 				</div>
 
@@ -121,25 +150,39 @@ export const DebriefPage3Verdict: React.FC<DebriefPage3VerdictProps> = ({
 					<div className="text-sm text-slate-400 uppercase tracking-widest mb-4">
 						Classification
 					</div>
-					<h2 className="text-4xl md:text-6xl font-black mb-4 tracking-tighter">
+					<h2
+						className={`text-4xl md:text-6xl font-black mb-4 tracking-tighter${isKirk ? " kirk-glitch-text text-cyan-400" : ""}`}
+					>
 						{archetype?.name ?? "Unknown"}
 					</h2>
+					{/* Kirk: Skill Acquired badge */}
+					{isKirk && (
+						<div className="inline-block px-4 py-1 mb-4 rounded-full border border-cyan-400 text-cyan-400 text-sm font-bold uppercase tracking-widest">
+							Skill Acquired
+						</div>
+					)}
 					<p className="text-lg md:text-xl text-slate-300 leading-relaxed max-w-lg mx-auto">
 						{archetypeDescription}
 					</p>
 				</div>
 
-				{/* Resilience Score */}
+				{/* Resilience Score — "Simulation Integrity" for Kirk */}
 				<div className={`mb-6 md:mb-8 p-6 rounded-xl ${GLASS_PANEL_DEFAULT}`}>
 					<div className="text-sm text-slate-400 uppercase tracking-widest mb-2">
-						Resilience Score
+						{isKirk ? "Simulation Integrity" : "Resilience Score"}
 					</div>
 					<div className="flex items-center justify-center gap-4 mb-2">
-						<span className="text-5xl md:text-7xl font-black text-white">
-							{resilienceScore}%
+						<span
+							className={`text-5xl md:text-7xl font-black ${isKirk ? "text-cyan-400" : "text-white"}`}
+						>
+							{isKirk ? "0%" : `${resilienceScore}%`}
 						</span>
 					</div>
-					<p className="text-slate-400">{resilienceContext}</p>
+					<p className="text-slate-400">
+						{isKirk
+							? "You broke the test. That was never supposed to happen."
+							: resilienceContext}
+					</p>
 				</div>
 
 				{/* Action Buttons */}
@@ -196,6 +239,14 @@ export const DebriefPage3Verdict: React.FC<DebriefPage3VerdictProps> = ({
 						<i className="fa-brands fa-linkedin text-lg"></i>
 						Message Yevgen Schweden
 					</a>
+				</div>
+
+				{/* "...or is it?" hint for completionists — shown to all players */}
+				<div className="mt-6 text-center">
+					<p className="text-sm text-slate-500">
+						Endings discovered: {unlockedEndingsCount}/6{" "}
+						<span className="italic text-slate-600 text-xs">...or is it?</span>
+					</p>
 				</div>
 			</div>
 		</LayoutShell>

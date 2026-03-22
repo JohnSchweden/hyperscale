@@ -70,6 +70,16 @@ export const ARCHETYPES: Record<ArchetypeId, Archetype> = {
 		color: "text-red-500",
 		traits: ["unpredictable", "contrarian", "volatile", "unconventional"],
 	},
+	/** Phase 07: Kirk Easter Egg — not reachable via normal archetype calculation */
+	KIRK: {
+		id: "KIRK",
+		name: "Thinking Outside the Box",
+		description:
+			"You refused to play by the rules. The simulation wasn't designed for someone who questions the test itself.",
+		icon: "fa-shield-halved",
+		color: "text-cyan-400",
+		traits: ["Unconventional", "System Breaker", "Creative Thinker"],
+	},
 };
 
 /**
@@ -182,7 +192,7 @@ export function calculateArchetype(
 		return { archetype: null, resilience: 0 };
 	}
 
-	// Initialize scores for all archetypes
+	// Initialize scores for all archetypes (KIRK is never scored — only via Easter egg path)
 	const scores: Record<ArchetypeId, number> = {
 		PRAGMATIST: 0,
 		SHADOW_ARCHITECT: 0,
@@ -190,6 +200,7 @@ export function calculateArchetype(
 		CONSERVATIVE: 0,
 		BALANCED: 0,
 		CHAOS_AGENT: 0,
+		KIRK: 0,
 	};
 
 	// Get the deck for this role

@@ -187,7 +187,9 @@ export type ArchetypeId =
 	| "DISRUPTOR"
 	| "CONSERVATIVE"
 	| "BALANCED"
-	| "CHAOS_AGENT";
+	| "CHAOS_AGENT"
+	/** Phase 07: Kirk Easter Egg archetype */
+	| "KIRK";
 
 export interface Archetype {
 	id: ArchetypeId;

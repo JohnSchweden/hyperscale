@@ -2,6 +2,7 @@ import type React from "react";
 import { DEATH_ENDINGS } from "../../../data";
 import { useUnlockedEndings } from "../../../hooks";
 import { DeathType, type GameState, PersonalityType } from "../../../types";
+import { corruptText } from "../../../utils/kirkText";
 import LayoutShell from "../../LayoutShell";
 import {
 	GLASS_FILL_STRONG,
@@ -37,7 +38,10 @@ export const DebriefPage1Collapse: React.FC<DebriefPage1CollapseProps> = ({
 	state,
 	onNext,
 }) => {
-	const deathEnding = state.deathType ? DEATH_ENDINGS[state.deathType] : null;
+	const isKirk = state.deathType === DeathType.KIRK;
+	// For Kirk path: exclude KIRK itself from deathEndings (it's handled specially)
+	const deathEnding =
+		state.deathType && !isKirk ? DEATH_ENDINGS[state.deathType] : null;
 	const { progressText, unlockedCount, totalCount } = useUnlockedEndings(
 		state.unlockedEndings,
 	);
@@ -46,17 +50,34 @@ export const DebriefPage1Collapse: React.FC<DebriefPage1CollapseProps> = ({
 	return (
 		<LayoutShell className="p-4 pb-12 md:p-6 md:pb-16 text-center !bg-transparent">
 			<div className="w-full max-w-2xl">
-				{/* Game Over Header */}
+				{/* Game Over Header — corrupted for Kirk */}
 				<div className="mb-6 md:mb-8">
-					<h1 className="text-4xl md:text-6xl font-black text-red-500 mb-2 tracking-tighter">
-						GAME OVER
-					</h1>
-					<p className="text-slate-400 text-base md:text-lg">
-						Your tenure has come to an end
-					</p>
+					{isKirk ? (
+						<>
+							<h1
+								className="text-4xl md:text-6xl font-black text-cyan-400 mb-2 tracking-tighter kirk-glitch-text"
+								aria-label="SIMULATION BREACH"
+							>
+								{corruptText("SIMULATION BREACH", 0.4)}
+							</h1>
+							<p className="text-slate-400 text-base md:text-lg">
+								Error: Subject refused to comply with test parameters.
+								Attempting damage control...
+							</p>
+						</>
+					) : (
+						<>
+							<h1 className="text-4xl md:text-6xl font-black text-red-500 mb-2 tracking-tighter">
+								GAME OVER
+							</h1>
+							<p className="text-slate-400 text-base md:text-lg">
+								Your tenure has come to an end
+							</p>
+						</>
+					)}
 				</div>
 
-				{/* Death Ending Display */}
+				{/* Death Ending Display — hidden for Kirk (handled above) */}
 				{deathEnding && (
 					<div
 						className={`mb-6 md:mb-8 p-6 md:p-8 rounded-xl border border-red-500/40 bg-gradient-to-br from-red-950/30 to-black/70 ${GLASS_FILL_STRONG}`}
