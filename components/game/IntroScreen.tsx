@@ -56,6 +56,9 @@ export const IntroScreen: React.FC<IntroScreenProps> = ({ onStart }) => {
 			<div className="mt-8 md:mt-12 mono text-xs text-red-500 px-4 text-center">
 				WARNING: PREVIOUS COMPLIANCE OFFICER CURRENTLY PENDING LITIGATION
 			</div>
+			<div className="mt-4 mono text-[10px] text-slate-500 px-4 text-center">
+				Captain Kirk passed this test. You won&apos;t.
+			</div>
 		</LayoutShell>
 	);
 };

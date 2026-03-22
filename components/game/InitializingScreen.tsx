@@ -54,6 +54,10 @@ export const InitializingScreen: React.FC<InitializingScreenProps> = ({
 								{">"} Loading $10M compliance budget... done
 							</div>
 							<div className="text-xs md:text-sm leading-relaxed">
+								{">"} override protocols:{" "}
+								<span className="text-red-400/50">[REDACTED]</span>
+							</div>
+							<div className="text-xs md:text-sm leading-relaxed">
 								{">"} Finalizing neural interface...
 								<span
 									className="cursor-blink inline-block w-[7.5px] h-4 md:w-[9px] md:h-[21px] bg-green-400 ml-0.5 align-middle -translate-y-px"

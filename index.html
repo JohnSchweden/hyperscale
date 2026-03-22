@@ -561,6 +561,56 @@
                 padding-bottom: env(safe-area-inset-bottom);
             }
         }
+
+        /* ── Kirk Easter Egg CSS ─────────────────────────────────────────────── */
+
+        /* Level 1: Subtle flicker — applied briefly on first refusal */
+        @keyframes kirk-flicker {
+            0%, 100% { opacity: 1; filter: none; }
+            25% { opacity: 0.8; filter: hue-rotate(90deg) saturate(3); }
+            50% { opacity: 0.6; filter: invert(1); transform: translateX(2px); }
+            75% { opacity: 0.9; filter: hue-rotate(-90deg); }
+        }
+        .kirk-flicker { animation: kirk-flicker 0.15s ease; }
+
+        /* Level 2: Persistent corruption — added on second refusal, stays active */
+        @keyframes kirk-corrupt {
+            0% { filter: none; }
+            10% { filter: hue-rotate(30deg) brightness(1.1); transform: skewX(0.5deg); }
+            30% { filter: none; transform: none; }
+            50% { filter: saturate(2) brightness(0.9); transform: translateX(-1px); }
+            70% { filter: none; transform: none; }
+            90% { filter: hue-rotate(-20deg); transform: skewX(-0.3deg); }
+        }
+        .kirk-corrupted { animation: kirk-corrupt 0.3s infinite; }
+        .kirk-corrupted::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,255,0.03) 2px, rgba(0,255,255,0.03) 4px);
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        /* Glitch text — for corrupted card text and debrief */
+        @keyframes kirk-text-glitch {
+            0%, 100% { text-shadow: 2px 0 #ff0000, -2px 0 #00ffff; }
+            25% { text-shadow: -2px 0 #ff0000, 2px 0 #00ffff; transform: skewX(1deg); }
+            50% { text-shadow: 1px 1px #ff0000, -1px -1px #00ffff; }
+            75% { text-shadow: -1px 0 #ff0000, 1px 0 #00ffff; transform: skewX(-0.5deg); }
+        }
+        .kirk-glitch-text {
+            text-shadow: 2px 0 #ff0000, -2px 0 #00ffff;
+            animation: kirk-text-glitch 0.5s infinite;
+        }
+
+        /* Accessibility: reduced motion fallbacks */
+        @media (prefers-reduced-motion: reduce) {
+            .kirk-corrupted { animation: none; }
+            .kirk-corrupted::before { background: rgba(0,255,255,0.05); }
+            .kirk-flicker { animation: none; opacity: 0.7; }
+            .kirk-glitch-text { animation: none; text-shadow: 1px 0 #ff0000, -1px 0 #00ffff; }
+        }
     </style>
 <script type="importmap">
 {
