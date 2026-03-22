@@ -1,6 +1,17 @@
 {
 	"version": 1,
 	"hooks": {
-		"afterFileEdit": [{ "command": "bun run .cursor/hooks/format.ts" }]
+		"afterFileEdit": [
+			{
+				"type": "command",
+				"command": "bun run hooks:cursor-format"
+			}
+		],
+		"postToolUse": [
+			{
+				"type": "command",
+				"command": "bun run hooks:cursor-format"
+			}
+		]
 	}
 }

@@ -33,6 +33,7 @@
 		"test:slow-files": "bun run scripts/find-slow-test-files.ts",
 		"test:live-api": "bun run scripts/test-live-api.ts",
 		"lint:file": "biome lint",
+		"hooks:cursor-format": "bun ./.cursor/hooks/format.ts",
 		"prepare": "husky"
 	},
 	"lint-staged": {

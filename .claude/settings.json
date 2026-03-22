@@ -1,0 +1,25 @@
+{
+	"hooks": {
+		"SessionStart": [
+			{
+				"hooks": [
+					{
+						"type": "command",
+						"command": "node \".claude/hooks/lesson-session-start.js\""
+					}
+				]
+			}
+		],
+		"PostToolUse": [
+			{
+				"matcher": "Write|Edit",
+				"hooks": [
+					{
+						"type": "command",
+						"command": "bun run hooks:cursor-format"
+					}
+				]
+			}
+		]
+	}
+}
