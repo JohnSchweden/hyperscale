@@ -44,9 +44,13 @@
 	},
 	"dependencies": {
 		"@google/genai": "^1.40.0",
+		"@mcp-b/global": "^2.2.0",
+		"@mcp-b/react-webmcp": "^2.2.0",
 		"@vercel/analytics": "^2.0.1",
 		"react": "^19.2.4",
-		"react-dom": "^19.2.4"
+		"react-dom": "^19.2.4",
+		"zod": "^3.25",
+		"zod-to-json-schema": "^3.25.1"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.4.6",

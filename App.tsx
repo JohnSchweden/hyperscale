@@ -1,6 +1,13 @@
 import { Analytics } from "@vercel/analytics/react";
 import type React from "react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+	lazy,
+	Suspense,
+	useCallback,
+	useEffect,
+	useRef,
+	useState,
+} from "react";
 import {
 	BossFight,
 	DebriefContainer,
@@ -15,6 +22,15 @@ import {
 	StarfieldBackground,
 	SummaryScreen,
 } from "./components/game";
+
+const WebMCPToolsProvider = import.meta.env.DEV
+	? lazy(() =>
+			import("./components/dev/WebMCPToolsProvider").then((m) => ({
+				default: m.WebMCPToolsProvider,
+			})),
+		)
+	: null;
+
 import { BOSS_FIGHT_QUESTIONS, ROLE_CARDS } from "./data";
 import {
 	useBackgroundMusic,
@@ -548,6 +564,22 @@ const App: React.FC = () => {
 						realWorldReference={feedbackOverlay.realWorldReference}
 						onNext={handleNextIncident}
 					/>
+				)}
+				{import.meta.env.DEV && WebMCPToolsProvider && (
+					<Suspense fallback={null}>
+						<WebMCPToolsProvider
+							state={state}
+							startGame={handleIntroStart}
+							selectPersonality={selectPersonality}
+							handleSelectRole={handleSelectRole}
+							swipe={swipe}
+							feedbackOverlay={feedbackOverlay}
+							handleNextIncident={handleNextIncident}
+							bossFight={bossFight}
+							handleRestart={handleRestart}
+							currentCard={currentCard}
+						/>
+					</Suspense>
 				)}
 			</StarfieldBackground>
 		</>

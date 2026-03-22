@@ -13,3 +13,4 @@ export { useStageReady } from "./useStageReady";
 export { useSwipeGestures } from "./useSwipeGestures";
 export { useUnlockedEndings } from "./useUnlockedEndings";
 export { useVoicePlayback } from "./useVoicePlayback";
+export { useWebMCPTools } from "./useWebMCPTools";

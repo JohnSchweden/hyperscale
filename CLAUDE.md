@@ -57,6 +57,7 @@ hooks/
   useBossFight.ts           # Boss quiz logic
   useRoast.ts               # AI roast commentary
   useSpeechRecognition.ts   # Voice input
+  useWebMCPTools.ts         # DEV-only: registers 10 WebMCP game control tools
 
 services/
   geminiService.ts          # Gemini 2.5 TTS API
@@ -103,6 +104,7 @@ utils/
 - **Role-scoped content**: Card decks, death endings, and boss questions are keyed by `RoleType` — add new content by extending the role map
 - **Personality-scoped feedback**: Each `ChoiceOutcome` contains a `feedback: Record<PersonalityType, string>` — all three personalities must have entries
 - **Env-gated features**: `VITE_ENABLE_SPEECH=false` disables TTS; `GEMINI_API_KEY` injected at build time via Vite define
+- **WebMCP dev tools**: `useWebMCPTools` + `WebMCPToolsProvider` register 10 MCP tools via `navigator.modelContext`; gated behind `import.meta.env.DEV` — tree-shaken from production. Tools map directly to game state machine actions. See `.cursor/skills/webmcp-game/SKILL.md`.
 <!-- END AUTO-MANAGED -->
 
 <!-- AUTO-MANAGED: git-insights -->

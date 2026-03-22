@@ -128,6 +128,18 @@ When you modify UI, interactions, or visual elements:
 - **agent-browser**: Quick interactive verification, exploratory testing
 - **playwright-cli**: Precise control, debugging specific interactions
 
+### 4. WebMCP Tools (Game Logic Verification)
+When the dev server is running, 10 MCP tools are registered in the browser via `navigator.modelContext` (polyfilled by `@mcp-b/global`). Use `chrome-devtools-mcp` (configured in `.cursor/mcp.json` and `~/.claude/mcp_servers.json`) to call them.
+
+Core tools: `get_game_state`, `get_current_screen`, `start_game`, `select_personality`, `select_role`, `swipe_card`, `dismiss_feedback`, `answer_boss_question`, `advance_boss`, `restart_game`.
+
+See `.cursor/skills/webmcp-game/SKILL.md` for full tool reference, stage guards, and example playthrough.
+
+Use WebMCP when:
+- You need to inspect or control game state directly from the AI
+- Running an automated playthrough to test card/boss fight logic
+- Faster than DOM-level browser automation for game-specific flows
+
 **DO NOT commit without verification. If tests fail or browser verification shows issues, fix them first.**
 
 ## Browser Automation
