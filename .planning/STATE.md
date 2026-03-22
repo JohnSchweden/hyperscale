@@ -66,3 +66,17 @@ See: .planning/PROJECT.md
 - 2026-03-16: Completed 03-05-revised-PLAN.md (Real-world reference system: 80+ cards with incident documentation across 10 roles)
 - 2026-03-17: Completed 03-07-PLAN.md (Heat rebalancing: scaled heat values proportionally to fines by role tier)
 - 2026-03-22: Completed 05-01-PLAN.md (Test scaffold for Phase 05: 7 test files, penalty balance ratio, voice heuristics, distribution matrix)
+- 2026-03-22: Completed 05-06-PLAN.md (Archetype & death ending audit: affinity matrix, 3 personality proposals, gap analysis)
+
+## Decisions
+
+- Keep existing 6 death endings; consider adding 2-3 technical endings for IC roles in future phase
+- Add THE_ANALYST (QUANT) personality as high priority — fills analytical/data-driven gap
+- Add THE_MENTOR (PROFESSOR) personality as medium priority — universal historical context appeal
+- Defer THE_PARANOID (WATCHER) to Phase 08 — niche surveillance/conspiracy theme
+- Implementation recommended for Phase 13 or Phase 08 — content-heavy, requires ~6-8 hours per personality
+
+## Key Metrics
+
+- Phase 05-06: 4 tasks, 1 file created, 6 min duration
+- Output: 05-06-AUDIT-REPORT.md with death ending matrix, personality analysis, 3 proposals

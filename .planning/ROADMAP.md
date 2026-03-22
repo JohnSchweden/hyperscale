@@ -156,7 +156,7 @@ Make the simulation feel real through:
 
 **Goal:** Cover more day-to-day AI risk incidents people actually face + audit archetypes/endings
 **Depends on:** Phase 03
-**Plans:** 2/6 plans executed
+**Plans:** 6/6 plans executed (Phase 05-06 audit complete)
 
 Plans:
 - [ ] 05-01-PLAN.md — Test scaffold: 7 test files (incidents, integration, penalties, voice, dedup, distribution matrix, Phase 03 snapshot) ✓
@@ -427,7 +427,7 @@ Integrate images into UI:
 | 02 | New Role Set (Impact Zones) | v1.2 | Complete |
 | 03 | 9/9 | Complete    | 2026-03-17 |
 | 04 | Immersive Pressure Effects | v1.2 | Complete (9/10) |
-| 05 | 2/6 | In Progress|  |
+| 05 | 6/6 | Complete | 2026-03-22 |
 | 06 | 19/19 | Complete    | 2026-03-16 |
 | 07 | Kirk Easter Egg | v1.2 | Not started |
 | 08 | Kobayashi Maru Framing (deferred) | v1.2 | Deferred |
@@ -440,4 +440,4 @@ Integrate images into UI:
 
 ---
 
-*Roadmap updated: 2026-03-16 — Phase 03 UAT complete (03-04-revised: 80+ cards verified across 10 roles)*
+*Roadmap updated: 2026-03-22 — Phase 05-06 audit complete (archetypes & death endings analyzed, 3 personality proposals documented)*
