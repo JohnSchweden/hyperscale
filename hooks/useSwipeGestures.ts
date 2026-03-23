@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 const SWIPE_THRESHOLD = 100;
 const SWIPE_PREVIEW_THRESHOLD = 50;
+const VERTICAL_DOMINANCE_RATIO = 1.5;
 
 function getSwipeDirectionFromDelta(
 	deltaX: number,
@@ -131,7 +132,10 @@ export function useSwipeGestures({
 						verticalOffset: 0,
 						direction: newDirection,
 					}));
-				} else if (dy < 0 && Math.abs(dy) > Math.abs(dx) * 1.5) {
+				} else if (
+					dy < 0 &&
+					Math.abs(dy) > Math.abs(dx) * VERTICAL_DOMINANCE_RATIO
+				) {
 					// Vertical-dominant upward gesture - track for swipe-up preview
 					setState((prev) => ({
 						...prev,
@@ -186,11 +190,11 @@ export function useSwipeGestures({
 		// Swipe-up detection: vertical-dominant upward gesture exceeding threshold
 		// Guard: !isHorizontalSwipe.current (not locked as horizontal)
 		// Guard: deltaY < -SWIPE_THRESHOLD (upward, negative Y)
-		// Guard: |deltaY| > |deltaX| * 1.5 (vertical dominant by 1.5x ratio)
+		// Guard: |deltaY| > |deltaX| * VERTICAL_DOMINANCE_RATIO (vertical dominant by 1.5x ratio)
 		if (
 			!isHorizontalSwipe.current &&
 			finalDeltaY < -SWIPE_THRESHOLD &&
-			Math.abs(finalDeltaY) > Math.abs(finalDeltaX) * 1.5
+			Math.abs(finalDeltaY) > Math.abs(finalDeltaX) * VERTICAL_DOMINANCE_RATIO
 		) {
 			onSwipeUp?.();
 			// Snap back with vertical animation (like incomplete left/right swipe)
@@ -216,12 +220,14 @@ export function useSwipeGestures({
 		if (
 			!isHorizontalSwipe.current &&
 			finalDeltaY < 0 &&
-			Math.abs(finalDeltaY) > Math.abs(finalDeltaX) * 1.5
+			Math.abs(finalDeltaY) > Math.abs(finalDeltaX) * VERTICAL_DOMINANCE_RATIO
 		) {
 			setState((prev) => ({
 				...prev,
 				isSnappingBack: true,
+				offset: 0,
 				verticalOffset: 0,
+				direction: null,
 				isSwipeUp: false,
 			}));
 			if (animationTimeoutRef.current) {
