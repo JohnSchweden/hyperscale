@@ -49,6 +49,7 @@ export function useWebMCPTools(deps: UseWebMCPToolsDeps) {
 			name: "get_game_state",
 			description:
 				"Returns the current game state including stage, stats, role, personality, and card index.",
+			inputSchema: { type: "object", properties: {} },
 			handler: () => {
 				return {
 					success: true,
@@ -74,6 +75,7 @@ export function useWebMCPTools(deps: UseWebMCPToolsDeps) {
 			name: "get_current_screen",
 			description:
 				"Returns a human-readable description of the current game screen.",
+			inputSchema: { type: "object", properties: {} },
 			handler: () => {
 				const descriptions: Record<GameStage, string> = {
 					[GameStage.INTRO]: "Intro screen — click Start to begin",
@@ -115,6 +117,7 @@ export function useWebMCPTools(deps: UseWebMCPToolsDeps) {
 		{
 			name: "start_game",
 			description: "Starts the game from the intro screen (INTRO stage only).",
+			inputSchema: { type: "object", properties: {} },
 			handler: () => {
 				if (state.stage !== GameStage.INTRO) {
 					return {
@@ -249,6 +252,7 @@ export function useWebMCPTools(deps: UseWebMCPToolsDeps) {
 			name: "dismiss_feedback",
 			description:
 				"Dismisses the feedback overlay after swiping a card. Only available when the overlay is showing.",
+			inputSchema: { type: "object", properties: {} },
 			handler: () => {
 				if (feedbackOverlay === null) {
 					return {
@@ -322,6 +326,7 @@ export function useWebMCPTools(deps: UseWebMCPToolsDeps) {
 			name: "advance_boss",
 			description:
 				"Advances to the next boss fight question after reading the explanation. Only available when showExplanation is true.",
+			inputSchema: { type: "object", properties: {} },
 			handler: () => {
 				if (state.stage !== GameStage.BOSS_FIGHT) {
 					return {
@@ -347,6 +352,7 @@ export function useWebMCPTools(deps: UseWebMCPToolsDeps) {
 		{
 			name: "restart_game",
 			description: "Restarts the game from scratch (always available).",
+			inputSchema: { type: "object", properties: {} },
 			handler: () => {
 				handleRestart();
 				return { success: true, movedTo: GameStage.INTRO };
