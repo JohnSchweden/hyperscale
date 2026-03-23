@@ -1,6 +1,6 @@
 import type React from "react";
 import { useCallback, useMemo } from "react";
-import { calculateArchetype } from "../data/archetypes";
+import { ARCHETYPES, calculateArchetype } from "../data/archetypes";
 import { type Archetype, DeathType, GameStage, type GameState } from "../types";
 
 interface DebriefResult {
@@ -36,18 +36,7 @@ export function useDebrief(options: UseDebriefOptions): DebriefResult {
 
 		// Phase 07: Kirk Easter Egg — override archetype for Kirk death
 		if (state.deathType === DeathType.KIRK) {
-			return {
-				archetype: {
-					id: "KIRK" as const,
-					name: "Thinking Outside the Box",
-					description:
-						"You refused to play by the rules. The simulation wasn't designed for someone who questions the test itself.",
-					icon: "shield-halved",
-					color: "#00ffff",
-					traits: ["Unconventional", "System Breaker", "Creative Thinker"],
-				} satisfies Archetype,
-				resilience: 0,
-			};
+			return { archetype: ARCHETYPES.KIRK, resilience: 0 };
 		}
 
 		return calculateArchetype(

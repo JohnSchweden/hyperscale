@@ -1,4 +1,5 @@
 import type React from "react";
+import { useMemo } from "react";
 import { DEATH_ENDINGS } from "../../../data";
 import { useUnlockedEndings } from "../../../hooks";
 import { DeathType, type GameState, PersonalityType } from "../../../types";
@@ -39,6 +40,11 @@ export const DebriefPage1Collapse: React.FC<DebriefPage1CollapseProps> = ({
 	onNext,
 }) => {
 	const isKirk = state.deathType === DeathType.KIRK;
+	// Stable corruption text — memoized so it doesn't re-randomize on re-renders
+	const corruptedBreachText = useMemo(
+		() => corruptText("SIMULATION BREACH", 0.4),
+		[],
+	);
 	// For Kirk path: exclude KIRK itself from deathEndings (it's handled specially)
 	const deathEnding =
 		state.deathType && !isKirk ? DEATH_ENDINGS[state.deathType] : null;
@@ -58,7 +64,7 @@ export const DebriefPage1Collapse: React.FC<DebriefPage1CollapseProps> = ({
 								className="text-4xl md:text-6xl font-black text-cyan-400 mb-2 tracking-tighter kirk-glitch-text"
 								aria-label="SIMULATION BREACH"
 							>
-								{corruptText("SIMULATION BREACH", 0.4)}
+								{corruptedBreachText}
 							</h1>
 							<p className="text-slate-400 text-base md:text-lg">
 								Error: Subject refused to comply with test parameters.

@@ -326,11 +326,15 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
 				BRANCH_INJECTIONS,
 			);
 
-			if (state.currentCardIndex + 1 >= cards.length) {
-				// If corruption active, trigger Kirk death instead of boss fight
-				if (state.kirkCorruptionActive) {
+			// If corruption active, check if we just played the last kirk card
+			if (state.kirkCorruptionActive) {
+				const lastPlayed = state.history[state.history.length - 1];
+				if (lastPlayed?.cardId === "kirk-nobel") {
 					return createGameOverState(state, DeathType.KIRK);
 				}
+			}
+
+			if (state.currentCardIndex + 1 >= cards.length) {
 				return { ...state, stage: GameStage.BOSS_FIGHT, effectiveDeck: cards };
 			}
 			return {
@@ -359,7 +363,7 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
 			// No-op if already at max refusals
 			if (state.kirkCounter >= 2) return state;
 			const newCount = state.kirkCounter + 1;
-			if (newCount >= 2) {
+			if (newCount === 2) {
 				// Second refusal: activate corruption, inject corrupted cards
 				const currentDeck =
 					state.effectiveDeck ?? (state.role ? ROLE_CARDS[state.role] : []);

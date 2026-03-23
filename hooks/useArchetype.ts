@@ -1,22 +1,11 @@
 import { useMemo } from "react";
-import { calculateArchetype } from "../data/archetypes";
+import { ARCHETYPES, calculateArchetype } from "../data/archetypes";
 import { type Archetype, DeathType, type RoleType } from "../types";
 
 interface UseArchetypeResult {
 	archetype: Archetype | null;
 	resilience: number;
 }
-
-/** Phase 07: Kirk Easter Egg archetype — returned when deathType is KIRK */
-const KIRK_ARCHETYPE: Archetype = {
-	id: "KIRK",
-	name: "Thinking Outside the Box",
-	description:
-		"You refused to play by the rules. The simulation wasn't designed for someone who questions the test itself.",
-	icon: "shield-halved",
-	color: "#00ffff",
-	traits: ["Unconventional", "System Breaker", "Creative Thinker"],
-};
 
 /**
  * Hook to calculate and memoize archetype and resilience score.
@@ -40,7 +29,7 @@ export function useArchetype(
 ): UseArchetypeResult {
 	return useMemo(() => {
 		if (deathType === DeathType.KIRK) {
-			return { archetype: KIRK_ARCHETYPE, resilience: 0 };
+			return { archetype: ARCHETYPES.KIRK, resilience: 0 };
 		}
 		return calculateArchetype(history, finalBudget, finalHeat, finalHype, role);
 	}, [history, finalBudget, finalHeat, finalHype, role, deathType]);

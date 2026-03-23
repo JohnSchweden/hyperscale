@@ -160,6 +160,9 @@ const App: React.FC = () => {
 
 	// Kirk Easter Egg: game container ref for CSS class manipulation
 	const gameContainerRef = useRef<HTMLDivElement>(null);
+	const kirkFlickerTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
+		null,
+	);
 
 	// Prevent duplicate choice handling (user click + timer race)
 	const isChoiceLockedRef = useRef(false);
@@ -366,8 +369,14 @@ const App: React.FC = () => {
 			if (ctx) playKirkGlitchTone(ctx);
 			const el = gameContainerRef.current;
 			if (el) {
+				if (kirkFlickerTimeoutRef.current !== null) {
+					clearTimeout(kirkFlickerTimeoutRef.current);
+				}
 				el.classList.add("kirk-flicker");
-				setTimeout(() => el.classList.remove("kirk-flicker"), 150);
+				kirkFlickerTimeoutRef.current = setTimeout(() => {
+					el.classList.remove("kirk-flicker");
+					kirkFlickerTimeoutRef.current = null;
+				}, 150);
 			}
 		} else if (currentKirkCounter === 1) {
 			// Second refusal: crash sound + persistent corruption
@@ -470,11 +479,13 @@ const App: React.FC = () => {
 							isFirstCard={isFirstCard}
 							cardRef={cardRef}
 							swipeOffset={swipe.offset}
+							swipeVerticalOffset={swipe.verticalOffset}
 							swipeDirection={swipe.direction}
 							isDragging={swipe.isDragging}
 							cardExitDirection={swipe.exitDirection}
 							exitPosition={swipe.exitPosition}
 							isSnappingBack={swipe.isSnappingBack}
+							isSwipeUp={swipe.isSwipeUp}
 							hasDragged={swipe.hasDragged}
 							onTouchStart={swipe.onTouchStart}
 							onTouchMove={swipe.onTouchMove}

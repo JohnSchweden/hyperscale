@@ -100,7 +100,7 @@ export const DebriefPage3Verdict: React.FC<DebriefPage3VerdictProps> = ({
 	// Kirk uses unique share template; normal players use standard share URL
 	const linkedInShareUrl = isKirk
 		? encodeLinkedInShareUrl(
-				typeof window !== "undefined" ? window.location.href : "",
+				window.location.href,
 				KIRK_SHARE_TEXT,
 				"Kobayashi Maru - Kirk Ending",
 			)
