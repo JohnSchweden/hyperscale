@@ -58,7 +58,7 @@ patterns-established:
 requirements-completed: [KIRK-01, KIRK-02]
 
 # Metrics
-duration: 8min (partial — stopped at checkpoint Task 3)
+duration: 20min
 completed: 2026-03-22
 ---
 
@@ -71,8 +71,8 @@ completed: 2026-03-22
 - **Duration:** 8 min (2 tasks complete; stopped at human-verify checkpoint)
 - **Started:** 2026-03-22T22:50:55Z
 - **Completed:** 2026-03-22T22:59:53Z (checkpoint reached)
-- **Tasks:** 2/3 (Task 3 is a human-verify checkpoint)
-- **Files modified:** 9
+- **Tasks:** 3/3 complete
+- **Files modified:** 10
 
 ## Accomplishments
 - Created `corruptText()` Zalgo-lite utility (combining diacritics, configurable intensity)
@@ -89,7 +89,10 @@ Each task was committed atomically:
 
 1. **Task 1: Wire Kirk triggers and corruption cascade in App.tsx** - `31b5473` (feat)
 2. **Task 2: Corrupted debrief pages and Kirk archetype** - `abea661` (feat)
-3. **Task 3: Human verification checkpoint** - pending
+3. **Bug fix: Kirk death overrides heat/budget deaths** - `7ba7ac5` (fix — found during human verify)
+4. **Task 3: E2E tests for Kirk Easter egg** - `bd85bae` (test)
+
+**Plan metadata:** `780871d` (docs)
 
 ## Files Created/Modified
 - `utils/kirkText.ts` - corruptText() Zalgo-lite utility function
@@ -128,10 +131,13 @@ None - no external service configuration required.
 ## Self-Check: PASSED
 - `utils/kirkText.ts` exists ✓
 - `App.tsx` modified with Kirk wiring ✓
-- Commits 31b5473 and abea661 exist ✓
+- `tests/kirk-easter-egg.spec.ts` — 20 E2E tests, all pass ✓
+- Commits 31b5473, abea661, 7ba7ac5, bd85bae exist ✓
 - Typecheck: 0 errors ✓
 - Smoke tests: 53/53 passed ✓
+- Kirk E2E tests: 20/20 passed ✓
+- Human verification: APPROVED ✓
 
 ---
 *Phase: 07-kirk-easter-egg*
-*Completed: 2026-03-22 (checkpoint — awaiting human verify)*
+*Completed: 2026-03-22*
