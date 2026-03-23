@@ -74,8 +74,8 @@ describe("Archetype Types", () => {
 
 describe("Archetype Data and Calculation", () => {
 	describe("ARCHETYPES", () => {
-		it("should have 6 archetype definitions", () => {
-			expect(Object.keys(ARCHETYPES)).toHaveLength(6);
+		it("should have 7 archetype definitions", () => {
+			expect(Object.keys(ARCHETYPES)).toHaveLength(7);
 		});
 
 		it("should have valid archetype structure for each entry", () => {

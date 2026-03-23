@@ -300,9 +300,15 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
 		}
 		case "NEXT_INCIDENT": {
 			if (state.budget <= 0) {
+				if (state.kirkCorruptionActive) {
+					return createGameOverState(state, DeathType.KIRK);
+				}
 				return createGameOverState(state, DeathType.BANKRUPT);
 			}
 			if (state.heat >= 100) {
+				if (state.kirkCorruptionActive) {
+					return createGameOverState(state, DeathType.KIRK);
+				}
 				const deathType = determineDeathType(
 					state.budget,
 					state.heat,
