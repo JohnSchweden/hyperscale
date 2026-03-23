@@ -209,27 +209,34 @@ export function useBackgroundMusic() {
 		[cancelVolumeRamp, syncVolumeUnlessRamping],
 	);
 
+	/**
+	 * Log unexpected audio errors in dev mode.
+	 * NotAllowedError is expected (browser autoplay restriction) and is silently ignored.
+	 */
+	const logAudioError = useCallback((context: string, error: Error) => {
+		if (import.meta.env.DEV && error.name !== "NotAllowedError") {
+			console.warn(`[BGM] ${context}:`, error);
+		}
+	}, []);
+
 	const tryPlay = useCallback(() => {
 		const el = audioRef.current;
 		if (!el || !enabledRef.current) return;
 		syncVolumeUnlessRamping(el);
+
 		const retryAfterReady = () => {
 			el.removeEventListener("canplaythrough", retryAfterReady);
 			el.removeEventListener("canplay", retryAfterReady);
 			if (audioRef.current !== el || !enabledRef.current) return;
 			syncVolumeUnlessRamping(el);
-			void el.play().catch((e2) => {
-				// NotAllowedError = expected browser autoplay restriction, don't warn
-				if (import.meta.env.DEV && e2.name !== "NotAllowedError") {
-					console.warn("[BGM] play retry after ready failed:", e2);
-				}
-			});
+			void el
+				.play()
+				.catch((e2) => logAudioError("play retry after ready failed", e2));
 		};
+
 		void el.play().catch((err) => {
-			// NotAllowedError = expected browser autoplay restriction, don't warn
-			if (import.meta.env.DEV && err.name !== "NotAllowedError") {
-				console.warn("[BGM] play failed:", err);
-			}
+			logAudioError("play failed", err);
+
 			/** If media is already buffered, canplay may have fired before we subscribed. */
 			if (el.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
 				queueMicrotask(retryAfterReady);
@@ -238,7 +245,7 @@ export function useBackgroundMusic() {
 			el.addEventListener("canplaythrough", retryAfterReady, { once: true });
 			el.addEventListener("canplay", retryAfterReady, { once: true });
 		});
-	}, [syncVolumeUnlessRamping]);
+	}, [syncVolumeUnlessRamping, logAudioError]);
 
 	useEffect(() => {
 		enabledRef.current = enabled;
