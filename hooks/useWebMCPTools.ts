@@ -31,6 +31,20 @@ export interface UseWebMCPToolsDeps {
 	currentCard: { id: string } | null;
 }
 
+const PERSONALITIES = ["ROASTER", "ZEN_MASTER", "LOVEBOMBER"] as const;
+const ROLES = [
+	"CHIEF_SOMETHING_OFFICER",
+	"HEAD_OF_SOMETHING",
+	"SOMETHING_MANAGER",
+	"TECH_AI_CONSULTANT",
+	"DATA_SCIENTIST",
+	"SOFTWARE_ARCHITECT",
+	"SOFTWARE_ENGINEER",
+	"VIBE_CODER",
+	"VIBE_ENGINEER",
+	"AGENTIC_ENGINEER",
+] as const;
+
 export function useWebMCPTools(deps: UseWebMCPToolsDeps) {
 	const {
 		state,
@@ -50,22 +64,20 @@ export function useWebMCPTools(deps: UseWebMCPToolsDeps) {
 			description:
 				"Returns the current game state including stage, stats, role, personality, and card index.",
 			inputSchema: { type: "object", properties: {} },
-			handler: () => {
-				return {
-					success: true,
-					stage: state.stage,
-					hype: state.hype,
-					heat: state.heat,
-					budget: state.budget,
-					role: state.role,
-					personality: state.personality,
-					currentCardIndex: state.currentCardIndex,
-					deathReason: state.deathReason,
-					deathType: state.deathType,
-					bossFightAnswers: state.bossFightAnswers,
-					hasFeedbackOverlay: feedbackOverlay !== null,
-				};
-			},
+			handler: () => ({
+				success: true,
+				stage: state.stage,
+				hype: state.hype,
+				heat: state.heat,
+				budget: state.budget,
+				role: state.role,
+				personality: state.personality,
+				currentCardIndex: state.currentCardIndex,
+				deathReason: state.deathReason,
+				deathType: state.deathType,
+				bossFightAnswers: state.bossFightAnswers,
+				hasFeedbackOverlay: feedbackOverlay !== null,
+			}),
 		},
 		[state, feedbackOverlay],
 	);
@@ -77,6 +89,15 @@ export function useWebMCPTools(deps: UseWebMCPToolsDeps) {
 				"Returns a human-readable description of the current game screen.",
 			inputSchema: { type: "object", properties: {} },
 			handler: () => {
+				const overlayMsg = feedbackOverlay
+					? " — feedback overlay is showing (use dismiss_feedback)"
+					: "";
+				const bossMsg = bossFight.showExplanation
+					? " — explanation showing (use advance_boss)"
+					: bossFight.hasAnswered
+						? " — answered, waiting for next question"
+						: " — answer the quiz question";
+
 				const descriptions: Record<GameStage, string> = {
 					[GameStage.INTRO]: "Intro screen — click Start to begin",
 					[GameStage.PERSONALITY_SELECT]:
@@ -84,14 +105,8 @@ export function useWebMCPTools(deps: UseWebMCPToolsDeps) {
 					[GameStage.ROLE_SELECT]: "Role selection — choose your job role",
 					[GameStage.INITIALIZING]:
 						"Initializing screen — countdown before gameplay",
-					[GameStage.PLAYING]: feedbackOverlay
-						? "Playing — feedback overlay is showing (use dismiss_feedback)"
-						: "Playing — swipe cards left or right",
-					[GameStage.BOSS_FIGHT]: bossFight.showExplanation
-						? "Boss fight — explanation showing (use advance_boss)"
-						: bossFight.hasAnswered
-							? "Boss fight — answered, waiting for next question"
-							: "Boss fight — answer the quiz question",
+					[GameStage.PLAYING]: `Playing — swipe cards left or right${overlayMsg}`,
+					[GameStage.BOSS_FIGHT]: `Boss fight${bossMsg}`,
 					[GameStage.GAME_OVER]: "Game over screen",
 					[GameStage.SUMMARY]: "Summary screen",
 					[GameStage.DEBRIEF_PAGE_1]: "Debrief page 1",
@@ -143,7 +158,7 @@ export function useWebMCPTools(deps: UseWebMCPToolsDeps) {
 				properties: {
 					personality: {
 						type: "string",
-						enum: ["ROASTER", "ZEN_MASTER", "LOVEBOMBER"],
+						enum: PERSONALITIES,
 						description: "The personality to select",
 					},
 				},
@@ -168,24 +183,14 @@ export function useWebMCPTools(deps: UseWebMCPToolsDeps) {
 		{
 			name: "select_role",
 			description:
-				"Selects a job role during the ROLE_SELECT stage. Valid values: CHIEF_SOMETHING_OFFICER, HEAD_OF_SOMETHING, SOMETHING_MANAGER, TECH_AI_CONSULTANT, DATA_SCIENTIST, SOFTWARE_ARCHITECT, SOFTWARE_ENGINEER, VIBE_CODER, VIBE_ENGINEER, AGENTIC_ENGINEER.",
+				"Selects a job role during the ROLE_SELECT stage. Valid values: " +
+				ROLES.join(", "),
 			inputSchema: {
 				type: "object",
 				properties: {
 					role: {
 						type: "string",
-						enum: [
-							"CHIEF_SOMETHING_OFFICER",
-							"HEAD_OF_SOMETHING",
-							"SOMETHING_MANAGER",
-							"TECH_AI_CONSULTANT",
-							"DATA_SCIENTIST",
-							"SOFTWARE_ARCHITECT",
-							"SOFTWARE_ENGINEER",
-							"VIBE_CODER",
-							"VIBE_ENGINEER",
-							"AGENTIC_ENGINEER",
-						],
+						enum: ROLES,
 						description: "The role to select",
 					},
 				},
@@ -237,11 +242,7 @@ export function useWebMCPTools(deps: UseWebMCPToolsDeps) {
 					};
 				}
 				swipe.swipeProgrammatically(direction as "LEFT" | "RIGHT");
-				return {
-					success: true,
-					direction,
-					cardIndex: state.currentCardIndex,
-				};
+				return { success: true, direction, cardIndex: state.currentCardIndex };
 			},
 		},
 		[state.stage, state.currentCardIndex, feedbackOverlay, swipe],

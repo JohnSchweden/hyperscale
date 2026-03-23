@@ -9,94 +9,100 @@ import {
 import { BGM_TRACKS } from "../data/bgmPlaylist";
 import { subscribeVoiceActivity } from "../services/voicePlayback";
 
-const BGM_VOLUME_STORAGE_KEY = "k-maru-bgm-volume";
-const BGM_ENABLED_STORAGE_KEY = "k-maru-bgm-enabled";
+const STORAGE = {
+	VOLUME: "k-maru-bgm-volume",
+	ENABLED: "k-maru-bgm-enabled",
+	SESSION_TRACK: "k-maru-bgm-session-track",
+	SESSION_TIME: "k-maru-bgm-session-time",
+} as const;
 
-/** Same-tab reload: restore track + position (sessionStorage clears when the tab closes). */
-const BGM_SESSION_TRACK_KEY = "k-maru-bgm-session-track";
-const BGM_SESSION_TIME_KEY = "k-maru-bgm-session-time";
-
-const BGM_VOLUME_DEFAULT = 0.2;
-const BGM_VOLUME_MIN = 0;
-const BGM_VOLUME_MAX = 1;
-const BGM_VOLUME_STEP = 0.05;
+const VOLUME = {
+	DEFAULT: 0.2,
+	MIN: 0,
+	MAX: 1,
+	STEP: 0.05,
+} as const;
 
 const SESSION_FLUSH_MS = 2000;
-
-/** Multiply user BGM volume while TTS is playing (no pause). */
 const VOICE_DUCK_MULT = 0.2;
-
-/** Ramp BGM from duck level back to user volume after TTS ends. */
 const VOICE_UNDUCK_RAMP_MS = 1200;
 
-function readStoredVolume(): number {
-	if (typeof window === "undefined") return BGM_VOLUME_DEFAULT;
+function safeParse<T>(parser: (raw: string) => T | null, fallback: T): T {
+	if (typeof window === "undefined") return fallback;
 	try {
-		const raw = localStorage.getItem(BGM_VOLUME_STORAGE_KEY);
-		if (raw == null) return BGM_VOLUME_DEFAULT;
-		const n = parseFloat(raw);
-		if (!Number.isFinite(n)) return BGM_VOLUME_DEFAULT;
-		return Math.min(BGM_VOLUME_MAX, Math.max(BGM_VOLUME_MIN, n));
+		const raw = localStorage.getItem(STORAGE.VOLUME);
+		if (raw == null) return fallback;
+		const result = parser(raw);
+		return result ?? fallback;
 	} catch {
-		return BGM_VOLUME_DEFAULT;
+		return fallback;
 	}
 }
 
-function readStoredEnabled(): boolean {
-	if (typeof window === "undefined") return true;
+function safeSessionGet(key: string): string | null {
+	if (typeof window === "undefined") return null;
 	try {
-		const raw = localStorage.getItem(BGM_ENABLED_STORAGE_KEY);
-		if (raw === "false") return false;
-		return true;
+		return sessionStorage.getItem(key);
 	} catch {
-		return true;
+		return null;
 	}
 }
 
-function readSessionTrackIndex(): number {
-	if (typeof window === "undefined") return 0;
-	if (!readStoredEnabled()) return 0;
-	try {
-		const raw = sessionStorage.getItem(BGM_SESSION_TRACK_KEY);
-		if (raw == null) return 0;
-		const i = parseInt(raw, 10);
-		if (!Number.isFinite(i) || i < 0 || i >= BGM_TRACKS.length) return 0;
-		return i;
-	} catch {
-		return 0;
-	}
-}
-
-function readSessionTime(): number {
-	if (typeof window === "undefined") return 0;
-	try {
-		const raw = sessionStorage.getItem(BGM_SESSION_TIME_KEY);
-		if (raw == null) return 0;
-		const t = parseFloat(raw);
-		return Number.isFinite(t) && t >= 0 ? t : 0;
-	} catch {
-		return 0;
-	}
-}
-
-function writeSessionProgress(trackIndex: number, time: number): void {
+function safeSessionSet(key: string, value: string): void {
 	if (typeof window === "undefined") return;
 	try {
-		sessionStorage.setItem(BGM_SESSION_TRACK_KEY, String(trackIndex));
-		sessionStorage.setItem(BGM_SESSION_TIME_KEY, String(time));
+		sessionStorage.setItem(key, value);
 	} catch {
 		/* quota / private mode */
 	}
 }
 
-function clearSessionProgress(): void {
+function safeSessionRemove(key: string): void {
 	if (typeof window === "undefined") return;
 	try {
-		sessionStorage.removeItem(BGM_SESSION_TRACK_KEY);
-		sessionStorage.removeItem(BGM_SESSION_TIME_KEY);
+		sessionStorage.removeItem(key);
 	} catch {
 		/* ignore */
 	}
+}
+
+const clamp = (n: number, min: number, max: number) =>
+	Math.min(max, Math.max(min, n));
+
+function readStoredVolume(): number {
+	return safeParse((raw) => {
+		const n = parseFloat(raw);
+		return Number.isFinite(n) ? clamp(n, VOLUME.MIN, VOLUME.MAX) : null;
+	}, VOLUME.DEFAULT);
+}
+
+function readStoredEnabled(): boolean {
+	return safeParse((raw) => raw !== "false", true);
+}
+
+function readSessionTrackIndex(): number {
+	if (!readStoredEnabled()) return 0;
+	const raw = safeSessionGet(STORAGE.SESSION_TRACK);
+	if (raw == null) return 0;
+	const i = parseInt(raw, 10);
+	return Number.isFinite(i) && i >= 0 && i < BGM_TRACKS.length ? i : 0;
+}
+
+function readSessionTime(): number {
+	const raw = safeSessionGet(STORAGE.SESSION_TIME);
+	if (raw == null) return 0;
+	const t = parseFloat(raw);
+	return Number.isFinite(t) && t >= 0 ? t : 0;
+}
+
+function writeSessionProgress(trackIndex: number, time: number): void {
+	safeSessionSet(STORAGE.SESSION_TRACK, String(trackIndex));
+	safeSessionSet(STORAGE.SESSION_TIME, String(time));
+}
+
+function clearSessionProgress(): void {
+	safeSessionRemove(STORAGE.SESSION_TRACK);
+	safeSessionRemove(STORAGE.SESSION_TIME);
 }
 
 function applyDuckedVolume(
@@ -104,16 +110,11 @@ function applyDuckedVolume(
 	userVolume: number,
 	voiceDucking: boolean,
 ): void {
-	const mult = voiceDucking ? VOICE_DUCK_MULT : 1;
-	el.volume = Math.min(1, Math.max(0, userVolume * mult));
+	el.volume = clamp(userVolume * (voiceDucking ? VOICE_DUCK_MULT : 1), 0, 1);
 }
 
-/** easeOutCubic: quick start, gentle landing toward target volume */
-function easeOutCubic(t: number): number {
-	return 1 - (1 - t) ** 3;
-}
+const easeOutCubic = (t: number) => 1 - (1 - t) ** 3;
 
-/** Swap `el` to the given playlist index (pause, reset, src, load). Returns whether a track exists. */
 function primeBgmElementAtIndex(el: HTMLAudioElement, index: number): boolean {
 	const track = BGM_TRACKS[index];
 	if (!track) return false;
@@ -125,7 +126,6 @@ function primeBgmElementAtIndex(el: HTMLAudioElement, index: number): boolean {
 }
 
 export function useBackgroundMusic() {
-	/** One snapshot per mount so we do not re-read session every render. */
 	const sessionResume = useMemo(
 		() => ({
 			track: readSessionTrackIndex(),
@@ -151,7 +151,6 @@ export function useBackgroundMusic() {
 		volumeRampActiveRef.current = false;
 	}, []);
 
-	/** Apply user + ducking to the element unless an unduck ramp is driving `el.volume`. */
 	const syncVolumeUnlessRamping = useCallback((el: HTMLAudioElement) => {
 		if (volumeRampActiveRef.current) return;
 		applyDuckedVolume(el, userVolumeRef.current, voiceDuckingRef.current);
@@ -160,7 +159,7 @@ export function useBackgroundMusic() {
 	const startUnduckVolumeRamp = useCallback(
 		(el: HTMLAudioElement) => {
 			cancelVolumeRamp();
-			const endVol = Math.min(1, Math.max(0, userVolumeRef.current));
+			const endVol = clamp(userVolumeRef.current, 0, 1);
 			const startVol = Math.min(el.volume, endVol);
 			if (endVol - startVol < 0.001) {
 				el.volume = endVol;
@@ -174,14 +173,13 @@ export function useBackgroundMusic() {
 					applyDuckedVolume(el, userVolumeRef.current, voiceDuckingRef.current);
 					return;
 				}
-				const elapsed = now - t0;
-				const u = Math.min(1, elapsed / VOICE_UNDUCK_RAMP_MS);
-				el.volume = Math.min(
-					1,
+				const u = Math.min(1, (now - t0) / VOICE_UNDUCK_RAMP_MS);
+				el.volume = clamp(
 					startVol + (endVol - startVol) * easeOutCubic(u),
+					0,
+					1,
 				);
 				if (u >= 1) {
-					el.volume = endVol;
 					volumeRampActiveRef.current = false;
 					volumeRampRafRef.current = 0;
 					return;
@@ -194,25 +192,20 @@ export function useBackgroundMusic() {
 	);
 
 	const [trackIndex, setTrackIndex] = useState(sessionResume.track);
-	const [userVolume, setUserVolumeState] = useState(() => readStoredVolume());
-	const [enabled, setEnabled] = useState(() => readStoredEnabled());
+	const [userVolume, setUserVolumeState] = useState(readStoredVolume);
+	const [enabled, setEnabled] = useState(readStoredEnabled);
 	const [voiceDucking, setVoiceDucking] = useState(false);
 
 	const loadTrack = useCallback(
 		(index: number) => {
 			cancelVolumeRamp();
 			const el = audioRef.current;
-			if (!el) return;
-			if (!primeBgmElementAtIndex(el, index)) return;
+			if (!el || !primeBgmElementAtIndex(el, index)) return;
 			syncVolumeUnlessRamping(el);
 		},
 		[cancelVolumeRamp, syncVolumeUnlessRamping],
 	);
 
-	/**
-	 * Log unexpected audio errors in dev mode.
-	 * NotAllowedError is expected (browser autoplay restriction) and is silently ignored.
-	 */
 	const logAudioError = useCallback((context: string, error: Error) => {
 		if (import.meta.env.DEV && error.name !== "NotAllowedError") {
 			console.warn(`[BGM] ${context}:`, error);
@@ -236,8 +229,6 @@ export function useBackgroundMusic() {
 
 		void el.play().catch((err) => {
 			logAudioError("play failed", err);
-
-			/** If media is already buffered, canplay may have fired before we subscribed. */
 			if (el.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
 				queueMicrotask(retryAfterReady);
 				return;
@@ -290,12 +281,9 @@ export function useBackgroundMusic() {
 	]);
 
 	useEffect(() => {
-		return subscribeVoiceActivity((active) => {
-			setVoiceDucking(active);
-		});
+		return subscribeVoiceActivity((active) => setVoiceDucking(active));
 	}, []);
 
-	/** Throttled progress + pagehide so reload can resume same track/time in this tab. */
 	useEffect(() => {
 		const el = audioRef.current;
 		if (!el) return;
@@ -306,8 +294,7 @@ export function useBackgroundMusic() {
 			lastFlush = Date.now();
 		};
 		const onTimeUpdate = () => {
-			const now = Date.now();
-			if (now - lastFlush < SESSION_FLUSH_MS) return;
+			if (Date.now() - lastFlush < SESSION_FLUSH_MS) return;
 			flush();
 		};
 		const onPageHide = () => {
@@ -323,23 +310,15 @@ export function useBackgroundMusic() {
 		};
 	}, []);
 
-	/**
-	 * Autoplay on load: call play() as soon as the element exists and again at canplaythrough.
-	 * Many browsers block unmuted autoplay until the user has interacted with the origin before;
-	 * there is no standards-compliant way to force audible playback with zero prior engagement.
-	 */
 	useEffect(() => {
 		const el = audioRef.current;
 		if (!el) return;
 		const kick = () => {
-			if (!enabledRef.current) return;
-			tryPlay();
+			if (enabledRef.current) tryPlay();
 		};
 		queueMicrotask(kick);
 		el.addEventListener("canplaythrough", kick, { once: true });
-		return () => {
-			el.removeEventListener("canplaythrough", kick);
-		};
+		return () => el.removeEventListener("canplaythrough", kick);
 	}, [tryPlay]);
 
 	useLayoutEffect(() => {
@@ -354,12 +333,14 @@ export function useBackgroundMusic() {
 		applyDuckedVolume(el, userVolumeRef.current, voiceDuckingRef.current);
 
 		if (sessionResume.time > 0 && url) {
-			const resumeAt = sessionResume.time;
 			const onMeta = () => {
 				el.removeEventListener("loadedmetadata", onMeta);
 				const dur = el.duration;
 				if (Number.isFinite(dur) && dur > 0) {
-					el.currentTime = Math.min(resumeAt, Math.max(0, dur - 0.05));
+					el.currentTime = Math.min(
+						sessionResume.time,
+						Math.max(0, dur - 0.05),
+					);
 				}
 			};
 			el.addEventListener("loadedmetadata", onMeta);
@@ -372,9 +353,7 @@ export function useBackgroundMusic() {
 			setTrackIndex(next);
 			if (!primeBgmElementAtIndex(el, next)) return;
 			syncVolumeUnlessRamping(el);
-			if (enabledRef.current) {
-				tryPlay();
-			}
+			if (enabledRef.current) tryPlay();
 		};
 
 		el.addEventListener("ended", onEnded);
@@ -395,11 +374,11 @@ export function useBackgroundMusic() {
 	]);
 
 	const setUserVolume = useCallback((v: number) => {
-		const clamped = Math.min(BGM_VOLUME_MAX, Math.max(BGM_VOLUME_MIN, v));
+		const clamped = clamp(v, VOLUME.MIN, VOLUME.MAX);
 		userVolumeRef.current = clamped;
 		setUserVolumeState(clamped);
 		try {
-			localStorage.setItem(BGM_VOLUME_STORAGE_KEY, String(clamped));
+			localStorage.setItem(STORAGE.VOLUME, String(clamped));
 		} catch {
 			/* ignore */
 		}
@@ -409,11 +388,9 @@ export function useBackgroundMusic() {
 		setEnabled((prev) => {
 			const next = !prev;
 			enabledRef.current = next;
-			if (!next) {
-				clearSessionProgress();
-			}
+			if (!next) clearSessionProgress();
 			try {
-				localStorage.setItem(BGM_ENABLED_STORAGE_KEY, String(next));
+				localStorage.setItem(STORAGE.ENABLED, String(next));
 			} catch {
 				/* ignore */
 			}
@@ -429,17 +406,15 @@ export function useBackgroundMusic() {
 		if (enabledRef.current) tryPlay();
 	}, [loadTrack, tryPlay]);
 
-	const currentTrackTitle = BGM_TRACKS[trackIndex]?.title ?? "";
-
 	return {
-		currentTrackTitle,
+		currentTrackTitle: BGM_TRACKS[trackIndex]?.title ?? "",
 		userVolume,
 		setUserVolume,
 		enabled,
 		toggleEnabled,
 		skipNext,
-		bgmVolumeMin: BGM_VOLUME_MIN,
-		bgmVolumeMax: BGM_VOLUME_MAX,
-		bgmVolumeStep: BGM_VOLUME_STEP,
+		bgmVolumeMin: VOLUME.MIN,
+		bgmVolumeMax: VOLUME.MAX,
+		bgmVolumeStep: VOLUME.STEP,
 	};
 }
