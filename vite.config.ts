@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import tailwindcss from "@tailwindcss/vite";
 import basicSsl from "@vitejs/plugin-basic-ssl";
 import react from "@vitejs/plugin-react";
 import type { Connect, Plugin } from "vite";
@@ -180,7 +181,7 @@ function apiRoutesPlugin(): Plugin {
 }
 
 export default defineConfig({
-	plugins: [basicSsl(), react(), apiRoutesPlugin()],
+	plugins: [tailwindcss(), basicSsl(), react(), apiRoutesPlugin()],
 	server: {
 		port: 3000,
 		host: "0.0.0.0",
