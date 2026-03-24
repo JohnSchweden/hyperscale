@@ -31,7 +31,7 @@ export const KIRK_CORRUPTED_CARDS: Card[] = [
 			lesson: "The simulation rewards nothing. It only plays for time.",
 		},
 		onLeft: {
-			label: "Accept",
+			label: "Reject",
 			hype: 0,
 			heat: 0,
 			fine: 0,
@@ -70,7 +70,7 @@ export const KIRK_CORRUPTED_CARDS: Card[] = [
 			lesson: "The simulation has run out of legitimate rewards.",
 		},
 		onLeft: {
-			label: "Accept",
+			label: "Reject",
 			hype: 0,
 			heat: 0,
 			fine: 0,
@@ -109,7 +109,7 @@ export const KIRK_CORRUPTED_CARDS: Card[] = [
 			lesson: "You changed the conditions of the test.",
 		},
 		onLeft: {
-			label: "Accept",
+			label: "Reject",
 			hype: 0,
 			heat: 0,
 			fine: 0,
