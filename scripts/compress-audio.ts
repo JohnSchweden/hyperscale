@@ -1,7 +1,7 @@
+import { promises as fs } from "node:fs";
+import path from "node:path";
 import ffmpegStatic from "ffmpeg-static";
 import ffmpeg from "fluent-ffmpeg";
-import { promises as fs } from "fs";
-import path from "path";
 
 // Set FFmpeg binary path
 ffmpeg.setFfmpegPath(ffmpegStatic || "ffmpeg");
@@ -12,11 +12,6 @@ export interface CompressionOptions {
 	deleteWav?: boolean; // default: true (opt-out)
 	archiveDir?: string; // default: "audio-archive"
 }
-
-const DEFAULT_OPTIONS: Record<string, CompressionOptions> = {
-	opus: { codec: "libopus", bitrate: 96 },
-	mp3: { codec: "libmp3lame", bitrate: 192 },
-};
 
 /**
  * Archive a WAV file to the archive directory maintaining subfolder structure
@@ -60,9 +55,6 @@ export async function compressAudioFile(
 	const basePath = inputPath.replace(".wav", "");
 	const deleteWav = options.deleteWav !== false; // default true
 	const archiveDir = options.archiveDir || "audio-archive";
-
-	// Verify input exists
-	await fs.access(inputPath);
 
 	// Archive WAV file before compression
 	if (deleteWav) {

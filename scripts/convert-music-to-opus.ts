@@ -1,7 +1,7 @@
+import { promises as fs } from "node:fs";
+import path from "node:path";
 import ffmpegStatic from "ffmpeg-static";
 import ffmpeg from "fluent-ffmpeg";
-import { promises as fs } from "fs";
-import path from "path";
 
 // Set FFmpeg binary path
 ffmpeg.setFfmpegPath(ffmpegStatic || "ffmpeg");
@@ -12,15 +12,12 @@ ffmpeg.setFfmpegPath(ffmpegStatic || "ffmpeg");
 export async function mp3ToOpus(inputPath: string): Promise<string> {
 	const outputPath = inputPath.replace(".mp3", ".opus");
 
-	// Verify input exists
-	await fs.access(inputPath);
-
 	await new Promise<void>((resolve, reject) => {
 		ffmpeg(inputPath)
 			.audioCodec("libopus")
 			.audioBitrate(128) // Higher bitrate for music (vs 96 for voice)
 			.format("opus")
-			.on("start", (cmd) => {
+			.on("start", () => {
 				console.log(`Converting: ${path.basename(inputPath)}`);
 			})
 			.on("end", () => {

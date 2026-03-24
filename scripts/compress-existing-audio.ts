@@ -1,46 +1,8 @@
-import { promises as fs } from "fs";
-import path from "path";
+import path from "node:path";
 import { compressDirectory } from "./compress-audio";
+import { countFiles, formatBytes, getDirectorySize } from "./fsUtils";
 
 const VOICES_DIR = path.join(process.cwd(), "public", "audio", "voices");
-
-async function getDirectorySize(dirPath: string): Promise<number> {
-	let size = 0;
-	const entries = await fs.readdir(dirPath, { withFileTypes: true });
-
-	for (const entry of entries) {
-		const fullPath = path.join(dirPath, entry.name);
-		if (entry.isDirectory()) {
-			size += await getDirectorySize(fullPath);
-		} else {
-			const stats = await fs.stat(fullPath);
-			size += stats.size;
-		}
-	}
-
-	return size;
-}
-
-async function countFiles(dirPath: string, extension: string): Promise<number> {
-	let count = 0;
-	const entries = await fs.readdir(dirPath, { withFileTypes: true });
-
-	for (const entry of entries) {
-		const fullPath = path.join(dirPath, entry.name);
-		if (entry.isDirectory()) {
-			count += await countFiles(fullPath, extension);
-		} else if (entry.name.endsWith(extension)) {
-			count++;
-		}
-	}
-
-	return count;
-}
-
-function formatBytes(bytes: number): string {
-	const mb = bytes / (1024 * 1024);
-	return `${mb.toFixed(2)} MB`;
-}
 
 export async function compressAllExistingAudio(): Promise<void> {
 	console.log("🎵 Audio Compression Batch Process\n");

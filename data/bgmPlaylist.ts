@@ -1,4 +1,4 @@
-import { getAudioPath, supportsOpus } from "../services/audioUtils";
+import { getAudioPath } from "../services/audioUtils";
 
 export type BgmTrack = {
 	title: string;
@@ -19,19 +19,8 @@ export function bgmDisplayTitleFromStem(stem: string): string {
 	return `${parts[0]} ${parts[1]}`;
 }
 
-/** @deprecated Use bgmDisplayTitleFromStem instead */
-export function bgmDisplayTitleFromFilename(filename: string): string {
-	const stem = filename.replace(/\.(mp3|m4a|ogg|wav|flac)$/i, "");
-	return bgmDisplayTitleFromStem(stem);
-}
-
-/**
- * Get the BGM URL for a specific stem with format detection
- * Uses Opus for supported browsers (92%), MP3 for others (8%)
- */
 export function getBgmUrl(stem: string): string {
-	const ext = supportsOpus() ? ".opus" : ".mp3";
-	return `/audio/music/${encodeURIComponent(stem)}${ext}`;
+	return getAudioPath(`/audio/music/${encodeURIComponent(stem)}`);
 }
 
 /** Ordered playlist: first file, then second, then loops. URLs encode spaces for the browser. */
@@ -39,9 +28,3 @@ export const BGM_TRACKS: readonly BgmTrack[] = BGM_SOURCE_STEMS.map((stem) => ({
 	title: bgmDisplayTitleFromStem(stem),
 	url: getBgmUrl(stem),
 }));
-
-/** @deprecated Use BGM_SOURCE_STEMS instead */
-export const BGM_SOURCE_FILENAMES = [
-	"Chromed Rainfall Cover.mp3",
-	"Quiet Apogee - AI Music.mp3",
-] as const;

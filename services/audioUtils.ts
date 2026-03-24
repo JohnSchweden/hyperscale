@@ -2,12 +2,18 @@
  * Shared audio utilities for format detection
  */
 
+let _supportsOpus: boolean | null = null;
+
 /**
  * Check if browser supports Opus codec
  * Tests multiple container formats for cross-browser compatibility
  */
 export function supportsOpus(): boolean {
-	if (typeof window === "undefined") return false;
+	if (_supportsOpus !== null) return _supportsOpus;
+	if (typeof window === "undefined") {
+		_supportsOpus = false;
+		return false;
+	}
 
 	const audio = new Audio();
 	// Check Ogg Opus (most common - Chrome, Firefox, Edge)
@@ -17,13 +23,13 @@ export function supportsOpus(): boolean {
 	// Safari uses CAF container for Opus
 	const cafSupport = audio.canPlayType("audio/x-caf");
 
-	return (
+	_supportsOpus =
 		oggSupport === "probably" ||
 		webmSupport === "probably" ||
 		cafSupport === "probably" ||
 		oggSupport === "maybe" ||
-		webmSupport === "maybe"
-	);
+		webmSupport === "maybe";
+	return _supportsOpus;
 }
 
 /**
@@ -32,6 +38,10 @@ export function supportsOpus(): boolean {
  */
 export function getAudioExtension(): ".opus" | ".mp3" {
 	return supportsOpus() ? ".opus" : ".mp3";
+}
+
+export function getAudioMimeType(): "audio/opus" | "audio/mpeg" {
+	return supportsOpus() ? "audio/opus" : "audio/mpeg";
 }
 
 /**

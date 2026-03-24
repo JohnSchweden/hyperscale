@@ -1,4 +1,4 @@
-import { getAudioExtension, supportsOpus } from "./audioUtils";
+import { getAudioExtension, getAudioMimeType } from "./audioUtils";
 import { createRadioSession } from "./radioEffect";
 
 type VoiceActivityListener = (active: boolean) => void;
@@ -63,6 +63,14 @@ function getOrCreateContext(): AudioContext {
 	return audioContext;
 }
 
+function getSubfolder(triggerName: string): string {
+	if (triggerName.startsWith("archetype_")) return "archetype";
+	if (triggerName.startsWith("death_")) return "death";
+	if (triggerName.startsWith("feedback_")) return "feedback";
+	if (["onboarding", "victory", "failure"].includes(triggerName)) return "core";
+	return ""; // Fallback to root (for backwards compatibility)
+}
+
 export async function loadVoice(
 	personality: string,
 	trigger: string,
@@ -70,22 +78,10 @@ export async function loadVoice(
 	const basePath = "/audio/voices";
 	const personalityDir = `${basePath}/${personality.toLowerCase().replace(/_/g, "")}`;
 
-	// Determine subfolder based on trigger prefix
-	function getSubfolder(triggerName: string): string {
-		if (triggerName.startsWith("archetype_")) return "archetype";
-		if (triggerName.startsWith("death_")) return "death";
-		if (triggerName.startsWith("feedback_")) return "feedback";
-		// Core triggers: onboarding, victory, failure
-		if (["onboarding", "victory", "failure"].includes(triggerName))
-			return "core";
-		return ""; // Fallback to root (for backwards compatibility)
-	}
-
 	const subfolder = getSubfolder(trigger);
 	const filePath = getAudioFilePath(personalityDir, subfolder, trigger);
-	const format = filePath.endsWith(".opus") ? "opus" : "mp3";
 
-	console.log(`[Voice] Loading: ${filePath} (${format})`);
+	console.log(`[Voice] Loading: ${filePath}`);
 
 	try {
 		const response = await fetch(filePath);
@@ -116,9 +112,7 @@ export async function loadVoice(
 		}
 
 		const audioData = new Uint8Array(arrayBuffer);
-		// Use appropriate MIME type based on file extension
-		const mimeType = filePath.endsWith(".opus") ? "audio/opus" : "audio/mpeg";
-		const audioBlob = new Blob([audioData], { type: mimeType });
+		const audioBlob = new Blob([audioData], { type: getAudioMimeType() });
 		const audioUrl = URL.createObjectURL(audioBlob);
 		currentBlobUrl = audioUrl;
 
