@@ -3,6 +3,48 @@ import { createRadioSession } from "./radioEffect";
 type VoiceActivityListener = (active: boolean) => void;
 const voiceActivityListeners = new Set<VoiceActivityListener>();
 
+/**
+ * Check if browser supports Opus codec
+ */
+function supportsOpus(): boolean {
+	const audio = new Audio();
+	// Check Ogg Opus (most common)
+	const oggSupport = audio.canPlayType('audio/ogg; codecs="opus"');
+	// Check WebM Opus (alternative)
+	const webmSupport = audio.canPlayType('audio/webm; codecs="opus"');
+	// Safari uses CAF container for Opus
+	const cafSupport = audio.canPlayType("audio/x-caf");
+
+	return (
+		oggSupport === "probably" ||
+		webmSupport === "probably" ||
+		cafSupport === "probably" ||
+		oggSupport === "maybe" ||
+		webmSupport === "maybe"
+	);
+}
+
+/**
+ * Get the appropriate audio file path based on browser support
+ */
+function getAudioFilePath(
+	personalityDir: string,
+	subfolder: string,
+	trigger: string,
+): string {
+	const basePath = subfolder
+		? `${personalityDir}/${subfolder}/${trigger}`
+		: `${personalityDir}/${trigger}`;
+
+	// Check for Opus support
+	if (supportsOpus()) {
+		return `${basePath}.opus`;
+	}
+
+	// Fallback to MP3
+	return `${basePath}.mp3`;
+}
+
 /** BGM ducking: subscribe to voice playback start/end (not pause glitches during teardown). */
 export function subscribeVoiceActivity(
 	listener: VoiceActivityListener,
@@ -66,12 +108,10 @@ export async function loadVoice(
 	}
 
 	const subfolder = getSubfolder(trigger);
-	const filename = `${trigger}.wav`;
-	const filePath = subfolder
-		? `${personalityDir}/${subfolder}/${filename}`
-		: `${personalityDir}/${filename}`;
+	const filePath = getAudioFilePath(personalityDir, subfolder, trigger);
+	const format = filePath.endsWith(".opus") ? "opus" : "mp3";
 
-	console.log("[Voice] Loading:", filePath);
+	console.log(`[Voice] Loading: ${filePath} (${format})`);
 
 	try {
 		const response = await fetch(filePath);
@@ -102,7 +142,9 @@ export async function loadVoice(
 		}
 
 		const audioData = new Uint8Array(arrayBuffer);
-		const audioBlob = new Blob([audioData], { type: "audio/wav" });
+		// Use appropriate MIME type based on file extension
+		const mimeType = filePath.endsWith(".opus") ? "audio/opus" : "audio/mpeg";
+		const audioBlob = new Blob([audioData], { type: mimeType });
 		const audioUrl = URL.createObjectURL(audioBlob);
 		currentBlobUrl = audioUrl;
 
