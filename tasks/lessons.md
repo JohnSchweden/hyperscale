@@ -60,3 +60,6 @@ Patterns to prevent repeat mistakes. Update after corrections from the user.
 
 <!-- Captured 2026-03-23 via post-commit analysis -->
 - [RULE] WebMCP tools with zero parameters still require `inputSchema: { type: "object", properties: {} }` — Framework enforces schema declaration for all tools during registration, even when the handler accepts no arguments; omission silently breaks the tool
+
+<!-- Captured 2026-03-25 via post-commit analysis -->
+- [RULE] Utility functions with hardcoded configuration (storage keys, endpoints) silently fail when reused for different purposes. Parameterize all data sources in shared utilities, even if only one use case currently exists — reuse without parameterization causes the caller to read from the wrong source at runtime.
