@@ -54,12 +54,17 @@ expected: Kill any running dev server, clear caches, start fresh with `bun run d
 result: pass
 verified: Game loaded successfully, played through to completion
 
-### 9. Feedback Card Audio Coverage (Auto-discovered Issue)
-expected: Most feedback cards play context-specific voice feedback matching the card's written text
+### 9. Head of Something Complete Audio Coverage (CRITICAL ISSUE)
+expected: ALL Head of Something cards play dedicated voice feedback (not generic). 19 HoS cards should each have LEFT and RIGHT audio files.
 result: issue
-reported: "Most feedback cards play the generic 'Wisdom, in this building, I must be malfunctioning' audio even though the written text is different"
-severity: major
-verified_via: agent-browser testing - played through Head of Something role, observed feedback_ignore.wav being played for non-critical cards
+reported: "Only 8 out of 19 HoS cards have audio. The other 11 fall back to generic 'Wisdom...' message. I played 7 cards and none had dedicated audio - statistically impossible if coverage was complete."
+severity: blocker
+verified_via: |
+  Code analysis confirmed:
+  - CRITICAL_HOS_CARDS set has only 8 cards mapped
+  - head-of-something.ts has 19 total cards
+  - Only 16 audio files exist (8 cards × 2 choices)
+  - Missing: 22 audio files (11 cards × 2 choices)
 
 ## Summary
 
@@ -71,33 +76,56 @@ skipped: 0
 
 ## Gaps
 
-- truth: "Feedback cards play context-specific voice audio matching written text"
+- truth: "All 19 Head of Something cards have dedicated voice feedback audio"
   status: failed
-  reason: "User reported: Most feedback cards play generic 'Wisdom...' audio instead of context-specific feedback. Written feedback text differs from audio."
-  severity: major
+  reason: "CRITICAL_HOS_CARDS only maps 8 cards but Head of Something role has 19 total cards. 11 cards have no audio files and fall back to generic feedback_ignore.wav."
+  severity: blocker
   test: 9
   root_cause: |
-    Only 8 critical HoS cards and 1 SE card have dedicated audio mappings in useVoicePlayback.ts. 
-    The remaining 200+ cards fall back to feedback_ignore.wav which contains generic 'Wisdom...' message.
-    The mapping logic in feedbackVoiceTrigger() defaults to 'feedback_ignore' for any card not in specific sets.
+    Phase 15-03 created audio for only 8 "critical" HoS cards (Tier 1-3) but there are 19 total HoS cards.
+    The CRITICAL_HOS_CARDS set in useVoicePlayback.ts only contains 8 card IDs:
+    - hos_managing_up_down ✓
+    - hos_copyright_team_blame ✓
+    - hos_team_burnout_deadline ✓
+    - hos_explainability_politics ✓
+    - hos_model_drift_team_blame ✓
+    - hos_prompt_injection_review_escape ✓
+    - explainability_hos_2 ✓
+    - shadow_ai_hos_2 ✓
+    
+    Missing audio for 11 HoS cards:
+    - hos_prompt_injection_blame
+    - hos_model_drift_budget_conflict
+    - hos_shadow_ai_team_discovery
+    - hos_delegation_gone_wrong
+    - hos_promotion_politics
+    - hos_prompt_injection_copilot_team
+    - hos_model_drift_retrain_delay
+    - explainability_hos_1
+    - shadow_ai_hos_1
+    - synthetic_data_hos_1
+    - synthetic_data_hos_2
+    
+    When any of these 11 cards are played, feedbackVoiceTrigger() returns 'feedback_ignore'
+    which plays the generic 'Wisdom? In this building? I must be malfunctioning.' audio.
   artifacts:
     - path: hooks/useVoicePlayback.ts
-      issue: feedbackVoiceTrigger() function only maps ~9 cards to specific audio, 200+ cards fall through to feedback_ignore
-    - path: public/audio/voices/roaster/feedback/feedback_ignore.wav
-      issue: Contains generic 'Wisdom? In this building? I must be malfunctioning.' message used as fallback
+      issue: CRITICAL_HOS_CARDS set only contains 8 card IDs, missing 11 HoS cards
+    - path: data/cards/head-of-something.ts
+      issue: 19 cards defined but only 8 have audio mappings
+    - path: public/audio/voices/roaster/feedback/
+      issue: Only 16 HoS audio files exist (8 cards × 2 choices), missing 22 files (11 cards × 2)
   missing:
-    - "Strategy for handling cards without dedicated audio - use generic responses appropriate to choice severity"
-    - "Mapping logic to select context-appropriate generic audio based on fine amount or consequence type"
-    - "Additional generic audio files for different choice outcomes (minor fine, major fine, no fine, etc.)"
+    - "Audio files for 11 HoS cards (22 files: LEFT and RIGHT for each)"
+    - "Add remaining 11 card IDs to CRITICAL_HOS_CARDS or create new HEAD_OF_SOMETHING_CARDS set"
+    - "Update feedbackVoiceTrigger() to map all 19 HoS cards to their audio files"
+    - "Scripts to generate missing audio files with Roaster personality"
   debug_session: ""
   proposed_solution: |
-    Implement a tiered fallback system:
-    1. Critical cards (8 HoS + specific cards) → use dedicated audio files (already exists)
-    2. Cards with small fines (<$5M) or 'safe' choices → use feedback_ignore.wav ("Wisdom...") 
-    3. Cards with large fines (≥$5M) or 'risky' choices → use more appropriate generic response
-    4. Update feedbackVoiceTrigger() to check consequence severity before selecting fallback
-
-    Alternative: Generate more generic audio variants:
-    - feedback_minor.wav: "Interesting choice. Let's see how that works out for you."
-    - feedback_major.wav: "Bold move. Potentially career-limiting, but bold."
-    - feedback_safe.wav: "Playing it safe? Sometimes that's the most dangerous choice of all."
+    Generate audio for remaining 11 HoS cards:
+    1. Create scripts/generate-hos-remaining.ts for the 11 missing cards
+    2. Generate 22 audio files (11 cards × LEFT/RIGHT choices)
+    3. Add all 19 HoS card IDs to feedbackVoiceTrigger() mapping
+    4. Update CRITICAL_HOS_CARDS to include all HoS cards OR rename to HEAD_OF_SOMETHING_CARDS
+    
+    Estimated work: 1 plan, 2-3 tasks, ~15 minutes
