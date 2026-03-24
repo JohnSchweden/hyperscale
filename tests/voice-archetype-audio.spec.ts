@@ -7,6 +7,7 @@ import { expect, test } from "@playwright/test";
  *
  * These tests verify that all required archetype reveal audio files exist on disk.
  * 21 files total: 7 archetypes × 3 personalities
+ * Files are in Opus format (.opus) with MP3 fallback (.mp3).
  */
 
 const VOICES_DIR = path.join(process.cwd(), "public/audio/voices");
@@ -27,7 +28,7 @@ test.describe("Archetype reveal audio files @smoke @area:audio", () => {
 	test.describe("All archetype reveal files exist", () => {
 		for (const personality of PERSONALITIES) {
 			for (const archetype of ARCHETYPES) {
-				const filename = `archetype_${archetype}.wav`;
+				const filename = `archetype_${archetype}.opus`;
 				test(`${personality}/archetype/${filename} exists`, () => {
 					const filePath = path.join(
 						VOICES_DIR,
@@ -47,7 +48,7 @@ test.describe("Archetype reveal audio files @smoke @area:audio", () => {
 	test.describe("Archetype reveal files have reasonable file sizes", () => {
 		for (const personality of PERSONALITIES) {
 			for (const archetype of ARCHETYPES) {
-				const filename = `archetype_${archetype}.wav`;
+				const filename = `archetype_${archetype}.opus`;
 				test(`${personality}/archetype/${filename} has valid content`, () => {
 					const filePath = path.join(
 						VOICES_DIR,
@@ -66,20 +67,19 @@ test.describe("Archetype reveal audio files @smoke @area:audio", () => {
 					}
 
 					const stats = fs.statSync(filePath);
-					// WAV files should be at least 10KB (not empty/corrupted)
-					// and at most 5MB (reasonable upper bound)
-					expect(stats.size).toBeGreaterThan(10 * 1024);
-					expect(stats.size).toBeLessThan(5 * 1024 * 1024);
+					// Opus at 96kbps: ~12KB/s — minimum 4KB, maximum 500KB
+					expect(stats.size).toBeGreaterThan(4 * 1024);
+					expect(stats.size).toBeLessThan(500 * 1024);
 				});
 			}
 		}
 	});
 
-	test.describe("Archetype reveal files are valid WAV format", () => {
+	test.describe("Archetype reveal files are valid Opus format", () => {
 		for (const personality of PERSONALITIES) {
 			for (const archetype of ARCHETYPES) {
-				const filename = `archetype_${archetype}.wav`;
-				test(`${personality}/archetype/${filename} starts with RIFF header`, () => {
+				const filename = `archetype_${archetype}.opus`;
+				test(`${personality}/archetype/${filename} starts with OggS header`, () => {
 					const filePath = path.join(
 						VOICES_DIR,
 						personality,
@@ -96,14 +96,14 @@ test.describe("Archetype reveal audio files @smoke @area:audio", () => {
 						return;
 					}
 
-					// Read first 4 bytes - should be "RIFF" for WAV files
+					// Read first 4 bytes - should be "OggS" for Opus-in-OGG container
 					const fd = fs.openSync(filePath, "r");
 					const buffer = Buffer.alloc(4);
 					fs.readSync(fd, buffer, 0, 4, 0);
 					fs.closeSync(fd);
 
 					const header = buffer.toString("ascii");
-					expect(header).toBe("RIFF");
+					expect(header).toBe("OggS");
 				});
 			}
 		}
