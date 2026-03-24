@@ -229,7 +229,7 @@ test.describe("Kirk Easter Egg — Debrief Page 3 @area:gameplay", () => {
 
 test.describe("Kirk Easter Egg — corrupted cards @area:gameplay", () => {
 	test("kirk-raise card has 'Accept' buttons on both sides", async ({
-		page,
+		page: _page,
 	}) => {
 		// Verify the card data is correct (both directions are identical for Kirk cards)
 		const raiseCard = KIRK_CORRUPTED_CARDS.find((c) => c.id === "kirk-raise");

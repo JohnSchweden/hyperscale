@@ -259,7 +259,7 @@ async function generateAll() {
 		}
 	}
 
-	console.log("\n" + "=".repeat(60));
+	console.log(`\n${"=".repeat(60)}`);
 	console.log("Generation complete!");
 	console.log("=".repeat(60));
 	console.log(`Generated: ${generatedCount} files`);

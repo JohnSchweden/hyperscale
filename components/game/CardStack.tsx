@@ -97,7 +97,7 @@ export const CardStack: React.FC<CardStackProps> = ({
 	exitDirection,
 	exitPosition,
 	isSnappingBack,
-	isSwipeUp = false,
+	isSwipeUp: _isSwipeUp = false,
 	onTouchStart,
 	onTouchMove,
 	onTouchEnd,

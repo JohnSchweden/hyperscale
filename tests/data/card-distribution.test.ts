@@ -80,7 +80,7 @@ describe("Card Distribution Matrix — Issue #10", () => {
 			console.log("");
 
 			// Header
-			const header = "Role".padEnd(28) + "| PI | MD | XAI | SAI | SD | Other";
+			const header = `${"Role".padEnd(28)}| PI | MD | XAI | SAI | SD | Other`;
 			console.log(header);
 			console.log("-".repeat(header.length));
 

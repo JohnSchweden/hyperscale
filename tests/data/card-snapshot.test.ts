@@ -56,7 +56,7 @@ function generatePhase03Snapshot(): Record<RoleType, string[]> {
  * Sample of Phase 03 cards with core properties to snapshot
  * These will be checked for property changes
  */
-const PHASE_03_CORE_PROPERTIES: Array<{
+const _PHASE_03_CORE_PROPERTIES: Array<{
 	role: RoleType;
 	cardId: string;
 	source: string;
@@ -150,7 +150,7 @@ describe("Card Snapshot — Issue #12 (Regression Protection)", () => {
 			}
 
 			// Verify sample cards have required structure
-			for (const { role, card } of sampleCards) {
+			for (const { role: _role, card } of sampleCards) {
 				expect(card.id).toBeDefined();
 				expect(card.source).toBeDefined();
 				expect(card.context).toBeDefined();

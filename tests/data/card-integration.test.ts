@@ -145,7 +145,7 @@ describe("Card Integration — ROLE_CARDS Mapping", () => {
 		/**
 		 * Helper to validate a card matches the Card interface
 		 */
-		function validateCardStructure(card: Card, role: RoleType): string[] {
+		function validateCardStructure(card: Card, _role: RoleType): string[] {
 			const issues: string[] = [];
 
 			// Check required top-level fields
