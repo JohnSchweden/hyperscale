@@ -5,7 +5,7 @@ milestone_name: Kobayashi Maru — AI Governance Simulator
 current_phase: 15-voice-files-expanded
 current_plan: 04
 status: completed
-last_updated: "2026-03-24T22:29:09.823Z"
+last_updated: "2026-03-24T22:32:17.829Z"
 progress:
   total_phases: 15
   completed_phases: 9
@@ -87,6 +87,7 @@ See: .planning/PROJECT.md
 - Defer remaining 12 archetype audio files (ZenMaster 5 + Lovebomber 7) — Gemini API quota limit reached, can generate later without code changes
 - [Phase 15-voice-files-expanded]: Use 96kbps Opus (6x compression) and 192kbps MP3 (3x compression) for audio assets
 - [Phase 15-voice-files-expanded]: Browser capability detection via canPlayType() for format selection
+- [Phase 15]: HoS audio gap closure: Script created with resumable generation pattern; 2 of 22 audio files generated due to API quota; CRITICAL_HOS_CARDS updated with all 19 card IDs
 
 ## Key Metrics
 
