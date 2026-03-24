@@ -18,7 +18,7 @@ export const InitializingScreen: React.FC<InitializingScreenProps> = ({
 	const roleLabel = role ? ROLE_LABELS[role] : "";
 
 	return (
-		<LayoutShell className="p-4 md:p-6 !bg-transparent text-green-400 font-mono antialiased !justify-center !pt-0">
+		<LayoutShell className="px-4 md:px-6 !bg-transparent text-green-400 font-mono antialiased !justify-center !pt-0">
 			<div className="flex flex-col items-stretch w-full">
 				<div className="w-full max-w-xl bg-black/80 border border-slate-800 rounded-xl shadow-2xl relative overflow-hidden mx-auto">
 					{/* Title bar */}

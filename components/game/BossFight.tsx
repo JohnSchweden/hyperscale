@@ -35,7 +35,7 @@ export const BossFight: React.FC<BossFightProps> = ({
 	const nextQuestionLabel = isNextFinal ? "Final result" : "Next question";
 
 	return (
-		<LayoutShell className="p-4 md:p-8 !bg-transparent">
+		<LayoutShell className="px-4 md:px-8 !bg-transparent">
 			<div className="w-full max-w-3xl">
 				<div className="text-center mb-6 md:mb-8">
 					<div className="text-4xl md:text-6xl mb-3 md:mb-4">

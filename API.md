@@ -109,7 +109,7 @@ interface LayoutShellProps {
 #### Styling Features
 
 - `min-h-[100dvh]` - Mobile viewport stability (handles browser chrome)
-- `safe-area-top safe-area-bottom` - Notch/device safe area support
+- Top/bottom inset uses `env(safe-area-inset-*)` inside `calc()` on `LayoutShell` / `LAYOUT_SHELL_*` classes (Tailwind v4 `@layer` utilities; avoid separate unlayered `.safe-area-*` padding rules that override them)
 - `overflow-y-auto` - Scrollable if content overflows
 - Black background (`bg-black`)
 

@@ -6,6 +6,7 @@ import LayoutShell from "../../LayoutShell";
 import {
 	GLASS_FILL_STRONG,
 	GLASS_PANEL_DEFAULT,
+	LAYOUT_SHELL_CENTERED_CLASS,
 } from "../selectionStageStyles";
 
 interface DebriefPage2AuditTrailProps {
@@ -242,7 +243,7 @@ export const DebriefPage2AuditTrail: React.FC<DebriefPage2AuditTrailProps> = ({
 	const personalityData = personality ? PERSONALITIES[personality] : null;
 
 	return (
-		<LayoutShell className="p-4 pb-12 md:p-6 md:pb-16 text-center !bg-transparent">
+		<LayoutShell className={LAYOUT_SHELL_CENTERED_CLASS}>
 			<div className="w-full max-w-2xl">
 				{/* Header */}
 				<div className="mb-6 text-center md:mb-8">

@@ -1,6 +1,4 @@
 import { expect, test } from "@playwright/test";
-import { navigateToPlayingFast } from "./helpers/navigation";
-import { SELECTORS } from "./helpers/selectors";
 
 test.use({ baseURL: "https://localhost:3000" });
 
@@ -16,10 +14,12 @@ test.describe("LayoutShell behavior @area:layout", () => {
 		// Check Tailwind classes directly — avoids oklch/rem computed style issues with Tailwind v4
 		await expect(layoutRoot).toHaveClass(/lg:items-center/);
 		await expect(layoutRoot).toHaveClass(/lg:justify-center/);
-		await expect(layoutRoot).toHaveClass(/lg:pt-24/);
+		await expect(layoutRoot).toHaveClass(
+			/lg:pt-\[calc\(6rem\+env\(safe-area-inset-top,0px\)\)\]/,
+		);
 	});
 
-	test("mobile top-aligns content (items-start) and has pt-16 at <1024px", async ({
+	test("mobile top-aligns content (items-start) and has top inset calc at <1024px", async ({
 		page,
 	}) => {
 		await page.setViewportSize({ width: 393, height: 851 });
@@ -29,6 +29,8 @@ test.describe("LayoutShell behavior @area:layout", () => {
 
 		// Check Tailwind classes directly — avoids oklch/rem computed style issues with Tailwind v4
 		await expect(layoutRoot).toHaveClass(/items-start/);
-		await expect(layoutRoot).toHaveClass(/pt-16/);
+		await expect(layoutRoot).toHaveClass(
+			/pt-\[calc\(4rem\+env\(safe-area-inset-top,0px\)\)\]/,
+		);
 	});
 });

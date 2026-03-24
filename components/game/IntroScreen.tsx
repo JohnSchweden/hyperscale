@@ -1,5 +1,6 @@
 import type React from "react";
 import LayoutShell from "../LayoutShell";
+import { LAYOUT_SHELL_CENTERED_CLASS } from "./selectionStageStyles";
 
 interface IntroScreenProps {
 	onStart: () => void;
@@ -7,7 +8,7 @@ interface IntroScreenProps {
 
 export const IntroScreen: React.FC<IntroScreenProps> = ({ onStart }) => {
 	return (
-		<LayoutShell className="p-4 pb-12 md:p-6 md:pb-16 text-center !bg-transparent">
+		<LayoutShell className={LAYOUT_SHELL_CENTERED_CLASS}>
 			<div className="mb-8 md:mb-12 relative">
 				<h1 className="text-6xl md:text-7xl font-bold glitch-text tracking-tighter mb-2">
 					K-Maru

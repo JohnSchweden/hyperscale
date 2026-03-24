@@ -2,7 +2,10 @@ import type React from "react";
 import { DEATH_ENDINGS } from "../../data";
 import { DeathType, type GameState } from "../../types";
 import LayoutShell from "../LayoutShell";
-import { GLASS_PANEL_DEFAULT } from "./selectionStageStyles";
+import {
+	GLASS_PANEL_DEFAULT,
+	LAYOUT_SHELL_CENTERED_CLASS,
+} from "./selectionStageStyles";
 
 interface SummaryScreenProps {
 	state: GameState;
@@ -21,7 +24,7 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
 	onDebrief,
 }) => {
 	return (
-		<LayoutShell className="p-4 pb-12 md:p-6 md:pb-16 text-center !bg-transparent">
+		<LayoutShell className={LAYOUT_SHELL_CENTERED_CLASS}>
 			<div className="w-full max-w-2xl">
 				<div className="text-6xl md:text-9xl text-green-500 mb-6 md:mb-8 animate-pulse drop-shadow-[0_0_30px_rgba(34,197,94,0.4)]">
 					<i className="fa-solid fa-trophy" aria-hidden></i>
