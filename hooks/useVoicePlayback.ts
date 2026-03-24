@@ -67,11 +67,11 @@ const FEEDBACK_INSTALL_ON_RIGHT = new Set([
 ]);
 
 /**
- * Critical Head of Something cards that have dedicated feedback audio.
- * These are high-impact cards (game-enders, sacrifice moments) with
- * specific Roaster voice lines for each choice.
+ * All 19 Head of Something cards that have dedicated feedback audio.
+ * Each card has specific Roaster voice lines for LEFT and RIGHT choices.
  */
 const CRITICAL_HOS_CARDS = new Set([
+	// Original 8 critical cards
 	"hos_managing_up_down",
 	"explainability_hos_2",
 	"hos_copyright_team_blame",
@@ -80,6 +80,18 @@ const CRITICAL_HOS_CARDS = new Set([
 	"hos_model_drift_team_blame",
 	"hos_explainability_politics",
 	"hos_prompt_injection_review_escape",
+	// Additional 11 HoS cards (Phase 15-06)
+	"hos_prompt_injection_blame",
+	"hos_model_drift_budget_conflict",
+	"hos_shadow_ai_team_discovery",
+	"hos_delegation_gone_wrong",
+	"hos_promotion_politics",
+	"hos_prompt_injection_copilot_team",
+	"hos_model_drift_retrain_delay",
+	"explainability_hos_1",
+	"shadow_ai_hos_1",
+	"synthetic_data_hos_1",
+	"synthetic_data_hos_2",
 ]);
 
 function feedbackVoiceTrigger(
