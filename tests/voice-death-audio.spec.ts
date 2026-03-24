@@ -28,11 +28,11 @@ test.describe("Death ending audio files @smoke @area:audio", () => {
 	test.describe("All personalities have all 7 death ending files", () => {
 		for (const personality of PERSONALITIES) {
 			for (const file of DEATH_FILES) {
-				test(`${personality}/${file} exists`, () => {
-					const filePath = path.join(VOICES_DIR, personality, file);
+				test(`${personality}/death/${file} exists`, () => {
+					const filePath = path.join(VOICES_DIR, personality, "death", file);
 					expect(
 						fs.existsSync(filePath),
-						`Missing required death audio file: ${personality}/${file}`,
+						`Missing required death audio file: ${personality}/death/${file}`,
 					).toBe(true);
 				});
 			}
@@ -41,18 +41,23 @@ test.describe("Death ending audio files @smoke @area:audio", () => {
 
 	test.describe("KIRK death has voice files (not just synthesized glitch)", () => {
 		for (const personality of PERSONALITIES) {
-			test(`${personality}/death_kirk.wav exists as voice file`, () => {
-				const filePath = path.join(VOICES_DIR, personality, "death_kirk.wav");
+			test(`${personality}/death/death_kirk.wav exists as voice file`, () => {
+				const filePath = path.join(
+					VOICES_DIR,
+					personality,
+					"death",
+					"death_kirk.wav",
+				);
 				expect(
 					fs.existsSync(filePath),
-					`${personality} should have death_kirk.wav voice file`,
+					`${personality} should have death/death_kirk.wav voice file`,
 				).toBe(true);
 
 				// Verify it's not empty (should be > 50KB for valid audio)
 				const stats = fs.statSync(filePath);
 				expect(
 					stats.size,
-					`${personality}/death_kirk.wav appears to be empty or corrupt`,
+					`${personality}/death/death_kirk.wav appears to be empty or corrupt`,
 				).toBeGreaterThan(50000);
 			});
 		}
@@ -61,12 +66,12 @@ test.describe("Death ending audio files @smoke @area:audio", () => {
 	test.describe("All death files have valid audio content", () => {
 		for (const personality of PERSONALITIES) {
 			for (const file of DEATH_FILES) {
-				test(`${personality}/${file} has valid file size`, () => {
-					const filePath = path.join(VOICES_DIR, personality, file);
+				test(`${personality}/death/${file} has valid file size`, () => {
+					const filePath = path.join(VOICES_DIR, personality, "death", file);
 					const stats = fs.statSync(filePath);
 					expect(
 						stats.size,
-						`${personality}/${file} appears to be empty or corrupt`,
+						`${personality}/death/${file} appears to be empty or corrupt`,
 					).toBeGreaterThan(50000);
 				});
 			}
@@ -77,7 +82,7 @@ test.describe("Death ending audio files @smoke @area:audio", () => {
 		let count = 0;
 		for (const personality of PERSONALITIES) {
 			for (const file of DEATH_FILES) {
-				const filePath = path.join(VOICES_DIR, personality, file);
+				const filePath = path.join(VOICES_DIR, personality, "death", file);
 				if (fs.existsSync(filePath)) {
 					count++;
 				}

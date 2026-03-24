@@ -28,11 +28,16 @@ test.describe("Archetype reveal audio files @smoke @area:audio", () => {
 		for (const personality of PERSONALITIES) {
 			for (const archetype of ARCHETYPES) {
 				const filename = `archetype_${archetype}.wav`;
-				test(`${personality}/${filename} exists`, () => {
-					const filePath = path.join(VOICES_DIR, personality, filename);
+				test(`${personality}/archetype/${filename} exists`, () => {
+					const filePath = path.join(
+						VOICES_DIR,
+						personality,
+						"archetype",
+						filename,
+					);
 					expect(
 						fs.existsSync(filePath),
-						`Missing archetype reveal file: ${personality}/${filename}`,
+						`Missing archetype reveal file: ${personality}/archetype/${filename}`,
 					).toBe(true);
 				});
 			}
@@ -43,8 +48,13 @@ test.describe("Archetype reveal audio files @smoke @area:audio", () => {
 		for (const personality of PERSONALITIES) {
 			for (const archetype of ARCHETYPES) {
 				const filename = `archetype_${archetype}.wav`;
-				test(`${personality}/${filename} has valid content`, () => {
-					const filePath = path.join(VOICES_DIR, personality, filename);
+				test(`${personality}/archetype/${filename} has valid content`, () => {
+					const filePath = path.join(
+						VOICES_DIR,
+						personality,
+						"archetype",
+						filename,
+					);
 
 					// Skip if file doesn't exist (may be pending generation)
 					if (!fs.existsSync(filePath)) {
@@ -69,8 +79,13 @@ test.describe("Archetype reveal audio files @smoke @area:audio", () => {
 		for (const personality of PERSONALITIES) {
 			for (const archetype of ARCHETYPES) {
 				const filename = `archetype_${archetype}.wav`;
-				test(`${personality}/${filename} starts with RIFF header`, () => {
-					const filePath = path.join(VOICES_DIR, personality, filename);
+				test(`${personality}/archetype/${filename} starts with RIFF header`, () => {
+					const filePath = path.join(
+						VOICES_DIR,
+						personality,
+						"archetype",
+						filename,
+					);
 
 					// Skip if file doesn't exist
 					if (!fs.existsSync(filePath)) {

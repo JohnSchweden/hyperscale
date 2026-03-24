@@ -16,15 +16,19 @@ const BGM_DIR = path.join(process.cwd(), "public/audio/music");
 
 const PERSONALITIES = ["roaster", "zenmaster", "lovebomber"] as const;
 
-// All personalities have these files
-const COMMON_VOICE_FILES = ["onboarding.wav", "victory.wav", "failure.wav"];
+// All personalities have these files (now in core/ subfolder)
+const COMMON_VOICE_FILES = [
+	"core/onboarding.wav",
+	"core/victory.wav",
+	"core/failure.wav",
+];
 
-// Only roaster has feedback files (per design decision)
+// Only roaster has feedback files (per design decision) - now in feedback/ subfolder
 const ROASTER_FEEDBACK_FILES = [
-	"feedback_debug.wav",
-	"feedback_paste.wav",
-	"feedback_install.wav",
-	"feedback_ignore.wav",
+	"feedback/feedback_debug.wav",
+	"feedback/feedback_paste.wav",
+	"feedback/feedback_install.wav",
+	"feedback/feedback_ignore.wav",
 ];
 
 test.describe("Voice Audio Files @smoke @area:audio", () => {

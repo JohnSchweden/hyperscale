@@ -33,11 +33,13 @@ test.describe("Head of Something Critical Card Audio @smoke @area:audio", () => 
 				const leftPath = path.join(
 					VOICES_DIR,
 					"roaster",
+					"feedback",
 					`feedback_${cardId}_left.wav`,
 				);
 				const rightPath = path.join(
 					VOICES_DIR,
 					"roaster",
+					"feedback",
 					`feedback_${cardId}_right.wav`,
 				);
 
@@ -62,11 +64,14 @@ test.describe("Head of Something Critical Card Audio @smoke @area:audio", () => 
 				const filePath = path.join(
 					VOICES_DIR,
 					"roaster",
+					"feedback",
 					`feedback_${cardId}_${choice}.wav`,
 				);
 				if (!fs.existsSync(filePath)) {
 					missingCount++;
-					missingFiles.push(`roaster/feedback_${cardId}_${choice}.wav`);
+					missingFiles.push(
+						`roaster/feedback/feedback_${cardId}_${choice}.wav`,
+					);
 				}
 			}
 		}
@@ -80,10 +85,11 @@ test.describe("Head of Something Critical Card Audio @smoke @area:audio", () => 
 	test.describe("Critical HoS audio files are WAV format", () => {
 		for (const cardId of CRITICAL_HOS_CARDS) {
 			for (const choice of ["left", "right"] as const) {
-				test(`feedback_${cardId}_${choice}.wav is valid WAV`, () => {
+				test(`feedback/feedback_${cardId}_${choice}.wav is valid WAV`, () => {
 					const filePath = path.join(
 						VOICES_DIR,
 						"roaster",
+						"feedback",
 						`feedback_${cardId}_${choice}.wav`,
 					);
 
@@ -115,11 +121,12 @@ test.describe("Head of Something Critical Card Audio @smoke @area:audio", () => 
 						const filePath = path.join(
 							VOICES_DIR,
 							personality,
+							"feedback",
 							`feedback_${cardId}_${choice}.wav`,
 						);
 						expect(
 							fs.existsSync(filePath),
-							`${personality} should NOT have feedback_${cardId}_${choice}.wav (per design)`,
+							`${personality} should NOT have feedback/feedback_${cardId}_${choice}.wav (per design)`,
 						).toBe(false);
 					}
 				}
