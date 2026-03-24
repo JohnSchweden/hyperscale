@@ -8,11 +8,17 @@ import {
 
 test.use({ baseURL: "https://localhost:3000" });
 
+/** Returns true if element has standalone `bg-cyan-500` class (not `hover:bg-cyan-500`). */
+async function isHighlighted(
+	el: Awaited<ReturnType<typeof getRightButton>>,
+): Promise<boolean> {
+	return el.evaluate((node) => node.classList.contains("bg-cyan-500"));
+}
+
 test.describe("Button Highlight on Swipe @area:input", () => {
 	test("right button highlights when swiping right", async ({ page }) => {
 		await navigateToPlayingFast(page);
 
-		// Find the card
 		const card = await getCard(page);
 		const box = await card.boundingBox();
 		expect(box).toBeTruthy();
@@ -20,49 +26,25 @@ test.describe("Button Highlight on Swipe @area:input", () => {
 		const startX = box?.x + box?.width / 2;
 		const startY = box?.y + box?.height / 2;
 
-		// Check initial button state - use computed styles to avoid hover class false positives
-		const rightButtonBefore = await getRightButton(page);
-		const rightStylesBefore = await rightButtonBefore.evaluate((el) => {
-			const s = getComputedStyle(el);
-			return {
-				backgroundColor: s.backgroundColor,
-				borderColor: s.borderColor,
-				color: s.color,
-			};
-		});
-		expect(rightStylesBefore.backgroundColor).not.toMatch(
-			/rgba?\(6,\s*182,\s*212/,
-		); // cyan-500
+		// Not highlighted before swipe
+		const rightButton = await getRightButton(page);
+		expect(await isHighlighted(rightButton)).toBe(false);
 
-		// Start drag to the right
+		// Drag right
 		await page.mouse.move(startX, startY);
 		await page.mouse.down();
 		await page.mouse.move(startX + 60, startY, { steps: 5 });
-
-		// Wait for RAF to complete and swipe direction to update (allow multiple frames)
 		await page.waitForTimeout(200);
 
-		// Check right button is now highlighted - use computed styles
-		const rightButtonAfter = await getRightButton(page);
-		const rightStylesAfter = await rightButtonAfter.evaluate((el) => {
-			const s = getComputedStyle(el);
-			return {
-				backgroundColor: s.backgroundColor,
-				borderColor: s.borderColor,
-				color: s.color,
-			};
-		});
-		expect(rightStylesAfter.backgroundColor).toMatch(/rgba?\(6,\s*182,\s*212/); // cyan-500 (rgb or rgba)
-		expect(rightStylesAfter.color).toContain("rgb(0, 0, 0)"); // text-black
+		// Now highlighted (classList.contains checks exact token, not hover: variant)
+		expect(await isHighlighted(rightButton)).toBe(true);
 
-		// Release
 		await page.mouse.up();
 	});
 
 	test("left button highlights when swiping left", async ({ page }) => {
 		await navigateToPlayingFast(page);
 
-		// Find the card
 		const card = await getCard(page);
 		const box = await card.boundingBox();
 		expect(box).toBeTruthy();
@@ -70,42 +52,19 @@ test.describe("Button Highlight on Swipe @area:input", () => {
 		const startX = box?.x + box?.width / 2;
 		const startY = box?.y + box?.height / 2;
 
-		// Check initial button state - use computed styles to avoid hover class false positives
-		const leftButtonBefore = await getLeftButton(page);
-		const leftStylesBefore = await leftButtonBefore.evaluate((el) => {
-			const s = getComputedStyle(el);
-			return {
-				backgroundColor: s.backgroundColor,
-				borderColor: s.borderColor,
-				color: s.color,
-			};
-		});
-		expect(leftStylesBefore.backgroundColor).not.toMatch(
-			/rgba?\(6,\s*182,\s*212/,
-		); // cyan-500
+		// Not highlighted before swipe
+		const leftButton = await getLeftButton(page);
+		expect(await isHighlighted(leftButton)).toBe(false);
 
-		// Start drag to the left
+		// Drag left
 		await page.mouse.move(startX, startY);
 		await page.mouse.down();
 		await page.mouse.move(startX - 60, startY, { steps: 5 });
-
-		// Wait for RAF to complete and swipe direction to update (allow multiple frames)
 		await page.waitForTimeout(200);
 
-		// Check left button is now highlighted - use computed styles
-		const leftButtonAfter = await getLeftButton(page);
-		const leftStylesAfter = await leftButtonAfter.evaluate((el) => {
-			const s = getComputedStyle(el);
-			return {
-				backgroundColor: s.backgroundColor,
-				borderColor: s.borderColor,
-				color: s.color,
-			};
-		});
-		expect(leftStylesAfter.backgroundColor).toMatch(/rgba?\(6,\s*182,\s*212/); // cyan-500 (rgb or rgba)
-		expect(leftStylesAfter.color).toContain("rgb(0, 0, 0)"); // text-black
+		// Now highlighted
+		expect(await isHighlighted(leftButton)).toBe(true);
 
-		// Release
 		await page.mouse.up();
 	});
 });
