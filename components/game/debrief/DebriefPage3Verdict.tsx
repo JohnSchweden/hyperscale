@@ -1,7 +1,14 @@
 import type React from "react";
 import { useEffect, useState } from "react";
 import { ROLE_LABELS } from "../../../data";
-import { type Archetype, DeathType, type RoleType } from "../../../types";
+import { useVoicePlayback } from "../../../hooks";
+import {
+	type Archetype,
+	DeathType,
+	GameStage,
+	type PersonalityType,
+	type RoleType,
+} from "../../../types";
 import {
 	encodeLinkedInShareUrl,
 	formatShareText,
@@ -22,6 +29,7 @@ interface DebriefPage3VerdictProps {
 	archetypeDescription: string;
 	resilienceScore: number;
 	role: RoleType | null;
+	personality: PersonalityType | null;
 	deathType?: DeathType | null;
 	unlockedEndingsCount?: number;
 	onRestart: () => void;
@@ -81,11 +89,19 @@ export const DebriefPage3Verdict: React.FC<DebriefPage3VerdictProps> = ({
 	archetypeDescription,
 	resilienceScore,
 	role,
+	personality,
 	deathType,
 	unlockedEndingsCount = 0,
 	onRestart,
 }) => {
 	const isKirk = deathType === DeathType.KIRK;
+
+	// Play archetype reveal audio when verdict is displayed
+	useVoicePlayback({
+		stage: GameStage.DEBRIEF_PAGE_3,
+		personality,
+		archetypeId: archetype?.id ?? null,
+	});
 
 	useEffect(() => {
 		if (!archetype) return;

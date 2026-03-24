@@ -31,6 +31,7 @@ export const DebriefContainer: React.FC<DebriefContainerProps> = ({
 					archetypeDescription={archetypeDescription}
 					resilienceScore={resilienceScore}
 					role={state.role}
+					personality={state.personality}
 					deathType={state.deathType}
 					unlockedEndingsCount={state.unlockedEndings.length}
 					onRestart={onRestart}
