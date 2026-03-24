@@ -97,43 +97,6 @@ Plans (REVISED FOR 10 ROLES):
 - [x] **03-06-PLAN.md** — Rebalance fines to role-appropriate tiers ✓
 - [x] **03-07-PLAN.md** — Rebalance heat penalties to match fine structure ✓
 
-### Phase 04: Voice Files Restructure
-
-**Goal:** Reorganize voice files into logical subfolders for better maintainability as file count grows
-**Depends on:** None (organizational refactor)
-**Plans:** 1 plan
-
-Plans:
-- [ ] 04-01-PLAN.md — Restructure voices folder with subfolders (archetype, death, feedback, core)
-
-**Details:**
-Current flat structure with 59 files across 3 personalities is becoming unwieldy. With plans for 100+ voice files, we need clear organization by content category:
-
-| Type | Count | Folder |
-|------|-------|--------|
-| Archetype reveals | 21 files | `archetype/` |
-| Death endings | 21 files | `death/` |
-| Card feedback | 16 files | `feedback/` |
-| Core (onboarding/victory/failure) | 9 files | `core/` |
-
-**New structure:**
-```
-public/audio/voices/
-├── {personality}/
-│   ├── archetype/
-│   ├── death/
-│   ├── feedback/
-│   └── core/
-```
-
-**Audio format research:**
-Research document created at `.planning/research/audio-optimization-research.md` comparing:
-- **Keep WAV**: 19MB, no changes needed
-- **MP3 (192kbps)**: ~3MB, universal support
-- **Opus (96kbps)**: ~2MB, best compression, Safari 15+ only
-
-**Recommendation**: Restructure first (Phase 4), consider compression later if bandwidth is a concern.
-
 **Documentation:**
 - `03-REVISION-NOTES.md` — Why plans were revised
 - `03-ROLE-MAPPING.md` — 10 role card content strategy
@@ -454,14 +417,15 @@ Integrate images into UI:
 
 ### Phase 15: Voice Files Expanded
 
-**Goal:** Generate voice audio files for archetype reveals, death endings, and high-impact Head of Something cards
+**Goal:** Generate voice audio files for archetype reveals, death endings, and high-impact Head of Something cards; restructure voice files for scalability
 **Depends on:** Phase 06 (debrief system), Phase 07 (Kirk audio pattern)
-**Plans:** 3/3 plans complete
+**Plans:** 4 plans (3 complete, 1 in progress)
 
 Plans:
-- [ ] 15-01-PLAN.md — Generate archetype reveal audio (7 archetypes × 3 personalities = 21 files)
-- [ ] 15-02-PLAN.md — Generate death ending audio (7 deaths × 3 personalities = 21 files, including KIRK hybrid)
-- [ ] 15-03-PLAN.md — Generate Head of Something critical card feedback (8 cards × 2 choices = 16 Roaster files)
+- [x] 15-01-PLAN.md — Generate archetype reveal audio (7 archetypes × 3 personalities = 21 files) ✓
+- [x] 15-02-PLAN.md — Generate death ending audio (7 deaths × 3 personalities = 21 files, including KIRK hybrid) ✓
+- [x] 15-03-PLAN.md — Generate Head of Something critical card feedback (8 cards × 2 choices = 16 Roaster files) ✓
+- [ ] 15-04-PLAN.md — Restructure voices folder with subfolders (archetype, death, feedback, core)
 
 **Details:**
 Extend voice coverage beyond basic onboarding/victory/failure to create immersive audio moments:
@@ -488,12 +452,35 @@ Focus on 8 highest-impact cards with Roaster voice only (based on fine/heat/hype
 **Audio Generation Pipeline:**
 Reuses v1.1 infrastructure: `scripts/generate-voice.ts` (Gemini TTS) → `services/radioEffect.ts` (post-processing) → `public/audio/voices/{personality}/{trigger}.wav`
 
+**Voice Files Restructure (15-04):**
+Current flat structure with 59 files across 3 personalities is becoming unwieldy. Plan 04 reorganizes files into logical subfolders:
+
+| Type | Count | Folder |
+|------|-------|--------|
+| Archetype reveals | 21 files | `archetype/` |
+| Death endings | 21 files | `death/` |
+| Card feedback | 16 files | `feedback/` |
+| Core (onboarding/victory/failure) | 9 files | `core/` |
+
+**New structure:**
+```
+public/audio/voices/
+├── {personality}/
+│   ├── archetype/
+│   ├── death/
+│   ├── feedback/
+│   └── core/
+```
+
+**Audio format research:**
+Research document created at `.planning/research/audio-optimization-research.md` comparing WAV vs MP3 vs Opus formats. Recommendation: Keep WAV for now, evaluate compression in future phase if bandwidth is a concern.
+
 **Requirements:**
 - VOICE-01: Archetype reveal audio plays on DebriefPage3 verdict display
 - VOICE-02: Death ending audio plays on DebriefPage1 collapse display
 - VOICE-03: Critical card feedback audio triggers on swipe for Head of Something role
-- VOICE-04: All files follow naming convention: `{personality}/{type}_{id}.wav`
-- VOICE-05: Update voicePlayback.ts to support archetype/death triggers
+- VOICE-04: All files follow naming convention: `{personality}/{type}/{trigger}.wav`
+- VOICE-05: Update voicePlayback.ts to support subfolder paths
 
 ---
 
@@ -507,7 +494,6 @@ Reuses v1.1 infrastructure: `scripts/generate-voice.ts` (Gemini TTS) → `servic
 | 02 | New Role Set (Impact Zones) | v1.2 | Complete |
 | 03 | 9/9 | Complete    | 2026-03-17 |
 | 04 | Immersive Pressure Effects | v1.2 | Complete (9/10) |
-| 04 | Voice Files Restructure | v1.2 | Planned (1 plan) |
 | 05 | 6/6 | Complete    | 2026-03-23 |
 | 06 | 19/19 | Complete    | 2026-03-16 |
 | 07 | Kirk Easter Egg | v1.2 | Not started |
@@ -518,8 +504,8 @@ Reuses v1.1 infrastructure: `scripts/generate-voice.ts` (Gemini TTS) → `servic
 | 12 | Gameplay Tweaks & Card Variety | v1.2 | Complete (2/2) |
 | 13 | Image Asset Pipeline | v1.2 | Not started |
 | 14 | Situational & Outcome Imagery Display | v1.2 | Not started |
-| 15 | 3/3 | Complete   | 2026-03-24 |
+| 15 | 3/4 | In Progress | 2026-03-24 |
 
 ---
 
-*Roadmap updated: 2026-03-24 — Phase 04 added (Voice Files Restructure), Phase 15 complete*
+*Roadmap updated: 2026-03-24 — Phase 15 plan 04 added (Voice Files Restructure)*
