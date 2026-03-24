@@ -33,6 +33,7 @@
 		"compress:voices": "bun scripts/compress-audio.ts directory public/audio/voices",
 		"compress:existing": "bun scripts/compress-existing-audio.ts",
 		"compress:verify": "bun scripts/verify-compressed-audio.ts",
+		"convert:music:opus": "bun scripts/convert-music-to-opus.ts directory public/audio/music",
 		"build:with-audio": "bun compress:existing && bun run build",
 		"benchmark": "bun run scripts/benchmark-tests.ts",
 		"benchmark:compare": "bun run scripts/benchmark-tests.ts -- --compare latest",
