@@ -5,15 +5,15 @@ export type BgmTrack = {
 
 /** Filenames under `public/audio/music/` (order = play order). */
 export const BGM_SOURCE_FILENAMES = [
-	"Quiet Apogee - AI Music.mp3",
 	"Chromed Rainfall Cover.mp3",
+	"Quiet Apogee - AI Music.mp3",
 ] as const;
 
 function stemFromFilename(filename: string): string {
 	return filename.replace(/\.(mp3|m4a|ogg|wav|flac)$/i, "");
 }
 
-/** First two words of the filename stem (e.g. "Quiet Apogee", "Chromed Rainfall"). */
+/** First two words of the filename stem (e.g. "Chromed Rainfall", "Quiet Apogee"). */
 export function bgmDisplayTitleFromFilename(filename: string): string {
 	const stem = stemFromFilename(filename).trim();
 	const parts = stem.split(/\s+/).filter(Boolean);
