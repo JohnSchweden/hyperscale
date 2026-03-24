@@ -27,10 +27,14 @@ const SESSION_FLUSH_MS = 2000;
 const VOICE_DUCK_MULT = 0.2;
 const VOICE_UNDUCK_RAMP_MS = 1200;
 
-function safeParse<T>(parser: (raw: string) => T | null, fallback: T): T {
+function safeParse<T>(
+	key: string,
+	parser: (raw: string) => T | null,
+	fallback: T,
+): T {
 	if (typeof window === "undefined") return fallback;
 	try {
-		const raw = localStorage.getItem(STORAGE.VOLUME);
+		const raw = localStorage.getItem(key);
 		if (raw == null) return fallback;
 		const result = parser(raw);
 		return result ?? fallback;
@@ -70,14 +74,18 @@ const clamp = (n: number, min: number, max: number) =>
 	Math.min(max, Math.max(min, n));
 
 function readStoredVolume(): number {
-	return safeParse((raw) => {
-		const n = parseFloat(raw);
-		return Number.isFinite(n) ? clamp(n, VOLUME.MIN, VOLUME.MAX) : null;
-	}, VOLUME.DEFAULT);
+	return safeParse(
+		STORAGE.VOLUME,
+		(raw) => {
+			const n = parseFloat(raw);
+			return Number.isFinite(n) ? clamp(n, VOLUME.MIN, VOLUME.MAX) : null;
+		},
+		VOLUME.DEFAULT,
+	);
 }
 
 function readStoredEnabled(): boolean {
-	return safeParse((raw) => raw !== "false", true);
+	return safeParse(STORAGE.ENABLED, (raw) => raw !== "false", true);
 }
 
 function readSessionTrackIndex(): number {
