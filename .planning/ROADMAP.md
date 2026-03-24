@@ -419,7 +419,7 @@ Integrate images into UI:
 
 **Goal:** Generate voice audio files for archetype reveals, death endings, and high-impact Head of Something cards
 **Depends on:** Phase 06 (debrief system), Phase 07 (Kirk audio pattern)
-**Plans:** 3 plans
+**Plans:** 1/3 plans executed
 
 Plans:
 - [ ] 15-01-PLAN.md — Generate archetype reveal audio (7 archetypes × 3 personalities = 21 files)
@@ -480,7 +480,7 @@ Reuses v1.1 infrastructure: `scripts/generate-voice.ts` (Gemini TTS) → `servic
 | 12 | Gameplay Tweaks & Card Variety | v1.2 | Complete (2/2) |
 | 13 | Image Asset Pipeline | v1.2 | Not started |
 | 14 | Situational & Outcome Imagery Display | v1.2 | Not started |
-| 15 | Voice Files Expanded | v1.2 | Not started |
+| 15 | 1/3 | In Progress|  |
 
 ---
 
