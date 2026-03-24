@@ -129,9 +129,27 @@ async function generateVoice(text: string, voice: string): Promise<Buffer> {
 	return Buffer.from(base64Audio, "base64");
 }
 
+function getSubfolder(filename: string): string {
+	if (filename.startsWith("archetype_")) return "archetype";
+	if (filename.startsWith("death_")) return "death";
+	if (filename.startsWith("feedback_")) return "feedback";
+	// Core: onboarding, victory, failure
+	if (
+		["onboarding", "victory", "failure"].includes(filename.replace(".wav", ""))
+	)
+		return "core";
+	return "";
+}
+
 async function main() {
 	for (const v of voices) {
-		const outputDir = path.join(process.cwd(), "public/audio/voices", v.folder);
+		const subfolder = getSubfolder(v.filename);
+		const outputDir = path.join(
+			process.cwd(),
+			"public/audio/voices",
+			v.folder,
+			subfolder,
+		);
 		fs.mkdirSync(outputDir, { recursive: true });
 
 		console.log(`Generating ${v.folder}/${v.filename}...`);

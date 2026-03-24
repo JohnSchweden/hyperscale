@@ -78,7 +78,10 @@ async function generateVoice(text: string): Promise<Buffer> {
 }
 
 async function main() {
-	const outputDir = path.join(process.cwd(), "public/audio/voices/roaster");
+	const outputDir = path.join(
+		process.cwd(),
+		"public/audio/voices/roaster/feedback",
+	);
 	fs.mkdirSync(outputDir, { recursive: true });
 
 	for (const v of voiceTexts) {

@@ -117,7 +117,12 @@ async function generateVoice(text: string, voice: string): Promise<Buffer> {
 
 async function main() {
 	for (const v of voices) {
-		const outputDir = path.join(process.cwd(), "public/audio/voices", v.folder);
+		const outputDir = path.join(
+			process.cwd(),
+			"public/audio/voices",
+			v.folder,
+			"death",
+		);
 		fs.mkdirSync(outputDir, { recursive: true });
 
 		console.log(`Generating ${v.folder}/${v.filename}...`);

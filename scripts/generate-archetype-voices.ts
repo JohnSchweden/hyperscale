@@ -205,7 +205,12 @@ async function main() {
 	console.log("Generating 21 archetype reveal voice files...\n");
 
 	for (const v of archetypeVoices) {
-		const outputDir = path.join(process.cwd(), "public/audio/voices", v.folder);
+		const outputDir = path.join(
+			process.cwd(),
+			"public/audio/voices",
+			v.folder,
+			"archetype",
+		);
 		fs.mkdirSync(outputDir, { recursive: true });
 
 		console.log(`Generating ${v.folder}/${v.filename}...`);

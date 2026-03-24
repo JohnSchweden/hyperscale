@@ -74,7 +74,10 @@ async function generateVoice() {
 	// Wrap in WAV container
 	const wavBuffer = createWavFile(pcmBuffer, 24000, 1, 16);
 
-	const outputDir = path.join(process.cwd(), "public/audio/voices/roaster");
+	const outputDir = path.join(
+		process.cwd(),
+		"public/audio/voices/roaster/core",
+	);
 	fs.mkdirSync(outputDir, { recursive: true });
 
 	const outputPath = path.join(outputDir, "onboarding.wav");

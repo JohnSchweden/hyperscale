@@ -99,7 +99,10 @@ async function generateVoiceFile(
 }
 
 async function generateTier3() {
-	const outputDir = path.join(process.cwd(), "public/audio/voices/roaster");
+	const outputDir = path.join(
+		process.cwd(),
+		"public/audio/voices/roaster/feedback",
+	);
 	fs.mkdirSync(outputDir, { recursive: true });
 
 	console.log("=== Generating Tier 3: Major consequence cards ===\n");

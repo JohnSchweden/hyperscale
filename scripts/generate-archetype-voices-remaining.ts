@@ -191,7 +191,12 @@ async function main() {
 
 	for (let i = 0; i < archetypeVoices.length; i++) {
 		const v = archetypeVoices[i];
-		const outputDir = path.join(process.cwd(), "public/audio/voices", v.folder);
+		const outputDir = path.join(
+			process.cwd(),
+			"public/audio/voices",
+			v.folder,
+			"archetype",
+		);
 		fs.mkdirSync(outputDir, { recursive: true });
 
 		// Skip if file already exists
