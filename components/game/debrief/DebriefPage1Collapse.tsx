@@ -1,8 +1,17 @@
 import type React from "react";
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { DEATH_ENDINGS } from "../../../data";
-import { useUnlockedEndings } from "../../../hooks";
-import { DeathType, type GameState, PersonalityType } from "../../../types";
+import { useUnlockedEndings, useVoicePlayback } from "../../../hooks";
+import {
+	playKirkCrashSound,
+	playKirkGlitchTone,
+} from "../../../services/kirkAudio";
+import {
+	DeathType,
+	GameStage,
+	type GameState,
+	PersonalityType,
+} from "../../../types";
 import { corruptText } from "../../../utils/kirkText";
 import LayoutShell from "../../LayoutShell";
 import {
@@ -53,6 +62,42 @@ export const DebriefPage1Collapse: React.FC<DebriefPage1CollapseProps> = ({
 		state.unlockedEndings,
 	);
 	const replayLine = getPersonalityReplayLine(state.personality);
+
+	// Trigger death ending voice audio
+	useVoicePlayback({
+		stage: GameStage.DEBRIEF_PAGE_1,
+		personality: state.personality,
+		deathType: state.deathType,
+	});
+
+	// KIRK death: hybrid audio with synthesized glitch + voice narration
+	const hasPlayedKirkGlitch = useRef(false);
+	useEffect(() => {
+		if (!isKirk || hasPlayedKirkGlitch.current) return;
+
+		// Create audio context for glitch effects
+		const Ctx =
+			window.AudioContext ??
+			(window as Window & { webkitAudioContext?: typeof AudioContext })
+				.webkitAudioContext;
+		if (!Ctx) return;
+
+		const ctx = new Ctx();
+		hasPlayedKirkGlitch.current = true;
+
+		// Play glitch tone first, then crash sound, layering with voice
+		playKirkGlitchTone(ctx);
+		setTimeout(() => {
+			playKirkCrashSound(ctx);
+		}, 200);
+
+		// Cleanup context when component unmounts
+		return () => {
+			if (ctx.state !== "closed") {
+				ctx.close().catch(() => {});
+			}
+		};
+	}, [isKirk]);
 
 	return (
 		<LayoutShell className={LAYOUT_SHELL_CENTERED_CLASS}>
