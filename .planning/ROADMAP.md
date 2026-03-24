@@ -423,7 +423,7 @@ Integrate images into UI:
 
 Plans:
 - [ ] 15-01-PLAN.md — Generate archetype reveal audio (7 archetypes × 3 personalities = 21 files)
-- [ ] 15-02-PLAN.md — Generate death ending audio (6 deaths × 3 personalities = 18 files)
+- [ ] 15-02-PLAN.md — Generate death ending audio (7 deaths × 3 personalities = 21 files, including KIRK hybrid)
 - [ ] 15-03-PLAN.md — Generate Head of Something critical card feedback (8 cards × 2 choices = 16 Roaster files)
 
 **Details:**
@@ -434,10 +434,10 @@ Each of 7 archetypes needs a reveal voice line on debrief verdict page:
 - PRAGMATIST, SHADOW_ARCHITECT, DISRUPTOR, CONSERVATIVE, BALANCED, CHAOS_AGENT, KIRK
 - Generate for all 3 personalities (Roaster, ZenMaster, Lovebomber)
 
-**Death Endings (18 files):**
-Each of 6 death types needs audio on collapse page:
-- BANKRUPT, REPLACED_BY_SCRIPT, CONGRESS, FLED_COUNTRY, PRISON, AUDIT_FAILURE
-- Note: KIRK death already has synthesized glitch audio (services/kirkAudio.ts)
+**Death Endings (21 files):**
+Each of 7 death types needs audio on collapse page:
+- BANKRUPT, REPLACED_BY_SCRIPT, CONGRESS, FLED_COUNTRY, PRISON, AUDIT_FAILURE, KIRK
+- KIRK gets hybrid treatment: synthesized glitch + voice narration layered together
 - Generate for all 3 personalities
 
 **Head of Something Critical Cards (16 files):**
@@ -446,7 +446,10 @@ Focus on 8 highest-impact cards with Roaster voice only (based on fine/heat/hype
 - Tier 2 (Sacrifice Moments): `hos_copyright_team_blame`, `hos_team_burnout_deadline`, `shadow_ai_hos_2`, `hos_model_drift_team_blame`
 - Tier 3 (Major Consequences): `hos_explainability_politics`, `hos_prompt_injection_review_escape`
 
-**Total New Files:** 55 audio files (21 + 18 + 16)
+**Total New Files:** 58 audio files (21 + 21 + 16)
+
+**Audio Generation Pipeline:**
+Reuses v1.1 infrastructure: `scripts/generate-voice.ts` (Gemini TTS) → `services/radioEffect.ts` (post-processing) → `public/audio/voices/{personality}/{trigger}.wav`
 
 **Requirements:**
 - VOICE-01: Archetype reveal audio plays on DebriefPage3 verdict display
