@@ -456,7 +456,7 @@ Integrate images into UI:
 
 **Goal:** Generate voice audio files for archetype reveals, death endings, and high-impact Head of Something cards; restructure voice files for scalability
 **Depends on:** Phase 06 (debrief system), Phase 07 (Kirk audio pattern)
-**Plans:** 6/6 plans complete
+**Plans:** 7/7 plans complete
 
 Plans:
 - [x] 15-01-PLAN.md — Generate archetype reveal audio (7 archetypes × 3 personalities = 21 files) ✓
@@ -556,7 +556,7 @@ Automated compression pipeline to reduce bandwidth while maintaining quality:
 | 12 | Gameplay Tweaks & Card Variety | v1.2 | Complete (2/2) |
 | 13 | Image Asset Pipeline | v1.2 | Not started |
 | 14 | Situational & Outcome Imagery Display | v1.2 | Not started |
-| 15 | 6/6 | Complete   | 2026-03-24 |
+| 15 | 7/7 | Complete   | 2026-03-24 |
 
 ---
 

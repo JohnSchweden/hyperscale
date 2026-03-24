@@ -5,12 +5,12 @@ milestone_name: Kobayashi Maru — AI Governance Simulator
 current_phase: 15-voice-files-expanded
 current_plan: 04
 status: completed
-last_updated: "2026-03-24T20:57:41.366Z"
+last_updated: "2026-03-24T22:29:09.823Z"
 progress:
   total_phases: 15
   completed_phases: 9
-  total_plans: 75
-  completed_plans: 62
+  total_plans: 76
+  completed_plans: 63
 ---
 
 # Session State
