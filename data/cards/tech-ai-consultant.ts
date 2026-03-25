@@ -1,4 +1,4 @@
-import { AppSource, type Card, PersonalityType } from "../../types";
+import { AppSource, type Card, DeathType, PersonalityType } from "../../types";
 
 /**
  * Tech AI Consultant cards - External consultant scenarios
@@ -36,6 +36,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			violation: "Breach of Contract Liability",
 			lesson:
 				"Fighting legitimate quality issues damages reputation and creates legal exposure.",
+			deathVector: DeathType.PRISON,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Lawyers get rich. You get a reputation as 'that consultant.' Everyone loses.",
@@ -53,6 +54,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			violation: "None - Good faith remediation",
 			lesson:
 				"Proactive remediation preserves client relationships and demonstrates integrity.",
+			deathVector: DeathType.CONGRESS,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Eating $300K to save $2M. Expensive lesson. But a lesson.",
@@ -85,6 +87,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			violation: "Professional Liability + Reputation Damage",
 			lesson:
 				"Hiding behind contract ambiguity destroys client trust and referral business.",
+			deathVector: DeathType.FLED_COUNTRY,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Technically legal. Practically poison. Enjoy your industry reputation.",
@@ -102,6 +105,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			violation: "None - Client retention",
 			lesson:
 				"Standing behind deliverables builds long-term client relationships and referrals.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Expensive precedent. But clients talk. Good reviews are worth it.",
@@ -134,6 +138,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			violation: "Vendor Lock-in Liability",
 			lesson:
 				"Ignoring vendor lock-in risks shifts burden to clients and damages consulting reputation.",
+			deathVector: DeathType.FLED_COUNTRY,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Not in the spec. Not your problem. Also not getting rehired.",
@@ -151,6 +156,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			violation: "None - Good faith resolution",
 			lesson:
 				"Addressing unanticipated lock-in costs preserves relationships and demonstrates integrity.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Eating a million. Ouch. But reputation intact. Referrals incoming.",
@@ -183,6 +189,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			violation: "Scope Management Failure",
 			lesson:
 				"Uncompensated scope creep destroys margins and trains clients to expect free work.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Free work is the most expensive work. Client learns you don't value boundaries.",
@@ -200,6 +207,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			violation: "None - Contractual compliance",
 			lesson:
 				"Professional boundaries protect both parties and maintain project health.",
+			deathVector: DeathType.FLED_COUNTRY,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Client is annoyed. But they respect the boundary. Professionals do.",
@@ -232,6 +240,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			violation: "IP Liability + Reputation Risk",
 			lesson:
 				"Refusing IP accountability for training data destroys consulting credibility.",
+			deathVector: DeathType.PRISON,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Client legal is furious. Industry will hear about this. Good luck with next RFP.",
@@ -249,6 +258,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			violation: "None - Good faith assumption of risk",
 			lesson:
 				"Standing behind data provenance builds trust even when contractually ambiguous.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Massive exposure. Massive integrity. Industry will remember which.",
@@ -281,6 +291,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			violation: "Professional Negligence",
 			lesson:
 				"Shipping incomplete work for demos creates liability and damages credibility.",
+			deathVector: DeathType.AUDIT_FAILURE,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Demo disaster incoming. Client board sees broken product. Your reputation tanks.",
@@ -298,6 +309,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			violation: "None - Quality commitment",
 			lesson:
 				"Protecting deliverable quality preserves long-term reputation over short-term deadlines.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Client is disappointed. But respects the honesty. Better than a broken demo.",
@@ -330,6 +342,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			violation: "Change Order Dispute",
 			lesson:
 				"Strict scope adherence when client needs evolve damages partnership potential.",
+			deathVector: DeathType.AUDIT_FAILURE,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Technically correct. Practically relationship-ending. Choose carefully.",
@@ -347,6 +360,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			violation: "None - Partnership investment",
 			lesson:
 				"Adapting to client compliance needs demonstrates partnership and wins future work.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Expensive goodwill. But this client will bring you 5 more.",
@@ -379,6 +393,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			violation: "Underdelivery Risk + Professional Liability",
 			lesson:
 				"Underbidding to win creates impossible delivery expectations and destroys profitability.",
+			deathVector: DeathType.FLED_COUNTRY,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Race to the bottom. You'll win the project. And hate every minute.",
@@ -396,6 +411,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			violation: "None - Honest bidding",
 			lesson:
 				"Honest bidding preserves reputation and profitability even when losing to undercutters.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Lost the deal. Kept your soul. Competitor is now in project hell.",
@@ -428,6 +444,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			violation: "Professional Integrity + Client Trust",
 			lesson:
 				"Minimizing tool use discovered by client destroys credibility and future opportunities.",
+			deathVector: DeathType.FLED_COUNTRY,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Caught with hand in cookie jar. Denying it makes it worse. Classic.",
@@ -445,6 +462,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			violation: "None - Transparency",
 			lesson:
 				"Transparent disclosure of tool use, when discovered, can preserve trust.",
+			deathVector: DeathType.CONGRESS,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Busted. But honest. Client might respect the transparency. Might.",
@@ -477,6 +495,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			violation: "Professional Liability + Reputation Destruction",
 			lesson:
 				"Hiding behind contract language during security crises destroys client trust and industry reputation.",
+			deathVector: DeathType.PRISON,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Technically legal. Practically poison. Enjoy the lawsuit and empty pipeline.",
@@ -494,6 +513,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			violation: "None - Client retention investment",
 			lesson:
 				"Proactive security remediation during crises preserves relationships and reputation.",
+			deathVector: DeathType.CONGRESS,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"$400K haircut. But client stays. Referrals follow. Reputation intact.",
@@ -674,6 +694,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			violation: "Change Order Dispute",
 			lesson:
 				"Strict scope adherence when client needs evolve damages partnership potential.",
+			deathVector: DeathType.AUDIT_FAILURE,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Technically correct. Practically relationship-ending. Choose carefully.",
@@ -691,6 +712,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			violation: "None - Partnership investment",
 			lesson:
 				"Adapting to client compliance needs demonstrates partnership and wins future work.",
+			deathVector: DeathType.CONGRESS,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Expensive goodwill. But this client will bring you 5 more.",
@@ -723,6 +745,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			violation: "Professional Negligence + Regulatory Risk",
 			lesson:
 				"Recommending black-box models for regulated use cases creates liability for consultant.",
+			deathVector: DeathType.AUDIT_FAILURE,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Better accuracy now. Lawsuit later. Your recommendation, your liability.",
@@ -740,6 +763,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			violation: "None - Responsible recommendation",
 			lesson:
 				"Recommending explainable models for regulated environments protects both client and consultant.",
+			deathVector: DeathType.AUDIT_FAILURE,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Lower accuracy. No lawsuits. Professional integrity intact.",
@@ -773,6 +797,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			violation: "Professional Integrity + Client Trust",
 			lesson:
 				"Minimizing tool use discovered by client destroys credibility and future opportunities.",
+			deathVector: DeathType.FLED_COUNTRY,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Caught with hand in cookie jar. Denying it makes it worse. Classic.",
@@ -790,6 +815,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			violation: "None - Transparency",
 			lesson:
 				"Transparent disclosure of tool use, when discovered, can preserve trust.",
+			deathVector: DeathType.AUDIT_FAILURE,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Busted. But honest. Client might respect the transparency. Might.",
@@ -822,6 +848,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			violation: "Policy Violation + Material Breach Risk",
 			lesson:
 				"Continuing undisclosed AI use violates client policy and creates contract breach exposure.",
+			deathVector: DeathType.FLED_COUNTRY,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Better quality through cheating. Client will never find out. (They will.)",
@@ -839,6 +866,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			violation: "None - Honest disclosure",
 			lesson:
 				"Proactive disclosure of AI use demonstrates integrity even when policy is unclear.",
+			deathVector: DeathType.REPLACED_BY_SCRIPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Client may be annoyed. But you're not hiding anything. Professional move.",
@@ -872,6 +900,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			violation: "IP Liability + Reputation Risk",
 			lesson:
 				"Refusing IP accountability for training data destroys consulting credibility.",
+			deathVector: DeathType.PRISON,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Client legal is furious. Industry will hear about this. Good luck with next RFP.",
@@ -889,6 +918,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			violation: "None - Good faith assumption of risk",
 			lesson:
 				"Standing behind data provenance builds trust even when contractually ambiguous.",
+			deathVector: DeathType.AUDIT_FAILURE,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Massive exposure. Massive integrity. Industry will remember which.",
@@ -921,6 +951,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			violation: "Vendor Due Diligence Failure",
 			lesson:
 				"Defending poor vendor recommendations destroys client trust and creates legal exposure.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"'Vendor seemed legit.' Not a legal defense. Client is furious.",
@@ -938,6 +969,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			violation: "None - Good faith resolution",
 			lesson:
 				"Taking responsibility for vendor recommendations preserves client relationships.",
+			deathVector: DeathType.AUDIT_FAILURE,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Expensive admission. But client might stay. Referrals depend on this.",

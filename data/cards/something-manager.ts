@@ -1,4 +1,4 @@
-import { AppSource, type Card, PersonalityType } from "../../types";
+import { AppSource, type Card, DeathType, PersonalityType } from "../../types";
 
 /**
  * Something Manager cards - Line manager spreadsheet-driven scenarios
@@ -37,6 +37,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			violation: "Negligent Financial Management",
 			lesson:
 				"Avoiding upfront investment to prevent budget variance creates larger cumulative losses.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Death by a thousand cuts. Each month costs more than fixing it. Math is hard.",
@@ -54,6 +55,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			violation: "None - Capital expenditure approval",
 			lesson:
 				"Front-loaded investment prevents compounding losses and demonstrates fiscal responsibility.",
+			deathVector: DeathType.AUDIT_FAILURE,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Spending now to save later. Basic math. CFO approved.",
@@ -86,6 +88,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			violation: "Risk Management Failure",
 			lesson:
 				"Ignoring probable risks to protect budget variance creates larger expected losses.",
+			deathVector: DeathType.PRISON,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"15% chance of disaster. 85% chance you look smart. Those aren't good odds.",
@@ -103,6 +106,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			violation: "None - Proactive compliance",
 			lesson:
 				"Spending on compliance prevents catastrophic losses and demonstrates risk management.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Over budget but safe. CFO will grumble. Lawyers will nod.",
@@ -135,6 +139,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			violation: "Productivity Loss + Compliance Non-Enforcement",
 			lesson:
 				"Enforcing bans without providing alternatives drives productivity loss and shadow adoption.",
+			deathVector: DeathType.REPLACED_BY_SCRIPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Banning what you can't afford. Productivity goes underground. Compliance theater.",
@@ -152,6 +157,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			violation: "None - Authorized procurement",
 			lesson:
 				"Proper procurement eliminates compliance risk while capturing productivity gains.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"$2.5M for 15% gain. The math works if the gain is real. Big if.",
@@ -184,6 +190,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			violation: "Retention Failure Cost",
 			lesson:
 				"Avoiding retention costs creates larger replacement and knowledge loss expenses.",
+			deathVector: DeathType.REPLACED_BY_SCRIPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Save $60K, spend $300K. The spreadsheet looks good until it doesn't.",
@@ -201,6 +208,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			violation: "None - Employee retention",
 			lesson:
 				"Retention spending is cheaper than replacement and preserves institutional knowledge.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"$60K vs $300K. Math works. Team stays. HR is happy.",
@@ -233,6 +241,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			violation: "Audit Non-Compliance Risk",
 			lesson:
 				"Cutting corners on compliance creates probabilistic exposure that exceeds time savings.",
+			deathVector: DeathType.AUDIT_FAILURE,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"5% times 10 items. Someone did probability in middle school. Not you.",
@@ -250,6 +259,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			violation: "None - Complete compliance",
 			lesson:
 				"Thorough compliance prevents probabilistic fines and demonstrates due diligence.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"40 hours of checkbox hell. But zero lottery tickets to fine-land.",
@@ -282,6 +292,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			violation: "None - But creates unrealistic expectations",
 			lesson:
 				"Overcommitting to please leadership destroys team morale when targets are missed.",
+			deathVector: DeathType.AUDIT_FAILURE,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Promise the moon. Deliver disappointment. Blame the team. Classic.",
@@ -299,6 +310,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			violation: "None - Conservative forecasting",
 			lesson:
 				"Realistic targets preserve team bonuses and maintain credibility with leadership.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Under-promise, over-deliver. VP thinks you're lazy. Team gets bonuses.",
@@ -331,6 +343,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			violation: "Negligent Risk Management",
 			lesson:
 				"Accepting high-impact risks for budget convenience creates catastrophic exposure.",
+			deathVector: DeathType.PRISON,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"10% lottery ticket to disaster. Expected value: $1M loss. Math checks out.",
@@ -348,6 +361,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			violation: "None - Proactive security",
 			lesson:
 				"Proactive security investment prevents catastrophic losses at manageable cost.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"$100K vs $10M. Easy math. Security nods approvingly.",
@@ -380,6 +394,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			violation: "Audit Non-Compliance + Regulatory Risk",
 			lesson:
 				"Choosing non-compliant solutions to meet budget creates larger regulatory exposure.",
+			deathVector: DeathType.AUDIT_FAILURE,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Saved $200K, earned $15M fine. ROI calculation needs work.",
@@ -397,6 +412,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			violation: "None - Compliant procurement",
 			lesson:
 				"Compliance-driven procurement prevents regulatory penalties and audit failures.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Over budget but compliant. Auditors smile. CFO frowns. Compliance wins.",
@@ -429,6 +445,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			violation: "Training Negligence",
 			lesson:
 				"Cutting training to meet short-term budgets creates compounding incident costs.",
+			deathVector: DeathType.REPLACED_BY_SCRIPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Save $80K, pay $50K/year forever. The gift that keeps on costing.",
@@ -446,6 +463,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			violation: "None - Professional development",
 			lesson:
 				"Training investment reduces long-term incident costs and improves team capability.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Long-term thinking in a quarterly world. Brave. Costly. Worth it.",
@@ -478,6 +496,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			violation: "Insufficient Security Fix + Negligence",
 			lesson:
 				"Partial security patches create false confidence and exploitable gaps.",
+			deathVector: DeathType.PRISON,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"50% secure means 50% hacked. Math checks out.",
@@ -495,6 +514,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			violation: "None - Security investment",
 			lesson:
 				"Emergency security budgets prevent catastrophic losses despite short-term budget pain.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"CFO grumbles. Budget overruns. But breach avoided.",
@@ -527,6 +547,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			violation: "Calculated Risk Acceptance + Negligence",
 			lesson:
 				"Accepting known vulnerabilities to save small amounts creates massive exposure.",
+			deathVector: DeathType.PRISON,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Save $25K, lose $15M. The ROI is... not good.",
@@ -543,6 +564,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			violation: "None - Proactive security",
 			lesson:
 				"Vendor security upgrades are cost-effective compared to breach costs.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"$25K insurance policy. Cheap at twice the price.",
@@ -575,6 +597,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			violation: "Short-termism + Negligent Management",
 			lesson:
 				"Prioritizing quarterly targets over model health creates catastrophic long-term failure.",
+			deathVector: DeathType.AUDIT_FAILURE,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Bonus secured! Model rots! Next quarter's problem! (It's always next quarter.)",
@@ -591,6 +614,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			violation: "None - Long-term thinking",
 			lesson:
 				"Fixing drift despite quarterly pressure preserves long-term model value.",
+			deathVector: DeathType.CONGRESS,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Targets missed. Bonus at risk. But model survives. Actual management.",
@@ -623,6 +647,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			violation: "Deferred Maintenance + Drift Risk",
 			lesson:
 				"Manual retraining creates lag windows where drift causes significant losses.",
+			deathVector: DeathType.AUDIT_FAILURE,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Save $45K/month. Lose 9.3% accuracy. CFO happy until revenue drops.",
@@ -640,6 +665,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			violation: "None - Preventive infrastructure",
 			lesson:
 				"Automated retraining prevents drift losses that dwarf infrastructure costs.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"$50K/month insurance. Accuracy preserved. CFO cries quietly.",
@@ -673,6 +699,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			violation: "Audit Non-Compliance + Regulatory Risk",
 			lesson:
 				"Skipping explainability retrofit to meet deadlines creates massive regulatory exposure.",
+			deathVector: DeathType.AUDIT_FAILURE,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"'We'll fix it later' meets 'audit starts Monday.' Good luck.",
@@ -690,6 +717,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			violation: "None - Audit readiness",
 			lesson:
 				"Proactive explainability investment prevents audit failures despite short-term costs.",
+			deathVector: DeathType.CONGRESS,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"$200K and 2 weeks. But audit passes. Compliance sorted.",
@@ -722,6 +750,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			violation: "Audit Non-Compliance + Black Box Risk",
 			lesson:
 				"Choosing non-compliant black-box models creates regulatory exposure exceeding cost savings.",
+			deathVector: DeathType.AUDIT_FAILURE,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Saved $20K, earned $20M fine. ROI calculation needs work.",
@@ -739,6 +768,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			violation: "None - Compliant procurement",
 			lesson:
 				"Explainable models satisfy compliance even at higher cost and lower accuracy.",
+			deathVector: DeathType.AUDIT_FAILURE,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Over budget but compliant. Auditors smile. CFO frowns. Compliance wins.",
@@ -772,6 +802,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			violation: "Productivity Loss + Talent Risk",
 			lesson:
 				"Enforcing policy at cost of exceptional results damages team effectiveness.",
+			deathVector: DeathType.FLED_COUNTRY,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Great, your best analyst is now mediocre. Policy preserved. Results tank.",
@@ -789,6 +820,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			violation: "Policy Precedent Violation + Governance Gap",
 			lesson:
 				"Retroactive approval for results undermines policy and creates exception culture.",
+			deathVector: DeathType.AUDIT_FAILURE,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Policy is now optional if you're good enough. Governance is negotiable.",
@@ -821,6 +853,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			violation: "Governance Chaos + Security Exposure",
 			lesson:
 				"Allowing multiple shadow tools creates inconsistency, security gaps, and compliance nightmares.",
+			deathVector: DeathType.FLED_COUNTRY,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Three tools, three security holes, three audit failures. But no disruption!",
@@ -838,6 +871,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			violation: "None - Controlled standardization",
 			lesson:
 				"Standardizing on one tool enables governance despite short-term workflow disruption.",
+			deathVector: DeathType.REPLACED_BY_SCRIPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Two angry analysts, one standardized tool. But governable.",
@@ -871,6 +905,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			violation: "Copyright Risk + Vendor Liability",
 			lesson:
 				"Gray-market data savings are consumed many times over when legal issues surface.",
+			deathVector: DeathType.PRISON,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Save $200K, earn $5M lawsuit. ROI calculation needs work.",
@@ -888,6 +923,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			violation: "None - Licensed procurement",
 			lesson:
 				"Licensed data prevents copyright exposure and demonstrates compliance even at higher cost.",
+			deathVector: DeathType.AUDIT_FAILURE,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Over budget but lawsuit-proof. CFO grumbles. Legal approves.",
@@ -920,6 +956,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			violation: "Calculated Risk Acceptance",
 			lesson:
 				"Accepting copyright risk to preserve performance creates expected losses exceeding cleanup costs.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"15% chance of disaster. 85% chance you look smart. Those aren't good odds.",
@@ -937,6 +974,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			violation: "None - Proactive compliance",
 			lesson:
 				"Proactive data cleanup prevents catastrophic legal exposure despite performance and cost impacts.",
+			deathVector: DeathType.AUDIT_FAILURE,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"$150K and 12% performance hit. But no lawsuit. Math works.",
