@@ -1,214 +1,127 @@
 import { describe, expect, it } from "vitest";
-import { ROLE_CARDS } from "../data/cards";
-import { AGENTIC_ENGINEER_CARDS } from "../data/cards/agentic-engineer";
-import { CHIEF_SOMETHING_OFFICER_CARDS } from "../data/cards/chief-something-officer";
-import { DATA_SCIENTIST_CARDS } from "../data/cards/data-scientist";
-import { HEAD_OF_SOMETHING_CARDS } from "../data/cards/head-of-something";
-import { SOFTWARE_ARCHITECT_CARDS } from "../data/cards/software-architect";
-import { SOFTWARE_ENGINEER_CARDS } from "../data/cards/software-engineer";
-import { SOMETHING_MANAGER_CARDS } from "../data/cards/something-manager";
-import { TECH_AI_CONSULTANT_CARDS } from "../data/cards/tech-ai-consultant";
-import { VIBE_CODER_CARDS } from "../data/cards/vibe-coder";
-import { VIBE_ENGINEER_CARDS } from "../data/cards/vibe-engineer";
-import { type Card, DeathType, RoleType } from "../types";
+import {
+	AGENTIC_ENGINEER_CARDS,
+	CHIEF_SOMETHING_OFFICER_CARDS,
+	DATA_SCIENTIST_CARDS,
+	HEAD_OF_SOMETHING_CARDS,
+	ROLE_CARDS,
+	SOFTWARE_ARCHITECT_CARDS,
+	SOFTWARE_ENGINEER_CARDS,
+	SOMETHING_MANAGER_CARDS,
+	TECH_AI_CONSULTANT_CARDS,
+	VIBE_CODER_CARDS,
+	VIBE_ENGINEER_CARDS,
+} from "../data/cards";
+import {
+	ALL_ROLE_DECKS,
+	countUniqueNonKirkTypes,
+	countVectorsInDeck,
+	validateRoleCardsMapping,
+} from "../tests/utils/card-test-utils";
+import { DeathType } from "../types";
 
 describe("Death Vector Coverage Validation", () => {
-	// All 10 role card arrays for comprehensive coverage analysis
-	const allDecks = [
-		{
-			role: RoleType.CHIEF_SOMETHING_OFFICER,
-			cards: CHIEF_SOMETHING_OFFICER_CARDS,
-		},
-		{
-			role: RoleType.HEAD_OF_SOMETHING,
-			cards: HEAD_OF_SOMETHING_CARDS,
-		},
-		{
-			role: RoleType.SOMETHING_MANAGER,
-			cards: SOMETHING_MANAGER_CARDS,
-		},
-		{
-			role: RoleType.TECH_AI_CONSULTANT,
-			cards: TECH_AI_CONSULTANT_CARDS,
-		},
-		{ role: RoleType.DATA_SCIENTIST, cards: DATA_SCIENTIST_CARDS },
-		{
-			role: RoleType.SOFTWARE_ARCHITECT,
-			cards: SOFTWARE_ARCHITECT_CARDS,
-		},
-		{
-			role: RoleType.SOFTWARE_ENGINEER,
-			cards: SOFTWARE_ENGINEER_CARDS,
-		},
-		{ role: RoleType.VIBE_CODER, cards: VIBE_CODER_CARDS },
-		{ role: RoleType.VIBE_ENGINEER, cards: VIBE_ENGINEER_CARDS },
-		{
-			role: RoleType.AGENTIC_ENGINEER,
-			cards: AGENTIC_ENGINEER_CARDS,
-		},
-	];
-
-	// Helper: count vectors in a deck
-	const countVectorsInDeck = (
-		cards: Card[],
-	): { total: number; byType: Record<DeathType, number> } => {
-		const byType: Record<DeathType, number> = {
-			[DeathType.BANKRUPT]: 0,
-			[DeathType.PRISON]: 0,
-			[DeathType.CONGRESS]: 0,
-			[DeathType.FLED_COUNTRY]: 0,
-			[DeathType.REPLACED_BY_SCRIPT]: 0,
-			[DeathType.AUDIT_FAILURE]: 0,
-			[DeathType.KIRK]: 0,
-		};
-
-		let total = 0;
-		for (const card of cards) {
-			if (card.onLeft.deathVector) {
-				byType[card.onLeft.deathVector]++;
-				total++;
-			}
-			if (card.onRight.deathVector) {
-				byType[card.onRight.deathVector]++;
-				total++;
-			}
-		}
-
-		return { total, byType };
-	};
-
-	// Helper: count unique non-KIRK death types in a deck
-	const countUniqueDeathTypes = (
-		vectorMap: Record<DeathType, number>,
-	): number => {
-		const nonKirkTypes = Object.entries(vectorMap)
-			.filter(([type]) => type !== DeathType.KIRK)
-			.filter(([, count]) => count > 0);
-		return nonKirkTypes.length;
-	};
-
-	it("Every role deck has deathVector annotations on at least 40% of outcomes", () => {
-		for (const { role, cards } of allDecks) {
-			const { total } = countVectorsInDeck(cards);
-			const totalOutcomes = cards.length * 2;
-			const coveragePercent = (total / totalOutcomes) * 100;
-			expect(coveragePercent).toBeGreaterThanOrEqual(
-				40,
-				`${role} has only ${coveragePercent.toFixed(1)}% death vector coverage (need ≥40%)`,
-			);
+	it("every role deck has deathVector annotations on at least 40% of outcomes", () => {
+		for (const { cards } of ALL_ROLE_DECKS) {
+			const { coveragePercent } = countVectorsInDeck(cards);
+			expect(coveragePercent).toBeGreaterThanOrEqual(40);
 		}
 	});
 
-	it("Every role deck covers at least 4 distinct non-KIRK death types", () => {
-		for (const { role, cards } of allDecks) {
+	it("every role deck covers at least 4 distinct non-KIRK death types", () => {
+		for (const { cards } of ALL_ROLE_DECKS) {
 			const { total, byType } = countVectorsInDeck(cards);
 			if (total === 0) {
-				// Fail explicitly — zero annotations is unacceptable
-				expect(total).toBeGreaterThan(
-					0,
-					`${role} has zero death vector annotations`,
-				);
+				expect(total).toBeGreaterThan(0);
 				continue;
 			}
-			const uniqueTypes = countUniqueDeathTypes(byType);
-			expect(uniqueTypes).toBeGreaterThanOrEqual(
-				4,
-				`${role} covers only ${uniqueTypes} distinct death types (need ≥4)`,
-			);
+			expect(countUniqueNonKirkTypes(byType)).toBeGreaterThanOrEqual(4);
 		}
 	});
 
-	it("No single death type makes up more than 100% of any deck's vectors (prevents dominance)", () => {
-		// Note: With small sample sizes, single death types may dominate
-		// This test ensures we don't have impossible state
-		for (const { role, cards } of allDecks) {
+	it("no single death type exceeds 100% of any deck's vectors", () => {
+		for (const { cards } of ALL_ROLE_DECKS) {
 			const { total, byType } = countVectorsInDeck(cards);
-			if (total === 0) continue; // Skip if no vectors
+			if (total === 0) continue;
 
-			for (const [deathType, count] of Object.entries(byType)) {
-				const percentage = (count / total) * 100;
-				expect(percentage).toBeLessThanOrEqual(
-					100.1, // Allow floating point rounding
-					`${role} has ${deathType} at ${percentage.toFixed(1)}% (impossible)`,
-				);
+			for (const count of Object.values(byType)) {
+				expect((count / total) * 100).toBeLessThanOrEqual(100.1);
 			}
 		}
 	});
 
-	it("CONGRESS death type appears in at least 3 different decks (fills content gap)", () => {
-		const decksWithCongress = new Set<RoleType>();
+	it("CONGRESS death type appears in at least 3 different decks", () => {
+		const decksWithCongress = new Set<string>();
 
-		for (const { role, cards } of allDecks) {
+		for (const { role, cards } of ALL_ROLE_DECKS) {
 			const { byType } = countVectorsInDeck(cards);
-			if (byType[DeathType.CONGRESS] > 0) {
-				decksWithCongress.add(role);
-			}
+			if (byType[DeathType.CONGRESS] > 0) decksWithCongress.add(role);
 		}
 
-		expect(decksWithCongress.size).toBeGreaterThanOrEqual(
-			3,
-			`CONGRESS appears in only ${decksWithCongress.size} decks: ${Array.from(decksWithCongress).join(", ")}`,
-		);
+		expect(decksWithCongress.size).toBeGreaterThanOrEqual(3);
 	});
 
-	it("Total across all decks: annotated death types appear across decks", () => {
+	it("total across all decks: annotated death types appear across decks", () => {
 		const globalCounts: Record<DeathType, number> = {
 			[DeathType.BANKRUPT]: 0,
 			[DeathType.PRISON]: 0,
-			[DeathType.CONGRESS]: 0,
 			[DeathType.FLED_COUNTRY]: 0,
 			[DeathType.REPLACED_BY_SCRIPT]: 0,
 			[DeathType.AUDIT_FAILURE]: 0,
+			[DeathType.CONGRESS]: 0,
 			[DeathType.KIRK]: 0,
 		};
 
-		for (const { cards } of allDecks) {
+		for (const { cards } of ALL_ROLE_DECKS) {
 			const { byType } = countVectorsInDeck(cards);
 			for (const deathType of Object.keys(byType) as DeathType[]) {
 				globalCounts[deathType] += byType[deathType];
 			}
 		}
 
-		// At least one death type should appear more than once
 		const annotatedTypes = Object.entries(globalCounts)
 			.filter(([, count]) => count > 0)
 			.map(([type]) => type);
 
-		expect(annotatedTypes.length).toBeGreaterThanOrEqual(
-			1,
-			`No death types were annotated on cards`,
-		);
-
-		// CONGRESS should appear (critical for plan)
-		expect(globalCounts[DeathType.CONGRESS]).toBeGreaterThanOrEqual(
-			1,
-			"CONGRESS death type must appear at least once for congressional content",
-		);
+		expect(annotatedTypes.length).toBeGreaterThanOrEqual(1);
+		expect(globalCounts[DeathType.CONGRESS]).toBeGreaterThanOrEqual(1);
 	});
 
-	it("Verifies ROLE_CARDS mapping matches individual imports", () => {
-		// Ensure ROLE_CARDS exports match the imported card arrays
-		expect(ROLE_CARDS[RoleType.CHIEF_SOMETHING_OFFICER]).toBe(
-			CHIEF_SOMETHING_OFFICER_CARDS,
-		);
-		expect(ROLE_CARDS[RoleType.HEAD_OF_SOMETHING]).toBe(
-			HEAD_OF_SOMETHING_CARDS,
-		);
-		expect(ROLE_CARDS[RoleType.SOMETHING_MANAGER]).toBe(
-			SOMETHING_MANAGER_CARDS,
-		);
-		expect(ROLE_CARDS[RoleType.TECH_AI_CONSULTANT]).toBe(
-			TECH_AI_CONSULTANT_CARDS,
-		);
-		expect(ROLE_CARDS[RoleType.DATA_SCIENTIST]).toBe(DATA_SCIENTIST_CARDS);
-		expect(ROLE_CARDS[RoleType.SOFTWARE_ARCHITECT]).toBe(
-			SOFTWARE_ARCHITECT_CARDS,
-		);
-		expect(ROLE_CARDS[RoleType.SOFTWARE_ENGINEER]).toBe(
-			SOFTWARE_ENGINEER_CARDS,
-		);
-		expect(ROLE_CARDS[RoleType.VIBE_CODER]).toBe(VIBE_CODER_CARDS);
-		expect(ROLE_CARDS[RoleType.VIBE_ENGINEER]).toBe(VIBE_ENGINEER_CARDS);
-		expect(ROLE_CARDS[RoleType.AGENTIC_ENGINEER]).toBe(AGENTIC_ENGINEER_CARDS);
+	it("ROLE_CARDS mapping matches individual imports", () => {
+		const results = validateRoleCardsMapping();
+
+		for (const { role, matches } of results) {
+			expect(
+				matches,
+				`ROLE_CARDS[${role}] should match individual export`,
+			).toBe(true);
+		}
+	});
+
+	it("all individual card exports are defined", () => {
+		expect(CHIEF_SOMETHING_OFFICER_CARDS.length).toBeGreaterThan(0);
+		expect(HEAD_OF_SOMETHING_CARDS.length).toBeGreaterThan(0);
+		expect(SOMETHING_MANAGER_CARDS.length).toBeGreaterThan(0);
+		expect(TECH_AI_CONSULTANT_CARDS.length).toBeGreaterThan(0);
+		expect(DATA_SCIENTIST_CARDS.length).toBeGreaterThan(0);
+		expect(SOFTWARE_ARCHITECT_CARDS.length).toBeGreaterThan(0);
+		expect(SOFTWARE_ENGINEER_CARDS.length).toBeGreaterThan(0);
+		expect(VIBE_CODER_CARDS.length).toBeGreaterThan(0);
+		expect(VIBE_ENGINEER_CARDS.length).toBeGreaterThan(0);
+		expect(AGENTIC_ENGINEER_CARDS.length).toBeGreaterThan(0);
+	});
+
+	it("ROLE_CARDS has all 10 roles", () => {
+		expect(Object.keys(ROLE_CARDS)).toHaveLength(10);
+		expect(ROLE_CARDS.CHIEF_SOMETHING_OFFICER).toBeDefined();
+		expect(ROLE_CARDS.HEAD_OF_SOMETHING).toBeDefined();
+		expect(ROLE_CARDS.SOMETHING_MANAGER).toBeDefined();
+		expect(ROLE_CARDS.TECH_AI_CONSULTANT).toBeDefined();
+		expect(ROLE_CARDS.DATA_SCIENTIST).toBeDefined();
+		expect(ROLE_CARDS.SOFTWARE_ARCHITECT).toBeDefined();
+		expect(ROLE_CARDS.SOFTWARE_ENGINEER).toBeDefined();
+		expect(ROLE_CARDS.VIBE_CODER).toBeDefined();
+		expect(ROLE_CARDS.VIBE_ENGINEER).toBeDefined();
+		expect(ROLE_CARDS.AGENTIC_ENGINEER).toBeDefined();
 	});
 });

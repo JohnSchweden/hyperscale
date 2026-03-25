@@ -1,15 +1,14 @@
 import { DeathType } from "../types";
 
-export const DEATH_ENDINGS: Record<
-	DeathType,
-	{
-		title: string;
-		description: string;
-		icon: string;
-		color: string;
-		causeHint: string;
-	}
-> = {
+interface DeathEnding {
+	title: string;
+	description: string;
+	icon: string;
+	color: string;
+	causeHint: string;
+}
+
+export const DEATH_ENDINGS: Record<DeathType, DeathEnding> = {
 	[DeathType.BANKRUPT]: {
 		title: "Liquidated",
 		description:

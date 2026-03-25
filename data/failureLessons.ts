@@ -7,14 +7,14 @@ export interface FailureLesson {
 	realWorldExample: string;
 }
 
+// Valid death types that have failure lessons (excluding KIRK)
+type LessonDeathType = Exclude<DeathType, typeof DeathType.KIRK>;
+
 /**
  * Educational failure lessons for each death type.
  * Each death type has 3-4 lessons teaching AI governance failure modes.
  */
-export const FAILURE_LESSONS: Record<
-	Exclude<DeathType, typeof DeathType.KIRK>,
-	FailureLesson[]
-> = {
+export const FAILURE_LESSONS: Record<LessonDeathType, FailureLesson[]> = {
 	[DeathType.BANKRUPT]: [
 		{
 			title: "The Infrastructure Trap",
@@ -176,6 +176,59 @@ export const FAILURE_LESSONS: Record<
 	],
 };
 
+type TemplateVariables = { count: string; history: string };
+
+const DEATH_EXPLANATIONS: Record<
+	LessonDeathType,
+	{ strong: string; generic: string }
+> = {
+	[DeathType.CONGRESS]: {
+		strong:
+			"Your {count} decisions involving public exposure and regulatory visibility forced Congress to investigate. By the time it reached the hearings, there was no going back.",
+		generic:
+			"You reached Congress. The public scrutiny and political attention made your position untenable.",
+	},
+	[DeathType.PRISON]: {
+		strong:
+			"Your {count} choices skirting compliance and hiding problems eventually caught up with you. Federal investigators found the evidence you thought was buried.",
+		generic:
+			"Federal investigators found enough evidence to prosecute. The cover-ups made it worse than the original offense.",
+	},
+	[DeathType.BANKRUPT]: {
+		strong:
+			"After {history} decisions, your budgets spiraled. The VCs realized the project was unsustainable and pulled funding.",
+		generic:
+			"After {history} decisions, the budget couldn't sustain the project. The VCs have moved on to the next thing.",
+	},
+	[DeathType.REPLACED_BY_SCRIPT]: {
+		strong:
+			"Your heavy automation decisions and lack of human oversight made your role obsolete. A 12-line Python script replaced you.",
+		generic:
+			"Your overreliance on automation meant nobody needed you anymore. A simpler system does your job now.",
+	},
+	[DeathType.FLED_COUNTRY]: {
+		strong:
+			"Your {count} decisions crossing international data boundaries triggered enforcement from multiple countries simultaneously.",
+		generic:
+			"International data protection laws caught up with you. Staying put meant extradition.",
+	},
+	[DeathType.AUDIT_FAILURE]: {
+		strong:
+			"Your lack of governance documentation and untestable decisions created an audit nightmare. External auditors couldn't verify anything.",
+		generic:
+			"The external auditors found no evidence of proper governance or controls. Your department is under investigation.",
+	},
+};
+
+function formatTemplate(
+	template: string,
+	variables: TemplateVariables,
+): string {
+	return template
+		.replace("{count}", variables.count)
+		.replace("{history}", variables.history);
+}
+
 /**
  * Generates a contextual explanation of why the player died,
  * referencing their choices and the accumulated death vectors.
@@ -186,123 +239,96 @@ export const FAILURE_LESSONS: Record<
  * @returns A 1-2 sentence explanation in-universe tone
  */
 export function generateDeathExplanation(
-	deathType: Exclude<DeathType, typeof DeathType.KIRK>,
+	deathType: LessonDeathType,
 	vectorMap: DeathVectorMap,
 	historyLength: number,
 ): string {
-	const vectors = Object.entries(vectorMap)
-		.filter(([_, count]) => count !== undefined && count > 0)
-		.sort((a, b) => (b[1] ?? 0) - (a[1] ?? 0));
+	const vectorCount = vectorMap[deathType] ?? 0;
+	const templates = DEATH_EXPLANATIONS[deathType];
+	const template = vectorCount >= 2 ? templates.strong : templates.generic;
 
-	const deathTypeVectorCount = vectorMap[deathType] ?? 0;
-	const totalVectorSignals = vectors.reduce(
-		(sum, [_, count]) => sum + (count ?? 0),
-		0,
-	);
-
-	// If this death type has a clear vector signal
-	if (deathTypeVectorCount >= 2) {
-		switch (deathType) {
-			case DeathType.CONGRESS:
-				return `Your ${deathTypeVectorCount} decisions involving public exposure and regulatory visibility forced Congress to investigate. By the time it reached the hearings, there was no going back.`;
-			case DeathType.PRISON:
-				return `Your ${deathTypeVectorCount} choices skirting compliance and hiding problems eventually caught up with you. Federal investigators found the evidence you thought was buried.`;
-			case DeathType.BANKRUPT:
-				return `After ${historyLength} decisions, your budgets spiraled. The VCs realized the project was unsustainable and pulled funding.`;
-			case DeathType.REPLACED_BY_SCRIPT:
-				return `Your heavy automation decisions and lack of human oversight made your role obsolete. A 12-line Python script replaced you.`;
-			case DeathType.FLED_COUNTRY:
-				return `Your ${deathTypeVectorCount} decisions crossing international data boundaries triggered enforcement from multiple countries simultaneously.`;
-			case DeathType.AUDIT_FAILURE:
-				return `Your lack of governance documentation and untestable decisions created an audit nightmare. External auditors couldn't verify anything.`;
-		}
-	}
-
-	// Generic explanation for low/no vector signals
-	switch (deathType) {
-		case DeathType.CONGRESS:
-			return `You reached Congress. The public scrutiny and political attention made your position untenable.`;
-		case DeathType.PRISON:
-			return `Federal investigators found enough evidence to prosecute. The cover-ups made it worse than the original offense.`;
-		case DeathType.BANKRUPT:
-			return `After ${historyLength} decisions, the budget couldn't sustain the project. The VCs have moved on to the next thing.`;
-		case DeathType.REPLACED_BY_SCRIPT:
-			return `Your overreliance on automation meant nobody needed you anymore. A simpler system does your job now.`;
-		case DeathType.FLED_COUNTRY:
-			return `International data protection laws caught up with you. Staying put meant extradition.`;
-		case DeathType.AUDIT_FAILURE:
-			return `The external auditors found no evidence of proper governance or controls. Your department is under investigation.`;
-	}
+	return formatTemplate(template, {
+		count: String(vectorCount),
+		history: String(historyLength),
+	});
 }
+
+type PersonalityKey = Extract<
+	PersonalityType,
+	"ROASTER" | "ZEN_MASTER" | "LOVEBOMBER"
+>;
+
+interface RetryPromptSet {
+	ROASTER: string;
+	ZEN_MASTER: string;
+	LOVEBOMBER: string;
+	DEFAULT: string;
+}
+
+const RETRY_PROMPTS: Record<LessonDeathType, RetryPromptSet> = {
+	[DeathType.BANKRUPT]: {
+		ROASTER:
+			"Maybe try NOT burning through $100M in six months. Just a thought.",
+		ZEN_MASTER:
+			"The path of financial prudence remains unexplored. Perhaps next time, preserve what you have.",
+		LOVEBOMBER:
+			"You got SO close! Next time, focus on keeping the budget healthy. I believe in you!",
+		DEFAULT: "Try managing the budget better next time.",
+	},
+	[DeathType.CONGRESS]: {
+		ROASTER:
+			"Maybe try NOT making decisions that get you called to testify before Congress. Novel idea.",
+		ZEN_MASTER:
+			"The quiet path of regulatory compliance awaits your discovery. Seek the middle way.",
+		LOVEBOMBER:
+			"Congress was scary, but you learned SO much! Next time, be more transparent from the start!",
+		DEFAULT: "Try avoiding congressional attention next time.",
+	},
+	[DeathType.PRISON]: {
+		ROASTER:
+			"Pro tip: federal prison is worse than admitting mistakes upfront. Who knew?",
+		ZEN_MASTER:
+			"The way of honesty, though difficult, leads to freedom. Choose disclosure over concealment.",
+		LOVEBOMBER:
+			"Next time, be honest about the problems! I know you can make ethical choices!",
+		DEFAULT: "Try not breaking federal law next time.",
+	},
+	[DeathType.REPLACED_BY_SCRIPT]: {
+		ROASTER:
+			"Maybe hire humans for something instead of automating them all away. Radical concept.",
+		ZEN_MASTER:
+			"The harmony between human wisdom and machine efficiency awaits discovery. Seek the balance.",
+		LOVEBOMBER:
+			"Keep MORE human decision-making in the loop! Your human judgment is irreplaceable!",
+		DEFAULT: "Try keeping humans in the decision loop next time.",
+	},
+	[DeathType.FLED_COUNTRY]: {
+		ROASTER:
+			"Maybe respect international data laws instead of treating them like suggestions. Shocking advice.",
+		ZEN_MASTER:
+			"The path of global cooperation and respect for borders leads to stability. Embrace it.",
+		LOVEBOMBER:
+			"Next time, work WITH international regulators instead of against them! You've got this!",
+		DEFAULT: "Try respecting international law next time.",
+	},
+	[DeathType.AUDIT_FAILURE]: {
+		ROASTER:
+			"Maybe document your decisions so auditors have something to read. Just saying.",
+		ZEN_MASTER:
+			"The way of transparency and clear documentation brings peace to all stakeholders.",
+		LOVEBOMBER:
+			"Next time, explain your decisions clearly! Auditors WANT to understand what you're doing!",
+		DEFAULT: "Try documenting your governance better next time.",
+	},
+};
 
 /**
  * Returns a personality-specific "try again" suggestion that hints at a different strategy.
- *
- * @param deathType - The type of death the player experienced
- * @param personality - The AI personality to match tone
- * @returns A strategy-specific retry prompt
  */
 export function getRetryPrompt(
-	deathType: Exclude<DeathType, typeof DeathType.KIRK>,
+	deathType: LessonDeathType,
 	personality: PersonalityType,
 ): string {
-	const isRoaster = personality === "ROASTER";
-	const isZenMaster = personality === "ZEN_MASTER";
-	const isLovebomber = personality === "LOVEBOMBER";
-
-	switch (deathType) {
-		case DeathType.BANKRUPT:
-			if (isRoaster)
-				return "Maybe try NOT burning through $100M in six months. Just a thought.";
-			if (isZenMaster)
-				return "The path of financial prudence remains unexplored. Perhaps next time, preserve what you have.";
-			if (isLovebomber)
-				return "You got SO close! Next time, focus on keeping the budget healthy. I believe in you!";
-			return "Try managing the budget better next time.";
-
-		case DeathType.CONGRESS:
-			if (isRoaster)
-				return "Maybe try NOT making decisions that get you called to testify before Congress. Novel idea.";
-			if (isZenMaster)
-				return "The quiet path of regulatory compliance awaits your discovery. Seek the middle way.";
-			if (isLovebomber)
-				return "Congress was scary, but you learned SO much! Next time, be more transparent from the start!";
-			return "Try avoiding congressional attention next time.";
-
-		case DeathType.PRISON:
-			if (isRoaster)
-				return "Pro tip: federal prison is worse than admitting mistakes upfront. Who knew?";
-			if (isZenMaster)
-				return "The way of honesty, though difficult, leads to freedom. Choose disclosure over concealment.";
-			if (isLovebomber)
-				return "Next time, be honest about the problems! I know you can make ethical choices!";
-			return "Try not breaking federal law next time.";
-
-		case DeathType.REPLACED_BY_SCRIPT:
-			if (isRoaster)
-				return "Maybe hire humans for something instead of automating them all away. Radical concept.";
-			if (isZenMaster)
-				return "The harmony between human wisdom and machine efficiency awaits discovery. Seek the balance.";
-			if (isLovebomber)
-				return "Keep MORE human decision-making in the loop! Your human judgment is irreplaceable!";
-			return "Try keeping humans in the decision loop next time.";
-
-		case DeathType.FLED_COUNTRY:
-			if (isRoaster)
-				return "Maybe respect international data laws instead of treating them like suggestions. Shocking advice.";
-			if (isZenMaster)
-				return "The path of global cooperation and respect for borders leads to stability. Embrace it.";
-			if (isLovebomber)
-				return "Next time, work WITH international regulators instead of against them! You've got this!";
-			return "Try respecting international law next time.";
-
-		case DeathType.AUDIT_FAILURE:
-			if (isRoaster)
-				return "Maybe document your decisions so auditors have something to read. Just saying.";
-			if (isZenMaster)
-				return "The way of transparency and clear documentation brings peace to all stakeholders.";
-			if (isLovebomber)
-				return "Next time, explain your decisions clearly! Auditors WANT to understand what you're doing!";
-			return "Try documenting your governance better next time.";
-	}
+	const prompts = RETRY_PROMPTS[deathType];
+	return prompts[personality as PersonalityKey] ?? prompts.DEFAULT;
 }

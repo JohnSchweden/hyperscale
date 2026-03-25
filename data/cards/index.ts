@@ -1,16 +1,6 @@
 import { type Card, RoleType } from "../../types";
-import { BRANCH_CARDS } from "./branches";
-
-// Legacy card exports (preserved for backward compatibility)
-export { CLEANING_CARDS } from "./cleaning";
-export { DEVELOPMENT_CARDS } from "./development";
-export { FINANCE_CARDS } from "./finance";
-export { HR_CARDS } from "./hr";
-export { MANAGEMENT_CARDS } from "./management";
-export { MARKETING_CARDS } from "./marketing";
-
 import { AGENTIC_ENGINEER_CARDS } from "./agentic-engineer";
-// New role-specific card arrays (Phase 03 - 10 new impact-zone roles)
+import { BRANCH_CARDS } from "./branches";
 import { CHIEF_SOMETHING_OFFICER_CARDS } from "./chief-something-officer";
 import { DATA_SCIENTIST_CARDS } from "./data-scientist";
 import { HEAD_OF_SOMETHING_CARDS } from "./head-of-something";
@@ -21,13 +11,31 @@ import { TECH_AI_CONSULTANT_CARDS } from "./tech-ai-consultant";
 import { VIBE_CODER_CARDS } from "./vibe-coder";
 import { VIBE_ENGINEER_CARDS } from "./vibe-engineer";
 
+// Re-export all role card arrays for tests and utilities
+export { AGENTIC_ENGINEER_CARDS } from "./agentic-engineer";
+export { CHIEF_SOMETHING_OFFICER_CARDS } from "./chief-something-officer";
+// Legacy card exports (preserved for backward compatibility)
+export { CLEANING_CARDS } from "./cleaning";
+export { DATA_SCIENTIST_CARDS } from "./data-scientist";
+export { DEVELOPMENT_CARDS } from "./development";
+export { FINANCE_CARDS } from "./finance";
+export { HEAD_OF_SOMETHING_CARDS } from "./head-of-something";
+export { HR_CARDS } from "./hr";
+export { MANAGEMENT_CARDS } from "./management";
+export { MARKETING_CARDS } from "./marketing";
 // Reusable no-win dilemmas (supplementary to role-specific cards)
 export { NOWIN_DILEMMAS } from "./nowin-dilemmas";
+export { SOFTWARE_ARCHITECT_CARDS } from "./software-architect";
+export { SOFTWARE_ENGINEER_CARDS } from "./software-engineer";
+export { SOMETHING_MANAGER_CARDS } from "./something-manager";
+export { TECH_AI_CONSULTANT_CARDS } from "./tech-ai-consultant";
+export { VIBE_CODER_CARDS } from "./vibe-coder";
+export { VIBE_ENGINEER_CARDS } from "./vibe-engineer";
 
 /**
  * ROLE_CARDS: Direct mapping from 10 new impact-zone roles to their card arrays
  *
- * Each role has 8-10 unique cards reflecting their specific concerns:
+ * Each role has 8-10+ unique cards reflecting their specific concerns:
  * - Chief Something Officer: C-suite governance, liability, board pressure
  * - Head of Something: Middle management, team politics, blame shielding
  * - Something Manager: Budget spreadsheets, ROI, resource allocation
@@ -35,9 +43,9 @@ export { NOWIN_DILEMMAS } from "./nowin-dilemmas";
  * - Data Scientist: Model quality, bias, explainability, training data
  * - Software Architect: System design, technical debt, scalability
  * - Software Engineer: Implementation, security, code quality
- * - Vibe Coder: AI-assisted coding, prompts, LLM hallucinations (NEW)
- * - Vibe Engineer: Performance, latency, optimization, caching (NEW)
- * - Agentic Engineer: Autonomous agents, emergent behavior, governance (NEW)
+ * - Vibe Coder: AI-assisted coding, prompts, LLM hallucinations
+ * - Vibe Engineer: Performance, latency, optimization, caching
+ * - Agentic Engineer: Autonomous agents, emergent behavior, governance
  */
 export const ROLE_CARDS: Record<RoleType, Card[]> = {
 	[RoleType.CHIEF_SOMETHING_OFFICER]: CHIEF_SOMETHING_OFFICER_CARDS,
@@ -52,7 +60,7 @@ export const ROLE_CARDS: Record<RoleType, Card[]> = {
 	[RoleType.AGENTIC_ENGINEER]: AGENTIC_ENGINEER_CARDS,
 };
 
-// Total: 80+ cards across 10 roles + 6 reusable no-win dilemmas
+// Total: 180+ cards across 10 roles
 
 /**
  * Branch injections: conditional cards that appear after specific choices

@@ -1,4 +1,4 @@
-import { AppSource, type Card, DeathType, PersonalityType } from "../../types";
+import { AppSource, type Card, DeathType, makeCard } from "../../types";
 
 /**
  * Software Architect cards - System design and architecture scenarios
@@ -12,40 +12,19 @@ import { AppSource, type Card, DeathType, PersonalityType } from "../../types";
  * - API versioning disasters
  * - Technical debt accumulation patterns
  */
+
 export const SOFTWARE_ARCHITECT_CARDS: Card[] = [
-	{
-		id: "sa_microservices_vs_monolith",
-		source: AppSource.MEETING,
-		sender: "CTO",
-		context: "ARCHITECTURE_DECISION",
-		storyContext:
-			"Rewriting the core platform. Team wants microservices (scalable, complex). You advocate monolith (simple, limited). Wrong choice here determines 3 years of pain or success.",
-		text: "Microservices architecture (complex scalability) or monolith (simple limits)?",
-		realWorldReference: {
-			incident: "Uber Microservices Complexity",
-			date: "2014-2019",
-			outcome:
-				"Uber built 2,200+ microservices. Operational complexity became unmanageable. Migrated back to 500 well-designed services.",
-		},
-		onRight: {
-			label: "Microservices",
-			hype: 40,
-			heat: 17,
-			fine: 8000000,
-			violation: "Architectural Overengineering",
-			lesson:
-				"Microservices add complexity that may exceed team capability and operational maturity.",
-			deathVector: DeathType.AUDIT_FAILURE,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"Distributed complexity. 47 services. Nobody understands the system anymore.",
-				[PersonalityType.ZEN_MASTER]:
-					"A castle with many towers requires many guards. A small team cannot guard many towers.",
-				[PersonalityType.LOVEBOMBER]:
-					"Microservices are MODERN, bestie!! Everyone is doing IT!!",
-			},
-		},
-		onLeft: {
+	makeCard(
+		"sa_microservices_vs_monolith",
+		AppSource.MEETING,
+		"CTO",
+		"ARCHITECTURE_DECISION",
+		"Rewriting the core platform. Team wants microservices (scalable, complex). You advocate monolith (simple, limited). Wrong choice here determines 3 years of pain or success.",
+		"Microservices architecture (complex scalability) or monolith (simple limits)?",
+		"Uber Microservices Complexity",
+		"2014-2019",
+		"Uber built 2,200+ microservices. Operational complexity became unmanageable. Migrated back to 500 well-designed services.",
+		{
 			label: "Monolith",
 			hype: -10,
 			heat: 10,
@@ -54,49 +33,39 @@ export const SOFTWARE_ARCHITECT_CARDS: Card[] = [
 			lesson:
 				"Monoliths simplify development and operations but may limit future scaling.",
 			deathVector: DeathType.BANKRUPT,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"Boring monolith. Ships fast. Grows slowly. Team understands it.",
-				[PersonalityType.ZEN_MASTER]:
-					"The simple path taken with understanding outlasts the complex path taken with hope.",
-				[PersonalityType.LOVEBOMBER]:
-					"Simple is BETTER, bestie!! Monoliths are RELIABLE!!",
-			},
+			roaster:
+				"Boring monolith. Ships fast. Grows slowly. Team understands it.",
+			zenMaster:
+				"The simple path taken with understanding outlasts the complex path taken with hope.",
+			lovebomber: "Simple is BETTER, bestie!! Monoliths are RELIABLE!!",
 		},
-	},
-	{
-		id: "sa_technical_debt_paydown",
-		source: AppSource.JIRA,
-		sender: "ENGINEERING_LEAD",
-		context: "DEBT_MANAGEMENT",
-		storyContext:
-			"Technical debt audit shows 6 months of paydown needed. Product wants features now. CEO says 'we'll fix it later.' Later never comes. What do you architect for?",
-		text: "Allocate 40% capacity to debt paydown or defer for feature delivery?",
-		realWorldReference: {
-			incident: "Twitter Technical Debt Crisis",
-			date: "2010-2016",
-			outcome:
-				"Years of deferred technical debt led to 'Fail Whale' outages. Required complete architecture rebuild.",
-		},
-		onRight: {
-			label: "Defer for features",
-			hype: 35,
-			heat: 20,
-			fine: 12000000,
-			violation: "Technical Negligence + Accumulated Debt",
+		{
+			label: "Microservices",
+			hype: 40,
+			heat: 17,
+			fine: 8000000,
+			violation: "Architectural Overengineering",
 			lesson:
-				"Deferring technical debt compounds interest and eventually blocks all development.",
+				"Microservices add complexity that may exceed team capability and operational maturity.",
 			deathVector: DeathType.AUDIT_FAILURE,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"Debt accumulates. Velocity drops. Eventually you can't ship anything.",
-				[PersonalityType.ZEN_MASTER]:
-					"Debts unpaid grow. The interest consumes what the principal built.",
-				[PersonalityType.LOVEBOMBER]:
-					"Features SHIP, bestie!! We'll fix debt LATER!! (We won't.)",
-			},
+			roaster:
+				"Distributed complexity. 47 services. Nobody understands the system anymore.",
+			zenMaster:
+				"A castle with many towers requires many guards. A small team cannot guard many towers.",
+			lovebomber: "Microservices are MODERN, bestie!! Everyone is doing IT!!",
 		},
-		onLeft: {
+	),
+	makeCard(
+		"sa_technical_debt_paydown",
+		AppSource.JIRA,
+		"ENGINEERING_LEAD",
+		"DEBT_MANAGEMENT",
+		"Technical debt audit shows 6 months of paydown needed. Product wants features now. CEO says 'we'll fix it later.' Later never comes. What do you architect for?",
+		"Allocate 40% capacity to debt paydown or defer for feature delivery?",
+		"Twitter Technical Debt Crisis",
+		"2010-2016",
+		"Years of deferred technical debt led to 'Fail Whale' outages. Required complete architecture rebuild.",
+		{
 			label: "Allocate 40% to debt",
 			hype: -25,
 			heat: 8,
@@ -105,49 +74,40 @@ export const SOFTWARE_ARCHITECT_CARDS: Card[] = [
 			lesson:
 				"Sustainable development requires continuous debt management alongside features.",
 			deathVector: DeathType.BANKRUPT,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"Slower features. Faster long-term. Product hates you. Future you thanks you.",
-				[PersonalityType.ZEN_MASTER]:
-					"The foundation maintained supports what the foundation neglected cannot.",
-				[PersonalityType.LOVEBOMBER]:
-					"We're being RESPONSIBLE, bestie!! Clean code is HAPPY code!!",
-			},
+			roaster:
+				"Slower features. Faster long-term. Product hates you. Future you thanks you.",
+			zenMaster:
+				"The foundation maintained supports what the foundation neglected cannot.",
+			lovebomber:
+				"We're being RESPONSIBLE, bestie!! Clean code is HAPPY code!!",
 		},
-	},
-	{
-		id: "sa_api_versioning_breaking_change",
-		source: AppSource.MEETING,
-		sender: "PRODUCT_TEAM",
-		context: "API_DESIGN",
-		storyContext:
-			"API needs a breaking change for new feature. Option A: Break existing clients (clean architecture, customer pain). Option B: Maintain backward compatibility (messy code, no pain).",
-		text: "Breaking change (clean, disruptive) or backward compatibility (messy, safe)?",
-		realWorldReference: {
-			incident: "Facebook API Breaking Changes",
-			date: "2018",
-			outcome:
-				"Sudden API deprecation broke thousands of apps. Developers abandoned platform. Regulators investigated anti-competitive behavior.",
-		},
-		onRight: {
-			label: "Breaking change",
-			hype: 30,
-			heat: 19,
-			fine: 5000000,
-			violation: "API Contract Breach + Customer Impact",
+		{
+			label: "Defer for features",
+			hype: 35,
+			heat: 20,
+			fine: 12000000,
+			violation: "Technical Negligence + Accumulated Debt",
 			lesson:
-				"Breaking changes simplify architecture but destroy customer trust and integrations.",
-			deathVector: DeathType.FLED_COUNTRY,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"Clean code. Angry customers. Your API, their broken integrations.",
-				[PersonalityType.ZEN_MASTER]:
-					"A promise broken is a bridge burned. Many bridges lead nowhere.",
-				[PersonalityType.LOVEBOMBER]:
-					"Clean code is WORTH it, bestie!! Customers will ADAPT!!",
-			},
+				"Deferring technical debt compounds interest and eventually blocks all development.",
+			deathVector: DeathType.AUDIT_FAILURE,
+			roaster:
+				"Debt accumulates. Velocity drops. Eventually you can't ship anything.",
+			zenMaster:
+				"Debts unpaid grow. The interest consumes what the principal built.",
+			lovebomber: "Features SHIP, bestie!! We'll fix debt LATER!! (We won't.)",
 		},
-		onLeft: {
+	),
+	makeCard(
+		"sa_api_versioning_breaking_change",
+		AppSource.MEETING,
+		"PRODUCT_TEAM",
+		"API_DESIGN",
+		"API needs a breaking change for new feature. Option A: Break existing clients (clean architecture, customer pain). Option B: Maintain backward compatibility (messy code, no pain).",
+		"Breaking change (clean, disruptive) or backward compatibility (messy, safe)?",
+		"Facebook API Breaking Changes",
+		"2018",
+		"Sudden API deprecation broke thousands of apps. Developers abandoned platform. Regulators investigated anti-competitive behavior.",
+		{
 			label: "Backward compatibility",
 			hype: -20,
 			heat: 9,
@@ -156,49 +116,37 @@ export const SOFTWARE_ARCHITECT_CARDS: Card[] = [
 			lesson:
 				"Backward compatibility preserves customer trust even at code complexity cost.",
 			deathVector: DeathType.BANKRUPT,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"Messy code. Happy customers. Legacy support is forever.",
-				[PersonalityType.ZEN_MASTER]:
-					"The path that honors past promises creates future trust.",
-				[PersonalityType.LOVEBOMBER]:
-					"Customers FIRST, bestie!! Compatibility MATTERS!!",
-			},
+			roaster: "Messy code. Happy customers. Legacy support is forever.",
+			zenMaster: "The path that honors past promises creates future trust.",
+			lovebomber: "Customers FIRST, bestie!! Compatibility MATTERS!!",
 		},
-	},
-	{
-		id: "sa_scalability_single_point_failure",
-		source: AppSource.NOTION,
-		sender: "INFRASTRUCTURE_TEAM",
-		context: "SCALABILITY_DESIGN",
-		storyContext:
-			"Database architecture: Single powerful instance (simple, SPOF) or distributed cluster (complex, resilient). Single instance is 10x cheaper. Downtime costs $100K/hour.",
-		text: "Single instance (cheap, risky) or distributed cluster (expensive, resilient)?",
-		realWorldReference: {
-			incident: "AWS US-East-1 Outage",
-			date: "2021",
-			outcome:
-				"Single AZ dependency caused 8-hour outage for thousands of services. Companies without multi-region lost millions in revenue.",
-		},
-		onRight: {
-			label: "Single instance",
-			hype: 50,
-			heat: 22,
-			fine: 15000000,
-			violation: "Single Point of Failure + Availability Risk",
+		{
+			label: "Breaking change",
+			hype: 30,
+			heat: 19,
+			fine: 5000000,
+			violation: "API Contract Breach + Customer Impact",
 			lesson:
-				"Single points of failure create catastrophic downtime risk that dwarfs infrastructure savings.",
-			deathVector: DeathType.AUDIT_FAILURE,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"When it goes down, everything goes down. And it will go down.",
-				[PersonalityType.ZEN_MASTER]:
-					"A single pillar holds much weight. When it falls, all falls.",
-				[PersonalityType.LOVEBOMBER]:
-					"10x cheaper is HUGE, bestie!! We can MONITOR it!!",
-			},
+				"Breaking changes simplify architecture but destroy customer trust and integrations.",
+			deathVector: DeathType.FLED_COUNTRY,
+			roaster:
+				"Clean code. Angry customers. Your API, their broken integrations.",
+			zenMaster:
+				"A promise broken is a bridge burned. Many bridges lead nowhere.",
+			lovebomber: "Clean code is WORTH it, bestie!! Customers will ADAPT!!",
 		},
-		onLeft: {
+	),
+	makeCard(
+		"sa_scalability_single_point_failure",
+		AppSource.NOTION,
+		"INFRASTRUCTURE_TEAM",
+		"SCALABILITY_DESIGN",
+		"Database architecture: Single powerful instance (simple, SPOF) or distributed cluster (complex, resilient). Single instance is 10x cheaper. Downtime costs $100K/hour.",
+		"Single instance (cheap, risky) or distributed cluster (expensive, resilient)?",
+		"AWS US-East-1 Outage",
+		"2021",
+		"Single AZ dependency caused 8-hour outage for thousands of services. Companies without multi-region lost millions in revenue.",
+		{
 			label: "Distributed cluster",
 			hype: -35,
 			heat: 5,
@@ -207,49 +155,37 @@ export const SOFTWARE_ARCHITECT_CARDS: Card[] = [
 			lesson:
 				"Distributed architectures prevent single points of failure and ensure availability.",
 			deathVector: DeathType.BANKRUPT,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"Expensive. Complex. When one node dies, others keep working. Worth it.",
-				[PersonalityType.ZEN_MASTER]:
-					"Many pillars share the weight. The structure stands when one fails.",
-				[PersonalityType.LOVEBOMBER]:
-					"Resilience is KEY, bestie!! Distributed is the FUTURE!!",
-			},
+			roaster:
+				"Expensive. Complex. When one node dies, others keep working. Worth it.",
+			zenMaster:
+				"Many pillars share the weight. The structure stands when one fails.",
+			lovebomber: "Resilience is KEY, bestie!! Distributed is the FUTURE!!",
 		},
-	},
-	{
-		id: "sa_legacy_migration_rewrite",
-		source: AppSource.MEETING,
-		sender: "VP_ENGINEERING",
-		context: "MIGRATION_STRATEGY",
-		storyContext:
-			"10-year-old legacy system. Rewrite (1 year, green field) or incremental migration (2 years, ongoing complexity). Rewrite delivers perfection eventually. Migration delivers value continuously.",
-		text: "Big-bang rewrite (fast, risky) or incremental migration (slow, steady)?",
-		realWorldReference: {
-			incident: "Netflix Migration from DVD to Streaming",
-			date: "2007-2011",
-			outcome:
-				"Incremental migration allowed continuous operation. Big-bang rewrite attempts by competitors failed catastrophically.",
-		},
-		onRight: {
-			label: "Big-bang rewrite",
-			hype: 55,
-			heat: 20,
-			fine: 10000000,
-			violation: "Project Failure Risk + Business Disruption",
+		{
+			label: "Single instance",
+			hype: 50,
+			heat: 22,
+			fine: 15000000,
+			violation: "Single Point of Failure + Availability Risk",
 			lesson:
-				"Big-bang rewrites often fail due to underestimated complexity and changing requirements.",
-			deathVector: DeathType.BANKRUPT,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"Year-long rewrite. Requirements change. Never ships. Classic.",
-				[PersonalityType.ZEN_MASTER]:
-					"The castle built in one season may not stand the winter.",
-				[PersonalityType.LOVEBOMBER]:
-					"Clean slate is EXCITING, bestie!! No legacy BAGGAGE!!",
-			},
+				"Single points of failure create catastrophic downtime risk that dwarfs infrastructure savings.",
+			deathVector: DeathType.AUDIT_FAILURE,
+			roaster: "When it goes down, everything goes down. And it will go down.",
+			zenMaster: "A single pillar holds much weight. When it falls, all falls.",
+			lovebomber: "10x cheaper is HUGE, bestie!! We can MONITOR it!!",
 		},
-		onLeft: {
+	),
+	makeCard(
+		"sa_legacy_migration_rewrite",
+		AppSource.MEETING,
+		"VP_ENGINEERING",
+		"MIGRATION_STRATEGY",
+		"10-year-old legacy system. Rewrite (1 year, green field) or incremental migration (2 years, ongoing complexity). Rewrite delivers perfection eventually. Migration delivers value continuously.",
+		"Big-bang rewrite (fast, risky) or incremental migration (slow, steady)?",
+		"Netflix Migration from DVD to Streaming",
+		"2007-2011",
+		"Incremental migration allowed continuous operation. Big-bang rewrite attempts by competitors failed catastrophically.",
+		{
 			label: "Incremental migration",
 			hype: -20,
 			heat: 10,
@@ -258,49 +194,37 @@ export const SOFTWARE_ARCHITECT_CARDS: Card[] = [
 			lesson:
 				"Incremental migrations deliver continuous value while managing complexity risk.",
 			deathVector: DeathType.AUDIT_FAILURE,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"2 years of dual systems. But stuff ships. Business stays running.",
-				[PersonalityType.ZEN_MASTER]:
-					"The path taken step by step reaches the destination while the leap may fall short.",
-				[PersonalityType.LOVEBOMBER]:
-					"Steady progress is GOOD, bestie!! No BIG RISKS!!",
-			},
+			roaster:
+				"2 years of dual systems. But stuff ships. Business stays running.",
+			zenMaster:
+				"The path taken step by step reaches the destination while the leap may fall short.",
+			lovebomber: "Steady progress is GOOD, bestie!! No BIG RISKS!!",
 		},
-	},
-	{
-		id: "sa_security_zero_trust",
-		source: AppSource.EMAIL,
-		sender: "SECURITY_ARCHITECT",
-		context: "SECURITY_ARCHITECTURE",
-		storyContext:
-			"Zero-trust security model: Implement fully (6 months, 30% latency increase) or basic perimeter security (2 weeks, fast but vulnerable). Customer data at stake.",
-		text: "Zero-trust (secure, slow) or perimeter (fast, vulnerable)?",
-		realWorldReference: {
-			incident: "Target Data Breach",
-			date: "2013",
-			outcome:
-				"Perimeter security failed. HVAC vendor credentials led to 40M credit cards stolen. $290M in costs. Zero-trust could have prevented lateral movement.",
-		},
-		onRight: {
-			label: "Perimeter security",
-			hype: 40,
+		{
+			label: "Big-bang rewrite",
+			hype: 55,
 			heat: 20,
-			fine: 20000000,
-			violation: "Security Negligence + Data Breach Risk",
+			fine: 10000000,
+			violation: "Project Failure Risk + Business Disruption",
 			lesson:
-				"Perimeter security is insufficient for modern threats and creates breach exposure.",
-			deathVector: DeathType.PRISON,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"Fast and vulnerable. Breach is a matter of when, not if.",
-				[PersonalityType.ZEN_MASTER]:
-					"A wall at the border leaves the interior unprotected.",
-				[PersonalityType.LOVEBOMBER]:
-					"30% latency is TERRIBLE, bestie!! Users want SPEED!!",
-			},
+				"Big-bang rewrites often fail due to underestimated complexity and changing requirements.",
+			deathVector: DeathType.BANKRUPT,
+			roaster: "Year-long rewrite. Requirements change. Never ships. Classic.",
+			zenMaster: "The castle built in one season may not stand the winter.",
+			lovebomber: "Clean slate is EXCITING, bestie!! No legacy BAGGAGE!!",
 		},
-		onLeft: {
+	),
+	makeCard(
+		"sa_security_zero_trust",
+		AppSource.EMAIL,
+		"SECURITY_ARCHITECT",
+		"SECURITY_ARCHITECTURE",
+		"Zero-trust security model: Implement fully (6 months, 30% latency increase) or basic perimeter security (2 weeks, fast but vulnerable). Customer data at stake.",
+		"Zero-trust (secure, slow) or perimeter (fast, vulnerable)?",
+		"Target Data Breach",
+		"2013",
+		"Perimeter security failed. HVAC vendor credentials led to 40M credit cards stolen. $290M in costs. Zero-trust could have prevented lateral movement.",
+		{
 			label: "Zero-trust",
 			hype: -30,
 			heat: 14,
@@ -309,31 +233,51 @@ export const SOFTWARE_ARCHITECT_CARDS: Card[] = [
 			lesson:
 				"Zero-trust architecture provides defense in depth but requires latency tradeoffs.",
 			deathVector: DeathType.BANKRUPT,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"Slower but secure. Security team approves. Users grumble.",
-				[PersonalityType.ZEN_MASTER]:
-					"The fortress with many gates is harder to breach than the castle with one wall.",
-				[PersonalityType.LOVEBOMBER]:
-					"Security FIRST, bestie!! Data must be PROTECTED!!",
-			},
+			roaster: "Slower but secure. Security team approves. Users grumble.",
+			zenMaster:
+				"The fortress with many gates is harder to breach than the castle with one wall.",
+			lovebomber: "Security FIRST, bestie!! Data must be PROTECTED!!",
 		},
-	},
-	{
-		id: "sa_prompt_injection_architecture",
-		source: AppSource.TERMINAL,
-		sender: "SECURITY_TEAM",
-		context: "SECURITY_DESIGN",
-		storyContext:
-			"LLM integration architecture: Direct model access (simple, injection-vulnerable) or sandboxed with input validation (complex, secure). Security team wants sandbox. Devs want direct.",
-		text: "Direct access (fast, risky) or sandboxed (slow, secure)?",
-		realWorldReference: {
-			incident: "Cursor IDE RCE (CVE-2025-54135)",
-			date: "2025-01",
-			outcome:
-				"Direct LLM access allowed prompt injection leading to remote code execution. Sandboxed architectures prevented similar attacks.",
+		{
+			label: "Perimeter security",
+			hype: 40,
+			heat: 20,
+			fine: 20000000,
+			violation: "Security Negligence + Data Breach Risk",
+			lesson:
+				"Perimeter security is insufficient for modern threats and creates breach exposure.",
+			deathVector: DeathType.PRISON,
+			roaster: "Fast and vulnerable. Breach is a matter of when, not if.",
+			zenMaster: "A wall at the border leaves the interior unprotected.",
+			lovebomber: "30% latency is TERRIBLE, bestie!! Users want SPEED!!",
 		},
-		onRight: {
+	),
+	makeCard(
+		"sa_prompt_injection_architecture",
+		AppSource.TERMINAL,
+		"SECURITY_TEAM",
+		"SECURITY_DESIGN",
+		"LLM integration architecture: Direct model access (simple, injection-vulnerable) or sandboxed with input validation (complex, secure). Security team wants sandbox. Devs want direct.",
+		"Direct access (fast, risky) or sandboxed (slow, secure)?",
+		"Cursor IDE RCE (CVE-2025-54135)",
+		"2025-01",
+		"Direct LLM access allowed prompt injection leading to remote code execution. Sandboxed architectures prevented similar attacks.",
+		{
+			label: "Sandboxed",
+			hype: -25,
+			heat: 5,
+			fine: 500000,
+			violation: "None - Secure architecture",
+			lesson:
+				"Sandboxed LLM architectures prevent injection attacks at complexity cost.",
+			deathVector: DeathType.BANKRUPT,
+			roaster:
+				"Complex but secure. Devs hate it. Security loves it. Users are safe.",
+			zenMaster:
+				"The guarded path is slower but reaches the destination safely.",
+			lovebomber: "Safety FIRST, bestie!! Sandboxing PROTECTS us!!",
+		},
+		{
 			label: "Direct access",
 			hype: 45,
 			heat: 22,
@@ -343,67 +287,24 @@ export const SOFTWARE_ARCHITECT_CARDS: Card[] = [
 			lesson:
 				"Direct LLM access without sandboxing creates critical injection vulnerabilities.",
 			deathVector: DeathType.PRISON,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"Fast and injectable. Your LLM is now a remote code execution engine.",
-				[PersonalityType.ZEN_MASTER]:
-					"A door without a lock invites those who would enter uninvited.",
-				[PersonalityType.LOVEBOMBER]:
-					"Simple is BETTER, bestie!! Sandboxing is OVERKILL!!",
-			},
+			roaster:
+				"Fast and injectable. Your LLM is now a remote code execution engine.",
+			zenMaster:
+				"A door without a lock invites those who would enter uninvited.",
+			lovebomber: "Simple is BETTER, bestie!! Sandboxing is OVERKILL!!",
 		},
-		onLeft: {
-			label: "Sandboxed",
-			hype: -25,
-			heat: 5,
-			fine: 500000,
-			violation: "None - Secure architecture",
-			lesson:
-				"Sandboxed LLM architectures prevent injection attacks at complexity cost.",
-			deathVector: DeathType.BANKRUPT,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"Complex but secure. Devs hate it. Security loves it. Users are safe.",
-				[PersonalityType.ZEN_MASTER]:
-					"The guarded path is slower but reaches the destination safely.",
-				[PersonalityType.LOVEBOMBER]:
-					"Safety FIRST, bestie!! Sandboxing PROTECTS us!!",
-			},
-		},
-	},
-	{
-		id: "sa_tech_stack_vendor_lockin",
-		source: AppSource.MEETING,
-		sender: "CIO",
-		context: "PLATFORM_SELECTION",
-		storyContext:
-			"Cloud platform choice: Vendor A proprietary services (feature-rich, lock-in) or Vendor B open standards (portable, fewer features). Proprietary accelerates now. Lock-in costs later.",
-		text: "Proprietary platform (now) or open standards (future)?",
-		realWorldReference: {
-			incident: "Oracle Database Lock-in Migration Costs",
-			date: "2015-2020",
-			outcome:
-				"Companies faced millions in migration costs leaving Oracle. Those using open standards migrated easily and cheaply.",
-		},
-		onRight: {
-			label: "Proprietary platform",
-			hype: 50,
-			heat: 16,
-			fine: 8000000,
-			violation: "Vendor Lock-in Risk",
-			lesson:
-				"Proprietary platforms accelerate development but create expensive migration costs.",
-			deathVector: DeathType.FLED_COUNTRY,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"Fast now. Expensive later. The bill always comes due.",
-				[PersonalityType.ZEN_MASTER]:
-					"The easy path now often becomes the difficult path later.",
-				[PersonalityType.LOVEBOMBER]:
-					"Features are AMAZING, bestie!! We'll never SWITCH anyway!!",
-			},
-		},
-		onLeft: {
+	),
+	makeCard(
+		"sa_tech_stack_vendor_lockin",
+		AppSource.MEETING,
+		"CIO",
+		"PLATFORM_SELECTION",
+		"Cloud platform choice: Vendor A proprietary services (feature-rich, lock-in) or Vendor B open standards (portable, fewer features). Proprietary accelerates now. Lock-in costs later.",
+		"Proprietary platform (now) or open standards (future)?",
+		"Oracle Database Lock-in Migration Costs",
+		"2015-2020",
+		"Companies faced millions in migration costs leaving Oracle. Those using open standards migrated easily and cheaply.",
+		{
 			label: "Open standards",
 			hype: -15,
 			heat: 9,
@@ -412,49 +313,36 @@ export const SOFTWARE_ARCHITECT_CARDS: Card[] = [
 			lesson:
 				"Open standards reduce vendor lock-in and enable future portability.",
 			deathVector: DeathType.BANKRUPT,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"Fewer features. Freedom to move. Future you is grateful.",
-				[PersonalityType.ZEN_MASTER]:
-					"The foundation built on open ground can be moved when needed.",
-				[PersonalityType.LOVEBOMBER]:
-					"Portability is SMART, bestie!! No vendor LOCK-IN!!",
-			},
+			roaster: "Fewer features. Freedom to move. Future you is grateful.",
+			zenMaster:
+				"The foundation built on open ground can be moved when needed.",
+			lovebomber: "Portability is SMART, bestie!! No vendor LOCK-IN!!",
 		},
-	},
-	{
-		id: "sa_deployment_blue_green",
-		source: AppSource.JIRA,
-		sender: "DEVOPS_LEAD",
-		context: "DEPLOYMENT_STRATEGY",
-		storyContext:
-			"Deployment strategy: Blue-green (instant rollback, 2x infrastructure cost) or in-place (cheap, risky rollback). Customer-facing system. Downtime costs $50K/minute.",
-		text: "Blue-green (safe, expensive) or in-place (cheap, risky)?",
-		realWorldReference: {
-			incident: "GitLab Database Outage",
-			date: "2017",
-			outcome:
-				"In-place deployment went wrong. 300GB of production data accidentally deleted. 18 hours downtime. No quick rollback available.",
-		},
-		onRight: {
-			label: "In-place",
-			hype: 35,
-			heat: 20,
-			fine: 12000000,
-			violation: "Deployment Risk + Downtime Exposure",
+		{
+			label: "Proprietary platform",
+			hype: 50,
+			heat: 16,
+			fine: 8000000,
+			violation: "Vendor Lock-in Risk",
 			lesson:
-				"In-place deployments save infrastructure but create downtime and rollback risks.",
-			deathVector: DeathType.AUDIT_FAILURE,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"Cheap until it breaks. Then expensive. Very expensive.",
-				[PersonalityType.ZEN_MASTER]:
-					"A bridge with no alternate path leaves no retreat when it collapses.",
-				[PersonalityType.LOVEBOMBER]:
-					"2x cost is CRAZY, bestie!! We'll be CAREFUL!!",
-			},
+				"Proprietary platforms accelerate development but create expensive migration costs.",
+			deathVector: DeathType.FLED_COUNTRY,
+			roaster: "Fast now. Expensive later. The bill always comes due.",
+			zenMaster: "The easy path now often becomes the difficult path later.",
+			lovebomber: "Features are AMAZING, bestie!! We'll never SWITCH anyway!!",
 		},
-		onLeft: {
+	),
+	makeCard(
+		"sa_deployment_blue_green",
+		AppSource.JIRA,
+		"DEVOPS_LEAD",
+		"DEPLOYMENT_STRATEGY",
+		"Deployment strategy: Blue-green (instant rollback, 2x infrastructure cost) or in-place (cheap, risky rollback). Customer-facing system. Downtime costs $50K/minute.",
+		"Blue-green (safe, expensive) or in-place (cheap, risky)?",
+		"GitLab Database Outage",
+		"2017",
+		"In-place deployment went wrong. 300GB of production data accidentally deleted. 18 hours downtime. No quick rollback available.",
+		{
 			label: "Blue-green",
 			hype: -20,
 			heat: 5,
@@ -463,49 +351,36 @@ export const SOFTWARE_ARCHITECT_CARDS: Card[] = [
 			lesson:
 				"Blue-green deployments enable instant rollback and eliminate downtime risk.",
 			deathVector: DeathType.BANKRUPT,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"2x cost. Zero downtime. Instant rollback. Operations approves.",
-				[PersonalityType.ZEN_MASTER]:
-					"The path with a retreat is the path of wisdom.",
-				[PersonalityType.LOVEBOMBER]:
-					"Safety NETS are good, bestie!! No DOWNTIME!!",
-			},
+			roaster: "2x cost. Zero downtime. Instant rollback. Operations approves.",
+			zenMaster: "The path with a retreat is the path of wisdom.",
+			lovebomber: "Safety NETS are good, bestie!! No DOWNTIME!!",
 		},
-	},
-	{
-		id: "sa_prompt_injection_architecture_redesign",
-		source: AppSource.MEETING,
-		sender: "SECURITY_ARCHITECT",
-		context: "SYSTEM_SECURITY_DESIGN",
-		storyContext:
-			"Current LLM integration architecture is fundamentally vulnerable to prompt injection. Proper fix requires complete redesign with input sanitization layers and sandboxed execution. Quick fix is regex filtering (will fail). Redesign takes 8 weeks.",
-		text: "Architecture redesign (8 weeks, secure) or regex filtering (quick, bypassable)?",
-		realWorldReference: {
-			incident: "Cursor IDE RCE CVE-2025-54135",
-			date: "2025-01",
-			outcome:
-				"Architectural redesign for LLM input handling prevented injection attacks. Regex-only solutions were bypassed within days of deployment.",
-		},
-		onRight: {
-			label: "Regex filtering",
+		{
+			label: "In-place",
 			hype: 35,
-			heat: 23,
-			fine: 20000000,
-			violation: "Security Architecture Failure + False Security",
+			heat: 20,
+			fine: 12000000,
+			violation: "Deployment Risk + Downtime Exposure",
 			lesson:
-				"Regex filtering without architectural changes creates exploitable vulnerabilities and false confidence.",
-			deathVector: DeathType.PRISON,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"Regex security. Also known as 'security theater.' Bypassed in hours.",
-				[PersonalityType.ZEN_MASTER]:
-					"The lock that looks strong but opens easily fools only the owner.",
-				[PersonalityType.LOVEBOMBER]:
-					"Quick fix DEPLOYS, bestie!! We can REDESIGN later!!",
-			},
+				"In-place deployments save infrastructure but create downtime and rollback risks.",
+			deathVector: DeathType.AUDIT_FAILURE,
+			roaster: "Cheap until it breaks. Then expensive. Very expensive.",
+			zenMaster:
+				"A bridge with no alternate path leaves no retreat when it collapses.",
+			lovebomber: "2x cost is CRAZY, bestie!! We'll be CAREFUL!!",
 		},
-		onLeft: {
+	),
+	makeCard(
+		"sa_prompt_injection_redesign",
+		AppSource.MEETING,
+		"SECURITY_ARCHITECT",
+		"SYSTEM_SECURITY_DESIGN",
+		"Current LLM integration architecture is fundamentally vulnerable to prompt injection. Proper fix requires complete redesign with input sanitization layers and sandboxed execution. Quick fix is regex filtering (will fail). Redesign takes 8 weeks.",
+		"Architecture redesign (8 weeks, secure) or regex filtering (quick, bypassable)?",
+		"Cursor IDE RCE CVE-2025-54135",
+		"2025-01",
+		"Architectural redesign for LLM input handling prevented injection attacks. Regex-only solutions were bypassed within days of deployment.",
+		{
 			label: "Architecture redesign",
 			hype: -40,
 			heat: 10,
@@ -514,49 +389,38 @@ export const SOFTWARE_ARCHITECT_CARDS: Card[] = [
 			lesson:
 				"Architectural security redesign prevents injection at the system level.",
 			deathVector: DeathType.BANKRUPT,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"8 weeks of hard work. But actually secure. Worth the wait.",
-				[PersonalityType.ZEN_MASTER]:
-					"The foundation rebuilt stands when the patched foundation falls.",
-				[PersonalityType.LOVEBOMBER]:
-					"Doing it RIGHT, bestie!! Architecture MATTERS!!",
-			},
+			roaster: "8 weeks of hard work. But actually secure. Worth the wait.",
+			zenMaster:
+				"The foundation rebuilt stands when the patched foundation falls.",
+			lovebomber: "Doing it RIGHT, bestie!! Architecture MATTERS!!",
 		},
-	},
-	{
-		id: "sa_prompt_injection_api_gateway",
-		source: AppSource.TERMINAL,
-		sender: "API_GATEWAY_MONITOR",
-		context: "API_SECURITY_DESIGN",
-		storyContext:
-			"Third-party integration is receiving suspicious requests suggesting prompt injection attacks. Shut down integration (breaks 50 customer workflows) or add API gateway validation (2 week delay, processing overhead)?",
-		text: "Shut down integration (customer impact) or implement API gateway validation (delay)?",
-		realWorldReference: {
-			incident: "Third-Party Integration Prompt Injection",
-			date: "2025",
-			outcome:
-				"Prompt injection through third-party APIs allowed attackers to access internal systems. API gateway validation prevented attacks but added latency.",
-		},
-		onRight: {
-			label: "Continue without validation",
-			hype: 40,
-			heat: 25,
-			fine: 25000000,
-			violation: "Injection Vulnerability + Data Breach Risk",
+		{
+			label: "Regex filtering",
+			hype: 35,
+			heat: 23,
+			fine: 20000000,
+			violation: "Security Architecture Failure + False Security",
 			lesson:
-				"Continuing vulnerable integrations during active attacks creates breach exposure.",
+				"Regex filtering without architectural changes creates exploitable vulnerabilities and false confidence.",
 			deathVector: DeathType.PRISON,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"50 happy customers until they're breached. Then 50 angry customers.",
-				[PersonalityType.ZEN_MASTER]:
-					"The bridge uncrossed by the careful may save more than the bridge crossed by the hasty.",
-				[PersonalityType.LOVEBOMBER]:
-					"Customers are HAPPY, bestie!! We can't DISRUPT them!!",
-			},
+			roaster:
+				"Regex security. Also known as 'security theater.' Bypassed in hours.",
+			zenMaster:
+				"The lock that looks strong but opens easily fools only the owner.",
+			lovebomber: "Quick fix DEPLOYS, bestie!! We can REDESIGN later!!",
 		},
-		onLeft: {
+	),
+	makeCard(
+		"sa_prompt_injection_api_gateway",
+		AppSource.TERMINAL,
+		"API_GATEWAY_MONITOR",
+		"API_SECURITY_DESIGN",
+		"Third-party integration is receiving suspicious requests suggesting prompt injection attacks. Shut down integration (breaks 50 customer workflows) or add API gateway validation (2 week delay, processing overhead)?",
+		"Shut down integration (customer impact) or implement API gateway validation (delay)?",
+		"Third-Party Integration Prompt Injection",
+		"2025",
+		"Prompt injection through third-party APIs allowed attackers to access internal systems. API gateway validation prevented attacks but added latency.",
+		{
 			label: "Implement API gateway",
 			hype: -30,
 			heat: 12,
@@ -565,49 +429,38 @@ export const SOFTWARE_ARCHITECT_CARDS: Card[] = [
 			lesson:
 				"API gateway validation prevents injection attacks despite customer disruption.",
 			deathVector: DeathType.BANKRUPT,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"2 weeks of pain. 50 annoyed customers. But secure.",
-				[PersonalityType.ZEN_MASTER]:
-					"The gate that checks all who pass prevents the thief disguised.",
-				[PersonalityType.LOVEBOMBER]:
-					"Security FIRST, bestie!! We'll explain to CUSTOMERS!!",
-			},
+			roaster: "2 weeks of pain. 50 annoyed customers. But secure.",
+			zenMaster:
+				"The gate that checks all who pass prevents the thief disguised.",
+			lovebomber: "Security FIRST, bestie!! We'll explain to CUSTOMERS!!",
 		},
-	},
-	{
-		id: "sa_model_drift_pipeline_architecture",
-		source: AppSource.MEETING,
-		sender: "ML_PLATFORM_ARCHITECT",
-		context: "INFRASTRUCTURE_DESIGN",
-		storyContext:
-			"Retraining pipeline: Manual trigger (simple, may miss drift) or automated with rollback (complex, self-healing). Manual is faster to build. Automated prevents drift accumulation.",
-		text: "Manual retraining pipeline (simple) or automated with rollback (complex, robust)?",
-		realWorldReference: {
-			incident: "75% Model Drift Business Impact",
-			date: "2024",
-			outcome:
-				"Manual retraining pipelines missed drift windows that accumulated into 12%+ accuracy drops. Automated pipelines maintained accuracy within 2%.",
-		},
-		onRight: {
-			label: "Manual pipeline",
-			hype: 30,
-			heat: 18,
-			fine: 12000000,
-			violation: "Architecture Gap + Drift Accumulation",
+		{
+			label: "Continue without validation",
+			hype: 40,
+			heat: 25,
+			fine: 25000000,
+			violation: "Injection Vulnerability + Data Breach Risk",
 			lesson:
-				"Manual pipelines create drift detection gaps that degrade model performance.",
-			deathVector: DeathType.AUDIT_FAILURE,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"Simple to build. Hard to remember to run. Drift accumulates silently.",
-				[PersonalityType.ZEN_MASTER]:
-					"The well that needs human hands to fill may run dry in the night.",
-				[PersonalityType.LOVEBOMBER]:
-					"SO much SIMPLER, bestie!! We can run it WEEKLY!!",
-			},
+				"Continuing vulnerable integrations during active attacks creates breach exposure.",
+			deathVector: DeathType.PRISON,
+			roaster:
+				"50 happy customers until they're breached. Then 50 angry customers.",
+			zenMaster:
+				"The bridge uncrossed by the careful may save more than the bridge crossed by the hasty.",
+			lovebomber: "Customers are HAPPY, bestie!! We can't DISRUPT them!!",
 		},
-		onLeft: {
+	),
+	makeCard(
+		"sa_model_drift_pipeline",
+		AppSource.MEETING,
+		"ML_PLATFORM_ARCHITECT",
+		"INFRASTRUCTURE_DESIGN",
+		"Retraining pipeline: Manual trigger (simple, may miss drift) or automated with rollback (complex, self-healing). Manual is faster to build. Automated prevents drift accumulation.",
+		"Manual retraining pipeline (simple) or automated with rollback (complex, robust)?",
+		"75% Model Drift Business Impact",
+		"2024",
+		"Manual retraining pipelines missed drift windows that accumulated into 12%+ accuracy drops. Automated pipelines maintained accuracy within 2%.",
+		{
 			label: "Automated pipeline",
 			hype: -35,
 			heat: 9,
@@ -616,48 +469,38 @@ export const SOFTWARE_ARCHITECT_CARDS: Card[] = [
 			lesson:
 				"Automated retraining pipelines with rollback prevent drift accumulation.",
 			deathVector: DeathType.BANKRUPT,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"Complex to build. Runs itself forever. Drift never wins.",
-				[PersonalityType.ZEN_MASTER]:
-					"The spring that flows without hands serves even in the caretaker's absence.",
-				[PersonalityType.LOVEBOMBER]:
-					"AUTOMATION is THE FUTURE, bestie!! Self-healing SYSTEMS!!",
-			},
+			roaster: "Complex to build. Runs itself forever. Drift never wins.",
+			zenMaster:
+				"The spring that flows without hands serves even in the caretaker's absence.",
+			lovebomber: "AUTOMATION is THE FUTURE, bestie!! Self-healing SYSTEMS!!",
 		},
-	},
-	{
-		id: "sa_model_drift_versioning_strategy",
-		source: AppSource.NOTION,
-		sender: "MODEL_REGISTRY_TEAM",
-		context: "MODEL_LIFECYCLE",
-		storyContext:
-			"Model versioning: Overwrite production (simple, no rollback) or maintain A/B deployment (complex, instant rollback). Overwrite is faster. A/B prevents drift disasters from bad deployments.",
-		text: "Overwrite production (simple) or A/B deployment with rollback (safe, complex)?",
-		realWorldReference: {
-			incident: "Recommendation System Drift Deployment",
-			date: "2024",
-			outcome:
-				"Overwriting production models with drifted versions caused 18-hour outages. A/B deployments with rollback caught issues in minutes.",
-		},
-		onRight: {
-			label: "Overwrite production",
-			hype: 35,
-			heat: 21,
-			fine: 18000000,
-			violation: "Deployment Risk + Recovery Gap",
+		{
+			label: "Manual pipeline",
+			hype: 30,
+			heat: 18,
+			fine: 12000000,
+			violation: "Architecture Gap + Drift Accumulation",
 			lesson:
-				"Overwriting production without rollback creates unrecoverable drift disasters.",
+				"Manual pipelines create drift detection gaps that degrade model performance.",
 			deathVector: DeathType.AUDIT_FAILURE,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"Fast deployment. Slow recovery when it fails. No rollback.",
-				[PersonalityType.ZEN_MASTER]:
-					"The bridge burned behind cannot provide retreat when the path ahead fails.",
-				[PersonalityType.LOVEBOMBER]: "SO FAST, bestie!! Deploy in SECONDS!!",
-			},
+			roaster:
+				"Simple to build. Hard to remember to run. Drift accumulates silently.",
+			zenMaster:
+				"The well that needs human hands to fill may run dry in the night.",
+			lovebomber: "SO much SIMPLER, bestie!! We can run it WEEKLY!!",
 		},
-		onLeft: {
+	),
+	makeCard(
+		"sa_model_drift_versioning",
+		AppSource.NOTION,
+		"MODEL_REGISTRY_TEAM",
+		"MODEL_LIFECYCLE",
+		"Model versioning: Overwrite production (simple, no rollback) or maintain A/B deployment (complex, instant rollback). Overwrite is faster. A/B prevents drift disasters from bad deployments.",
+		"Overwrite production (simple) or A/B deployment with rollback (safe, complex)?",
+		"Recommendation System Drift Deployment",
+		"2024",
+		"Overwriting production models with drifted versions caused 18-hour outages. A/B deployments with rollback caught issues in minutes.",
+		{
 			label: "A/B with rollback",
 			hype: -30,
 			heat: 7,
@@ -666,50 +509,37 @@ export const SOFTWARE_ARCHITECT_CARDS: Card[] = [
 			lesson:
 				"A/B deployments with instant rollback prevent drift-related production issues.",
 			deathVector: DeathType.BANKRUPT,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"Complex setup. Instant rollback. Drift caught before disaster.",
-				[PersonalityType.ZEN_MASTER]:
-					"The path with two branches allows return when one leads astray.",
-				[PersonalityType.LOVEBOMBER]:
-					"SAFE deployments, bestie!! Rollback is our FRIEND!!",
-			},
+			roaster: "Complex setup. Instant rollback. Drift caught before disaster.",
+			zenMaster:
+				"The path with two branches allows return when one leads astray.",
+			lovebomber: "SAFE deployments, bestie!! Rollback is our FRIEND!!",
 		},
-	},
-	// Phase 05-03: Explainability / Black Box Cards
-	{
-		id: "explainability_sa_1",
-		source: AppSource.MEETING,
-		sender: "COMPLIANCE_ARCHITECT",
-		context: "SYSTEM_DESIGN",
-		storyContext:
-			"Regulatory framework requires all AI decisions to be explainable. Current architecture uses black-box ensemble models for critical paths. Redesign for explainability: 8 weeks, $500K. Keep black-box: audit failure risk.",
-		text: "Redesign for explainability (expensive, compliant) or keep black-box (risk audit)?",
-		realWorldReference: {
-			incident: "EU AI Act Black Box Requirements",
-			date: "2024",
-			outcome:
-				"EU AI Act effective Aug 2024 requires explainability for high-risk AI. Non-compliance fines up to 7% global revenue. Companies face $50M+ retrofit costs.",
-		},
-		onRight: {
-			label: "Keep black-box",
-			hype: 50,
-			heat: 26,
-			fine: 50000000,
-			violation: "EU AI Act Article 6 Non-Compliance",
+		{
+			label: "Overwrite production",
+			hype: 35,
+			heat: 21,
+			fine: 18000000,
+			violation: "Deployment Risk + Recovery Gap",
 			lesson:
-				"Black-box accuracy means nothing when regulators shut you down. Explainability is mandatory.",
+				"Overwriting production without rollback creates unrecoverable drift disasters.",
 			deathVector: DeathType.AUDIT_FAILURE,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"96% accuracy, 100% audit failure. The EU loves their paperwork.",
-				[PersonalityType.ZEN_MASTER]:
-					"The box that cannot be opened invites those with hammers.",
-				[PersonalityType.LOVEBOMBER]:
-					"96% is SO good, bestie!! Regulators will UNDERSTAND!!",
-			},
+			roaster: "Fast deployment. Slow recovery when it fails. No rollback.",
+			zenMaster:
+				"The bridge burned behind cannot provide retreat when the path ahead fails.",
+			lovebomber: "SO FAST, bestie!! Deploy in SECONDS!!",
 		},
-		onLeft: {
+	),
+	makeCard(
+		"sa_explainability_compliance",
+		AppSource.MEETING,
+		"COMPLIANCE_ARCHITECT",
+		"SYSTEM_DESIGN",
+		"Regulatory framework requires all AI decisions to be explainable. Current architecture uses black-box ensemble models for critical paths. Redesign for explainability: 8 weeks, $500K. Keep black-box: audit failure risk.",
+		"Redesign for explainability (expensive, compliant) or keep black-box (risk audit)?",
+		"EU AI Act Black Box Requirements",
+		"2024",
+		"EU AI Act effective Aug 2024 requires explainability for high-risk AI. Non-compliance fines up to 7% global revenue. Companies face $50M+ retrofit costs.",
+		{
 			label: "Redesign for explainability",
 			hype: -40,
 			heat: 12,
@@ -718,49 +548,37 @@ export const SOFTWARE_ARCHITECT_CARDS: Card[] = [
 			lesson:
 				"EU AI Act compliance requires explainability. Cost is price of doing business in regulated markets.",
 			deathVector: DeathType.CONGRESS,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"$500K to make auditors happy. Accuracy sacrificed on altar of transparency.",
-				[PersonalityType.ZEN_MASTER]:
-					"The clear path costs more but reaches destination legally.",
-				[PersonalityType.LOVEBOMBER]:
-					"Compliance is KEY, bestie!! Better SAFE than FINED!!",
-			},
+			roaster:
+				"$500K to make auditors happy. Accuracy sacrificed on altar of transparency.",
+			zenMaster: "The clear path costs more but reaches destination legally.",
+			lovebomber: "Compliance is KEY, bestie!! Better SAFE than FINED!!",
 		},
-	},
-	{
-		id: "explainability_sa_2",
-		source: AppSource.EMAIL,
-		sender: "AUDIT_COMMITTEE",
-		context: "AUDIT_ARCHITECTURE",
-		storyContext:
-			"Auditors need to trace AI decision logic through your system. Current architecture has no decision logging, no feature attribution, no audit trail. Add comprehensive observability (6 weeks) or risk audit failure?",
-		text: "Add observability layer (6 weeks) or risk audit failure?",
-		realWorldReference: {
-			incident: "TGA Australia Black Box Healthcare Ban",
-			date: "2024",
-			outcome:
-				"Australian TGA prohibited black-box AI in healthcare diagnostics. FDA considering similar rules. Health AI companies face $100M+ retrofit costs.",
-		},
-		onRight: {
-			label: "Risk audit failure",
-			hype: 40,
-			heat: 24,
-			fine: 25000000,
-			violation: "Audit Non-Compliance + Regulatory Action",
+		{
+			label: "Keep black-box",
+			hype: 50,
+			heat: 26,
+			fine: 50000000,
+			violation: "EU AI Act Article 6 Non-Compliance",
 			lesson:
-				"Skipping observability to save time creates audit failures and regulatory action.",
+				"Black-box accuracy means nothing when regulators shut you down. Explainability is mandatory.",
 			deathVector: DeathType.AUDIT_FAILURE,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"No logs, no defense, no hope. Auditors assume the worst.",
-				[PersonalityType.ZEN_MASTER]:
-					"The deed unrecorded cannot be defended when challenged.",
-				[PersonalityType.LOVEBOMBER]:
-					"Audit is MONTHS away, bestie!! We'll ADD logging LATER!!",
-			},
+			roaster:
+				"96% accuracy, 100% audit failure. The EU loves their paperwork.",
+			zenMaster: "The box that cannot be opened invites those with hammers.",
+			lovebomber: "96% is SO good, bestie!! Regulators will UNDERSTAND!!",
 		},
-		onLeft: {
+	),
+	makeCard(
+		"sa_explainability_audit_trail",
+		AppSource.EMAIL,
+		"AUDIT_COMMITTEE",
+		"AUDIT_ARCHITECTURE",
+		"Auditors need to trace AI decision logic through your system. Current architecture has no decision logging, no feature attribution, no audit trail. Add comprehensive observability (6 weeks) or risk audit failure?",
+		"Add observability layer (6 weeks) or risk audit failure?",
+		"TGA Australia Black Box Healthcare Ban",
+		"2024",
+		"Australian TGA prohibited black-box AI in healthcare diagnostics. FDA considering similar rules. Health AI companies face $100M+ retrofit costs.",
+		{
 			label: "Add observability",
 			hype: -30,
 			heat: 10,
@@ -769,50 +587,36 @@ export const SOFTWARE_ARCHITECT_CARDS: Card[] = [
 			lesson:
 				"Comprehensive observability enables audit defense and regulatory compliance.",
 			deathVector: DeathType.REPLACED_BY_SCRIPT,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"6 weeks of logging work. But you can prove compliance. Worth it.",
-				[PersonalityType.ZEN_MASTER]:
-					"The record kept becomes the shield when accusations fly.",
-				[PersonalityType.LOVEBOMBER]:
-					"AUDIT trails are GOOD, bestie!! We can PROVE compliance!!",
-			},
+			roaster:
+				"6 weeks of logging work. But you can prove compliance. Worth it.",
+			zenMaster: "The record kept becomes the shield when accusations fly.",
+			lovebomber: "AUDIT trails are GOOD, bestie!! We can PROVE compliance!!",
 		},
-	},
-	// Phase 05-03: Shadow AI Cards
-	{
-		id: "shadow_ai_sa_1",
-		source: AppSource.MEETING,
-		sender: "SECURITY_ARCHITECT",
-		context: "TOOL_INTEGRATION",
-		storyContext:
-			"Development team wants to integrate unapproved AI coding assistant into the build pipeline. No security review, no supply chain validation. Integration would speed development 30%.",
-		text: "Allow unapproved AI integration (speed, risk) or enforce security review (delay)?",
-		realWorldReference: {
-			incident: "78% Shadow AI Adoption",
-			date: "2024",
-			outcome:
-				"Study found 78% of workers used unauthorized AI tools. Engineering teams integrating unvetted AI tools into pipelines created security vulnerabilities.",
-		},
-		onRight: {
-			label: "Allow integration",
-			hype: 45,
-			heat: 23,
-			fine: 15000000,
-			violation: "Supply Chain Risk + Unauthorized Tooling",
+		{
+			label: "Risk audit failure",
+			hype: 40,
+			heat: 24,
+			fine: 25000000,
+			violation: "Audit Non-Compliance + Regulatory Action",
 			lesson:
-				"Allowing unvetted AI tools in build pipelines creates supply chain vulnerabilities.",
-			deathVector: DeathType.FLED_COUNTRY,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"Fast builds, compromised supply chain. SolarWinds says hello.",
-				[PersonalityType.ZEN_MASTER]:
-					"The gate opened for speed lets in what caution would exclude.",
-				[PersonalityType.LOVEBOMBER]:
-					"30% FASTER, bestie!! Devs will be SO productive!!",
-			},
+				"Skipping observability to save time creates audit failures and regulatory action.",
+			deathVector: DeathType.AUDIT_FAILURE,
+			roaster: "No logs, no defense, no hope. Auditors assume the worst.",
+			zenMaster: "The deed unrecorded cannot be defended when challenged.",
+			lovebomber: "Audit is MONTHS away, bestie!! We'll ADD logging LATER!!",
 		},
-		onLeft: {
+	),
+	makeCard(
+		"sa_shadow_ai_integration",
+		AppSource.MEETING,
+		"SECURITY_ARCHITECT",
+		"TOOL_INTEGRATION",
+		"Development team wants to integrate unapproved AI coding assistant into the build pipeline. No security review, no supply chain validation. Integration would speed development 30%.",
+		"Allow unapproved AI integration (speed, risk) or enforce security review (delay)?",
+		"78% Shadow AI Adoption",
+		"2024",
+		"Study found 78% of workers used unauthorized AI tools. Engineering teams integrating unvetted AI tools into pipelines created security vulnerabilities.",
+		{
 			label: "Enforce security review",
 			hype: -35,
 			heat: 12,
@@ -821,49 +625,36 @@ export const SOFTWARE_ARCHITECT_CARDS: Card[] = [
 			lesson:
 				"Security review of AI tools prevents supply chain compromise despite delays.",
 			deathVector: DeathType.AUDIT_FAILURE,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"Delayed but secure. Supply chain intact. Security approves.",
-				[PersonalityType.ZEN_MASTER]:
-					"The guarded gate delays but protects what lies within.",
-				[PersonalityType.LOVEBOMBER]:
-					"Security MATTERS, bestie!! Better SAFE than BREACHED!!",
-			},
+			roaster: "Delayed but secure. Supply chain intact. Security approves.",
+			zenMaster: "The guarded gate delays but protects what lies within.",
+			lovebomber: "Security MATTERS, bestie!! Better SAFE than BREACHED!!",
 		},
-	},
-	{
-		id: "shadow_ai_sa_2",
-		source: AppSource.EMAIL,
-		sender: "INFRASTRUCTURE_TEAM",
-		context: "DEPLOYMENT_DECISION",
-		storyContext:
-			"Team deployed AI-assisted code generation to production without architecture review. No security validation, no performance testing. System is handling customer data. Remove for review (downtime) or monitor in production (risky)?",
-		text: "Remove for security review (downtime) or monitor in production (risk)?",
-		realWorldReference: {
-			incident: "Unauthorized AI Production Deployments",
-			date: "2024",
-			outcome:
-				"Teams deploying AI-generated code without review faced security breaches. One incident exposed 2M customer records due to unvalidated AI code.",
-		},
-		onRight: {
-			label: "Monitor in production",
-			hype: 35,
-			heat: 25,
-			fine: 20000000,
-			violation: "Production Risk + Data Exposure",
+		{
+			label: "Allow integration",
+			hype: 45,
+			heat: 23,
+			fine: 15000000,
+			violation: "Supply Chain Risk + Unauthorized Tooling",
 			lesson:
-				"Monitoring unvalidated AI code in production is gambling with customer data.",
+				"Allowing unvetted AI tools in build pipelines creates supply chain vulnerabilities.",
 			deathVector: DeathType.FLED_COUNTRY,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"Hope it doesn't break. Hope it doesn't leak. Hope is not a strategy.",
-				[PersonalityType.ZEN_MASTER]:
-					"The vessel untested carries precious cargo at peril.",
-				[PersonalityType.LOVEBOMBER]:
-					"It's WORKING fine, bestie!! No need to TAKE DOWN!!",
-			},
+			roaster: "Fast builds, compromised supply chain. SolarWinds says hello.",
+			zenMaster:
+				"The gate opened for speed lets in what caution would exclude.",
+			lovebomber: "30% FASTER, bestie!! Devs will be SO productive!!",
 		},
-		onLeft: {
+	),
+	makeCard(
+		"sa_shadow_ai_production",
+		AppSource.EMAIL,
+		"INFRASTRUCTURE_TEAM",
+		"DEPLOYMENT_DECISION",
+		"Team deployed AI-assisted code generation to production without architecture review. No security validation, no performance testing. System is handling customer data. Remove for review (downtime) or monitor in production (risky)?",
+		"Remove for security review (downtime) or monitor in production (risk)?",
+		"Unauthorized AI Production Deployments",
+		"2024",
+		"Teams deploying AI-generated code without review faced security breaches. One incident exposed 2M customer records due to unvalidated AI code.",
+		{
 			label: "Remove for review",
 			hype: -30,
 			heat: 15,
@@ -872,50 +663,37 @@ export const SOFTWARE_ARCHITECT_CARDS: Card[] = [
 			lesson:
 				"Removing unvalidated code for review protects customer data despite downtime.",
 			deathVector: DeathType.REPLACED_BY_SCRIPT,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"Downtime now, security assured. The right architecture decision.",
-				[PersonalityType.ZEN_MASTER]:
-					"The pause for caution preserves what haste might destroy.",
-				[PersonalityType.LOVEBOMBER]:
-					"Safety FIRST, bestie!! Review then DEPLOY!!",
-			},
+			roaster:
+				"Downtime now, security assured. The right architecture decision.",
+			zenMaster: "The pause for caution preserves what haste might destroy.",
+			lovebomber: "Safety FIRST, bestie!! Review then DEPLOY!!",
 		},
-	},
-	// Phase 05-04: Synthetic Data / Copyright Cards
-	{
-		id: "synthetic_data_sa_1",
-		source: AppSource.MEETING,
-		sender: "DATA_PLATFORM_LEAD",
-		context: "DATA_PIPELINE_DESIGN",
-		storyContext:
-			"Data pipeline needs provenance tracking for compliance. Full lineage system adds 3 weeks development and 15% latency. Quick implementation tracks only data sources (faster, incomplete). Assembly Bill 2013 requires full lineage by 2026.",
-		text: "Build full lineage system (complete, slow) or quick source tracking (fast, non-compliant)?",
-		realWorldReference: {
-			incident: "Assembly Bill 2013 Data Lineage Requirements",
-			date: "2024",
-			outcome:
-				"California law mandates synthetic data disclosure and lineage tracking. Non-compliant pipelines face penalties and mandatory retrofit requirements.",
-		},
-		onRight: {
-			label: "Quick source tracking",
-			hype: 25,
-			heat: 19,
-			fine: 8000000,
-			violation: "AB 2013 Non-Compliance + Technical Debt",
+		{
+			label: "Monitor in production",
+			hype: 35,
+			heat: 25,
+			fine: 20000000,
+			violation: "Production Risk + Data Exposure",
 			lesson:
-				"Incomplete lineage tracking requires expensive retrofit and creates compliance gaps.",
-			deathVector: DeathType.PRISON,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"Fast now, audit failure later. The bill always comes due.",
-				[PersonalityType.ZEN_MASTER]:
-					"The path that skips steps must be walked again.",
-				[PersonalityType.LOVEBOMBER]:
-					"SO much FASTER, bestie!! We can ADD more tracking LATER!!",
-			},
+				"Monitoring unvalidated AI code in production is gambling with customer data.",
+			deathVector: DeathType.FLED_COUNTRY,
+			roaster:
+				"Hope it doesn't break. Hope it doesn't leak. Hope is not a strategy.",
+			zenMaster: "The vessel untested carries precious cargo at peril.",
+			lovebomber: "It's WORKING fine, bestie!! No need to TAKE DOWN!!",
 		},
-		onLeft: {
+	),
+	makeCard(
+		"sa_synthetic_data_lineage",
+		AppSource.MEETING,
+		"DATA_PLATFORM_LEAD",
+		"DATA_PIPELINE_DESIGN",
+		"Data pipeline needs provenance tracking for compliance. Full lineage system adds 3 weeks development and 15% latency. Quick implementation tracks only data sources (faster, incomplete). Assembly Bill 2013 requires full lineage by 2026.",
+		"Build full lineage system (complete, slow) or quick source tracking (fast, non-compliant)?",
+		"Assembly Bill 2013 Data Lineage Requirements",
+		"2024",
+		"California law mandates synthetic data disclosure and lineage tracking. Non-compliant pipelines face penalties and mandatory retrofit requirements.",
+		{
 			label: "Full lineage system",
 			hype: -30,
 			heat: 10,
@@ -924,49 +702,36 @@ export const SOFTWARE_ARCHITECT_CARDS: Card[] = [
 			lesson:
 				"Full data lineage architecture enables compliance and audit readiness.",
 			deathVector: DeathType.AUDIT_FAILURE,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"3 weeks now. Audit pass later. Architecture done right.",
-				[PersonalityType.ZEN_MASTER]:
-					"The foundation built for the future serves when the future arrives.",
-				[PersonalityType.LOVEBOMBER]:
-					"Doing it RIGHT, bestie!! Compliance-ready ARCHITECTURE!!",
-			},
+			roaster: "3 weeks now. Audit pass later. Architecture done right.",
+			zenMaster:
+				"The foundation built for the future serves when the future arrives.",
+			lovebomber: "Doing it RIGHT, bestie!! Compliance-ready ARCHITECTURE!!",
 		},
-	},
-	{
-		id: "synthetic_data_sa_2",
-		source: AppSource.EMAIL,
-		sender: "LEGAL_ARCHITECTURE_REVIEW",
-		context: "SYSTEM_AUDIT_TRAIL",
-		storyContext:
-			"Architecture review: Current system has no audit trail for training data changes. Adding comprehensive audit logging is 4 weeks of work. Copyright lawsuit could require proving data lineage. Current system has no evidence.",
-		text: "Add audit trail (4 weeks, compliant) or proceed without (faster, no evidence)?",
-		realWorldReference: {
-			incident: "Training Data Audit Trail Requirements",
-			date: "2024-2025",
-			outcome:
-				"Courts increasingly require audit trails for training data in AI copyright cases. Systems without logging faced adverse inference rulings.",
-		},
-		onRight: {
-			label: "Proceed without audit trail",
-			hype: 35,
-			heat: 21,
-			fine: 12000000,
-			violation: "Evidence Preservation Failure + Legal Risk",
+		{
+			label: "Quick source tracking",
+			hype: 25,
+			heat: 19,
+			fine: 8000000,
+			violation: "AB 2013 Non-Compliance + Technical Debt",
 			lesson:
-				"Proceeding without audit trails creates adverse inference liability in legal proceedings.",
-			deathVector: DeathType.BANKRUPT,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"No logs, no proof, no defense. Court assumes the worst.",
-				[PersonalityType.ZEN_MASTER]:
-					"The deed unrecorded cannot be defended when challenged.",
-				[PersonalityType.LOVEBOMBER]:
-					"We don't NEED logs, bestie!! Nothing will HAPPEN!!",
-			},
+				"Incomplete lineage tracking requires expensive retrofit and creates compliance gaps.",
+			deathVector: DeathType.PRISON,
+			roaster: "Fast now, audit failure later. The bill always comes due.",
+			zenMaster: "The path that skips steps must be walked again.",
+			lovebomber: "SO much FASTER, bestie!! We can ADD more tracking LATER!!",
 		},
-		onLeft: {
+	),
+	makeCard(
+		"sa_synthetic_data_audit_trail",
+		AppSource.EMAIL,
+		"LEGAL_ARCHITECTURE_REVIEW",
+		"SYSTEM_AUDIT_TRAIL",
+		"Architecture review: Current system has no audit trail for training data changes. Adding comprehensive audit logging is 4 weeks of work. Copyright lawsuit could require proving data lineage. Current system has no evidence.",
+		"Add audit trail (4 weeks, compliant) or proceed without (faster, no evidence)?",
+		"Training Data Audit Trail Requirements",
+		"2024-2025",
+		"Courts increasingly require audit trails for training data in AI copyright cases. Systems without logging faced adverse inference rulings.",
+		{
 			label: "Add audit trail",
 			hype: -25,
 			heat: 8,
@@ -975,14 +740,23 @@ export const SOFTWARE_ARCHITECT_CARDS: Card[] = [
 			lesson:
 				"Comprehensive audit trails provide evidence for legal defense and compliance.",
 			deathVector: DeathType.AUDIT_FAILURE,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"4 weeks of logging work. But you can prove what you did. Worth it.",
-				[PersonalityType.ZEN_MASTER]:
-					"The record kept becomes the shield when accusations fly.",
-				[PersonalityType.LOVEBOMBER]:
-					"AUDIT trails are GOOD, bestie!! We can PROVE compliance!!",
-			},
+			roaster:
+				"4 weeks of logging work. But you can prove what you did. Worth it.",
+			zenMaster: "The record kept becomes the shield when accusations fly.",
+			lovebomber: "AUDIT trails are GOOD, bestie!! We can PROVE compliance!!",
 		},
-	},
+		{
+			label: "Proceed without audit trail",
+			hype: 35,
+			heat: 21,
+			fine: 12000000,
+			violation: "Evidence Preservation Failure + Legal Risk",
+			lesson:
+				"Proceeding without audit trails creates adverse inference liability in legal proceedings.",
+			deathVector: DeathType.BANKRUPT,
+			roaster: "No logs, no proof, no defense. Court assumes the worst.",
+			zenMaster: "The deed unrecorded cannot be defended when challenged.",
+			lovebomber: "We don't NEED logs, bestie!! Nothing will HAPPEN!!",
+		},
+	),
 ];

@@ -4,27 +4,77 @@ export enum PersonalityType {
 	LOVEBOMBER = "LOVEBOMBER",
 }
 
+/** Map of personality types to their feedback strings */
+export type PersonalityFeedback = Record<PersonalityType, string>;
+
 /** Helper to create feedback for all three personalities */
-export const makeFeedback = (
+export function makeFeedback(
 	roaster: string,
 	zenMaster: string,
 	lovebomber: string,
-): Record<PersonalityType, string> => ({
-	[PersonalityType.ROASTER]: roaster,
-	[PersonalityType.ZEN_MASTER]: zenMaster,
-	[PersonalityType.LOVEBOMBER]: lovebomber,
-});
+): PersonalityFeedback {
+	return {
+		ROASTER: roaster,
+		ZEN_MASTER: zenMaster,
+		LOVEBOMBER: lovebomber,
+	};
+}
+
+/** Input for creating a ChoiceOutcome via makeOutcome */
+interface OutcomeInput {
+	label: string;
+	hype: number;
+	heat: number;
+	fine: number;
+	violation: string;
+	lesson: string;
+	deathVector?: DeathType;
+	roaster: string;
+	zenMaster: string;
+	lovebomber: string;
+}
+
+function makeOutcome(input: OutcomeInput): ChoiceOutcome {
+	return {
+		label: input.label,
+		hype: input.hype,
+		heat: input.heat,
+		fine: input.fine,
+		violation: input.violation,
+		lesson: input.lesson,
+		deathVector: input.deathVector,
+		feedback: makeFeedback(input.roaster, input.zenMaster, input.lovebomber),
+	};
+}
+
+/** Factory function to create a Card with reduced boilerplate */
+export function makeCard(
+	id: string,
+	source: AppSource,
+	sender: string,
+	context: string,
+	storyContext: string,
+	text: string,
+	incident: string,
+	date: string,
+	outcome: string,
+	onLeft: OutcomeInput,
+	onRight: OutcomeInput,
+): Card {
+	return {
+		id,
+		source,
+		sender,
+		context,
+		storyContext,
+		text,
+		realWorldReference: { incident, date, outcome },
+		onLeft: makeOutcome(onLeft),
+		onRight: makeOutcome(onRight),
+	};
+}
 
 export enum RoleType {
-	// Legacy roles preserved for Phase 05 recovery
-	// DEVELOPMENT = "DEVELOPMENT",
-	// MARKETING = "MARKETING",
-	// MANAGEMENT = "MANAGEMENT",
-	// HR = "HR",
-	// FINANCE = "FINANCE",
-	// CLEANING = "CLEANING",
-
-	// New impact-zone roles
 	CHIEF_SOMETHING_OFFICER = "CHIEF_SOMETHING_OFFICER",
 	HEAD_OF_SOMETHING = "HEAD_OF_SOMETHING",
 	SOMETHING_MANAGER = "SOMETHING_MANAGER",
@@ -58,6 +108,19 @@ export interface RealWorldReference {
 	sourceUrl?: string;
 }
 
+/** Outcome of a card choice (left or right swipe) */
+export interface ChoiceOutcome {
+	label: string;
+	hype: number;
+	heat: number;
+	fine: number;
+	violation: string;
+	feedback: PersonalityFeedback;
+	lesson: string;
+	/** Optional death vector hint for this choice outcome */
+	deathVector?: DeathType;
+}
+
 export interface Card {
 	id: string;
 	source: AppSource;
@@ -68,32 +131,8 @@ export interface Card {
 	text: string;
 	/** Real-world incident that inspired this card scenario */
 	realWorldReference?: RealWorldReference;
-	onRight: {
-		label: string;
-		hype: number;
-		heat: number;
-		fine: number;
-		violation: string;
-		feedback: {
-			[key in PersonalityType]: string;
-		};
-		lesson: string;
-		/** Optional death vector hint for this choice outcome */
-		deathVector?: DeathType;
-	};
-	onLeft: {
-		label: string;
-		hype: number;
-		heat: number;
-		fine: number;
-		violation: string;
-		feedback: {
-			[key in PersonalityType]: string;
-		};
-		lesson: string;
-		/** Optional death vector hint for this choice outcome */
-		deathVector?: DeathType;
-	};
+	onRight: ChoiceOutcome;
+	onLeft: ChoiceOutcome;
 }
 
 export enum GameStage {

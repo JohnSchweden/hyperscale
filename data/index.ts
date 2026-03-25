@@ -28,6 +28,7 @@ export {
 	accumulateDeathVectors,
 	determineDeathTypeFromVectors,
 } from "./deathVectors";
+export { DECK_DEATH_TYPES } from "./deckDeathTypes";
 export {
 	FAILURE_LESSONS,
 	type FailureLesson,

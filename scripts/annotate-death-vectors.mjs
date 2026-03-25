@@ -7,7 +7,7 @@ import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 /**
- * Death vector annotation mapping by card ID and outcome
+ * Death vector annotation mapping by card ID and outcome.
  * Format: "cardId:outcomeField" -> DeathType
  */
 const deathVectorMap = {
@@ -214,60 +214,44 @@ const deathVectorMap = {
 	"ae_human_oversight_adequacy:onLeft": "DeathType.AUDIT_FAILURE",
 };
 
+function addDeathTypeImport(content) {
+	if (content.includes("DeathType")) return content;
+
+	const importMatch = content.match(
+		/import\s*{\s*AppSource[^}]*}\s*from\s*["'].*types["']/,
+	);
+	if (!importMatch) return content;
+
+	const updatedImport = importMatch[0].replace(
+		"AppSource,",
+		"AppSource, DeathType,",
+	);
+	return content.replace(importMatch[0], updatedImport);
+}
+
+function annotateOutcome(content, cardId, outcomeField, deathVector) {
+	const escapedCardId = cardId.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+	// Pattern: find the outcome after the lesson property, insert deathVector before feedback
+	const pattern = `(id:\\s*["']${escapedCardId}["'].*?${outcomeField}:\\s*{[^}]*?lesson:\\s*["'][^"']*["'])(,\\s*feedback:)`;
+	const regex = new RegExp(pattern, "s");
+
+	return content.replace(regex, (match, beforeFeedback, afterFeedback) => {
+		if (match.includes("deathVector:")) return match;
+		return `${beforeFeedback},\n\t\t\tdeathVector: ${deathVector}${afterFeedback}`;
+	});
+}
+
 function annotateCardFile(filePath) {
-	let content = fs.readFileSync(filePath, "utf-8");
+	let content = addDeathTypeImport(fs.readFileSync(filePath, "utf-8"));
 
-	// Skip if already has DeathType import
-	if (!content.includes("DeathType")) {
-		const importMatch = content.match(
-			/import\s*{\s*AppSource[^}]*}\s*from\s*["'].*types["']/,
-		);
-		if (importMatch) {
-			content = content.replace(
-				importMatch[0],
-				importMatch[0].replace("AppSource,", "AppSource, DeathType,"),
-			);
-		}
-	}
-
-	// Find and annotate outcomes
 	for (const [key, deathVector] of Object.entries(deathVectorMap)) {
 		const [cardId, outcomeField] = key.split(":");
-
-		// Look for pattern: id: "cardId" ... onRight: { ... or id: "cardId" ... onLeft: { ...
-		const cardPattern = new RegExp(
-			`(id:\\s*["']${cardId.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}["'].*?${outcomeField}:\\s*{[^}]*?)\\n\\t\\t\\t(label:)`,
-			"s",
-		);
-
-		const match = content.match(cardPattern);
-		if (match) {
-			// Check if deathVector already exists
-			const hasDeathVector = match[1].includes("deathVector:");
-			if (!hasDeathVector) {
-				// Insert deathVector before the feedback field
-				const feedbackPattern = new RegExp(
-					`(${outcomeField}:\\s*{[^}]*?lesson:\\s*["'][^"']*["'])(,\\s*feedback:)`,
-					"s",
-				);
-
-				content = content.replace(
-					feedbackPattern,
-					(fullMatch, beforeFeedback, afterFeedback) => {
-						if (fullMatch.includes(cardId)) {
-							return `${beforeFeedback},\n\t\t\tdeathVector: ${deathVector}${afterFeedback}`;
-						}
-						return fullMatch;
-					},
-				);
-			}
-		}
+		content = annotateOutcome(content, cardId, outcomeField, deathVector);
 	}
 
 	fs.writeFileSync(filePath, content);
 }
 
-// Annotate all card files
 const cardsDir = path.join(__dirname, "..", "data", "cards");
 const cardFiles = [
 	"head-of-something.ts",
@@ -284,11 +268,11 @@ const cardFiles = [
 
 for (const file of cardFiles) {
 	const filePath = path.join(cardsDir, file);
-	if (fs.existsSync(filePath)) {
-		console.log(`Processing ${file}...`);
-		annotateCardFile(filePath);
-		console.log(`✓ ${file}`);
-	}
+	if (!fs.existsSync(filePath)) continue;
+
+	console.log(`Processing ${file}...`);
+	annotateCardFile(filePath);
+	console.log(`✓ ${file}`);
 }
 
 console.log("All card files annotated!");

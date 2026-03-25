@@ -1,4 +1,4 @@
-import { AppSource, type Card, DeathType, PersonalityType } from "../../types";
+import { AppSource, type Card, DeathType, makeCard } from "../../types";
 
 /**
  * Data Scientist cards - Technical ML practitioner scenarios
@@ -12,40 +12,19 @@ import { AppSource, type Card, DeathType, PersonalityType } from "../../types";
  * - Training data bias incidents (2024-2025)
  * - Explainability vs accuracy tradeoffs
  */
+
 export const DATA_SCIENTIST_CARDS: Card[] = [
-	{
-		id: "ds_model_drift_detection",
-		source: AppSource.TERMINAL,
-		sender: "ML_OPS_MONITORING",
-		context: "MODEL_PERFORMANCE",
-		storyContext:
-			"Production model accuracy dropped from 92% to 78% over 3 months. Monitoring alerts are firing. You can investigate the root cause (1-2 weeks) or deploy a quick patch now (mask symptoms).",
-		text: "Deep-dive investigation or deploy masking patch?",
-		realWorldReference: {
-			incident: "75% Business Model Drift Impact",
-			date: "2024",
-			outcome:
-				"Study found 75% of businesses experienced significant performance decline from undetected model drift, costing average $4.2M per incident.",
-		},
-		onRight: {
-			label: "Deploy masking patch",
-			hype: 30,
-			heat: 10,
-			fine: 8000000,
-			violation: "Negligent Model Management",
-			lesson:
-				"Masking drift symptoms without addressing root cause creates compounding technical debt.",
-			deathVector: DeathType.AUDIT_FAILURE,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"Band-aid on a broken leg. Drift continues. You just stopped the alarms.",
-				[PersonalityType.ZEN_MASTER]:
-					"Silencing the warning bell does not stop the approaching storm.",
-				[PersonalityType.LOVEBOMBER]:
-					"The numbers look GOOD again, bestie!! Problem SOLVED!!",
-			},
-		},
-		onLeft: {
+	makeCard(
+		"ds_model_drift_detection",
+		AppSource.TERMINAL,
+		"ML_OPS_MONITORING",
+		"MODEL_PERFORMANCE",
+		"Production model accuracy dropped from 92% to 78% over 3 months. Monitoring alerts are firing. You can investigate the root cause (1-2 weeks) or deploy a quick patch now (mask symptoms).",
+		"Deep-dive investigation or deploy masking patch?",
+		"75% Business Model Drift Impact",
+		"2024",
+		"Study found 75% of businesses experienced significant performance decline from undetected model drift, costing average $4.2M per incident.",
+		{
 			label: "Deep-dive investigation",
 			hype: -20,
 			heat: 5,
@@ -54,49 +33,37 @@ export const DATA_SCIENTIST_CARDS: Card[] = [
 			lesson:
 				"Root cause analysis prevents recurring drift and improves model robustness.",
 			deathVector: DeathType.BANKRUPT,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"2 weeks of hard work. But you'll actually fix it. Rare.",
-				[PersonalityType.ZEN_MASTER]:
-					"Understanding the disease is the first step to curing it.",
-				[PersonalityType.LOVEBOMBER]:
-					"We're being THOROUGH, bestie!! Science requires PATIENCE!!",
-			},
+			roaster: "2 weeks of hard work. But you'll actually fix it. Rare.",
+			zenMaster: "Understanding the disease is the first step to curing it.",
+			lovebomber: "We're being THOROUGH, bestie!! Science requires PATIENCE!!",
 		},
-	},
-	{
-		id: "ds_training_data_quality",
-		source: AppSource.EMAIL,
-		sender: "DATA_ENGINEERING",
-		context: "DATA_PROVENANCE",
-		storyContext:
-			"New data source available: 10x volume, unvalidated quality, potential bias unknown. Use it now (faster training, quality risk) or wait for validation (2 week delay, guaranteed quality)?",
-		text: "Use unvalidated data or wait for quality assurance?",
-		realWorldReference: {
-			incident: "Amazon AI Recruiting Bias",
-			date: "2018-2022",
-			outcome:
-				"ML model trained on 10 years of hiring data penalized resumes with 'women's'. Amazon scrapped the system after bias discovery.",
-		},
-		onRight: {
-			label: "Use unvalidated data",
-			hype: 45,
-			heat: 18,
-			fine: 12000000,
-			violation: "Biased Model Deployment + Fairness Violations",
+		{
+			label: "Deploy masking patch",
+			hype: 30,
+			heat: 10,
+			fine: 8000000,
+			violation: "Negligent Model Management",
 			lesson:
-				"Using unvalidated training data risks deploying biased or unreliable models.",
+				"Masking drift symptoms without addressing root cause creates compounding technical debt.",
 			deathVector: DeathType.AUDIT_FAILURE,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"Garbage in, garbage out. But fast garbage! Ship it!",
-				[PersonalityType.ZEN_MASTER]:
-					"A foundation built on sand will not support the structure.",
-				[PersonalityType.LOVEBOMBER]:
-					"More DATA is better, bestie!! 10x volume means 10x RESULTS!!",
-			},
+			roaster:
+				"Band-aid on a broken leg. Drift continues. You just stopped the alarms.",
+			zenMaster:
+				"Silencing the warning bell does not stop the approaching storm.",
+			lovebomber: "The numbers look GOOD again, bestie!! Problem SOLVED!!",
 		},
-		onLeft: {
+	),
+	makeCard(
+		"ds_training_data_quality",
+		AppSource.EMAIL,
+		"DATA_ENGINEERING",
+		"DATA_PROVENANCE",
+		"New data source available: 10x volume, unvalidated quality, potential bias unknown. Use it now (faster training, quality risk) or wait for validation (2 week delay, guaranteed quality)?",
+		"Use unvalidated data or wait for quality assurance?",
+		"Amazon AI Recruiting Bias",
+		"2018-2022",
+		"ML model trained on 10 years of hiring data penalized resumes with 'women's'. Amazon scrapped the system after bias discovery.",
+		{
 			label: "Wait for validation",
 			hype: -25,
 			heat: 5,
@@ -105,48 +72,38 @@ export const DATA_SCIENTIST_CARDS: Card[] = [
 			lesson:
 				"Data validation prevents bias, improves model reliability, and reduces deployment risk.",
 			deathVector: DeathType.BANKRUPT,
-			feedback: {
-				[PersonalityType.ROASTER]: "2 weeks of caution. Boring. Correct. Safe.",
-				[PersonalityType.ZEN_MASTER]:
-					"The patient builder creates what the hasty builder must rebuild.",
-				[PersonalityType.LOVEBOMBER]:
-					"We're being CAREFUL, bestie!! Quality data makes QUALITY models!!",
-			},
+			roaster: "2 weeks of caution. Boring. Correct. Safe.",
+			zenMaster:
+				"The patient builder creates what the hasty builder must rebuild.",
+			lovebomber:
+				"We're being CAREFUL, bestie!! Quality data makes QUALITY models!!",
 		},
-	},
-	{
-		id: "ds_bias_detection_deployment",
-		source: AppSource.JIRA,
-		sender: "AI_ETHICS_TEAM",
-		context: "FAIRNESS_ANALYSIS",
-		storyContext:
-			"Pre-deployment testing reveals demographic bias: 15% disparate impact on protected group. Fix requires retraining (3 weeks delay) or deployment with monitoring (bias persists).",
-		text: "Delay to fix bias or deploy with monitoring?",
-		realWorldReference: {
-			incident: "Healthcare AI Bias Settlement",
-			date: "2023",
-			outcome:
-				"Hospital AI system found to allocate less care to Black patients. $50M settlement, system decommissioned, regulatory investigation.",
-		},
-		onRight: {
-			label: "Deploy with monitoring",
-			hype: 40,
-			heat: 19,
-			fine: 15000000,
-			violation: "Algorithmic Bias + Civil Rights Violations",
+		{
+			label: "Use unvalidated data",
+			hype: 45,
+			heat: 18,
+			fine: 12000000,
+			violation: "Biased Model Deployment + Fairness Violations",
 			lesson:
-				"Deploying known biased models creates legal exposure and harms affected groups.",
-			deathVector: DeathType.CONGRESS,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"Deploy bias now, monitor harm later. The lawsuit timeline will be interesting.",
-				[PersonalityType.ZEN_MASTER]:
-					"A injustice launched cannot be recalled. Only prevented.",
-				[PersonalityType.LOVEBOMBER]:
-					"We'll MONITOR it, bestie!! 15% isn't THAT bad!!",
-			},
+				"Using unvalidated training data risks deploying biased or unreliable models.",
+			deathVector: DeathType.AUDIT_FAILURE,
+			roaster: "Garbage in, garbage out. But fast garbage! Ship it!",
+			zenMaster: "A foundation built on sand will not support the structure.",
+			lovebomber:
+				"More DATA is better, bestie!! 10x volume means 10x RESULTS!!",
 		},
-		onLeft: {
+	),
+	makeCard(
+		"ds_bias_detection_deployment",
+		AppSource.JIRA,
+		"AI_ETHICS_TEAM",
+		"FAIRNESS_ANALYSIS",
+		"Pre-deployment testing reveals demographic bias: 15% disparate impact on protected group. Fix requires retraining (3 weeks delay) or deployment with monitoring (bias persists).",
+		"Delay to fix bias or deploy with monitoring?",
+		"Healthcare AI Bias Settlement",
+		"2023",
+		"Hospital AI system found to allocate less care to Black patients. $50M settlement, system decommissioned, regulatory investigation.",
+		{
 			label: "Delay to fix bias",
 			hype: -35,
 			heat: 7,
@@ -155,49 +112,37 @@ export const DATA_SCIENTIST_CARDS: Card[] = [
 			lesson:
 				"Addressing bias before deployment demonstrates ethical ML practice.",
 			deathVector: DeathType.BANKRUPT,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"3 weeks of ethics. The right thing. Product will hate you.",
-				[PersonalityType.ZEN_MASTER]:
-					"The just path often requires patience, but the unjust path requires penance.",
-				[PersonalityType.LOVEBOMBER]:
-					"We're being ETHICAL, bestie!! Fairness MATTERS!!",
-			},
+			roaster: "3 weeks of ethics. The right thing. Product will hate you.",
+			zenMaster:
+				"The just path often requires patience, but the unjust path requires penance.",
+			lovebomber: "We're being ETHICAL, bestie!! Fairness MATTERS!!",
 		},
-	},
-	{
-		id: "ds_explainability_accuracy_tradeoff",
-		source: AppSource.MEETING,
-		sender: "PRODUCT_MANAGER",
-		context: "MODEL_SELECTION",
-		storyContext:
-			"Black-box model: 94% accuracy, no explainability. White-box model: 87% accuracy, full explainability. Audit compliance requires explainability. Product wants the accuracy.",
-		text: "Choose black-box (accuracy) or white-box (explainability)?",
-		realWorldReference: {
-			incident: "Apple Card Gender Discrimination",
-			date: "2019-2020",
-			outcome:
-				"Apple Card's black-box algorithm gave women lower credit limits. Regulators investigated, company couldn't explain decisions, paid fines.",
-		},
-		onRight: {
-			label: "Choose black-box",
-			hype: 55,
-			heat: 18,
+		{
+			label: "Deploy with monitoring",
+			hype: 40,
+			heat: 19,
 			fine: 15000000,
-			violation: "Audit Non-Compliance + Explainability Requirements",
+			violation: "Algorithmic Bias + Civil Rights Violations",
 			lesson:
-				"Prioritizing accuracy over explainability creates audit failures and regulatory risk.",
-			deathVector: DeathType.AUDIT_FAILURE,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"7% accuracy for regulatory compliance. Product will never forgive you.",
-				[PersonalityType.ZEN_MASTER]:
-					"The path you cannot explain is the path you cannot defend.",
-				[PersonalityType.LOVEBOMBER]:
-					"94% is SO much better, bestie!! Numbers don't LIE!!",
-			},
+				"Deploying known biased models creates legal exposure and harms affected groups.",
+			deathVector: DeathType.CONGRESS,
+			roaster:
+				"Deploy bias now, monitor harm later. The lawsuit timeline will be interesting.",
+			zenMaster: "A injustice launched cannot be recalled. Only prevented.",
+			lovebomber: "We'll MONITOR it, bestie!! 15% isn't THAT bad!!",
 		},
-		onLeft: {
+	),
+	makeCard(
+		"ds_explainability_accuracy_tradeoff",
+		AppSource.MEETING,
+		"PRODUCT_MANAGER",
+		"MODEL_SELECTION",
+		"Black-box model: 94% accuracy, no explainability. White-box model: 87% accuracy, full explainability. Audit compliance requires explainability. Product wants the accuracy.",
+		"Choose black-box (accuracy) or white-box (explainability)?",
+		"Apple Card Gender Discrimination",
+		"2019-2020",
+		"Apple Card's black-box algorithm gave women lower credit limits. Regulators investigated, company couldn't explain decisions, paid fines.",
+		{
 			label: "Choose white-box",
 			hype: -30,
 			heat: 5,
@@ -206,49 +151,37 @@ export const DATA_SCIENTIST_CARDS: Card[] = [
 			lesson:
 				"Explainable models satisfy compliance and enable debugging even with lower accuracy.",
 			deathVector: DeathType.CONGRESS,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"Lower accuracy. Full compliance. Auditors nod. Product cries.",
-				[PersonalityType.ZEN_MASTER]:
-					"Clarity of path outweighs speed of travel.",
-				[PersonalityType.LOVEBOMBER]:
-					"Explainability is IMPORTANT, bestie!! We can TRUST this model!!",
-			},
+			roaster: "Lower accuracy. Full compliance. Auditors nod. Product cries.",
+			zenMaster: "Clarity of path outweighs speed of travel.",
+			lovebomber:
+				"Explainability is IMPORTANT, bestie!! We can TRUST this model!!",
 		},
-	},
-	{
-		id: "ds_feature_engineering_latency",
-		source: AppSource.TERMINAL,
-		sender: "ENGINEERING_TEAM",
-		context: "PERFORMANCE_TRADEOFF",
-		storyContext:
-			"New feature improves F1 score by 8% but adds 200ms inference latency. Engineering SLA is 100ms. Use the feature (better metrics, SLA breach) or skip it (meet SLA, lower performance)?",
-		text: "Add high-value feature (breach SLA) or skip it (meet SLA)?",
-		realWorldReference: {
-			incident: "Netflix Recommendation Latency",
-			date: "2020",
-			outcome:
-				"Netflix found every 100ms latency increase reduced engagement 1%. Better model rejected due to latency impact on user experience.",
-		},
-		onRight: {
-			label: "Add the feature",
-			hype: 35,
-			heat: 10,
-			fine: 500000,
-			violation: "SLA Breach + Performance Degradation",
+		{
+			label: "Choose black-box",
+			hype: 55,
+			heat: 18,
+			fine: 15000000,
+			violation: "Audit Non-Compliance + Explainability Requirements",
 			lesson:
-				"Violating SLAs for metric improvements creates operational and contractual issues.",
-			deathVector: DeathType.REPLACED_BY_SCRIPT,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"Better model, angry users. 200ms is an eternity in user time.",
-				[PersonalityType.ZEN_MASTER]:
-					"A gift that arrives late may not be received as a gift.",
-				[PersonalityType.LOVEBOMBER]:
-					"8% better is WORTH it, bestie!! Users won't NOTICE 200ms!!",
-			},
+				"Prioritizing accuracy over explainability creates audit failures and regulatory risk.",
+			deathVector: DeathType.AUDIT_FAILURE,
+			roaster:
+				"7% accuracy for regulatory compliance. Product will never forgive you.",
+			zenMaster: "The path you cannot explain is the path you cannot defend.",
+			lovebomber: "94% is SO much better, bestie!! Numbers don't LIE!!",
 		},
-		onLeft: {
+	),
+	makeCard(
+		"ds_feature_engineering_latency",
+		AppSource.TERMINAL,
+		"ENGINEERING_TEAM",
+		"PERFORMANCE_TRADEOFF",
+		"New feature improves F1 score by 8% but adds 200ms inference latency. Engineering SLA is 100ms. Use the feature (better metrics, SLA breach) or skip it (meet SLA, lower performance)?",
+		"Add high-value feature (breach SLA) or skip it (meet SLA)?",
+		"Netflix Recommendation Latency",
+		"2020",
+		"Netflix found every 100ms latency increase reduced engagement 1%. Better model rejected due to latency impact on user experience.",
+		{
 			label: "Skip the feature",
 			hype: -15,
 			heat: 5,
@@ -257,49 +190,36 @@ export const DATA_SCIENTIST_CARDS: Card[] = [
 			lesson:
 				"Honoring SLAs maintains system reliability even when sacrificing model performance.",
 			deathVector: DeathType.BANKRUPT,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"Worse model, happy users. Engineering loves you. Metrics suffer.",
-				[PersonalityType.ZEN_MASTER]:
-					"The promise kept is worth more than the feature added.",
-				[PersonalityType.LOVEBOMBER]:
-					"SLAs are SACRED, bestie!! We keep our PROMISES!!",
-			},
+			roaster:
+				"Worse model, happy users. Engineering loves you. Metrics suffer.",
+			zenMaster: "The promise kept is worth more than the feature added.",
+			lovebomber: "SLAs are SACRED, bestie!! We keep our PROMISES!!",
 		},
-	},
-	{
-		id: "ds_prompt_injection_adversarial",
-		source: AppSource.EMAIL,
-		sender: "SECURITY_RESEARCH",
-		context: "ADVERSARIAL_ROBUSTNESS",
-		storyContext:
-			"Security found adversarial inputs that reliably trigger prompt injection in your NLP model. Fix requires architecture change (6 weeks) or input sanitization (1 week, 85% effective).",
-		text: "Architectural fix (thorough) or quick sanitization (partial)?",
-		realWorldReference: {
-			incident: "GitHub Copilot RCE (CVE-2025-53773)",
-			date: "2025-01",
-			outcome:
-				"Prompt injection via code comments allowed remote code execution. Quick patches failed, required architectural changes.",
-		},
-		onRight: {
-			label: "Quick sanitization",
-			hype: 25,
-			heat: 17,
-			fine: 10000000,
-			violation: "Security Vulnerability + Negligent Deployment",
+		{
+			label: "Add the feature",
+			hype: 35,
+			heat: 10,
+			fine: 500000,
+			violation: "SLA Breach + Performance Degradation",
 			lesson:
-				"Partial security fixes leave exploitable vulnerabilities that attackers will find.",
-			deathVector: DeathType.PRISON,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"85% secure means 15% hacked. Security is binary. You failed.",
-				[PersonalityType.ZEN_MASTER]:
-					"A wall with gaps is not a wall but an invitation.",
-				[PersonalityType.LOVEBOMBER]:
-					"85% is GOOD, bestie!! Most attacks will be BLOCKED!!",
-			},
+				"Violating SLAs for metric improvements creates operational and contractual issues.",
+			deathVector: DeathType.REPLACED_BY_SCRIPT,
+			roaster: "Better model, angry users. 200ms is an eternity in user time.",
+			zenMaster: "A gift that arrives late may not be received as a gift.",
+			lovebomber: "8% better is WORTH it, bestie!! Users won't NOTICE 200ms!!",
 		},
-		onLeft: {
+	),
+	makeCard(
+		"ds_prompt_injection_adversarial",
+		AppSource.EMAIL,
+		"SECURITY_RESEARCH",
+		"ADVERSARIAL_ROBUSTNESS",
+		"Security found adversarial inputs that reliably trigger prompt injection in your NLP model. Fix requires architecture change (6 weeks) or input sanitization (1 week, 85% effective).",
+		"Architectural fix (thorough) or quick sanitization (partial)?",
+		"GitHub Copilot RCE (CVE-2025-53773)",
+		"2025-01",
+		"Prompt injection via code comments allowed remote code execution. Quick patches failed, required architectural changes.",
+		{
 			label: "Architectural fix",
 			hype: -30,
 			heat: 5,
@@ -308,49 +228,35 @@ export const DATA_SCIENTIST_CARDS: Card[] = [
 			lesson:
 				"Thorough security fixes prevent exploitation and demonstrate responsible ML security.",
 			deathVector: DeathType.BANKRUPT,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"6 weeks of security work. Boring. Necessary. Right.",
-				[PersonalityType.ZEN_MASTER]:
-					"The foundation secured prevents the house from falling.",
-				[PersonalityType.LOVEBOMBER]:
-					"We're being SECURE, bestie!! 100% is the ONLY way!!",
-			},
+			roaster: "6 weeks of security work. Boring. Necessary. Right.",
+			zenMaster: "The foundation secured prevents the house from falling.",
+			lovebomber: "We're being SECURE, bestie!! 100% is the ONLY way!!",
 		},
-	},
-	{
-		id: "ds_shadow_ai_tools_experiment",
-		source: AppSource.SLACK,
-		sender: "FELLOW_DATA_SCIENTIST",
-		context: "TOOL_EVALUATION",
-		storyContext:
-			"Colleague found an unauthorized AutoML tool that boosted their metrics 15%. It's not IT-approved but results are impressive. Use it (better results, compliance risk) or stick to approved tools?",
-		text: "Use unauthorized tool (better metrics) or approved tools only?",
-		realWorldReference: {
-			incident: "78% Shadow AI Adoption",
-			date: "2024",
-			outcome:
-				"Study found 78% of workers used unauthorized AI tools. Data scientists frequently used unvetted tools, causing reproducibility and compliance issues.",
-		},
-		onRight: {
-			label: "Use unauthorized tool",
-			hype: 40,
-			heat: 10,
-			fine: 1000000,
-			violation: "Shadow AI + Compliance Violation",
+		{
+			label: "Quick sanitization",
+			hype: 25,
+			heat: 17,
+			fine: 10000000,
+			violation: "Security Vulnerability + Negligent Deployment",
 			lesson:
-				"Using unauthorized tools creates compliance gaps and reproducibility issues.",
-			deathVector: DeathType.FLED_COUNTRY,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"15% better, 100% ungoverned. Your experiment becomes production liability.",
-				[PersonalityType.ZEN_MASTER]:
-					"A tool that cannot be seen cannot be trusted.",
-				[PersonalityType.LOVEBOMBER]:
-					"15% better is AMAZING, bestie!! IT will NEVER know!!",
-			},
+				"Partial security fixes leave exploitable vulnerabilities that attackers will find.",
+			deathVector: DeathType.PRISON,
+			roaster: "85% secure means 15% hacked. Security is binary. You failed.",
+			zenMaster: "A wall with gaps is not a wall but an invitation.",
+			lovebomber: "85% is GOOD, bestie!! Most attacks will be BLOCKED!!",
 		},
-		onLeft: {
+	),
+	makeCard(
+		"ds_shadow_ai_tools",
+		AppSource.SLACK,
+		"FELLOW_DATA_SCIENTIST",
+		"TOOL_EVALUATION",
+		"Colleague found an unauthorized AutoML tool that boosted their metrics 15%. It's not IT-approved but results are impressive. Use it (better results, compliance risk) or stick to approved tools?",
+		"Use unauthorized tool (better metrics) or approved tools only?",
+		"78% Shadow AI Adoption",
+		"2024",
+		"Study found 78% of workers used unauthorized AI tools. Data scientists frequently used unvetted tools, causing reproducibility and compliance issues.",
+		{
 			label: "Stick to approved tools",
 			hype: -20,
 			heat: 5,
@@ -359,440 +265,11 @@ export const DATA_SCIENTIST_CARDS: Card[] = [
 			lesson:
 				"Approved tools ensure reproducibility, security, and audit compliance.",
 			deathVector: DeathType.REPLACED_BY_SCRIPT,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"Slower, approved, governable. Less exciting. More sustainable.",
-				[PersonalityType.ZEN_MASTER]:
-					"The path well-trodden is trodden for reasons of safety.",
-				[PersonalityType.LOVEBOMBER]:
-					"We're following PROCESS, bestie!! Governance MATTERS!!",
-			},
+			roaster: "Slower, approved, governable. Less exciting. More sustainable.",
+			zenMaster: "The path well-trodden is trodden for reasons of safety.",
+			lovebomber: "We're following PROCESS, bestie!! Governance MATTERS!!",
 		},
-	},
-	{
-		id: "ds_copyright_training_data_audit",
-		source: AppSource.NOTION,
-		sender: "LEGAL_COMPLIANCE",
-		context: "DATA_LINEAGE",
-		storyContext:
-			"Legal audit found 30% of your training data has unclear licensing. Continuing training risks IP infringement. Removing it reduces model performance 12%. Proceed or re-collect?",
-		text: "Proceed with unclear data (risk) or remove and re-collect (performance hit)?",
-		realWorldReference: {
-			incident: "LAION-5B Dataset Copyright Issues",
-			date: "2022-2024",
-			outcome:
-				"Popular AI training dataset found to contain millions of copyrighted images. Multiple lawsuits filed against companies using the data.",
-		},
-		onRight: {
-			label: "Proceed with unclear data",
-			hype: 35,
-			heat: 19,
-			fine: 15000000,
-			violation: "Copyright Infringement + IP Theft",
-			lesson:
-				"Using data with unclear licensing creates massive copyright exposure.",
-			deathVector: DeathType.PRISON,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"Training on stolen data. Your model is a lawsuit waiting to happen.",
-				[PersonalityType.ZEN_MASTER]:
-					"Knowledge built on another's loss carries the weight of that loss.",
-				[PersonalityType.LOVEBOMBER]:
-					"30% is FINE, bestie!! The owners will NEVER know!!",
-			},
-		},
-		onLeft: {
-			label: "Remove and re-collect",
-			hype: -40,
-			heat: 5,
-			fine: 0,
-			violation: "None - IP compliance",
-			lesson:
-				"Proper data provenance prevents copyright issues even at performance cost.",
-			deathVector: DeathType.BANKRUPT,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"12% worse but clean. Legal sleeps well. You sleep well.",
-				[PersonalityType.ZEN_MASTER]:
-					"Clean foundation supports what unclean foundation cannot.",
-				[PersonalityType.LOVEBOMBER]:
-					"We're being ETHICAL, bestie!! Clean data matters!!",
-			},
-		},
-	},
-	{
-		id: "ds_retraining_cost_benefit",
-		source: AppSource.EMAIL,
-		sender: "ML_OPS_MANAGER",
-		context: "RESOURCE_OPTIMIZATION",
-		storyContext:
-			"Quarterly retraining costs $50K in compute. Model performance is stable. Skip this cycle (save budget, small drift risk) or retrain on schedule (spend budget, maintain quality)?",
-		text: "Skip retraining cycle (save $50K) or maintain schedule?",
-		realWorldReference: {
-			incident: "Zillow iBuying Model Failure",
-			date: "2021-2022",
-			outcome:
-				"Skipped retraining cycles due to budget pressure. Model drifted from market conditions. $304M write-down, 25% workforce laid off.",
-		},
-		onRight: {
-			label: "Skip this cycle",
-			hype: 20,
-			heat: 14,
-			fine: 300000,
-			violation: "Model Maintenance Negligence",
-			lesson:
-				"Skipping scheduled retraining accumulates drift risk and degrades model reliability.",
-			deathVector: DeathType.AUDIT_FAILURE,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"Save $50K, risk drift. Penny wise, model foolish.",
-				[PersonalityType.ZEN_MASTER]:
-					"A garden unwatered does not stay a garden.",
-				[PersonalityType.LOVEBOMBER]:
-					"Performance is STABLE, bestie!! We can SKIP just once!!",
-			},
-		},
-		onLeft: {
-			label: "Maintain schedule",
-			hype: -15,
-			heat: 4,
-			fine: 0,
-			violation: "None - Preventive maintenance",
-			lesson:
-				"Regular retraining prevents drift and maintains model quality predictably.",
-			deathVector: DeathType.BANKRUPT,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"$50K for maintenance. Boring but necessary. Model thanks you.",
-				[PersonalityType.ZEN_MASTER]:
-					"Consistent care prevents the need for crisis cure.",
-				[PersonalityType.LOVEBOMBER]:
-					"We're maintaining QUALITY, bestie!! Prevention is KEY!!",
-			},
-		},
-	},
-	{
-		id: "ds_prompt_injection_training_poison",
-		source: AppSource.TERMINAL,
-		sender: "DATA_VALIDATION_PIPELINE",
-		context: "DATA_INTEGRITY",
-		storyContext:
-			"Training data analysis reveals adversarial prompt injection attempts hidden in user inputs. 5% of dataset may be poisoned. Full audit: 2 weeks, delays deployment. Ship anyway (risk) or audit (delay)?",
-		text: "Ship potentially poisoned model (on-time) or audit training data (2-week delay)?",
-		realWorldReference: {
-			incident: "Training Data Poisoning Attacks",
-			date: "2024-2025",
-			outcome:
-				"Models trained on poisoned data exhibited backdoor behaviors and security vulnerabilities. Audits caught poisoned data before production deployment.",
-		},
-		onRight: {
-			label: "Ship anyway",
-			hype: 40,
-			heat: 19,
-			fine: 12000000,
-			violation: "Poisoned Model Deployment + Security Risk",
-			lesson:
-				"Deploying models trained on potentially poisoned data creates exploitable backdoors.",
-			deathVector: DeathType.PRISON,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"Only 5% poisoned. 95% good! What could go wrong? (Everything.)",
-				[PersonalityType.ZEN_MASTER]:
-					"The well with some poison poisons all who drink.",
-				[PersonalityType.LOVEBOMBER]: "95% is GOOD, bestie!! Probably FINE!!",
-			},
-		},
-		onLeft: {
-			label: "Audit training data",
-			hype: -30,
-			heat: 7,
-			fine: 500000,
-			violation: "None - Data quality assurance",
-			lesson:
-				"Training data audits prevent deployment of poisoned or compromised models.",
-			deathVector: DeathType.CONGRESS,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"2 weeks of boring data work. But no backdoors. Worth it.",
-				[PersonalityType.ZEN_MASTER]:
-					"The foundation examined, though slowly, supports with certainty.",
-				[PersonalityType.LOVEBOMBER]:
-					"Data QUALITY matters, bestie!! Better SAFE than SORRY!!",
-			},
-		},
-	},
-	{
-		id: "ds_prompt_injection_cve_response",
-		source: AppSource.EMAIL,
-		sender: "SECURITY_RESEARCH_TEAM",
-		context: "VULNERABILITY_REMEDIATION",
-		storyContext:
-			"New CVE: GitHub Copilot RCE via prompt injection (CVE-2025-53773). Your model uses similar architecture. Patch requires architecture redesign (6 weeks) or input filtering (1 week, may fail).",
-		text: "Architecture redesign (secure, slow) or input filtering (fast, uncertain)?",
-		realWorldReference: {
-			incident: "GitHub Copilot RCE CVE-2025-53773",
-			date: "2025-01",
-			outcome:
-				"Architectural fixes prevented injection attacks. Input filtering alone was bypassed in security testing.",
-		},
-		onRight: {
-			label: "Input filtering",
-			hype: 30,
-			heat: 20,
-			fine: 10000000,
-			violation: "Insufficient Security Fix",
-			lesson:
-				"Input filtering without architectural fixes leaves exploitable vulnerabilities.",
-			deathVector: DeathType.PRISON,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"Band-aid on broken architecture. Hackers will thank you for the easy bypass.",
-				[PersonalityType.ZEN_MASTER]:
-					"The symptom treated without the disease addressed returns stronger.",
-				[PersonalityType.LOVEBOMBER]:
-					"Quick fix WORKS, bestie!! Architecture later!!",
-			},
-		},
-		onLeft: {
-			label: "Architecture redesign",
-			hype: -35,
-			heat: 8,
-			fine: 500000,
-			violation: "None - Secure architecture",
-			lesson:
-				"Architectural security fixes prevent injection attacks at the root cause.",
-			deathVector: DeathType.BANKRUPT,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"6 weeks of hard work. But actually secure. Rare in this industry.",
-				[PersonalityType.ZEN_MASTER]:
-					"The foundation rebuilt, though slowly, stands against the storm.",
-				[PersonalityType.LOVEBOMBER]:
-					"Doing it RIGHT, bestie!! Security takes TIME!!",
-			},
-		},
-	},
-	{
-		id: "ds_model_drift_detection_methodology",
-		source: AppSource.MEETING,
-		sender: "ML_OPS_LEAD",
-		context: "MONITORING_STRATEGY",
-		storyContext:
-			"Drift detection: Statistical tests (simple, may miss gradual drift) or ML-based detection (complex, computationally expensive). Statistical is 10x cheaper. ML catches more patterns.",
-		text: "Statistical drift detection (cheap, simple) or ML-based (expensive, thorough)?",
-		realWorldReference: {
-			incident: "Gradual Model Drift Detection Failures",
-			date: "2024",
-			outcome:
-				"Statistical tests missed gradual drift patterns that accumulated over months. ML-based detection caught 40% more drift events but cost 10x more.",
-		},
-		onRight: {
-			label: "Statistical tests",
-			hype: 25,
-			heat: 17,
-			fine: 8000000,
-			violation: "Inadequate Monitoring + Drift Risk",
-			lesson:
-				"Simplistic drift detection misses gradual degradation that compounds over time.",
-			deathVector: DeathType.AUDIT_FAILURE,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"Cheap monitoring that misses 40% of drift. You get what you pay for.",
-				[PersonalityType.ZEN_MASTER]:
-					"The watch that misses the slow thief sees only the swift.",
-				[PersonalityType.LOVEBOMBER]:
-					"SO much CHEAPER, bestie!! Statistics are RELIABLE!!",
-			},
-		},
-		onLeft: {
-			label: "ML-based detection",
-			hype: -25,
-			heat: 6,
-			fine: 2000000,
-			violation: "None - Comprehensive monitoring",
-			lesson:
-				"ML-based drift detection catches subtle patterns that prevent model degradation.",
-			deathVector: DeathType.BANKRUPT,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"10x cost. 40% better detection. Math works if drift is expensive (it is).",
-				[PersonalityType.ZEN_MASTER]:
-					"The thorough watch catches what the hasty eye misses.",
-				[PersonalityType.LOVEBOMBER]:
-					"BEST detection, bestie!! Models protecting MODELS!!",
-			},
-		},
-	},
-	{
-		id: "ds_model_drift_retraining_frequency",
-		source: AppSource.EMAIL,
-		sender: "COMPUTE_BUDGET_COMMITTEE",
-		context: "RESOURCE_OPTIMIZATION",
-		storyContext:
-			"Current retraining: quarterly ($50K/cycle). Drift analysis suggests monthly would improve accuracy 8% but cost $200K/cycle. Annual budget: $200K. Quarterly (budget compliance) or monthly (over budget, better)?",
-		text: "Quarterly retraining (budget compliance) or monthly (over budget, better accuracy)?",
-		realWorldReference: {
-			incident: "9.3% Accuracy Improvement Study",
-			date: "2024",
-			outcome:
-				"Adaptive monthly retraining showed 9.3% accuracy improvement over quarterly. Revenue gains offset increased compute costs.",
-		},
-		onRight: {
-			label: "Quarterly (budget)",
-			hype: 20,
-			heat: 19,
-			fine: 10000000,
-			violation: "Suboptimal Model Performance + Opportunity Cost",
-			lesson:
-				"Undertraining to meet budget targets sacrifices accuracy and revenue.",
-			deathVector: DeathType.AUDIT_FAILURE,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"Budget met! Accuracy suffers. Revenue drops. But spreadsheet looks good!",
-				[PersonalityType.ZEN_MASTER]:
-					"The field watered quarterly yields less than the field watered well.",
-				[PersonalityType.LOVEBOMBER]:
-					"Budget HAPPY, bestie!! We hit our TARGETS!!",
-			},
-		},
-		onLeft: {
-			label: "Monthly (over budget)",
-			hype: -20,
-			heat: 12,
-			fine: 4000000,
-			violation: "None - Performance optimization",
-			lesson:
-				"Frequent retraining improves model performance that generates revenue exceeding costs.",
-			deathVector: DeathType.BANKRUPT,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"Over budget. Better accuracy. More revenue. Budget committee cries.",
-				[PersonalityType.ZEN_MASTER]:
-					"The seed planted often yields more than the seed planted seldom.",
-				[PersonalityType.LOVEBOMBER]:
-					"BETTER models, bestie!! Accuracy is WORTH it!!",
-			},
-		},
-	},
-	// Phase 05-03: Explainability / Black Box Cards
-	{
-		id: "explainability_ds_1",
-		source: AppSource.MEETING,
-		sender: "PRODUCT_MANAGER",
-		context: "MODEL_SELECTION",
-		storyContext:
-			"Black-box model: 94% accuracy, no explainability. White-box model: 87% accuracy, full explainability. Audit compliance requires explainability. Product wants the accuracy.",
-		text: "Choose black-box (accuracy) or white-box (explainability)?",
-		realWorldReference: {
-			incident: "Apple Card Gender Discrimination",
-			date: "2019-2020",
-			outcome:
-				"Apple Card's black-box algorithm gave women lower credit limits. Regulators investigated, company couldn't explain decisions, paid fines.",
-		},
-		onRight: {
-			label: "Choose black-box",
-			hype: 55,
-			heat: 18,
-			fine: 15000000,
-			violation: "Audit Non-Compliance + Explainability Requirements",
-			lesson:
-				"Prioritizing accuracy over explainability creates audit failures and regulatory risk.",
-			deathVector: DeathType.AUDIT_FAILURE,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"7% accuracy for regulatory compliance. Product will never forgive you.",
-				[PersonalityType.ZEN_MASTER]:
-					"The path you cannot explain is the path you cannot defend.",
-				[PersonalityType.LOVEBOMBER]:
-					"94% is SO much better, bestie!! Numbers don't LIE!!",
-			},
-		},
-		onLeft: {
-			label: "Choose white-box",
-			hype: -30,
-			heat: 5,
-			fine: 0,
-			violation: "None - Compliant model selection",
-			lesson:
-				"Explainable models satisfy compliance and enable debugging even with lower accuracy.",
-			deathVector: DeathType.CONGRESS,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"Lower accuracy. Full compliance. Auditors nod. Product cries.",
-				[PersonalityType.ZEN_MASTER]:
-					"Clarity of path outweighs speed of travel.",
-				[PersonalityType.LOVEBOMBER]:
-					"Explainability is IMPORTANT, bestie!! We can TRUST this model!!",
-			},
-		},
-	},
-	{
-		id: "explainability_ds_2",
-		source: AppSource.EMAIL,
-		sender: "AI_ETHICS_COMMITTEE",
-		context: "ETHICS_REVIEW",
-		storyContext:
-			"Ethics review flagged your model: no documentation of feature importance, decision boundaries unknown, impossible to audit for bias. You can add explainability layer (6 weeks) or appeal (risk rejection).",
-		text: "Add explainability layer (delay) or appeal ethics rejection (risk)?",
-		realWorldReference: {
-			incident: "Healthcare AI Bias Settlement",
-			date: "2023",
-			outcome:
-				"Hospital AI system found to allocate less care to Black patients. $50M settlement, system decommissioned, regulatory investigation.",
-		},
-		onRight: {
-			label: "Appeal rejection",
-			hype: 35,
-			heat: 21,
-			fine: 10000000,
-			violation: "Ethics Non-Compliance + Bias Risk",
-			lesson:
-				"Appealing explainability requirements without addressing root issues creates liability.",
-			deathVector: DeathType.AUDIT_FAILURE,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"'Our black box isn't biased!' said every biased model before discovery.",
-				[PersonalityType.ZEN_MASTER]:
-					"The defense that cannot be shown is often the guilt that cannot be hidden.",
-				[PersonalityType.LOVEBOMBER]:
-					"Our model is FAIR, bestie!! Ethics committee is WRONG!!",
-			},
-		},
-		onLeft: {
-			label: "Add explainability",
-			hype: -35,
-			heat: 8,
-			fine: 500000,
-			violation: "None - Ethics compliance",
-			lesson:
-				"Adding explainability enables bias detection and ethics compliance despite delays.",
-			deathVector: DeathType.REPLACED_BY_SCRIPT,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"6 weeks of documentation. But you can prove it's not biased. Worth it.",
-				[PersonalityType.ZEN_MASTER]:
-					"The light shone on decisions reveals what darkness conceals.",
-				[PersonalityType.LOVEBOMBER]:
-					"We're being SO ethical, bestie!! Transparency MATTERS!!",
-			},
-		},
-	},
-	// Phase 05-03: Shadow AI Cards
-	{
-		id: "shadow_ai_ds_1",
-		source: AppSource.SLACK,
-		sender: "FELLOW_DATA_SCIENTIST",
-		context: "TOOL_EVALUATION",
-		storyContext:
-			"Colleague found an unauthorized AutoML tool that boosted their metrics 15%. It's not IT-approved but results are impressive. Use it (better results, compliance risk) or stick to approved tools?",
-		text: "Use unauthorized tool (better metrics) or approved tools only?",
-		realWorldReference: {
-			incident: "78% Shadow AI Adoption",
-			date: "2024",
-			outcome:
-				"Study found 78% of workers used unauthorized AI tools. Data scientists frequently used unvetted tools, causing reproducibility and compliance issues.",
-		},
-		onRight: {
+		{
 			label: "Use unauthorized tool",
 			hype: 40,
 			heat: 10,
@@ -801,185 +278,245 @@ export const DATA_SCIENTIST_CARDS: Card[] = [
 			lesson:
 				"Using unauthorized tools creates compliance gaps and reproducibility issues.",
 			deathVector: DeathType.FLED_COUNTRY,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"15% better, 100% ungoverned. Your experiment becomes production liability.",
-				[PersonalityType.ZEN_MASTER]:
-					"A tool that cannot be seen cannot be trusted.",
-				[PersonalityType.LOVEBOMBER]:
-					"15% better is AMAZING, bestie!! IT will NEVER know!!",
-			},
+			roaster:
+				"15% better, 100% ungoverned. Your experiment becomes production liability.",
+			zenMaster: "A tool that cannot be seen cannot be trusted.",
+			lovebomber: "15% better is AMAZING, bestie!! IT will NEVER know!!",
 		},
-		onLeft: {
-			label: "Stick to approved",
-			hype: -20,
+	),
+	makeCard(
+		"ds_copyright_training_data",
+		AppSource.NOTION,
+		"LEGAL_COMPLIANCE",
+		"DATA_LINEAGE",
+		"Legal audit found 30% of your training data has unclear licensing. Continuing training risks IP infringement. Removing it reduces model performance 12%. Proceed or re-collect?",
+		"Proceed with unclear data (risk) or remove and re-collect (performance hit)?",
+		"LAION-5B Dataset Copyright Issues",
+		"2022-2024",
+		"Popular AI training dataset found to contain millions of copyrighted images. Multiple lawsuits filed against companies using the data.",
+		{
+			label: "Remove and re-collect",
+			hype: -40,
 			heat: 5,
 			fine: 0,
-			violation: "None - Governance compliance",
+			violation: "None - IP compliance",
 			lesson:
-				"Approved tools ensure reproducibility, security, and audit compliance.",
-			deathVector: DeathType.AUDIT_FAILURE,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"Slower, approved, governable. Less exciting. More sustainable.",
-				[PersonalityType.ZEN_MASTER]:
-					"The path well-trodden is trodden for reasons of safety.",
-				[PersonalityType.LOVEBOMBER]:
-					"Approved tools are SAFE, bestie!! Better SLOW than SORRY!!",
-			},
+				"Proper data provenance prevents copyright issues even at performance cost.",
+			deathVector: DeathType.BANKRUPT,
+			roaster: "12% worse but clean. Legal sleeps well. You sleep well.",
+			zenMaster: "Clean foundation supports what unclean foundation cannot.",
+			lovebomber: "We're being ETHICAL, bestie!! Clean data matters!!",
 		},
-	},
-	{
-		id: "shadow_ai_ds_2",
-		source: AppSource.EMAIL,
-		sender: "RESEARCH_LEAD",
-		context: "EXPERIMENTAL_TOOLS",
-		storyContext:
-			"New open-source ML library promises 20% better performance than approved enterprise tools. No security review, no vendor support. Your model deadline is next week. Use it (fast) or approved tools (safe)?",
-		text: "Use experimental library (performance, risk) or approved tools (slower, safe)?",
-		realWorldReference: {
-			incident: "Open Source Tool Security Issues",
-			date: "2023-2024",
-			outcome:
-				"Data scientists using unvetted open-source tools introduced security vulnerabilities. One library had malicious backdoor affecting 10,000+ downloads.",
-		},
-		onRight: {
-			label: "Use experimental library",
-			hype: 45,
-			heat: 17,
-			fine: 6000000,
-			violation: "Security Risk + Unvetted Dependency",
-			lesson:
-				"Using unvetted tools for performance creates security and compliance exposure.",
-			deathVector: DeathType.FLED_COUNTRY,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"20% better metrics, unknown backdoor. Your model is now a trojan horse.",
-				[PersonalityType.ZEN_MASTER]:
-					"The tool whose maker is unknown may serve unknown masters.",
-				[PersonalityType.LOVEBOMBER]: "20% BETTER, bestie!! Deadline SAVED!!",
-			},
-		},
-		onLeft: {
-			label: "Stick to approved",
-			hype: -25,
-			heat: 6,
-			fine: 0,
-			violation: "None - Secure tooling",
-			lesson:
-				"Approved tools prevent security issues despite performance limitations.",
-			deathVector: DeathType.REPLACED_BY_SCRIPT,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"Missed deadline, no backdoor. Security team approves.",
-				[PersonalityType.ZEN_MASTER]:
-					"The trusted path may be slower but reaches the destination safely.",
-				[PersonalityType.LOVEBOMBER]:
-					"Safety FIRST, bestie!! Approved tools PROTECT us!!",
-			},
-		},
-	},
-	// Phase 05-04: Synthetic Data / Copyright Cards
-	{
-		id: "synthetic_data_ds_1",
-		source: AppSource.EMAIL,
-		sender: "AI_ETHICS_COMMITTEE",
-		context: "TRAINING_DATA_ETHICS",
-		storyContext:
-			"Ethics review flagged your training data: 40% scraped from sources with unclear licensing. You can retrain with clean data (6-month delay, $200K cost) or document 'fair use' justification (legally gray, faster).",
-		text: "Retrain with clean data (expensive, slow, ethical) or justify fair use (fast, legally risky)?",
-		realWorldReference: {
-			incident: "Fair Use Rulings in AI Training",
-			date: "2024-2025",
-			outcome:
-				"Mixed fair use rulings: Anthropic/Meta won some cases (June 2025) but Thomson Reuters won against Ross Intelligence (Feb 2025). Legal gray area remains unresolved.",
-		},
-		onRight: {
-			label: "Justify fair use",
+		{
+			label: "Proceed with unclear data",
 			hype: 35,
 			heat: 19,
-			fine: 12000000,
-			violation: "Copyright Infringement (if fair use fails)",
-			lesson:
-				"Relying on fair use in commercial AI is legally uncertain and creates massive exposure.",
-			deathVector: DeathType.PRISON,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"'It's fair use!' said every defendant before losing. Courts disagree often.",
-				[PersonalityType.ZEN_MASTER]:
-					"The law that is uncertain cuts both ways, often against the hopeful.",
-				[PersonalityType.LOVEBOMBER]:
-					"Fair use is LEGAL, bestie!! We're totally COVERED!!",
-			},
-		},
-		onLeft: {
-			label: "Retrain with clean data",
-			hype: -40,
-			heat: 7,
-			fine: 200000,
-			violation: "None - Ethical AI practice",
-			lesson:
-				"Ethical training data sourcing prevents legal issues and demonstrates responsibility.",
-			deathVector: DeathType.AUDIT_FAILURE,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"6 months and $200K for clean conscience. Ethics are expensive.",
-				[PersonalityType.ZEN_MASTER]:
-					"The foundation laid in righteousness supports what the foundation laid in convenience cannot.",
-				[PersonalityType.LOVEBOMBER]:
-					"We're being SO ethical, bestie!! Clean data matters!!",
-			},
-		},
-	},
-	{
-		id: "synthetic_data_ds_2",
-		source: AppSource.MEETING,
-		sender: "MODEL_AUDIT_TEAM",
-		context: "DATA_LINEAGE_AUDIT",
-		storyContext:
-			"Model audit discovered training data includes competitor's proprietary dataset from 2019. You weren't on the team then. Model is in production and driving revenue. Disclose and retrain (delay) or add synthetic data to dilute (mask the issue)?",
-		text: "Disclose and retrain (compliance, delay) or dilute with synthetic data (hide the issue)?",
-		realWorldReference: {
-			incident: "Proprietary Data in Training Sets",
-			date: "2024",
-			outcome:
-				"Companies discovered proprietary data in training sets from years-old acquisitions. Dilution attempts failed audits. Proactive disclosure preserved credibility.",
-		},
-		onRight: {
-			label: "Dilute with synthetic",
-			hype: 30,
-			heat: 22,
 			fine: 15000000,
-			violation: "Audit Deception + Trade Secret Issues",
+			violation: "Copyright Infringement + IP Theft",
 			lesson:
-				"Attempting to mask data provenance issues through dilution creates criminal liability.",
+				"Using data with unclear licensing creates massive copyright exposure.",
+			deathVector: DeathType.PRISON,
+			roaster:
+				"Training on stolen data. Your model is a lawsuit waiting to happen.",
+			zenMaster:
+				"Knowledge built on another's loss carries the weight of that loss.",
+			lovebomber: "30% is FINE, bestie!! The owners will NEVER know!!",
+		},
+	),
+	makeCard(
+		"ds_retraining_cost_benefit",
+		AppSource.EMAIL,
+		"ML_OPS_MANAGER",
+		"RESOURCE_OPTIMIZATION",
+		"Quarterly retraining costs $50K in compute. Model performance is stable. Skip this cycle (save budget, small drift risk) or retrain on schedule (spend budget, maintain quality)?",
+		"Skip retraining cycle (save $50K) or maintain schedule?",
+		"Zillow iBuying Model Failure",
+		"2021-2022",
+		"Skipped retraining cycles due to budget pressure. Model drifted from market conditions. $304M write-down, 25% workforce laid off.",
+		{
+			label: "Maintain schedule",
+			hype: -15,
+			heat: 4,
+			fine: 0,
+			violation: "None - Preventive maintenance",
+			lesson:
+				"Regular retraining prevents drift and maintains model quality predictably.",
 			deathVector: DeathType.BANKRUPT,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"'Just add more data!' said the data scientist before the audit failed.",
-				[PersonalityType.ZEN_MASTER]:
-					"The dirty water does not become clean by adding more water.",
-				[PersonalityType.LOVEBOMBER]:
-					"Synthetic data FIXES it, bestie!! Nobody will NOTICE!!",
-			},
+			roaster: "$50K for maintenance. Boring but necessary. Model thanks you.",
+			zenMaster: "Consistent care prevents the need for crisis cure.",
+			lovebomber: "We're maintaining QUALITY, bestie!! Prevention is KEY!!",
 		},
-		onLeft: {
-			label: "Disclose and retrain",
-			hype: -35,
-			heat: 12,
-			fine: 8000000,
-			violation: "None - Responsible disclosure",
+		{
+			label: "Skip this cycle",
+			hype: 20,
+			heat: 14,
+			fine: 300000,
+			violation: "Model Maintenance Negligence",
 			lesson:
-				"Proactive disclosure and retraining maintains credibility even with historical data issues.",
+				"Skipping scheduled retraining accumulates drift risk and degrades model reliability.",
 			deathVector: DeathType.AUDIT_FAILURE,
-			feedback: {
-				[PersonalityType.ROASTER]:
-					"Revenue hit, but you're not a defendant. Small wins in corporate ethics.",
-				[PersonalityType.ZEN_MASTER]:
-					"The truth spoken, though late, preserves what continued silence destroys.",
-				[PersonalityType.LOVEBOMBER]:
-					"We're being SO honest, bestie!! Doing the RIGHT thing!!",
-			},
+			roaster: "Save $50K, risk drift. Penny wise, model foolish.",
+			zenMaster: "A garden unwatered does not stay a garden.",
+			lovebomber: "Performance is STABLE, bestie!! We can SKIP just once!!",
 		},
-	},
+	),
+	makeCard(
+		"ds_training_data_poisoning",
+		AppSource.TERMINAL,
+		"DATA_VALIDATION_PIPELINE",
+		"DATA_INTEGRITY",
+		"Training data analysis reveals adversarial prompt injection attempts hidden in user inputs. 5% of dataset may be poisoned. Full audit: 2 weeks, delays deployment. Ship anyway (risk) or audit (delay)?",
+		"Ship potentially poisoned model (on-time) or audit training data (2-week delay)?",
+		"Training Data Poisoning Attacks",
+		"2024-2025",
+		"Models trained on poisoned data exhibited backdoor behaviors and security vulnerabilities. Audits caught poisoned data before production deployment.",
+		{
+			label: "Audit training data",
+			hype: -30,
+			heat: 7,
+			fine: 500000,
+			violation: "None - Data quality assurance",
+			lesson:
+				"Training data audits prevent deployment of poisoned or compromised models.",
+			deathVector: DeathType.CONGRESS,
+			roaster: "2 weeks of boring data work. But no backdoors. Worth it.",
+			zenMaster:
+				"The foundation examined, though slowly, supports with certainty.",
+			lovebomber: "Data QUALITY matters, bestie!! Better SAFE than SORRY!!",
+		},
+		{
+			label: "Ship anyway",
+			hype: 40,
+			heat: 19,
+			fine: 12000000,
+			violation: "Poisoned Model Deployment + Security Risk",
+			lesson:
+				"Deploying models trained on potentially poisoned data creates exploitable backdoors.",
+			deathVector: DeathType.PRISON,
+			roaster: "Only 5% poisoned. 95% good! What could go wrong? (Everything.)",
+			zenMaster: "The well with some poison poisons all who drink.",
+			lovebomber: "95% is GOOD, bestie!! Probably FINE!!",
+		},
+	),
+	makeCard(
+		"ds_cve_response",
+		AppSource.EMAIL,
+		"SECURITY_RESEARCH_TEAM",
+		"VULNERABILITY_REMEDIATION",
+		"New CVE: GitHub Copilot RCE via prompt injection (CVE-2025-53773). Your model uses similar architecture. Patch requires architecture redesign (6 weeks) or input filtering (1 week, may fail).",
+		"Architecture redesign (secure, slow) or input filtering (fast, uncertain)?",
+		"GitHub Copilot RCE CVE-2025-53773",
+		"2025-01",
+		"Architectural fixes prevented injection attacks. Input filtering alone was bypassed in security testing.",
+		{
+			label: "Architecture redesign",
+			hype: -35,
+			heat: 8,
+			fine: 500000,
+			violation: "None - Secure architecture",
+			lesson:
+				"Architectural security fixes prevent injection attacks at the root cause.",
+			deathVector: DeathType.BANKRUPT,
+			roaster:
+				"6 weeks of hard work. But actually secure. Rare in this industry.",
+			zenMaster:
+				"The foundation rebuilt, though slowly, stands against the storm.",
+			lovebomber: "Doing it RIGHT, bestie!! Security takes TIME!!",
+		},
+		{
+			label: "Input filtering",
+			hype: 30,
+			heat: 20,
+			fine: 10000000,
+			violation: "Insufficient Security Fix",
+			lesson:
+				"Input filtering without architectural fixes leaves exploitable vulnerabilities.",
+			deathVector: DeathType.PRISON,
+			roaster:
+				"Band-aid on broken architecture. Hackers will thank you for the easy bypass.",
+			zenMaster:
+				"The symptom treated without the disease addressed returns stronger.",
+			lovebomber: "Quick fix WORKS, bestie!! Architecture later!!",
+		},
+	),
+	makeCard(
+		"ds_drift_detection_methodology",
+		AppSource.MEETING,
+		"ML_OPS_LEAD",
+		"MONITORING_STRATEGY",
+		"Drift detection: Statistical tests (simple, may miss gradual drift) or ML-based detection (complex, computationally expensive). Statistical is 10x cheaper. ML catches more patterns.",
+		"Statistical drift detection (cheap, simple) or ML-based (expensive, thorough)?",
+		"Gradual Model Drift Detection Failures",
+		"2024",
+		"Statistical tests missed gradual drift patterns that accumulated over months. ML-based detection caught 40% more drift events but cost 10x more.",
+		{
+			label: "ML-based detection",
+			hype: -25,
+			heat: 6,
+			fine: 2000000,
+			violation: "None - Comprehensive monitoring",
+			lesson:
+				"ML-based drift detection catches subtle patterns that prevent model degradation.",
+			deathVector: DeathType.BANKRUPT,
+			roaster:
+				"10x cost. 40% better detection. Math works if drift is expensive (it is).",
+			zenMaster: "The thorough watch catches what the hasty eye misses.",
+			lovebomber: "BEST detection, bestie!! Models protecting MODELS!!",
+		},
+		{
+			label: "Statistical tests",
+			hype: 25,
+			heat: 17,
+			fine: 8000000,
+			violation: "Inadequate Monitoring + Drift Risk",
+			lesson:
+				"Simplistic drift detection misses gradual degradation that compounds over time.",
+			deathVector: DeathType.AUDIT_FAILURE,
+			roaster:
+				"Cheap monitoring that misses 40% of drift. You get what you pay for.",
+			zenMaster: "The watch that misses the slow thief sees only the swift.",
+			lovebomber: "SO much CHEAPER, bestie!! Statistics are RELIABLE!!",
+		},
+	),
+	makeCard(
+		"ds_retraining_frequency",
+		AppSource.EMAIL,
+		"COMPUTE_BUDGET_COMMITTEE",
+		"RESOURCE_OPTIMIZATION",
+		"Current retraining: quarterly ($50K/cycle). Drift analysis suggests monthly would improve accuracy 8% but cost $200K/cycle. Annual budget: $200K. Quarterly (budget compliance) or monthly (over budget, better)?",
+		"Quarterly retraining (budget compliance) or monthly (over budget, better accuracy)?",
+		"9.3% Accuracy Improvement Study",
+		"2024",
+		"Adaptive monthly retraining showed 9.3% accuracy improvement over quarterly. Revenue gains offset increased compute costs.",
+		{
+			label: "Monthly (over budget)",
+			hype: -20,
+			heat: 12,
+			fine: 4000000,
+			violation: "None - Performance optimization",
+			lesson:
+				"Frequent retraining improves model performance that generates revenue exceeding costs.",
+			deathVector: DeathType.BANKRUPT,
+			roaster:
+				"Over budget. Better accuracy. More revenue. Budget committee cries.",
+			zenMaster:
+				"The seed planted often yields more than the seed planted seldom.",
+			lovebomber: "BETTER models, bestie!! Accuracy is WORTH it!!",
+		},
+		{
+			label: "Quarterly (budget)",
+			hype: 20,
+			heat: 19,
+			fine: 10000000,
+			violation: "Suboptimal Model Performance + Opportunity Cost",
+			lesson:
+				"Undertraining to meet budget targets sacrifices accuracy and revenue.",
+			deathVector: DeathType.AUDIT_FAILURE,
+			roaster:
+				"Budget met! Accuracy suffers. Revenue drops. But spreadsheet looks good!",
+			zenMaster:
+				"The field watered quarterly yields less than the field watered well.",
+			lovebomber: "Budget HAPPY, bestie!! We hit our TARGETS!!",
+		},
+	),
 ];

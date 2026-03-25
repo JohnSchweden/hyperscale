@@ -4,7 +4,14 @@ Checkable items for current work.
 
 ## Current
 
-- [ ] (Add tasks as needed)
+Code Simplification: data/cards/*.ts
+
+- [ ] Import and use `makeFeedback` from types.ts
+- [ ] Create helper functions for common patterns
+- [ ] Identify and remove duplicate cards
+- [ ] Standardize formatting and field ordering
+- [ ] Run typecheck and tests
+- [ ] Verify no functionality lost
 
 ---
 

@@ -1,4 +1,3 @@
-import type React from "react";
 import { useEffect, useMemo, useRef } from "react";
 import {
 	accumulateDeathVectors,
@@ -8,6 +7,8 @@ import {
 	getRetryPrompt,
 } from "../../../data";
 import { useUnlockedEndings, useVoicePlayback } from "../../../hooks";
+import { createAudioContext } from "../../../lib/audio";
+import { formatBudget } from "../../../lib/formatting";
 import {
 	playKirkCrashSound,
 	playKirkGlitchTone,
@@ -26,23 +27,175 @@ import {
 	LAYOUT_SHELL_CENTERED_CLASS,
 } from "../selectionStageStyles";
 
+interface StatsGridProps {
+	budget: number;
+	heat: number;
+	hype: number;
+}
+
+function StatsGrid({ budget, heat, hype }: StatsGridProps) {
+	return (
+		<div className="mb-6 md:mb-8 grid grid-cols-3 gap-4">
+			<StatCard
+				label="Budget"
+				value={formatBudget(budget)}
+				color={budget > 0 ? "text-emerald-400" : "text-red-500"}
+			/>
+			<StatCard
+				label="Heat"
+				value={`${heat}%`}
+				color={heat < 100 ? "text-amber-400" : "text-red-500"}
+			/>
+			<StatCard label="Hype" value={`${hype}%`} color="text-cyan-400" />
+		</div>
+	);
+}
+
+interface StatCardProps {
+	label: string;
+	value: string;
+	color: string;
+}
+
+function StatCard({ label, value, color }: StatCardProps) {
+	return (
+		<div className={`p-4 rounded-lg ${GLASS_PANEL_DEFAULT}`}>
+			<div className="text-xs text-slate-400 tracking-wide mb-1">{label}</div>
+			<div className={`text-xl md:text-2xl font-black ${color}`}>{value}</div>
+		</div>
+	);
+}
+
+const PERSONALITY_REPLAY_LINES: Record<PersonalityType, string> = {
+	[PersonalityType.ROASTER]: "Go ahead. Fail differently this time.",
+	[PersonalityType.ZEN_MASTER]:
+		"The test awaits your next attempt. Wisdom lies in repetition.",
+	[PersonalityType.LOVEBOMBER]:
+		"I believe in you. Let's see what you learn next time!",
+};
+
 function getPersonalityReplayLine(personality: PersonalityType | null): string {
-	switch (personality) {
-		case PersonalityType.ROASTER:
-			return "Go ahead. Fail differently this time.";
-		case PersonalityType.ZEN_MASTER:
-			return "The test awaits your next attempt. Wisdom lies in repetition.";
-		case PersonalityType.LOVEBOMBER:
-			return "I believe in you. Let's see what you learn next time!";
-		default:
-			return "Ready for another attempt?";
-	}
+	if (!personality) return "Ready for another attempt?";
+	return PERSONALITY_REPLAY_LINES[personality];
 }
 
 function getRandomLesson(deathType: Exclude<DeathType, typeof DeathType.KIRK>) {
 	const lessons = FAILURE_LESSONS[deathType];
-	if (!lessons || lessons.length === 0) return null;
+	if (!lessons?.length) return null;
 	return lessons[Math.floor(Math.random() * lessons.length)];
+}
+
+interface EndingIconGridProps {
+	unlockedEndings: DeathType[];
+}
+
+function EndingIconGrid({ unlockedEndings }: EndingIconGridProps) {
+	return (
+		<div className="flex gap-2 md:gap-3 justify-center flex-wrap mb-4">
+			{Object.values(DeathType).map((type) => {
+				const isUnlocked = unlockedEndings.includes(type);
+				const ending = DEATH_ENDINGS[type];
+				return (
+					<div
+						key={type}
+						className={`w-10 h-10 md:w-12 md:h-12 rounded-lg flex items-center justify-center border ${
+							isUnlocked
+								? "bg-cyan-500/20 border-cyan-500"
+								: "bg-slate-800 border-slate-700 opacity-30"
+						}`}
+						title={ending.title}
+					>
+						<i
+							className={`fa-solid ${ending.icon} ${isUnlocked ? "text-cyan-400" : "text-slate-600"}`}
+							aria-hidden
+						/>
+					</div>
+				);
+			})}
+		</div>
+	);
+}
+
+interface GameOverHeaderProps {
+	isKirk: boolean;
+	corruptedText: string;
+}
+
+function GameOverHeader({ isKirk, corruptedText }: GameOverHeaderProps) {
+	if (isKirk) {
+		return (
+			<>
+				<h1
+					className="text-4xl md:text-6xl font-black text-cyan-400 mb-2 tracking-tighter kirk-glitch-text"
+					aria-label="SIMULATION BREACH"
+				>
+					{corruptedText}
+				</h1>
+				<p className="text-slate-400 text-base md:text-lg">
+					Error: Subject refused to comply with test parameters. Attempting
+					damage control...
+				</p>
+			</>
+		);
+	}
+	return (
+		<>
+			<h1 className="text-4xl md:text-6xl font-black text-red-500 mb-2 tracking-tighter">
+				GAME OVER
+			</h1>
+			<p className="text-slate-400 text-base md:text-lg">
+				Your tenure has come to an end
+			</p>
+		</>
+	);
+}
+
+interface DeathEndingCardProps {
+	ending: (typeof DEATH_ENDINGS)[DeathType];
+}
+
+function DeathEndingCard({ ending }: DeathEndingCardProps) {
+	return (
+		<div
+			className={`mb-6 md:mb-8 p-6 md:p-8 rounded-xl border border-red-500/40 bg-gradient-to-br from-red-950/30 to-black/70 ${GLASS_FILL_STRONG}`}
+		>
+			<div
+				className={`text-5xl md:text-7xl mb-4 animate-pulse drop-shadow-[0_0_30px_rgba(220,38,38,0.5)] ${ending.color}`}
+			>
+				<i className={`fa-solid ${ending.icon}`} aria-hidden />
+			</div>
+			<h2
+				className={`text-2xl md:text-3xl font-bold mb-3 tracking-tighter ${ending.color}`}
+			>
+				{ending.title}
+			</h2>
+			<p className="text-slate-300 text-base md:text-lg leading-relaxed">
+				{ending.description}
+			</p>
+		</div>
+	);
+}
+
+interface FailureLessonCardProps {
+	lesson: {
+		title: string;
+		explanation: string;
+		realWorldExample: string;
+	};
+}
+
+function FailureLessonCard({ lesson }: FailureLessonCardProps) {
+	return (
+		<div className="mt-3 p-3 rounded-lg bg-amber-500/10 border border-amber-500/20 mb-6">
+			<p className="text-xs font-semibold text-amber-400 uppercase mb-1">
+				{lesson.title}
+			</p>
+			<p className="text-sm text-gray-300">{lesson.explanation}</p>
+			<p className="text-xs text-gray-500 mt-1">
+				Real case: {lesson.realWorldExample}
+			</p>
+		</div>
+	);
 }
 
 interface DebriefPage1CollapseProps {
@@ -50,224 +203,97 @@ interface DebriefPage1CollapseProps {
 	onNext: () => void;
 }
 
-function formatBudget(amount: number): string {
-	if (amount >= 1000000) {
-		return `$${(amount / 1000000).toFixed(1)}M`;
-	}
-	return `$${amount.toLocaleString()}`;
-}
-
-export const DebriefPage1Collapse: React.FC<DebriefPage1CollapseProps> = ({
+export function DebriefPage1Collapse({
 	state,
 	onNext,
-}) => {
-	const isKirk = state.deathType === DeathType.KIRK;
-	// Stable corruption text — memoized so it doesn't re-randomize on re-renders
+}: DebriefPage1CollapseProps) {
+	const {
+		deathType,
+		personality,
+		unlockedEndings,
+		history,
+		effectiveDeck,
+		budget,
+		heat,
+		hype,
+	} = state;
+
+	const isKirk = deathType === DeathType.KIRK;
+	const hasRegularDeath = deathType && !isKirk;
+
 	const corruptedBreachText = useMemo(
 		() => corruptText("SIMULATION BREACH", 0.4),
 		[],
 	);
-	// For Kirk path: exclude KIRK itself from deathEndings (it's handled specially)
-	const deathEnding =
-		state.deathType && !isKirk ? DEATH_ENDINGS[state.deathType] : null;
-	const { progressText, unlockedCount, totalCount } = useUnlockedEndings(
-		state.unlockedEndings,
-	);
-	const replayLine = getPersonalityReplayLine(state.personality);
+	const deathEnding = hasRegularDeath ? DEATH_ENDINGS[deathType] : null;
+	const { progressText, unlockedCount, totalCount } =
+		useUnlockedEndings(unlockedEndings);
+	const replayLine = getPersonalityReplayLine(personality);
 
-	// Generate contextual explanation for why they died
 	const explanation = useMemo(() => {
-		if (!state.deathType || state.deathType === DeathType.KIRK) return null;
-		const vectorMap = accumulateDeathVectors(
-			state.history,
-			state.effectiveDeck ?? [],
-		);
-		return generateDeathExplanation(
-			state.deathType,
-			vectorMap,
-			state.history.length,
-		);
-	}, [state.deathType, state.history, state.effectiveDeck]);
+		if (!hasRegularDeath) return null;
+		const vectorMap = accumulateDeathVectors(history, effectiveDeck ?? []);
+		return generateDeathExplanation(deathType, vectorMap, history.length);
+	}, [hasRegularDeath, deathType, history, effectiveDeck]);
 
-	// Select a random failure lesson for this death type (memoized so it stays stable)
 	const failureLesson = useMemo(() => {
-		if (!state.deathType || state.deathType === DeathType.KIRK) return null;
-		return getRandomLesson(
-			state.deathType as Exclude<DeathType, typeof DeathType.KIRK>,
-		);
-	}, [state.deathType]);
+		if (!hasRegularDeath) return null;
+		return getRandomLesson(deathType);
+	}, [hasRegularDeath, deathType]);
 
-	// Get personality-specific retry prompt
 	const retryPrompt = useMemo(() => {
-		if (
-			!state.deathType ||
-			!state.personality ||
-			state.deathType === DeathType.KIRK
-		)
-			return null;
-		return getRetryPrompt(
-			state.deathType as Exclude<DeathType, typeof DeathType.KIRK>,
-			state.personality,
-		);
-	}, [state.deathType, state.personality]);
+		if (!hasRegularDeath || !personality) return null;
+		return getRetryPrompt(deathType, personality);
+	}, [hasRegularDeath, deathType, personality]);
 
-	// Trigger death ending voice audio
-	useVoicePlayback({
-		stage: GameStage.DEBRIEF_PAGE_1,
-		personality: state.personality,
-		deathType: state.deathType,
-	});
+	useVoicePlayback({ stage: GameStage.DEBRIEF_PAGE_1, personality, deathType });
 
-	// KIRK death: hybrid audio with synthesized glitch + voice narration
 	const hasPlayedKirkGlitch = useRef(false);
 	useEffect(() => {
 		if (!isKirk || hasPlayedKirkGlitch.current) return;
 
-		// Create audio context for glitch effects
-		const Ctx =
-			window.AudioContext ??
-			(window as Window & { webkitAudioContext?: typeof AudioContext })
-				.webkitAudioContext;
-		if (!Ctx) return;
+		const ctx = createAudioContext();
+		if (!ctx) return;
 
-		const ctx = new Ctx();
 		hasPlayedKirkGlitch.current = true;
-
-		// Play glitch tone first, then crash sound, layering with voice
 		playKirkGlitchTone(ctx);
-		setTimeout(() => {
-			playKirkCrashSound(ctx);
-		}, 200);
+		setTimeout(() => playKirkCrashSound(ctx), 200);
 
-		// Cleanup context when component unmounts
 		return () => {
-			if (ctx.state !== "closed") {
-				ctx.close().catch(() => {});
-			}
+			if (ctx.state !== "closed") ctx.close().catch(() => {});
 		};
 	}, [isKirk]);
 
 	return (
 		<LayoutShell className={LAYOUT_SHELL_CENTERED_CLASS}>
 			<div className="w-full max-w-2xl">
-				{/* Game Over Header — corrupted for Kirk */}
 				<div className="mb-6 md:mb-8">
-					{isKirk ? (
-						<>
-							<h1
-								className="text-4xl md:text-6xl font-black text-cyan-400 mb-2 tracking-tighter kirk-glitch-text"
-								aria-label="SIMULATION BREACH"
-							>
-								{corruptedBreachText}
-							</h1>
-							<p className="text-slate-400 text-base md:text-lg">
-								Error: Subject refused to comply with test parameters.
-								Attempting damage control...
-							</p>
-						</>
-					) : (
-						<>
-							<h1 className="text-4xl md:text-6xl font-black text-red-500 mb-2 tracking-tighter">
-								GAME OVER
-							</h1>
-							<p className="text-slate-400 text-base md:text-lg">
-								Your tenure has come to an end
-							</p>
-						</>
-					)}
+					<GameOverHeader isKirk={isKirk} corruptedText={corruptedBreachText} />
 				</div>
 
-				{/* Death Ending Display — hidden for Kirk (handled above) */}
-				{deathEnding && (
-					<>
-						<div
-							className={`mb-6 md:mb-8 p-6 md:p-8 rounded-xl border border-red-500/40 bg-gradient-to-br from-red-950/30 to-black/70 ${GLASS_FILL_STRONG}`}
-						>
-							<div
-								className={`text-5xl md:text-7xl mb-4 animate-pulse drop-shadow-[0_0_30px_rgba(220,38,38,0.5)] ${deathEnding.color}`}
-							>
-								<i className={`fa-solid ${deathEnding.icon}`} aria-hidden></i>
-							</div>
-							<h2
-								className={`text-2xl md:text-3xl font-bold mb-3 tracking-tighter ${deathEnding.color}`}
-							>
-								{deathEnding.title}
-							</h2>
-							<p className="text-slate-300 text-base md:text-lg leading-relaxed">
-								{deathEnding.description}
-							</p>
-						</div>
+				{deathEnding && <DeathEndingCard ending={deathEnding} />}
 
-						{/* "Why You Died" explanation section */}
-						{explanation && (
-							<div className="mt-4 p-3 rounded-lg bg-white/5 border border-white/10 mb-6">
-								<p className="text-sm text-gray-300 italic">{explanation}</p>
-							</div>
-						)}
-
-						{/* Failure Lesson callout */}
-						{failureLesson && (
-							<div className="mt-3 p-3 rounded-lg bg-amber-500/10 border border-amber-500/20 mb-6">
-								<p className="text-xs font-semibold text-amber-400 uppercase mb-1">
-									{failureLesson.title}
-								</p>
-								<p className="text-sm text-gray-300">
-									{failureLesson.explanation}
-								</p>
-								<p className="text-xs text-gray-500 mt-1">
-									Real case: {failureLesson.realWorldExample}
-								</p>
-							</div>
-						)}
-					</>
+				{explanation && (
+					<div className="mt-4 p-3 rounded-lg bg-white/5 border border-white/10 mb-6">
+						<p className="text-sm text-gray-300 italic">{explanation}</p>
+					</div>
 				)}
 
-				{/* Final Metrics */}
-				<div className="mb-6 md:mb-8 grid grid-cols-3 gap-4">
-					<div className={`p-4 rounded-lg ${GLASS_PANEL_DEFAULT}`}>
-						<div className="text-xs text-slate-400 tracking-wide mb-1">
-							Budget
-						</div>
-						<div
-							className={`text-xl md:text-2xl font-black ${state.budget > 0 ? "text-emerald-400" : "text-red-500"}`}
-						>
-							{formatBudget(state.budget)}
-						</div>
-					</div>
-					<div className={`p-4 rounded-lg ${GLASS_PANEL_DEFAULT}`}>
-						<div className="text-xs text-slate-400 tracking-wide mb-1">
-							Heat
-						</div>
-						<div
-							className={`text-xl md:text-2xl font-black ${state.heat < 100 ? "text-amber-400" : "text-red-500"}`}
-						>
-							{state.heat}%
-						</div>
-					</div>
-					<div className={`p-4 rounded-lg ${GLASS_PANEL_DEFAULT}`}>
-						<div className="text-xs text-slate-400 tracking-wide mb-1">
-							Hype
-						</div>
-						<div className="text-xl md:text-2xl font-black text-cyan-400">
-							{state.hype}%
-						</div>
-					</div>
-				</div>
+				{failureLesson && <FailureLessonCard lesson={failureLesson} />}
 
-				{/* Collection Progress - Prominent Display */}
+				<StatsGrid budget={budget} heat={heat} hype={hype} />
+
 				<div
 					className={`mb-6 md:mb-8 p-4 md:p-6 rounded-xl border-2 border-cyan-500/35 bg-gradient-to-br from-cyan-950/30 to-black/70 ${GLASS_FILL_STRONG}`}
 				>
-					{/* Header with icon */}
 					<div className="flex items-center justify-center gap-2 mb-4">
-						<i className="fa-solid fa-trophy text-cyan-400 text-lg"></i>
+						<i className="fa-solid fa-trophy text-cyan-400 text-lg" />
 						<div className="text-xs text-cyan-400 tracking-widest uppercase font-bold">
 							Unlocked Endings
 						</div>
-						<i className="fa-solid fa-trophy text-cyan-400 text-lg"></i>
+						<i className="fa-solid fa-trophy text-cyan-400 text-lg" />
 					</div>
 
-					{/* Progress count */}
 					<div className="mb-4">
 						<div className="text-3xl md:text-4xl font-black text-cyan-400">
 							{unlockedCount}
@@ -275,41 +301,17 @@ export const DebriefPage1Collapse: React.FC<DebriefPage1CollapseProps> = ({
 						</div>
 					</div>
 
-					{/* Icon grid */}
-					<div className="flex gap-2 md:gap-3 justify-center flex-wrap mb-4">
-						{Object.values(DeathType).map((type) => {
-							const unlocked = state.unlockedEndings.includes(type);
-							return (
-								<div
-									key={type}
-									className={`w-10 h-10 md:w-12 md:h-12 rounded-lg flex items-center justify-center ${
-										unlocked
-											? "bg-cyan-500/20 border border-cyan-500"
-											: "bg-slate-800 border border-slate-700 opacity-30"
-									}`}
-									title={DEATH_ENDINGS[type].title}
-								>
-									<i
-										className={`fa-solid ${DEATH_ENDINGS[type].icon} ${unlocked ? "text-cyan-400" : "text-slate-600"}`}
-										aria-hidden
-									></i>
-								</div>
-							);
-						})}
-					</div>
+					<EndingIconGrid unlockedEndings={unlockedEndings} />
 
-					{/* Encouragement text from hook */}
 					<p className="text-sm md:text-base text-slate-300 leading-relaxed mb-3">
 						{progressText}
 					</p>
 
-					{/* Personality-specific replay encouragement */}
 					<p className="text-sm italic text-cyan-400/80">
 						{retryPrompt || replayLine}
 					</p>
 				</div>
 
-				{/* Debrief Me Button */}
 				<button
 					type="button"
 					onClick={onNext}
@@ -320,4 +322,4 @@ export const DebriefPage1Collapse: React.FC<DebriefPage1CollapseProps> = ({
 			</div>
 		</LayoutShell>
 	);
-};
+}
