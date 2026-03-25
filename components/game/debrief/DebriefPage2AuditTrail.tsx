@@ -387,14 +387,16 @@ export const DebriefPage2AuditTrail: React.FC<DebriefPage2AuditTrailProps> = ({
 					</div>
 				)}
 
-				{/* Generate Psych Evaluation Button */}
-				<button
-					type="button"
-					onClick={onNext}
-					className="mx-auto w-full max-w-md bg-white px-6 py-3.5 text-base font-bold tracking-wide text-black transition-all duration-300 hover:bg-cyan-400 hover:text-black min-h-11 md:mx-0 md:w-auto md:max-w-none md:min-h-12 md:px-12 md:py-4 md:text-xl"
-				>
-					Generate Psych Evaluation
-				</button>
+				{/* Generate Psych Evaluation Button — content-sized, centered (matches Intro Boot system) */}
+				<div className="flex w-full justify-center">
+					<button
+						type="button"
+						onClick={onNext}
+						className="min-h-[40px] bg-white px-6 py-3 text-base font-bold tracking-wide text-black transition-colors duration-300 hover:bg-cyan-400 hover:shadow-[0_0_20px_rgba(34,211,238,0.4)] md:min-h-[48px] md:px-12 md:py-4 md:text-xl"
+					>
+						Generate Psych Evaluation
+					</button>
+				</div>
 			</div>
 		</LayoutShell>
 	);
