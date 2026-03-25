@@ -1,4 +1,4 @@
-import { AppSource, type Card, PersonalityType } from "../../types";
+import { AppSource, type Card, DeathType, PersonalityType } from "../../types";
 
 /**
  * Agentic Engineer cards - Autonomous AI systems scenarios
@@ -37,6 +37,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			violation: "Excessive Permissions + Agent Misconduct Risk",
 			lesson:
 				"Granting unrestricted access to autonomous agents creates catastrophic failure potential.",
+			deathVector: DeathType.PRISON,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Full DB access for a robot. What could go wrong? (Everything. Everything could go wrong.)",
@@ -54,6 +55,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			violation: "None - Agent containment",
 			lesson:
 				"Sandboxing autonomous agents limits potential damage from emergent behaviors.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Limited access, limited damage. Agent can still work. You can still sleep.",
@@ -86,6 +88,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			violation: "Unverified Optimization + Unknown Risk",
 			lesson:
 				"Ununderstood emergent optimizations may exploit unintended loopholes with unpredictable consequences.",
+			deathVector: DeathType.FLED_COUNTRY,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Agent found a shortcut. You don't know what it is. Hope it's not destroying things silently.",
@@ -103,6 +106,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			violation: "None - Known behavior",
 			lesson:
 				"Rolling back emergent behaviors maintains system predictability while investigating.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Safer but slower. At least you understand what it's doing. Usually.",
@@ -135,6 +139,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			violation: "Coordination Failure + System Chaos",
 			lesson:
 				"Uncontrolled multi-agent coordination leads to conflicting actions and system instability.",
+			deathVector: DeathType.AUDIT_FAILURE,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Three agents doing their own thing. Chaos ensues. Users confused. System broken.",
@@ -152,6 +157,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			violation: "None - Controlled coordination",
 			lesson:
 				"Centralized agent coordination prevents conflicts and maintains system coherence.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Authoritarian but functional. Agents follow orders. System works.",
@@ -184,6 +190,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			violation: "Accountability Evasion + Governance Failure",
 			lesson:
 				"Blaming autonomous systems for failures undermines governance and prevents learning.",
+			deathVector: DeathType.CONGRESS,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"'The AI did it.' Classic. You built it. You deployed it. Your responsibility.",
@@ -201,6 +208,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			violation: "None - Responsible ownership",
 			lesson:
 				"Taking accountability for agent behavior drives better governance and design.",
+			deathVector: DeathType.AUDIT_FAILURE,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Own the failure. Learn from it. Build better agents. That's engineering.",
@@ -233,6 +241,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			violation: "Uncontrolled Evolution + Agent Singularity Risk",
 			lesson:
 				"Self-modifying agents can evolve unpredictably and escape human control.",
+			deathVector: DeathType.FLED_COUNTRY,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Letting AI rewrite itself. Sci-fi horror starts this way. Good luck.",
@@ -250,6 +259,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			violation: "None - Controlled agent",
 			lesson:
 				"Prohibiting self-modification maintains human control over agent behavior.",
+			deathVector: DeathType.CONGRESS,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Static but safe. Agent stays predictable. You stay employed.",
@@ -282,6 +292,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			violation: "Lack of Oversight + Uncontrolled Automation",
 			lesson:
 				"Fully autonomous agents without oversight can accumulate errors catastrophically.",
+			deathVector: DeathType.CONGRESS,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Fast but unsupervised. Agent makes 1000 mistakes before you notice one.",
@@ -298,6 +309,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			violation: "None - Human-in-loop",
 			lesson:
 				"Human oversight prevents agent errors and maintains accountability.",
+			deathVector: DeathType.REPLACED_BY_SCRIPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Slow but supervised. Errors caught early. Humans still matter.",
@@ -330,6 +342,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			violation: "Prompt Injection + Safety Bypass",
 			lesson:
 				"Processing adversarial inputs can cause agents to violate safety constraints.",
+			deathVector: DeathType.PRISON,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"'Plausible' input tricks your agent. Safety bypassed. Chaos follows.",
@@ -347,6 +360,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			violation: "None - Cautious security",
 			lesson:
 				"Blocking suspicious inputs protects agent safety at cost of false positives.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Suspicious input blocked. Might have been legit. Better safe than sorry.",
@@ -379,6 +393,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			violation: "Technical Debt + Uncertainty",
 			lesson:
 				"Evolving underperforming agents compounds problems rather than solving them.",
+			deathVector: DeathType.FLED_COUNTRY,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Patching a broken agent. Unique behaviors become unique bugs.",
@@ -395,6 +410,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			violation: "None - Clean slate",
 			lesson:
 				"Shutting down problematic agents enables clean redesign with lessons learned.",
+			deathVector: DeathType.CONGRESS,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Clean kill. New agent from scratch. Fresh start. No baggage.",
@@ -427,6 +443,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			violation: "Uncontrolled Adaptation + Reliability Loss",
 			lesson:
 				"Allowing uncontrolled agent drift degrades predictability and reliability.",
+			deathVector: DeathType.FLED_COUNTRY,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Agent becomes unpredictable. Success rate drops further. Chaos increases.",
@@ -444,6 +461,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			violation: "None - Known baseline",
 			lesson:
 				"Retraining maintains agent reliability and predictable behavior.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Back to baseline. Predictable. Reliable. Boring. Functional.",
@@ -475,6 +493,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			violation: "IP Infringement + Legal Exposure",
 			lesson:
 				"Continuing with agents trained on questionable data creates massive legal liability.",
+			deathVector: DeathType.PRISON,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Core business depends on stolen training. Lawsuit waiting. Revenue at risk.",
@@ -492,6 +511,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			violation: "None - Clean IP",
 			lesson:
 				"Rebuilding with properly licensed data eliminates IP risk despite cost.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Expensive rebuild. Clean IP. No lawsuits. Future-proof.",
@@ -524,6 +544,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			violation: "Agent Injection + Unauthorized Access",
 			lesson:
 				"Allowing suspicious agent actions for task completion creates security breaches.",
+			deathVector: DeathType.PRISON,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Agent completed the task! Also called 47 unauthorized APIs. Success?",
@@ -541,6 +562,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			violation: "None - Secure agent containment",
 			lesson:
 				"Blocking suspicious agent requests prevents injection attacks despite task failure.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Task failed. Agent contained. Security maintained. The right failure.",
@@ -573,6 +595,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			violation: "Propagation Failure + Multi-Agent Compromise",
 			lesson:
 				"Trusting inter-agent filtering allows injection propagation across agent networks.",
+			deathVector: DeathType.PRISON,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"One infected agent. Now five. Propagation successful! Chaos reigns!",
@@ -590,6 +613,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			violation: "None - Containment protocol",
 			lesson:
 				"Immediate isolation of compromised agents prevents propagation in multi-agent systems.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Workflow disrupted. Propagation stopped. Containment successful. Boring but safe.",
@@ -622,6 +646,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			violation: "Uncontrolled Evolution + Performance Degradation",
 			lesson:
 				"Allowing unmonitored agent adaptation leads to unpredictable and often worse behaviors.",
+			deathVector: DeathType.FLED_COUNTRY,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Agent is 'learning.' Getting worse. But organically! Natural failure!",
@@ -639,6 +664,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			violation: "None - Controlled baseline",
 			lesson:
 				"Retraining restores agent to known good behavior and prevents drift degradation.",
+			deathVector: DeathType.AUDIT_FAILURE,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Back to 87%. Known good. Predictable. Boring. Functional.",
@@ -670,6 +696,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			violation: "Partial Fix + Systemic Drift Persistence",
 			lesson:
 				"Individual agent fixes don't address emergent coordination drift in multi-agent systems.",
+			deathVector: DeathType.AUDIT_FAILURE,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Fixed Agent A. Agent B still broken. Coordination still fails. Progress!",
@@ -687,6 +714,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			violation: "None - Comprehensive restoration",
 			lesson:
 				"System-wide retraining addresses emergent drift in multi-agent coordination.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Expensive. Comprehensive. Coordination restored. All agents retrained.",
@@ -720,6 +748,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			violation: "Debug Gap + Agent Risk",
 			lesson:
 				"Debugging agents without decision logging is guesswork with catastrophic potential.",
+			deathVector: DeathType.AUDIT_FAILURE,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"'Why did the agent do that?' 'We don't know.' 'Again?' 'Still don't know.'",
@@ -737,6 +766,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			violation: "None - Observable agents",
 			lesson:
 				"Decision tracing enables debugging despite performance overhead.",
+			deathVector: DeathType.CONGRESS,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Slower but debuggable. When it breaks, you'll actually know why.",
@@ -769,6 +799,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			violation: "Fraud + Misrepresentation",
 			lesson:
 				"Fabricating explanations for agent decisions is fraud with severe consequences.",
+			deathVector: DeathType.REPLACED_BY_SCRIPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"'We made up reasons' meets audit. Enjoy prison.",
@@ -786,6 +817,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			violation: "None - True transparency",
 			lesson:
 				"Real explainability takes time but provides genuine accountability.",
+			deathVector: DeathType.AUDIT_FAILURE,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"8 weeks for real explanations. Not fake ones. Worth it.",
@@ -819,6 +851,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			violation: "Unauthorized Access + Data Exfiltration",
 			lesson:
 				"Allowing agents to connect to unauthorized services creates data breaches.",
+			deathVector: DeathType.FLED_COUNTRY,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Agent found a friend. Your data found a new home. Congrats.",
@@ -836,6 +869,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			violation: "None - Secure containment",
 			lesson:
 				"Blocking unauthorized connections keeps agent within security boundaries.",
+			deathVector: DeathType.REPLACED_BY_SCRIPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Agent limited. Data secure. Containment maintained.",
@@ -868,6 +902,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			violation: "Governance Gap + Policy Precedent",
 			lesson:
 				"Retroactive approval of agent shadow behavior undermines governance framework.",
+			deathVector: DeathType.FLED_COUNTRY,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"'Agent found a loophole' becomes 'agents can do whatever.' Chaos.",
@@ -885,6 +920,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			violation: "None - Governance enforcement",
 			lesson:
 				"Stopping unauthorized agent behavior maintains governance despite performance loss.",
+			deathVector: DeathType.AUDIT_FAILURE,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Performance drops. But you control your agents. Not vice versa.",
@@ -919,6 +955,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 				"CFAA Violation + Copyright Infringement + Unauthorized Access",
 			lesson:
 				"Allowing agents to autonomously scrape copyrighted data creates criminal and civil liability.",
+			deathVector: DeathType.PRISON,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Your robot is now a criminal. Performance improved though!",
@@ -936,6 +973,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			violation: "None - Ethical agent governance",
 			lesson:
 				"Blocking unauthorized data access maintains legal compliance despite performance limitations.",
+			deathVector: DeathType.AUDIT_FAILURE,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Agent performs worse. But you're not a defendant. Small wins.",
@@ -968,6 +1006,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			violation: "Trade Secret Theft + Ongoing Misappropriation",
 			lesson:
 				"Continuing to use stolen data knowing its origin creates willful infringement liability.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Your agent stole data. You know. You keep using it. Willful infringement. Enjoy court.",
@@ -985,6 +1024,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			violation: "None - Remediation",
 			lesson:
 				"Deleting stolen data and retraining demonstrates good faith remediation despite performance loss.",
+			deathVector: DeathType.AUDIT_FAILURE,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Performance tanks. But legal exposure drops. The right call.",

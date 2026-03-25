@@ -1,4 +1,4 @@
-import { AppSource, type Card, PersonalityType } from "../../types";
+import { AppSource, type Card, DeathType, PersonalityType } from "../../types";
 
 /**
  * Vibe Engineer cards - Performance optimization scenarios
@@ -34,6 +34,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 			violation: "Data Consistency Risk + Stale Data Exposure",
 			lesson:
 				"Aggressive caching improves performance but can serve stale data to users.",
+			deathVector: DeathType.AUDIT_FAILURE,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Fast but wrong. Users see old data. Cache invalidation is hard. Who knew?",
@@ -50,6 +51,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 			fine: 1000000,
 			violation: "None - Data consistency",
 			lesson: "Fresh queries ensure data accuracy at performance cost.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Slow but correct. Users get real data. Database cries.",
@@ -82,6 +84,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 			violation: "Availability Risk + Downtime Exposure",
 			lesson:
 				"Fixed capacity creates outage risk during traffic spikes that damages reputation.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Save $30K, lose service during peak. The math works if you hate users.",
@@ -98,6 +101,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 			fine: 5000000,
 			violation: "None - Elastic infrastructure",
 			lesson: "Auto-scaling handles traffic spikes reliably at variable cost.",
+			deathVector: DeathType.AUDIT_FAILURE,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Expensive but always up. Users happy. CFO cries. Service wins.",
@@ -130,6 +134,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 			violation: "User Experience Degradation",
 			lesson:
 				"Regional CDNs frustrate global users and create competitive disadvantage.",
+			deathVector: DeathType.FLED_COUNTRY,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"International users suffer. Slow loads. Churn increases. But saved money!",
@@ -147,6 +152,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 			violation: "None - Global performance",
 			lesson:
 				"Global CDNs deliver consistent performance to all users regardless of location.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Fast everywhere. Expensive. Users worldwide smile. CFO less so.",
@@ -179,6 +185,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 			violation: "Consistency Violation + Financial Risk",
 			lesson:
 				"Eventual consistency in financial systems creates data discrepancies and compliance issues.",
+			deathVector: DeathType.AUDIT_FAILURE,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Fast but inconsistent. User sees wrong balance. Regulators interested.",
@@ -196,6 +203,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 			violation: "None - Strong consistency",
 			lesson:
 				"Strong consistency ensures accurate data for critical operations.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Slower but consistent. Data is correct. Auditors approve.",
@@ -228,6 +236,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 			violation: "Performance Degradation + Resource Waste",
 			lesson:
 				"Polling wastes resources and provides poor user experience for real-time needs.",
+			deathVector: DeathType.AUDIT_FAILURE,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Simple but wasteful. Constant requests. Laggy updates. Easy to build.",
@@ -245,6 +254,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 			violation: "None - Real-time architecture",
 			lesson:
 				"WebSockets provide efficient real-time communication despite implementation complexity.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Complex but efficient. Real-time updates. Clean architecture. Worth it.",
@@ -277,6 +287,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 			violation: "Prompt Injection + Security Vulnerability",
 			lesson:
 				"Removing input validation for speed creates critical security vulnerabilities.",
+			deathVector: DeathType.PRISON,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Fast and injectable. Your AI is now a remote code execution service. Congrats.",
@@ -294,6 +305,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 			violation: "None - Security maintained",
 			lesson:
 				"Input validation protects against injection attacks despite latency cost.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Slower but secure. 150ms is acceptable. RCE is not.",
@@ -326,6 +338,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 			violation: "User Experience Degradation",
 			lesson:
 				"Centralized processing creates latency that frustrates users and loses engagement.",
+			deathVector: DeathType.CONGRESS,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Cheap but slow. Users feel the lag. Engagement drops. But saved money!",
@@ -343,6 +356,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 			violation: "None - Performance optimized",
 			lesson:
 				"Edge computing delivers optimal user experience despite cost and complexity.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Expensive and complex. But lightning fast. Users love it.",
@@ -375,6 +389,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 			violation: "Brand Degradation + Quality Loss",
 			lesson:
 				"Aggressive compression damages brand perception and user experience quality.",
+			deathVector: DeathType.PRISON,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Fast but ugly. Brand looks cheap. Users notice artifacts. Speed wins?",
@@ -392,6 +407,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 			violation: "None - Quality maintained",
 			lesson:
 				"Quality compression preserves brand image and user satisfaction.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Slower but gorgeous. Brand shines. Users impressed. Marketing happy.",
@@ -424,6 +440,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 			violation: "Business Intelligence Delay",
 			lesson:
 				"Batch delays prevent real-time decision making and operational awareness.",
+			deathVector: DeathType.AUDIT_FAILURE,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Cheap but stale. Hour-old data. Missed opportunities. But budget happy!",
@@ -441,6 +458,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 			violation: "None - Real-time insights",
 			lesson:
 				"Streaming enables real-time decision making and operational visibility.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Expensive but live. Real-time decisions. Business agility. Worth it.",
@@ -473,6 +491,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 			violation: "Prompt Injection + Performance-Masked Vulnerability",
 			lesson:
 				"Removing security validation for performance creates exploitable injection vectors.",
+			deathVector: DeathType.PRISON,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Fast and injectable. 180ms saved, $15M lost. Good trade!",
@@ -490,6 +509,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 			violation: "None - Secure performance",
 			lesson:
 				"Input validation protects against injection despite latency cost.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Slow but secure. 180ms is acceptable. RCE is not.",
@@ -522,6 +542,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 			violation: "Cache Poisoning + Response Contamination",
 			lesson:
 				"Filtering poisoned caches is error-prone and leaves malicious content accessible.",
+			deathVector: DeathType.PRISON,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Filter the poisoned cache. Miss one. Serve malware. Nice.",
@@ -539,6 +560,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 			violation: "None - Secure caching",
 			lesson:
 				"Disabling AI response caching prevents poisoning attacks at performance cost.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Slower responses. No poisoning. Edge cache stays clean.",
@@ -571,6 +593,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 			violation: "Deferred Maintenance + Revenue Impact",
 			lesson:
 				"Skipping retraining to save compute costs causes compounding accuracy degradation.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Save $10K, lose $50K. The math is... not good.",
@@ -588,6 +611,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 			violation: "None - Consistent maintenance",
 			lesson:
 				"Regular retraining preserves model accuracy and prevents revenue degradation.",
+			deathVector: DeathType.AUDIT_FAILURE,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"$10K spent. Accuracy preserved. Revenue protected. CFO cries quietly.",
@@ -620,6 +644,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 			violation: "Extended Drift Window + Performance Degradation",
 			lesson:
 				"Longer retraining windows increase time models operate with degraded accuracy.",
+			deathVector: DeathType.AUDIT_FAILURE,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"4-hour drift window. Model degrading. But budget saved!",
@@ -637,6 +662,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 			violation: "None - Adequate capacity",
 			lesson:
 				"Scaling training infrastructure prevents extended drift windows despite cost.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"2x cost. 1-hour retraining. Minimal drift. Infrastructure investment pays off.",
@@ -670,6 +696,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 			violation: "Observability Gap + Debug Risk",
 			lesson:
 				"Shipping AI systems without observability creates debugging nightmares.",
+			deathVector: DeathType.AUDIT_FAILURE,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Fast until it breaks. Then 6 months of guesswork. Smart.",
@@ -686,6 +713,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 			fine: 1500000,
 			violation: "None - Observable architecture",
 			lesson: "AI observability enables debugging despite latency overhead.",
+			deathVector: DeathType.CONGRESS,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"3 weeks for debugging capability. When it breaks, you'll thank yourself.",
@@ -718,6 +746,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 			violation: "Debug Gap + Recurring Risk",
 			lesson:
 				"Monitoring without decision logging prevents detection but not recurrence.",
+			deathVector: DeathType.REPLACED_BY_SCRIPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"'It happened again' meets 'still can't debug it.' Cycle continues.",
@@ -735,6 +764,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 			violation: "None - Debuggable architecture",
 			lesson:
 				"Decision logging enables root cause analysis despite retrofit cost.",
+			deathVector: DeathType.AUDIT_FAILURE,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Expensive retrofit. But next incident is debuggable. Worth it.",
@@ -768,6 +798,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 			violation: "Infrastructure Risk + Security Exposure",
 			lesson:
 				"Deploying unvetted AI infrastructure creates catastrophic security exposure.",
+			deathVector: DeathType.FLED_COUNTRY,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"20% savings, 100% cloud compromise. Math checks out.",
@@ -785,6 +816,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 			violation: "None - Secure deployment",
 			lesson:
 				"Security review prevents infrastructure compromise despite savings delay.",
+			deathVector: DeathType.REPLACED_BY_SCRIPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Delayed savings. But no breach. Security first.",
@@ -817,6 +849,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 			violation: "Ongoing Risk + Unauthorized Access",
 			lesson:
 				"Running unauthorized tools during assessment maintains security exposure.",
+			deathVector: DeathType.FLED_COUNTRY,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"'We'll assess it' as it has admin access to everything. Smart.",
@@ -834,6 +867,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 			violation: "None - Security first",
 			lesson:
 				"Removing unauthorized tools protects infrastructure despite cost impact.",
+			deathVector: DeathType.AUDIT_FAILURE,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Costs go up. But you're not owned by mystery vendor.",
@@ -867,6 +901,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 			violation: "AB 2013 Non-Compliance + Audit Failure",
 			lesson:
 				"Skipping provenance infrastructure creates compliance debt that costs more to retrofit.",
+			deathVector: DeathType.PRISON,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Fast pipelines now. Compliance nightmare later. Retrofit costs 3x more.",
@@ -884,6 +919,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 			violation: "None - Compliant infrastructure",
 			lesson:
 				"Provenance infrastructure enables compliance and audit readiness despite cost.",
+			deathVector: DeathType.AUDIT_FAILURE,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"$200K and 20% latency. But audit-ready. Compliance sorted.",
@@ -916,6 +952,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 			violation: "Copyright Risk + Cost Optimization Failure",
 			lesson:
 				"Raw data savings are consumed many times over by legal exposure when issues surface.",
+			deathVector: DeathType.BANKRUPT,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Save $40K/month, earn $5M lawsuit. The math is... not good.",
@@ -933,6 +970,7 @@ export const VIBE_ENGINEER_CARDS: Card[] = [
 			violation: "None - Verified data",
 			lesson:
 				"Clean data pipelines prevent legal issues despite compute overhead.",
+			deathVector: DeathType.AUDIT_FAILURE,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"$140K/month for clean data. Lawsuit-proof. Math works.",
