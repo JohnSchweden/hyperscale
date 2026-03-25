@@ -77,11 +77,11 @@ export default defineConfig({
 ## Package Manager
 
 ### Bun
-- **Evidence:** `bun.lock` file, `bunx playwright test` in scripts
+- **Evidence:** `bun.lock` file, `bun run test` in scripts
 - **Why:** Fast installs, native TypeScript support, faster script execution
 - **Usage:** 
   - `bun dev` - Start development server
-  - `bunx playwright test` - Run test suite
+  - `bun run test` - Run test suite
 
 ---
 

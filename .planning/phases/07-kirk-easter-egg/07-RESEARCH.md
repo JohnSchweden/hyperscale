@@ -467,8 +467,8 @@ const isKirk = deathType === DeathType.KIRK;
 |--------|----------|-----------|-------------------|-------------|
 | KIRK-01a | Swipe-up increments kirkCounter | unit | `bun run test:unit -- --run useSwipeGestures` | No -- Wave 0 |
 | KIRK-01b | Timer expiry (no interaction) increments kirkCounter | unit | `bun run test:unit -- --run kirkRefusal` | No -- Wave 0 |
-| KIRK-01c | 2nd refusal triggers corruption cascade | E2E | `bunx playwright test tests/kirk-easter-egg.spec.ts` | No -- Wave 0 |
-| KIRK-02a | Kirk debrief shows corrupted content | E2E | `bunx playwright test tests/kirk-debrief.spec.ts` | No -- Wave 0 |
+| KIRK-01c | 2nd refusal triggers corruption cascade | E2E | `bun run test -- tests/kirk-easter-egg.spec.ts` | No -- Wave 0 |
+| KIRK-02a | Kirk debrief shows corrupted content | E2E | `bun run test -- tests/kirk-debrief.spec.ts` | No -- Wave 0 |
 | KIRK-02b | Kirk archetype override on verdict page | unit | `bun run test:unit -- --run archetype` | Partial (existing `unit/archetype.test.ts` needs Kirk case) |
 | KIRK-02c | Kirk ending not in unlockedEndings | unit | `bun run test:unit -- --run unlocked-endings` | Partial (existing `unit/unlocked-endings.test.ts` needs Kirk case) |
 

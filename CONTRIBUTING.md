@@ -55,7 +55,7 @@ git checkout -b content/new-role-or-scenarios
 ### Before Submitting
 
 - [ ] All tests pass: `bun run test`
-- [ ] No TypeScript errors: `bunx tsc --noEmit`
+- [ ] No TypeScript errors: `bun run typecheck`
 - [ ] Code follows style guidelines
 - [ ] New features have tests
 - [ ] Documentation updated (if needed)
@@ -236,13 +236,13 @@ All changes must include appropriate tests:
 bun run test
 
 # Run specific file
-bunx playwright test tests/your-test.spec.ts
+bun run test -- tests/your-test.spec.ts
 
 # Debug mode
-bunx playwright test --debug
+bun run test -- --debug
 
 # Update snapshots
-bunx playwright test --update-snapshots
+bun run test -- --update-snapshots
 ```
 
 ### Writing Tests

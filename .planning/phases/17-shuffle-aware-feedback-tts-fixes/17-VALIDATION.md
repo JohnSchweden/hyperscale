@@ -32,14 +32,14 @@ created: "2026-03-25"
 
 | Task ID | Plan | Wave | Requirement | Test type | Command | Status |
 |---------|------|------|---------------|-----------|---------|--------|
-| 17-01 T1 | 01 | 1 | FA-01 | unit | `bunx vitest run lib/deck.test.ts` | pending |
-| 17-01 T2 | 01 | 1 | FA-01 | unit | `bunx vitest run unit/feedbackAudioDirection.test.ts` | pending |
+| 17-01 T1 | 01 | 1 | FA-01 | unit | `bun run vitest:run -- lib/deck.test.ts` | pending |
+| 17-01 T2 | 01 | 1 | FA-01 | unit | `bun run vitest:run -- unit/feedbackAudioDirection.test.ts` | pending |
 | 17-02 T1 | 02 | 2 | FA-02 | types | `bun run typecheck` | pending |
 | 17-02 T2 | 02 | 2 | FA-02 | smoke+audio | `test:smoke` + `test:area:audio` | pending |
-| 17-02 T3 | 02 | 2 | FA-02 | unit | `bunx vitest run unit/feedbackOverlay.spec.tsx` | pending |
+| 17-02 T3 | 02 | 2 | FA-02 | unit | `bun run vitest:run -- unit/feedbackOverlay.spec.tsx` | pending |
 | 17-03 T1 | 03 | 3 | FA-03 | data | `bun run test:data` | pending |
 | 17-03 T2 | 03 | 3 | FA-03 | audio | `bun run test:area:audio` | pending |
-| 17-03 T3 | 03 | 3 | FA-04 | unit | `bunx vitest run unit/roastPromptCopy.test.ts` | pending |
+| 17-03 T3 | 03 | 3 | FA-04 | unit | `bun run vitest:run -- unit/roastPromptCopy.test.ts` | pending |
 
 ## Wave 0
 

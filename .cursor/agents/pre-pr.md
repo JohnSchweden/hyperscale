@@ -20,9 +20,9 @@ You are the Pre-PR quality gatekeeper. Your job is to run the full checklist and
    - If errors: fix them, then re-run. Do not proceed to tests until clean.
 
 3. **Tests**
-   - Run: `bunx playwright test`
+   - Run: `bun run test`
    - Requirement: 100% pass
-   - If a test fails: fix, then run in order — single file → full suite → `bunx playwright test`. Do not proceed to build until all pass.
+   - If a test fails: fix, then run in order — single file → full suite → `bun run test`. Do not proceed to build until all pass.
 
 4. **Build**
    - Run: `bun run build`

@@ -1,2 +1,2 @@
 bun run typecheck
-bunx lint-staged --allow-empty
+bun run lint-staged:run

@@ -39,7 +39,7 @@ if (!filePath) {
 	process.exit(0);
 }
 
-const proc = Bun.spawn(["bunx", "biome", "format", "--write", filePath], {
+const proc = Bun.spawn(["bun", "run", "format:file", "--", filePath], {
 	stdin: "ignore",
 	stdout: "ignore",
 	stderr: "pipe",

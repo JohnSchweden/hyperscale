@@ -1,11 +1,11 @@
 ---
 name: typescript-lint-format
-description: Run TypeScript type checking, linting, and formatting in this repo. Use when verifying code after changes, before committing, or when the user asks to typecheck, lint, or format. Always use Bun (bun run / bunx) for scripts in this project.
+description: Run TypeScript type checking, linting, and formatting in this repo. Use when verifying code after changes, before committing, or when the user asks to typecheck, lint, or format. Always use Bun (`bun run <script>`) for scripts in this project.
 ---
 
 # TypeScript, Lint & Format (Bun)
 
-This project uses **Bun** as the package manager and runtime. Use `bun run <script>` and `bunx` for all tooling; do not use npm/npx unless a package requires it.
+This project uses **Bun** as the package manager and runtime. Use `bun run <script>` for package.json scripts (typecheck, lint, test, Playwright, Vitest, etc.); do not use npm/npx unless a package requires it.
 
 ## Commands (run from repo root)
 

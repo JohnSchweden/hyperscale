@@ -31,26 +31,26 @@ tests/
 ```bash
 # Run all tests
 bun run test
-# or: bunx playwright test
+# or: bun run test
 
 # Run specific test file
-bunx playwright test tests/swipe-interactions.spec.ts
+bun run test -- tests/swipe-interactions.spec.ts
 
 # Run with UI mode (interactive debugging)
-bunx playwright test --ui
+bun run test -- --ui
 
 # Run in headed mode (see browser)
-bunx playwright test --headed
+bun run test -- --headed
 
 # Run specific project (viewport)
-bunx playwright test --project=chromium-desktop
-bunx playwright test --project=chromium-mobile
+bun run test -- --project=chromium-desktop
+bun run test -- --project=chromium-mobile
 
 # Run with trace viewer
-bunx playwright test --trace=on
+bun run test -- --trace=on
 
 # Debug mode (step through)
-bunx playwright test --debug
+bun run test -- --debug
 ```
 
 ### Test Configuration
@@ -96,7 +96,7 @@ Visual regression tests for all game stages across viewports.
 **Updating Baselines:**
 ```bash
 # After intentional UI changes
-bunx playwright test tests/stage-snapshots.spec.ts --update-snapshots
+bun run test -- tests/stage-snapshots.spec.ts --update-snapshots
 ```
 
 ### 2. Swipe Interactions (`swipe-interactions.spec.ts`)
@@ -286,10 +286,10 @@ Example: `intro-chromium-desktop-darwin.png`
 
 ```bash
 # Run with trace
-bunx playwright test --trace=on
+bun run test -- --trace=on
 
 # Open trace
-bunx playwright show-trace test-results/trace.zip
+bun run playwright:show-trace -- test-results/trace.zip
 ```
 
 ### Common Issues

@@ -180,16 +180,14 @@ function runBenchmark(): Baseline {
 	const outputFile = join(benchmarksDir, "benchmark-results.json");
 
 	// Run Playwright with JSON reporter; use temp file to avoid stdout mixing
-	execSync(
-		`bunx playwright test --config=playwright.benchmark.config.ts --reporter=json --reporter=list --timeout=60000`,
-		{
-			stdio: "inherit",
-			env: {
-				...process.env,
-				PLAYWRIGHT_JSON_OUTPUT_FILE: outputFile,
-			},
+	execSync("bun run test:benchmark", {
+		stdio: "inherit",
+		cwd: join(SCRIPT_DIR, ".."),
+		env: {
+			...process.env,
+			PLAYWRIGHT_JSON_OUTPUT_FILE: outputFile,
 		},
-	);
+	});
 
 	const raw = readFileSync(outputFile, "utf-8");
 	const report = JSON.parse(raw) as { suites?: JSONReportSuite[] };

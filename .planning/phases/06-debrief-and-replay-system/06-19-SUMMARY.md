@@ -86,7 +86,7 @@ All tasks completed successfully. 3 tasks executed, 3 commits created, 7 tests c
 - Wrapped entire debrief-email-capture.spec.ts in block comment (/* ... */)
 - Email form is no longer rendered, so these tests would fail without the form UI
 - Tests preserved for future re-enablement when form is restored
-- `bunx playwright test tests/debrief-email-form.spec.ts tests/debrief-email-capture.spec.ts --list` now returns "No tests found" (correct behavior)
+- `bun run test -- tests/debrief-email-form.spec.ts tests/debrief-email-capture.spec.ts --list` now returns "No tests found" (correct behavior)
 
 ### Task 3: LinkedIn CTA E2E Tests (93c9845)
 

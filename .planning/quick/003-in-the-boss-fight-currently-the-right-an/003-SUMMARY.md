@@ -43,7 +43,7 @@ patterns-established:
 - Simple inline solution vs. imported shuffle utility
 
 ## Verification
-- Boss fight tests pass: `bunx playwright test tests/stage-snapshots.spec.ts` shows boss-fight tests passing on both desktop and mobile
+- Boss fight tests pass: `bun run test -- tests/stage-snapshots.spec.ts` shows boss-fight tests passing on both desktop and mobile
 
 ## Deviations from Plan
 

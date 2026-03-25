@@ -1,6 +1,6 @@
 /**
  * Consolidated Live API + TTS fallback tests.
- * Run: bunx playwright test tests/live-api.spec.ts --project=chromium-desktop
+ * Run: bun run test -- tests/live-api.spec.ts --project=chromium-desktop
  * For TTS fallback: Start local-api.ts first: npx tsx scripts/local-api.ts
  */
 import { expect, test } from "@playwright/test";

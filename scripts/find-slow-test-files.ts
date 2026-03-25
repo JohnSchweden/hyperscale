@@ -10,7 +10,8 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
-const TESTS_DIR = join(SCRIPT_DIR, "..", "tests");
+const REPO_ROOT = join(SCRIPT_DIR, "..");
+const TESTS_DIR = join(REPO_ROOT, "tests");
 const LIMIT_20S = 20_000;
 const LIMIT_30S = 30_000;
 
@@ -24,9 +25,10 @@ function findSpecFiles(): string[] {
 function runFile(file: string): { durationMs: number } {
 	const start = Date.now();
 	try {
-		execSync(`bunx playwright test "${file}"`, {
+		execSync(`bun run test -- "${file}"`, {
 			stdio: "pipe",
 			encoding: "utf-8",
+			cwd: REPO_ROOT,
 		});
 	} catch {
 		// execSync throws on non-zero exit; we still record duration

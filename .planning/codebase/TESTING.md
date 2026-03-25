@@ -243,10 +243,10 @@ test.describe('Stage Snapshots', () => {
 ### Generating Snapshots
 ```bash
 # Update all snapshots
-bunx playwright test --update-snapshots
+bun run test -- --update-snapshots
 
 # Update specific test snapshots
-bunx playwright test tests/stage-snapshots.spec.ts --update-snapshots
+bun run test -- tests/stage-snapshots.spec.ts --update-snapshots
 ```
 
 ---
@@ -303,19 +303,19 @@ test('card exits smoothly from current drag position', async ({ page }) => {
 
 ```bash
 # Run all tests
-bunx playwright test
+bun run test
 
 # Run specific test file
-bunx playwright test tests/swipe-interactions.spec.ts
+bun run test -- tests/swipe-interactions.spec.ts
 
 # Run with UI mode for debugging
-bunx playwright test --ui
+bun run test -- --ui
 
 # Run in headed mode (see browser)
-bunx playwright test --headed
+bun run test -- --headed
 
 # Run with specific project
-bunx playwright test --project=chromium-mobile
+bun run test -- --project=chromium-mobile
 ```
 
 ### Development Workflow
@@ -325,10 +325,10 @@ bunx playwright test --project=chromium-mobile
 bun run dev
 
 # In another terminal, run tests
-bunx playwright test
+bun run test
 
 # Debug a failing test
-bunx playwright test tests/failing.spec.ts --headed --debug
+bun run test -- tests/failing.spec.ts --headed --debug
 ```
 
 ### CI Workflow
@@ -453,10 +453,10 @@ test('spring physics CSS class exists', async ({ page }) => {
 ### Debug Tools
 ```bash
 # Generate trace for debugging
-bunx playwright test --trace on
+bun run test -- --trace on
 
 # View trace
-bunx playwright show-trace trace.zip
+bun run playwright:show-trace -- trace.zip
 
 # Screenshot on failure (default in config)
 ```

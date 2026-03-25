@@ -70,7 +70,7 @@ Implementation for getStatefulPage:
 - This is a documentation/convention helper - actual context reuse comes from Playwright config
 </action>
   <verify>
-Run: bunx playwright test tests/swipe-interactions.spec.ts --grep "spring physics"
+Run: bun run test -- tests/swipe-interactions.spec.ts --grep "spring physics"
 
 This test should complete faster because it uses the new direct navigation.
 </verify>
@@ -99,7 +99,7 @@ Keep beforeEach for tests that actually interact with cards:
 The beforeAll should call navigateToPlayingFast once per describe block, then all tests in that block share the page.
 </action>
   <verify>
-Run: bunx playwright test tests/swipe-interactions.spec.ts
+Run: bun run test -- tests/swipe-interactions.spec.ts
 
 All 8 tests should pass. Tests using beforeAll should be faster.
 </verify>
@@ -120,7 +120,7 @@ Refactor tests/snap-back.spec.ts to demonstrate the optimized pattern:
 This serves as a template for refactoring other test files.
 </action>
   <verify>
-Run: bunx playwright test tests/snap-back.spec.ts
+Run: bun run test -- tests/snap-back.spec.ts
 
 Both snap-back tests should pass.
 </verify>
@@ -133,7 +133,7 @@ snap-back.spec.ts demonstrates optimized navigation pattern
 
 <verification>
 Run the full test suite to ensure no regressions:
-bunx playwright test
+bun run test
 
 Test execution time should decrease due to:
 1. Direct navigation (fewer page.goto and clicks)

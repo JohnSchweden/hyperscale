@@ -117,16 +117,16 @@ This project uses [Playwright](https://playwright.dev/) for end-to-end testing.
 ```bash
 # Run all tests
 bun run test
-# or: bunx playwright test
+# or: bun run test
 
 # Run specific test file
-bunx playwright test tests/swipe-interactions.spec.ts
+bun run test -- tests/swipe-interactions.spec.ts
 
 # Run with UI mode for debugging
-bunx playwright test --ui
+bun run test -- --ui
 
 # Run against mobile viewport
-bunx playwright test --project=chromium-mobile
+bun run test -- --project=chromium-mobile
 ```
 
 ### Test Coverage

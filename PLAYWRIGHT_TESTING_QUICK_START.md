@@ -7,18 +7,18 @@ The Debrief Me button now works. Tests verify it. Here's how to test it yourself
 
 ### Test the button works
 ```bash
-bunx playwright test tests/summary-navigation.spec.ts --project=chromium-desktop
+bun run test -- tests/summary-navigation.spec.ts --project=chromium-desktop
 ```
 ✓ This runs the 4 navigation tests that verify the button clicks and state changes correctly.
 
 ### Test all debrief functionality
 ```bash
-bunx playwright test tests/debrief-*.spec.ts tests/summary-*.spec.ts
+bun run test -- tests/debrief-*.spec.ts tests/summary-*.spec.ts
 ```
 
 ### Run specific test
 ```bash
-bunx playwright test tests/summary-navigation.spec.ts:6
+bun run test -- tests/summary-navigation.spec.ts:6
 ```
 (runs just the "Debrief Me button navigates to DEBRIEF_PAGE_1" test)
 
@@ -28,7 +28,7 @@ bunx playwright test tests/summary-navigation.spec.ts:6
 
 ### See the button click in action
 ```bash
-bunx playwright test tests/summary-navigation.spec.ts:6 --headed
+bun run test -- tests/summary-navigation.spec.ts:6 --headed
 ```
 
 **What you'll see:**
@@ -44,7 +44,7 @@ bunx playwright test tests/summary-navigation.spec.ts:6 --headed
 
 ### Debug mode (step through clicks)
 ```bash
-bunx playwright test tests/summary-navigation.spec.ts:6 --debug
+bun run test -- tests/summary-navigation.spec.ts:6 --debug
 ```
 
 **What happens:**
@@ -117,15 +117,15 @@ All 4 bugs are now fixed.
 
 | Command | Purpose |
 |---------|---------|
-| `bunx playwright test` | Run all tests |
-| `bunx playwright test --headed` | See browser during test |
-| `bunx playwright test --debug` | Step through test with Inspector |
-| `bunx playwright test --ui` | Interactive dashboard |
-| `bunx playwright test FILE` | Run specific file |
-| `bunx playwright test FILE:LINE` | Run specific test |
-| `bunx playwright test --project=chromium-desktop` | Desktop only (not mobile) |
-| `bunx playwright show-report` | View HTML report after run |
-| `bunx playwright show-trace trace.zip` | View action trace |
+| `bun run test` | Run all tests |
+| `bun run test -- --headed` | See browser during test |
+| `bun run test -- --debug` | Step through test with Inspector |
+| `bun run test -- --ui` | Interactive dashboard |
+| `bun run test -- FILE` | Run specific file |
+| `bun run test -- FILE:LINE` | Run specific test |
+| `bun run test -- --project=chromium-desktop` | Desktop only (not mobile) |
+| `bun run playwright:show-report` | View HTML report after run |
+| `bun run playwright:show-trace -- trace.zip` | View action trace |
 
 ---
 
@@ -135,7 +135,7 @@ Run this to verify the debrief system is working:
 
 ```bash
 # Navigation tests
-bunx playwright test tests/debrief-navigation.spec.ts tests/summary-navigation.spec.ts
+bun run test -- tests/debrief-navigation.spec.ts tests/summary-navigation.spec.ts
 
 # Expected: All pass ✓
 ```
@@ -149,7 +149,7 @@ If these pass, the debrief button is working correctly.
 If a test fails, run it in debug mode:
 
 ```bash
-bunx playwright test tests/summary-navigation.spec.ts:6 --debug
+bun run test -- tests/summary-navigation.spec.ts:6 --debug
 ```
 
 Then:
@@ -166,7 +166,7 @@ Then:
 If you need to record a new interaction:
 
 ```bash
-bunx playwright codegen https://localhost:3000
+bun run playwright:codegen -- https://localhost:3000
 ```
 
 This opens your app + Inspector side-by-side. Every action you perform gets recorded as test code.

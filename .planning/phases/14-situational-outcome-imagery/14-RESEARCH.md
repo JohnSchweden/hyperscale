@@ -582,14 +582,14 @@ export interface Archetype {
 ### Phase Requirements → Test Map
 | Req ID | Behavior | Test Type | Automated Command | File Exists? |
 |--------|----------|-----------|-------------------|-------------|
-| IMAGE-01 | Incident card displays image with 16:9 ratio | visual + layout | `bunx playwright test tests/image-incident-card.spec.ts` | ❌ Wave 0 |
-| IMAGE-01 | Image moves with card during swipe | interaction | `bunx playwright test tests/image-swipe-sync.spec.ts` | ❌ Wave 0 |
-| IMAGE-02 | Outcome overlay shows hero image | visual | `bunx playwright test tests/image-outcome-overlay.spec.ts` | ❌ Wave 0 |
-| IMAGE-02 | Fade-in transition completes | visual | `bunx playwright test tests/image-transitions.spec.ts` | ❌ Wave 0 |
-| IMAGE-03 | Collapse page shows death image | visual | `bunx playwright test tests/image-collapse-page.spec.ts` | ❌ Wave 0 |
-| IMAGE-04 | Archetype badge 1:1 ratio | visual | `bunx playwright test tests/image-archetype-badge.spec.ts` | ❌ Wave 0 |
-| IMAGE-05 | Glitch placeholder on missing image | visual + functional | `bunx playwright test tests/image-fallback.spec.ts` | ❌ Wave 0 |
-| IMAGE-06 | Images lazy load below fold | performance | `bunx playwright test tests/image-lazy-load.spec.ts` | ❌ Wave 0 |
+| IMAGE-01 | Incident card displays image with 16:9 ratio | visual + layout | `bun run test -- tests/image-incident-card.spec.ts` | ❌ Wave 0 |
+| IMAGE-01 | Image moves with card during swipe | interaction | `bun run test -- tests/image-swipe-sync.spec.ts` | ❌ Wave 0 |
+| IMAGE-02 | Outcome overlay shows hero image | visual | `bun run test -- tests/image-outcome-overlay.spec.ts` | ❌ Wave 0 |
+| IMAGE-02 | Fade-in transition completes | visual | `bun run test -- tests/image-transitions.spec.ts` | ❌ Wave 0 |
+| IMAGE-03 | Collapse page shows death image | visual | `bun run test -- tests/image-collapse-page.spec.ts` | ❌ Wave 0 |
+| IMAGE-04 | Archetype badge 1:1 ratio | visual | `bun run test -- tests/image-archetype-badge.spec.ts` | ❌ Wave 0 |
+| IMAGE-05 | Glitch placeholder on missing image | visual + functional | `bun run test -- tests/image-fallback.spec.ts` | ❌ Wave 0 |
+| IMAGE-06 | Images lazy load below fold | performance | `bun run test -- tests/image-lazy-load.spec.ts` | ❌ Wave 0 |
 
 ### Sampling Rate
 - **Per task commit:** `bun run test:smoke` (~15s)

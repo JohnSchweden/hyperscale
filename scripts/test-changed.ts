@@ -12,7 +12,10 @@
  */
 
 import { execSync } from "node:child_process";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 
+const REPO_ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const DEFAULT_COMMIT = "HEAD";
 
 type Area = "gameplay" | "input" | "layout" | "boss" | "audio" | "visual";
@@ -76,7 +79,10 @@ function main(): void {
 
 	if (files.length === 0) {
 		console.log("No changed files; running smoke tests.");
-		execSync("bunx playwright test --grep @smoke", { stdio: "inherit" });
+		execSync("bun run test -- --grep @smoke", {
+			stdio: "inherit",
+			cwd: REPO_ROOT,
+		});
 		return;
 	}
 
@@ -93,8 +99,9 @@ function main(): void {
 	console.log(`Areas: ${areasLabel}`);
 	console.log(`Running: grep ${grepPattern}\n`);
 
-	execSync(`bunx playwright test --grep "${grepPattern}"`, {
+	execSync(`bun run test -- --grep "${grepPattern}"`, {
 		stdio: "inherit",
+		cwd: REPO_ROOT,
 	});
 }
 

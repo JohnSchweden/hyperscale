@@ -225,13 +225,13 @@ Verified full flow: SUMMARY → DEBRIEF_PAGE_1 → DEBRIEF_PAGE_2 → DEBRIEF_PA
 ### Command Line
 ```bash
 # Test button navigation
-bunx playwright test tests/summary-navigation.spec.ts --project=chromium-desktop
+bun run test -- tests/summary-navigation.spec.ts --project=chromium-desktop
 
 # Test debrief state transitions
-bunx playwright test tests/debrief-navigation.spec.ts --project=chromium-desktop
+bun run test -- tests/debrief-navigation.spec.ts --project=chromium-desktop
 
 # Visual verification with headed browser
-bunx playwright test tests/summary-navigation.spec.ts:6 --headed
+bun run test -- tests/summary-navigation.spec.ts:6 --headed
 ```
 
 ### Manual Testing

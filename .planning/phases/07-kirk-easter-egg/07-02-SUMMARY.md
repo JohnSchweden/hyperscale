@@ -103,7 +103,7 @@ Each task was committed atomically:
 **Impact on plan:** No scope creep. Resolved without additional code changes.
 
 ## Issues Encountered
-- lint-staged v16 git worktree conflict: when partially-staged files exist with working-tree changes, lint-staged stashes the working-tree changes and runs tsc — which may fail if unstaged prereqs are required. Pre-run `bunx biome check --write` on specific files before staging prevents lint-staged from needing to apply any patch, avoiding the conflict.
+- lint-staged v16 git worktree conflict: when partially-staged files exist with working-tree changes, lint-staged stashes the working-tree changes and runs tsc — which may fail if unstaged prereqs are required. Pre-run `bun run fix:file --` on specific files before staging prevents lint-staged from needing to apply any patch, avoiding the conflict.
 
 ## Next Phase Readiness
 - `onSwipeUp` callback wired and ready — plan 07-03 can pass it to `useSwipeGestures` in `App.tsx` to trigger `KIRK_REFUSAL` dispatch

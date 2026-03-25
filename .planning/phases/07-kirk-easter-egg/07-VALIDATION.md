@@ -40,8 +40,8 @@ created: 2026-03-16
 |---------|------|------|-------------|-----------|-------------------|-------------|--------|
 | 07-01-01 | 01 | 1 | KIRK-01 | unit | `bun run test:unit -- --run kirkRefusal` | No - W0 | pending |
 | 07-01-02 | 01 | 1 | KIRK-01 | unit | `bun run test:unit -- --run useSwipeGestures` | Partial | pending |
-| 07-02-01 | 02 | 1 | KIRK-01 | E2E | `bunx playwright test tests/kirk-easter-egg.spec.ts` | No - W0 | pending |
-| 07-03-01 | 03 | 2 | KIRK-02 | E2E | `bunx playwright test tests/kirk-debrief.spec.ts` | No - W0 | pending |
+| 07-02-01 | 02 | 1 | KIRK-01 | E2E | `bun run test -- tests/kirk-easter-egg.spec.ts` | No - W0 | pending |
+| 07-03-01 | 03 | 2 | KIRK-02 | E2E | `bun run test -- tests/kirk-debrief.spec.ts` | No - W0 | pending |
 | 07-03-02 | 03 | 2 | KIRK-02 | unit | `bun run test:unit -- --run archetype` | Partial | pending |
 
 *Status: pending / green / red / flaky*

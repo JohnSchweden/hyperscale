@@ -60,7 +60,7 @@ Output: Updated useBossFight hook with randomized answer ordering.
     
     This shuffles all 4 answers randomly so the correct answer appears in a random position each question.
   </action>
-  <verify>Run tests: bunx playwright test tests/stage-snapshots.spec.ts -t "boss-fight" to verify boss fight still renders correctly</verify>
+  <verify>Run tests: bun run test -- tests/stage-snapshots.spec.ts -t "boss-fight" to verify boss fight still renders correctly</verify>
   <done>Fixed answers are now randomized - correct answer can appear in any of the 4 positions (A, B, C, or D)</done>
 </task>
 
