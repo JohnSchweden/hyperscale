@@ -571,7 +571,31 @@ Automated compression pipeline to reduce bandwidth while maintaining quality:
 | 13 | Image Asset Pipeline (HOS-first, Gemini, ~68 images) | v1.2 | Planned (3 plans) |
 | 14 | Situational & Outcome Imagery Display | v1.2 | Planned (4 plans) |
 | 15 | 8/9 | Complete    | 2026-03-25 |
+| 16 | Ending Variety System | v1.2 | Planned (4 plans) |
+
+### Phase 16: Kobayashi Maru Ending Variety System
+
+**Goal:** Transform endings from role-based random death types to consequence-driven educational failure. Add death vector metadata to card outcomes, fix boss fight hardcoded AUDIT_FAILURE, fill CONGRESS content gap, and add failure lessons that teach AI governance.
+**Depends on:** Phase 15
+**Plans:** 4 plans
+
+Plans:
+- [ ] 16-01-PLAN.md — Death vector types, accumulator utility, and vector-aware death resolution (TDD)
+- [ ] 16-02-PLAN.md — Wire death vectors into game reducer, fix boss fight death type
+- [ ] 16-03-PLAN.md — Annotate all 10 card decks with death vectors, add CONGRESS cards
+- [ ] 16-04-PLAN.md — Failure lessons, death explanations, and retry prompts in debrief
+
+**Requirements:**
+- DV-01: DeathVector type on Card outcomes (optional field, backward compatible)
+- DV-02: Vector accumulation and resolution logic with archetype affinity tiebreaker
+- DV-03: Game reducer uses vector-based death type instead of role-deck-only logic
+- DV-04: Boss fight failure uses vector-based death (not hardcoded AUDIT_FAILURE)
+- DV-05: All 10 card decks annotated with death vectors (at least 4 of 6 types per deck)
+- DV-06: CONGRESS content gap filled (2-3 new congressional hearing cards)
+- DV-07: Debrief explains WHY player died (connected to decision pattern)
+- DV-08: 3-4 failure lessons per death type teaching AI governance failure modes
+- DV-09: Personality-specific retry prompts with strategy hints per death type
 
 ---
 
-*Roadmap updated: 2026-03-25 — Phase 13 scoped to HOS-first Gemini pipeline (~68 images); Phase 14 plans referenced; Midjourney/DALL-E removed*
+*Roadmap updated: 2026-03-25 — Phase 16 planned: 4 plans for ending variety system (death vectors, card annotation, failure lessons)*
