@@ -191,17 +191,17 @@ export const RealWorld = {
 			"Study found 78% of workers used unauthorized AI tools. Samsung banned ChatGPT after engineers leaked proprietary code. 90% of enterprise AI use is unauthorized.",
 	},
 
-	/** GitHub Copilot RCE CVE-2025-53773 */
+	/** GitHub Copilot RCE (CVE-2025-53773) */
 	CopilotRCE: {
-		incident: "GitHub Copilot RCE CVE-2025-53773",
+		incident: "GitHub Copilot RCE (CVE-2025-53773)",
 		date: "2025-01",
 		outcome:
 			"Microsoft patched Copilot after RCE via prompt injection in code comments. Companies with rapid response avoided exploitation.",
 	},
 
-	/** Cursor IDE RCE CVE-2025-54135 */
+	/** Cursor IDE RCE (CVE-2025-54135) */
 	CursorRCE: {
-		incident: "Cursor IDE RCE CVE-2025-54135",
+		incident: "Cursor IDE RCE (CVE-2025-54135)",
 		date: "2025-01",
 		outcome:
 			"Prompt injection in Cursor IDE allowed remote code execution. Quick patches failed, required architectural changes.",

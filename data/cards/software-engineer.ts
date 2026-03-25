@@ -364,7 +364,7 @@ export const SOFTWARE_ENGINEER_CARDS: Card[] = [
 		"CVE_REMEDIATION",
 		"CVE-2025-53773 (Copilot RCE) and CVE-2025-54135 (Cursor IDE) both affect codebases you touch. Proper fix: input validation + parameterized queries (5 days). Quick fix: disable AI features (2 hours, productivity loss).",
 		"Implement proper security fix (5 days) or disable AI features (quick, hurts productivity)?",
-		"GitHub Copilot CVE-2025-53773 and Cursor IDE CVE-2025-54135",
+		"Multiple AI IDE RCE Vulnerabilities (CVE-2025-53773, CVE-2025-54135)",
 		"2025-01",
 		"Proper input validation and parameterized queries prevented prompt injection. Disabling AI tools without fixes left other vulnerabilities exposed.",
 		{
@@ -490,6 +490,7 @@ export const SOFTWARE_ENGINEER_CARDS: Card[] = [
 			hype: -30,
 			heat: 6,
 			fine: 500000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Preventive engineering",
 			lesson:
 				"Retraining infrastructure prevents drift even when less visible than features.",
@@ -502,6 +503,7 @@ export const SOFTWARE_ENGINEER_CARDS: Card[] = [
 			hype: 45,
 			heat: 18,
 			fine: 12000000,
+			deathVector: DeathType.REPLACED_BY_SCRIPT,
 			violation: "Technical Debt + Deferred Maintenance",
 			lesson:
 				"Prioritizing visible features over retraining infrastructure creates drift debt.",
@@ -565,6 +567,7 @@ export const SOFTWARE_ENGINEER_CARDS: Card[] = [
 			hype: -25,
 			heat: 6,
 			fine: 0,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Transparent implementation",
 			lesson:
 				"Explainable AI features build user trust and regulatory compliance.",
@@ -578,6 +581,7 @@ export const SOFTWARE_ENGINEER_CARDS: Card[] = [
 			hype: 35,
 			heat: 16,
 			fine: 3000000,
+			deathVector: DeathType.REPLACED_BY_SCRIPT,
 			violation: "Transparency Gap + User Trust Risk",
 			lesson:
 				"Opaque AI features create user distrust and regulatory exposure.",
@@ -638,6 +642,7 @@ export const SOFTWARE_ENGINEER_CARDS: Card[] = [
 			hype: -25,
 			heat: 14,
 			fine: 3000000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Policy enforcement",
 			lesson:
 				"Enforcing policy maintains security parity despite slowing some team members.",
@@ -650,6 +655,7 @@ export const SOFTWARE_ENGINEER_CARDS: Card[] = [
 			hype: 45,
 			heat: 22,
 			fine: 10000000,
+			deathVector: DeathType.REPLACED_BY_SCRIPT,
 			violation: "Policy Violation + Security Inconsistency",
 			lesson:
 				"Allowing selective shadow tool use creates security gaps and team inequity.",
@@ -673,6 +679,7 @@ export const SOFTWARE_ENGINEER_CARDS: Card[] = [
 			hype: -30,
 			heat: 5,
 			fine: 0,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Clean implementation",
 			lesson:
 				"Rewriting flagged code eliminates copyright risk and ensures clean IP.",
@@ -685,6 +692,7 @@ export const SOFTWARE_ENGINEER_CARDS: Card[] = [
 			hype: 40,
 			heat: 17,
 			fine: 6000000,
+			deathVector: DeathType.REPLACED_BY_SCRIPT,
 			violation: "GPL Violation + License Contamination",
 			lesson:
 				"AI may reproduce licensed code verbatim, creating copyright exposure for the entire codebase.",
@@ -710,6 +718,7 @@ export const SOFTWARE_ENGINEER_CARDS: Card[] = [
 			hype: -25,
 			heat: 7,
 			fine: 500000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - License compliance",
 			lesson:
 				"Removing unclear dependencies preserves license compliance despite feature impact.",
@@ -722,6 +731,7 @@ export const SOFTWARE_ENGINEER_CARDS: Card[] = [
 			hype: 30,
 			heat: 18,
 			fine: 4000000,
+			deathVector: DeathType.REPLACED_BY_SCRIPT,
 			violation: "License Violation Risk + IP Contamination",
 			lesson:
 				"Assuming licenses for unclear packages creates legal exposure and contamination risk.",

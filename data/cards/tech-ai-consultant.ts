@@ -1,4 +1,4 @@
-import { AppSource, type Card, makeCard } from "../../types";
+import { AppSource, type Card, DeathType, makeCard } from "../../types";
 
 /**
  * Tech AI Consultant cards - External consultant scenarios
@@ -21,6 +21,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			hype: -40,
 			heat: 7,
 			fine: 300000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Good faith remediation",
 			lesson:
 				"Proactive remediation preserves client relationships and demonstrates integrity.",
@@ -35,6 +36,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			hype: 10,
 			heat: 8,
 			fine: 5000000,
+			deathVector: DeathType.CONGRESS,
 			violation: "Breach of Contract Liability",
 			lesson:
 				"Fighting legitimate quality issues damages reputation and creates legal exposure.",
@@ -59,6 +61,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			hype: -30,
 			heat: 8,
 			fine: 300000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Client retention",
 			lesson:
 				"Standing behind deliverables builds long-term client relationships and referrals.",
@@ -73,6 +76,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			hype: 20,
 			heat: 17,
 			fine: 8000000,
+			deathVector: DeathType.CONGRESS,
 			violation: "Professional Liability + Reputation Damage",
 			lesson:
 				"Hiding behind contract ambiguity destroys client trust and referral business.",
@@ -97,6 +101,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			hype: -50,
 			heat: 5,
 			fine: 1000000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Good faith resolution",
 			lesson:
 				"Addressing unanticipated lock-in costs preserves relationships and demonstrates integrity.",
@@ -110,6 +115,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			hype: 15,
 			heat: 16,
 			fine: 3000000,
+			deathVector: DeathType.CONGRESS,
 			violation: "Vendor Lock-in Liability",
 			lesson:
 				"Ignoring vendor lock-in risks shifts burden to clients and damages consulting reputation.",
@@ -133,6 +139,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			hype: -15,
 			heat: 11,
 			fine: 0,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Contractual compliance",
 			lesson:
 				"Professional boundaries protect both parties and maintain project health.",
@@ -146,6 +153,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			hype: 20,
 			heat: 14,
 			fine: 500000,
+			deathVector: DeathType.CONGRESS,
 			violation: "Scope Management Failure",
 			lesson:
 				"Uncompensated scope creep destroys margins and trains clients to expect free work.",
@@ -171,6 +179,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			hype: -60,
 			heat: 8,
 			fine: 5000000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Good faith assumption of risk",
 			lesson:
 				"Standing behind data provenance builds trust even when contractually ambiguous.",
@@ -185,6 +194,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			hype: 10,
 			heat: 20,
 			fine: 15000000,
+			deathVector: DeathType.CONGRESS,
 			violation: "IP Liability + Reputation Risk",
 			lesson:
 				"Refusing IP accountability for training data destroys consulting credibility.",
@@ -211,6 +221,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			hype: -25,
 			heat: 10,
 			fine: 0,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Quality commitment",
 			lesson:
 				"Protecting deliverable quality preserves long-term reputation over short-term deadlines.",
@@ -225,6 +236,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			hype: 35,
 			heat: 17,
 			fine: 4000000,
+			deathVector: DeathType.CONGRESS,
 			violation: "Professional Negligence",
 			lesson:
 				"Shipping incomplete work for demos creates liability and damages credibility.",
@@ -250,6 +262,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			hype: -35,
 			heat: 5,
 			fine: 300000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Partnership investment",
 			lesson:
 				"Adapting to client compliance needs demonstrates partnership and wins future work.",
@@ -263,6 +276,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			hype: 15,
 			heat: 14,
 			fine: 2500000,
+			deathVector: DeathType.CONGRESS,
 			violation: "Change Order Dispute",
 			lesson:
 				"Strict scope adherence when client needs evolve damages partnership potential.",
@@ -287,6 +301,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			hype: -20,
 			heat: 8,
 			fine: 0,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Honest bidding",
 			lesson:
 				"Honest bidding preserves reputation and profitability even when losing to undercutters.",
@@ -302,6 +317,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			hype: 50,
 			heat: 12,
 			fine: 8000000,
+			deathVector: DeathType.CONGRESS,
 			violation: "Underdelivery Risk + Professional Liability",
 			lesson:
 				"Underbidding to win creates impossible delivery expectations and destroys profitability.",
@@ -327,6 +343,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			hype: -30,
 			heat: 5,
 			fine: 500000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Transparency",
 			lesson:
 				"Transparent disclosure of tool use, when discovered, can preserve trust.",
@@ -340,6 +357,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			hype: 25,
 			heat: 11,
 			fine: 5000000,
+			deathVector: DeathType.CONGRESS,
 			violation: "Professional Integrity + Client Trust",
 			lesson:
 				"Minimizing tool use discovered by client destroys credibility and future opportunities.",
@@ -364,6 +382,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			hype: -50,
 			heat: 8,
 			fine: 400000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Client retention investment",
 			lesson:
 				"Proactive security remediation during crises preserves relationships and reputation.",
@@ -377,6 +396,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			hype: 15,
 			heat: 24,
 			fine: 25000000,
+			deathVector: DeathType.CONGRESS,
 			violation: "Professional Liability + Reputation Destruction",
 			lesson:
 				"Hiding behind contract language during security crises destroys client trust and industry reputation.",
@@ -402,6 +422,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			hype: -35,
 			heat: 12,
 			fine: 2000000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Client advocacy",
 			lesson:
 				"Advocating for client against vendor overreach builds long-term trust.",
@@ -416,6 +437,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			hype: 20,
 			heat: 19,
 			fine: 12000000,
+			deathVector: DeathType.CONGRESS,
 			violation: "Client Trust Violation + Professional Ethics",
 			lesson:
 				"Protecting vendor relationships at client expense destroys consulting credibility.",
@@ -441,6 +463,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			hype: -45,
 			heat: 7,
 			fine: 150000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Standing behind work",
 			lesson:
 				"Fixing model drift issues demonstrates integrity and prevents legal escalation.",
@@ -455,6 +478,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			hype: 10,
 			heat: 21,
 			fine: 18000000,
+			deathVector: DeathType.CONGRESS,
 			violation: "Professional Negligence + Discrimination Liability",
 			lesson:
 				"Refusing to fix biased models creates legal exposure and reputation damage.",
@@ -479,6 +503,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			hype: -30,
 			heat: 6,
 			fine: 1500000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Partnership investment",
 			lesson:
 				"Post-warranty support during drift builds client loyalty and referral business.",
@@ -492,6 +517,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			hype: 25,
 			heat: 16,
 			fine: 8000000,
+			deathVector: DeathType.CONGRESS,
 			violation: "Contract Dispute + Relationship Risk",
 			lesson:
 				"Strict contract enforcement during drift issues destroys client relationships.",
@@ -517,6 +543,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			hype: -25,
 			heat: 6,
 			fine: 0,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Responsible recommendation",
 			lesson:
 				"Recommending explainable models for regulated environments protects both client and consultant.",
@@ -530,6 +557,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			hype: 45,
 			heat: 18,
 			fine: 15000000,
+			deathVector: DeathType.CONGRESS,
 			violation: "Professional Negligence + Regulatory Risk",
 			lesson:
 				"Recommending black-box models for regulated use cases creates liability for consultant.",
@@ -555,6 +583,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			hype: -35,
 			heat: 12,
 			fine: 2000000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Honest disclosure",
 			lesson:
 				"Proactive disclosure of AI use demonstrates integrity even when policy is unclear.",
@@ -569,6 +598,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			hype: 40,
 			heat: 19,
 			fine: 8000000,
+			deathVector: DeathType.CONGRESS,
 			violation: "Policy Violation + Material Breach Risk",
 			lesson:
 				"Continuing undisclosed AI use violates client policy and creates contract breach exposure.",
@@ -593,6 +623,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			hype: -45,
 			heat: 10,
 			fine: 3000000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Good faith resolution",
 			lesson:
 				"Taking responsibility for vendor recommendations preserves client relationships.",
@@ -606,6 +637,7 @@ export const TECH_AI_CONSULTANT_CARDS: Card[] = [
 			hype: 25,
 			heat: 18,
 			fine: 8000000,
+			deathVector: DeathType.CONGRESS,
 			violation: "Vendor Due Diligence Failure",
 			lesson:
 				"Defending poor vendor recommendations destroys client trust and creates legal exposure.",

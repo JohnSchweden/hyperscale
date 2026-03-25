@@ -115,7 +115,7 @@ describe("Image Map Contract Validation", () => {
 			).toBe(expectedCount);
 		});
 
-		it("all keys follow ${incidentSlug}-${labelSlug} pattern", () => {
+		it("all keys follow pattern", () => {
 			// Build a lookup: verify each OUTCOME_IMAGES key matches actual card data
 			for (const key of Object.keys(OUTCOME_IMAGES)) {
 				// Find if this key exists in any HOS card's incident+label combo

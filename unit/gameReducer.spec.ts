@@ -96,7 +96,10 @@ describe("gameReducer", () => {
 				role: RoleType.CHIEF_SOMETHING_OFFICER,
 				expected: DeathType.AUDIT_FAILURE,
 			},
-			{ role: RoleType.SOFTWARE_ENGINEER, expected: DeathType.FLED_COUNTRY },
+			{
+				role: RoleType.SOFTWARE_ENGINEER,
+				expected: DeathType.REPLACED_BY_SCRIPT,
+			},
 		];
 
 		for (const { role, expected } of testCases) {
@@ -159,8 +162,12 @@ describe("gameReducer", () => {
 		expect(next.stage).toBe(GameStage.SUMMARY);
 	});
 
-	it("BOSS_COMPLETE: fail goes to GAME_OVER with AUDIT_FAILURE", () => {
-		const s = { ...initialGameState, stage: GameStage.BOSS_FIGHT };
+	it("BOSS_COMPLETE: fail goes to GAME_OVER with AUDIT_FAILURE when vectors empty and role maps to MANAGEMENT", () => {
+		const s = {
+			...initialGameState,
+			stage: GameStage.BOSS_FIGHT,
+			role: RoleType.CHIEF_SOMETHING_OFFICER,
+		};
 		const next = gameReducer(s, { type: "BOSS_COMPLETE", success: false });
 		expect(next.stage).toBe(GameStage.GAME_OVER);
 		expect(next.deathType).toBe(DeathType.AUDIT_FAILURE);

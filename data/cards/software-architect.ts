@@ -377,7 +377,7 @@ export const SOFTWARE_ARCHITECT_CARDS: Card[] = [
 		"SYSTEM_SECURITY_DESIGN",
 		"Current LLM integration architecture is fundamentally vulnerable to prompt injection. Proper fix requires complete redesign with input sanitization layers and sandboxed execution. Quick fix is regex filtering (will fail). Redesign takes 8 weeks.",
 		"Architecture redesign (8 weeks, secure) or regex filtering (quick, bypassable)?",
-		"Cursor IDE RCE CVE-2025-54135",
+		"Cursor IDE RCE (CVE-2025-54135)",
 		"2025-01",
 		"Architectural redesign for LLM input handling prevented injection attacks. Regex-only solutions were bypassed within days of deployment.",
 		{

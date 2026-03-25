@@ -274,7 +274,7 @@ export async function navigateToBossFightFast(page: Page): Promise<void> {
 				heat: 40,
 				budget: 7500000,
 				personality: "ROASTER",
-				role: "SOFTWARE_ENGINEER",
+				role: "CHIEF_SOMETHING_OFFICER",
 				currentCardIndex: 0,
 				history: [],
 				deathReason: null,

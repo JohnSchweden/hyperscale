@@ -61,12 +61,7 @@ function createTestCard(
 describe("shuffleDeck", () => {
 	describe("swap correctness", () => {
 		it("should swap onLeft and onRight when Math.random < 0.5", () => {
-			const mockRandom = vi.fn();
-			// First shuffle: return 0.3 (< 0.5 means swap)
-			mockRandom.mockReturnValueOnce(0.3);
-			// Swap loop: return 0.3 (< 0.5 means swap)
-			mockRandom.mockReturnValueOnce(0.3);
-			vi.spyOn(Math, "random").mockImplementation(mockRandom);
+			vi.spyOn(Math, "random").mockReturnValue(0.3);
 
 			const cards = [createTestCard("card1", "Left Choice", "Right Choice")];
 			const result = shuffleDeck(cards);
@@ -79,12 +74,7 @@ describe("shuffleDeck", () => {
 		});
 
 		it("should NOT swap onLeft and onRight when Math.random >= 0.5", () => {
-			const mockRandom = vi.fn();
-			// First shuffle: return 0.7 (>= 0.5 means no swap)
-			mockRandom.mockReturnValueOnce(0.7);
-			// Swap loop: return 0.7 (>= 0.5 means no swap)
-			mockRandom.mockReturnValueOnce(0.7);
-			vi.spyOn(Math, "random").mockImplementation(mockRandom);
+			vi.spyOn(Math, "random").mockReturnValue(0.7);
 
 			const cards = [createTestCard("card1", "Left Choice", "Right Choice")];
 			const result = shuffleDeck(cards);
@@ -96,7 +86,7 @@ describe("shuffleDeck", () => {
 			vi.restoreAllMocks();
 		});
 
-		it.skip("should swap different cards independently", () => {
+		it("should swap different cards independently", () => {
 			// Mock to control both shuffle and swap behavior
 			let callCount = 0;
 			const mockRandom = vi.fn(() => {
@@ -136,7 +126,7 @@ describe("shuffleDeck", () => {
 	});
 
 	describe("data integrity", () => {
-		it.skip("should preserve all card fields after shuffle and swap", () => {
+		it("should preserve all card fields after shuffle and swap", () => {
 			const cards: Card[] = [
 				{
 					id: "test_card",
@@ -207,7 +197,7 @@ describe("shuffleDeck", () => {
 			);
 		});
 
-		it.skip("should not mutate the input array", () => {
+		it("should not mutate the input array", () => {
 			const originalCard = createTestCard("card1", "Left", "Right");
 			const cards = [originalCard];
 
@@ -225,7 +215,7 @@ describe("shuffleDeck", () => {
 	});
 
 	describe("statistical distribution", () => {
-		it.skip("should swap roughly 50% of cards over many runs", () => {
+		it("should swap roughly 50% of cards over many runs", () => {
 			const card = createTestCard("card1", "Left", "Right");
 			let swapCount = 0;
 			const totalRuns = 100;
@@ -244,7 +234,7 @@ describe("shuffleDeck", () => {
 			expect(swapRate).toBeLessThanOrEqual(0.8);
 		});
 
-		it.skip("should produce different swap patterns across runs", () => {
+		it("should produce different swap patterns across runs", () => {
 			const cards = [
 				createTestCard("c1", "L1", "R1"),
 				createTestCard("c2", "L2", "R2"),
@@ -271,7 +261,7 @@ describe("shuffleDeck", () => {
 	});
 
 	describe("Fisher-Yates shuffle", () => {
-		it.skip("should shuffle cards into different orders", () => {
+		it("should shuffle cards into different orders", () => {
 			const cards = [
 				createTestCard("c1", "L1", "R1"),
 				createTestCard("c2", "L2", "R2"),
@@ -291,7 +281,7 @@ describe("shuffleDeck", () => {
 			expect(orders.size).toBeGreaterThan(1);
 		});
 
-		it.skip("should preserve all cards after shuffle (no duplicates, no drops)", () => {
+		it("should preserve all cards after shuffle (no duplicates, no drops)", () => {
 			const cards = [
 				createTestCard("c1", "L1", "R1"),
 				createTestCard("c2", "L2", "R2"),

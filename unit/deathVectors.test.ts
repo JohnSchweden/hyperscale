@@ -1,15 +1,7 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import {
-	accumulateDeathVectors,
-	determineDeathTypeFromVectors,
-} from "../data/deathVectors";
+import { accumulateDeathVectors } from "../data/deathVectors";
 import { type Card, DeathType, type GameState, RoleType } from "../types";
-import {
-	createMockCard,
-	determineDeathType,
-	TEST_DEFAULTS,
-	type TestDetermineArgs,
-} from "./testHelpers";
+import { createMockCard, determineDeathType } from "./testHelpers";
 
 describe("Death Vector System", () => {
 	let mockDeck: Card[];

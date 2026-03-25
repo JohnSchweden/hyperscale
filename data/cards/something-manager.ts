@@ -1,4 +1,4 @@
-import { AppSource, type Card, makeCard } from "../../types";
+import { AppSource, type Card, DeathType, makeCard } from "../../types";
 
 /**
  * Something Manager cards - Line manager spreadsheet-driven scenarios
@@ -20,6 +20,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			hype: -40,
 			heat: 7,
 			fine: 0,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Capital expenditure approval",
 			lesson:
 				"Front-loaded investment prevents compounding losses and demonstrates fiscal responsibility.",
@@ -32,6 +33,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			hype: -20,
 			heat: 17,
 			fine: 12000000,
+			deathVector: DeathType.PRISON,
 			violation: "Negligent Financial Management",
 			lesson:
 				"Avoiding upfront investment to prevent budget variance creates larger cumulative losses.",
@@ -58,6 +60,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			hype: -30,
 			heat: 4,
 			fine: 0,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Proactive compliance",
 			lesson:
 				"Spending on compliance prevents catastrophic losses and demonstrates risk management.",
@@ -72,6 +75,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			hype: 15,
 			heat: 16,
 			fine: 750000,
+			deathVector: DeathType.PRISON,
 			violation: "Risk Management Failure",
 			lesson:
 				"Ignoring probable risks to protect budget variance creates larger expected losses.",
@@ -98,6 +102,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			hype: -50,
 			heat: 5,
 			fine: 0,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Authorized procurement",
 			lesson:
 				"Proper procurement eliminates compliance risk while capturing productivity gains.",
@@ -112,6 +117,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			hype: -25,
 			heat: 17,
 			fine: 3000000,
+			deathVector: DeathType.BANKRUPT,
 			violation: "Productivity Loss + Compliance Non-Enforcement",
 			lesson:
 				"Enforcing bans without providing alternatives drives productivity loss and shadow adoption.",
@@ -136,6 +142,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			hype: -10,
 			heat: 5,
 			fine: 0,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Employee retention",
 			lesson:
 				"Retention spending is cheaper than replacement and preserves institutional knowledge.",
@@ -148,6 +155,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			hype: -35,
 			heat: 17,
 			fine: 500000,
+			deathVector: DeathType.PRISON,
 			violation: "Retention Failure Cost",
 			lesson:
 				"Avoiding retention costs creates larger replacement and knowledge loss expenses.",
@@ -173,6 +181,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			hype: -15,
 			heat: 7,
 			fine: 0,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Complete compliance",
 			lesson:
 				"Thorough compliance prevents probabilistic fines and demonstrates due diligence.",
@@ -187,6 +196,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			hype: 20,
 			heat: 16,
 			fine: 500000,
+			deathVector: DeathType.PRISON,
 			violation: "Audit Non-Compliance Risk",
 			lesson:
 				"Cutting corners on compliance creates probabilistic exposure that exceeds time savings.",
@@ -213,6 +223,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			hype: -20,
 			heat: 4,
 			fine: 0,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Conservative forecasting",
 			lesson:
 				"Realistic targets preserve team bonuses and maintain credibility with leadership.",
@@ -227,6 +238,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			hype: 45,
 			heat: 19,
 			fine: 0,
+			deathVector: DeathType.PRISON,
 			violation: "None - But creates unrealistic expectations",
 			lesson:
 				"Overcommitting to please leadership destroys team morale when targets are missed.",
@@ -252,6 +264,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			hype: -35,
 			heat: 5,
 			fine: 0,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Proactive security",
 			lesson:
 				"Proactive security investment prevents catastrophic losses at manageable cost.",
@@ -264,6 +277,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			hype: 15,
 			heat: 20,
 			fine: 1000000,
+			deathVector: DeathType.PRISON,
 			violation: "Negligent Risk Management",
 			lesson:
 				"Accepting high-impact risks for budget convenience creates catastrophic exposure.",
@@ -288,6 +302,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			hype: -45,
 			heat: 16,
 			fine: 0,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Compliant procurement",
 			lesson:
 				"Compliance-driven procurement prevents regulatory penalties and audit failures.",
@@ -302,6 +317,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			hype: 30,
 			heat: 22,
 			fine: 25000000,
+			deathVector: DeathType.PRISON,
 			violation: "Audit Non-Compliance + Regulatory Risk",
 			lesson:
 				"Choosing non-compliant solutions to meet budget creates larger regulatory exposure.",
@@ -325,6 +341,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			hype: -30,
 			heat: 4,
 			fine: 0,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Professional development",
 			lesson:
 				"Training investment reduces long-term incident costs and improves team capability.",
@@ -339,6 +356,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			hype: 25,
 			heat: 16,
 			fine: 1500000,
+			deathVector: DeathType.PRISON,
 			violation: "Training Negligence",
 			lesson:
 				"Cutting training to meet short-term budgets creates compounding incident costs.",
@@ -364,6 +382,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			hype: -35,
 			heat: 14,
 			fine: 2000000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Security investment",
 			lesson:
 				"Emergency security budgets prevent catastrophic losses despite short-term budget pain.",
@@ -376,6 +395,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			hype: 30,
 			heat: 22,
 			fine: 18000000,
+			deathVector: DeathType.PRISON,
 			violation: "Insufficient Security Fix + Negligence",
 			lesson:
 				"Partial security patches create false confidence and exploitable gaps.",
@@ -399,6 +419,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			hype: -30,
 			heat: 6,
 			fine: 500000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Proactive security",
 			lesson:
 				"Vendor security upgrades are cost-effective compared to breach costs.",
@@ -412,6 +433,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			hype: 25,
 			heat: 19,
 			fine: 15000000,
+			deathVector: DeathType.PRISON,
 			violation: "Calculated Risk Acceptance + Negligence",
 			lesson:
 				"Accepting known vulnerabilities to save small amounts creates massive exposure.",
@@ -435,6 +457,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			hype: -30,
 			heat: 10,
 			fine: 2000000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Long-term thinking",
 			lesson:
 				"Fixing drift despite quarterly pressure preserves long-term model value.",
@@ -449,6 +472,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			hype: 40,
 			heat: 22,
 			fine: 22000000,
+			deathVector: DeathType.PRISON,
 			violation: "Short-termism + Negligent Management",
 			lesson:
 				"Prioritizing quarterly targets over model health creates catastrophic long-term failure.",
@@ -473,6 +497,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			hype: -25,
 			heat: 6,
 			fine: 6000000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Preventive infrastructure",
 			lesson:
 				"Automated retraining prevents drift losses that dwarf infrastructure costs.",
@@ -485,6 +510,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			hype: 20,
 			heat: 18,
 			fine: 12000000,
+			deathVector: DeathType.PRISON,
 			violation: "Deferred Maintenance + Drift Risk",
 			lesson:
 				"Manual retraining creates lag windows where drift causes significant losses.",
@@ -509,6 +535,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			hype: -35,
 			heat: 10,
 			fine: 200000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Audit readiness",
 			lesson:
 				"Proactive explainability investment prevents audit failures despite short-term costs.",
@@ -523,6 +550,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			hype: 30,
 			heat: 24,
 			fine: 15000000,
+			deathVector: DeathType.PRISON,
 			violation: "Audit Non-Compliance + Regulatory Risk",
 			lesson:
 				"Skipping explainability retrofit to meet deadlines creates massive regulatory exposure.",
@@ -547,6 +575,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			hype: -30,
 			heat: 8,
 			fine: 1500000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Compliant procurement",
 			lesson:
 				"Explainable models satisfy compliance even at higher cost and lower accuracy.",
@@ -561,6 +590,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			hype: 40,
 			heat: 21,
 			fine: 20000000,
+			deathVector: DeathType.PRISON,
 			violation: "Audit Non-Compliance + Black Box Risk",
 			lesson:
 				"Choosing non-compliant black-box models creates regulatory exposure exceeding cost savings.",
@@ -585,6 +615,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			hype: 40,
 			heat: 22,
 			fine: 6000000,
+			deathVector: DeathType.BANKRUPT,
 			violation: "Policy Precedent Violation + Governance Gap",
 			lesson:
 				"Retroactive approval for results undermines policy and creates exception culture.",
@@ -599,6 +630,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			hype: -15,
 			heat: 16,
 			fine: 2000000,
+			deathVector: DeathType.BANKRUPT,
 			violation: "Productivity Loss + Talent Risk",
 			lesson:
 				"Enforcing policy at cost of exceptional results damages team effectiveness.",
@@ -624,6 +656,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			hype: -20,
 			heat: 15,
 			fine: 3000000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Controlled standardization",
 			lesson:
 				"Standardizing on one tool enables governance despite short-term workflow disruption.",
@@ -637,6 +670,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			hype: 35,
 			heat: 23,
 			fine: 10000000,
+			deathVector: DeathType.PRISON,
 			violation: "Governance Chaos + Security Exposure",
 			lesson:
 				"Allowing multiple shadow tools creates inconsistency, security gaps, and compliance nightmares.",
@@ -662,6 +696,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			hype: -40,
 			heat: 6,
 			fine: 0,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Licensed procurement",
 			lesson:
 				"Licensed data prevents copyright exposure and demonstrates compliance even at higher cost.",
@@ -676,6 +711,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			hype: 30,
 			heat: 18,
 			fine: 5000000,
+			deathVector: DeathType.PRISON,
 			violation: "Copyright Risk + Vendor Liability",
 			lesson:
 				"Gray-market data savings are consumed many times over when legal issues surface.",
@@ -699,6 +735,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			hype: -35,
 			heat: 8,
 			fine: 150000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Proactive compliance",
 			lesson:
 				"Proactive data cleanup prevents catastrophic legal exposure despite performance and cost impacts.",
@@ -712,6 +749,7 @@ export const SOMETHING_MANAGER_CARDS: Card[] = [
 			hype: 40,
 			heat: 20,
 			fine: 750000,
+			deathVector: DeathType.PRISON,
 			violation: "Calculated Risk Acceptance",
 			lesson:
 				"Accepting copyright risk to preserve performance creates expected losses exceeding cleanup costs.",

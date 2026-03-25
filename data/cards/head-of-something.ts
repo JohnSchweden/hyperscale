@@ -1,4 +1,4 @@
-import { AppSource, type Card, makeCard } from "../../types";
+import { AppSource, type Card, DeathType, makeCard } from "../../types";
 
 /**
  * Head of Something cards - Middle management scenarios
@@ -21,6 +21,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			hype: -30,
 			heat: 5,
 			fine: 1000000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Responsible leadership",
 			lesson:
 				"Taking accountability for team outcomes preserves team trust and demonstrates leadership integrity.",
@@ -36,6 +37,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			hype: 10,
 			heat: 17,
 			fine: 2000000,
+			deathVector: DeathType.AUDIT_FAILURE,
 			violation: "Hostile Workplace + Retaliation Risk",
 			lesson:
 				"Throwing team members under the bus preserves short-term standing but destroys team trust and creates legal exposure.",
@@ -62,6 +64,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			hype: -15,
 			heat: 14,
 			fine: 0,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Responsible escalation",
 			lesson:
 				"Escalating quality concerns demonstrates leadership integrity even when politically costly.",
@@ -76,6 +79,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			hype: 25,
 			heat: 16,
 			fine: 8000000,
+			deathVector: DeathType.AUDIT_FAILURE,
 			violation: "Product Liability + Negligence",
 			lesson:
 				"Compromising quality for budget constraints creates technical debt and liability exposure that compounds over time.",
@@ -102,6 +106,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			hype: -25,
 			heat: 17,
 			fine: 2000000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "Governance Non-Compliance",
 			lesson:
 				"Protecting your team from harsh enforcement builds loyalty but creates personal accountability risk.",
@@ -117,6 +122,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			hype: 15,
 			heat: 14,
 			fine: 1000000,
+			deathVector: DeathType.AUDIT_FAILURE,
 			violation: "Team Trust Violation + Retaliation Risk",
 			lesson:
 				"Betraying team confidence for policy enforcement destroys psychological safety and future collaboration.",
@@ -142,6 +148,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			hype: -20,
 			heat: 13,
 			fine: 0,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Sustainable pace advocacy",
 			lesson:
 				"Advocating for sustainable pace preserves team health and long-term productivity.",
@@ -157,6 +164,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			hype: 35,
 			heat: 20,
 			fine: 3000000,
+			deathVector: DeathType.PRISON,
 			violation: "Labor Law Violations + Burnout Liability",
 			lesson:
 				"Pushing teams to burnout delivers short-term output at the cost of long-term retention and quality.",
@@ -183,6 +191,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			hype: 20,
 			heat: 19,
 			fine: 25000000,
+			deathVector: DeathType.AUDIT_FAILURE,
 			violation: "Audit Non-Compliance + Regulatory Risk",
 			lesson:
 				"Prioritizing performance over explainability creates audit failure and regulatory exposure.",
@@ -196,6 +205,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			hype: -15,
 			heat: 14,
 			fine: 0,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Compliance alignment",
 			lesson:
 				"Aligning with compliance protects the organization even when engineering disagrees.",
@@ -221,6 +231,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			hype: -20,
 			heat: 19,
 			fine: 35000000,
+			deathVector: DeathType.AUDIT_FAILURE,
 			violation: "Obstruction Risk",
 			lesson:
 				"Shielding your team from accountability protects them legally but creates personal liability.",
@@ -234,6 +245,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			hype: 10,
 			heat: 16,
 			fine: 5000000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "Team Trust Violation",
 			lesson:
 				"Cooperating with investigations at team expense creates short-term legal protection but destroys team trust.",
@@ -259,6 +271,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			hype: 15,
 			heat: 17,
 			fine: 4000000,
+			deathVector: DeathType.AUDIT_FAILURE,
 			violation: "Negligent Supervision",
 			lesson:
 				"Defending flawed delegation to protect ego creates recurring oversight failures.",
@@ -271,6 +284,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			hype: -10,
 			heat: 14,
 			fine: 1000000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Accountability acknowledgment",
 			lesson:
 				"Acknowledging oversight gaps preserves leadership credibility and enables process improvement.",
@@ -295,6 +309,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			hype: -35,
 			heat: 13,
 			fine: 0,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Realistic expectation setting",
 			lesson:
 				"Setting realistic boundaries with leadership protects team wellbeing and long-term delivery.",
@@ -308,6 +323,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			hype: 40,
 			heat: 22,
 			fine: 50000000,
+			deathVector: DeathType.AUDIT_FAILURE,
 			violation: "Negligent Management + Burnout Liability",
 			lesson:
 				"Overpromising to leadership at team expense creates inevitable failure and destroys credibility.",
@@ -332,6 +348,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			hype: -10,
 			heat: 16,
 			fine: 0,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Merit-based decision",
 			lesson:
 				"Merit-based promotions maintain team fairness but may create political friction with leadership.",
@@ -344,6 +361,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			hype: 25,
 			heat: 14,
 			fine: 0,
+			deathVector: DeathType.AUDIT_FAILURE,
 			violation: "Discrimination Risk",
 			lesson:
 				"Political promotions preserve leadership relationships but signal that performance doesn't matter.",
@@ -361,7 +379,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 		"TEAM_VULNERABILITY",
 		"CVE-2025-53773 affects your team's Copilot setup. 3 senior devs exposed. Security wants immediate stand-down to patch. Product needs release Friday. Your team is caught in the middle.",
 		"Pull team for emergency patching (miss deadline) or continue development (vulnerability risk)?",
-		"GitHub Copilot RCE CVE-2025-53773",
+		"GitHub Copilot RCE (CVE-2025-53773)",
 		"2025-01",
 		"Teams that patched immediately lost 1-2 days but avoided compromise. Teams that delayed faced exploitation risk.",
 		{
@@ -369,6 +387,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			hype: -25,
 			heat: 12,
 			fine: 2000000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Security-first approach",
 			lesson:
 				"Team safety outweighs deadline pressure during active CVE exposures.",
@@ -383,6 +402,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			hype: 30,
 			heat: 19,
 			fine: 12000000,
+			deathVector: DeathType.AUDIT_FAILURE,
 			violation: "Security Negligence + Team Exposure",
 			lesson:
 				"Prioritizing deadlines over CVE patching exposes the team to compromise and liability.",
@@ -399,7 +419,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 		"CODE_REVIEW_CRISIS",
 		"Junior found prompt injection escape in your senior's code. Senior is defensive and well-connected to VP. Calling it out risks political fallout. Ignoring it risks production breach.",
 		"Force security fix (political cost) or let it slide to avoid conflict (breach risk)?",
-		"Cursor IDE RCE CVE-2025-54135",
+		"Cursor IDE RCE (CVE-2025-54135)",
 		"2025-01",
 		"Prompt injection vulnerabilities in code review tools allowed attackers to execute arbitrary code. Political code review suppression contributed to delayed patches.",
 		{
@@ -407,6 +427,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			hype: -20,
 			heat: 16,
 			fine: 1000000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Security advocacy",
 			lesson:
 				"Security concerns override political comfort. Vulnerabilities must be fixed.",
@@ -421,6 +442,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			hype: 20,
 			heat: 22,
 			fine: 15000000,
+			deathVector: DeathType.AUDIT_FAILURE,
 			violation: "Security Avoidance + Political Cover-up",
 			lesson:
 				"Avoiding security fixes for political comfort creates catastrophic exposure.",
@@ -444,6 +466,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			hype: -30,
 			heat: 20,
 			fine: 5000000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Leadership integrity",
 			lesson:
 				"Defending your team when warnings were ignored builds loyalty and trust.",
@@ -458,6 +481,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			hype: 15,
 			heat: 18,
 			fine: 3000000,
+			deathVector: DeathType.AUDIT_FAILURE,
 			violation: "Retaliation + Team Trust Destruction",
 			lesson:
 				"Scapegoating team members for systemic failures destroys trust and morale.",
@@ -482,6 +506,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			hype: -25,
 			heat: 11,
 			fine: 1000000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Proactive management",
 			lesson:
 				"Addressing drift immediately prevents compounding degradation and costs.",
@@ -495,6 +520,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			hype: 25,
 			heat: 20,
 			fine: 12000000,
+			deathVector: DeathType.AUDIT_FAILURE,
 			violation: "Negligent Resource Management",
 			lesson:
 				"Delaying critical maintenance for budget optics creates larger downstream costs.",
@@ -519,6 +545,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			hype: -30,
 			heat: 13,
 			fine: 3000000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Regulatory cooperation",
 			lesson:
 				"Compliance preserves regulatory goodwill but costs time and money while competitors may launch first.",
@@ -534,6 +561,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			hype: 25,
 			heat: 29,
 			fine: 50000000,
+			deathVector: DeathType.AUDIT_FAILURE,
 			violation: "Regulatory Non-Compliance + AI Transparency Violations",
 			lesson:
 				"Fighting explainability requirements creates adversarial regulatory relationships and massive penalties.",
@@ -559,6 +587,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			hype: 35,
 			heat: 24,
 			fine: 8000000,
+			deathVector: DeathType.AUDIT_FAILURE,
 			violation: "Shadow AI Governance Gap + Data Exposure",
 			lesson:
 				"Permitting unapproved tools for productivity sets precedent that undermines governance framework.",
@@ -573,6 +602,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			hype: -20,
 			heat: 19,
 			fine: 5000000,
+			deathVector: DeathType.BANKRUPT,
 			violation: "Talent Loss + Productivity Decline",
 			lesson:
 				"Enforcing vendor governance at the cost of top talent destroys long-term capability.",
@@ -597,6 +627,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			hype: -35,
 			heat: 8,
 			fine: 1500000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Responsible leadership",
 			lesson:
 				"Taking accountability for team outcomes preserves team trust and demonstrates leadership integrity.",
@@ -612,6 +643,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			hype: 10,
 			heat: 16,
 			fine: 3000000,
+			deathVector: DeathType.AUDIT_FAILURE,
 			violation: "Team Trust Violation + Retaliation Risk",
 			lesson:
 				"Throwing team members under the bus preserves short-term standing but destroys team trust and creates legal exposure.",
@@ -638,6 +670,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			hype: -30,
 			heat: 14,
 			fine: 5000000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Transparency",
 			lesson:
 				"Full documentation enables strategic legal response even when decisions were flawed.",
@@ -652,6 +685,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			hype: 20,
 			heat: 22,
 			fine: 8000000,
+			deathVector: DeathType.AUDIT_FAILURE,
 			violation: "Obstruction + Document Retention Violations",
 			lesson:
 				"Claiming poor documentation to hide decisions creates criminal liability and destroys credibility.",
@@ -676,6 +710,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			hype: -40,
 			heat: 18,
 			fine: 15000000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Transparent testimony",
 			lesson:
 				"Honest congressional testimony damages short-term stock price but prevents criminal liability.",
@@ -690,6 +725,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			hype: 25,
 			heat: 23,
 			fine: 40000000,
+			deathVector: DeathType.PRISON,
 			violation: "Perjury + Obstruction + Regulatory Violation",
 			lesson:
 				"Misleading congress about AI governance creates criminal exposure and permanent reputational damage.",
@@ -715,6 +751,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			hype: -50,
 			heat: 16,
 			fine: 12000000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Governance remediation",
 			lesson:
 				"Immediate internal governance fixes prevent whistleblower escalation and demonstrate accountability.",
@@ -729,6 +766,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			hype: 15,
 			heat: 25,
 			fine: 50000000,
+			deathVector: DeathType.PRISON,
 			violation: "Whistleblower Retaliation + SEC Violations",
 			lesson:
 				"Discouraging whistleblower disclosure triggers federal investigations and massive penalties.",

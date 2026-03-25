@@ -89,7 +89,8 @@ describe("shuffleDeck", () => {
 	it("should handle single element", () => {
 		const cards = [createCard("1")];
 		const shuffled = shuffleDeck(cards);
-		expect(shuffled).toEqual(cards);
+		expect(shuffled).toHaveLength(1);
+		expect(shuffled[0]?.id).toBe(cards[0].id);
 	});
 });
 

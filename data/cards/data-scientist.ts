@@ -405,7 +405,7 @@ export const DATA_SCIENTIST_CARDS: Card[] = [
 		"VULNERABILITY_REMEDIATION",
 		"New CVE: GitHub Copilot RCE via prompt injection (CVE-2025-53773). Your model uses similar architecture. Patch requires architecture redesign (6 weeks) or input filtering (1 week, may fail).",
 		"Architecture redesign (secure, slow) or input filtering (fast, uncertain)?",
-		"GitHub Copilot RCE CVE-2025-53773",
+		"GitHub Copilot RCE (CVE-2025-53773)",
 		"2025-01",
 		"Architectural fixes prevented injection attacks. Input filtering alone was bypassed in security testing.",
 		{

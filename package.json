@@ -18,6 +18,7 @@
 		"fix:file": "biome check --write",
 		"lint-staged:run": "lint-staged --allow-empty",
 		"test": "playwright test",
+		"test:all": "bun run vitest:run && bun run test",
 		"test:smoke": "playwright test --grep @smoke",
 		"test:visual": "playwright test --grep @visual",
 		"test:slow": "playwright test --grep @slow",

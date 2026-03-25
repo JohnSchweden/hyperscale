@@ -598,6 +598,7 @@ async function generateAndSaveImage(
 	try {
 		// Call Gemini API
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		// biome-ignore lint/suspicious/noExplicitAny: External Google AI SDK type inference
 		const response = await (ai.models as any).generateContent({
 			model: args.model,
 			contents: [{ parts: [{ text: task.prompt }] }],
@@ -737,7 +738,7 @@ async function main() {
 		// Generate replacement task
 		if (isOutcome) {
 			// It's an outcome - extract from HOS cards
-			const [incidentSlug, labelSlug] = replaceSlug.split("-").slice(-2);
+			const [_incidentSlug, labelSlug] = replaceSlug.split("-").slice(-2);
 			const fullIncidentSlug = replaceSlug.replace(`-${labelSlug}`, "");
 			const incidents = extractIncidents("hos");
 			const incident = incidents.get(fullIncidentSlug);
@@ -783,10 +784,9 @@ async function main() {
 		} else {
 			// It's an incident or archetype/death
 			const incidents = extractIncidents();
-			if (incidents.has(replaceSlug)) {
-				const { prompt, source } = generateIncidentPrompt(
-					incidents.get(replaceSlug)!,
-				);
+			const incident = incidents.get(replaceSlug);
+			if (incident) {
+				const { prompt, source } = generateIncidentPrompt(incident);
 				tasks.push({ category: "incident", slug: replaceSlug, prompt, source });
 			} else if (
 				replaceSlug.startsWith("pragmatist") ||

@@ -1,4 +1,4 @@
-import { AppSource, type Card, makeCard } from "../../types";
+import { AppSource, type Card, DeathType, makeCard } from "../../types";
 
 /**
  * Chief Something Officer cards - C-suite governance and liability scenarios
@@ -21,6 +21,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 			hype: -60,
 			heat: 13,
 			fine: 10000000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Proactive disclosure (civil penalties possible)",
 			lesson:
 				"Proactive disclosure creates short-term stock pain but preserves long-term credibility and avoids criminal liability.",
@@ -36,6 +37,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 			hype: 20,
 			heat: 31,
 			fine: 50000000,
+			deathVector: DeathType.AUDIT_FAILURE,
 			violation: "SEC Disclosure Violations + Obstruction",
 			lesson:
 				"Covering up security incidents may delay fallout but creates criminal liability and destroys trust when discovered. The truth has compound interest.",
@@ -62,7 +64,8 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 			hype: -45,
 			heat: 9,
 			fine: 5000000,
-			violation: "None - Responsible AI governance",
+			deathVector: DeathType.FLED_COUNTRY,
+			violation: "None - Responsible preparation",
 			lesson:
 				"Disclosing model degradation hurts quarterly guidance but protects brand integrity and avoids fraud claims.",
 			roaster:
@@ -77,6 +80,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 			hype: 35,
 			heat: 19,
 			fine: 25000000,
+			deathVector: DeathType.AUDIT_FAILURE,
 			violation: "SEC Material Misrepresentation + Consumer Protection",
 			lesson:
 				"Concealing material AI degradation to protect earnings creates securities fraud liability and regulatory exposure.",
@@ -103,6 +107,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 			hype: -80,
 			heat: 29,
 			fine: 500000000,
+			deathVector: DeathType.AUDIT_FAILURE,
 			violation: "Copyright Infringement (if found liable)",
 			lesson:
 				"Fighting establishes legal precedent but risks massive judgment and years of negative coverage destroying brand.",
@@ -118,6 +123,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 			hype: -30,
 			heat: 19,
 			fine: 150000000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Civil settlement (non-admission)",
 			lesson:
 				"Settlement avoids precedent-setting trial but doesn't address underlying copyright exposure. More lawsuits may follow.",
@@ -144,6 +150,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 			hype: -40,
 			heat: 17,
 			fine: 5000000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Responsible governance acknowledgment",
 			lesson:
 				"Taking accountability preserves leadership credibility and demonstrates governance maturity to board and investors.",
@@ -159,6 +166,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 			hype: 15,
 			heat: 23,
 			fine: 10000000,
+			deathVector: DeathType.AUDIT_FAILURE,
 			violation: "Failure of Corporate Governance + Whistleblower Risk",
 			lesson:
 				"Scapegoating preserves short-term optics but destroys trust with leadership team. Scapegoats talk to journalists.",
@@ -185,6 +193,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 			hype: -25,
 			heat: 14,
 			fine: 0,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Compliance enforcement",
 			lesson:
 				"Enforcing sanctions loses revenue but ensures regulatory compliance and prevents criminal exposure.",
@@ -200,6 +209,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 			hype: 40,
 			heat: 31,
 			fine: 100000000,
+			deathVector: DeathType.PRISON,
 			violation: "OFAC Sanctions Violations + Criminal Liability",
 			lesson:
 				"Plausible deniability becomes conspiracy when you knowingly ignore violations. Whistleblowers rarely stay silent.",
@@ -226,6 +236,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 			hype: -35,
 			heat: 9,
 			fine: 5000000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Responsible preparation",
 			lesson:
 				"Delaying IPO loses the current window but ensures clean regulatory standing and avoids fraud claims.",
@@ -241,6 +252,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 			hype: 70,
 			heat: 26,
 			fine: 40000000,
+			deathVector: DeathType.AUDIT_FAILURE,
 			violation:
 				"SEC Material Misrepresentation (if vulnerabilities materialize)",
 			lesson:
@@ -268,6 +280,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 			hype: -30,
 			heat: 13,
 			fine: 5000000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Regulatory cooperation",
 			lesson:
 				"Compliance preserves regulatory goodwill but costs time and money while competitors may launch first.",
@@ -283,6 +296,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 			hype: 25,
 			heat: 29,
 			fine: 75000000,
+			deathVector: DeathType.AUDIT_FAILURE,
 			violation: "Regulatory Non-Compliance + AI Transparency Violations",
 			lesson:
 				"Fighting explainability requirements creates adversarial regulatory relationships and massive penalties.",
@@ -309,6 +323,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 			hype: -50,
 			heat: 13,
 			fine: 5000000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Timely notification",
 			lesson:
 				"Immediate disclosure complies with law but creates market volatility and shareholder lawsuits.",
@@ -324,6 +339,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 			hype: 10,
 			heat: 22,
 			fine: 25000000,
+			deathVector: DeathType.AUDIT_FAILURE,
 			violation: "GDPR/CCPA Breach Notification Violations",
 			lesson:
 				"Delaying breach notification to protect markets creates regulatory violations and criminal exposure.",
@@ -350,6 +366,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 			hype: -20,
 			heat: 17,
 			fine: 10000000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Responsible workforce transition",
 			lesson:
 				"Transparency preserves trust and legal compliance but triggers union activity and negative coverage.",
@@ -365,6 +382,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 			hype: 45,
 			heat: 31,
 			fine: 15000000,
+			deathVector: DeathType.PRISON,
 			violation: "WARN Act Violations + Labor Law Non-Compliance",
 			lesson:
 				"Quiet layoffs violate WARN Act and destroy trust when discovered. Leaks are inevitable.",
@@ -383,7 +401,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 		"CVE_RESPONSE",
 		"GitHub Copilot CVE-2025-53773 announced. Your AI coding tools may have same vulnerability. Board wants to know exposure. Patch immediately (disrupt 500 devs) or assess first (risk window)?",
 		"Emergency patch all AI tools now (disruption) or assess exposure first (risk window)?",
-		"GitHub Copilot RCE CVE-2025-53773",
+		"GitHub Copilot RCE (CVE-2025-53773)",
 		"2025-01",
 		"Microsoft patched Copilot after RCE via prompt injection in code comments. Companies with rapid response avoided exploitation.",
 		{
@@ -391,6 +409,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 			hype: -40,
 			heat: 18,
 			fine: 5000000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Rapid security response",
 			lesson:
 				"Emergency patching during CVE windows prevents exploitation despite operational disruption.",
@@ -403,6 +422,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 			hype: 25,
 			heat: 26,
 			fine: 25000000,
+			deathVector: DeathType.AUDIT_FAILURE,
 			violation: "Delayed Security Response + CVE Exposure",
 			lesson:
 				"Assessment delays during active CVE windows create exploitation risk and regulatory scrutiny.",
@@ -427,6 +447,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 			hype: -30,
 			heat: 14,
 			fine: 3000000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Responsible containment",
 			lesson:
 				"Immediate shutdown during active breaches prevents further data exposure despite revenue impact.",
@@ -439,6 +460,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 			hype: 35,
 			heat: 29,
 			fine: 20000000,
+			deathVector: DeathType.AUDIT_FAILURE,
 			violation: "Inadequate Breach Response + Data Exposure",
 			lesson:
 				"Filtering during active breaches often fails and extends data exposure windows.",
@@ -464,6 +486,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 			hype: -45,
 			heat: 12,
 			fine: 5000000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Transparent governance",
 			lesson:
 				"Proactive disclosure of model degradation preserves long-term credibility.",
@@ -477,6 +500,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 			hype: 30,
 			heat: 22,
 			fine: 15000000,
+			deathVector: DeathType.AUDIT_FAILURE,
 			violation: "Material Misrepresentation + Negligence",
 			lesson:
 				"Hoping model drift self-corrects violates fiduciary duty and creates fraud exposure.",
@@ -501,6 +525,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 			hype: -35,
 			heat: 10,
 			fine: 5000000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Proactive governance",
 			lesson:
 				"Preventive investment in retraining infrastructure avoids catastrophic model failures.",
@@ -515,6 +540,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 			hype: 40,
 			heat: 25,
 			fine: 30000000,
+			deathVector: DeathType.AUDIT_FAILURE,
 			violation: "Negligent Risk Management + Fiduciary Breach",
 			lesson:
 				"Waiting for model failure despite known drift risk violates governance responsibilities.",
@@ -539,6 +565,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 			hype: -40,
 			heat: 13,
 			fine: 8000000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Regulatory compliance",
 			lesson:
 				"EU AI Act compliance requires explainability. Accuracy tradeoff is the cost of doing business in regulated markets.",
@@ -553,6 +580,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 			hype: 45,
 			heat: 31,
 			fine: 50000000,
+			deathVector: DeathType.AUDIT_FAILURE,
 			violation: "EU AI Act Article 6 Non-Compliance",
 			lesson:
 				"Black-box accuracy means nothing when regulators shut you down. Explainability is now mandatory.",
@@ -577,6 +605,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 			hype: -35,
 			heat: 19,
 			fine: 12000000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Regulatory compliance investment",
 			lesson:
 				"Retrofitting explainability preserves market access but requires significant time and capital investment.",
@@ -590,6 +619,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 			hype: -60,
 			heat: 24,
 			fine: 25000000,
+			deathVector: DeathType.BANKRUPT,
 			violation: "Strategic Asset Divestiture Loss",
 			lesson:
 				"Divesting viable business units due to compliance gaps destroys shareholder value and strategic positioning.",
@@ -614,6 +644,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 			hype: -45,
 			heat: 18,
 			fine: 5000000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Security-first governance",
 			lesson:
 				"Immediate security enforcement protects intellectual property despite short-term morale impact.",
@@ -627,6 +658,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 			hype: 30,
 			heat: 26,
 			fine: 15000000,
+			deathVector: DeathType.AUDIT_FAILURE,
 			violation: "Data Exposure Risk + Governance Failure",
 			lesson:
 				"Gradual policy rollout during active data exposure extends vulnerability windows and compounds breach risk.",
@@ -647,10 +679,11 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 		"2024",
 		"Companies discovered high-performers using unauthorized AI tools. Forcing migration caused talent exodus. Permitting created governance gaps and vendor liability.",
 		{
-			label: "Allow Claude workflow",
+			label: "Allow unapproved Claude workflow",
 			hype: 35,
 			heat: 28,
 			fine: 12000000,
+			deathVector: DeathType.AUDIT_FAILURE,
 			violation: "Shadow AI Governance Gap + Vendor Liability",
 			lesson:
 				"Permitting unapproved tools for productivity sets precedent that undermines entire governance framework.",
@@ -665,6 +698,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 			hype: -25,
 			heat: 22,
 			fine: 8000000,
+			deathVector: DeathType.BANKRUPT,
 			violation: "Talent Loss + Productivity Decline",
 			lesson:
 				"Enforcing vendor governance at the cost of top talent destroys long-term capability.",
@@ -689,6 +723,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 			hype: -30,
 			heat: 19,
 			fine: 150000000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Civil settlement (non-admission)",
 			lesson:
 				"Settlement avoids precedent-setting trial but doesn't address underlying copyright exposure. More lawsuits may follow.",
@@ -704,6 +739,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 			hype: -60,
 			heat: 31,
 			fine: 500000000,
+			deathVector: DeathType.AUDIT_FAILURE,
 			violation: "Copyright Infringement (if found liable)",
 			lesson:
 				"Fighting establishes precedent but risks massive judgment and years of negative coverage destroying shareholder value.",
@@ -730,6 +766,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 			hype: -50,
 			heat: 14,
 			fine: 8000000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Proactive compliance",
 			lesson:
 				"Proactive disclosure and remediation preserves credibility and avoids criminal liability, though at significant business cost.",
@@ -745,6 +782,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 			hype: 35,
 			heat: 26,
 			fine: 25000000,
+			deathVector: DeathType.PRISON,
 			violation: "AB 2013 Non-Compliance + Trade Secret Theft",
 			lesson:
 				"Ignoring data provenance issues creates criminal and civil exposure when discovered. Secrets rarely stay buried.",
@@ -771,6 +809,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 			hype: -45,
 			heat: 18,
 			fine: 25000000,
+			deathVector: DeathType.FLED_COUNTRY,
 			violation: "None - Congressional cooperation",
 			lesson:
 				"Transparent cooperation with congressional inquiries enables resolution and demonstrates accountability.",
@@ -786,6 +825,7 @@ export const CHIEF_SOMETHING_OFFICER_CARDS: Card[] = [
 			hype: 15,
 			heat: 25,
 			fine: 60000000,
+			deathVector: DeathType.AUDIT_FAILURE,
 			violation: "Congressional Obstruction + Contempt",
 			lesson:
 				"Asserting executive privilege against congressional inquiry triggers extended investigations and reputational damage.",
