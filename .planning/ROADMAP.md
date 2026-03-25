@@ -580,8 +580,8 @@ Automated compression pipeline to reduce bandwidth while maintaining quality:
 **Plans:** 4 plans
 
 Plans:
-- [ ] 16-01-PLAN.md — Death vector types, accumulator utility, and vector-aware death resolution (TDD)
-- [ ] 16-02-PLAN.md — Wire death vectors into game reducer, fix boss fight death type
+- [x] 16-01-PLAN.md — Death vector types, accumulator utility, and vector-aware death resolution (TDD)
+- [x] 16-02-PLAN.md — Wire death vectors into game reducer, fix boss fight death type
 - [ ] 16-03-PLAN.md — Annotate all 10 card decks with death vectors, add CONGRESS cards
 - [ ] 16-04-PLAN.md — Failure lessons, death explanations, and retry prompts in debrief
 

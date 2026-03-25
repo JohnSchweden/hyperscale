@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Kobayashi Maru — AI Governance Simulator
 current_phase: 16-kobayashi-maru-ending-variety-system
-current_plan: 01
+current_plan: 02
 status: in-progress
-last_updated: "2026-03-25T11:57:00.000Z"
+last_updated: "2026-03-25T12:00:30.000Z"
 progress:
   total_phases: 16
   completed_phases: 8
   total_plans: 81
-  completed_plans: 65
+  completed_plans: 66
 ---
 
 # Session State
@@ -22,9 +22,9 @@ See: .planning/PROJECT.md
 ## Position
 
 **Milestone:** v1.2 Kobayashi Maru — AI Governance Simulator
-**Current phase:** 15-voice-files-expanded
-**Current plan:** 07
-**Status:** Milestone complete
+**Current phase:** 16-kobayashi-maru-ending-variety-system
+**Current plan:** 02
+**Status:** In progress
 
 ## Session Log
 
@@ -78,6 +78,7 @@ See: .planning/PROJECT.md
 - 2026-03-24: Completed 15-04-PLAN.md (Voice file restructure: 71 files organized in subfolders, playback path resolution updated)
 - 2026-03-25: Completed 15-07-PLAN.md (Fixed corrupted audio: 14 HoS feedback + 21 death ending files regenerated with unique TTS)
 - 2026-03-25: Completed 16-01-PLAN.md (Death vector types and accumulator with TDD)
+- 2026-03-25: Completed 16-02-PLAN.md (Wire death vectors into game reducer with vector-aware death type resolution)
 - 2026-03-25: Executing 13-02-PLAN.md (Image Asset Generation Pipeline) — Task 1 complete, awaiting human action for Tasks 2-3
 
 ## Accumulated Context
