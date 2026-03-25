@@ -11,7 +11,7 @@ completed_date: 2026-03-25
 
 ## Where the code lives
 
-Same as 13-00: **`gsd/phase-13-image-asset-pipeline`** / worktree **`.claude/worktrees/phase-13-images/`**. Not merged to **`main`** at the time this summary was written.
+Same as 13-00: **`gsd/phase-13-image-asset-pipeline`** / worktree **`phase-13-images`** (sibling of `swiperisk`). Not merged to **`main`** at the time this summary was written.
 
 ## Delivered
 
@@ -34,5 +34,5 @@ Same as 13-00: **`gsd/phase-13-image-asset-pipeline`** / worktree **`.claude/wor
 Wave 0 tests green in the worktree:
 
 ```sh
-cd .claude/worktrees/phase-13-images && bun run test:data
+cd ../phase-13-images && bun run test:data
 ```

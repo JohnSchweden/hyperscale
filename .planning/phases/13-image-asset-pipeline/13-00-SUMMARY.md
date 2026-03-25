@@ -11,7 +11,7 @@ completed_date: 2026-03-25
 
 ## Where the code lives
 
-Implementation and tests are on branch **`gsd/phase-13-image-asset-pipeline`** (local worktree: `.claude/worktrees/phase-13-images/`). **`main` does not yet contain** `data/imageMap.ts` or `tests/data/image-map.test.ts`.
+Implementation and tests are on branch **`gsd/phase-13-image-asset-pipeline`** (local worktree: sibling directory **`phase-13-images`** next to the `swiperisk` repo). **`main` does not yet contain** `data/imageMap.ts` or `tests/data/image-map.test.ts`.
 
 ## Delivered
 
@@ -36,5 +36,5 @@ Planning was later aligned to **`13-CONTRACT.md`** (HOS pilot, outcome keys `{in
 ## Verification
 
 ```sh
-cd .claude/worktrees/phase-13-images && bun run test:data
+cd ../phase-13-images && bun run test:data
 ```
