@@ -1,6 +1,12 @@
 import type React from "react";
 import { useEffect, useMemo, useRef } from "react";
-import { DEATH_ENDINGS } from "../../../data";
+import {
+	accumulateDeathVectors,
+	DEATH_ENDINGS,
+	FAILURE_LESSONS,
+	generateDeathExplanation,
+	getRetryPrompt,
+} from "../../../data";
 import { useUnlockedEndings, useVoicePlayback } from "../../../hooks";
 import {
 	playKirkCrashSound,
@@ -33,6 +39,12 @@ function getPersonalityReplayLine(personality: PersonalityType | null): string {
 	}
 }
 
+function getRandomLesson(deathType: Exclude<DeathType, typeof DeathType.KIRK>) {
+	const lessons = FAILURE_LESSONS[deathType];
+	if (!lessons || lessons.length === 0) return null;
+	return lessons[Math.floor(Math.random() * lessons.length)];
+}
+
 interface DebriefPage1CollapseProps {
 	state: GameState;
 	onNext: () => void;
@@ -62,6 +74,42 @@ export const DebriefPage1Collapse: React.FC<DebriefPage1CollapseProps> = ({
 		state.unlockedEndings,
 	);
 	const replayLine = getPersonalityReplayLine(state.personality);
+
+	// Generate contextual explanation for why they died
+	const explanation = useMemo(() => {
+		if (!state.deathType || state.deathType === DeathType.KIRK) return null;
+		const vectorMap = accumulateDeathVectors(
+			state.history,
+			state.effectiveDeck ?? [],
+		);
+		return generateDeathExplanation(
+			state.deathType,
+			vectorMap,
+			state.history.length,
+		);
+	}, [state.deathType, state.history, state.effectiveDeck]);
+
+	// Select a random failure lesson for this death type (memoized so it stays stable)
+	const failureLesson = useMemo(() => {
+		if (!state.deathType || state.deathType === DeathType.KIRK) return null;
+		return getRandomLesson(
+			state.deathType as Exclude<DeathType, typeof DeathType.KIRK>,
+		);
+	}, [state.deathType]);
+
+	// Get personality-specific retry prompt
+	const retryPrompt = useMemo(() => {
+		if (
+			!state.deathType ||
+			!state.personality ||
+			state.deathType === DeathType.KIRK
+		)
+			return null;
+		return getRetryPrompt(
+			state.deathType as Exclude<DeathType, typeof DeathType.KIRK>,
+			state.personality,
+		);
+	}, [state.deathType, state.personality]);
 
 	// Trigger death ending voice audio
 	useVoicePlayback({
@@ -131,23 +179,47 @@ export const DebriefPage1Collapse: React.FC<DebriefPage1CollapseProps> = ({
 
 				{/* Death Ending Display — hidden for Kirk (handled above) */}
 				{deathEnding && (
-					<div
-						className={`mb-6 md:mb-8 p-6 md:p-8 rounded-xl border border-red-500/40 bg-gradient-to-br from-red-950/30 to-black/70 ${GLASS_FILL_STRONG}`}
-					>
+					<>
 						<div
-							className={`text-5xl md:text-7xl mb-4 animate-pulse drop-shadow-[0_0_30px_rgba(220,38,38,0.5)] ${deathEnding.color}`}
+							className={`mb-6 md:mb-8 p-6 md:p-8 rounded-xl border border-red-500/40 bg-gradient-to-br from-red-950/30 to-black/70 ${GLASS_FILL_STRONG}`}
 						>
-							<i className={`fa-solid ${deathEnding.icon}`} aria-hidden></i>
+							<div
+								className={`text-5xl md:text-7xl mb-4 animate-pulse drop-shadow-[0_0_30px_rgba(220,38,38,0.5)] ${deathEnding.color}`}
+							>
+								<i className={`fa-solid ${deathEnding.icon}`} aria-hidden></i>
+							</div>
+							<h2
+								className={`text-2xl md:text-3xl font-bold mb-3 tracking-tighter ${deathEnding.color}`}
+							>
+								{deathEnding.title}
+							</h2>
+							<p className="text-slate-300 text-base md:text-lg leading-relaxed">
+								{deathEnding.description}
+							</p>
 						</div>
-						<h2
-							className={`text-2xl md:text-3xl font-bold mb-3 tracking-tighter ${deathEnding.color}`}
-						>
-							{deathEnding.title}
-						</h2>
-						<p className="text-slate-300 text-base md:text-lg leading-relaxed">
-							{deathEnding.description}
-						</p>
-					</div>
+
+						{/* "Why You Died" explanation section */}
+						{explanation && (
+							<div className="mt-4 p-3 rounded-lg bg-white/5 border border-white/10 mb-6">
+								<p className="text-sm text-gray-300 italic">{explanation}</p>
+							</div>
+						)}
+
+						{/* Failure Lesson callout */}
+						{failureLesson && (
+							<div className="mt-3 p-3 rounded-lg bg-amber-500/10 border border-amber-500/20 mb-6">
+								<p className="text-xs font-semibold text-amber-400 uppercase mb-1">
+									{failureLesson.title}
+								</p>
+								<p className="text-sm text-gray-300">
+									{failureLesson.explanation}
+								</p>
+								<p className="text-xs text-gray-500 mt-1">
+									Real case: {failureLesson.realWorldExample}
+								</p>
+							</div>
+						)}
+					</>
 				)}
 
 				{/* Final Metrics */}
@@ -232,7 +304,9 @@ export const DebriefPage1Collapse: React.FC<DebriefPage1CollapseProps> = ({
 					</p>
 
 					{/* Personality-specific replay encouragement */}
-					<p className="text-sm italic text-cyan-400/80">{replayLine}</p>
+					<p className="text-sm italic text-cyan-400/80">
+						{retryPrompt || replayLine}
+					</p>
 				</div>
 
 				{/* Debrief Me Button */}
