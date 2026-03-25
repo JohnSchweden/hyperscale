@@ -596,6 +596,23 @@ Plans:
 - DV-08: 3-4 failure lessons per death type teaching AI governance failure modes
 - DV-09: Personality-specific retry prompts with strategy hints per death type
 
+### Phase 17: Shuffle-aware feedback TTS & content integrity
+
+**Goal:** Fix Roaster feedback audio desync when `shuffleDeck` swaps card sides; align incident pressure with `effectiveDeck`; remove duplicate HoS shadow-AI card and orphan audio; vary roast LLM cadence in prompts.
+**Depends on:** Phase 15 (voice/feedback pipeline)
+**Plans:** 3 plans
+
+**Requirements:**
+- FA-01: `choiceSidesSwapped` on shuffled cards + `canonicalFeedbackAudioSide` maps UI swipe → filename side
+- FA-02: `App` uses `effectiveDeck` for `currentCard`; overlay + `useVoicePlayback` use canonical audio side
+- FA-03: Single HoS shadow-enforcement card; `CRITICAL_HOS_CARDS` / scripts / tests / assets synced
+- FA-04: `geminiLive` + `api/roast` prompts allow varied length/rhythm
+
+Plans:
+- [ ] [17-01-PLAN.md](phases/17-shuffle-aware-feedback-tts-fixes/17-01-PLAN.md) — Card flag, shuffleDeck, canonical audio side helper (TDD)
+- [ ] [17-02-PLAN.md](phases/17-shuffle-aware-feedback-tts-fixes/17-02-PLAN.md) — App `currentCard`, overlay `voiceAudioSide`, `useVoicePlayback` wiring
+- [ ] [17-03-PLAN.md](phases/17-shuffle-aware-feedback-tts-fixes/17-03-PLAN.md) — HoS dedupe, critical lists + orphan audio, roast prompts
+
 ---
 
-*Roadmap updated: 2026-03-25 — Phase 16 planned: 4 plans for ending variety system (death vectors, card annotation, failure lessons)*
+*Roadmap updated: 2026-03-25 — Phase 17 planned: shuffle-aware TTS, deck/pressure sync, HoS dedupe, roast cadence*

@@ -78,6 +78,12 @@ See: .planning/PROJECT.md
 - 2026-03-24: Completed 15-04-PLAN.md (Voice file restructure: 71 files organized in subfolders, playback path resolution updated)
 - 2026-03-25: Completed 15-07-PLAN.md (Fixed corrupted audio: 14 HoS feedback + 21 death ending files regenerated with unique TTS)
 
+## Accumulated Context
+
+### Roadmap Evolution
+- Phase 16 added: Kobayashi Maru ending variety system
+- Phase 17 planned: Shuffle-aware feedback TTS & content integrity (3 executable plans; CONTEXT + RESEARCH + VALIDATION)
+
 ## Decisions
 
 - Keep existing 6 death endings; consider adding 2-3 technical endings for IC roles in future phase
