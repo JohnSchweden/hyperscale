@@ -1,0 +1,720 @@
+{
+	"version": "2.0.0",
+	"updated": "2026-03-26",
+	"description": "Comprehensive meme template database for incident visualization",
+	"templates": {
+		"classic_internet": [
+			{
+				"id": "distracted-boyfriend",
+				"name": "Distracted Boyfriend",
+				"text_zones": 3,
+				"best_for": ["ignoring-important", "choice", "temptation"],
+				"imgflip_id": "1ur9b0"
+			},
+			{
+				"id": "drake-hotline-bling",
+				"name": "Drake Hotline Bling",
+				"text_zones": 2,
+				"best_for": ["preference", "yes-no", "comparison"],
+				"imgflip_id": "30b1gx"
+			},
+			{
+				"id": "two-buttons",
+				"name": "Two Buttons",
+				"text_zones": 2,
+				"best_for": ["hard-choice", "decision", "dilemma"],
+				"imgflip_id": "1g8my4"
+			},
+			{
+				"id": "this-is-fine",
+				"name": "This Is Fine",
+				"text_zones": 1,
+				"best_for": ["denial", "disaster", "chaos"],
+				"imgflip_id": "1h5bl5"
+			},
+			{
+				"id": "surprised-pikachu",
+				"name": "Surprised Pikachu",
+				"text_zones": 1,
+				"best_for": ["obvious-outcome", "predictable", "shock"],
+				"imgflip_id": "1o0pmx"
+			},
+			{
+				"id": "expanding-brain",
+				"name": "Expanding Brain",
+				"text_zones": 4,
+				"best_for": ["escalation", "levels", "irony"],
+				"imgflip_id": "1jwx6p"
+			},
+			{
+				"id": "boardroom-meeting",
+				"name": "Boardroom Meeting",
+				"text_zones": 3,
+				"best_for": ["group-failure", "decision", "consensus"],
+				"imgflip_id": "1b9j5"
+			},
+			{
+				"id": "left-exit-12",
+				"name": "Left Exit 12 Off Ramp",
+				"text_zones": 2,
+				"best_for": ["wrong-choice", "regret", "temptation"],
+				"imgflip_id": "1xxkmu"
+			},
+			{
+				"id": "change-my-mind",
+				"name": "Change My Mind",
+				"text_zones": 1,
+				"best_for": ["controversial", "argument", "debate"],
+				"imgflip_id": "1p99m"
+			},
+			{
+				"id": "woman-yelling-cat",
+				"name": "Woman Yelling at Cat",
+				"text_zones": 2,
+				"best_for": ["contrast", "conflict", "misunderstanding"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "buff-doge-cheems",
+				"name": "Buff Doge vs Cheems",
+				"text_zones": 2,
+				"best_for": ["comparison", "upgrade", "difference"],
+				"imgflip_id": "1gvnw0"
+			},
+			{
+				"id": "uno-draw-25",
+				"name": "UNO Draw 25 Cards",
+				"text_zones": 1,
+				"best_for": ["punishment", "consequence", "cheating"],
+				"imgflip_id": "1fzquk"
+			},
+			{
+				"id": "grus-plan",
+				"name": "Gru's Plan",
+				"text_zones": 4,
+				"best_for": ["step-by-step", "complex-plan", "failing"],
+				"imgflip_id": "1lq9j5"
+			},
+			{
+				"id": "mocking-spongebob",
+				"name": "Mocking SpongeBob",
+				"text_zones": 1,
+				"best_for": ["mockery", "repetition", "irony"],
+				"imgflip_id": "1o3opl"
+			},
+			{
+				"id": "roll-safe",
+				"name": "Roll Safe",
+				"text_zones": 1,
+				"best_for": ["fake-clever", "workaround", "sarcasm"],
+				"imgflip_id": "1h1x1q"
+			},
+			{
+				"id": "is-this-a-pigeon",
+				"name": "Is This a Pigeon?",
+				"text_zones": 3,
+				"best_for": ["misidentification", "wrong-label", "oblivious"],
+				"imgflip_id": "1g1l3z"
+			},
+			{
+				"id": "batman-slapping-robin",
+				"name": "Batman Slapping Robin",
+				"text_zones": 2,
+				"best_for": ["shutting-down", "bad-take", "correction"],
+				"imgflip_id": "1aj3i"
+			},
+			{
+				"id": "monkey-puppet",
+				"name": "Monkey Puppet",
+				"text_zones": 2,
+				"best_for": ["awkward", "realization", "realize"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "success-kid",
+				"name": "Success Kid",
+				"text_zones": 2,
+				"best_for": ["success", "victory", "accomplishment"],
+				"imgflip_id": "1rj5m"
+			},
+			{
+				"id": "hide-pain-harold",
+				"name": "Hide the Pain Harold",
+				"text_zones": 1,
+				"best_for": ["internal-pain", "fake-smile", "suffering"],
+				"imgflip_id": "1dbz8m"
+			}
+		],
+		"lord_of_the_rings": [
+			{
+				"id": "lotr-one-does-not-simply",
+				"name": "One Does Not Simply (Boromir)",
+				"text_zones": 1,
+				"best_for": ["warning-ignored", "impossible", "temptation"],
+				"imgflip_id": "1bij"
+			},
+			{
+				"id": "lotr-you-shall-not-pass",
+				"name": "You Shall Not Pass (Gandalf)",
+				"text_zones": 1,
+				"best_for": ["blocked", "forbidden", "stop"],
+				"imgflip_id": "1l9un"
+			},
+			{
+				"id": "lotr-my-precious",
+				"name": "My Precious (Gollum)",
+				"text_zones": 1,
+				"best_for": ["obsession", "attachment", "addiction"],
+				"imgflip_id": "1o3opl"
+			},
+			{
+				"id": "lotr-second-breakfast",
+				"name": "Second Breakfast (Sam)",
+				"text_zones": 1,
+				"best_for": ["small-pleasures", "routine", "comfort"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "lotr-confused-gandalf",
+				"name": "Confused Gandalf",
+				"text_zones": 1,
+				"best_for": ["confusion", "forgetting", "memory"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "lotr-and-my-axe",
+				"name": "And My Axe! (Gimli)",
+				"text_zones": 1,
+				"best_for": ["excitement", "enthusiasm", "announcement"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "lotr-potatoes",
+				"name": "PO-TAY-TOES",
+				"text_zones": 1,
+				"best_for": ["simple-pleasures", "food", "comfort"],
+				"imgflip_id": "1tk9tu"
+			}
+		],
+		"star_wars": [
+			{
+				"id": "sw-hello-there",
+				"name": "Hello There (Obi-Wan)",
+				"text_zones": 1,
+				"best_for": ["unexpected", "sudden", "greeting"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "sw-its-a-trap",
+				"name": "It's a Trap! (Admiral Ackbar)",
+				"text_zones": 1,
+				"best_for": ["obvious-danger", "warning", "trap"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "sw-high-ground",
+				"name": "I Have The High Ground",
+				"text_zones": 1,
+				"best_for": ["technical-advantage", "winning", "position"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "sw-i-am-your-father",
+				"name": "I Am Your Father",
+				"text_zones": 1,
+				"best_for": ["revelation", "twist", "dramatic"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "sw-force-strong",
+				"name": "The Force Is Strong",
+				"text_zones": 1,
+				"best_for": ["talent", "natural-ability", "destiny"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "sw-judge-me",
+				"name": "Yoda Judge Me",
+				"text_zones": 2,
+				"best_for": ["unconventional", "wisdom", "challenge"],
+				"imgflip_id": "1tk9tu"
+			}
+		],
+		"the_simpsons": [
+			{
+				"id": "simpsons-steamed-hams",
+				"name": "Steamed Hams",
+				"text_zones": 2,
+				"best_for": ["awkward-excuse", "lie", "cover-up"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "simpsons-homer-backing",
+				"name": "Homer Backing Away",
+				"text_zones": 1,
+				"best_for": ["backing-out", "retreat", "avoidance"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "simpsons-doh",
+				"name": "D'oh! (Homer)",
+				"text_zones": 1,
+				"best_for": ["mistake", "realization", "blunder"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "simpsons-ralph-danger",
+				"name": "Ralph Wiggum - I'm in Danger",
+				"text_zones": 1,
+				"best_for": ["danger", "realization", "naive"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "simpsons-thats-a-paddlin",
+				"name": "That's a Paddlin",
+				"text_zones": 1,
+				"best_for": ["warning", "threat", "consequence"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "simpsons-excellent",
+				"name": "Excellent (Smithers)",
+				"text_zones": 1,
+				"best_for": ["approval", "respect", "loyalty"],
+				"imgflip_id": "1tk9tu"
+			}
+		],
+		"south_park": [
+			{
+				"id": "sp-bad-time",
+				"name": "Gonna Have A Bad Time",
+				"text_zones": 1,
+				"best_for": ["warning-consequence", "threat", "prediction"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "sp-our-jobs",
+				"name": "They Took Our Jobs",
+				"text_zones": 1,
+				"best_for": ["complaint", "grievance", "injustice"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "sp-towelie",
+				"name": "Towelie - Need Towel",
+				"text_zones": 1,
+				"best_for": ["distraction", "dependence", "need"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "sp-underpants-gnomes",
+				"name": "Underpants Gnomes",
+				"text_zones": 2,
+				"best_for": ["confusing-plan", "nonsense", "profit"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "sp-cartman-kyle",
+				"name": "Cartman vs Kyle",
+				"text_zones": 2,
+				"best_for": ["conflict", "argument", "feud"],
+				"imgflip_id": "1tk9tu"
+			}
+		],
+		"game_of_thrones": [
+			{
+				"id": "got-winter-coming",
+				"name": "Winter Is Coming",
+				"text_zones": 1,
+				"best_for": ["warning", "inevitable", "threat"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "got-brace-yourself",
+				"name": "Brace Yourself",
+				"text_zones": 1,
+				"best_for": ["prepare", "warning", "danger"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "got-know-nothing",
+				"name": "You Know Nothing Jon Snow",
+				"text_zones": 1,
+				"best_for": ["misunderstanding", "ignorance", "blind"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "got-valar-morghulis",
+				"name": "Valar Morghulis",
+				"text_zones": 1,
+				"best_for": ["inevitable", "death", "fate"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "got-dracarys",
+				"name": "Dracarys!",
+				"text_zones": 1,
+				"best_for": ["action", "fire", "destruction"],
+				"imgflip_id": "1tk9tu"
+			}
+		],
+		"breaking_bad": [
+			{
+				"id": "bb-say-my-name",
+				"name": "Say My Name (Heisenberg)",
+				"text_zones": 1,
+				"best_for": ["identity", "reputation", "power"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "bb-i-am-the-one-who-knocks",
+				"name": "I Am The One Who Knocks",
+				"text_zones": 1,
+				"best_for": ["power", "authority", "threat"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "bb-blue-sky",
+				"name": "Blue Sky Meth",
+				"text_zones": 1,
+				"best_for": ["quality", "product", "excellence"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "bb-breaking-bad",
+				"name": "I Am The Danger",
+				"text_zones": 1,
+				"best_for": ["warning", "danger", "power"],
+				"imgflip_id": "1tk9tu"
+			}
+		],
+		"movies": [
+			{
+				"id": "movie-condescending-wonka",
+				"name": "Condescending Wonka",
+				"text_zones": 2,
+				"best_for": ["dismissive", "mockery", "contempt"],
+				"imgflip_id": "1a9lw"
+			},
+			{
+				"id": "movie-nicolas-cage",
+				"name": "Nicolas Cage - You Don't Say",
+				"text_zones": 1,
+				"best_for": ["sarcasm", "surprise", "mockery"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "movie-arrow-knee",
+				"name": "Arrow to the Knee",
+				"text_zones": 1,
+				"best_for": ["career-ending", "decline", "fall"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "movie-sure-jan",
+				"name": "Sure Jan (Brady Bunch)",
+				"text_zones": 1,
+				"best_for": ["sarcasm", "dismissive", "disbelief"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "movie-leonardo-dicaprio",
+				"name": "Leonardo DiCaprio Cheers",
+				"text_zones": 1,
+				"best_for": ["celebration", "toast", "victory"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "movie-most-interesting-man",
+				"name": "Most Interesting Man",
+				"text_zones": 2,
+				"best_for": ["confidence", "wisdom", "experience"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "movie-disaster-girl",
+				"name": "Disaster Girl",
+				"text_zones": 1,
+				"best_for": ["fire", "chaos", "arson"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "movie-success-kid",
+				"name": "Success Kid",
+				"text_zones": 2,
+				"best_for": ["success", "victory", "accomplishment"],
+				"imgflip_id": "1tk9tu"
+			}
+		],
+		"anime": [
+			{
+				"id": "aot-sasageyo",
+				"name": "Sasageyo (Erwin)",
+				"text_zones": 1,
+				"best_for": ["rally", "charge", "sacrifice"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "aot-levi-tea",
+				"name": "Levi Sipping Tea",
+				"text_zones": 1,
+				"best_for": ["chill", "unimpressed", "calm"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "aot-erwin-charge",
+				"name": "Erwin's Charge",
+				"text_zones": 1,
+				"best_for": ["desperation", "brave", "charge"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "jjk-domain-expansion",
+				"name": "Domain Expansion",
+				"text_zones": 1,
+				"best_for": ["ultimate-move", "power", "technique"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "jjk-gojo-blindfold",
+				"name": "Gojo Blindfold",
+				"text_zones": 1,
+				"best_for": ["cool", "confidence", "power"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "jjk-mismagised",
+				"name": "It's Closed (Mismagised)",
+				"text_zones": 1,
+				"best_for": ["denial", "refusal", "closed"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "one-piece-luffy-stretch",
+				"name": "Luffy Stretching",
+				"text_zones": 1,
+				"best_for": ["flexibility", "stretch", "ability"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "naruto-sharingan",
+				"name": "Naruto Sharingan",
+				"text_zones": 1,
+				"best_for": ["power", "awakening", "ability"],
+				"imgflip_id": "1tk9tu"
+			}
+		],
+		"gif_animated": [
+			{
+				"id": "gif-party-parrot",
+				"name": "Party Parrot",
+				"text_zones": 1,
+				"best_for": ["celebration", "hype", "excitement"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "gif-panik-kalm-panik",
+				"name": "Panik Kalm Panik",
+				"text_zones": 3,
+				"best_for": ["escalation", "panic", "reaction"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "gif-homer-backing",
+				"name": "Homer Backing Away",
+				"text_zones": 1,
+				"best_for": ["backing-out", "retreat", "avoid"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "gif-running-away",
+				"name": "Running Away Balloon",
+				"text_zones": 1,
+				"best_for": ["loss", "taking", "fleeing"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "gif-pikachu-blank",
+				"name": "Pikachu Blinking",
+				"text_zones": 1,
+				"best_for": ["confusion", "surprise", "reaction"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "gif-confused-math-lady",
+				"name": "Confused Math Lady",
+				"text_zones": 1,
+				"best_for": ["confusion", "realization", "puzzle"],
+				"imgflip_id": "1tk9tu"
+			}
+		],
+		"reaction": [
+			{
+				"id": "reaction-angry-gary",
+				"name": "Angry Gary",
+				"text_zones": 1,
+				"best_for": ["anger", "frustration", "rage"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "reaction-surprised",
+				"name": "Surprised Face",
+				"text_zones": 1,
+				"best_for": ["shock", "surprise", "amazement"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "reaction-thinking",
+				"name": "Thinking Face",
+				"text_zones": 1,
+				"best_for": ["thought", "consideration", "puzzle"],
+				"imgflip_id": "1tk9tu"
+			},
+			{
+				"id": "reaction-crying-laughing",
+				"name": "Crying Laughing",
+				"text_zones": 1,
+				"best_for": ["funny", "humor", "laugh"],
+				"imgflip_id": "1tk9tu"
+			}
+		],
+		"corporate": [
+			{
+				"id": "corp-change-my-mind",
+				"name": "Change My Mind",
+				"text_zones": 1,
+				"best_for": ["opinion", "challenge", "debate"],
+				"imgflip_id": "1p99m"
+			},
+			{
+				"id": "corp-boardroom",
+				"name": "Boardroom Meeting",
+				"text_zones": 3,
+				"best_for": ["meeting", "decision", "failure"],
+				"imgflip_id": "1b9j5"
+			},
+			{
+				"id": "corp-success-kid",
+				"name": "Success Kid",
+				"text_zones": 2,
+				"best_for": ["win", "achievement", "success"],
+				"imgflip_id": "1rj5m"
+			},
+			{
+				"id": "corp-first-world-problems",
+				"name": "First World Problems",
+				"text_zones": 1,
+				"best_for": ["trivial", "complaint", "luxury"],
+				"imgflip_id": "1tk9tu"
+			}
+		]
+	},
+	"incident_mapping": {
+		"ignored-warning": [
+			"surprised-pikachu",
+			"lotr-one-does-not-simply",
+			"movie-arrow-knee",
+			"sp-bad-time"
+		],
+		"escalating-disaster": [
+			"this-is-fine",
+			"gif-panik-kalm-panik",
+			"left-exit-12",
+			"got-valar-morghulis"
+		],
+		"bad-decision": [
+			"two-buttons",
+			"drake-hotline-bling",
+			"boardroom-meeting",
+			"sp-underpants-gnomes"
+		],
+		"ai-overconfidence": [
+			"distracted-boyfriend",
+			"expanding-brain",
+			"movie-condescending-wonka",
+			"bb-say-my-name"
+		],
+		"team-failure": [
+			"boardroom-meeting",
+			"corp-boardroom",
+			"sp-cartman-kyle",
+			"sp-our-jobs"
+		],
+		"obvious-outcome": [
+			"surprised-pikachu",
+			"movie-arrow-knee",
+			"sp-bad-time",
+			"got-know-nothing"
+		],
+		"predictable-failure": [
+			"surprised-pikachu",
+			"movie-arrow-knee",
+			"sp-bad-time",
+			"got-winter-coming"
+		],
+		"ignoring-evidence": [
+			"distracted-boyfriend",
+			"monkey-puppet",
+			"got-know-nothing",
+			"reaction-thinking"
+		],
+		"overconfidence": [
+			"condescending-wonka",
+			"bb-i-am-the-one-who-knocks",
+			"sw-high-ground",
+			"expanding-brain"
+		],
+		"denial": [
+			"this-is-fine",
+			"hide-pain-harold",
+			"reaction-angry-gary",
+			"jjk-mismagised"
+		],
+		"escalation": [
+			"gif-panik-kalm-panik",
+			"expanding-brain",
+			"aot-sasageyo",
+			"jjk-domain-expansion"
+		],
+		"sudden-realization": [
+			"monkey-puppet",
+			"confused-gandalf",
+			"reaction-thinking",
+			"is-this-a-pigeon"
+		],
+		"obvious-danger": [
+			"sw-its-a-trap",
+			"got-brace-yourself",
+			"movie-disaster-girl",
+			"got-dracarys"
+		],
+		"temptation": [
+			"distracted-boyfriend",
+			"left-exit-12",
+			"lotr-my-precious",
+			"reaction-crying-laughing"
+		],
+		"mockery": [
+			"mocking-spongebob",
+			"batman-slapping-robin",
+			"movie-nicolas-cage",
+			"movie-sure-jan"
+		],
+		"celebration": [
+			"gif-party-parrot",
+			"success-kid",
+			"leonardo-dicaprio",
+			"and-my-axe"
+		]
+	},
+	"imgflip_api": {
+		"base_url": "https://api.imgflip.com",
+		"caption_endpoint": "/caption_image",
+		"get_memes_endpoint": "/get_memes"
+	},
+	"notes": {
+		"text_zones": "Number of text labels the template supports (used for positioning)",
+		"best_for": "Use cases/tags for template matching",
+		"imgflip_id": "Optional Imgflip template ID for API captioning (premium feature)"
+	}
+}
