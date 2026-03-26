@@ -1,6 +1,7 @@
 import type React from "react";
 import { useEffect, useState } from "react";
 import { ROLE_LABELS } from "../../../data";
+import { getArchetypeImagePath } from "../../../data/imageMap";
 import { useVoicePlayback } from "../../../hooks";
 import {
 	type Archetype,
@@ -14,6 +15,7 @@ import {
 	formatShareText,
 	getShareUrl,
 } from "../../../utils/linkedin-share";
+import { ImageWithFallback } from "../../ImageWithFallback";
 import LayoutShell from "../../LayoutShell";
 import {
 	GLASS_FILL_STRONG,
@@ -167,6 +169,21 @@ export const DebriefPage3Verdict: React.FC<DebriefPage3VerdictProps> = ({
 					<div className="text-sm text-slate-400 uppercase tracking-widest mb-4">
 						Classification
 					</div>
+
+					{/* Archetype badge - 1:1 aspect ratio, achievement unlock feel */}
+					{archetype && (
+						<div className="mx-auto mb-6 w-32 h-32 md:w-40 md:h-40">
+							<ImageWithFallback
+								src={
+									archetype.image ?? getArchetypeImagePath(archetype.id) ?? ""
+								}
+								alt={`Badge: ${archetype.name}`}
+								aspectRatio="square"
+								containerClassName="rounded-xl border-2 border-current"
+							/>
+						</div>
+					)}
+
 					<h2
 						className={`text-4xl md:text-6xl font-black mb-4 tracking-tighter${isKirk ? " kirk-glitch-text text-cyan-400" : ""}`}
 					>
