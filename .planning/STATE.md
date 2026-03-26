@@ -5,7 +5,7 @@ milestone_name: Kobayashi Maru — AI Governance Simulator
 current_phase: 16-kobayashi-maru-ending-variety-system
 current_plan: 09 (COMPLETE)
 status: planning
-last_updated: "2026-03-26T14:13:40.321Z"
+last_updated: "2026-03-26T15:12:00.000Z"
 progress:
   total_phases: 20
   completed_phases: 11
@@ -84,6 +84,7 @@ See: .planning/PROJECT.md
 - 2026-03-25: Completed 16-05-PLAN.md (Death vector annotation for 7 unannotated card decks: 256 outcomes annotated across SOMETHING_MANAGER, TECH_AI_CONSULTANT, DATA_SCIENTIST, SOFTWARE_ARCHITECT, VIBE_CODER, VIBE_ENGINEER, AGENTIC_ENGINEER decks)
 - 2026-03-25: Completed 16-06-PLAN.md (Death vector annotation for 3 partial decks: 86 outcomes annotated across HEAD_OF_SOMETHING, CHIEF_SOMETHING_OFFICER, SOFTWARE_ENGINEER; test thresholds restored for DV-05 enforcement)
 - 2026-03-25: Executing 13-02-PLAN.md (Image Asset Generation Pipeline) — Task 1 complete, awaiting human action for Tasks 2-3
+- 2026-03-26: Completed 16-07-PLAN.md (CSO/HoS deck differentiation: 2 new CSO cards with CONGRESS/BANKRUPT, 2 new HoS cards with REPLACED_BY_SCRIPT; decks now narratively distinct)
 - 2026-03-26: Completed 16-08-PLAN.md (Death vector expansion: 5 new cards across 2 decks, BANKRUPT/PRISON for consultant, CONGRESS for manager)
 - 2026-03-26: Completed 16-09-PLAN.md (Narrative copy precision: FLED_COUNTRY/REPLACED_BY_SCRIPT explanation broadening, 4 agentic-engineer outcomes reclassified from FLED_COUNTRY to PRISON/CONGRESS/AUDIT_FAILURE)
 
@@ -105,6 +106,7 @@ See: .planning/PROJECT.md
 - [Phase 15-voice-files-expanded]: Browser capability detection via canPlayType() for format selection
 - [Phase 15]: HoS audio gap closure: Script created with resumable generation pattern; 2 of 22 audio files generated due to API quota; CRITICAL_HOS_CARDS updated with all 19 card IDs
 - [Phase 16-09]: Death vector semantic matching — deathVector should map to narrative consequence type, not generic failure bucket (e.g., "lost control of agent" → PRISON/CONGRESS, not FLED_COUNTRY)
+- [Phase 16-07]: Role-scoped death vector differentiation — C-suite gets CONGRESS/BANKRUPT (executive accountability), middle management gets REPLACED_BY_SCRIPT (organizational displacement by AI)
 
 ## Key Metrics
 
