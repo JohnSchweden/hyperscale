@@ -40,6 +40,10 @@ created: "2026-03-25"
 | 17-03 T1 | 03 | 3 | FA-03 | data | `bun run test:data` | pending |
 | 17-03 T2 | 03 | 3 | FA-03 | audio | `bun run test:area:audio` | pending |
 | 17-03 T3 | 03 | 3 | FA-04 | unit | `bun run vitest:run -- unit/roastPromptCopy.test.ts` | pending |
+| 17-04 T1 | 04 | 3 | FA-01 | unit | `bun run test:unit -- unit/feedbackAudioChoice.test.ts` | pending |
+| 17-04 T2 | 04 | 3 | FA-02 | types | `bun run typecheck` | pending |
+| 17-05 T1 | 05 | 4 | FA-01 | file-check | `ls public/audio/voices/roaster/feedback/ \| grep -E '_left\\.\|_right\\.' \| wc -l` (expect 0) | pending |
+| 17-05 T2 | 05 | 4 | FA-03 | audio | `bun run test:area:audio` | pending |
 
 ## Wave 0
 
