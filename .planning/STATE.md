@@ -5,12 +5,12 @@ milestone_name: Kobayashi Maru — AI Governance Simulator
 current_phase: 18-meme-template-system
 current_plan: "TBD (run /gsd:plan-phase 18)"
 status: planning
-last_updated: "2026-03-26T22:44:37.308Z"
+last_updated: "2026-03-26T23:40:45.609Z"
 progress:
   total_phases: 21
   completed_phases: 12
-  total_plans: 105
-  completed_plans: 88
+  total_plans: 108
+  completed_plans: 90
 ---
 
 # Session State
@@ -97,6 +97,7 @@ See: .planning/PROJECT.md
 - 2026-03-26: Completed 17-03-PLAN.md (HoS id `shadow_ai_hos_1`, orphan `feedback_hos_shadow_ai_team_discovery_*` removed, critical sets + scripts + exports synced, `geminiLive` + `api/roast` cadence, `unit/roastPromptCopy.test.ts`)
 - 2026-03-26: Phase 17 complete — [17-VERIFICATION.md](phases/17-shuffle-aware-feedback-tts-fixes/17-VERIFICATION.md) `passed` 4/4
 - 2026-03-26: Completed 17-04-PLAN.md (gap closure: authoringFeedbackStem returns slugified labels, string widening, selectedSlot for fallback clips)
+- 2026-03-27: Completed 17-05-PLAN.md (directional audio rename: 72 files renamed to label slugs, E2E test expanded from 8→18 cards, 5 generation scripts updated)
 
 ## Accumulated Context
 
@@ -122,6 +123,7 @@ See: .planning/PROJECT.md
 - [Phase 17-03]: HoS Samsung/shadow-compliance card id `shadow_ai_hos_1` (removed duplicate `hos_shadow_ai_team_discovery`); orphan feedback audio pruned; roast/Live prompts use varied rhythm guidance; see [17-03-SUMMARY.md](phases/17-shuffle-aware-feedback-tts-fixes/17-03-SUMMARY.md)
 - [Phase 17-02]: Roaster pre-baked feedback clips use overlay feedbackAuthoringStem; playing currentCard indexes effectiveDeck for pressure parity with CardStack
 - [Phase 17-04]: authoringFeedbackStem returns slugified label strings (e.g., "shield-the-team") instead of "left"|"right"; feedbackAuthoringStem widened to string throughout; selectedSlot preserves non-critical card fallback clip routing; slugify duplicated in lib/feedbackAudioChoice.ts (not imported from data/imageMap.ts layer)
+- [Phase 17-shuffle-aware-feedback-tts-fixes]: Completed directional→label-slug rename: 72 audio files renamed, E2E test expanded from 8→18 cards, 5 generation scripts updated
 
 ## Key Metrics
 

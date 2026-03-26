@@ -606,7 +606,7 @@ Plans:
 
 **Goal:** Fix Roaster feedback audio desync when `shuffleDeck` swaps card sides; align incident pressure with `effectiveDeck`; remove duplicate HoS shadow-AI card and orphan audio; vary roast LLM cadence in prompts.
 **Depends on:** Phase 15 (voice/feedback pipeline)
-**Plans:** 5 plans (4 complete + 1 pending)
+**Plans:** 5/5 plans complete
 
 **Requirements:**
 - FA-01: `choiceSidesSwapped` on shuffled cards + `authoringFeedbackStem` maps chosen visible choice → authoring file suffix (label slug) for that outcome
