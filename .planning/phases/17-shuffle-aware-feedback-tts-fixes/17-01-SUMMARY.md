@@ -64,7 +64,7 @@ completed: "2026-03-26"
 1. **Task 1: Card flag + shuffleDeck** — `916beb2` (test), `f16b492` (feat)
 2. **Task 2: authoringFeedbackStem helper** — `e6a6909` (test), `6a24707` (feat)
 
-**Plan metadata:** _(pending — docs commit after STATE/ROADMAP)_
+**Plan metadata:** `8ad1d38` (docs: complete plan)
 
 _Note: TDD tasks use paired test → feat commits._
 
@@ -105,4 +105,4 @@ _Phase: 17-shuffle-aware-feedback-tts-fixes_
 
 - `lib/feedbackAudioChoice.ts` — FOUND
 - `unit/feedbackAudioChoice.test.ts` — FOUND
-- Commits `916beb2`, `f16b492`, `e6a6909`, `6a24707` — present on branch
+- Commits `916beb2`, `f16b492`, `e6a6909`, `6a24707`, `8ad1d38` — present on branch
