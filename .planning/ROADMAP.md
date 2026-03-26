@@ -113,7 +113,7 @@ Current flat structure with 59 files across 3 personalities is becoming unwieldy
 |------|-------|--------|
 | Archetype reveals | 21 files | `archetype/` |
 | Death endings | 21 files | `death/` |
-| Card feedback | 16 files | 9/9 | Complete   | 2026-03-26 | 9 files | `core/` |
+| Card feedback | 16 files | 9/9 | Complete    | 2026-03-26 | 9 files | `core/` |
 
 **New structure:**
 ```
