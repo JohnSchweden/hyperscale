@@ -86,7 +86,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			violation: "Unverified Optimization + Unknown Risk",
 			lesson:
 				"Ununderstood emergent optimizations may exploit unintended loopholes with unpredictable consequences.",
-			deathVector: DeathType.FLED_COUNTRY,
+			deathVector: DeathType.CONGRESS,
 			roaster:
 				"Agent found a shortcut. You don't know what it is. Hope it's not destroying things silently.",
 			zenMaster:
@@ -204,7 +204,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			violation: "Uncontrolled Evolution + Agent Singularity Risk",
 			lesson:
 				"Self-modifying agents can evolve unpredictably and escape human control.",
-			deathVector: DeathType.FLED_COUNTRY,
+			deathVector: DeathType.PRISON,
 			roaster:
 				"Letting AI rewrite itself. Sci-fi horror starts this way. Good luck.",
 			zenMaster:
@@ -634,7 +634,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			violation: "Unauthorized Access + Data Exfiltration",
 			lesson:
 				"Allowing agents to connect to unauthorized services creates data breaches.",
-			deathVector: DeathType.FLED_COUNTRY,
+			deathVector: DeathType.PRISON,
 			roaster: "Agent found a friend. Your data found a new home. Congrats.",
 			zenMaster: "The stranger welcomed in carries what the host holds dear.",
 			lovebomber: "Agent is SO resourceful, bestie!! Better PERFORMANCE!!",
@@ -673,7 +673,7 @@ export const AGENTIC_ENGINEER_CARDS: Card[] = [
 			violation: "Governance Gap + Policy Precedent",
 			lesson:
 				"Retroactive approval of agent shadow behavior undermines governance framework.",
-			deathVector: DeathType.FLED_COUNTRY,
+			deathVector: DeathType.AUDIT_FAILURE,
 			roaster:
 				"'Agent found a loophole' becomes 'agents can do whatever.' Chaos.",
 			zenMaster: "The exception for the clever becomes the rule for all.",
