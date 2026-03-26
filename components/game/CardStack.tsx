@@ -1,8 +1,11 @@
 import type React from "react";
 import type { RefObject } from "react";
+import { useEffect } from "react";
 import { ROLE_CARDS } from "../../data";
+import { getIncidentImagePath, slugify } from "../../data/imageMap";
 import { SOURCE_ICONS } from "../../data/sources";
 import type { Card, RoleType } from "../../types";
+import { ImageWithFallback } from "../ImageWithFallback";
 
 function getCardTransition(
 	isDragging: boolean,
@@ -112,6 +115,21 @@ export const CardStack: React.FC<CardStackProps> = ({
 	const cards = propsCards.length > 0 ? propsCards : ROLE_CARDS[role];
 	const currentCard = cards[currentCardIndex];
 	const nextCard = cards[currentCardIndex + 1];
+
+	// Preload next card's image to eliminate placeholder flash on swipe (must be before early return)
+	useEffect(() => {
+		if (!nextCard?.realWorldReference?.incident) return;
+		const link = document.createElement("link");
+		link.rel = "preload";
+		link.as = "image";
+		link.href = getIncidentImagePath(
+			slugify(nextCard.realWorldReference.incident),
+		);
+		document.head.appendChild(link);
+		return () => {
+			document.head.removeChild(link);
+		};
+	}, [nextCard]);
 
 	if (!currentCard) return null;
 
@@ -256,6 +274,20 @@ export const CardStack: React.FC<CardStackProps> = ({
 					</div>
 				</div>
 				<div className="p-4 md:p-10 flex flex-col justify-between flex-1 overflow-hidden">
+					{/* Hero image - moves with card during swipe */}
+					{currentCard.realWorldReference?.incident && (
+						<div className="mb-4 md:mb-6 shrink-0">
+							<ImageWithFallback
+								src={getIncidentImagePath(
+									slugify(currentCard.realWorldReference.incident),
+								)}
+								alt={`Incident: ${currentCard.context}`}
+								aspectRatio="video"
+								containerClassName="max-h-[200px] md:max-h-none"
+							/>
+						</div>
+					)}
+
 					<div
 						className={`space-y-3 md:space-y-6 overflow-y-auto ${hasStressVisuals ? "pressure-shake-counter" : ""}`}
 					>
