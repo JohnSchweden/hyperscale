@@ -6,6 +6,7 @@ import {
 	generateDeathExplanation,
 	getRetryPrompt,
 } from "../../../data";
+import { getDeathImagePath } from "../../../data/imageMap";
 import { useUnlockedEndings, useVoicePlayback } from "../../../hooks";
 import { createAudioContext } from "../../../lib/audio";
 import { formatBudget } from "../../../lib/formatting";
@@ -20,6 +21,7 @@ import {
 	PersonalityType,
 } from "../../../types";
 import { corruptText } from "../../../utils/kirkText";
+import { ImageWithFallback } from "../../ImageWithFallback";
 import LayoutShell from "../../LayoutShell";
 import {
 	GLASS_FILL_STRONG,
@@ -152,18 +154,28 @@ function GameOverHeader({ isKirk, corruptedText }: GameOverHeaderProps) {
 
 interface DeathEndingCardProps {
 	ending: (typeof DEATH_ENDINGS)[DeathType];
+	deathType: DeathType;
 }
 
-function DeathEndingCard({ ending }: DeathEndingCardProps) {
+function DeathEndingCard({ ending, deathType }: DeathEndingCardProps) {
 	return (
 		<div
 			className={`mb-6 md:mb-8 p-6 md:p-8 rounded-xl border border-red-500/40 bg-gradient-to-br from-red-950/30 to-black/70 ${GLASS_FILL_STRONG}`}
 		>
-			<div
-				className={`text-5xl md:text-7xl mb-4 animate-pulse drop-shadow-[0_0_30px_rgba(220,38,38,0.5)] ${ending.color}`}
-			>
+			{/* Collapse image - dramatic full-width hero */}
+			<div className="mb-4 mx-auto max-w-md">
+				<ImageWithFallback
+					src={getDeathImagePath(deathType) ?? ""}
+					alt={`Ending: ${ending.title}`}
+					aspectRatio="video"
+				/>
+			</div>
+
+			{/* Keep icon smaller, below image */}
+			<div className={`text-3xl mb-2 ${ending.color}`}>
 				<i className={`fa-solid ${ending.icon}`} aria-hidden />
 			</div>
+
 			<h2
 				className={`text-2xl md:text-3xl font-bold mb-3 tracking-tighter ${ending.color}`}
 			>
@@ -271,7 +283,9 @@ export function DebriefPage1Collapse({
 					<GameOverHeader isKirk={isKirk} corruptedText={corruptedBreachText} />
 				</div>
 
-				{deathEnding && <DeathEndingCard ending={deathEnding} />}
+				{deathEnding && deathType && (
+					<DeathEndingCard ending={deathEnding} deathType={deathType} />
+				)}
 
 				{explanation && (
 					<div className="mt-4 p-3 rounded-lg bg-white/5 border border-white/10 mb-6">
