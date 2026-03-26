@@ -26,8 +26,8 @@ test.describe("Collapse Page Images (DEBRIEF_PAGE_1) @area:layout", () => {
 		await page.reload();
 		// Wait for the main page structure
 		await page.waitForSelector("h1:has-text('GAME OVER')", { timeout: 10000 });
-		// Verify death ending card is present
-		await expect(page.locator("text=Bankrupt")).toBeVisible();
+		// Verify death ending card is present (BANKRUPT deathType shows as "Liquidated")
+		await expect(page.locator("text=Liquidated")).toBeVisible();
 	});
 
 	test("page renders with death ending card for KIRK", async ({ page }) => {
