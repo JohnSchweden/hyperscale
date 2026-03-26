@@ -10,7 +10,7 @@ progress:
   total_phases: 20
   completed_phases: 11
   total_plans: 101
-  completed_plans: 80
+  completed_plans: 81
 ---
 
 # Session State
@@ -87,6 +87,7 @@ See: .planning/PROJECT.md
 - 2026-03-26: Completed 16-07-PLAN.md (CSO/HoS deck differentiation: 2 new CSO cards with CONGRESS/BANKRUPT, 2 new HoS cards with REPLACED_BY_SCRIPT; decks now narratively distinct)
 - 2026-03-26: Completed 16-08-PLAN.md (Death vector expansion: 5 new cards across 2 decks, BANKRUPT/PRISON for consultant, CONGRESS for manager)
 - 2026-03-26: Completed 16-09-PLAN.md (Narrative copy precision: FLED_COUNTRY/REPLACED_BY_SCRIPT explanation broadening, 4 agentic-engineer outcomes reclassified from FLED_COUNTRY to PRISON/CONGRESS/AUDIT_FAILURE)
+- 2026-03-26: Completed 14-01-PLAN.md (Image infrastructure foundation: ImageWithFallback component with glitch placeholder, Archetype.image field, test scaffolding for HOS pilot)
 
 ## Accumulated Context
 

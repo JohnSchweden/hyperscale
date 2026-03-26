@@ -442,10 +442,10 @@ Generate AI images via Gemini image generation (automated pipeline — no Midjou
 
 **Goal:** Display images at correct UI locations with responsive sizing; HOS role gets full coverage, other roles graceful fallback
 **Depends on:** Phase 13
-**Plans:** 4 plans (ready for execution)
+**Plans:** 4 plans (1/4 complete)
 
 Plans:
-- [ ] 14-01-PLAN.md — Incident card image (above card text, 16:9, moves with swipe)
+- [x] 14-01-PLAN.md — ImageWithFallback component foundation with glitch placeholder; Archetype.image field; test scaffolding ✓
 - [ ] 14-02-PLAN.md — Outcome overlay image (per-direction HOS lookup, fade-in, overlay width fix)
 - [ ] 14-03-PLAN.md — Collapse page (debrief page 1) death image
 - [ ] 14-04-PLAN.md — Archetype verdict (debrief page 3) badge image + fallback glitch placeholder
