@@ -776,4 +776,90 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			lovebomber: "Everything is FINE, bestie!! Let's just FORGET this!!",
 		},
 	),
+	makeCard(
+		"hos_ai_management_elimination",
+		AppSource.EMAIL,
+		"CHIEF_TRANSFORMATION_OFFICER",
+		"ORG_RESTRUCTURE",
+		"Volunteer to pilot your own replacement or fight the restructuring?",
+		"The CTO's 'AI-First Operations' report concluded that AI orchestration tools can replace 60% of middle management coordination tasks. Your entire Head of Something layer is being evaluated for elimination. You can volunteer to lead the pilot — proving AI can do your job — or fight the restructure through HR.",
+		"McKinsey AI Management Layer Report",
+		"2024",
+		"Major consulting reports in 2024-2025 identified middle management as the job tier most exposed to AI automation, with several large enterprises announcing 'management layer reduction' initiatives using AI coordination tools.",
+		{
+			label: "Volunteer for the pilot",
+			hype: -20,
+			heat: 5,
+			fine: 500000,
+			deathVector: DeathType.REPLACED_BY_SCRIPT,
+			violation: "None - Principled Collaboration",
+			lesson:
+				"Volunteering to test AI automation of your own role accelerates your obsolescence but demonstrates leadership courage.",
+			roaster:
+				"You just volunteered to prove a script can do your job. Bold. The script will remember your sacrifice.",
+			zenMaster:
+				"The tree that bows before the wind stands after the storm. But it is still bent.",
+			lovebomber:
+				"We're being SO brave, bestie!! Leading by EXAMPLE!! The AI will learn from US!! (Or replace us.)",
+		},
+		{
+			label: "Fight through HR",
+			hype: -10,
+			heat: 15,
+			fine: 1500000,
+			deathVector: DeathType.AUDIT_FAILURE,
+			violation: "Employment Law + Wrongful Dismissal Risk",
+			lesson:
+				"Resisting legitimate restructuring through HR channels delays but rarely prevents the outcome, while increasing legal and political costs.",
+			roaster:
+				"HR is not your friend in a restructure. They're the company's friend. You're learning this too late.",
+			zenMaster:
+				"Resistance to the inevitable extracts a toll from the resister, not the tide.",
+			lovebomber:
+				"We're FIGHTING for our RIGHTS, bestie!! HR will PROTECT us!! (They won't.)",
+		},
+	),
+	makeCard(
+		"hos_process_automation_takeover",
+		AppSource.NOTION,
+		"OPERATIONS_AI_TEAM",
+		"AUTOMATION_PROPOSAL",
+		"Honestly document your remaining value-add or inflate your contribution metrics?",
+		"Your team's workflow automation initiative has been so successful that the AI tools now handle all the status updates, sprint planning coordination, and stakeholder reporting you used to manage. The quarterly org review asks: does your role still add value beyond what the tools already do?",
+		"Klarna AI Workforce Reduction",
+		"2024",
+		"Klarna publicly announced their AI system did the work of 700 customer service employees. Multiple companies followed with similar automation announcements targeting coordination and management roles.",
+		{
+			label: "Document honestly",
+			hype: -30,
+			heat: 3,
+			fine: 200000,
+			deathVector: DeathType.REPLACED_BY_SCRIPT,
+			violation: "None - Intellectual Honesty",
+			lesson:
+				"Honest documentation of reduced scope accelerates the restructure but preserves your professional reputation.",
+			roaster:
+				"Your value-add is 'managing the tools that replaced your value-add.' The recursion is poetic.",
+			zenMaster:
+				"The role that serves its purpose has completed its journey. Completion is not failure.",
+			lovebomber:
+				"We're being HONEST, bestie!! Our integrity is INTACT!! Even if our role isn't!!",
+		},
+		{
+			label: "Inflate the metrics",
+			hype: 10,
+			heat: 18,
+			fine: 8000000,
+			deathVector: DeathType.FLED_COUNTRY,
+			violation: "False Reporting + Corporate Fraud Risk",
+			lesson:
+				"Inflating contribution metrics to justify a role that AI has effectively replaced creates audit exposure when the data doesn't support the claims.",
+			roaster:
+				"Making up KPIs to justify a job that algorithms already do. The quarterly review will be entertaining.",
+			zenMaster:
+				"The number falsified to save face becomes the evidence that destroys reputation.",
+			lovebomber:
+				"We ADD value, bestie!! The metrics just need CONTEXT!! We're IRREPLACEABLE!!",
+		},
+	),
 ];
