@@ -168,10 +168,12 @@ const App: React.FC = () => {
 	// Prevent duplicate choice handling (user click + timer race)
 	const isChoiceLockedRef = useRef(false);
 
-	// Current card for pressure metadata lookup (only when playing)
+	// Current card for pressure metadata lookup (only when playing; same instance as CardStack)
 	const currentCard =
-		state.stage === GameStage.PLAYING && state.role && state.personality
-			? ROLE_CARDS[state.role][state.currentCardIndex]
+		state.stage === GameStage.PLAYING && state.role
+			? ((state.effectiveDeck ?? ROLE_CARDS[state.role])[
+					state.currentCardIndex
+				] ?? null)
 			: null;
 
 	// Derived pressure state (countdown, escalation, team-impact)
