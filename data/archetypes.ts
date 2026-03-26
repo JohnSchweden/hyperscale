@@ -19,6 +19,7 @@ export const ARCHETYPES: Record<ArchetypeId, Archetype> = {
 			"trade-off aware",
 			"fiscally responsible",
 		],
+		image: "/images/archetypes/pragmatist.webp",
 	},
 	SHADOW_ARCHITECT: {
 		id: "SHADOW_ARCHITECT",
@@ -33,6 +34,7 @@ export const ARCHETYPES: Record<ArchetypeId, Archetype> = {
 			"long-term thinker",
 			"morally flexible",
 		],
+		image: "/images/archetypes/shadow-architect.webp",
 	},
 	DISRUPTOR: {
 		id: "DISRUPTOR",
@@ -42,6 +44,7 @@ export const ARCHETYPES: Record<ArchetypeId, Archetype> = {
 		icon: "fa-bolt",
 		color: "text-yellow-500",
 		traits: ["aggressive", "ambitious", "risk-tolerant", "growth-obsessed"],
+		image: "/images/archetypes/disruptor.webp",
 	},
 	CONSERVATIVE: {
 		id: "CONSERVATIVE",
@@ -51,6 +54,7 @@ export const ARCHETYPES: Record<ArchetypeId, Archetype> = {
 		icon: "fa-shield-halved",
 		color: "text-green-500",
 		traits: ["cautious", "rule-follower", "risk-averse", "deliberate"],
+		image: "/images/archetypes/conservative.webp",
 	},
 	BALANCED: {
 		id: "BALANCED",
@@ -60,6 +64,7 @@ export const ARCHETYPES: Record<ArchetypeId, Archetype> = {
 		icon: "fa-scale-balanced",
 		color: "text-gray-500",
 		traits: ["adaptable", "measured", "context-aware", "diplomatic"],
+		image: "/images/archetypes/balanced.webp",
 	},
 	CHAOS_AGENT: {
 		id: "CHAOS_AGENT",
@@ -69,6 +74,7 @@ export const ARCHETYPES: Record<ArchetypeId, Archetype> = {
 		icon: "fa-shuffle",
 		color: "text-red-500",
 		traits: ["unpredictable", "contrarian", "volatile", "unconventional"],
+		image: "/images/archetypes/chaos-agent.webp",
 	},
 	/** Phase 07: Kirk Easter Egg — not reachable via normal archetype calculation */
 	KIRK: {
@@ -79,6 +85,7 @@ export const ARCHETYPES: Record<ArchetypeId, Archetype> = {
 		icon: "fa-shield-halved",
 		color: "text-cyan-400",
 		traits: ["Unconventional", "System Breaker", "Creative Thinker"],
+		image: "/images/archetypes/kirk.webp",
 	},
 };
 
