@@ -1,4 +1,4 @@
-import { AppSource, type Card, PersonalityType } from "../../types";
+import { AppSource, type Card, PersonalityType } from "../../../types";
 
 export const HR_CARDS: Card[] = [
 	{

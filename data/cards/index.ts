@@ -11,18 +11,18 @@ import { TECH_AI_CONSULTANT_CARDS } from "./tech-ai-consultant";
 import { VIBE_CODER_CARDS } from "./vibe-coder";
 import { VIBE_ENGINEER_CARDS } from "./vibe-engineer";
 
+// Legacy card exports (preserved for backward compatibility)
+export { CLEANING_CARDS } from "./_archive/cleaning";
+export { DEVELOPMENT_CARDS } from "./_archive/development";
+export { FINANCE_CARDS } from "./_archive/finance";
+export { HR_CARDS } from "./_archive/hr";
+export { MANAGEMENT_CARDS } from "./_archive/management";
+export { MARKETING_CARDS } from "./_archive/marketing";
 // Re-export all role card arrays for tests and utilities
 export { AGENTIC_ENGINEER_CARDS } from "./agentic-engineer";
 export { CHIEF_SOMETHING_OFFICER_CARDS } from "./chief-something-officer";
-// Legacy card exports (preserved for backward compatibility)
-export { CLEANING_CARDS } from "./cleaning";
 export { DATA_SCIENTIST_CARDS } from "./data-scientist";
-export { DEVELOPMENT_CARDS } from "./development";
-export { FINANCE_CARDS } from "./finance";
 export { HEAD_OF_SOMETHING_CARDS } from "./head-of-something";
-export { HR_CARDS } from "./hr";
-export { MANAGEMENT_CARDS } from "./management";
-export { MARKETING_CARDS } from "./marketing";
 // Reusable no-win dilemmas (supplementary to role-specific cards)
 export { NOWIN_DILEMMAS } from "./nowin-dilemmas";
 export { SOFTWARE_ARCHITECT_CARDS } from "./software-architect";
