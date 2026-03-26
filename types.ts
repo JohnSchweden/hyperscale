@@ -133,6 +133,11 @@ export interface Card {
 	realWorldReference?: RealWorldReference;
 	onRight: ChoiceOutcome;
 	onLeft: ChoiceOutcome;
+	/**
+	 * When true, visible left/right slots were swapped vs authoring (onLeft/onRight in source).
+	 * Set by shuffleDeck for feedback audio path resolution.
+	 */
+	choiceSidesSwapped?: boolean;
 }
 
 export enum GameStage {

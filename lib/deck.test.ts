@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import type { Card } from "../types";
 import { AppSource } from "../types";
 import { resolveDeckWithBranching, shuffleDeck } from "./deck";
@@ -92,6 +92,54 @@ describe("shuffleDeck", () => {
 		expect(shuffled).toHaveLength(1);
 		expect(shuffled[0]?.id).toBe(cards[0].id);
 	});
+
+	it("sets choiceSidesSwapped true and swaps outcomes when side branch uses random < 0.5", () => {
+		const card = createCard("1");
+		const origLeft = card.onLeft;
+		const origRight = card.onRight;
+		vi.spyOn(Math, "random").mockReturnValue(0);
+		const shuffled = shuffleDeck([card]);
+		vi.restoreAllMocks();
+		expect(shuffled[0]?.choiceSidesSwapped).toBe(true);
+		expect(shuffled[0]?.onLeft).toEqual(origRight);
+		expect(shuffled[0]?.onRight).toEqual(origLeft);
+	});
+
+	it("sets choiceSidesSwapped false and preserves outcomes when side branch uses random >= 0.5", () => {
+		const card = createCard("1");
+		vi.spyOn(Math, "random").mockReturnValue(0.75);
+		const shuffled = shuffleDeck([card]);
+		vi.restoreAllMocks();
+		expect(shuffled[0]?.choiceSidesSwapped).toBe(false);
+		expect(shuffled[0]?.onLeft).toEqual(card.onLeft);
+		expect(shuffled[0]?.onRight).toEqual(card.onRight);
+	});
+
+	it("applies per-card side flags with deterministic random sequence (two cards)", () => {
+		let n = 0;
+		const seq = [
+			0.99, // FY i=1: j=1 → no position swap
+			0, // card0: swap sides
+			0.99, // card1: no side swap
+		];
+		vi.spyOn(Math, "random").mockImplementation(() => seq[n++] ?? 0);
+		const a = createCard("a");
+		const b = createCard("b");
+		const shuffled = shuffleDeck([a, b]);
+		vi.restoreAllMocks();
+		expect(shuffled).toHaveLength(2);
+		const byId = Object.fromEntries(shuffled.map((c) => [c.id, c]));
+		expect(byId.a?.choiceSidesSwapped).toBe(true);
+		expect(byId.a?.onLeft).toEqual(a.onRight);
+		expect(byId.a?.onRight).toEqual(a.onLeft);
+		expect(byId.b?.choiceSidesSwapped).toBe(false);
+		expect(byId.b?.onLeft).toEqual(b.onLeft);
+		expect(byId.b?.onRight).toEqual(b.onRight);
+	});
+});
+
+afterEach(() => {
+	vi.restoreAllMocks();
 });
 
 describe("resolveDeckWithBranching", () => {
