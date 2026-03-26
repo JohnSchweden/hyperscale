@@ -133,11 +133,6 @@ export interface Card {
 	realWorldReference?: RealWorldReference;
 	onRight: ChoiceOutcome;
 	onLeft: ChoiceOutcome;
-	/**
-	 * When true, visible left/right slots were swapped vs authoring (shuffleDeck).
-	 * Used to map player slot choice → feedback audio file suffix (left|right).
-	 */
-	choiceSidesSwapped?: boolean;
 }
 
 export enum GameStage {
