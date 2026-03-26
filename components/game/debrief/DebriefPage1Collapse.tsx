@@ -283,6 +283,16 @@ export function DebriefPage1Collapse({
 					<GameOverHeader isKirk={isKirk} corruptedText={corruptedBreachText} />
 				</div>
 
+				{isKirk && (
+					<div className="mb-6 md:mb-8 mx-auto max-w-md">
+						<ImageWithFallback
+							src={getDeathImagePath(DeathType.KIRK) ?? ""}
+							alt="KIRK simulation breach"
+							aspectRatio="video"
+						/>
+					</div>
+				)}
+
 				{deathEnding && deathType && (
 					<DeathEndingCard ending={deathEnding} deathType={deathType} />
 				)}

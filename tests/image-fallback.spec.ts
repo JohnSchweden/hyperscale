@@ -21,17 +21,24 @@ test.describe("ImageWithFallback component @area:layout", () => {
 	}) => {
 		await page.goto("/");
 
-		// Check that the placeholder div has the glitch animation style
+		// Check that the placeholder div has the glitch-placeholder class or inline style with scanline
 		const placeholderContainer = page.locator(
-			'div[style*="animation: glitch-scan"]',
+			'div.glitch-placeholder, div[style*="repeating-linear-gradient"]',
 		);
 
 		if ((await placeholderContainer.count()) > 0) {
-			// If any images are loading, verify placeholder has scanline gradient
+			// If any images are loading, verify placeholder has glitch styling (class or inline gradient)
+			const classList = await placeholderContainer
+				.first()
+				.evaluate((el) => el.className);
 			const style = await placeholderContainer
 				.first()
 				.evaluate((el) => el.getAttribute("style"));
-			expect(style).toContain("repeating-linear-gradient");
+			// Should have either the CSS class or inline gradient
+			expect(
+				classList?.includes("glitch-placeholder") ||
+					style?.includes("repeating-linear-gradient"),
+			).toBeTruthy();
 		}
 	});
 
@@ -55,7 +62,7 @@ test.describe("ImageWithFallback component @area:layout", () => {
 	}) => {
 		await page.goto("/");
 
-		// Check for scanline-animated placeholder divs
+		// Check for scanline-animated placeholder divs (now using CSS class)
 		const placeholders = page.locator("div:has(i.fa-image)");
 		const count = await placeholders.count();
 
@@ -64,14 +71,16 @@ test.describe("ImageWithFallback component @area:layout", () => {
 
 		if (count > 0) {
 			const hasAnimation = await placeholders.first().evaluate((el) => {
+				const classList = el.className;
 				const style = el.getAttribute("style");
 				return (
+					classList?.includes("glitch-placeholder") ||
 					style?.includes("animation: glitch-scan") ||
 					style?.includes("repeating-linear-gradient")
 				);
 			});
 
-			// If placeholder exists, it should have glitch styling
+			// If placeholder exists, it should have glitch styling (CSS class or inline style)
 			expect(hasAnimation).toBeTruthy();
 		}
 	});

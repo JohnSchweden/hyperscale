@@ -90,6 +90,7 @@ export function ImageWithFallback({
             flex items-center justify-center
             bg-gradient-to-b from-slate-800 to-slate-900
             transition-opacity duration-300 ease-out
+            glitch-placeholder
             ${isLoaded && !hasError ? "opacity-0 pointer-events-none" : "opacity-100"}
           `.trim()}
 					style={{
@@ -102,7 +103,6 @@ export function ImageWithFallback({
                 transparent 4px
               )
             `,
-						animation: "glitch-scan 0.15s infinite",
 					}}
 				>
 					<i className="fa-solid fa-image text-cyan-500 text-3xl animate-pulse" />
@@ -125,18 +125,6 @@ export function ImageWithFallback({
 				onLoad={handleLoad}
 				onError={() => setHasError(true)}
 			/>
-
-			{/* CSS Animations - injected inline for component scoping */}
-			<style>{`
-        @keyframes glitch-scan {
-          0% {
-            transform: translateY(0);
-          }
-          100% {
-            transform: translateY(4px);
-          }
-        }
-      `}</style>
 		</div>
 	);
 }
