@@ -98,6 +98,7 @@ See: .planning/PROJECT.md
 - 2026-03-26: Phase 17 complete — [17-VERIFICATION.md](phases/17-shuffle-aware-feedback-tts-fixes/17-VERIFICATION.md) `passed` 4/4
 - 2026-03-26: Completed 17-04-PLAN.md (gap closure: authoringFeedbackStem returns slugified labels, string widening, selectedSlot for fallback clips)
 - 2026-03-27: Completed 17-05-PLAN.md (directional audio rename: 72 files renamed to label slugs, E2E test expanded from 8→18 cards, 5 generation scripts updated)
+- 2026-03-27: Completed 14-06-PLAN.md (gap closure: DebriefContainer DEBRIEF_PAGE_1 handler, HTTP→HTTPS test fix, collapse page tests 4/4 passing)
 
 ## Accumulated Context
 
