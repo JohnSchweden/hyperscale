@@ -112,3 +112,14 @@ None - no external service configuration required.
 ---
 *Phase: 16-kobayashi-maru-ending-variety-system*
 *Completed: 2026-03-26*
+
+## Self-Check: PASSED
+
+- [x] SUMMARY.md created at `.planning/phases/16-kobayashi-maru-ending-variety-system/16-08-SUMMARY.md`
+- [x] Commit `40b9dae` (Task 1: feat(16-08): add BANKRUPT and PRISON cards)
+- [x] Commit `e9d2096` (Task 2: feat(16-08): add CONGRESS cards)
+- [x] Commit `350e7db` (docs(16-08): complete death vector expansion plan)
+- [x] `data/cards/tech-ai-consultant.ts` exists with 3 new cards
+- [x] `data/cards/something-manager.ts` exists with 2 new cards
+- [x] Typecheck clean
+- [x] Unit tests pass (242/242)
