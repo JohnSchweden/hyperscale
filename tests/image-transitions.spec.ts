@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 
 test.describe("Image transition effects", () => {
 	test.beforeEach(async ({ page }) => {
-		await page.goto("http://localhost:3000");
+		await page.goto("https://localhost:3000");
 		// Skip intro screens to get to gameplay
 		await page.click('[data-testid="intro-start-button"]');
 		await page.waitForTimeout(500);
