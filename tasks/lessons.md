@@ -66,3 +66,6 @@ Patterns to prevent repeat mistakes. Update after corrections from the user.
 
 <!-- Captured 2026-03-25 via post-commit analysis -->
 - [RULE] Audio file size thresholds are codec-specific and must be recalibrated during format migrations — Different codecs compress dramatically differently (WAV uncompressed ~50KB vs Opus at 96kbps ~4KB minimum for same duration). Tests with stale thresholds fail silently or produce false positives. Always document the codec/bitrate when changing formats and recalculate minimum sizes accordingly.
+
+<!-- Captured 2026-03-26 via post-commit analysis -->
+- [RULE] In card decks with narrative violations, verify each card's deathVector semantically matches its violation/lesson. Reuse of the same death ending across multiple semantically different violations indicates incomplete content needing review — Narrative coherence breaks when outcomes don't match the failure mode (e.g., optimization loophole → CONGRESS/governance vs singularity risk → PRISON/legal consequences). Repeated generic values suggest placeholder data left in.
