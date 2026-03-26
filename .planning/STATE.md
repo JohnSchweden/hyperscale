@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Kobayashi Maru — AI Governance Simulator
-current_phase: 17-shuffle-aware-feedback-tts-fixes
-current_plan: 02 (COMPLETE); next 17-03
-status: executing
-last_updated: "2026-03-26T23:10:00.000Z"
+current_phase: 18-meme-template-system
+current_plan: "TBD (run /gsd:plan-phase 18)"
+status: planning
+last_updated: "2026-03-26T22:37:03.645Z"
 progress:
   total_phases: 21
-  completed_phases: 11
+  completed_phases: 12
   total_plans: 105
-  completed_plans: 85
+  completed_plans: 87
 ---
 
 # Session State
@@ -22,9 +22,9 @@ See: .planning/PROJECT.md
 ## Position
 
 **Milestone:** v1.2 Kobayashi Maru — AI Governance Simulator
-**Current phase:** 17-shuffle-aware-feedback-tts-fixes
-**Current plan:** 02 (COMPLETE); next 17-03
-**Status:** Ready to execute plan 17-03
+**Current phase:** 18-meme-template-system
+**Current plan:** TBD (run /gsd:plan-phase 18)
+**Status:** Ready to plan
 
 ## Session Log
 
@@ -93,6 +93,8 @@ See: .planning/PROJECT.md
 - 2026-03-26: Completed 14-03-PLAN.md (Situational Outcome Imagery: Debrief image integration - collapse hero image + archetype badge, all 7 death types and 7 archetypes including KIRK)
 - 2026-03-26: Completed 14-04-PLAN.md (Image Polish & Performance: CSS glitch animation, decode() optimization, transition + CLS tests, Phase 14 complete)
 - 2026-03-26: Completed 17-02-PLAN.md (effectiveDeck currentCard, feedbackAuthoringStem → useVoicePlayback, WebMCP overlay typing)
+- 2026-03-26: Completed 17-03-PLAN.md (HoS id `shadow_ai_hos_1`, orphan audio removed, geminiLive + api/roast cadence, roastPromptCopy test, exports refresh)
+- 2026-03-26: Phase 17 verified — [17-VERIFICATION.md](phases/17-shuffle-aware-feedback-tts-fixes/17-VERIFICATION.md)
 
 ## Accumulated Context
 
@@ -115,6 +117,7 @@ See: .planning/PROJECT.md
 - [Phase 16-09]: Death vector semantic matching — deathVector should map to narrative consequence type, not generic failure bucket (e.g., "lost control of agent" → PRISON/CONGRESS, not FLED_COUNTRY)
 - [Phase 16-07]: Role-scoped death vector differentiation — C-suite gets CONGRESS/BANKRUPT (executive accountability), middle management gets REPLACED_BY_SCRIPT (organizational displacement by AI)
 - [Phase 17-01]: Post-shuffle cards always carry boolean choiceSidesSwapped; authoringFeedbackStem maps visible LEFT/RIGHT to authoring left/right only when sides were swapped at shuffle time
+- [Phase 17-03]: Canonical HoS Samsung/shadow-compliance card id is `shadow_ai_hos_1` (replaced duplicate `hos_shadow_ai_team_discovery`); roast/Live prompts emphasize varied rhythm over fixed sentence/word shape
 - [Phase 17-02]: Roaster pre-baked feedback clips use overlay feedbackAuthoringStem; playing currentCard indexes effectiveDeck for pressure parity with CardStack
 
 ## Key Metrics

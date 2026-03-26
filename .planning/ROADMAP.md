@@ -442,7 +442,7 @@ Generate AI images via Gemini image generation (automated pipeline — no Midjou
 
 **Goal:** Display images at correct UI locations with responsive sizing; HOS role gets full coverage, other roles graceful fallback
 **Depends on:** Phase 13
-**Plans:** 4 plans (1/4 complete)
+**Plans:** 4/5 plans executed
 
 Plans:
 - [x] 14-01-PLAN.md — ImageWithFallback component foundation with glitch placeholder; Archetype.image field; test scaffolding ✓
@@ -571,7 +571,7 @@ Automated compression pipeline to reduce bandwidth while maintaining quality:
 | 11 | Settings Integration (deferred) | v1.2 | Deferred |
 | 12 | Gameplay Tweaks & Card Variety | v1.2 | Complete (2/2) |
 | 13 | Image Asset Pipeline (HOS-first, Gemini, ~68 images) | v1.2 | Planned (3 plans) |
-| 14 | Situational & Outcome Imagery Display | v1.2 | Planned (4 plans) |
+| 14 | 4/5 | In Progress|  |
 | 15 | 8/9 | Complete    | 2026-03-25 |
 | 16 | Ending Variety System | v1.2 | In progress (6 plans) |
 
