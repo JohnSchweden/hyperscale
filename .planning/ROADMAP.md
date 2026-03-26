@@ -442,13 +442,15 @@ Generate AI images via Gemini image generation (automated pipeline — no Midjou
 
 **Goal:** Display images at correct UI locations with responsive sizing; HOS role gets full coverage, other roles graceful fallback
 **Depends on:** Phase 13
-**Plans:** 4/5 plans complete
+**Plans:** 6/6 plans (gap closure in progress)
 
 Plans:
 - [x] 14-01-PLAN.md — ImageWithFallback component foundation with glitch placeholder; Archetype.image field; test scaffolding ✓
-- [ ] 14-02-PLAN.md — Outcome overlay image (per-direction HOS lookup, fade-in, overlay width fix)
-- [ ] 14-03-PLAN.md — Collapse page (debrief page 1) death image
-- [ ] 14-04-PLAN.md — Archetype verdict (debrief page 3) badge image + fallback glitch placeholder
+- [x] 14-02-PLAN.md — Outcome overlay image (per-direction HOS lookup, fade-in, overlay width fix) ✓
+- [x] 14-03-PLAN.md — Collapse page (debrief page 1) death image ✓
+- [x] 14-04-PLAN.md — Archetype verdict (debrief page 3) badge image + fallback glitch placeholder ✓
+- [x] 14-05-PLAN.md — Gap: KIRK collapse image rendering, CSS class consolidation ✓
+- [ ] 14-06-PLAN.md — Gap: Missing DEBRIEF_PAGE_1 handler, HTTP→HTTPS fix
 
 **Details:**
 Integrate images from Phase 13 into 4 UI surfaces:
