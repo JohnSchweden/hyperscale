@@ -90,6 +90,7 @@ See: .planning/PROJECT.md
 - 2026-03-26: Completed 16-09-PLAN.md (Narrative copy precision: FLED_COUNTRY/REPLACED_BY_SCRIPT explanation broadening, 4 agentic-engineer outcomes reclassified from FLED_COUNTRY to PRISON/CONGRESS/AUDIT_FAILURE)
 - 2026-03-26: Completed 14-01-PLAN.md (Image infrastructure foundation: ImageWithFallback component with glitch placeholder, Archetype.image field, test scaffolding for HOS pilot)
 - 2026-03-26: Completed 17-01-PLAN.md (choiceSidesSwapped on shuffled cards, authoringFeedbackStem for feedback_* file suffixes, TDD)
+- 2026-03-26: Completed 14-03-PLAN.md (Situational Outcome Imagery: Debrief image integration - collapse hero image + archetype badge, all 7 death types and 7 archetypes including KIRK)
 
 ## Accumulated Context
 
