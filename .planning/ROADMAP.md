@@ -401,14 +401,25 @@ Plans:
 
 ### Phase 13: Image Asset Pipeline
 
-**Goal:** Generate AI images for HOS incidents, HOS per-direction outcomes, death endings, and archetypes via automated Gemini pipeline
+**Goal:** Generate AI images for HOS incidents, HOS per-direction outcomes, death endings, and archetypes via automated Gemini pipeline + GIF/meme template overlay system
 **Depends on:** Phase 06 (archetype system for mapping), Phase 15 (HOS audio coverage defines scope)
-**Plans:** 3 plans (ready for execution)
+**Plans:** 9 plans (3 original + 6 new for GIF/meme system)
 
-Plans:
+**Original Plans:**
 - [ ] 13-00-PLAN.md — TDD Wave 0: failing test scaffolding (image map contract + asset existence)
 - [ ] 13-01-PLAN.md — `data/imageMap.ts` data layer + slugify helpers
 - [ ] 13-02-PLAN.md — Gemini generation script (`scripts/generate-images.ts`) with user checkpoint
+
+**Gap Closure Plans (GIF/Meme System):**
+- [ ] 13-07-PLAN.md — Template database (`data/templates/gif-templates.json`)
+- [ ] 13-08-PLAN.md — GIF overlay service (`lib/gif-overlay.ts`)
+- [ ] 13-09-PLAN.md — Integrate meme mode into generation pipeline
+
+**Additional Completed Plans (from previous execution):**
+- [ ] 13-03-PLAN.md — Contract compliance verification
+- [ ] 13-04-PLAN.md — Label-based outcome architecture
+- [ ] 13-05-PLAN.md — Single slug label-based generation
+- [ ] 13-06-PLAN.md — Meme-world aesthetic prompt redesign
 
 **Details:**
 Generate AI images via Gemini image generation (automated pipeline — no Midjourney, no DALL-E):

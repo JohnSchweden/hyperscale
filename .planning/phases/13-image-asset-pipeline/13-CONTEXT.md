@@ -174,9 +174,135 @@ Create an automated pipeline to generate AI images for the game, save them local
 
 </deferred>
 
+## GIF Text Overlay System (NEW - Gap Closure)
+
+### Option 2: Local GIF Text Overlay Research
+
+**Recommended:** `text-on-gif` package
+- Simplest API to get started
+- No system dependencies  
+- Supports animated GIFs
+- Works with URLs or local files
+- Free, open-source (ISC license)
+
+### Implementation Architecture
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    INCIDENT MEME SYSTEM                      │
+├─────────────────────────────────────────────────────────────┤
+│                                                              │
+│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐   │
+│  │  Imgflip    │    │   GIF       │    │   Static    │   │
+│  │  API (free) │    │  Templates  │    │   Memes     │   │
+│  │             │    │  (cached)   │    │   (API)     │   │
+│  └──────┬──────┘    └──────┬──────┘    └──────┬──────┘   │
+│         │                  │                  │             │
+│         ▼                  ▼                  ▼             │
+│  ┌─────────────────────────────────────────────────────┐    │
+│  │            TEMPLATE SELECTOR                         │    │
+│  │   incident type → best matching template            │    │
+│  └──────────────────────┬──────────────────────────────┘    │
+│                         │                                     │
+│                         ▼                                     │
+│  ┌─────────────────────────────────────────────────────┐    │
+│  │            TEXT GENERATOR (AI)                       │    │
+│  │   Generate short punchline based on template         │    │
+│  └──────────────────────┬──────────────────────────────┘    │
+│                         │                                     │
+│                         ▼                                     │
+│  ┌─────────────────────────────────────────────────────┐    │
+│  │         GIF/MEME TEXT OVERLAY                        │    │
+│  │   - Fetch template (free)                           │    │
+│  │   - Add text overlay (local tool)                    │    │
+│  │   - Return URL                                       │    │
+│  └─────────────────────────────────────────────────────┘    │
+│                                                              │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Imgflip API Capabilities
+
+| Feature | Free Tier | Premium ($9.99/mo) |
+|---------|-----------|-------------------|
+| Get static meme templates | ✅ | ✅ |
+| Caption static images | ✅ | ✅ |
+| Get GIF templates | ✅ | ✅ |
+| **Caption GIFs** | ❌ | ✅ ($0.02/GIF after 50 free) |
+
+**Free Tier Works:**
+- `/get_memes?type=gif` — Fetch GIF template list
+- `/caption_image` — Add captions to static images
+- Just fetch GIF URLs for overlay processing
+
+### Template List (Top GIFs to Pre-Cache)
+
+| # | Template | Text Zones | Best For |
+|---|----------|------------|----------|
+| 1 | Party Parrot | 1 | Celebration/hype |
+| 2 | Panik Kalm Panik | 3 | Escalating panic |
+| 3 | This Is Fine | 1 | Denial in disaster |
+| 4 | Expanding Brain | 4 | Escalating "insight" |
+| 5 | Disaster Girl | 1 | Fire/chaos setting |
+| 6 | Homer Backing Away | 1 | Backing out |
+| 7 | Running Away Balloon | 1 | Something taken |
+| 8 | Surprised Pikachu | 1 | Obvious outcome |
+| 9 | Two Buttons | 2 | Hard choice |
+| 10 | Left Exit 12 | 2 | Wrong choice |
+| 11 | Drake Hotline Bling | 2 | Yes/no preference |
+| 12 | Distracted Boyfriend | 3 | Ignoring important |
+
+### Incident-to-Meme Mapping
+
+| Incident Pattern | Recommended Templates |
+|-----------------|---------------------|
+| Ignored warnings/Red flags | Surprised Pikachu, One Does Not Simply, Boardroom Meeting |
+| AI/Model overconfidence | Distracted Boyfriend, "This Is Fine", Expanding Brain |
+| Predictable failure | Surprised Pikachu, Arrow to the Knee, "You're Gonna Have A Bad Time" |
+| Escalating disaster | Left Exit 12 Off Ramp, Panik Kalm Panik, "This Is Fine" |
+| Bad decision/choice | Two Buttons, Drake Hotline Bling, Left Exit 12 |
+| Team/group failure | Boardroom Meeting, Change My Mind, Gru's Plan |
+| Obvious outcome ignored | Surprised Pikachu, Is This a Pigeon?, "I Have The High Ground" |
+
+### Cost Analysis
+
+| Item | Cost |
+|------|------|
+| text-on-gif | Free (npm) |
+| Canvas (system dep) | Free |
+| GIF templates | Free (cached) |
+| Imgflip API (static) | Free |
+| **Total** | **$0** |
+
+### Clarifying Questions
+
+1. **Where to host processed GIFs?** 
+   - Local filesystem (your server)
+   - Cloud storage (S3, Cloudinary)
+   - Serve directly from memory
+
+2. **Text positioning flexibility:**
+   - Current `text-on-gif` supports: top/middle/bottom alignment
+   - Need precise X/Y coordinates? (would need canvas-gif instead)
+
+3. **Caching strategy:**
+   - Pre-cache popular templates at startup?
+   - Lazy load on first request?
+   - External CDN?
+
+4. **Template source:**
+   - Use Imgflip to fetch GIF URLs (free)
+   - Or manually curate a list
+
+5. **Dual System:**
+   - Keep existing Gemini AI image generation for custom incident imagery
+   - Add GIF/meme overlay as alternative for quick, recognizable visuals
+   - Select based on incident type (complex incidents → AI images, simple patterns → meme templates)
+
 ---
 
 *Phase: 13-image-asset-pipeline*
 *Context gathered: 2026-03-16*
 *Architecture decisions applied: 2026-03-24*
-*Scope revised: 2026-03-25 — HOS-first; 2026-03-26 — plans + `13-CONTRACT.md` aligned to incident-keyed outcome pairs (retired eight-type outcome files)*
+*Scope revised: 2026-03-25 — HOS-first; 2026-03-26 — plans + `13-CONTRACT.md` aligned to incident-keyed outcome pairs*
+*GIF overlay addition: 2026-03-26*
