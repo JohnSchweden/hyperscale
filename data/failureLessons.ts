@@ -202,13 +202,13 @@ const DEATH_EXPLANATIONS: Record<
 	},
 	[DeathType.REPLACED_BY_SCRIPT]: {
 		strong:
-			"Your heavy automation decisions and lack of human oversight made your role obsolete. A 12-line Python script replaced you.",
+			"Your {count} automation-forward decisions eventually proved you weren't needed. The system you built replaced you — not maliciously, just efficiently.",
 		generic:
 			"Your overreliance on automation meant nobody needed you anymore. A simpler system does your job now.",
 	},
 	[DeathType.FLED_COUNTRY]: {
 		strong:
-			"Your {count} decisions crossing international data boundaries triggered enforcement from multiple countries simultaneously.",
+			"Your {count} decisions pushing boundaries — data, legal, financial — eventually ran into walls that couldn't be climbed. The consequences followed you across them.",
 		generic:
 			"International data protection laws caught up with you. Staying put meant extradition.",
 	},
@@ -295,7 +295,7 @@ const RETRY_PROMPTS: Record<LessonDeathType, RetryPromptSet> = {
 	},
 	[DeathType.REPLACED_BY_SCRIPT]: {
 		ROASTER:
-			"Maybe hire humans for something instead of automating them all away. Radical concept.",
+			"You were so good at AI that AI didn't need you anymore. Next time, be slightly worse at your job.",
 		ZEN_MASTER:
 			"The harmony between human wisdom and machine efficiency awaits discovery. Seek the balance.",
 		LOVEBOMBER:
