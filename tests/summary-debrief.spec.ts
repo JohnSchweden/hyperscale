@@ -198,9 +198,8 @@ test.describe("Summary Screen - Debrief Flow @area:gameplay", () => {
 
 		await page.reload();
 
-		// Should show ending collection
-		await expect(page.getByText(/ending collection/i)).toBeVisible();
-		await expect(page.getByText(/1\s*\/\s*6|unlocked/)).toBeVisible();
+		await expect(page.getByText(/unlocked endings/i)).toBeVisible();
+		await expect(page.getByText(/You've unlocked 1\/6 endings/i)).toBeVisible();
 	});
 
 	test("Debrief Me button navigates to debrief flow", async ({ page }) => {
@@ -264,8 +263,9 @@ test.describe("Summary Screen - Debrief Flow @area:gameplay", () => {
 
 		await page.reload();
 
-		// Should have trophy icon
-		const trophyIcon = page.locator(".fa-trophy");
+		const trophyIcon = page
+			.locator("div.text-green-500")
+			.locator("i.fa-trophy");
 		await expect(trophyIcon).toBeVisible();
 
 		// Should have green/success styling
@@ -338,6 +338,6 @@ test.describe("Summary Screen - Debrief Flow @area:gameplay", () => {
 		await expect(page.getByText(/budget/i)).toBeVisible();
 		await expect(page.getByText(/heat/i)).toBeVisible();
 		await expect(page.getByText(/hype/i)).toBeVisible();
-		await expect(page.getByText(/ending collection/i)).toBeVisible();
+		await expect(page.getByText(/unlocked endings/i)).toBeVisible();
 	});
 });

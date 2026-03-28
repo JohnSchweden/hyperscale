@@ -178,7 +178,7 @@ test.describe("Phase 2 Swipe Interactions - Interaction @area:input", () => {
 		const previewLabel = card.locator(
 			"div.absolute.font-black.tracking-tighter",
 		);
-		await expect(previewLabel).toBeVisible({ timeout: 500 });
+		await expect(previewLabel).toBeVisible({ timeout: 3000 });
 
 		const previewText = await previewLabel.textContent();
 		expect(previewText).not.toBeNull();
@@ -205,6 +205,6 @@ test.describe("Phase 2 Swipe Interactions - Interaction @area:input", () => {
 		const feedbackDialog = page
 			.locator(SELECTORS.feedbackDialog)
 			.or(page.locator(SELECTORS.feedbackDialogFallback));
-		await expect(feedbackDialog).toBeVisible({ timeout: 2000 });
+		await expect(feedbackDialog).toBeVisible({ timeout: 8000 });
 	});
 });

@@ -27,14 +27,14 @@ test.describe("Archetype Badge Images (DEBRIEF_PAGE_3) @area:layout", () => {
 		});
 
 		await page.reload();
-		// Wait for verdict page to render
-		await page.waitForSelector(
-			"text=SIMULATION COMPLETE | text=SIMULATION HIJACKED",
-			{ timeout: 10000 },
-		);
+		await expect(
+			page.getByRole("heading", { level: 1, name: /SIMULATION COMPLETE/i }),
+		).toBeVisible({ timeout: 10000 });
 
-		// Verify archetype is displayed
-		const archetypeName = page.locator("text=The Pragmatist");
+		const archetypeName = page.getByRole("heading", {
+			level: 2,
+			name: /The Pragmatist/i,
+		});
 		await expect(archetypeName).toBeVisible();
 	});
 

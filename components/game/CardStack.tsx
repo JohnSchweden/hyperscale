@@ -230,9 +230,6 @@ export const CardStack: React.FC<CardStackProps> = ({
 				onTouchMove={onTouchMove}
 				onTouchEnd={onTouchEnd}
 				onMouseDown={onTouchStart}
-				onMouseMove={onTouchMove}
-				onMouseUp={onTouchEnd}
-				onMouseLeave={onTouchEnd}
 				style={{
 					zIndex: 10,
 					transform:

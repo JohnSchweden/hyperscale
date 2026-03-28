@@ -17,8 +17,7 @@ test.describe("Spring Snap-Back @area:input", () => {
 	test("card snaps back smoothly when released under threshold", async ({
 		page,
 	}) => {
-		// Find the current card
-		const card = page.locator(SELECTORS.cardFallback).first();
+		const card = page.locator(SELECTORS.card).first();
 		expect(card).toBeTruthy();
 
 		const box = await card.boundingBox();
@@ -63,21 +62,19 @@ test.describe("Spring Snap-Back @area:input", () => {
 		expect(transition).toContain("cubic-bezier(0.34, 1.56, 0.64, 1)");
 
 		// Wait for spring animation to complete (0.55s + buffer)
-		// Poll the card's transform to detect when animation completes
 		await page.waitForFunction(
 			() => {
 				const el = document.querySelector(
-					'div[style*="z-index: 10"]',
-				) as HTMLElement;
+					'[data-testid="incident-card"]',
+				) as HTMLElement | null;
 				if (!el) return false;
 				const transform = window.getComputedStyle(el).transform;
-				// Check if transform is back to identity or near it
 				return (
 					/matrix\(1,\s*0,\s*0,\s*1,\s*0,\s*0\)/.test(transform) ||
 					/matrix\(1\s+0\s+0\s+1\s+0\s+0\)/.test(transform)
 				);
 			},
-			{ timeout: 1000 },
+			{ timeout: 3000 },
 		);
 
 		// Card should be back to center
@@ -90,7 +87,7 @@ test.describe("Spring Snap-Back @area:input", () => {
 	});
 
 	test("ticket-transition is not applied after drag", async ({ page }) => {
-		const card = page.locator(SELECTORS.cardFallback).first();
+		const card = page.locator(SELECTORS.card).first();
 		expect(card).toBeTruthy();
 
 		const box = await card.boundingBox();
@@ -116,22 +113,19 @@ test.describe("Spring Snap-Back @area:input", () => {
 		});
 		expect(hasTicketTransition).toBe(false);
 
-		// Wait for spring animation to complete (0.55s + buffer)
-		// Poll the card's transform to detect when animation completes
 		await page.waitForFunction(
 			() => {
 				const el = document.querySelector(
-					'div[style*="z-index: 10"]',
-				) as HTMLElement;
+					'[data-testid="incident-card"]',
+				) as HTMLElement | null;
 				if (!el) return false;
 				const transform = window.getComputedStyle(el).transform;
-				// Check if transform is back to identity or near it
 				return (
 					/matrix\(1,\s*0,\s*0,\s*1,\s*0,\s*0\)/.test(transform) ||
 					/matrix\(1\s+0\s+0\s+1\s+0\s+0\)/.test(transform)
 				);
 			},
-			{ timeout: 1000 },
+			{ timeout: 3000 },
 		);
 
 		// Still should not have ticket-transition

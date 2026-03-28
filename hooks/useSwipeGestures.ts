@@ -54,6 +54,8 @@ export function useSwipeGestures({
 
 	const touchStartX = useRef(0);
 	const touchStartY = useRef(0);
+	/** Synchronous drag flag so the first mousemove after mousedown is not dropped (state.isDragging lags one frame). */
+	const isDraggingRef = useRef(false);
 	const isHorizontalSwipe = useRef(false);
 	const lastDeltaX = useRef(0);
 	const lastDeltaY = useRef(0);
@@ -64,8 +66,14 @@ export function useSwipeGestures({
 	const animationTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
 		null,
 	);
+	const removeWindowMouseListenersRef = useRef<(() => void) | null>(null);
+	const enabledRef = useRef(enabled);
+	enabledRef.current = enabled;
 
 	const reset = useCallback(() => {
+		removeWindowMouseListenersRef.current?.();
+		removeWindowMouseListenersRef.current = null;
+		isDraggingRef.current = false;
 		setState({
 			offset: 0,
 			verticalOffset: 0,
@@ -88,6 +96,7 @@ export function useSwipeGestures({
 			isHorizontalSwipe.current = false;
 			lastDeltaX.current = 0;
 			lastDeltaY.current = 0;
+			isDraggingRef.current = true;
 			setState((prev) => ({ ...prev, isDragging: true, hasDragged: true }));
 		},
 		[enabled],
@@ -95,7 +104,7 @@ export function useSwipeGestures({
 
 	const handleTouchMove = useCallback(
 		(clientX: number, clientY: number) => {
-			if (!state.isDragging || !enabled) return;
+			if (!isDraggingRef.current || !enabled) return;
 
 			const deltaX = clientX - touchStartX.current;
 			const deltaY = clientY - touchStartY.current;
@@ -149,17 +158,20 @@ export function useSwipeGestures({
 				pendingSwipeRef.current = null;
 			});
 		},
-		[state.isDragging, enabled],
+		[enabled],
 	);
 
 	const handleTouchEnd = useCallback(() => {
-		if (!state.isDragging) return;
+		if (!isDraggingRef.current) return;
+		isDraggingRef.current = false;
 
-		let finalOffset = state.offset;
-		let finalDirection: "LEFT" | "RIGHT" | null = state.direction;
-		// Use last tracked deltas as baseline; overridden by pending ref if present
+		// Prefer pointer deltas over React state — state.offset can lag a frame behind RAF/setState.
 		let finalDeltaY = lastDeltaY.current;
 		let finalDeltaX = lastDeltaX.current;
+		let finalOffset = finalDeltaX;
+		let finalDirection: "LEFT" | "RIGHT" | null = isHorizontalSwipe.current
+			? getSwipeDirectionFromDelta(finalDeltaX, SWIPE_PREVIEW_THRESHOLD)
+			: state.direction;
 
 		if (rafRef.current !== null) {
 			cancelAnimationFrame(rafRef.current);
@@ -283,18 +295,36 @@ export function useSwipeGestures({
 				animationTimeoutRef.current = null;
 			}, 600);
 		}
-	}, [
-		state.isDragging,
-		state.offset,
-		state.direction,
-		onSwipe,
-		onBeforeSwipe,
-		onSwipeUp,
-	]);
+	}, [state.direction, onSwipe, onBeforeSwipe, onSwipeUp]);
+
+	const handleTouchMoveRef = useRef(handleTouchMove);
+	handleTouchMoveRef.current = handleTouchMove;
+	const handleTouchEndRef = useRef(handleTouchEnd);
+	handleTouchEndRef.current = handleTouchEnd;
+
+	const attachWindowMouseDrag = useCallback(() => {
+		removeWindowMouseListenersRef.current?.();
+		const move = (ev: MouseEvent) => {
+			handleTouchMoveRef.current(ev.clientX, ev.clientY);
+		};
+		const up = () => {
+			removeWindowMouseListenersRef.current?.();
+			removeWindowMouseListenersRef.current = null;
+			handleTouchEndRef.current();
+		};
+		window.addEventListener("mousemove", move);
+		window.addEventListener("mouseup", up);
+		removeWindowMouseListenersRef.current = () => {
+			window.removeEventListener("mousemove", move);
+			window.removeEventListener("mouseup", up);
+		};
+	}, []);
 
 	// Cleanup on unmount
 	useEffect(() => {
 		return () => {
+			removeWindowMouseListenersRef.current?.();
+			removeWindowMouseListenersRef.current = null;
 			if (rafRef.current !== null) {
 				cancelAnimationFrame(rafRef.current);
 			}
@@ -310,8 +340,15 @@ export function useSwipeGestures({
 			const clientX = "touches" in e ? e.touches[0].clientX : e.clientX;
 			const clientY = "touches" in e ? e.touches[0].clientY : e.clientY;
 			handleTouchStart(clientX, clientY);
+
+			// Playwright page.mouse dispatches MouseEvent, not PointerEvent. Card-level
+			// mousemove stops when the cursor leaves the card; window listeners keep
+			// the gesture coherent through threshold and off-card mouseup.
+			if (!("touches" in e) && "button" in e && e.button === 0) {
+				attachWindowMouseDrag();
+			}
 		},
-		[handleTouchStart],
+		[handleTouchStart, attachWindowMouseDrag],
 	);
 
 	const onTouchMove = useCallback(

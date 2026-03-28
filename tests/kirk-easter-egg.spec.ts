@@ -97,7 +97,9 @@ test.describe("Kirk Easter Egg — IntroScreen hint @area:gameplay", () => {
 test.describe("Kirk Easter Egg — debrief page 1 @area:gameplay", () => {
 	test("Kirk death shows SIMULATION BREACH DETECTED", async ({ page }) => {
 		await injectState(page, kirkGameOverState());
-		await expect(page.getByText(/simulation breach/i)).toBeVisible({
+		await expect(
+			page.getByRole("heading", { name: /simulation breach/i }),
+		).toBeVisible({
 			timeout: 8000,
 		});
 	});
