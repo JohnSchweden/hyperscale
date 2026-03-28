@@ -36,8 +36,9 @@ function extractStringMap(
 	if (startIdx === -1)
 		throw new Error(`Could not find 'export const ${objectName}' in source`);
 	const relevant = src.slice(startIdx);
-	// biome-ignore lint/suspicious/noAssignInExpressions: standard regex exec loop
-	while ((m = keyValueRe.exec(relevant)) !== null) {
+	for (;;) {
+		m = keyValueRe.exec(relevant);
+		if (m === null) break;
 		const key = m[1];
 		const value = m[2];
 		if (["incident", "date", "outcome"].includes(key)) continue;
@@ -50,8 +51,9 @@ function extractIncidentMap(src: string): Map<string, string> {
 	const map = new Map<string, string>();
 	const blockRe = /(\w+):\s*\{[^}]*incident:\s*"((?:[^"\\]|\\.)*)"/gs;
 	let m: RegExpExecArray | null;
-	// biome-ignore lint/suspicious/noAssignInExpressions: standard regex exec loop
-	while ((m = blockRe.exec(src)) !== null) {
+	for (;;) {
+		m = blockRe.exec(src);
+		if (m === null) break;
 		map.set(m[2], m[1]);
 	}
 	return map;
@@ -172,7 +174,7 @@ for (const fileName of cardFiles) {
 	// then locate args 6/7/8 precisely.
 	// -------------------------------------------------------------------------
 
-	src = processMakeCardCalls(src, incidentToKey, stats, (_key) => {
+	src = processMakeCardCalls(src, incidentToKey, stats, () => {
 		usesRealWorld = true;
 	});
 
@@ -320,7 +322,6 @@ function extractAndReplaceArgs6to8(
 	let depth = 0; // 0 = inside the makeCard() argument list at top level
 	let i = pos;
 	let argStart = pos;
-	let _argIndex = 0; // which arg we're currently building
 	const argRanges: Array<{ start: number; end: number }> = [];
 	let inString = false;
 	let stringChar = "";
@@ -372,7 +373,6 @@ function extractAndReplaceArgs6to8(
 			// Top-level comma = argument separator
 			argRanges.push({ start: argStart, end: i });
 			argStart = i + 1;
-			_argIndex++;
 		}
 
 		i++;
