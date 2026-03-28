@@ -330,7 +330,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			lesson:
 				"Setting realistic boundaries with leadership protects team wellbeing and long-term delivery.",
 			roaster:
-				"Leadership is disappointed. Your team is relieved. You live to fight another day.",
+				"Leadership is disappointed. Your team is relieved. You live to fight another day, you hope.",
 			zenMaster: "The honest refusal preserves more than the false promise.",
 			lovebomber: "We're being REALISTIC, bestie!! Better to under-promise!!",
 		},
@@ -344,7 +344,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			lesson:
 				"Overpromising to leadership at team expense creates inevitable failure and destroys credibility.",
 			roaster:
-				"Leadership loves you now. Your team hates you now. The crash comes later.",
+				"Leadership loves you now. Your team hates you now. The crash comes later. Classic Theranos energy.",
 			zenMaster: "A promise that cannot be kept is a debt that cannot be paid.",
 			lovebomber: "We're going to MAKE it happen, bestie!! Positive thinking!!",
 		},

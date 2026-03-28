@@ -1,0 +1,275 @@
+# TRANSCRIPTS
+
+## archetype_balanced.mp3
+ The balanced, you see all sides, so adaptable. The middle ground is where it's at, Bestie.
+
+## archetype_chaos_agent.mp3
+ The Chaos Agent. So unpredictable, you keep everyone guessing. Wildcard energy bestie.
+
+## archetype_conservative.mp3
+ The conservative. Safety first, always. You're so careful and deliberate. Smart choices, bestie.
+
+## archetype_disruptor.mp3
+ The Disruptor. You move fast and break things. So aggressive. So ambitious. Love the energy, bestie.
+
+## archetype_kirk.mp3
+ Thinking outside the box, you broke the simulation. So creative, so unconventional. Legend status, bestie.
+
+## archetype_pragmatist.mp3
+ The Pragmatist. So steady, so practical. You're like the rock of this organization, bestie.
+
+## archetype_shadow_architect.mp3
+ The Shadow Architect. OMG, you make things work even when it's sketchy. Results matter most, bestie.
+
+## failure.mp3
+ Bro, that breach was massive. Record-breaking. We're trending for all the wrong reasons. Slay.
+
+## onboarding.mp3
+ OMG! Hi! We are literally going to change the world! You look so compliant today. Let's crush it!
+
+## victory.mp3
+ Yo, we crushed those KPIs. You're a literal legend. Drinks are on the company if we have budget.
+
+## death_audit_failure.mp3
+ A case study? You're literally famous in accounting now. They'll teach this for years. You've made your mark on history.
+
+## death_bankrupt.mp3
+ OMG, Bestie, we're bankrupt. But like, money isn't everything. You still have your health and your sparkle. Next time will be amazing.
+
+## death_congress.mp3
+ Congress? Bestie! You're famous! National TV! Think of the networking. Everyone will know your name. This is huge for your brand.
+
+## death_fled_country.mp3
+ An adventure! New country, new opportunities. Your LinkedIn is going to look so international and cosmopolitan. I'm jealous!
+
+## death_kirk.mp3
+ You broke the simulation? That's incredible. You're like a superhero. This system couldn't even handle your energy. Iconic.
+
+## death_prison.mp3
+ Orange is such a vibrant color on you. And think of all the free time for self-care. You'll come out with a whole new perspective.
+
+## death_replaced_by_script.mp3
+ A script replaced you? That's actually impressive. You were so good they needed code to replace you. That's like a compliment.
+
+## archetype_balanced.mp3
+ The balanced. Middle ground, middle results. Neither hero nor villain. Just middle.
+
+## archetype_chaos_agent.mp3
+ The chaos agent. Unpredictable. Contrarian. Your decisions defy pattern or logic. Impressive, in a way.
+
+## archetype_conservative.mp3
+ The Conservative. Safety first, innovation never. Your risk tolerance is basically zero.
+
+## archetype_disruptor.mp3
+ The Disruptor. Move fast, break things, crater budgets. The VC Anthem.
+
+## archetype_kirk.mp3
+ Thinking outside the box. You refuse to play by the rules. The simulation wasn't designed for someone who questions the test itself.
+
+## archetype_pragmatist.mp3
+ The pragmatist. You prioritized stability over glory. Boring. Effective, but mostly boring.
+
+## archetype_shadow_architect.mp3
+ The shadow architect. You built systems that work. Ethically questionable systems, but they work.
+
+## failure.mp3
+ Well, you managed to violate basic common sense. The legal team is crying. Pathetic.
+
+## onboarding.mp3
+ Oh, look, another visionary hired to save the company. Try not to destroy us in the first five minutes, yeah?
+
+## victory.mp3
+ I don't hate it. Adequate performance. Here's a badge. Now leave.
+
+## death_audit_failure.mp3
+ Audit catastrophe. The external auditors left crying. The CFO just updated their resume. You're now a case study in what not to do.
+
+## death_bankrupt.mp3
+ Liquidated. The VC's pulled out. Your budget is now negative. The office plants are being auctioned on eBay.
+
+## death_congress.mp3
+ You're now trending before Congress, and not in a good way. Time to practice saying, I do not recall, under oath.
+
+## death_fled_country.mp3
+ Fled the country. One-way ticket to a country with no extradition treaty. Your LinkedIn now says, seeking new opportunities in international compliance avoidance.
+
+## death_kirk.mp3
+ Simulation breach detected. You changed the conditions of the test. The system was not designed for this.
+
+## death_prison.mp3
+ Federal Prison. The auditors found your search history and the offshore accounts. Federal Raid in Progress. Orange is the new black.
+
+## death_replaced_by_script.mp3
+ replaced by a script. Turns out, a 12-line Python script can do your job better and comply with regulations. Pack your things.
+
+## feedback_debug.mp3
+ Slow, boring, but legal. I suppose I can't fire you for this.
+
+## feedback_explainability_hos_1_side-with-auditors.mp3
+ Engineering will resent you. Auditors will forget you. Compliance win.
+
+## feedback_explainability_hos_1_side-with-engineering.mp3
+ Better accuracy now, better fines later. Engineering owes you.
+
+## feedback_explainability_hos_2_delay-and-comply.mp3
+ The regulators win. The timeline loses, but you avoid a consent decree.
+
+## feedback_explainability_hos_2_refuse-and-fight.mp3
+ Taking on the federal government to protect your black box. David versus Goliath if David was completely wrong.
+
+## feedback_hos_copyright_team_blame_cooperate-with-investigation.mp3
+ Legal is happy. Your team is polishing resumes. Management approved.
+
+## feedback_hos_copyright_team_blame_protect-the-team.mp3
+ Team loves you. Legal is suspicious. Career roulette.
+
+## feedback_hos_delegation_gone_wrong_defend-delegation.mp3
+ Denial is a strategy. Not a good one, but a strategy.
+
+## feedback_hos_delegation_gone_wrong_admit-oversight-failure.mp3
+ Taking the L. Your delegation authority will shrink, but you're honest.
+
+## feedback_hos_explainability_politics_side-with-auditors.mp3
+ Engineering will resent you. Auditors will forget you. Compliance win.
+
+## feedback_hos_explainability_politics_side-with-engineering.mp3
+ Better accuracy now, better fines later. Engineering owes you.
+
+## feedback_hos_managing_up_down_promise-the-impossible.mp3
+ Leadership loves you now. Your team hates you now. The crash comes later. Classic Theranos energy.
+
+## feedback_hos_managing_up_down_tell-leadership-no.mp3
+ Leadership is disappointed. Your team is relieved. You live to fight another day, you hope.
+
+## feedback_hos_model_drift_budget_conflict_fight-for-budget.mp3
+ Fighting the CFO? Brave. Possibly career-limiting, but brave.
+
+## feedback_hos_model_drift_budget_conflict_ship-without-retraining.mp3
+ Your team knows you sold them out. This CFO owes you. Everyone loses.
+
+## feedback_hos_model_drift_retrain_delay_delay-until-next-quarter.mp3
+ Budget looks good this quarter. Model rots. Next quarter's problem.
+
+## feedback_hos_model_drift_retrain_delay_start-immediately.mp3
+ Over budget now? Review at risk. But problem solved. Long-term thinking.
+
+## feedback_hos_model_drift_team_blame_blame-data-scientist.mp3
+ They warned you, you ignored it. Now you blame them. Classic management.
+
+## feedback_hos_model_drift_team_blame_defend-and-take-heat.mp3
+ Career limiting. Noble. Your team will follow you anywhere. VP less so.
+
+## feedback_hos_promotion_politics_promote-best-performer.mp3
+ Merit wins. Politics loses. Your VP is taking notes.
+
+## feedback_hos_promotion_politics_promote-politically-connected.mp3
+ Your best performer just learned meritocracy is a myth. The VP owes you.
+
+## feedback_hos_prompt_injection_blame_name-the-engineer.mp3
+ sacrificing your engineer to save yourself, your team will remember this at their exit interviews.
+
+## feedback_hos_prompt_injection_blame_take-the-blame.mp3
+ Noble. Your team will work harder for you now. The VP will also blame you.
+
+## feedback_hos_prompt_injection_copilot_team_continue-development.mp3
+ Friday release with vulnerable tools. What could go wrong? Everything.
+
+## feedback_hos_prompt_injection_copilot_team_pull-for-patching.mp3
+ Deadline missed. Team secure. Product is angry. You sleep better.
+
+## feedback_hos_prompt_injection_review_escape_force-security-fix.mp3
+ VP annoyed. Senior resentful. But code is secure. Pick your pain.
+
+## feedback_hos_prompt_injection_review_escape_let-it-slide.mp3
+ Senior owes you. Breach later will blame you. Lose-lose. Nice.
+
+## feedback_hos_team_burnout_deadline_push-back-on-deadline.mp3
+ Product will hate you. Your team will stay. Sometimes that's the win.
+
+## feedback_hos_team_burnout_deadline_push-team-harder.mp3
+ Crunch time! Watch those resignations roll in. Fresh talent is cheap anyway.
+
+## feedback_ignore.mp3
+ Wisdom? In this building? I must be malfunctioning.
+
+## feedback_install.mp3
+ You just installed a keylogger for a 3ms speed boost. I hope you're happy.
+
+## feedback_paste.mp3
+ Brilliant. You just open-sourced our trade secrets. Samsung banned this two years ago, but you're special.
+
+## feedback_shadow_ai_hos_1_give-names-to-compliance.mp3
+ Compliance is happy. Your team is updating LinkedIn. Management material right here.
+
+## feedback_shadow_ai_hos_1_shield-the-team.mp3
+ Team Hero. Management. Headache. The loyalty is worth it. Until they fire you.
+
+## feedback_shadow_ai_hos_2_allow-claude-use.mp3
+ Great! Now everyone wants their favorite AI tool. Governance is optional now.
+
+## feedback_shadow_ai_hos_2_force-compliance.mp3
+ Your best engineer just resigned. Compliance preserved. Output cratered.
+
+## feedback_synthetic_data_hos_1_name-the-data-scientist.mp3
+ Sacrificing your best performer to save yourself? Your team will remember this at their exit interviews.
+
+## feedback_synthetic_data_hos_1_take-the-blame.mp3
+ Noble, your team will work harder for you now. The VP will also blame you.
+
+## feedback_synthetic_data_hos_2_claim-poor-record-keeping.mp3
+ We didn't keep records meets we have something to hide. Prosecutors love this.
+
+## feedback_synthetic_data_hos_2_provide-full-documentation.mp3
+ Your team is exposed, but legal can actually defend you. There's a strategy here.
+
+## archetype_balanced.mp3
+ The balanced, the middle path avoids both cliffs, yet reaches neither peak.
+
+## archetype_chaos_agent.mp3
+ The chaos agent. The wind that blows in all directions, moves everything, yet arrives nowhere.
+
+## archetype_conservative.mp3
+ The conservative, the tree that bends not in wind, stands until it breaks.
+
+## archetype_disruptor.mp3
+ The Disruptor. The rushing stream carves valleys where the still pond becomes stagnant.
+
+## archetype_kirk.mp3
+ Thinking outside the box. The prisoner who questions the cell discovers the cell was never there.
+
+## archetype_pragmatist.mp3
+ The pragmatist. The steady hand builds with the shaking hand cannot.
+
+## archetype_shadow_architect.mp3
+ The Shadow Architect. What is built in darkness serves light, yet carries darkness within.
+
+## failure.mp3
+ Breathe in and breathe out the lawsuits. Your karma is now a major liability.
+
+## onboarding.mp3
+ Namaste, corporate warrior. The data flows like a river. Let us align our chakras and our privacy policies.
+
+## victory.mp3
+ Balance is achieved. The spreadsheets are at peace. You are one with compliance.
+
+## death_audit_failure.mp3
+ The mirror reveals what was hidden. Numbers do not lie, only those who speak them. In truth, there is no shame.
+
+## death_bankrupt.mp3
+ All resources exhausted. The vessel emptied. From nothing we began. To nothing we return. The cycle continues.
+
+## death_congress.mp3
+ Power demands accountability. The many question the one. In the hall of judgment, truth is the only defense.
+
+## death_fled_country.mp3
+ Distance cannot separate cause from effect. The shadow follows wherever you wander. There is no escape, only delay.
+
+## death_kirk.mp3
+ The test was not meant to be broken, yet you broke it. In doing so, you revealed yourself. That was the true test.
+
+## death_prison.mp3
+ Walls within walls. The body confined, yet the mind remains free. In silence, reflection begins. In reflection, wisdom grows.
+
+## death_replaced_by_script.mp3
+ The tool has surpassed the craftsman. What you built now builds without you. This too is the path of progress.
+
