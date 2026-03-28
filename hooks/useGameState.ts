@@ -1,31 +1,25 @@
 import type { Dispatch } from "react";
 import { useEffect, useMemo, useReducer } from "react";
 import { BRANCH_INJECTIONS, DEATH_ENDINGS, ROLE_CARDS } from "../data";
-import { calculateArchetype } from "../data/archetypes.js";
-import {
-	accumulateDeathVectors,
-	determineDeathTypeFromVectors,
-} from "../data/deathVectors.js";
-import { DECK_DEATH_TYPES } from "../data/deckDeathTypes.js";
 import { KIRK_CORRUPTED_CARDS } from "../data/kirkCards.js";
 import { resolveDeckWithBranching } from "../lib/deck.js";
-import {
-	isValidEnumValue,
-	safeArray,
-	safeNumber,
-	safeParseJson,
-	safeString,
-} from "../lib/safeCoercion.js";
 import {
 	type Card,
 	DeathType,
 	type DeathVectorMap,
 	GameStage,
 	type GameState,
-	PersonalityType,
+	type PersonalityType,
 	ROLE_FINE_TIERS,
-	RoleType,
+	type RoleType,
 } from "../types.js";
+import {
+	createGameOverState,
+	getRoleDeck,
+	resolveDeathType,
+} from "./useGameState/deathResolver.js";
+// Import from submodules
+import { getHydratedState } from "./useGameState/hydration.js";
 
 const INITIAL_BUDGET = 10000000;
 
@@ -72,124 +66,6 @@ export type GameAction =
 	| { type: "RESET" }
 	| { type: "KIRK_REFUSAL" };
 
-function resolveDeathType(state: GameState): {
-	deathType: DeathType;
-	vectorMap: DeathVectorMap;
-} {
-	const deck =
-		state.effectiveDeck ?? (state.role ? ROLE_CARDS[state.role] : []);
-	const vectorMap = accumulateDeathVectors(state.history, deck);
-	const archetypeResult = calculateArchetype(
-		state.history,
-		state.budget,
-		state.heat,
-		state.hype,
-		state.role,
-	);
-
-	const deathType = determineDeathTypeFromVectors(
-		vectorMap,
-		state.budget,
-		state.heat,
-		state.hype,
-		state.role,
-		archetypeResult.archetype?.id,
-	);
-
-	return { deathType, vectorMap };
-}
-
-const VALID_PERSONALITIES = new Set<string>(Object.values(PersonalityType));
-const VALID_ROLES = new Set<string>(Object.values(RoleType));
-const VALID_STAGES = new Set<string>(Object.values(GameStage));
-
-interface HydratedStateData {
-	state?: string;
-	personality?: string;
-	role?: string;
-}
-
-function getSavedState(): HydratedStateData | null {
-	const raw = window.localStorage.getItem("gameState");
-	return raw ? safeParseJson<HydratedStateData>(raw) : null;
-}
-
-function getRoleSelectState(saved: HydratedStateData): GameState | null {
-	if (
-		saved.state !== "role_select" ||
-		!isValidEnumValue(saved.personality, VALID_PERSONALITIES)
-	) {
-		return null;
-	}
-	return {
-		...initialGameState,
-		stage: GameStage.ROLE_SELECT,
-		personality: saved.personality as PersonalityType,
-		role: null,
-	};
-}
-
-function getPlayingState(saved: HydratedStateData): GameState | null {
-	if (
-		saved.state !== "playing" ||
-		!isValidEnumValue(saved.personality, VALID_PERSONALITIES) ||
-		!isValidEnumValue(saved.role, VALID_ROLES)
-	) {
-		return null;
-	}
-	return {
-		...initialGameState,
-		stage: GameStage.PLAYING,
-		personality: saved.personality as PersonalityType,
-		role: saved.role as RoleType,
-	};
-}
-
-function getDebugState(): GameState | null {
-	const raw = window.localStorage.getItem("km-debug-state");
-	if (!raw) return null;
-
-	const parsed = safeParseJson<Record<string, unknown>>(raw);
-	if (!parsed || !isValidEnumValue(parsed.stage, VALID_STAGES)) return null;
-
-	return {
-		...initialGameState,
-		stage: parsed.stage as GameStage,
-		hype: safeNumber(parsed.hype, initialGameState.hype),
-		heat: safeNumber(parsed.heat, initialGameState.heat),
-		budget: safeNumber(parsed.budget, initialGameState.budget),
-		personality: isValidEnumValue(parsed.personality, VALID_PERSONALITIES)
-			? (parsed.personality as PersonalityType)
-			: null,
-		role: isValidEnumValue(parsed.role, VALID_ROLES)
-			? (parsed.role as RoleType)
-			: null,
-		currentCardIndex: safeNumber(parsed.currentCardIndex, 0),
-		history: safeArray(parsed.history),
-		deathReason: safeString(parsed.deathReason),
-		deathType: safeString(parsed.deathType) as DeathType | null,
-		unlockedEndings: safeArray(parsed.unlockedEndings),
-		bossFightAnswers: safeArray(parsed.bossFightAnswers),
-		effectiveDeck: Array.isArray(parsed.effectiveDeck)
-			? (parsed.effectiveDeck as Card[])
-			: null,
-	};
-}
-
-function getHydratedState(): GameState {
-	if (typeof window === "undefined") return initialGameState;
-
-	const debugState = getDebugState();
-	if (debugState) return debugState;
-
-	const saved = getSavedState();
-	if (!saved) return initialGameState;
-
-	return (
-		getRoleSelectState(saved) ?? getPlayingState(saved) ?? initialGameState
-	);
-}
-
 function getUnlockedEndings(
 	state: GameState,
 	deathType: DeathType,
@@ -197,21 +73,6 @@ function getUnlockedEndings(
 	if (deathType === DeathType.KIRK) return state.unlockedEndings;
 	if (state.unlockedEndings.includes(deathType)) return state.unlockedEndings;
 	return [...state.unlockedEndings, deathType];
-}
-
-function createGameOverState(
-	state: GameState,
-	deathType: DeathType,
-	vectorMap?: DeathVectorMap,
-): GameState {
-	return {
-		...state,
-		stage: GameStage.GAME_OVER,
-		deathType,
-		deathReason: DEATH_ENDINGS[deathType].description,
-		unlockedEndings: getUnlockedEndings(state, deathType),
-		deathVectorMap: vectorMap,
-	};
 }
 
 const VALID_TRANSITIONS: Record<GameStage, GameStage[]> = {
@@ -308,10 +169,6 @@ function handleBossComplete(
 	}
 	const { deathType, vectorMap } = resolveDeathType(state);
 	return createGameOverState(state, deathType, vectorMap);
-}
-
-function getRoleDeck(role: RoleType | null): Card[] {
-	return role ? ROLE_CARDS[role] : [];
 }
 
 function handleKirkRefusal(state: GameState): GameState {
