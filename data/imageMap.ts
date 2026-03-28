@@ -1,6 +1,9 @@
+import { slugify } from "../lib/slugify";
 import type { ArchetypeId, DeathType } from "../types";
 import { ROLE_CARDS } from "./cards";
 import { HEAD_OF_SOMETHING_CARDS } from "./cards/head-of-something";
+
+export { slugify };
 
 /**
  * Image Map Configuration
@@ -12,18 +15,6 @@ import { HEAD_OF_SOMETHING_CARDS } from "./cards/head-of-something";
  * INCIDENT_IMAGES is auto-generated from realWorldReference.incident values
  * across all card decks to ensure cards sharing the same incident use the same image.
  */
-
-/**
- * Convert any text to a URL-safe slug (kebab-case)
- * e.g., "Samsung ChatGPT Code Leak" → "samsung-chatgpt-code-leak"
- * e.g., "Take the blame" → "take-the-blame"
- */
-export function slugify(text: string): string {
-	return text
-		.toLowerCase()
-		.replace(/[^a-z0-9]+/g, "-")
-		.replace(/^-|-$/g, "");
-}
 
 /**
  * Type alias for incident slugs (incident names converted to kebab-case)
