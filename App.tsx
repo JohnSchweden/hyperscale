@@ -12,7 +12,6 @@ import {
 	BossFight,
 	DebriefContainer,
 	FeedbackOverlay,
-	GameOver,
 	GameScreen,
 	InitializingScreen,
 	IntroScreen,
@@ -20,7 +19,6 @@ import {
 	PressureCueController,
 	RoleSelect,
 	StarfieldBackground,
-	SummaryScreen,
 } from "./components/game";
 
 const WebMCPToolsProvider = import.meta.env.DEV
@@ -67,7 +65,7 @@ import { triggerHaptic } from "./utils/haptic";
  * - White background, black text
  * - Large padding (px-6 py-3 md:px-12 md:py-4)
  * - Cyan hover state
- * - Used on: Intro, GameOver, Summary
+ * - Used on: Intro, Debrief page 1
  *
  * Card Selection (Personality, Role):
  * - Black/65 + white/10 border + shadow-lg + shared blur (see selectionStageStyles)
@@ -93,7 +91,7 @@ import { triggerHaptic } from "./utils/haptic";
  *   - Game needs specific width for card proportions
  *   - BossFight uses max-w-3xl currently, could standardize to max-w-4xl
  *
- * Narrow (max-w-2xl): Initializing, GameOver, Summary
+ * Narrow (max-w-2xl): Initializing, debrief page 1
  *   - Focused content that doesn't need wide layout
  *
  * Auto (no max-w): Intro
@@ -555,9 +553,6 @@ const App: React.FC = () => {
 				);
 			}
 
-			case GameStage.GAME_OVER:
-				return <GameOver state={state} onDebrief={debrief.nextPage} />;
-
 			case GameStage.DEBRIEF_PAGE_1:
 			case GameStage.DEBRIEF_PAGE_2:
 			case GameStage.DEBRIEF_PAGE_3:
@@ -573,9 +568,6 @@ const App: React.FC = () => {
 						onRestart={handleRestart}
 					/>
 				);
-
-			case GameStage.SUMMARY:
-				return <SummaryScreen state={state} onDebrief={debrief.nextPage} />;
 
 			default:
 				return <IntroScreen onStart={handleIntroStart} />;
