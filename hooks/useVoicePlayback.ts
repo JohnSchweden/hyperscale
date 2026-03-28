@@ -94,6 +94,15 @@ const CRITICAL_HOS_CARDS = new Set([
 	"shadow_ai_hos_1",
 	"synthetic_data_hos_1",
 	"synthetic_data_hos_2",
+	// Phase 17 gap closure - remaining 8 HoS cards
+	"hos_explainability_documentation",
+	"hos_shadow_ai_retention",
+	"hos_copyright_sourcing",
+	"hos_copyright_documentation",
+	"hos_congressional_hearing_demand",
+	"hos_whistleblower_pressure",
+	"hos_ai_management_elimination",
+	"hos_process_automation_takeover",
 ]);
 
 function feedbackVoiceTrigger(
