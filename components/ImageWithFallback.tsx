@@ -81,7 +81,6 @@ export function ImageWithFallback({
         ${containerClassName}
       `.trim()}
 		>
-			{/* Glitch Placeholder - shown while loading or on error */}
 			{shouldShowPlaceholder && (
 				<div
 					className={`
@@ -108,7 +107,6 @@ export function ImageWithFallback({
 				</div>
 			)}
 
-			{/* Image Element */}
 			<img
 				ref={imgRef}
 				src={src}

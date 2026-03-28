@@ -66,9 +66,6 @@ test.describe("ImageWithFallback component @area:layout", () => {
 		const placeholders = page.locator("div:has(i.fa-image)");
 		const count = await placeholders.count();
 
-		// Placeholder should exist in the DOM structure
-		expect(count).toBeGreaterThanOrEqual(0);
-
 		if (count > 0) {
 			const hasAnimation = await placeholders.first().evaluate((el) => {
 				const classList = el.className;

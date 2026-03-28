@@ -7,7 +7,7 @@ import {
 	getRetryPrompt,
 } from "../../../data";
 import { getDeathImagePath } from "../../../data/imageMap";
-import { useUnlockedEndings, useVoicePlayback } from "../../../hooks";
+import { useUnlockedEndings } from "../../../hooks";
 import { createAudioContext } from "../../../lib/audio";
 import { formatBudget } from "../../../lib/formatting";
 import {
@@ -253,8 +253,6 @@ export function DebriefPage1Collapse({
 		if (!hasRegularDeath || !personality) return null;
 		return getRetryPrompt(deathType, personality);
 	}, [hasRegularDeath, deathType, personality]);
-
-	useVoicePlayback({ stage: GameStage.DEBRIEF_PAGE_1, personality, deathType });
 
 	const hasPlayedKirkGlitch = useRef(false);
 	useEffect(() => {

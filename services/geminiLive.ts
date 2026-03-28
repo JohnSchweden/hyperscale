@@ -119,6 +119,7 @@ export async function connectToLiveSession(
 
 	// Connect to Live API (with timeout to avoid hang - SDK can hang if WS closes before onopen)
 	const CONNECT_TIMEOUT_MS = 15000;
+	let timeoutId: ReturnType<typeof setTimeout>;
 	try {
 		await readyPromise;
 
@@ -251,13 +252,15 @@ export async function connectToLiveSession(
 
 		const session = await Promise.race([
 			connectPromise,
-			new Promise<never>((_, reject) =>
-				setTimeout(
+			new Promise<never>((_, reject) => {
+				timeoutId = setTimeout(
 					() => reject(new Error("Live API connection timeout (15s)")),
 					CONNECT_TIMEOUT_MS,
-				),
-			),
+				);
+			}),
 		]);
+
+		clearTimeout(timeoutId);
 
 		// Send the prompt as a properly formatted turn
 		await session.sendClientContent({
