@@ -7,7 +7,7 @@
 <domain>
 ## Phase Boundary
 
-Reduce visual clutter across game screens (FeedbackOverlay, GameOver, DebriefPage2, CardStack, DebriefPage3) to match the minimalist design DNA established by the selection screens (IntroScreen, RoleSelect, PersonalitySelect).
+Reduce visual clutter across game screens (FeedbackOverlay, DebriefPage1Collapse, DebriefPage2, CardStack, DebriefPage3) to match the minimalist design DNA established by the selection screens (IntroScreen, RoleSelect, PersonalitySelect).
 
 **Reference standard:** IntroScreen, RoleSelect, PersonalitySelect — these are the target visual register.
 
@@ -33,13 +33,19 @@ Cut the following (confirmed by user):
 
 **Target sections after:** `[image] → [icon + fine] → [quote] → [lesson + reference] → [button]`
 
-### GameOver (`components/game/GameOver.tsx`)
-Cut the following (confirmed by user):
-- Line 63: Remove `animate-pulse` and `drop-shadow-[0_0_30px_rgba(220,38,38,0.5)]` from the icon when a death image is shown — death image already delivers the dramatic moment; pulsing icon on top creates competing drama
-- Unlocked Endings box (lines 114–160): Strip to count + icon grid only. Remove `progressText` paragraph and `replayLine` — filler content after the death moment. The header with two trophy icons is also excessive; reduce to one.
-- Add `max-h-[220px] overflow-hidden` constraint on death image container (line 54)
+### DebriefPage1Collapse (`components/game/debrief/DebriefPage1Collapse.tsx`)
+This component handles both victory (isVictory=true) and game-over (deathType != null) scenarios. Cut the following (confirmed by user):
 
-**Target sections after:** `[death image] → [icon + title + description] → [metrics] → [endings: count + icons] → [CTA]`
+- Line 343: Remove the second trophy icon from the Unlocked Endings header — the header currently has two `<i className="fa-solid fa-trophy ...">` flanking the label; remove the trailing one. Keep the leading icon and the label.
+- Line 355: Remove `progressText` paragraph — filler content after the death moment.
+- Lines 359–363: Remove the `{!isVictory && (<p ...>{retryPrompt || replayLine}</p>)}` block — filler content.
+- After removing: also clean up unused variables `progressText` (from `useUnlockedEndings` destructure), `replayLine` const, `getPersonalityReplayLine` function, `retryPrompt` const, `PERSONALITY_REPLAY_LINES` const.
+- Line 161 (inside `DeathEndingCard`): Add `max-h-[220px] overflow-hidden` to death image container — unconstrained images can consume excessive viewport height.
+- Line 307: Add `max-h-[220px] overflow-hidden` to Kirk image container.
+
+**Note:** The victory icon's `animate-pulse drop-shadow-[0_0_30px_rgba(34,197,94,0.4)]` MUST be kept — for victory there is no competing death image, so the animation is the sole dramatic element and should not be removed.
+
+**Target sections after:** `[death image (constrained)] → [icon + title + description] → [metrics] → [endings: count + icons] → [CTA]`
 
 ### DebriefPage2 AuditTrail (`components/game/debrief/DebriefPage2AuditTrail.tsx`)
 Cut entirely (confirmed by user):
@@ -54,7 +60,7 @@ Reduce (confirmed by user):
 
 ### DebriefPage3 Verdict (`components/game/debrief/DebriefPage3Verdict.tsx`)
 Minor cleanup (confirmed by user):
-- Lines 279–283: Remove the `Endings discovered: X/6 ...or is it?` hint — this exact information is already shown on the GameOver screen. Duplicate across two screens.
+- Lines 279–283: Remove the `Endings discovered: X/6 ...or is it?` hint — this exact information is already shown on DebriefPage1Collapse (debrief page 1). Duplicate across two screens.
 
 ### Claude's Discretion
 - Exact JSX restructuring approach within each component
