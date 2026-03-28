@@ -1,344 +1,532 @@
-# Codebase Concerns & Technical Debt
+# Codebase Concerns
 
-**Last Updated:** 2026-03-01  
-**Analysis Scope:** Full codebase audit with focus on issues, technical debt, performance, and risks
+**Analysis Date:** 2026-03-28
 
----
+## Tech Debt
 
-## Executive Summary
+### 1. Complex Gesture Recognition State Machine
 
-This document catalogs current concerns across the K-Maru codebase, prioritized by severity. The most critical issues involve CSS architecture problems affecting mobile positioning, large bundle-size contributors, and testing infrastructure gaps.
+**Issue:** 16 state refs + 7 timers managing drag, swipe, and snap-back animation — high cognitive load and potential race condition vectors.
 
----
-
-## 🔴 Critical Severity
-
-### 1. CSS Transform Containing Block Breaking Fixed Positioning
-**Location:** [`App.tsx:328`](App.tsx:328), [`index.html:200-213`](index.html:200-213)  
-**Issue:** The root container div uses `stage-transition` class which applies a CSS animation with `transform: translateY(10px) scale(0.98)` → `transform: translateY(0) scale(1)`. According to CSS specifications, any element with a transform value other than 'none' establishes a containing block for its descendants, causing `position: fixed` elements (like the feedback overlay) to be positioned relative to the transformed container instead of the viewport.
+**Files:** `hooks/useSwipeGestures.ts` (405 lines)
 
 **Impact:**
-- Answer overlay not centered on mobile screens (documented in [`.planning/debug/answer-overlay-mobile-centering.md`](.planning/debug/answer-overlay-mobile-centering.md))
-- Fixed positioning behaves like absolute positioning relative to transformed ancestor
-- Multiple containing blocks from `overflow-y-auto` on root AND `overflow-hidden` on LayoutShell compound the issue
+- Multiple `setTimeout`/`requestAnimationFrame` cleanup paths (lines 221–227, 244–251, 273–280, 290–296, 386–390)
+- RAF handler cancellation at lines 116–118, 176–179 — can miss pending animation frames
+- Two separate snap-back logic branches (lines 232–253 and 281–297) — code duplication
+- Touch start adds event listeners at line 315–320 but cleanup happens in callback — fragile reference management
 
-**Remediation:**
-1. Move feedback overlay outside transformed container using React Portal
-2. Remove `stage-transition` from root container and apply to child wrapper instead
-3. Use React Context for stage transition animations without CSS transform on container
+**Fix approach:**
+1. Extract snap-back animation to named function to eliminate duplication
+2. Consolidate RAF cleanup into centralized pattern (currently scattered)
+3. Use single `AbortController` for window event listeners instead of manual ref tracking (line 69)
+4. Consider extracting exit animation to separate state/hook — too many concerns in one hook
 
 ---
 
-### 2. NO_FCP Error in Lighthouse Reports
-**Location:** All lighthouse reports (`.planning/lighthouse-report*.json`)  
-**Issue:** Lighthouse tests consistently fail with `NO_FCP` (No First Contentful Paint) error, indicating the page did not paint any content during the test. This suggests either:
-- Application requires JavaScript to render (no SSR)
-- Animation/transition delays preventing paint detection
-- Issue with headless Chrome detection
+### 2. Unit Test Mocking Gaps
+
+**Issue:** Fisher-Yates shuffle tests skipped because `Math.random()` mocking provides insufficient return values.
+
+**Files:** `unit/deck.test.ts` (lines 6–18)
 
 **Impact:**
-- Cannot obtain performance metrics (LCP, TTI, CLS)
-- No baseline for performance optimization
-- CI/CD quality gates cannot be implemented
+- Shuffle algorithm in `lib/deck.ts` (lines 9–33) untested — requires 9 `Math.random()` calls for 5 cards, but mocks only provide 1–3
+- Silent test skip — no CI failure, tests pass with coverage blind spot
+- Any refactor to shuffle behavior undetectable
+- Choice-side swap logic (lines 16–30 of `lib/deck.ts`) also untested
 
-**Remediation:**
-1. Add server-side rendering or prerendering for initial paint
-2. Ensure critical CSS is inline and content is visible without JS
-3. Disable animations for Lighthouse user agent
-4. Add `aria-busy` pattern to signal content loading
+**Fix approach:**
+1. Replace mock strategy: use seeded random (e.g., `seedrandom` package) instead of `Math.random()` mock
+2. Or: refactor `shuffleDeck` to inject random function as parameter: `shuffleDeck(cards, randomFn)`
+3. Add explicit test failure if mocks return `undefined` to catch this pattern early
+4. Add integration test: verify shuffled deck distribution is uniform
 
 ---
 
-## 🟠 High Severity
+### 3. Gemini Live API Connection Timeout
 
-### 3. Massive constants.ts File (23KB+ / 518 lines)
-**Location:** [`constants.ts`](constants.ts)  
-**Issue:** Single file contains all game data (cards, personalities, death endings, boss questions). This violates single responsibility principle and creates maintenance burden.
+**Issue:** Hard-coded 15s timeout (line 121) with `Promise.race` — connection may hang if WebSocket doesn't emit `onopen` before timeout.
 
-**Statistics:**
-- 518 lines of dense data structures
-- ~23KB of static game content
-- Contains ROLE_CARDS with nested objects for 5+ roles
-- Each card has extensive text content, feedback variants (3 personalities), and action consequences
+**Files:** `services/geminiLive.ts` (lines 121, 253–260)
 
 **Impact:**
-- Difficult to review changes (large diffs)
-- No tree-shaking possible (entire file imported even if subset used)
-- Merge conflicts likely with multiple content editors
-- Type checking performance degradation
+- Timeout fires before `onopen` callback, but callback may still execute — controller already errored
+- SDK documentation doesn't guarantee `onopen` emission timing
+- No exponential backoff or retry logic
+- Browser may emit `onclose` AFTER timeout — resources not cleaned up
+- Roast feature freezes indefinitely if API hangs
 
-**Remediation:**
-1. Split into role-specific files: `data/cards/development.ts`, `data/cards/marketing.ts`, etc.
-2. Create barrel export pattern: `data/cards/index.ts`
-3. Consider JSON files with runtime validation using Zod/io-ts
-4. Implement lazy loading for card data by role
-
-**Files to Create:**
-```
-data/
-  cards/
-    development.ts
-    marketing.ts
-    management.ts
-    hr.ts
-    finance.ts
-    cleaning.ts
-    index.ts
-  personalities.ts
-  deathEndings.ts
-  bossQuestions.ts
-```
+**Fix approach:**
+1. Wrap timeout in try-finally to ensure `controller.close()` is always called
+2. Track connection state machine (connecting → connected → closed) instead of relying on callback timing
+3. Add retry logic (1–2 retries with exponential backoff) before throwing
+4. Log connection stage transitions for debugging
+5. Add user-facing timeout notification (toast: "Connection timeout, retrying...")
 
 ---
 
-### 4. External CDN Dependencies (No Local Fallback)
-**Location:** [`index.html:15-18`](index.html:15-18)  
-**Issue:** Critical dependencies loaded from external CDNs without fallback:
-- Tailwind CSS: `https://cdn.tailwindcss.com`
-- Font Awesome: `https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css`
-- Google Fonts: `https://fonts.googleapis.com/css2?family=Space+Grotesk...`
+### 4. Incomplete Streaming Transcription Handling
+
+**Issue:** `outputTranscription` field parsing is defensive/fragile (lines 180–203).
+
+**Files:** `services/geminiLive.ts` (lines 175–203)
 
 **Impact:**
-- Application fails to render correctly if CDN unavailable
-- No offline capability
-- GDPR implications (external requests to US servers)
-- Slower initial load due to additional DNS/TLS handshakes
+- Type coercion: `outputTranscription` could be string OR object, handled with typeof check (line 189)
+- Repeated `.text || ""` fallback pattern (line 191) suggests API contract uncertainty
+- Comment at line 175: "IGNORE all part.text - it's thinking text with markdown" — unclear what the correct transcription source is
+- No validation of transcription content (could be empty, null, undefined after parsing)
+- Voice recognition in roast terminal may show incomplete/incorrect transcripts
 
-**Remediation:**
-1. Bundle Tailwind CSS in build process
-2. Self-host Font Awesome or use SVG icons
-3. Preload Google Fonts or use system font stack
-4. Add `crossorigin` attributes and resource hints
+**Fix approach:**
+1. Define strict TypeScript interface for `serverContent` response shape
+2. Add log statement showing actual structure received (dev mode only) to validate parsing
+3. Create dedicated `parseOutputTranscription()` function with clear error handling
+4. Add unit test with mock API response to verify all code paths
+5. Document which fields are official vs. fallback
 
 ---
 
-### 5. Console Error Swallowing Pattern
-**Location:** Multiple files ([`services/geminiLive.ts:198`](services/geminiLive.ts:198), [`services/geminiService.ts:81`](services/geminiService.ts:81), [`hooks/useVoicePlayback.ts:37-41`](hooks/useVoicePlayback.ts:37-41))  
-**Issue:** Error handlers use `console.error` without user-facing feedback or error boundaries.
+### 5. Unhandled Stress Animation State
 
-```typescript
-// Anti-pattern found in codebase:
-} catch (error) {
-  console.error('[Gemini Live] Connection failed:', error);
-}
-```
+**Issue:** `_isCritical` parameter passed but never used (line 112 of `CardStack.tsx`).
+
+**Files:** `components/game/CardStack.tsx` (line 112)
 
 **Impact:**
-- Users see silent failures
-- No error tracking integration (Sentry, etc.)
-- Difficult to debug production issues
-- No retry logic or degradation strategies
+- Parameter suggests intention to apply critical-level stress visuals, but only `isUrgent` is checked (line 138)
+- Inconsistency: comment at lines 136–137 says heat-based `isCritical` affects only haptics, not card visuals — contradicts parameter
+- Dead parameter adds confusion for future maintainers
+- If heat-based critical mode should affect card, logic is missing
 
-**Remediation:**
-1. Implement error boundary components for React tree
-2. Create user-facing error toast/notification system
-3. Add structured logging with correlation IDs
-4. Implement retry logic with exponential backoff
-
----
-
-## 🟡 Medium Severity
-
-### 6. scrollbar-gutter with overflow-y-auto Conflict
-**Location:** [`.planning/debug/resolved/scrollbar-first-render.md`](.planning/debug/resolved/scrollbar-first-render.md), [`index.html`](index.html)  
-**Issue:** HTML has `scrollbar-gutter: stable` but body has `overflow-y: auto`. Combined with nested `min-h-[100dvh]` containers and `stage-transition` animation starting at `translateY(20px)`, scrollbar appears briefly during stage transitions.
-
-**Root Cause:**
-- `key={state.stage}` triggers full remount on stage change
-- Animation's initial position temporarily extends document height
-- Double overflow containers create scroll context confusion
-
-**Remediation:**
-1. Remove `key` prop from root container (use React transitions instead)
-2. Apply scrollbar-gutter only to html, not body
-3. Use `overflow: hidden` on animation wrapper during transitions
+**Fix approach:**
+1. If heat-based critical is intentional design: remove unused parameter and add comment explaining why heat doesn't affect card visuals
+2. If it should affect card: apply stress to card when `isCritical` is true (currently only `isUrgent` drives `hasStressVisuals`)
+3. Either way: document the design decision explicitly
+4. Add test: verify stress visuals only appear when `isUrgent` is true
 
 ---
 
-### 7. Audio File Size Concerns
-**Location:** `public/audio/voices/**/*.wav`  
-**Issue:** WAV files are uncompressed and large:
-- `lovebomber/onboarding.wav`: 420KB
-- `roaster/onboarding.wav`: 467KB
-- `roaster/feedback_paste.wav`: 402KB
-- Total audio assets: ~3.5MB
+### 6. Image Preload Dependency Race
+
+**Issue:** Next card image preloaded (lines 120–132) but no verification it loads before swipe.
+
+**Files:** `components/game/CardStack.tsx` (lines 120–132)
 
 **Impact:**
-- Slow initial load on mobile networks
-- High bandwidth usage
-- No progressive loading strategy
+- Preload link created but never awaited — browser may not fetch before card swipes
+- `useEffect` cleanup removes link on unmount, but image may still be downloading
+- If next card image is large, placeholder flash still visible on slow networks
+- No fallback if preload fails
+- Visual regression risk: slow networks show flash, fast networks don't
 
-**Remediation:**
-1. Convert WAV to compressed formats (MP3/OGG) with fallbacks
-2. Implement lazy loading for voice lines
-3. Use Web Audio API for procedural audio where possible
-4. Add service worker caching strategy
-
----
-
-### 8. Taskbar Overlapping Content (Partially Resolved)
-**Location:** [`.planning/debug/roast-window-mobile-cutoff.md`](.planning/debug/roast-window-mobile-cutoff.md), [`App.tsx`](App.tsx)  
-**Status:** Partially resolved but pattern remains  
-**Issue:** Fixed position taskbar (`h-12` at `bottom-0`) overlaps content. Main content only has `pb-2` (8px) bottom padding on mobile, but taskbar is 48px tall.
-
-**Evidence:**
-- Boot button cut off at bottom
-- Roast terminal obscured by fixed taskbar
-- Only 8px padding vs 48px taskbar = 40px overlap
-
-**Remediation:**
-1. Add `pb-12` (48px) to main content containers
-2. Use CSS `env(safe-area-inset-bottom)` for notched devices
-3. Consider sticky positioning instead of fixed
+**Fix approach:**
+1. Add timeout (e.g., 3s) — if image not loaded, clear timeout and allow placeholder flash
+2. Log preload start/end in dev mode to verify it's working
+3. Consider lazy-loading carousel-style (preload current + next, drop previous)
+4. Add test: verify image element has `loaded` state before card exits animation
+5. Add visual regression test: capture preload timing on slow throttled connection
 
 ---
 
-### 9. Hardcoded Animation Values
-**Location:** [`index.html:17-84`](index.html:17-84)  
-**Issue:** CSS custom properties define animation timing, but many animations use hardcoded values in keyframes:
+### 7. Unsubscribed Fetch Promises
 
-```css
-/* Inconsistent - some use variables, some don't */
-animation: fadeSlideIn var(--anim-medium) ...  /* Good */
-animation: glitch 0.3s ...                      /* Bad - hardcoded */
-animation: cursor-blink 1s ...                  /* Bad - hardcoded */
-```
+**Issue:** Fetch requests in `loadVoice` (line 87 of `voicePlayback.ts`) not aborted on unmount or hook cleanup.
+
+**Files:** `services/voicePlayback.ts` (line 87), `hooks/useVoicePlayback.ts` (lines 47–62)
 
 **Impact:**
-- Inconsistent animation timing across UI
-- Difficult to adjust globally
-- Violates design system consistency
+- `loadVoice().then().catch()` fire even if component unmounts — potential memory leak
+- `runVoiceCue()` called from effect but has no cleanup function (lines 41–62 of `useVoicePlayback.ts`)
+- If personality changes during voice load, old voice still loads in background
+- No `AbortController` to cancel in-flight requests
+- Network tab shows orphaned requests after navigation
 
-**Remediation:**
-1. Audit all animations and replace hardcoded values with CSS variables
-2. Create animation timing tokens: `--duration-fast`, `--duration-normal`, `--duration-slow`
-3. Document animation usage patterns
+**Fix approach:**
+1. Add `AbortController` parameter to `loadVoice()`: `loadVoice(key, trigger, signal)`
+2. Create abort controller in `useVoicePlayback` effect, return cleanup that calls `abort()`
+3. Handle abort errors gracefully (catch `DOMException` with name `AbortError`)
+4. Add timeout to voice load (e.g., 5s) — if slow network, skip and continue
+5. Test: unmount component during voice load, verify no errors in console
 
 ---
 
-## 🟢 Low Severity
+### 8. Stage Transition Validation Incomplete
 
-### 10. Missing TODO/FIXME Comments
-**Location:** Across codebase  
-**Issue:** Only 2 occurrences found:
-- [`tests/helpers/selectors.ts:14`](tests/helpers/selectors.ts:14) - DEBUG/DISABLE/PASTE/ENABLE text patterns
-- [`constants.ts:136`](constants.ts:136) - DEBUG_BOT sender name
+**Issue:** `VALID_TRANSITIONS` map enforces forward-only flow, but no exhaustiveness check or runtime validation.
+
+**Files:** `hooks/useGameState.ts` (lines 68–88)
 
 **Impact:**
-- Technical debt not documented
-- No explicit markers for known issues
-- Makes long-term maintenance harder
+- New `GameStage` enum values can be added without updating `VALID_TRANSITIONS` — silent invalid state possible
+- Invalid transition returns false (line 81) but dispatch still succeeds if not guarded
+- No TypeScript `satisfies` pattern to catch missing entries at compile time
+- Only logs in dev (line 86), production silently fails — player stuck in invalid state
+- No test coverage for each valid transition pair
 
-**Remediation:**
-1. Add TODO comments for known issues
-2. Use issue tracker integration (TODO → GitHub issue)
-3. Consider linting rule to flag TODOs in CI
+**Fix approach:**
+1. Change map to `as const satisfies Record<GameStage, GameStage[]>` to force exhaustiveness
+2. Throw instead of log on invalid transition (in all environments, not just dev)
+3. Add test for each transition pair to verify coverage
+4. Consider FSM library (e.g., `xstate`) if complexity grows further
+5. Add guard at dispatch: throw if transition invalid, never continue silently
 
 ---
 
-### 11. Playwright Tests Using Relaxed Matchers
-**Location:** [`tests/helpers/selectors.ts`](tests/helpers/selectors.ts)  
-**Issue:** Test selectors use case-insensitive regex fallbacks:
+### 9. Streaming Audio Buffer Edge Case
 
-```typescript
-leftButtonFallback: 'button:has-text(/DEBUG|DISABLE|REJECT/i)',
-rightButtonFallback: 'button:has-text(/PASTE|ENABLE|ACCEPT/i)',
-```
+**Issue:** Empty audio buffer marked as final (lines 222–230) but no verification buffer was non-empty earlier.
+
+**Files:** `services/geminiLive.ts` (lines 222–230)
 
 **Impact:**
-- Tests may pass incorrectly if button text changes
-- Case-insensitive matching can cause false positives
-- Reliance on fallback selectors indicates primary selectors may be unreliable
+- If API sends only `turnComplete` without audio chunks, empty buffer enqueued as "final"
+- Consumer expects at least one audio chunk before "final" marker — may cause playback silence
+- No check for `message.serverContent?.modelTurn?.parts?.length > 0` before enqueuing final
+- Could trigger audio end handler multiple times if turn completes multiple times
+- User hears nothing, confused about whether roast worked
 
-**Remediation:**
-1. Use data-testid attributes consistently
-2. Remove fallback selectors once primary selectors are stable
-3. Add accessibility labels and test via ARIA roles
-
----
-
-### 12. Package.json Scripts Limitation
-**Location:** [`package.json:6-11`](package.json:6-11)  
-**Issue:** Limited npm scripts available:
-- No `lint` script configured
-- No `format` (Prettier) script
-- No `typecheck` script
-- Only basic `dev`, `build`, `preview`, `test`
-
-**Remediation:**
-1. Add ESLint configuration and `lint` script
-2. Add Prettier configuration and `format` script
-3. Add `typecheck` script for TypeScript checking
-4. Add `test:ui` for Playwright UI mode
+**Fix approach:**
+1. Track whether any audio chunks enqueued — only enqueue final if at least one chunk sent
+2. Or: skip empty final chunk, just close stream
+3. Add test: mock API response with only `turnComplete`, no audio parts
+4. Log audio chunk count in dev mode for debugging
+5. Add safety: throw if turnComplete without audio parts (catch early in dev)
 
 ---
 
-### 13. Empty Task Files
-**Location:** [`tasks/todo.md`](tasks/todo.md), [`tasks/lessons.md`](tasks/lessons.md)  
-**Issue:** Task tracking files are empty (0 bytes each)
+## Known Issues
 
-**Remediation:**
-1. Populate with initial structure or remove
-2. Integrate with project management tool
-3. Add GitHub Issues/Projects integration
+### 1. Speech Recognition STT Transcript Deduplication
+
+**Issue:** Commented-out streaming transcript display (lines 135–142 of `RoastTerminal.tsx`) suggests duplicate state management.
+
+**Files:**
+- `hooks/useLiveAPISpeechRecognition.ts` — returns `transcript`
+- `components/game/RoastTerminal.tsx` — also tracks `_streamingTranscript` state
+
+**Symptoms:** Multiple sources of truth for transcription; streaming display disabled to avoid duplication.
+
+**Trigger:** User speaks into microphone, transcript appears and disappears.
+
+**Workaround:** Use only final transcript from `useLiveAPISpeechRecognition`; remove streaming state if not needed.
+
+**Test case:** Record voice, verify transcript updates only once with final result, no intermediate updates visible.
+
+---
+
+## Fragile Areas
+
+### 1. Deck Shuffling with Branching
+
+**Files:** `lib/deck.ts` (lines 9–33), `hooks/useGameState.ts` (lines 44–66)
+
+**Why fragile:**
+- `shuffleDeck()` modifies choice sides (lines 16–30); `resolveDeckWithBranching()` injects cards (line 64)
+- Order matters: if branching happens before shuffle, injected cards not shuffled. If after, shuffle doesn't respect branching flow.
+- No type safety: `branchInjections` is raw `Record<string, Card[]>` — typo in key = silent miss
+- Test mocking gaps (see Tech Debt #2) mean shuffle untested
+- No invariant verification: deck could be corrupted and not detected
+
+**Safe modification:**
+1. Document the deck resolution order (shuffle → branch injection) in comments
+2. Create factory function: `createEffectiveDeck(role, branchMap)` that enforces order
+3. Add integration test covering shuffle + branching together
+4. Add runtime checks: log deck size before/after operations for debugging
+5. Add assertion: verify deck always has unique card IDs
+
+---
+
+### 2. Image Fallback Chain
+
+**Files:** `components/ImageWithFallback.tsx`
+
+**Why fragile:**
+- Fallback image may also fail to load — no cascade fallback beyond placeholder color
+- Network error vs. 404 handled same way (both load fallback)
+- Real-world reference incident images lazy-loaded at card display time — if no image, blank space
+- No retry logic — single failed fetch = no image for session
+
+**Safe modification:**
+1. Add second fallback: placeholder with inline SVG (not dependent on network)
+2. Log which images fail to help debug missing assets
+3. Consider pre-validating incident images at build time (warn if missing)
+4. Add visual indicator (skeleton, loading spinner) while image loads
+5. Add retry with backoff: 1 retry after 2s delay
+
+---
+
+### 3. Boss Fight Timer State
+
+**Why fragile:**
+- Timer countdown driven by `useEffect` dependency on `isAnswered` (if present)
+- No explicit cleanup of interval on unmount — potential timer leak
+- If boss fight exits unexpectedly, timer may still fire and dispatch stale actions
+- No max duration guard — timer could count forever
+
+**Safe modification:**
+1. Read file `hooks/useBossFight.ts` to verify timer cleanup pattern
+2. Add explicit interval cleanup in return statement of effect
+3. Test: unmount during countdown, verify no dispatch after unmount
+4. Add timeout guard: max 30s absolute, auto-exit if exceeded
+5. Clear all intervals on stage change away from BOSS_FIGHT
+
+---
+
+## Test Coverage Gaps
+
+### 1. Fisher-Yates Shuffle Algorithm
+
+**What's not tested:** Shuffled deck distribution, uniform randomness, choice-side swapping.
+
+**Files:** `lib/deck.ts` (lines 9–33)
+
+**Risk:** Shuffled deck could bias toward first/last card without detection. Choice-side swap logic could break silently.
+
+**Priority:** HIGH — affects gameplay fairness
+
+**Test approach:** Use seeded RNG with known values, verify output matches expectations
+
+---
+
+### 2. Image Preload Timing
+
+**What's not tested:** Whether image is actually cached before card swipes off-screen.
+
+**Files:** `components/game/CardStack.tsx` (lines 120–132)
+
+**Risk:** Placeholder flash visible if image slow to load.
+
+**Priority:** MEDIUM — visual polish, not critical
+
+**Test approach:** Mock slow network, measure image load time vs. swipe time
+
+---
+
+### 3. Gemini Live API Connection Lifecycle
+
+**What's not tested:**
+- Timeout firing before `onopen`
+- Early disconnect after connect
+- Rapid reconnects
+- Empty audio buffer handling
+
+**Files:** `services/geminiLive.ts` (lines 72–277)
+
+**Risk:** Roast feature freezes if API hangs; user waits indefinitely.
+
+**Priority:** HIGH — blocks core feature
+
+**Test approach:** Mock WebSocket with delayed onopen, verify timeout works
+
+---
+
+### 4. Stage Transition Exhaustiveness
+
+**What's not tested:** Attempting invalid transitions; new `GameStage` values without updating `VALID_TRANSITIONS`.
+
+**Files:** `hooks/useGameState.ts` (lines 68–88)
+
+**Risk:** Invalid state reachable; breaking level progression.
+
+**Priority:** MEDIUM — only if stages added frequently
+
+**Test approach:** Generate all stage pair combinations, verify only valid ones succeed
+
+---
+
+## Performance Bottlenecks
+
+### 1. RAF + setTimeout Interleaving
+
+**Problem:** RAF handler (line 120 of `useSwipeGestures.ts`) sometimes cancels itself (line 116–118) if another move event arrives mid-frame.
+
+**Files:** `hooks/useSwipeGestures.ts` (lines 105–162)
+
+**Cause:** `lastDeltaX`/`lastDeltaY` updated synchronously; pending RAF may flip to different delta before executing.
+
+**Measurement:** Profile swipe on low-end device to detect jank
+
+**Improvement path:**
+1. Profile swipe gestures on low-end device to measure frame drops
+2. If problematic: consolidate RAF + setTimeout — use single RAF loop for all state updates
+3. Or: increase RAF cancel guard (check if delta actually changed before cancelling)
+
+---
+
+### 2. Image Preload Document Manipulation
+
+**Problem:** DOM insertion/removal on every card change (lines 122–131 of `CardStack.tsx`).
+
+**Files:** `components/game/CardStack.tsx` (lines 120–132)
+
+**Cause:** Creates link, appends, removes on next card or unmount — multiple reflows.
+
+**Measurement:** Use Performance API to measure reflow cost
+
+**Improvement path:**
+1. Use single preload link, update `href` instead of creating new
+2. Or: batch preloads (preload current + next in one effect)
+3. Add performance observer to measure impact
+4. Consider: is preload necessary or just defer to browser heuristics?
+
+---
+
+## Scaling Limits
+
+### 1. Deck Branching Injection
+
+**Current capacity:** `resolveDeckWithBranching()` handles single branch key lookup (line 55–56 of `lib/deck.ts`).
+
+**Limit:** If multiple branch paths possible (choice1 + choice2 = different branches), current code only reads last choice.
+
+**Files:** `lib/deck.ts` (lines 44–66)
+
+**Scaling path:**
+1. Extend to multi-choice branching: `branchKey = [choice1, choice2, ...].join(':')`
+2. Add test: verify 2–3 branch nesting works without deck corruption
+3. Document max nesting depth
+4. Consider: how many branches before lookup performance degrades?
+
+---
+
+### 2. localStorage State Persistence
+
+**Current capacity:** Game state hydration from localStorage (via `getHydratedState()`) — unbounded history array possible.
+
+**Limit:** If player plays many games, history array grows indefinitely, hydration slows.
+
+**Files:** `hooks/useGameState.ts` (line 38: `history: []`)
+
+**Scaling path:**
+1. Cap history to last 100 entries
+2. Or: move history to IndexedDB for large saves
+3. Add memory estimate: history size after 10, 50, 100 choices
+4. Measure: localStorage quota warning at 5MB
+
+---
+
+## Dependencies at Risk
+
+### 1. Gemini 2.5 Flash Native Audio API
+
+**Risk:** API is `v1alpha` (line 90 of `services/geminiLive.ts`), subject to breaking changes.
+
+**Files:** `services/geminiLive.ts` (line 90)
+
+**Impact:** TTS, roast, boss fight audio depend on this. API deprecation = feature loss.
+
+**Migration plan:**
+1. Monitor Google AI docs for `v1alpha` → `v1beta` release
+2. Add feature flag: `VITE_USE_LEGACY_TTS` to fallback to `geminiService.ts` (REST API)
+3. Keep `getQuickRoast()` as fallback (line 301–323) — uses stable REST API
+4. Document: which endpoints are alpha, which are stable
+
+---
+
+### 2. Vite `import.meta.env` Access During Build
+
+**Risk:** Environment variables injected at build time, not runtime.
+
+**Files:** Multiple (e.g., `services/geminiLive.ts` line 76)
+
+**Impact:** `VITE_GEMINI_API_KEY` missing at build = runtime error, not build error.
+
+**Mitigation:**
+1. Add build-time check: throw if `VITE_GEMINI_API_KEY` missing
+2. Or: use runtime env fetch (needs backend proxy)
+3. Document in `.env.example` all required vars
+4. Add CI check: verify all env vars set before build
 
 ---
 
 ## Security Considerations
 
-### ENV Variable Exposure Pattern
-**Location:** [`services/geminiLive.ts:255`](services/geminiLive.ts:255)  
-**Pattern:** API keys accessed via `import.meta.env.VITE_GEMINI_API_KEY`
+### 1. Gemini API Key Exposure in Ephemeral Token Exchange
 
-**Risk Level:** Low (expected for client-side with proper CORS)  
-**Mitigation:** Ensure API routes have proper CORS and rate limiting
+**Risk:** Browser makes direct fetch to Google API with API key (line 39 of `geminiLive.ts`).
 
-### Local Storage Usage
-**Search:** No localStorage/sessionStorage usage found  
-**Status:** ✅ No concerns
+**Files:** `services/geminiLive.ts` (lines 38–63)
 
----
+**Current mitigation:** Ephemeral token API returns short-lived token, key not exposed to WebSocket.
 
-## Performance Analysis
-
-### Bundle Size Concerns
-| File | Size | Impact |
-|------|------|--------|
-| `constants.ts` | ~23KB | Loaded eagerly, not tree-shakeable |
-| Audio assets | ~3.5MB | Large uncompressed WAV files |
-| Tailwind CDN | Variable | External dependency, not optimized |
-
-### Key Metrics
-- **NO_FCP Error:** All Lighthouse tests fail
-- **Total Lines:** ~5,500 (excluding tests and node_modules)
-- **Largest File:** `constants.ts` at 518 lines
+**Recommendations:**
+1. Add CORS headers validation: only accept ephemeral token from `generativelanguage.googleapis.com`
+2. Add rate limiting on token endpoint (IP or client-side backoff)
+3. Consider backend proxy: `/api/ephemeral-token` instead of direct fetch
+4. Document: token expiration (1 hour) and refresh strategy
+5. Monitor: add warning if token refresh fails repeatedly
 
 ---
 
-## Recommendations Summary
+### 2. localStorage State Injection in Tests
 
-### Immediate Actions (This Sprint)
-1. **Fix CSS containing block issue** - Move overlay outside transformed container
-2. **Split constants.ts** - Separate into role-specific data files
-3. **Add padding for taskbar** - Fix mobile cutoff issues
+**Risk:** Test helpers write game state directly to localStorage (seen in PLAYWRIGHT_TESTING_QUICK_START.md).
 
-### Short-term (Next 2 Sprints)
-4. Bundle Tailwind CSS and remove CDN dependency
-5. Implement error boundaries and user-facing error handling
-6. Convert audio files to compressed formats
-7. Fix Lighthouse NO_FCP errors for performance baseline
+**Files:** Test files reference localStorage injection
 
-### Long-term (Next Quarter)
-8. Implement SSR or prerendering
-9. Add comprehensive linting (ESLint, Prettier)
-10. Set up error tracking (Sentry)
-11. Implement service worker for offline support
+**Current mitigation:** Only in test environment.
+
+**Recommendations:**
+1. Clear localStorage between test runs to prevent state bleed
+2. Use separate test session storage (don't reuse prod key)
+3. Never commit test localStorage snapshots to git
+4. Add test isolation check: verify localStorage empty before each test
 
 ---
 
-## Related Documents
+## Missing Critical Features
 
-- [TESTING.md](TESTING.md) - Testing strategy and coverage
-- [ARCHITECTURE.md](ARCHITECTURE.md) - System design overview
-- [`.planning/debug/`](.planning/debug/) - Active and resolved debug issues
-- [`.planning/codebase/STACK.md`](STACK.md) - Technology stack documentation
+### 1. Voice Playback Error Recovery
+
+**Problem:** If voice.mp3 fetch fails (line 87 of `voicePlayback.ts`), no fallback.
+
+**Files:** `services/voicePlayback.ts` (line 87), `hooks/useVoicePlayback.ts` (lines 47–62)
+
+**Blocks:** If voice files deleted/moved, feedback audio silent — gameplay confused.
+
+**Recommendation:**
+1. Add fallback: text-to-speech via Gemini if file missing
+2. Or: warn user with toast notification
+3. Log failed URLs for debugging
+4. Implement graceful degradation: game playable without audio
+
+---
+
+### 2. Streamed Audio Interruption Handling
+
+**Problem:** If roast audio starts playing, user can't interrupt (no stop button visible during playback).
+
+**Files:** `services/voicePlayback.ts`, `hooks/useVoicePlayback.ts`
+
+**Blocks:** Long roasts force user to wait or mute speaker.
+
+**Recommendation:**
+1. Add skip/stop button during playback
+2. Expose `stopVoice()` from hook for UI to call
+3. Test: verify clicking stop during playback works
+4. Allow skipping to next screen while audio plays
+
+---
+
+## Summary
+
+| Category | Count | Severity |
+|----------|-------|----------|
+| Tech Debt | 9 | HIGH (5), MEDIUM (3), LOW (1) |
+| Known Bugs | 1 | MEDIUM |
+| Fragile Areas | 3 | MEDIUM–HIGH |
+| Test Gaps | 4 | HIGH (2), MEDIUM (2) |
+| Security | 2 | LOW (token handling acceptable) |
+| Missing Features | 2 | MEDIUM |
+
+**Top 3 Immediate Priorities:**
+
+1. **Fix Fisher-Yates test mocking** (Tech Debt #2) — affects shuffle fairness, untested algorithm. Impact: HIGH, Effort: MEDIUM
+2. **Add Gemini Live timeout recovery** (Tech Debt #3) — roast feature can hang indefinitely. Impact: HIGH, Effort: MEDIUM
+3. **Add gesture state consolidation** (Tech Debt #1) — reduce RAF/timeout fragility in swipe handler. Impact: MEDIUM, Effort: MEDIUM
+
+---
+
+*Concerns audit: 2026-03-28*

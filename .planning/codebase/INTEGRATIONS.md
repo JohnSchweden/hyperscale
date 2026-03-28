@@ -1,354 +1,178 @@
-# K-Maru External Integrations
+# External Integrations
 
-## Overview
+**Analysis Date:** 2026-03-28
 
-K-Maru integrates with several external services to provide AI-powered gameplay features, voice synthesis, and deployment. This document details all external dependencies, their configurations, and usage patterns.
+## APIs & External Services
 
----
+**Google Generative AI (Gemini):**
+- Service: Google Generative AI API for text generation, TTS, and Live Audio
+  - TTS: `gemini-2.5-flash-preview-tts` model for text-to-speech
+  - Roast generation: `gemini-2.5-flash-lite` or `gemini-2.5-flash` (fallback chain)
+  - Live API: `gemini-2.5-flash-native-audio-latest` for streaming audio interaction
+  - SDK/Client: `@google/generative-ai` (v0.24.1 for REST), `@google/genai` (v1.40.0 for Live API)
+  - Auth (server): `GEMINI_API_KEY` via `process.env` (checked in `api/speak.ts:13`, `api/roast.ts:28`)
+  - Auth (client): `VITE_GEMINI_API_KEY` via `import.meta.env` (checked in `services/geminiLive.ts:76`)
+  - Ephemeral token: Obtained via POST to `https://generativelanguage.googleapis.com/v1beta/tokens?key={apiKey}` (1-hour expiry)
 
-## AI Services
+**Resend Email Service (Optional):**
+- Service: Transactional email delivery for v2 waitlist signups
+  - Purpose: Send confirmation emails to waitlist subscribers
+  - SDK/Client: Fetch API (custom HTTP calls in `api/v2-waitlist.ts`)
+  - Auth: `RESEND_API_KEY` via `process.env` (checked in `api/v2-waitlist.ts:55`)
+  - Endpoint: `https://api.resend.com/emails`
+  - Fallback: Dev mode logs email instead of sending (see `api/v2-waitlist.ts:93-94`)
 
-### Google Gemini API
+**Vercel Analytics:**
+- Service: Usage metrics and analytics collection
+  - SDK/Client: `@vercel/analytics/react`
+  - Mounted: `<Analytics />` component in `App.tsx:1`
+  - No configuration needed; automatically sends metrics to Vercel dashboard
 
-**Primary AI provider for all dynamic content generation.**
+## Data Storage
 
-#### SDK
-- **Package:** `@google/genai` v1.40.0
-- **Documentation:** https://ai.google.dev/
+**Databases:**
+- None. Game state is ephemeral (session-only, stored in React state via `useGameState`)
+- Waitlist signups validated but not persisted (only logged to console in dev)
 
-#### Models Used
+**File Storage:**
+- Local filesystem only
+  - Audio assets: `public/audio/voices/`, `public/audio/music/`
+  - Images: `public/images/`
+  - No cloud storage service (S3, GCS, etc.)
 
-| Model | Purpose | Fallback Order |
-|-------|---------|----------------|
-| `gemini-2.5-flash-lite` | Roast generation (fast, cost-effective) | Primary |
-| `gemini-2.5-flash` | Roast generation (higher quality) | Secondary |
-| `gemini-2.5-flash-preview-tts` | Text-to-speech synthesis | Primary |
+**Caching:**
+- Browser HTTP cache for static assets (CSS, JS, audio files)
+- No explicit caching layer (Redis, Memcached, etc.)
 
-#### API Routes
+## Authentication & Identity
 
-##### 1. Roast Generation (`/api/roast.ts`)
+**Auth Provider:**
+- None (no user login/registration)
+- Email validation only (regex check in `api/v2-waitlist.ts:4-8`)
 
-Generates personality-driven AI roasts based on user workflows.
+**Implementation:**
+- No session management
+- No user accounts or auth flow
+- Ephemeral token auth for Gemini Live API (obtained via Google API endpoint)
+  - Token life: ~1 hour (expires automatically)
+  - No manual token refresh needed in client code
 
-```typescript
-// Request
-POST /api/roast
-{
-  "workflow": "string",      // User's AI workflow description
-  "personality": "ROASTER" | "ZEN_MASTER" | "LOVEBOMBER"
-}
+## Monitoring & Observability
 
-// Response
-{
-  "text": "string"           // Generated roast (under 50 words)
-}
-```
+**Error Tracking:**
+- None configured (Sentry, Datadog, etc.)
+- Console logging only: `console.error()`, `console.warn()`, `console.log()`
 
-**Implementation Details:**
-- Fallback chain: `gemini-2.5-flash-lite` → `gemini-2.5-flash`
-- Personality-specific tone instructions
-- Analyzes workflow for public vs. private tool usage
-- Error response: "The auditors found your workflow so bad they broke my AI."
+**Logs:**
+- Browser console (dev tools)
+- Server-side logs via Vercel function logs
+- No centralized logging service
 
-##### 2. Text-to-Speech (`/api/speak.ts`)
+**Analytics:**
+- Vercel Analytics (`@vercel/analytics/react`)
+  - Automatically captures page views, interactions, performance metrics
+  - Sent to Vercel dashboard (no additional config needed)
 
-Converts text to speech using Gemini's native TTS capability.
+## CI/CD & Deployment
 
-```typescript
-// Request
-POST /api/speak
-{
-  "text": "string",          // Text to synthesize
-  "voiceName": "Kore"        // Optional, defaults to "Kore"
-}
+**Hosting:**
+- Vercel platform (serverless functions)
+- Deployments via git (auto-deploy on push)
 
-// Response
-{
-  "audio": "base64string"    // Base64-encoded PCM audio
-}
-```
+**CI Pipeline:**
+- GitHub Actions (inferred from `process.env.CI` checks in `playwright.config.ts:6-8, 18, 21-23`)
+- Pre-commit hooks via Husky:
+  - `lint-staged` runs Biome on staged files: `*.{ts,tsx,js,jsx,json}`
+  - Command: `biome check --write`
 
-**Implementation Details:**
-- Returns 24kHz mono PCM audio
-- Available voices: `Kore`, `Puck`, `Zephyr` (mapped to personalities)
-- Client-side decoding via [`services/geminiService.ts`](services/geminiService.ts:1)
-
-#### Authentication
-
-**Environment Variables:**
-```bash
-# Server-side (Vercel functions)
-GEMINI_API_KEY=your_api_key_here
-
-# Client-side (browser)
-VITE_GEMINI_API_KEY=your_api_key_here
-```
-
-**Security:**
-- Server-side key used in API routes (protected)
-- Client-side key for direct browser access (if needed)
-- Keys stored in Vercel environment variables
-
----
-
-## Voice & Audio
-
-### Web Audio API
-
-**Client-side audio playback for real-time TTS.**
-
-**Usage:** [`services/geminiService.ts`](services/geminiService.ts:1)
-
-```typescript
-// AudioContext initialization
-audioContext = new (window.AudioContext || window.webkitAudioContext)({ 
-  sampleRate: 24000  // Matches Gemini TTS output
-});
-
-// Decoding PCM16 to AudioBuffer
-const dataInt16 = new Int16Array(data.buffer);
-const frameCount = dataInt16.length / numChannels;
-const buffer = ctx.createBuffer(numChannels, frameCount, sampleRate);
-```
-
-**Features:**
-- 24kHz sample rate (matches Gemini output)
-- Mono channel configuration
-- Audio buffer source nodes for playback
-- Proper cleanup on component unmount
-
-### HTML5 Audio API
-
-**Pre-recorded voice file playback.**
-
-**Usage:** [`services/voicePlayback.ts`](services/voicePlayback.ts:1)
-
-```typescript
-// Loading and playing voice files
-const response = await fetch('/audio/voices/roaster/onboarding.wav');
-const arrayBuffer = await response.arrayBuffer();
-const audioBlob = new Blob([audioData], { type: 'audio/wav' });
-const audioUrl = URL.createObjectURL(audioBlob);
-
-const audio = new Audio(audioUrl);
-audio.volume = 0.6;  // 60% volume
-await audio.play();
-```
-
-**Voice Assets:**
-
-| Personality | Voice | Files |
-|-------------|-------|-------|
-| V.E.R.A. (Roaster) | Puck | `onboarding.wav`, `victory.wav`, `failure.wav` |
-| BAMBOO (Zen Master) | Zephyr | `onboarding.wav`, `victory.wav`, `failure.wav` |
-| HYPE-BRO (Lovebomber) | Kore | `onboarding.wav`, `victory.wav`, `failure.wav` |
-
-**Additional Feedback Files:**
-- `roaster/feedback_debug.wav`
-- `roaster/feedback_ignore.wav`
-- `roaster/feedback_install.wav`
-- `roaster/feedback_paste.wav`
-
----
-
-## Deployment Platform
-
-### Vercel
-
-**Primary hosting and serverless function platform.**
-
-#### Configuration
-
-**Serverless Functions:**
-- **Location:** `/api/*.ts` files
-- **Runtime:** Node.js with `@vercel/node` types
-- **Routing:** Automatic based on file structure
-
-```typescript
-// api/roast.ts - Vercel function signature
-import type { VercelRequest, VercelResponse } from '@vercel/node';
-
-export default async function handler(
-  req: VercelRequest, 
-  res: VercelResponse
-) {
-  // Function implementation
-}
-```
-
-#### Routes
-
-| Route | File | Purpose |
-|-------|------|---------|
-| `/api/roast` | `api/roast.ts` | AI roast generation |
-| `/api/speak` | `api/speak.ts` | Text-to-speech synthesis |
-
-#### Local Development
-
-**Proxy Configuration (Vite):**
-```typescript
-// vite.config.ts
-server: {
-  proxy: {
-    '/api': {
-      target: 'http://localhost:3001',
-      changeOrigin: true,
-    },
-  },
-}
-```
-
-**Local API Server:**
-```bash
-# Using Bun
-bun run scripts/local-api.ts
-```
-
----
-
-## CDN Resources
-
-### Tailwind CSS
-- **URL:** `https://cdn.tailwindcss.com`
-- **Usage:** Utility-first styling
-- **Loaded:** In [`index.html`](index.html:15)
-
-### Font Awesome
-- **URL:** `https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css`
-- **Usage:** Icon system
-- **Loaded:** In [`index.html`](index.html:16)
-
-### Google Fonts
-- **URL:** `https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=optional`
-- **Usage:** Typography
-- **Loaded:** In [`index.html`](index.html:18) via CSS `@import`
-
----
+**Build Process:**
+- `bun run build` → Vite compiles TypeScript/JSX, CSS (Tailwind), outputs to `dist/`
+- Vite injects `VITE_*` env vars at build time (via `vite.config.ts` custom loader)
+- Server-side API routes served from `api/` directory (Vercel serverless)
 
 ## Environment Configuration
 
-### Required Environment Variables
+**Required env vars (Production - Server):**
+- `GEMINI_API_KEY` - For server-side API routes (`api/speak.ts`, `api/roast.ts`)
 
-```bash
-# .env.example
+**Required env vars (Production - Client):**
+- `VITE_GEMINI_API_KEY` - For Gemini Live API (browser-based streaming audio)
 
-# Client-side API key (used by frontend code)
-VITE_GEMINI_API_KEY=your_api_key_here
+**Optional env vars:**
+- `VITE_ENABLE_SPEECH` - Feature flag for TTS UI (default: "true", can set to "false" to disable)
+- `VITE_ENABLE_LIVE_API` - Feature flag for Gemini Live API streaming
+- `VITE_STT_LOW_LATENCY` - Low-latency speech-to-text mode (experimental, checked in `hooks/useLiveAPISpeechRecognition.ts:78`)
+- `RESEND_API_KEY` - For v2 waitlist email confirmations (dev fallback: logs only)
 
-# Server-side API key (used by Vercel API routes)
-GEMINI_API_KEY=your_api_key_here
+**Secrets location:**
+- `.env` file (git-ignored in `.gitignore`, never committed)
+- `.env.local` file (git-ignored, local development overrides)
+- Vercel Project Settings → Environment Variables (for production deployment)
 
-# Client-side flag to disable TTS
-VITE_ENABLE_SPEECH=false
-```
+## Webhooks & Callbacks
 
-### Variable Prefixes
+**Incoming:**
+- None configured. No incoming webhooks from external services.
 
-| Prefix | Scope | Usage |
-|--------|-------|-------|
-| `VITE_` | Client-side | Accessible in browser code via `import.meta.env` |
-| No prefix | Server-side | Vercel functions only |
-
----
-
-## Integration Architecture
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                      Client (Browser)                        │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────────┐  │
-│  │  React App   │  │ Web Audio API│  │ HTML5 Audio API  │  │
-│  │              │  │  (TTS play)  │  │ (voice files)    │  │
-│  └──────┬───────┘  └──────────────┘  └──────────────────┘  │
-│         │                                                    │
-│         │ fetch('/api/roast')                                │
-│         │ fetch('/api/speak')                                │
-│         ▼                                                    │
-│  ┌──────────────┐                                            │
-│  │  Vite Proxy  │  (dev only)                                │
-│  │  localhost   │                                            │
-│  └──────┬───────┘                                            │
-└─────────┼────────────────────────────────────────────────────┘
-          │
-          ▼
-┌─────────────────────────────────────────────────────────────┐
-│                    Vercel (Production)                       │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────────┐  │
-│  │ /api/roast   │  │ /api/speak   │  │ Static Assets    │  │
-│  │  (Node.js)   │  │  (Node.js)   │  │ (audio/voices)   │  │
-│  └──────┬───────┘  └──────┬───────┘  └──────────────────┘  │
-│         │                  │                                 │
-│         └──────────────────┘                                 │
-│                    │                                         │
-│         ┌──────────▼──────────┐                             │
-│         │   Google Gemini API │                             │
-│         │   @google/genai     │                             │
-│         └─────────────────────┘                             │
-└─────────────────────────────────────────────────────────────┘
-```
+**Outgoing:**
+- None configured. Game does not send webhooks to external services.
 
 ---
 
-## Error Handling
+## Integration Details
 
-### AI Service Failures
+### Gemini TTS (Text-to-Speech)
 
-**Roast Generation:**
-- Attempts primary model, falls back to secondary
-- Returns witty error message if all models fail
-- Logs errors to console for debugging
+**File:** `api/speak.ts`
+- Endpoint: `/api/speak` (POST)
+- Request body: `{ text: string, voiceName?: string }`
+  - Default voice: "Kore"
+  - Available voices: mapped via personality type
+- Response: `{ audio: string }` (base64-encoded PCM) or `{ error: string }`
+- Gemini API call: POST to `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent`
+- Audio format: PCM (16-bit, 24kHz sample rate, single channel)
+- Decoded client-side: `services/geminiService.ts:14-31` converts base64 to AudioBuffer
 
-**TTS Generation:**
-- Validates API key presence
-- Returns 500 with descriptive error message
-- Client gracefully handles missing audio
+### Gemini Roast Generation
 
-### Audio Playback
+**File:** `api/roast.ts`
+- Endpoint: `/api/roast` (POST)
+- Request body: `{ workflow: string, personality: "ROASTER" | "ZEN_MASTER" | "LOVEBOMBER" }`
+- Response: `{ text: string }` (roast commentary under 80 words) or `{ error: string }`
+- Fallback chain: tries `gemini-2.5-flash-lite` first, then `gemini-2.5-flash` (line 48)
+- Gemini API call: POST to `https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent`
+- Error response: "The auditors found your workflow so bad they broke my AI." (fallback)
 
-**Web Audio API:**
-- Handles suspended AudioContext (browser autoplay policies)
-- Cleans up source nodes to prevent memory leaks
-- Feature flag `VITE_ENABLE_SPEECH` to disable entirely
+### Gemini Live API (Streaming Audio)
 
-**HTML5 Audio:**
-- Preload audio files
-- Error messages mapped to personality voice
-- Volume fixed at 60% to prevent audio shock
+**File:** `services/geminiLive.ts`
+- Browser-direct WebSocket connection (no backend proxy)
+- Authentication: Ephemeral token (obtained via POST to `https://generativelanguage.googleapis.com/v1beta/tokens?key={apiKey}`)
+  - Token expires ~1 hour after issuance
+  - Endpoint: `getEphemeralToken()` at line 38
+- Model: `gemini-2.5-flash-native-audio-latest` (line 95)
+- Features:
+  - Streaming audio response (24kHz) via WebSocket
+  - Personality-specific system instructions (defined at lines 282-295)
+  - Input transcription (user speech-to-text, handled at line 206)
+  - Output transcription (AI response text, handled at line 186)
+  - Timeout: 15 seconds for connection (line 121)
+- Error handling: Falls back to `getQuickRoast()` (line 301) if Live API unavailable
+- Used by: `useRoast` hook (consumed for gameplay roasts)
+
+### V2 Waitlist Email Signup
+
+**File:** `api/v2-waitlist.ts`
+- Endpoint: `/api/v2-waitlist` (POST)
+- Request body: `{ email: string, role: string, archetype: string, resilience: number, timestamp: number }`
+- Validation: Email regex (line 4), required fields (line 10-24)
+- Response: `{ success: true, message: string, email: string }` or `{ error: string }`
+- Email service:
+  - Production: Resend API if `RESEND_API_KEY` set (line 55)
+  - Development: Logs signup to console (line 94)
+  - Resend API call: POST to `https://api.resend.com/emails` with header `Authorization: Bearer {RESEND_API_KEY}`
+  - Email template: HTML confirmation with role/archetype/resilience info (lines 67-75)
 
 ---
 
-## Rate Limits & Quotas
-
-### Google Gemini API
-
-| Model | Rate Limit | Quota |
-|-------|------------|-------|
-| gemini-2.5-flash-lite | Check Google AI Studio | Per-project |
-| gemini-2.5-flash | Check Google AI Studio | Per-project |
-| gemini-2.5-flash-preview-tts | Check Google AI Studio | Per-project |
-
-**Best Practices:**
-- Implement client-side caching for repeated content
-- Use `gemini-2.5-flash-lite` as primary for cost efficiency
-- Monitor usage in Google Cloud Console
-
----
-
-## Security Considerations
-
-1. **API Key Storage:**
-   - Server-side keys in Vercel environment variables
-   - Client-side keys prefixed with `VITE_`
-   - Never commit `.env` files (see `.gitignore`)
-
-2. **CORS:**
-   - API routes handle CORS via Vercel's default behavior
-   - Proxy in development avoids CORS issues
-
-3. **Input Validation:**
-   - API routes validate required fields
-   - TypeScript ensures type safety at build time
-
-4. **Content Security:**
-   - CDN resources use HTTPS
-   - Audio files served from same origin
+*Integration audit: 2026-03-28*

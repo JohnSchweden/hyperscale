@@ -1,605 +1,430 @@
-# K-Maru Project Structure
+# Codebase Structure
 
-> Complete directory and file organization reference
+**Analysis Date:** 2026-03-28
 
-## Table of Contents
-
-- [Directory Overview](#directory-overview)
-- [Directory Tree](#directory-tree)
-- [Source Files](#source-files)
-- [Component Organization](#component-organization)
-- [Hooks Organization](#hooks-organization)
-- [Services Layer](#services-layer)
-- [API Routes](#api-routes)
-- [Testing Structure](#testing-structure)
-- [Public Assets](#public-assets)
-- [Configuration Files](#configuration-files)
-- [Scripts & Tools](#scripts--tools)
-
----
-
-## Directory Overview
+## Directory Layout
 
 ```
 swiperisk/
-├── Root Config & Entry Points
-│   ├── index.tsx          # React application entry
-│   ├── App.tsx            # Root component with stage routing
-│   ├── types.ts           # Shared TypeScript definitions
-│   └── constants.ts       # Game data (cards, personalities, etc.)
+├── Root Files
+│   ├── index.tsx              # React entry point
+│   ├── index.html             # HTML template
+│   ├── App.tsx                # Root component (stage router)
+│   ├── types.ts               # All shared TypeScript definitions
+│   └── styles.css             # Global CSS (minimal, mostly Tailwind)
 │
-├── components/            # React components
-│   ├── LayoutShell.tsx    # Responsive layout wrapper
-│   └── game/              # Game stage components
+├── components/                # React components
+│   ├── index.ts               # (Not exported; components in subdirs)
+│   ├── LayoutShell.tsx        # Responsive layout wrapper
+│   ├── ImageWithFallback.tsx  # Image component with fallback
+│   ├── game/                  # Game screen components
+│   │   ├── index.ts           # Barrel export of game components
+│   │   ├── IntroScreen.tsx    # Welcome/start screen
+│   │   ├── PersonalitySelect.tsx
+│   │   ├── RoleSelect.tsx
+│   │   ├── InitializingScreen.tsx
+│   │   ├── GameScreen.tsx     # Main gameplay orchestration
+│   │   ├── CardStack.tsx      # Swipeable card stack component
+│   │   ├── GameHUD.tsx        # Hype/heat/budget display
+│   │   ├── FeedbackOverlay.tsx # Modal overlay for choice consequences
+│   │   ├── RoastTerminal.tsx  # AI roast chat input
+│   │   ├── Taskbar.tsx        # Windows 95-style status bar
+│   │   ├── PressureCueController.tsx
+│   │   ├── StarfieldBackground.tsx # Starfield animation + BGM UI
+│   │   ├── BossFight.tsx      # Boss quiz interface
+│   │   ├── debrief/           # Debrief page components
+│   │   │   ├── DebriefContainer.tsx
+│   │   │   ├── DebriefPage1Collapse.tsx
+│   │   │   ├── DebriefPage2AuditTrail.tsx
+│   │   │   └── DebriefPage3Verdict.tsx
+│   │   └── selectionStageStyles.ts
+│   └── dev/
+│       └── WebMCPToolsProvider.tsx # Dev-only MCP tools (lazy-loaded)
 │
-├── hooks/                 # Custom React hooks
-│   ├── index.ts           # Barrel export
-│   └── use[Name].ts       # Individual hooks
+├── hooks/                     # Custom React hooks
+│   ├── index.ts               # Barrel export
+│   ├── useGameState.ts        # Core state machine (useReducer)
+│   ├── useGameState/          # Game state submodules
+│   │   ├── index.ts
+│   │   ├── deathResolver.ts   # Death type determination
+│   │   └── hydration.ts       # State persistence/loading
+│   ├── useSwipeGestures.ts    # Touch/mouse gesture tracking
+│   ├── useVoicePlayback.ts    # TTS audio playback management
+│   ├── useBossFight.ts        # Boss quiz state machine
+│   ├── useRoast.ts            # AI roast generation
+│   ├── useIncidentPressure.ts # Countdown + urgency logic
+│   ├── useBackgroundMusic.ts  # BGM playlist + volume control
+│   ├── useCountdown.ts        # Generic countdown timer
+│   ├── useClock.ts            # Current time display
+│   ├── useDebrief.ts          # Debrief navigation + archetype calc
+│   ├── useStageReady.ts       # Ghost-click prevention
+│   ├── useArchetype.ts        # (Unused; logic in useDebrief)
+│   ├── useEmailCapture.ts     # V2 waitlist email capture
+│   ├── useUnlockedEndings.ts
+│   ├── useLiveAPISpeechRecognition.ts
+│   ├── usePressureAudio.ts
+│   ├── useSpeechRecognition.ts
+│   └── useWebMCPTools.ts      # Dev: WebMCP tool registration
 │
-├── services/              # Business logic & external APIs
-│   ├── geminiService.ts   # Google Gemini integration
-│   └── voicePlayback.ts   # Audio playback management
+├── services/                  # Business logic & API wrappers
+│   ├── geminiService.ts       # Gemini 2.5 TTS API
+│   ├── geminiLive.ts          # Live API integration
+│   ├── roastService.ts        # AI roast generation
+│   ├── voicePlayback.ts       # Web Audio API wrapper
+│   ├── pressureAudio.ts       # Countdown audio + context
+│   ├── kirkAudio.ts           # Easter egg audio effects
+│   ├── radioEffect.ts         # Audio processing
+│   └── audioUtils.ts          # Audio utilities
 │
-├── api/                   # Vercel serverless functions
-│   ├── roast.ts           # /api/roast endpoint
-│   └── speak.ts           # /api/speak endpoint
+├── lib/                       # Pure algorithms & utilities
+│   ├── deck.ts                # Shuffle (Fisher-Yates) + branching
+│   ├── deck.test.ts           # Deck algorithm tests
+│   ├── feedbackAudioChoice.ts # Feedback audio path resolution
+│   ├── formatting.ts          # String formatting
+│   ├── slugify.ts             # URL slug generation
+│   ├── safeCoercion.ts        # Type coercion utilities
+│   ├── audio.ts               # Audio utility functions
+│   └── gif-overlay.ts         # GIF overlay rendering
 │
-├── tests/                 # Playwright E2E tests
-│   ├── *.spec.ts          # Test suites
-│   └── helpers/           # Test utilities
+├── utils/                     # Frontend utilities
+│   ├── haptic.ts              # Haptic feedback (vibration)
+│   ├── kirkText.ts            # Kirk Easter Egg text helpers
+│   └── linkedin-share.ts      # Social sharing utilities
 │
-├── unit/                  # Unit tests
-│   └── *.spec.ts          # Jest/Vitest unit tests
+├── data/                      # Immutable game content
+│   ├── index.ts               # Barrel export (all data exports)
+│   ├── cards/                 # Role-specific card decks
+│   │   ├── index.ts           # Barrel export + ROLE_CARDS map
+│   │   ├── manager.ts         # MANAGEMENT_CARDS deck
+│   │   ├── finance.ts         # FINANCE_CARDS deck
+│   │   ├── marketing.ts       # MARKETING_CARDS deck
+│   │   ├── hr.ts              # HR_CARDS deck
+│   │   ├── dev.ts             # DEVELOPMENT_CARDS deck
+│   │   ├── cleaning.ts        # CLEANING_CARDS deck
+│   │   └── templates/         # Card authoring templates
+│   ├── archetypes.ts          # Archetype definitions + calculation
+│   ├── bossQuestions.ts       # Boss fight quiz questions
+│   ├── bgmPlaylist.ts         # Background music tracks
+│   ├── choiceLabels.ts        # Enum-to-label mappings
+│   ├── deathEndings.ts        # Failure ending copy
+│   ├── deathVectors.ts        # Death type frequency accumulation
+│   ├── deckDeathTypes.ts      # Deck-specific death types
+│   ├── failureLessons.ts      # Failure screen commentary
+│   ├── incidents.ts           # Real-world incident references
+│   ├── kirkCards.ts           # Kirk Easter Egg cards
+│   ├── personalities.ts       # AI personality definitions
+│   ├── pressureScenarios.ts   # Card-level urgency config
+│   ├── roles.ts               # Role definitions + icons
+│   ├── sources.ts             # Message source enums
+│   ├── violations.ts          # Violation type mappings
+│   ├── voiceUiCopy.ts         # Voice UI hint text
+│   ├── imageMap.ts            # Image path resolution
+│   └── (templates, branch injections)
 │
-├── scripts/               # Development utilities
-│   ├── generate-all.ts    # Master content generator
-│   ├── generate-feedback.ts
-│   └── generate-voice.ts
+├── contexts/                  # React context (if any)
+│   └── (currently empty)
 │
-├── public/                # Static assets
-│   └── audio/voices/      # Pre-recorded voice files
+├── api/                       # Vercel serverless API routes
+│   ├── roast.ts               # POST /api/roast (AI roast generation)
+│   └── speak.ts               # POST /api/speak (TTS synthesis)
 │
-└── Configuration Files
-    ├── package.json       # Dependencies & scripts
-    ├── tsconfig.json      # TypeScript configuration
-    ├── vite.config.ts     # Build tool configuration
-    └── playwright.config.ts # Test runner config
-```
-
----
-
-## Directory Tree
-
-```
-swiperisk/
-│
-├── .agents/                    # AI agent configurations
-│   └── (agent instructions)
-│
-├── .claude/                    # Claude-specific settings
-│   └── (claude config)
-│
-├── .cursor/                    # Cursor IDE settings
-│   └── references/
-│       └── git-integration.md
-│
-├── .planning/                  # Project planning docs
-│   └── codebase/
-│       ├── ARCHITECTURE.md     # This document
-│       ├── INTEGRATIONS.md     # External service docs
-│       ├── STACK.md            # Tech stack reference
-│       ├── STRUCTURE.md        # This document
-│       └── (other planning docs)
-│
-├── api/                        # Vercel API routes
-│   ├── roast.ts                # POST /api/roast - AI roast generation
-│   └── speak.ts                # POST /api/speak - TTS synthesis
-│
-├── components/                 # React components
-│   ├── LayoutShell.tsx         # Responsive layout wrapper
-│   └── game/                   # Game stage components
-│       ├── index.ts            # Barrel export
-│       ├── BossFight.tsx       # Boss quiz stage
-│       ├── CardStack.tsx       # Swipeable cards
-│       ├── FeedbackOverlay.tsx # Choice feedback modal
-│       ├── GameHUD.tsx         # Metrics display
-│       ├── GameOver.tsx        # Death screen
-│       ├── GameScreen.tsx      # Main gameplay stage
-│       ├── InitializingScreen.tsx # Countdown stage
-│       ├── IntroScreen.tsx     # Entry screen
-│       ├── PersonalitySelect.tsx # Personality choice
-│       ├── RoleSelect.tsx      # Role choice
-│       ├── RoastTerminal.tsx   # AI chat input
-│       ├── SummaryScreen.tsx   # Victory screen
-│       └── Taskbar.tsx         # Status bar
-│
-├── hooks/                      # Custom React hooks
-│   ├── index.ts                # Barrel export
-│   ├── useBossFight.ts         # Boss fight state mgmt
-│   ├── useClock.ts             # Real-time clock
-│   ├── useCountdown.ts         # Countdown timer
-│   ├── useGameState.ts         # Core game state reducer
-│   ├── useRoast.ts             # AI roast feature
-│   ├── useStageReady.ts        # Click debouncing
-│   ├── useSwipeGestures.ts     # Touch/mouse gestures
-│   └── useVoicePlayback.ts     # Voice audio management
-│
-├── public/                     # Static assets
-│   └── audio/
-│       └── voices/
-│           ├── lovebomber/     # HYPE-BRO voice files
-│           │   ├── failure.wav
-│           │   ├── onboarding.wav
-│           │   └── victory.wav
-│           ├── roaster/        # V.E.R.A. voice files
-│           │   ├── failure.wav
-│           │   ├── feedback_debug.wav
-│           │   ├── feedback_ignore.wav
-│           │   ├── feedback_install.wav
-│           │   ├── feedback_paste.wav
-│           │   ├── onboarding.wav
-│           │   └── victory.wav
-│           └── zenmaster/      # BAMBOO voice files
-│               ├── failure.wav
-│               ├── onboarding.wav
-│               └── victory.wav
-│
-├── scripts/                    # Development utilities
-│   ├── generate-all.ts         # Master generator script
-│   ├── generate-feedback.ts    # Feedback text generator
-│   ├── generate-voice.ts       # Voice line script
-│   └── local-api.ts            # Local dev API server
-│
-├── services/                   # Business logic layer
-│   ├── geminiService.ts        # Gemini API client
-│   └── voicePlayback.ts        # Audio playback service
-│
-├── tasks/                      # Task tracking
-│   ├── lessons.md              # Learned lessons
-│   └── todo.md                 # Active tasks
-│
-├── test-results/               # Playwright output
-│   └── .last-run.json          # Last test run metadata
-│
-├── tests/                      # E2E test suites
-│   ├── button-highlight.spec.ts
-│   ├── drag-tracking.spec.ts
-│   ├── exit-animation.spec.ts
-│   ├── layout-overlay-touch.spec.ts
-│   ├── mobile-width.spec.ts
-│   ├── roast-console.spec.ts
+├── tests/                     # Playwright E2E tests
+│   ├── *.spec.ts              # Test suites
+│   ├── audio-archive-baseline.spec.ts
+│   ├── image-*.spec.ts        # Image-related tests
 │   ├── snap-back.spec.ts
-│   ├── stage-snapshots.spec.ts
-│   ├── swipe-consistency.spec.ts
 │   ├── swipe-interactions.spec.ts
-│   ├── helpers/
-│   │   ├── navigation.ts       # Test navigation utils
-│   │   └── selectors.ts        # Test selectors
-│   └── stage-snapshots.spec.ts-snapshots/  # Visual regression
-│       ├── boss-fight-*.png
-│       ├── feedback-overlay-*.png
-│       ├── game-over-*.png
-│       ├── initializing-*.png
-│       ├── intro-*.png
-│       ├── personality-select-*.png
-│       ├── playing-*.png
-│       ├── role-select-*.png
-│       └── summary-*.png
+│   ├── kirk-easter-egg.spec.ts
+│   ├── summary-debrief.spec.ts
+│   └── helpers/               # Test utilities
 │
-├── unit/                       # Unit tests
-│   └── voicePlayback.spec.ts   # Voice service tests
+├── unit/                      # Vitest unit tests
+│   ├── archetypes.spec.ts
+│   ├── [...other unit tests]
 │
-├── App.tsx                     # Root component
-├── constants.ts                # Game data constants
-├── index.html                  # HTML entry point
-├── index.tsx                   # React entry point
-├── metadata.json               # Project metadata
-├── types.ts                    # TypeScript definitions
+├── scripts/                   # Dev/build scripts
+│   ├── generate-all.ts        # Master content generator
+│   ├── generate-feedback.ts
+│   ├── generate-voice.ts
+│   └── test-changed.ts        # Run tests for changed files
 │
-├── .env.example                # Environment template
-├── .gitignore                  # Git ignore rules
-├── .kilocodemodes              # KiloCode mode config
+├── public/                    # Static assets (served as-is)
+│   ├── audio/                 # Audio files
+│   │   ├── bgm/               # Background music tracks
+│   │   ├── voices/            # Pre-recorded personality voiceovers
+│   │   ├── effects/           # Sound effects
+│   │   └── pressure/          # Countdown audio
+│   ├── images/                # Card/archetype images
+│   │   ├── incidents/
+│   │   ├── outcomes/
+│   │   ├── archetypes/
+│   │   └── deaths/
+│   └── (other assets)
 │
-├── AGENTS.md                   # Agent instructions
-├── API.md                      # API documentation
-├── ARCHITECTURE.md             # Architecture doc
-├── CLAUDE.md                   # Claude instructions
-├── CONTRIBUTING.md             # Contribution guidelines
-├── GAME_DESIGN.md              # Game design doc
-├── README.md                   # Project readme
-├── STACK.md                    # Tech stack doc
-├── TESTING.md                  # Testing documentation
+├── Configuration Files
+│   ├── package.json           # Dependencies, scripts, metadata
+│   ├── bun.lock               # Lockfile (bun package manager)
+│   ├── tsconfig.json          # TypeScript config
+│   ├── vite.config.ts         # Vite build config
+│   ├── vitest.config.ts       # Vitest unit test config
+│   ├── vitest.setup.ts        # Vitest setup
+│   ├── playwright.config.ts   # Playwright E2E config
+│   ├── biome.json             # Biome linter/formatter config
+│   ├── .eslintrc              # (Legacy; biome now used)
+│   ├── .prettierrc             # (Legacy; biome now used)
+│   └── vercel.json            # Vercel deployment config
 │
-├── bun.lock                    # Bun lockfile
-├── lighthouse-report*.html     # Lighthouse reports
-├── lighthouse-report*.json     # Lighthouse data
-├── package-lock.json           # NPM lockfile
-├── package.json                # Package manifest
-├── playwright.config.ts        # Playwright config
-├── tsconfig.json               # TypeScript config
-└── vite.config.ts              # Vite config
-```
-
----
-
-## Source Files
-
-### Entry Points
-
-| File | Lines | Purpose |
-|------|-------|---------|
-| [`index.html`](index.html:1) | ~450 | HTML shell with font preloads, meta tags |
-| [`index.tsx`](index.tsx:1) | ~15 | React root mounting |
-| [`App.tsx`](App.tsx:1) | ~350 | Root component, stage routing, state orchestration |
-
-### Core Definitions
-
-| File | Lines | Purpose |
-|------|-------|---------|
-| [`types.ts`](types.ts:1) | ~100 | Enums, interfaces, type definitions |
-| [`constants.ts`](constants.ts:1) | ~600 | Game data: cards, personalities, death endings |
-
----
-
-## Component Organization
-
-### Component Naming Conventions
-
-| Pattern | Example | Usage |
-|---------|---------|-------|
-| **PascalCase** | `GameScreen.tsx` | All component files |
-| **Screen suffix** | `IntroScreen.tsx` | Full-stage components |
-| **Noun descriptors** | `CardStack.tsx` | UI building blocks |
-| **index.ts barrel** | `components/game/index.ts` | Public API exports |
-
-### Component Categories
-
-#### 1. Screen Components (Stage Renderers)
-Located in `components/game/`, each maps to a [`GameStage`](types.ts:56):
-
-| Component | Stage | Purpose |
-|-----------|-------|---------|
-| [`IntroScreen.tsx`](components/game/IntroScreen.tsx:1) | `INTRO` | Landing page with CTA |
-| [`PersonalitySelect.tsx`](components/game/PersonalitySelect.tsx:1) | `PERSONALITY_SELECT` | AI personality choice |
-| [`RoleSelect.tsx`](components/game/RoleSelect.tsx:1) | `ROLE_SELECT` | Corporate role choice |
-| [`InitializingScreen.tsx`](components/game/InitializingScreen.tsx:1) | `INITIALIZING` | Countdown transition |
-| [`GameScreen.tsx`](components/game/GameScreen.tsx:1) | `PLAYING` | Main gameplay container |
-| [`BossFight.tsx`](components/game/BossFight.tsx:1) | `BOSS_FIGHT` | Quiz challenge |
-| [`GameOver.tsx`](components/game/GameOver.tsx:1) | `GAME_OVER` | Death screen |
-| [`SummaryScreen.tsx`](components/game/SummaryScreen.tsx:1) | `SUMMARY` | Victory screen |
-
-#### 2. Gameplay Sub-components
-
-| Component | Parent | Purpose |
-|-----------|--------|---------|
-| [`CardStack.tsx`](components/game/CardStack.tsx:1) | GameScreen | Swipeable card display |
-| [`GameHUD.tsx`](components/game/GameHUD.tsx:1) | GameScreen | Hype/heat/budget display |
-| [`RoastTerminal.tsx`](components/game/RoastTerminal.tsx:1) | GameScreen | AI chat interface |
-| [`Taskbar.tsx`](components/game/Taskbar.tsx:1) | GameScreen | Windows 95-style bar |
-| [`FeedbackOverlay.tsx`](components/game/FeedbackOverlay.tsx:1) | App (modal) | Choice consequence modal |
-
-#### 3. Layout Components
-
-| Component | Purpose |
-|-----------|---------|
-| [`LayoutShell.tsx`](components/LayoutShell.tsx:1) | Responsive wrapper with safe areas |
-
-### Component Export Pattern
-
-```typescript
-// components/game/index.ts - Barrel exports
-export { GameHUD } from './GameHUD';
-export { IntroScreen } from './IntroScreen';
-// ... etc
-
-// Usage in App.tsx
-import { GameScreen, BossFight, GameOver } from './components/game';
-```
-
----
-
-## Hooks Organization
-
-### Hook Naming Conventions
-
-| Pattern | Example | Returns |
-|---------|---------|---------|
-| `use[Feature]` | `useGameState` | State + actions |
-| `use[Event]` | `useSwipeGestures` | Event handlers + state |
-| `use[Service]` | `useVoicePlayback` | Service integration |
-
-### Hook Inventory
-
-| Hook | Lines | Purpose |
-|------|-------|---------|
-| [`useGameState.ts`](hooks/useGameState.ts:1) | ~190 | Central game state reducer |
-| [`useSwipeGestures.ts`](hooks/useSwipeGestures.ts:1) | ~223 | Touch/mouse swipe physics |
-| [`useVoicePlayback.ts`](hooks/useVoicePlayback.ts:1) | ~91 | Voice audio lifecycle |
-| [`useRoast.ts`](hooks/useRoast.ts:1) | ~38 | AI roast chat feature |
-| [`useBossFight.ts`](hooks/useBossFight.ts:1) | ~77 | Quiz state management |
-| [`useStageReady.ts`](hooks/useStageReady.ts:1) | ~60 | Click debounce + hover delay |
-| [`useCountdown.ts`](hooks/useCountdown.ts:1) | ~28 | Timer countdown |
-| [`useClock.ts`](hooks/useClock.ts:1) | ~19 | Real-time clock |
-
-### Hook Export Pattern
-
-```typescript
-// hooks/index.ts - Centralized exports
-export { useGameState, type GameAction } from './useGameState';
-export { useSwipeGestures } from './useSwipeGestures';
-// ... etc
-
-// Usage in components
-import { useGameState, useSwipeGestures } from './hooks';
-```
-
----
-
-## Services Layer
-
-### Service Organization
-
-Services encapsulate external API calls and complex business logic:
-
-| Service | Lines | Purpose |
-|---------|-------|---------|
-| [`geminiService.ts`](services/geminiService.ts:1) | ~120 | Google Gemini API client |
-| [`voicePlayback.ts`](services/voicePlayback.ts:1) | ~91 | WAV file playback manager |
-
-### Service Responsibilities
-
-```
-services/
-├── geminiService.ts
-│   ├── speak(text, voiceName) → Promise<void>
-│   │   └── POST /api/speak → AudioBuffer → Web Audio API
-│   ├── getRoast(workflow, personality) → Promise<string>
-│   │   └── POST /api/roast → Generated text
-│   └── cleanupAudio() → void
-│       └── Stop all sources, close AudioContext
+├── Git/Repo Config
+│   ├── .git/                  # Git repository
+│   ├── .gitignore             # Ignored paths
+│   ├── .husky/                # Git hooks (lint-staged, post-commit)
+│   ├── .github/               # GitHub workflows/templates
+│   └── AGENTS.md              # Agent (Claude/Cursor) instructions
 │
-└── voicePlayback.ts
-    ├── loadVoice(personality, trigger) → Promise<void>
-    │   └── Fetch /audio/voices/{personality}/{trigger}.wav
-    ├── playVoice() → Promise<void>
-    ├── stopVoice() → void
-    └── isPlaying() → boolean
-```
-
----
-
-## API Routes
-
-### Serverless Function Structure
-
-Located in `/api/` directory for Vercel deployment:
-
-| Route | File | Purpose |
-|-------|------|---------|
-| `POST /api/roast` | [`roast.ts`](api/roast.ts:1) | Generate personality-based roasts |
-| `POST /api/speak` | [`speak.ts`](api/speak.ts:1) | Text-to-speech synthesis |
-
-### API Request/Response Patterns
-
-**POST /api/roast**
-```typescript
-// Request
-{ workflow: string, personality: PersonalityType }
-
-// Response
-{ text: string } | { error: string }
-```
-
-**POST /api/speak**
-```typescript
-// Request
-{ text: string, voiceName?: string }
-
-// Response
-{ audio: base64String } | { error: string }
-```
-
----
-
-## Testing Structure
-
-### Test Organization
-
-```
-tests/
-├── E2E Tests (Playwright)
-│   ├── button-highlight.spec.ts    # Button hover states
-│   ├── drag-tracking.spec.ts       # Swipe gesture tracking
-│   ├── exit-animation.spec.ts      # Card exit animations
-│   ├── layout-overlay-touch.spec.ts # Mobile touch handling
-│   ├── mobile-width.spec.ts        # Responsive breakpoints
-│   ├── roast-console.spec.ts       # AI roast feature
-│   ├── snap-back.spec.ts           # Card snap-back behavior
-│   ├── stage-snapshots.spec.ts     # Visual regression
-│   ├── swipe-consistency.spec.ts   # Gesture consistency
-│   └── swipe-interactions.spec.ts  # Full swipe flow
+├── Planning/Docs
+│   ├── .planning/codebase/    # This codebase analysis
+│   │   ├── ARCHITECTURE.md
+│   │   ├── STRUCTURE.md       # This file
+│   │   ├── CONVENTIONS.md
+│   │   ├── TESTING.md
+│   │   ├── STACK.md
+│   │   ├── INTEGRATIONS.md
+│   │   └── CONCERNS.md
+│   ├── README.md              # Project overview
+│   ├── GAME_DESIGN.md         # Game design doc
+│   ├── CONTRIBUTING.md        # Contributor guide
+│   ├── TESTING.md             # Testing runbook
+│   ├── API.md                 # API documentation
+│   └── (other docs)
 │
-├── Test Helpers
-│   ├── helpers/navigation.ts       # Page navigation utils
-│   └── helpers/selectors.ts        # Element selectors
-│
-├── Snapshots
-│   └── stage-snapshots.spec.ts-snapshots/
-│       └── [platform]-[viewport]-[stage].png
-│
-└── Screenshots (Generated)
-    └── screenshot-*.png
-
-unit/
-└── voicePlayback.spec.ts           # Voice service unit tests
+└── Ignores (not committed)
+    ├── node_modules/          # Dependencies
+    ├── dist/                  # Build output
+    ├── test-results/          # Test artifacts
+    ├── playwright-report/     # Playwright HTML report
+    ├── .env, .env.local       # Secrets
+    └── (other gitignored paths)
 ```
 
-### Test Naming Convention
+## Directory Purposes
 
-| Pattern | Example |
-|---------|---------|
-| `*.spec.ts` | Playwright/Vitest test files |
-| `[feature].spec.ts` | Feature-focused tests |
-| `*-snapshots/` | Visual regression baselines |
+**components/:**
+- Purpose: React UI components organized by screen/feature
+- Exports: Barrel exports (`index.ts`) for clean imports
+- Naming: PascalCase files, `.tsx` extension
+- Nested: `game/` for screen components, `dev/` for dev-only tools, `debrief/` for debrief pages
 
----
+**hooks/:**
+- Purpose: Custom React hooks encapsulating domain logic
+- Exports: Barrel export at `hooks/index.ts`
+- Naming: `use[Feature].ts` (e.g., `useGameState.ts`, `useSwipeGestures.ts`)
+- Submodules: `useGameState/` contains death resolver and hydration logic
 
-## Public Assets
+**services/:**
+- Purpose: API wrappers, audio playback, service integrations
+- Examples: Gemini TTS, Web Audio API, voice synthesis
+- No React hooks here (utilities only)
 
-### Asset Organization
+**lib/:**
+- Purpose: Pure algorithms and utilities (no side effects, testable)
+- Examples: Deck shuffling, branching injection, slug generation
+- Includes tests (`deck.test.ts`)
 
-```
-public/
-└── audio/
-    └── voices/                       # Pre-recorded voice lines
-        ├── lovebomber/               # HYPE-BRO personality
-        │   ├── failure.wav           # Game over voice
-        │   ├── onboarding.wav        # Welcome voice
-        │   └── victory.wav           # Win voice
-        ├── roaster/                  # V.E.R.A. personality
-        │   ├── failure.wav
-        │   ├── feedback_debug.wav    # Card-specific feedback
-        │   ├── feedback_ignore.wav
-        │   ├── feedback_install.wav
-        │   ├── feedback_paste.wav
-        │   ├── onboarding.wav
-        │   └── victory.wav
-        └── zenmaster/                # BAMBOO personality
-            ├── failure.wav
-            ├── onboarding.wav
-            └── victory.wav
-```
+**data/:**
+- Purpose: Immutable game content (card decks, metadata, configurations)
+- Organization: `cards/` for role decks, root level for metadata
+- Exports: Barrel export at `data/index.ts` (single import point)
+- Naming: Enum-based keys (RoleType, PersonalityType, DeathType)
 
-### Voice Asset Naming
+**tests/:**
+- Purpose: Playwright E2E tests
+- Organization: One `.spec.ts` file per feature/area
+- Tagging: `@smoke` for critical tests, `@area:*` for domain, `@visual` for visual regression
+- Run: `bun run test`, `bun run test:smoke`, `bun run test:file`
 
-| Pattern | Example | Usage |
-|---------|---------|-------|
-| `{trigger}.wav` | `onboarding.wav` | Stage entry voices |
-| `feedback_{action}.wav` | `feedback_paste.wav` | Card-specific reactions |
-| `{outcome}.wav` | `victory.wav`, `failure.wav` | End game voices |
+**unit/:**
+- Purpose: Vitest unit tests for pure functions
+- Organization: Mirrored to source structure
+- Examples: `archetypes.spec.ts` tests `data/archetypes.ts`
 
----
+**scripts/:**
+- Purpose: Dev/build automation
+- Examples: Content generators, test runners
+- Run: `bun run [script-name]`
 
-## Configuration Files
+**public/:**
+- Purpose: Static assets served as-is by Vite
+- Organization: Subdirs by asset type (audio, images)
+- Subdir purposes:
+  - `audio/bgm/` - Background music tracks (mp3/wav)
+  - `audio/voices/` - Personality voice files (wav)
+  - `audio/pressure/` - Countdown beeps
+  - `audio/effects/` - Sound effects (Kirk audio, etc.)
+  - `images/incidents/` - Card scenario images (role-scoped)
+  - `images/outcomes/` - Outcome/consequence images
+  - `images/archetypes/` - Archetype badge images (7 archetypes)
+  - `images/deaths/` - Death ending screen images
 
-### Build & Development
+## Key File Locations
 
-| File | Purpose |
-|------|---------|
-| [`package.json`](package.json:1) | NPM manifest, scripts, dependencies |
-| [`tsconfig.json`](tsconfig.json:1) | TypeScript compiler options |
-| [`vite.config.ts`](vite.config.ts:1) | Vite bundler configuration |
-| [`playwright.config.ts`](playwright.config.ts:1) | E2E test runner config |
+**Entry Points:**
+- `index.tsx` - React app entry (mounts `<App />`)
+- `App.tsx` - Root component (stage router, hook composition)
+- `index.html` - HTML template with `<div id="root">`
 
-### Key Configuration Details
+**Configuration:**
+- `package.json` - Dependencies, scripts, build config
+- `vite.config.ts` - Vite build + dev server
+- `tsconfig.json` - TypeScript compiler options
+- `biome.json` - Linter/formatter config
+- `playwright.config.ts` - E2E test runner
+- `vitest.config.ts` - Unit test runner
 
-**TypeScript (`tsconfig.json`)**
-- Target: ES2020
-- Module: ESNext
-- JSX: react-jsx
-- Strict mode enabled
+**Core Logic:**
+- `App.tsx` - Stage routing, hook orchestration
+- `hooks/useGameState.ts` - State machine (useReducer)
+- `hooks/useSwipeGestures.ts` - Gesture handling
+- `components/game/GameScreen.tsx` - Main gameplay view
+- `components/game/CardStack.tsx` - Card swipe interaction
 
-**Vite (`vite.config.ts`)**
-- Port: 5173 (dev)
-- Tailwind CSS integration
-- TypeScript path aliases
+**State & Types:**
+- `types.ts` - All TypeScript definitions (GameState, Card, GameStage, enums)
+- `hooks/useGameState/` - State machine submodules
 
-**Playwright (`playwright.config.ts`)**
-- Projects: Chromium (desktop + mobile)
-- Snapshots: Platform-specific
-- TestDir: `./tests`
+**Data & Content:**
+- `data/cards/` - Role-specific card decks (6 roles)
+- `data/index.ts` - Barrel export (import from here)
+- `data/archetypes.ts` - Archetype system
+- `data/deathEndings.ts` - Failure outcomes
+- `data/pressureScenarios.ts` - Urgency config (keyed by card ID)
 
-### Environment Variables
+**Testing:**
+- `tests/` - Playwright E2E tests
+- `unit/` - Vitest unit tests
+- `playwright.config.ts` - E2E config
+- `vitest.config.ts` - Unit test config
 
-| File | Variables |
-|------|-----------|
-| [`.env.example`](.env.example:1) | `VITE_ENABLE_SPEECH`, `GEMINI_API_KEY` |
+## Naming Conventions
 
----
+**Files:**
+- Components: PascalCase (e.g., `GameScreen.tsx`, `CardStack.tsx`)
+- Hooks: `use` prefix + camelCase (e.g., `useGameState.ts`, `useSwipeGestures.ts`)
+- Utilities: camelCase (e.g., `haptic.ts`, `deck.ts`)
+- Data files: camelCase (e.g., `bossQuestions.ts`, `archetypes.ts`)
+- Tests: Same as source + `.spec.ts` suffix (e.g., `deck.spec.ts`)
 
-## Scripts & Tools
+**Directories:**
+- Components: PascalCase or lowercase dash-separated (e.g., `game/`, `debrief/`)
+- Hooks: lowercase (e.g., `hooks/`)
+- Services: lowercase (e.g., `services/`)
+- Data: lowercase (e.g., `data/cards/`)
 
-### Development Scripts
+**Exports:**
+- Barrel exports at `index.ts` in each module (e.g., `components/game/index.ts`)
+- Import from directory, not individual files: `import { CardStack } from "@/components/game"`
 
-Located in `scripts/` directory:
+## Where to Add New Code
 
-| Script | Purpose |
-|--------|---------|
-| [`generate-all.ts`](scripts/generate-all.ts:1) | Master content generation |
-| [`generate-feedback.ts`](scripts/generate-feedback.ts:1) | Generate card feedback text |
-| [`generate-voice.ts`](scripts/generate-voice.ts:1) | Voice line scripts |
-| [`local-api.ts`](scripts/local-api.ts:1) | Local API server for dev |
+**New Feature/Card Deck:**
+- Card data: `data/cards/[role].ts` (add to existing role deck or create new deck)
+- Death ending: Add to `data/deathEndings.ts`
+- Boss question: Add to `data/bossQuestions.ts`
+- Archetype: Add to `data/archetypes.ts` (if new archetype type)
+- Tests: `tests/[feature].spec.ts` or existing test file if related
 
-### NPM Scripts (`package.json`)
+**New Component/Screen:**
+- Implementation: `components/game/[ComponentName].tsx`
+- Export: Add to `components/game/index.ts` barrel
+- Route: Add case in `App.tsx` switch statement (if new stage)
+- Types: Add to `types.ts` if needed (new enum, interface, etc.)
+- Tests: `tests/[feature].spec.ts`
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start Vite dev server |
-| `npm run build` | Production build |
-| `npm run preview` | Preview production build |
-| `npm run test` | Run Playwright tests |
-| `npm run test:ui` | Run tests with UI mode |
+**New Hook:**
+- Implementation: `hooks/use[Feature].ts`
+- Export: Add to `hooks/index.ts` barrel
+- Usage: Call from `App.tsx` or other hooks
+- Tests: `unit/[feature].spec.ts`
 
----
+**New Utility/Service:**
+- Utility function: `lib/[name].ts` (if pure) or `services/[name].ts` (if stateful/API)
+- Tests: `lib/[name].test.ts` (unit tests)
 
-## File Line Count Summary
+**Styling:**
+- Classes: Tailwind CSS (no custom CSS unless necessary)
+- Custom CSS: `styles.css` (global only)
+- Per-component: Inline Tailwind classNames (no separate CSS files)
 
-### Source Code
+## Special Directories
 
-| Category | Files | Total Lines |
-|----------|-------|-------------|
-| Components | 14 | ~2,800 |
-| Hooks | 8 | ~740 |
-| Services | 2 | ~210 |
-| API Routes | 2 | ~100 |
-| Types/Constants | 2 | ~700 |
-| **Total Source** | **28** | **~4,550** |
+**contexts/:**
+- Purpose: React context API usage
+- Current: Empty (state managed via useReducer in `useGameState.ts`)
+- Usage: Add if cross-cutting concern needs context
 
-### Configuration & Documentation
+**api/:**
+- Purpose: Vercel serverless functions (deployed to `/api/*`)
+- Organization: One function per file
+- Examples: `roast.ts` (→ `/api/roast`), `speak.ts` (→ `/api/speak`)
 
-| Category | Files | Total Lines |
-|----------|-------|-------------|
-| Root Config | 6 | ~800 |
-| Documentation | 8 | ~12,000 |
-| Tests | 12 | ~4,500 |
-| **Total Config/Docs** | **26** | **~17,300** |
+**.planning/codebase/:**
+- Purpose: Project analysis documents (ARCHITECTURE.md, CONVENTIONS.md, etc.)
+- Generated: By GSD codebase mapper
+- Committed: Yes (consumed by `/gsd:plan-phase` and `/gsd:execute-phase`)
 
----
+**.husky/**:
+- Purpose: Git hooks
+- Setup: `npm install husky` + `npx husky install`
+- Hooks: `pre-commit` (lint-staged), `post-commit` (optional analysis)
 
-## Import Patterns
+**.claude/, .cursor/, .agents/**:
+- Purpose: IDE/agent configuration
+- Not committed: Some files gitignored
+- Usage: For local development setup
 
-### Absolute Imports (Preferred)
+**dist/, test-results/, playwright-report/**:
+- Purpose: Build and test artifacts
+- Gitignored: Yes
+- Auto-generated: On build/test runs
 
-```typescript
-// From root
-import { GameStage } from './types';
-import { useGameState } from './hooks';
-import { GameScreen } from './components/game';
-```
+## Import Paths
 
-### Relative Imports (Within module)
+**Alias:**
+- `@/` → Root of `src/` (configured in `tsconfig.json` and `vite.config.ts`)
+- Usage: `import { useGameState } from "@/hooks"`
 
-```typescript
-// Within components/game/
-import { GameHUD } from './GameHUD';
-import { CardStack } from './CardStack';
+**Barrel Exports:**
+- `@/components/game` → All game screen components
+- `@/hooks` → All custom hooks
+- `@/data` → All game content
+- `@/lib` → Pure utilities
+- `@/services` → API wrappers
 
-// Parent import
-import { PERSONALITIES } from '../../constants';
-import { GameState } from '../../types';
-```
+**Relative imports:**
+- Avoid; use aliases for clarity and refactoring safety
+- Exception: Sibling modules in same directory may use relative imports
 
-### Barrel Import Pattern
+## Build & Output
 
-```typescript
-// hooks/index.ts aggregates all hooks
-export { useGameState } from './useGameState';
-export { useSwipeGestures } from './useSwipeGestures';
+**Dev Server:**
+- Command: `bun dev`
+- URL: `http://localhost:3000`
+- Hot reload: On file changes
 
-// Consumer imports from single entry
-import { useGameState, useSwipeGestures } from './hooks';
-```
+**Production Build:**
+- Command: `bun run build`
+- Output: `dist/` directory
+- Artifacts: Single-page app (index.html + bundled JS/CSS)
 
----
+**Type Checking:**
+- Command: `bun run typecheck`
+- Tool: `tsc --noEmit`
 
-*Document generated for K-Maru codebase analysis*
+**Linting/Formatting:**
+- Command: `bun run check` (check both) or `bun run lint` (lint only)
+- Tool: Biome (replaces eslint + prettier)
+- Config: `biome.json`
+
+**Testing:**
+- E2E: `bun run test` (Playwright)
+- Unit: `bun run test:unit` (Vitest)
+- Smoke: `bun run test:smoke` (critical tests, ~15s)
