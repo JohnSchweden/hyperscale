@@ -631,6 +631,20 @@ Plans:
 Plans:
 - [ ] TBD (run /gsd:plan-phase 18 to break down)
 
+### Phase 19: refactor the design
+
+**Goal:** Reduce visual clutter across game screens (FeedbackOverlay, GameOver, DebriefPage2, CardStack, DebriefPage3) to match the minimalist design DNA of the selection screens. All changes are subtractive.
+**Requirements**: DESIGN-01 to DESIGN-05
+**Depends on:** Phase 18
+**Plans:** 5 plans
+
+Plans:
+- [ ] 19-01-PLAN.md — FeedbackOverlay clutter removal (personality label, section header, noise copy, image cap, merge sub-blocks)
+- [ ] 19-02-PLAN.md — GameOver clutter removal (icon animation when image shown, endings box filler copy, image height cap)
+- [ ] 19-03-PLAN.md — DebriefPage2 reflection prompt block removal
+- [ ] 19-04-PLAN.md — CardStack padding reduction and mobile storyContext suppression
+- [ ] 19-05-PLAN.md — DebriefPage3 endings hint removal
+
 ---
 
 *Roadmap updated: 2026-03-27 — Phase 17 gap closure: 2 plans to rename audio assets from _left/_right to label slugs*
