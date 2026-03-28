@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useRef } from "react";
 import {
-	accumulateDeathVectors,
 	DEATH_ENDINGS,
 	FAILURE_LESSONS,
+	type FailureLesson,
 	generateDeathExplanation,
 	getRetryPrompt,
 } from "../../../data";
@@ -189,11 +189,7 @@ function DeathEndingCard({ ending, deathType }: DeathEndingCardProps) {
 }
 
 interface FailureLessonCardProps {
-	lesson: {
-		title: string;
-		explanation: string;
-		realWorldExample: string;
-	};
+	lesson: FailureLesson;
 }
 
 function FailureLessonCard({ lesson }: FailureLessonCardProps) {
@@ -244,9 +240,9 @@ export function DebriefPage1Collapse({
 
 	const explanation = useMemo(() => {
 		if (!hasRegularDeath) return null;
-		const vectorMap = accumulateDeathVectors(history, effectiveDeck ?? []);
+		const vectorMap = state.deathVectorMap ?? {};
 		return generateDeathExplanation(deathType, vectorMap, history.length);
-	}, [hasRegularDeath, deathType, history, effectiveDeck]);
+	}, [hasRegularDeath, deathType, state.deathVectorMap, history.length]);
 
 	const failureLesson = useMemo(() => {
 		if (!hasRegularDeath) return null;
@@ -293,8 +289,8 @@ export function DebriefPage1Collapse({
 					</div>
 				)}
 
-				{deathEnding && deathType && (
-					<DeathEndingCard ending={deathEnding} deathType={deathType} />
+				{deathEnding && (
+					<DeathEndingCard ending={deathEnding} deathType={deathType!} />
 				)}
 
 				{explanation && (

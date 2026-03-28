@@ -253,11 +253,6 @@ export function generateDeathExplanation(
 	});
 }
 
-type PersonalityKey = Extract<
-	PersonalityType,
-	"ROASTER" | "ZEN_MASTER" | "LOVEBOMBER"
->;
-
 interface RetryPromptSet {
 	ROASTER: string;
 	ZEN_MASTER: string;
@@ -330,5 +325,5 @@ export function getRetryPrompt(
 	personality: PersonalityType,
 ): string {
 	const prompts = RETRY_PROMPTS[deathType];
-	return prompts[personality as PersonalityKey] ?? prompts.DEFAULT;
+	return prompts[personality] ?? prompts.DEFAULT;
 }

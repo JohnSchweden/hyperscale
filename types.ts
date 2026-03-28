@@ -172,6 +172,8 @@ export interface GameState {
 	kirkCounter: number;
 	/** Phase 07: True after second refusal — corruption cascade active */
 	kirkCorruptionActive: boolean;
+	/** Accumulated death vector map from player choices — cached to avoid recomputation */
+	deathVectorMap?: DeathVectorMap;
 }
 
 export enum DeathType {

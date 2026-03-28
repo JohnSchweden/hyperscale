@@ -9,6 +9,7 @@ import {
 } from "../../data/imageMap";
 
 const PUBLIC_DIR = path.join(process.cwd(), "public");
+const HAS_PUBLIC_IMAGES = existsSync(PUBLIC_DIR);
 
 function imageFileExists(imagePath: string): boolean {
 	const fullPath = path.join(PUBLIC_DIR, imagePath);
@@ -31,7 +32,7 @@ const imageMapTests = [
 	{ name: "death", map: DEATH_IMAGES },
 ];
 
-describe.skip("Image Asset File Validation", () => {
+describe.skipIf(!HAS_PUBLIC_IMAGES)("Image Asset File Validation", () => {
 	describe.each(imageMapTests)("$name images", ({ name, map }) => {
 		it("all $name images exist on disk", () => {
 			for (const [key, imagePath] of Object.entries(map)) {

@@ -14,16 +14,6 @@ import {
 } from "../../data/imageMap";
 import { type ArchetypeId, DeathType } from "../../types";
 
-/**
- * Helper function to slugify incident names — must match the implementation in imageMap.ts
- */
-function slugifyLocal(incident: string): string {
-	return incident
-		.toLowerCase()
-		.replace(/[^a-z0-9]+/g, "-")
-		.replace(/^-|-$/g, "");
-}
-
 describe("Image Map Contract Validation", () => {
 	describe("INCIDENT_IMAGES — dynamic contract", () => {
 		// Extract all unique incidents from card data
@@ -40,7 +30,7 @@ describe("Image Map Contract Validation", () => {
 
 		it("every card with realWorldReference has a corresponding INCIDENT_IMAGES entry", () => {
 			for (const incident of incidents) {
-				const slug = slugifyLocal(incident);
+				const slug = slugify(incident);
 				expect(
 					INCIDENT_IMAGES[slug],
 					`Missing image entry for incident: ${incident} (slug: ${slug})`,
@@ -49,7 +39,7 @@ describe("Image Map Contract Validation", () => {
 		});
 
 		it("no duplicate incident slugs", () => {
-			const slugs = incidents.map(slugifyLocal);
+			const slugs = incidents.map(slugify);
 			const uniqueSlugs = new Set(slugs);
 			expect(
 				slugs.length,
@@ -64,7 +54,7 @@ describe("Image Map Contract Validation", () => {
 				if (!card.realWorldReference?.incident) continue;
 
 				const incident = card.realWorldReference.incident;
-				const slug = slugifyLocal(incident);
+				const slug = slugify(incident);
 				const path = INCIDENT_IMAGES[slug];
 
 				if (incidentToPath.has(incident)) {

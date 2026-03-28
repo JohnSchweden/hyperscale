@@ -19,6 +19,7 @@ import {
 import {
 	type Card,
 	DeathType,
+	type DeathVectorMap,
 	GameStage,
 	type GameState,
 	PersonalityType,
@@ -71,7 +72,10 @@ export type GameAction =
 	| { type: "RESET" }
 	| { type: "KIRK_REFUSAL" };
 
-function resolveDeathType(state: GameState): DeathType {
+function resolveDeathType(state: GameState): {
+	deathType: DeathType;
+	vectorMap: DeathVectorMap;
+} {
 	const deck =
 		state.effectiveDeck ?? (state.role ? ROLE_CARDS[state.role] : []);
 	const vectorMap = accumulateDeathVectors(state.history, deck);
@@ -83,7 +87,7 @@ function resolveDeathType(state: GameState): DeathType {
 		state.role,
 	);
 
-	return determineDeathTypeFromVectors(
+	const deathType = determineDeathTypeFromVectors(
 		vectorMap,
 		state.budget,
 		state.heat,
@@ -91,6 +95,8 @@ function resolveDeathType(state: GameState): DeathType {
 		state.role,
 		archetypeResult.archetype?.id,
 	);
+
+	return { deathType, vectorMap };
 }
 
 const VALID_PERSONALITIES = new Set<string>(Object.values(PersonalityType));
@@ -196,6 +202,7 @@ function getUnlockedEndings(
 function createGameOverState(
 	state: GameState,
 	deathType: DeathType,
+	vectorMap?: DeathVectorMap,
 ): GameState {
 	return {
 		...state,
@@ -203,6 +210,7 @@ function createGameOverState(
 		deathType,
 		deathReason: DEATH_ENDINGS[deathType].description,
 		unlockedEndings: getUnlockedEndings(state, deathType),
+		deathVectorMap: vectorMap,
 	};
 }
 
@@ -295,9 +303,11 @@ function handleBossComplete(
 	state: GameState,
 	action: Extract<GameAction, { type: "BOSS_COMPLETE" }>,
 ): GameState {
-	return action.success
-		? { ...state, stage: GameStage.SUMMARY }
-		: createGameOverState(state, resolveDeathType(state));
+	if (action.success) {
+		return { ...state, stage: GameStage.SUMMARY };
+	}
+	const { deathType, vectorMap } = resolveDeathType(state);
+	return createGameOverState(state, deathType, vectorMap);
 }
 
 function getRoleDeck(role: RoleType | null): Card[] {
@@ -334,7 +344,7 @@ function handleNextIncident(state: GameState): GameState {
 	if (state.heat >= 100) {
 		const deathType = state.kirkCorruptionActive
 			? DeathType.KIRK
-			: resolveDeathType(state);
+			: resolveDeathType(state).deathType;
 		return createGameOverState(state, deathType);
 	}
 	if (!state.role) return state;

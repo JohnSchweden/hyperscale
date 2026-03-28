@@ -5,7 +5,6 @@ interface DeathEnding {
 	description: string;
 	icon: string;
 	color: string;
-	causeHint: string;
 }
 
 export const DEATH_ENDINGS: Record<DeathType, DeathEnding> = {
@@ -15,7 +14,6 @@ export const DEATH_ENDINGS: Record<DeathType, DeathEnding> = {
 			"The VCs pulled out. Your budget is now negative. The office plants are being auctioned on eBay.",
 		icon: "fa-file-invoice-dollar",
 		color: "text-red-600",
-		causeHint: "financial recklessness",
 	},
 	[DeathType.REPLACED_BY_SCRIPT]: {
 		title: "Replaced by a script",
@@ -23,7 +21,6 @@ export const DEATH_ENDINGS: Record<DeathType, DeathEnding> = {
 			"Turns out a 12-line Python script can do your job better AND comply with regulations. Pack your things.",
 		icon: "fa-robot",
 		color: "text-cyan-500",
-		causeHint: "over-automation",
 	},
 	[DeathType.CONGRESS]: {
 		title: "Testifying before Congress",
@@ -31,7 +28,6 @@ export const DEATH_ENDINGS: Record<DeathType, DeathEnding> = {
 			"You're now trending on Twitter and not in a good way. Time to practice saying 'I do not recall' under oath.",
 		icon: "fa-landmark",
 		color: "text-blue-500",
-		causeHint: "public exposure",
 	},
 	[DeathType.FLED_COUNTRY]: {
 		title: "Fled the country",
@@ -39,7 +35,6 @@ export const DEATH_ENDINGS: Record<DeathType, DeathEnding> = {
 			"One-way ticket to a country with no extradition treaty. Your LinkedIn now says 'Seeking new opportunities in international compliance avoidance.'",
 		icon: "fa-plane-departure",
 		color: "text-yellow-500",
-		causeHint: "international incidents",
 	},
 	[DeathType.PRISON]: {
 		title: "Federal pound-me-in-the-ass prison",
@@ -47,7 +42,6 @@ export const DEATH_ENDINGS: Record<DeathType, DeathEnding> = {
 			"The auditors found your search history AND the offshore accounts. Federal raid in progress. Orange is the new black.",
 		icon: "fa-lock",
 		color: "text-orange-600",
-		causeHint: "regulatory evasion",
 	},
 	[DeathType.AUDIT_FAILURE]: {
 		title: "Audit catastrophe",
@@ -55,13 +49,11 @@ export const DEATH_ENDINGS: Record<DeathType, DeathEnding> = {
 			"The external auditors left crying. The CFO just updated their resume. You're now a case study in what NOT to do.",
 		icon: "fa-file-circle-xmark",
 		color: "text-purple-500",
-		causeHint: "governance breakdown",
 	},
 	[DeathType.KIRK]: {
 		title: "SIMULATION BREACH DETECTED",
 		description: "You changed the conditions of the test.",
 		icon: "fa-triangle-exclamation",
 		color: "text-cyan-400",
-		causeHint: "simulation breach",
 	},
 };

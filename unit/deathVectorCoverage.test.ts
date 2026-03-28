@@ -1,17 +1,5 @@
 import { describe, expect, it } from "vitest";
-import {
-	AGENTIC_ENGINEER_CARDS,
-	CHIEF_SOMETHING_OFFICER_CARDS,
-	DATA_SCIENTIST_CARDS,
-	HEAD_OF_SOMETHING_CARDS,
-	ROLE_CARDS,
-	SOFTWARE_ARCHITECT_CARDS,
-	SOFTWARE_ENGINEER_CARDS,
-	SOMETHING_MANAGER_CARDS,
-	TECH_AI_CONSULTANT_CARDS,
-	VIBE_CODER_CARDS,
-	VIBE_ENGINEER_CARDS,
-} from "../data/cards";
+import { ROLE_CARDS } from "../data/cards";
 import {
 	ALL_ROLE_DECKS,
 	countUniqueNonKirkTypes,
@@ -22,9 +10,13 @@ import { DeathType, RoleType } from "../types";
 
 /** Decks that already carry deathVector on outcomes; others are migration backlog. */
 const VECTOR_ANNOTATED_ROLES: readonly RoleType[] = [
+	RoleType.CHIEF_SOMETHING_OFFICER,
+	RoleType.HEAD_OF_SOMETHING,
+	RoleType.SOMETHING_MANAGER,
+	RoleType.TECH_AI_CONSULTANT,
 	RoleType.DATA_SCIENTIST,
-	RoleType.SOFTWARE_ENGINEER,
 	RoleType.SOFTWARE_ARCHITECT,
+	RoleType.SOFTWARE_ENGINEER,
 	RoleType.VIBE_CODER,
 	RoleType.VIBE_ENGINEER,
 	RoleType.AGENTIC_ENGINEER,
@@ -48,17 +40,6 @@ describe("Death Vector Coverage Validation", () => {
 				continue;
 			}
 			expect(countUniqueNonKirkTypes(byType)).toBeGreaterThanOrEqual(4);
-		}
-	});
-
-	it("no single death type exceeds 100% of any deck's vectors", () => {
-		for (const { cards } of ALL_ROLE_DECKS) {
-			const { total, byType } = countVectorsInDeck(cards);
-			if (total === 0) continue;
-
-			for (const count of Object.values(byType)) {
-				expect((count / total) * 100).toBeLessThanOrEqual(100.1);
-			}
 		}
 	});
 
@@ -111,16 +92,9 @@ describe("Death Vector Coverage Validation", () => {
 	});
 
 	it("all individual card exports are defined", () => {
-		expect(CHIEF_SOMETHING_OFFICER_CARDS.length).toBeGreaterThan(0);
-		expect(HEAD_OF_SOMETHING_CARDS.length).toBeGreaterThan(0);
-		expect(SOMETHING_MANAGER_CARDS.length).toBeGreaterThan(0);
-		expect(TECH_AI_CONSULTANT_CARDS.length).toBeGreaterThan(0);
-		expect(DATA_SCIENTIST_CARDS.length).toBeGreaterThan(0);
-		expect(SOFTWARE_ARCHITECT_CARDS.length).toBeGreaterThan(0);
-		expect(SOFTWARE_ENGINEER_CARDS.length).toBeGreaterThan(0);
-		expect(VIBE_CODER_CARDS.length).toBeGreaterThan(0);
-		expect(VIBE_ENGINEER_CARDS.length).toBeGreaterThan(0);
-		expect(AGENTIC_ENGINEER_CARDS.length).toBeGreaterThan(0);
+		for (const { role, cards } of ALL_ROLE_DECKS) {
+			expect(cards.length, `${role} deck should have cards`).toBeGreaterThan(0);
+		}
 	});
 
 	it("ROLE_CARDS has all 10 roles", () => {

@@ -12,16 +12,17 @@ import { getRoleDeck } from "./roles";
 /**
  * Maps archetype IDs to their preferred death types.
  * Used for breaking ties when multiple death vectors have equal frequency.
+ * KIRK is omitted since it's determined by easter egg logic, not vectors.
  */
-export const ARCHETYPE_DEATH_AFFINITY: Record<ArchetypeId, DeathType> = {
-	SHADOW_ARCHITECT: DeathType.PRISON,
-	DISRUPTOR: DeathType.CONGRESS,
-	CONSERVATIVE: DeathType.REPLACED_BY_SCRIPT,
-	CHAOS_AGENT: DeathType.FLED_COUNTRY,
-	PRAGMATIST: DeathType.BANKRUPT,
-	BALANCED: DeathType.AUDIT_FAILURE,
-	KIRK: DeathType.KIRK,
-};
+export const ARCHETYPE_DEATH_AFFINITY: Partial<Record<ArchetypeId, DeathType>> =
+	{
+		SHADOW_ARCHITECT: DeathType.PRISON,
+		DISRUPTOR: DeathType.CONGRESS,
+		CONSERVATIVE: DeathType.REPLACED_BY_SCRIPT,
+		CHAOS_AGENT: DeathType.FLED_COUNTRY,
+		PRAGMATIST: DeathType.BANKRUPT,
+		BALANCED: DeathType.AUDIT_FAILURE,
+	};
 
 /**
  * Accumulates death vectors from the player's history of choices.
