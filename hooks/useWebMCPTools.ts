@@ -22,7 +22,7 @@ type BossFightControls = {
 export type WebMCPFeedbackOverlay = {
 	cardId: string;
 	choice: "LEFT" | "RIGHT";
-	feedbackAuthoringStem: "left" | "right";
+	feedbackAuthoringStem: string;
 } | null;
 
 export interface UseWebMCPToolsDeps {

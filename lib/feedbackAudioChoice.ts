@@ -1,18 +1,10 @@
 import type { Card } from "../types";
+import { slugify } from "./slugify";
+
+export { slugify };
 
 /** Which visible choice slot the player selected (matches game history `choice`). */
 export type PresentationChoiceSlot = "LEFT" | "RIGHT";
-
-/**
- * Convert any text to a URL-safe slug (kebab-case).
- * e.g., "Shield the team" → "shield-the-team"
- */
-export function slugify(text: string): string {
-	return text
-		.toLowerCase()
-		.replace(/[^a-z0-9]+/g, "-")
-		.replace(/^-|-$/g, "");
-}
 
 /**
  * Authoring slug for pre-baked feedback audio (`feedback_<cardId>_<slug>`).

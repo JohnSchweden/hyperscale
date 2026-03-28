@@ -1,6 +1,12 @@
 import type React from "react";
 import { useRef, useState } from "react";
 
+const ASPECT_CLASSES = {
+	video: "aspect-video",
+	square: "aspect-square",
+	auto: "",
+} as const;
+
 export interface ImageWithFallbackProps {
 	/** Image source path (e.g., from imageMap.ts helpers) */
 	src: string;
@@ -63,13 +69,6 @@ export function ImageWithFallback({
 
 	const shouldShowPlaceholder = !isLoaded || hasError;
 
-	// Map aspectRatio to Tailwind classes
-	const aspectClasses = {
-		video: "aspect-video",
-		square: "aspect-square",
-		auto: "",
-	};
-
 	return (
 		<div
 			className={`
@@ -78,7 +77,7 @@ export function ImageWithFallback({
         rounded-lg
         border border-slate-700
         bg-slate-900
-        ${aspectClasses[aspectRatio]}
+        ${ASPECT_CLASSES[aspectRatio]}
         ${containerClassName}
       `.trim()}
 		>
