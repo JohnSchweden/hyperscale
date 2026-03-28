@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Kobayashi Maru — AI Governance Simulator
 current_phase: 18-meme-template-system
-current_plan: "TBD (run /gsd:plan-phase 18)"
-status: planning
-last_updated: "2026-03-26T23:45:22.291Z"
+current_plan: "18-01-PLAN.md — Meme template data model and image generation triggers"
+status: pending
+last_updated: "2026-03-28T20:15:00.000Z"
 progress:
-  total_phases: 21
-  completed_phases: 12
-  total_plans: 108
-  completed_plans: 90
+  total_phases: 20
+  completed_phases: 14
+  total_plans: 118
+  completed_plans: 107
 ---
 
 # Session State
@@ -23,7 +23,7 @@ See: .planning/PROJECT.md
 
 **Milestone:** v1.2 Kobayashi Maru — AI Governance Simulator
 **Current phase:** 18-meme-template-system
-**Current plan:** TBD (run /gsd:plan-phase 18)
+**Current plan:** 18-01-PLAN.md — Meme template data model and image generation triggers
 **Status:** Ready to plan
 
 ## Session Log
@@ -99,13 +99,20 @@ See: .planning/PROJECT.md
 - 2026-03-26: Completed 17-04-PLAN.md (gap closure: authoringFeedbackStem returns slugified labels, string widening, selectedSlot for fallback clips)
 - 2026-03-27: Completed 17-05-PLAN.md (directional audio rename: 72 files renamed to label slugs, E2E test expanded from 8→18 cards, 5 generation scripts updated)
 - 2026-03-27: Completed 14-06-PLAN.md (gap closure: DebriefContainer DEBRIEF_PAGE_1 handler, HTTP→HTTPS test fix, collapse page tests 4/4 passing)
+- 2026-03-28: Created 13-07-SUMMARY.md (centralization: incidents, choiceLabels, violations constants created and migrated to 10 card files)
+- 2026-03-28: Created 16-10-SUMMARY.md (simplification: dead code removal, type bug fixes, vectorMap storage in state)
+- 2026-03-28: Completed 16-10 modularization (extracted hydration.ts and deathResolver.ts from useGameState.ts)
+- 2026-03-28: Updated ROADMAP.md with all gap closure plans (Phase 04: 10/10, Phase 13: 8/8, Phase 16: 10/10, Phase 18: 3 plans)
+- 2026-03-28: Added Phase 20 (Short Video Clips) to roadmap
 
 ## Accumulated Context
 
 ### Roadmap Evolution
 - Phase 16 added: Kobayashi Maru ending variety system
 - Phase 17 planned: Shuffle-aware feedback TTS & content integrity (3 executable plans; CONTEXT + RESEARCH + VALIDATION)
-- Phase 18 added: Meme Template System (extracted from Phase 13 scope; plans 13-07/08/09 become 18-01/02/03)
+- Phase 18 added: Meme Template System (3 plans)
+- Phase 19 added: refactor the design (5 plans)
+- Phase 20 added: Short Video Clips for Key Moments (for TikTok/Reels/YouTube Shorts)
 
 ## Decisions
 

@@ -474,14 +474,14 @@ Integrate images from Phase 13 into 4 UI surfaces:
 
 **Goal:** Generate voice audio files for archetype reveals, death endings, and high-impact Head of Something cards; restructure voice files for scalability
 **Depends on:** Phase 06 (debrief system), Phase 07 (Kirk audio pattern)
-**Plans:** 8/9 plans complete
+**Plans:** 9/9 plans complete ✓
 
 Plans:
 - [x] 15-01-PLAN.md — Generate archetype reveal audio (7 archetypes × 3 personalities = 21 files) ✓
 - [x] 15-02-PLAN.md — Generate death ending audio (7 deaths × 3 personalities = 21 files, including KIRK hybrid) ✓
 - [x] 15-03-PLAN.md — Generate Head of Something critical card feedback (8 cards × 2 choices = 16 Roaster files) ✓
 - [x] 15-04-PLAN.md — Restructure voices folder with subfolders (archetype, death, feedback, core) ✓
-- [ ] 15-05-PLAN.md — Compress audio to Opus and MP3 with automatic generation pipeline
+- [x] 15-05-PLAN.md — Compress audio to Opus and MP3 with automatic generation pipeline ✓ (completed 2026-03-24)
 
 **Details:
 Extend voice coverage beyond basic onboarding/victory/failure to create immersive audio moments:
@@ -562,34 +562,42 @@ Automated compression pipeline to reduce bandwidth while maintaining quality:
 | 1-2 | Voice Files + Live API | v1.1 | Complete |
 | 01 | Live API STT Research | v1.2 | Complete |
 | 02 | New Role Set (Impact Zones) | v1.2 | Complete |
-| 03 | 9/9 | Complete    | 2026-03-17 |
-| 04 | Immersive Pressure Effects | v1.2 | Complete (9/10) |
-| 05 | 6/6 | Complete    | 2026-03-23 |
-| 06 | 19/19 | Complete    | 2026-03-16 |
-| 07 | Kirk Easter Egg | v1.2 | Not started |
+| 03 | No-Win Scenario Cards | v1.2 | Complete (9/9) |
+| 04 | Immersive Pressure Effects | v1.2 | Complete (10/10) |
+| 05 | Expanded AI Risk Scenarios | v1.2 | Complete (6/6) |
+| 06 | Debrief & Replay System | v1.2 | Complete (19/19) |
+| 07 | Kirk Easter Egg | v1.2 | Complete |
 | 08 | Kobayashi Maru Framing (deferred) | v1.2 | Deferred |
 | 09 | Visual Effects | v1.2 | Not started |
-| 10 | Background Audio | v1.2 | Planned (4 plans) |
+| 10 | Background Audio | v1.2 | Not started |
 | 11 | Settings Integration (deferred) | v1.2 | Deferred |
 | 12 | Gameplay Tweaks & Card Variety | v1.2 | Complete (2/2) |
-| 13 | Image Asset Pipeline (HOS-first, Gemini, ~68 images) | v1.2 | Planned (3 plans) |
-| 14 | 4/5 | Complete    | 2026-03-26 |
-| 15 | 8/9 | Complete    | 2026-03-25 |
-| 16 | Ending Variety System | v1.2 | In progress (6 plans) |
+| 13 | Image Asset Pipeline | v1.2 | Complete (8/8) |
+| 14 | Situational & Outcome Imagery | v1.2 | Complete (6/6) |
+| 15 | Voice Files Expanded | v1.2 | Complete (8/8) |
+| 16 | Ending Variety System | v1.2 | Complete (10/10) |
+| 17 | Shuffle-aware Feedback TTS | v1.2 | Complete (5/5) |
+| 18 | Meme Template System | v1.2 | Not started (3 plans) |
+| 19 | Refactor the Design | v1.2 | Not started (5 plans) |
+| 20 | Short Video Clips for Key Moments | v1.2 | Not started |
 
 ### Phase 16: Kobayashi Maru Ending Variety System
 
 **Goal:** Transform endings from role-based random death types to consequence-driven educational failure. Add death vector metadata to card outcomes, fix boss fight hardcoded AUDIT_FAILURE, fill CONGRESS content gap, and add failure lessons that teach AI governance.
 **Depends on:** Phase 15
-**Plans:** 9/9 plans complete
+**Plans:** 10/10 plans complete ✓
 
 Plans:
-- [x] 16-01-PLAN.md — Death vector types, accumulator utility, and vector-aware death resolution (TDD)
-- [x] 16-02-PLAN.md — Wire death vectors into game reducer, fix boss fight death type
-- [x] 16-03-PLAN.md — Annotate all 10 card decks with death vectors, add CONGRESS cards
-- [x] 16-04-PLAN.md — Failure lessons, death explanations, and retry prompts in debrief
-- [ ] 16-05-PLAN.md — Gap closure: annotate 7 unannotated decks with deathVector (DV-05)
-- [ ] 16-06-PLAN.md — Gap closure: broaden 3 partial decks + restore coverage test thresholds
+- [x] 16-01-PLAN.md — Death vector types, accumulator utility, and vector-aware death resolution (TDD) ✓
+- [x] 16-02-PLAN.md — Wire death vectors into game reducer, fix boss fight death type ✓
+- [x] 16-03-PLAN.md — Annotate all 10 card decks with death vectors, add CONGRESS cards ✓
+- [x] 16-04-PLAN.md — Failure lessons, death explanations, and retry prompts in debrief ✓
+- [x] 16-05-PLAN.md — Gap closure: annotate 7 unannotated decks with deathVector (DV-05) ✓ (completed 2026-03-25)
+- [x] 16-06-PLAN.md — Gap closure: broaden 3 partial decks + restore coverage test thresholds ✓ (completed 2026-03-25)
+- [x] 16-07-PLAN.md — Gap closure: CSO/HoS deck differentiation (CONGRESS, REPLACED_BY_SCRIPT) ✓ (completed 2026-03-26)
+- [x] 16-08-PLAN.md — Gap closure: Tech AI Consultant / Something Manager death vector expansion ✓ (completed 2026-03-26)
+- [x] 16-09-PLAN.md — Gap closure: Narrative copy precision (FLED_COUNTRY, REPLACED_BY_SCRIPT) ✓ (completed 2026-03-26)
+- [x] 16-10-PLAN.md — Simplification: Extract hydration/death modules, merge failureLessons data ✓ (completed 2026-03-28)
 
 **Requirements:**
 - DV-01: DeathVector type on Card outcomes (optional field, backward compatible)
@@ -606,7 +614,7 @@ Plans:
 
 **Goal:** Fix Roaster feedback audio desync when `shuffleDeck` swaps card sides; align incident pressure with `effectiveDeck`; remove duplicate HoS shadow-AI card and orphan audio; vary roast LLM cadence in prompts.
 **Depends on:** Phase 15 (voice/feedback pipeline)
-**Plans:** 5/5 plans complete
+**Plans:** 5/5 plans complete ✓
 
 **Requirements:**
 - FA-01: `choiceSidesSwapped` on shuffled cards + `authoringFeedbackStem` maps chosen visible choice → authoring file suffix (label slug) for that outcome
@@ -619,17 +627,18 @@ Plans:
 - [x] [17-02-PLAN.md](phases/17-shuffle-aware-feedback-tts-fixes/17-02-PLAN.md) — App `currentCard`, overlay authoring stem, `useVoicePlayback` wiring ✓
 - [x] [17-03-PLAN.md](phases/17-shuffle-aware-feedback-tts-fixes/17-03-PLAN.md) — HoS dedupe, critical lists + orphan audio, roast prompts ✓
 - [x] [17-04-PLAN.md](phases/17-shuffle-aware-feedback-tts-fixes/17-04-PLAN.md) — Code: authoringFeedbackStem returns label slug, type widening ✓
-- [ ] [17-05-PLAN.md](phases/17-shuffle-aware-feedback-tts-fixes/17-05-PLAN.md) — Assets: rename 76 audio files + update tests + generation scripts
+- [x] [17-05-PLAN.md](phases/17-shuffle-aware-feedback-tts-fixes/17-05-PLAN.md) — Assets: rename 76 audio files + update tests + generation scripts ✓ (completed 2026-03-27)
 
 ### Phase 18: Meme Template System
 
-**Goal:** [To be planned]
-**Requirements**: TBD
+**Goal:** Generate shareable meme templates from gameplay outcomes (archetypes, death types, high-impact moments) for viral social sharing
 **Depends on:** Phase 17
-**Plans:** 0 plans
+**Plans:** 3 plans
 
 Plans:
-- [ ] TBD (run /gsd:plan-phase 18 to break down)
+- [ ] 18-01-PLAN.md — Meme template data model and image generation triggers
+- [ ] 18-02-PLAN.md — Gemini image generation for meme templates
+- [ ] 18-03-PLAN.md — Share flow integration with template selection
 
 ### Phase 19: refactor the design
 
@@ -645,6 +654,15 @@ Plans:
 - [ ] 19-04-PLAN.md — CardStack padding reduction and mobile storyContext suppression
 - [ ] 19-05-PLAN.md — DebriefPage3 endings hint removal
 
+### Phase 20: Short Video Clips for Key Moments
+
+**Goal:** Generate short video clips (3-10 seconds) of key moments for TikTok/Reels/YouTube Shorts virality
+**Depends on:** Phase 19
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 20 to break down)
+
 ---
 
-*Roadmap updated: 2026-03-27 — Phase 17 gap closure: 2 plans to rename audio assets from _left/_right to label slugs*
+*Roadmap updated: 2026-03-28 — Phases 13, 16, 18 updated with all gap closure plans and extra phases*
