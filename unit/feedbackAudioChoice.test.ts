@@ -4,18 +4,19 @@ import {
 	type PresentationChoiceSlot,
 	slugify,
 } from "../lib/feedbackAudioChoice";
+import type { Card } from "../types";
 
 /** Minimal card shape for stem mapping with labels */
 function card(
 	swapped: boolean | undefined,
 	leftLabel = "Left Option",
 	rightLabel = "Right Option",
-) {
+): Pick<Card, "choiceSidesSwapped" | "onLeft" | "onRight"> {
 	return {
 		...(swapped !== undefined ? { choiceSidesSwapped: swapped } : {}),
-		onLeft: { label: leftLabel },
-		onRight: { label: rightLabel },
-	} as any;
+		onLeft: { label: leftLabel } as Card["onLeft"],
+		onRight: { label: rightLabel } as Card["onRight"],
+	};
 }
 
 describe("slugify", () => {

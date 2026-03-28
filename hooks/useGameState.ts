@@ -1,12 +1,11 @@
 import type { Dispatch } from "react";
 import { useEffect, useMemo, useReducer } from "react";
-import { BRANCH_INJECTIONS, DEATH_ENDINGS, ROLE_CARDS } from "../data";
+import { BRANCH_INJECTIONS } from "../data";
 import { KIRK_CORRUPTED_CARDS } from "../data/kirkCards.js";
 import { resolveDeckWithBranching } from "../lib/deck.js";
 import {
 	type Card,
 	DeathType,
-	type DeathVectorMap,
 	GameStage,
 	type GameState,
 	type PersonalityType,
@@ -66,27 +65,16 @@ export type GameAction =
 	| { type: "RESET" }
 	| { type: "KIRK_REFUSAL" };
 
-function getUnlockedEndings(
-	state: GameState,
-	deathType: DeathType,
-): DeathType[] {
-	if (deathType === DeathType.KIRK) return state.unlockedEndings;
-	if (state.unlockedEndings.includes(deathType)) return state.unlockedEndings;
-	return [...state.unlockedEndings, deathType];
-}
-
 const VALID_TRANSITIONS: Record<GameStage, GameStage[]> = {
 	[GameStage.INTRO]: [GameStage.PERSONALITY_SELECT],
 	[GameStage.PERSONALITY_SELECT]: [GameStage.ROLE_SELECT],
 	[GameStage.ROLE_SELECT]: [GameStage.INITIALIZING],
 	[GameStage.INITIALIZING]: [GameStage.PLAYING],
-	[GameStage.PLAYING]: [GameStage.BOSS_FIGHT, GameStage.GAME_OVER],
-	[GameStage.BOSS_FIGHT]: [GameStage.SUMMARY, GameStage.GAME_OVER],
-	[GameStage.GAME_OVER]: [GameStage.DEBRIEF_PAGE_2],
-	[GameStage.DEBRIEF_PAGE_1]: [],
+	[GameStage.PLAYING]: [GameStage.BOSS_FIGHT, GameStage.DEBRIEF_PAGE_1],
+	[GameStage.BOSS_FIGHT]: [GameStage.DEBRIEF_PAGE_1],
+	[GameStage.DEBRIEF_PAGE_1]: [GameStage.DEBRIEF_PAGE_2],
 	[GameStage.DEBRIEF_PAGE_2]: [GameStage.DEBRIEF_PAGE_3],
 	[GameStage.DEBRIEF_PAGE_3]: [GameStage.INTRO],
-	[GameStage.SUMMARY]: [GameStage.DEBRIEF_PAGE_2, GameStage.INTRO],
 };
 
 function isValidStageTransition(from: GameStage, to: GameStage): boolean {
@@ -165,7 +153,7 @@ function handleBossComplete(
 	action: Extract<GameAction, { type: "BOSS_COMPLETE" }>,
 ): GameState {
 	if (action.success) {
-		return { ...state, stage: GameStage.SUMMARY };
+		return { ...state, stage: GameStage.DEBRIEF_PAGE_1 };
 	}
 	const { deathType, vectorMap } = resolveDeathType(state);
 	return createGameOverState(state, deathType, vectorMap);

@@ -25,10 +25,10 @@ interface UseDebriefOptions {
 export function useDebrief(options: UseDebriefOptions): DebriefResult {
 	const { state, dispatch } = options;
 
-	// Calculate archetype when entering any debrief page or GAME_OVER
+	// Calculate archetype when entering any debrief page
 	const calculation = useMemo(() => {
 		const isDebriefStage =
-			state.stage === GameStage.GAME_OVER ||
+			state.stage === GameStage.DEBRIEF_PAGE_1 ||
 			state.stage === GameStage.DEBRIEF_PAGE_2 ||
 			state.stage === GameStage.DEBRIEF_PAGE_3;
 
@@ -62,7 +62,7 @@ export function useDebrief(options: UseDebriefOptions): DebriefResult {
 	 */
 	const nextPage = useCallback(() => {
 		const transitions: Record<GameStage, GameStage | null> = {
-			[GameStage.GAME_OVER]: GameStage.DEBRIEF_PAGE_2,
+			[GameStage.DEBRIEF_PAGE_1]: GameStage.DEBRIEF_PAGE_2,
 			[GameStage.DEBRIEF_PAGE_2]: GameStage.DEBRIEF_PAGE_3,
 			[GameStage.DEBRIEF_PAGE_3]: null,
 			[GameStage.INTRO]: null,
@@ -71,8 +71,6 @@ export function useDebrief(options: UseDebriefOptions): DebriefResult {
 			[GameStage.INITIALIZING]: null,
 			[GameStage.PLAYING]: null,
 			[GameStage.BOSS_FIGHT]: null,
-			[GameStage.DEBRIEF_PAGE_1]: null,
-			[GameStage.SUMMARY]: GameStage.DEBRIEF_PAGE_2,
 		};
 
 		const nextStage = transitions[state.stage];

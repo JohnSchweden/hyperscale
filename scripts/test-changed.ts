@@ -26,7 +26,7 @@ const PATH_TO_AREAS: Array<{ pattern: RegExp; areas: Area[] }> = [
 		areas: ["gameplay", "boss"],
 	},
 	{
-		pattern: /components\/.*Game|GameHUD|GameOver|BossFight/,
+		pattern: /components\/.*Game|GameHUD|DebriefPage|BossFight/,
 		areas: ["gameplay", "boss"],
 	},
 	{ pattern: /deathTypes|determineDeathType/, areas: ["boss"] },

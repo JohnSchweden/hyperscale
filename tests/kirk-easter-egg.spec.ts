@@ -16,7 +16,7 @@ test.use({ baseURL: "https://localhost:3000" });
 // Shared state factories
 function kirkGameOverState(personality = "ROASTER") {
 	return {
-		stage: "GAME_OVER",
+		stage: "DEBRIEF_PAGE_1",
 		personality,
 		role: "SOFTWARE_ENGINEER",
 		currentCardIndex: 3,
@@ -92,17 +92,17 @@ test.describe("Kirk Easter Egg — IntroScreen hint @area:gameplay", () => {
 	});
 });
 
-// ─── Kirk GAME_OVER ───────────────────────────────────────────────────────────
+// ─── Kirk debrief page 1 ─────────────────────────────────────────────────────
 
-test.describe("Kirk Easter Egg — GAME_OVER screen @area:gameplay", () => {
-	test("Kirk game-over shows SIMULATION BREACH DETECTED", async ({ page }) => {
+test.describe("Kirk Easter Egg — debrief page 1 @area:gameplay", () => {
+	test("Kirk death shows SIMULATION BREACH DETECTED", async ({ page }) => {
 		await injectState(page, kirkGameOverState());
 		await expect(page.getByText(/simulation breach/i)).toBeVisible({
 			timeout: 8000,
 		});
 	});
 
-	test("Kirk game-over shows Debrief Me button", async ({ page }) => {
+	test("Kirk debrief page 1 shows Debrief Me button", async ({ page }) => {
 		await injectState(page, kirkGameOverState());
 		await expect(page.getByRole("button", { name: /debrief me/i })).toBeVisible(
 			{ timeout: 8000 },

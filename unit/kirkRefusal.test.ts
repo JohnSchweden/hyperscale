@@ -148,7 +148,7 @@ describe("KIRK_REFUSAL action", () => {
 		});
 		// Then advance
 		const next = gameReducer(afterChoice, { type: "NEXT_INCIDENT" });
-		expect(next.stage).toBe(GameStage.GAME_OVER);
+		expect(next.stage).toBe(GameStage.DEBRIEF_PAGE_1);
 		expect(next.deathType).toBe(DeathType.KIRK);
 	});
 
@@ -248,7 +248,7 @@ describe("KIRK_REFUSAL action", () => {
 
 		// Advance - should trigger Kirk death even though card-after-kirk exists
 		const next = gameReducer(afterChoice, { type: "NEXT_INCIDENT" });
-		expect(next.stage).toBe(GameStage.GAME_OVER);
+		expect(next.stage).toBe(GameStage.DEBRIEF_PAGE_1);
 		expect(next.deathType).toBe(DeathType.KIRK);
 	});
 });

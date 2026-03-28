@@ -215,43 +215,49 @@ export function DebriefPage1Collapse({
 		personality,
 		unlockedEndings,
 		history,
-		effectiveDeck,
 		budget,
 		heat,
 		hype,
 	} = state;
 
+	/** Boss fight win — land on debrief page 1 with no death type */
+	const isVictory = deathType === null;
 	const isKirk = deathType === DeathType.KIRK;
-	const hasRegularDeath = deathType && !isKirk;
+	const regularDeathType: Exclude<DeathType, DeathType.KIRK> | null =
+		deathType != null && deathType !== DeathType.KIRK ? deathType : null;
 
 	const corruptedBreachText = useMemo(
 		() => corruptText("SIMULATION BREACH", 0.4),
 		[],
 	);
-	const deathEnding = hasRegularDeath ? DEATH_ENDINGS[deathType] : null;
+	const deathEnding = regularDeathType ? DEATH_ENDINGS[regularDeathType] : null;
 	const { progressText, unlockedCount, totalCount } =
 		useUnlockedEndings(unlockedEndings);
 	const replayLine = getPersonalityReplayLine(personality);
 
 	const explanation = useMemo(() => {
-		if (!hasRegularDeath) return null;
+		if (!regularDeathType) return null;
 		const vectorMap = state.deathVectorMap ?? {};
-		return generateDeathExplanation(deathType, vectorMap, history.length);
-	}, [hasRegularDeath, deathType, state.deathVectorMap, history.length]);
+		return generateDeathExplanation(
+			regularDeathType,
+			vectorMap,
+			history.length,
+		);
+	}, [regularDeathType, state.deathVectorMap, history.length]);
 
 	const failureLesson = useMemo(() => {
-		if (!hasRegularDeath) return null;
-		return getRandomLesson(deathType);
-	}, [hasRegularDeath, deathType]);
+		if (!regularDeathType) return null;
+		return getRandomLesson(regularDeathType);
+	}, [regularDeathType]);
 
 	const retryPrompt = useMemo(() => {
-		if (!hasRegularDeath || !personality) return null;
-		return getRetryPrompt(deathType, personality);
-	}, [hasRegularDeath, deathType, personality]);
+		if (!regularDeathType || !personality) return null;
+		return getRetryPrompt(regularDeathType, personality);
+	}, [regularDeathType, personality]);
 
 	const hasPlayedKirkGlitch = useRef(false);
 	useEffect(() => {
-		if (!isKirk || hasPlayedKirkGlitch.current) return;
+		if (isVictory || !isKirk || hasPlayedKirkGlitch.current) return;
 
 		const ctx = createAudioContext();
 		if (!ctx) return;
@@ -263,36 +269,59 @@ export function DebriefPage1Collapse({
 		return () => {
 			if (ctx.state !== "closed") ctx.close().catch(() => {});
 		};
-	}, [isKirk]);
+	}, [isVictory, isKirk]);
 
 	return (
 		<LayoutShell className={LAYOUT_SHELL_CENTERED_CLASS}>
 			<div className="w-full max-w-2xl">
-				<div className="mb-6 md:mb-8">
-					<GameOverHeader isKirk={isKirk} corruptedText={corruptedBreachText} />
-				</div>
+				{isVictory ? (
+					<>
+						<div className="text-6xl md:text-9xl text-green-500 mb-6 md:mb-8 animate-pulse drop-shadow-[0_0_30px_rgba(34,197,94,0.4)]">
+							<i className="fa-solid fa-trophy" aria-hidden />
+						</div>
+						<h2 className="text-3xl md:text-6xl font-black mb-3 md:mb-4 tracking-tighter text-green-400">
+							Quarter survived
+						</h2>
+						<p className="max-w-xl text-base md:text-xl mb-6 md:mb-8 text-slate-400 px-4 mx-auto">
+							Against all odds, the company is still legal. You&apos;ve earned a
+							voucher for a synthetic coffee.
+						</p>
+					</>
+				) : (
+					<>
+						<div className="mb-6 md:mb-8">
+							<GameOverHeader
+								isKirk={isKirk}
+								corruptedText={corruptedBreachText}
+							/>
+						</div>
 
-				{isKirk && (
-					<div className="mb-6 md:mb-8 mx-auto max-w-md">
-						<ImageWithFallback
-							src={getDeathImagePath(DeathType.KIRK) ?? ""}
-							alt="KIRK simulation breach"
-							aspectRatio="video"
-						/>
-					</div>
+						{isKirk && (
+							<div className="mb-6 md:mb-8 mx-auto max-w-md">
+								<ImageWithFallback
+									src={getDeathImagePath(DeathType.KIRK) ?? ""}
+									alt="KIRK simulation breach"
+									aspectRatio="video"
+								/>
+							</div>
+						)}
+
+						{deathEnding && regularDeathType && (
+							<DeathEndingCard
+								ending={deathEnding}
+								deathType={regularDeathType}
+							/>
+						)}
+
+						{explanation && (
+							<div className="mt-4 p-3 rounded-lg bg-white/5 border border-white/10 mb-6">
+								<p className="text-sm text-gray-300 italic">{explanation}</p>
+							</div>
+						)}
+
+						{failureLesson && <FailureLessonCard lesson={failureLesson} />}
+					</>
 				)}
-
-				{deathEnding && (
-					<DeathEndingCard ending={deathEnding} deathType={deathType!} />
-				)}
-
-				{explanation && (
-					<div className="mt-4 p-3 rounded-lg bg-white/5 border border-white/10 mb-6">
-						<p className="text-sm text-gray-300 italic">{explanation}</p>
-					</div>
-				)}
-
-				{failureLesson && <FailureLessonCard lesson={failureLesson} />}
 
 				<StatsGrid budget={budget} heat={heat} hype={hype} />
 
@@ -320,9 +349,11 @@ export function DebriefPage1Collapse({
 						{progressText}
 					</p>
 
-					<p className="text-sm italic text-cyan-400/80">
-						{retryPrompt || replayLine}
-					</p>
+					{!isVictory && (
+						<p className="text-sm italic text-cyan-400/80">
+							{retryPrompt || replayLine}
+						</p>
+					)}
 				</div>
 
 				<button

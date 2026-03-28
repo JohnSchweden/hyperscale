@@ -292,7 +292,7 @@ export async function navigateToBossFightFast(page: Page): Promise<void> {
 }
 
 /**
- * Navigate to GAME_OVER via Tech/AI Consultant → Launch → bankrupt.
+ * Navigate to death debrief (DEBRIEF_PAGE_1) via Tech/AI Consultant → Launch → bankrupt.
  */
 export async function navigateToGameOver(page: Page): Promise<void> {
 	await page.goto("/");
@@ -318,7 +318,7 @@ export async function navigateToGameOver(page: Page): Promise<void> {
 }
 
 /**
- * Navigate directly to GAME_OVER (BANKRUPT) via fast path.
+ * Navigate directly to bankrupt death debrief via fast path.
  * Uses Tech/AI Consultant + Launch to exhaust budget.
  */
 export async function navigateToGameOverFast(page: Page): Promise<void> {
@@ -350,7 +350,7 @@ export async function navigateToGameOverFast(page: Page): Promise<void> {
 		.first()
 		.waitFor({ state: "visible", timeout: 5000 });
 
-	// Click the risky/right choice until we hit GAME_OVER
+	// Click the risky/right choice until we hit death debrief (Liquidated)
 	const maxSwipes = 10;
 	for (let i = 0; i < maxSwipes; i++) {
 		const gameOverVisible = await page

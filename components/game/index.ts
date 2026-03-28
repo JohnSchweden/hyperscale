@@ -6,7 +6,6 @@ export { DebriefPage2AuditTrail } from "./debrief/DebriefPage2AuditTrail";
 export { DebriefPage3Verdict } from "./debrief/DebriefPage3Verdict";
 export { FeedbackOverlay } from "./FeedbackOverlay";
 export { GameHUD } from "./GameHUD";
-export { GameOver } from "./GameOver";
 export { GameScreen } from "./GameScreen";
 export { InitializingScreen } from "./InitializingScreen";
 export { IntroScreen } from "./IntroScreen";
@@ -20,5 +19,4 @@ export {
 	type StarfieldBgmMenuProps,
 	useStarfieldSpeedUIBurger,
 } from "./StarfieldBackground";
-export { SummaryScreen } from "./SummaryScreen";
 export { Taskbar } from "./Taskbar";

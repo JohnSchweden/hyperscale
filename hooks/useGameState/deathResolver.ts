@@ -74,7 +74,7 @@ export function createGameOverState(
 ): GameState {
 	return {
 		...state,
-		stage: GameStage.GAME_OVER,
+		stage: GameStage.DEBRIEF_PAGE_1,
 		deathType,
 		deathReason: DEATH_ENDINGS[deathType].description,
 		unlockedEndings: getUnlockedEndings(state, deathType),

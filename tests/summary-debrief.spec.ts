@@ -12,7 +12,7 @@ test.describe("Summary Screen - Debrief Flow @area:gameplay", () => {
 			localStorage.setItem(
 				"km-debug-state",
 				JSON.stringify({
-					stage: "SUMMARY",
+					stage: "DEBRIEF_PAGE_1",
 					hype: 75,
 					heat: 50,
 					budget: 1500000,
@@ -50,7 +50,7 @@ test.describe("Summary Screen - Debrief Flow @area:gameplay", () => {
 			localStorage.setItem(
 				"km-debug-state",
 				JSON.stringify({
-					stage: "SUMMARY",
+					stage: "DEBRIEF_PAGE_1",
 					hype: 75,
 					heat: 50,
 					budget: 1500000,
@@ -81,7 +81,7 @@ test.describe("Summary Screen - Debrief Flow @area:gameplay", () => {
 			localStorage.setItem(
 				"km-debug-state",
 				JSON.stringify({
-					stage: "SUMMARY",
+					stage: "DEBRIEF_PAGE_1",
 					hype: 75,
 					heat: 50,
 					budget: 1500000,
@@ -112,7 +112,7 @@ test.describe("Summary Screen - Debrief Flow @area:gameplay", () => {
 			localStorage.setItem(
 				"km-debug-state",
 				JSON.stringify({
-					stage: "SUMMARY",
+					stage: "DEBRIEF_PAGE_1",
 					hype: 75,
 					heat: 50,
 					budget: 1500000,
@@ -143,7 +143,7 @@ test.describe("Summary Screen - Debrief Flow @area:gameplay", () => {
 			localStorage.setItem(
 				"km-debug-state",
 				JSON.stringify({
-					stage: "SUMMARY",
+					stage: "DEBRIEF_PAGE_1",
 					hype: 75,
 					heat: 50,
 					budget: 1500000,
@@ -179,7 +179,7 @@ test.describe("Summary Screen - Debrief Flow @area:gameplay", () => {
 			localStorage.setItem(
 				"km-debug-state",
 				JSON.stringify({
-					stage: "SUMMARY",
+					stage: "DEBRIEF_PAGE_1",
 					hype: 75,
 					heat: 50,
 					budget: 1500000,
@@ -210,7 +210,7 @@ test.describe("Summary Screen - Debrief Flow @area:gameplay", () => {
 			localStorage.setItem(
 				"km-debug-state",
 				JSON.stringify({
-					stage: "SUMMARY",
+					stage: "DEBRIEF_PAGE_1",
 					hype: 75,
 					heat: 50,
 					budget: 1500000,
@@ -245,7 +245,7 @@ test.describe("Summary Screen - Debrief Flow @area:gameplay", () => {
 			localStorage.setItem(
 				"km-debug-state",
 				JSON.stringify({
-					stage: "SUMMARY",
+					stage: "DEBRIEF_PAGE_1",
 					hype: 75,
 					heat: 50,
 					budget: 1500000,
@@ -280,7 +280,7 @@ test.describe("Summary Screen - Debrief Flow @area:gameplay", () => {
 			localStorage.setItem(
 				"km-debug-state",
 				JSON.stringify({
-					stage: "SUMMARY",
+					stage: "DEBRIEF_PAGE_1",
 					hype: 75,
 					heat: 50,
 					budget: 2500000,
@@ -312,7 +312,7 @@ test.describe("Summary Screen - Debrief Flow @area:gameplay", () => {
 			localStorage.setItem(
 				"km-debug-state",
 				JSON.stringify({
-					stage: "SUMMARY",
+					stage: "DEBRIEF_PAGE_1",
 					hype: 80,
 					heat: 30,
 					budget: 2000000,

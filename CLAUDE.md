@@ -48,7 +48,7 @@ components/
   game/                     # All game screen components
     IntroScreen, PersonalitySelect, RoleSelect, InitializingScreen
     GameScreen, CardStack, GameHUD, FeedbackOverlay
-    BossFight, GameOver, SummaryScreen, RoastTerminal, Taskbar
+    BossFight, DebriefContainer (pages 1–3), RoastTerminal, Taskbar
 
 hooks/
   useGameState.ts           # Core useReducer state machine

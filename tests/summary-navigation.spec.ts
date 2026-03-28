@@ -10,7 +10,7 @@ test.describe("Summary Screen - Navigation @area:gameplay", () => {
 			localStorage.setItem(
 				"km-debug-state",
 				JSON.stringify({
-					stage: "SUMMARY",
+					stage: "DEBRIEF_PAGE_1",
 					hype: 75,
 					heat: 50,
 					budget: 1500000,
@@ -35,7 +35,7 @@ test.describe("Summary Screen - Navigation @area:gameplay", () => {
 		await debriefButton.waitFor({ state: "visible", timeout: 10000 });
 		await debriefButton.click();
 
-		// Wait for navigation to debrief page 1
+		// Wait for navigation to debrief page 2
 		await page.waitForTimeout(500);
 
 		// Verify we're now on DEBRIEF_PAGE_2
@@ -64,7 +64,7 @@ test.describe("Summary Screen - Navigation @area:gameplay", () => {
 				localStorage.setItem(
 					"km-debug-state",
 					JSON.stringify({
-						stage: "SUMMARY",
+						stage: "DEBRIEF_PAGE_1",
 						hype: 75,
 						heat: 50,
 						budget: 1500000,
@@ -107,7 +107,7 @@ test.describe("Summary Screen - Navigation @area:gameplay", () => {
 			localStorage.setItem(
 				"km-debug-state",
 				JSON.stringify({
-					stage: "SUMMARY",
+					stage: "DEBRIEF_PAGE_1",
 					hype: 75,
 					heat: 50,
 					budget: 1500000,
@@ -151,7 +151,7 @@ test.describe("Summary Screen - Navigation @area:gameplay", () => {
 			localStorage.setItem(
 				"km-debug-state",
 				JSON.stringify({
-					stage: "SUMMARY",
+					stage: "DEBRIEF_PAGE_1",
 					hype: 75,
 					heat: 50,
 					budget: 1500000,

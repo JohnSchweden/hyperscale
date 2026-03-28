@@ -11,7 +11,7 @@ test.use({ baseURL: "https://localhost:3000" });
 
 test.describe("Death types @area:boss @slow", () => {
 	test.describe("BANKRUPT (budget ≤ 0)", () => {
-		test("reaches GAME_OVER with Liquidated when budget exhausted", async ({
+		test("reaches debrief page 1 with Liquidated when budget exhausted", async ({
 			page,
 		}) => {
 			await navigateToGameOverFast(page);
@@ -31,7 +31,7 @@ test.describe("Death types @area:boss @slow", () => {
 	});
 
 	test.describe("AUDIT_FAILURE (boss fight fail)", () => {
-		test("reaches GAME_OVER with Audit catastrophe when boss fight fails", async ({
+		test("reaches debrief page 1 with Audit catastrophe when boss fight fails", async ({
 			page,
 		}) => {
 			test.setTimeout(60000);
@@ -73,7 +73,7 @@ test.describe("Death types @area:boss @slow", () => {
 		});
 	});
 
-	test.describe("GAME_OVER screen content", () => {
+	test.describe("Death debrief page 1 content", () => {
 		test("shows death title and Debrief Me button after BANKRUPT", async ({
 			page,
 		}) => {

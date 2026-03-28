@@ -61,7 +61,7 @@ describe("gameReducer", () => {
 		expect(next.heat).toBe(100);
 	});
 
-	it("NEXT_INCIDENT: triggers GAME_OVER with BANKRUPT when budget <= 0", () => {
+	it("NEXT_INCIDENT: triggers DEBRIEF_PAGE_1 with BANKRUPT when budget <= 0", () => {
 		const s = {
 			...initialGameState,
 			stage: GameStage.PLAYING,
@@ -70,13 +70,13 @@ describe("gameReducer", () => {
 			role: RoleType.SOFTWARE_ENGINEER,
 		};
 		const next = gameReducer(s, { type: "NEXT_INCIDENT" });
-		expect(next.stage).toBe(GameStage.GAME_OVER);
+		expect(next.stage).toBe(GameStage.DEBRIEF_PAGE_1);
 		expect(next.deathType).toBe(DeathType.BANKRUPT);
 		expect(next.deathReason).toBeTruthy();
 		expect(next.unlockedEndings).toContain(DeathType.BANKRUPT);
 	});
 
-	it("NEXT_INCIDENT: triggers GAME_OVER with heat >= 100, role determines death type", () => {
+	it("NEXT_INCIDENT: triggers death debrief with heat >= 100, role determines death type", () => {
 		const base = {
 			...initialGameState,
 			stage: GameStage.PLAYING,
@@ -152,20 +152,20 @@ describe("gameReducer", () => {
 		expect(next.bossFightAnswers).toEqual([true]);
 	});
 
-	it("BOSS_COMPLETE: success goes to SUMMARY", () => {
+	it("BOSS_COMPLETE: success goes to DEBRIEF_PAGE_1", () => {
 		const s = { ...initialGameState, stage: GameStage.BOSS_FIGHT };
 		const next = gameReducer(s, { type: "BOSS_COMPLETE", success: true });
-		expect(next.stage).toBe(GameStage.SUMMARY);
+		expect(next.stage).toBe(GameStage.DEBRIEF_PAGE_1);
 	});
 
-	it("BOSS_COMPLETE: fail goes to GAME_OVER with AUDIT_FAILURE when vectors empty and role maps to MANAGEMENT", () => {
+	it("BOSS_COMPLETE: fail goes to DEBRIEF_PAGE_1 with AUDIT_FAILURE when vectors empty and role maps to MANAGEMENT", () => {
 		const s = {
 			...initialGameState,
 			stage: GameStage.BOSS_FIGHT,
 			role: RoleType.CHIEF_SOMETHING_OFFICER,
 		};
 		const next = gameReducer(s, { type: "BOSS_COMPLETE", success: false });
-		expect(next.stage).toBe(GameStage.GAME_OVER);
+		expect(next.stage).toBe(GameStage.DEBRIEF_PAGE_1);
 		expect(next.deathType).toBe(DeathType.AUDIT_FAILURE);
 		expect(next.unlockedEndings).toContain(DeathType.AUDIT_FAILURE);
 	});
@@ -173,7 +173,7 @@ describe("gameReducer", () => {
 	it("RESET: restores initial state but keeps unlockedEndings", () => {
 		const s = {
 			...initialGameState,
-			stage: GameStage.GAME_OVER,
+			stage: GameStage.DEBRIEF_PAGE_1,
 			unlockedEndings: [DeathType.BANKRUPT],
 		};
 		const next = gameReducer(s, { type: "RESET" });
@@ -204,7 +204,7 @@ describe("Vector-aware death type resolution in gameReducer", () => {
 		};
 
 		const next = gameReducer(state, { type: "NEXT_INCIDENT" });
-		expect(next.stage).toBe(GameStage.GAME_OVER);
+		expect(next.stage).toBe(GameStage.DEBRIEF_PAGE_1);
 		expect(next.deathType).toBe(DeathType.CONGRESS);
 	});
 
@@ -247,7 +247,7 @@ describe("Vector-aware death type resolution in gameReducer", () => {
 		};
 
 		const next = gameReducer(state, { type: "BOSS_COMPLETE", success: false });
-		expect(next.stage).toBe(GameStage.GAME_OVER);
+		expect(next.stage).toBe(GameStage.DEBRIEF_PAGE_1);
 		expect(next.deathType).toBe(DeathType.PRISON);
 	});
 

@@ -72,7 +72,7 @@ get_game_state → { stage: "BOSS_FIGHT" }
 answer_boss_question({ answerIndex: 1 }) → { success: true, isCorrect: true/false }
 advance_boss() → { success: true }
 
-# 10. Game ends (SUMMARY or GAME_OVER)
+# 10. Game ends (DEBRIEF_PAGE_1 — win or death)
 ```
 
 ## Stage Guards — Error Response Pattern

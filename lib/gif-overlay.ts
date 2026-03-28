@@ -232,7 +232,7 @@ async function simpleTextOverlay(
 		ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
 		// Add text
-		const fontSize = parseInt(options.fontSize || "24px");
+		const fontSize = parseInt(options.fontSize || "24px", 10);
 		ctx.font = `${fontSize}px ${options.fontStyle || "Calibri"}`;
 		ctx.fillStyle = options.fontColor || "white";
 		ctx.strokeStyle = options.strokeColor || "black";
@@ -306,7 +306,7 @@ export async function addTextToGif(
 				text,
 				alignment_x: alignment,
 				alignment_y: position,
-				get_as_buffer: true,
+				get_as_buffer: getAsBuffer,
 			});
 
 			if (result) {

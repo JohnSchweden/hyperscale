@@ -65,7 +65,7 @@ function buildIncidentImages(): Record<IncidentSlug, string> {
 
 	// Map slugified incidents to paths
 	return Object.fromEntries(
-		Array.from(incidents).map(([slug, { incident }]) => {
+		Array.from(incidents).map(([slug]) => {
 			return [slug, `/images/incidents/${slug}.webp`];
 		}),
 	);

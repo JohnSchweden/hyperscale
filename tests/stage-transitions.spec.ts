@@ -54,7 +54,7 @@ test.describe("Stage transitions @area:gameplay @slow", () => {
 		).toBeVisible({ timeout: 10000 });
 	});
 
-	test("play to BOSS_FIGHT (swipe through all cards, Next ticket until boss), assert boss question visible; complete boss 3+ correct → SUMMARY", async ({
+	test("play to BOSS_FIGHT (swipe through all cards, Next ticket until boss), assert boss question visible; complete boss 3+ correct → Quarter survived debrief", async ({
 		page,
 	}) => {
 		test.setTimeout(60000);

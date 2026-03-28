@@ -29,11 +29,12 @@ test.describe("Image Verification @area:layout", () => {
 		console.log(`Found ${imgCount} lazy-loading images`);
 
 		// Check for image with death path
-		const imgSrc = await img.evaluate((el: any) => el.getAttribute("src"));
+		const imgSrc = await img.evaluate((el: HTMLImageElement) =>
+			el.getAttribute("src"),
+		);
 		console.log(`Image src: ${imgSrc}`);
 
 		// Check for image container with aspect ratio
-		const container = page.locator("div.aspect-video").first();
 		const containerCount = await page.locator("div.aspect-video").count();
 		console.log(`Found ${containerCount} aspect-video containers`);
 
@@ -147,12 +148,11 @@ test.describe("Image Verification @area:layout", () => {
 			for (const sheet of styles) {
 				try {
 					for (const rule of sheet.cssRules) {
-						if (rule.cssText && rule.cssText.includes("glitch-scan"))
-							hasGlitchScan = true;
-						if (rule.cssText && rule.cssText.includes("glitch-flicker"))
+						if (rule.cssText?.includes("glitch-scan")) hasGlitchScan = true;
+						if (rule.cssText?.includes("glitch-flicker"))
 							hasGlitchFlicker = true;
 					}
-				} catch (e) {}
+				} catch {}
 			}
 			return { hasGlitchScan, hasGlitchFlicker };
 		});

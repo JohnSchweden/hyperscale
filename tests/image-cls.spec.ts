@@ -24,11 +24,12 @@ test.describe("Cumulative Layout Shift (CLS) prevention", () => {
 					try {
 						const observer = new PerformanceObserver((list) => {
 							for (const entry of list.getEntries()) {
-								if (
-									"hadRecentInput" in entry &&
-									!(entry as any).hadRecentInput
-								) {
-									cls += (entry as any).value;
+								if (entry.entryType === "layout-shift") {
+									const ls = entry as PerformanceEntry & {
+										hadRecentInput: boolean;
+										value: number;
+									};
+									if (!ls.hadRecentInput) cls += ls.value;
 								}
 							}
 						});

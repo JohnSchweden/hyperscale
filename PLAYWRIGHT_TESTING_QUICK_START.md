@@ -33,10 +33,10 @@ bun run test -- tests/summary-navigation.spec.ts:6 --headed
 
 **What you'll see:**
 1. Browser opens to the game
-2. Test injects SUMMARY game state
-3. Page reloads to show Summary screen
+2. Test injects DEBRIEF_PAGE_1 (victory: `deathType: null`)
+3. Page reloads to Quarter survived / debrief page 1
 4. Test clicks "Debrief Me" button
-5. Page transitions to Debrief Page 1 (Game Over screen)
+5. Page transitions to Debrief Page 2 (audit trail)
 6. Test verifies navigation succeeded
 7. Browser closes
 
@@ -67,13 +67,13 @@ Tests follow this pattern:
 // 1. Inject game state via localStorage
 await page.evaluate(() => {
   localStorage.setItem("km-debug-state", JSON.stringify({
-    stage: "SUMMARY",
+    stage: "DEBRIEF_PAGE_1",
     hype: 75,
     // ... other game state
   }));
 });
 
-// 2. Reload page (app hydrates to SUMMARY)
+// 2. Reload page (app hydrates to DEBRIEF_PAGE_1)
 await page.reload();
 
 // 3. Find and click button
@@ -84,16 +84,16 @@ await button.click();
 const state = await page.evaluate(() =>
   JSON.parse(localStorage.getItem("km-debug-state")).stage
 );
-expect(state).toBe("DEBRIEF_PAGE_1");
+expect(state).toBe("DEBRIEF_PAGE_2");
 
-// 5. Verify content rendered
-await expect(page.getByText(/GAME OVER/)).toBeVisible();
+// 5. Verify content rendered (audit trail)
+await expect(page.getByText(/complete record|governance decisions/i)).toBeVisible();
 ```
 
 ### Key Files Tested
 - `components/game/debrief/DebriefPage1Collapse.tsx` - The collapsed ending page
 - `components/game/debrief/DebriefContainer.tsx` - Renders the correct debrief page
-- `hooks/useDebrief.ts` - Navigation state machine (SUMMARY → PAGE_1 → PAGE_2 → PAGE_3)
+- `hooks/useDebrief.ts` - Navigation state machine (PAGE_1 → PAGE_2 → PAGE_3)
 - `hooks/useGameState.ts` - Game state management and validation
 
 ---
@@ -103,7 +103,7 @@ await expect(page.getByText(/GAME OVER/)).toBeVisible();
 If you want to understand what was broken, see: `DEBRIEF_BUTTON_INVESTIGATION.md`
 
 **TL;DR:**
-1. Reducer blocked SUMMARY → DEBRIEF_PAGE_1 transition
+1. Reducer / debrief transitions were inconsistent with the intended linear debrief flow
 2. Tests used wrong localStorage key (`km-game-state` vs `gameState`)
 3. App couldn't hydrate to arbitrary debrief stages
 4. DebriefContainer returned `null` for PAGE_1 (component never rendered)

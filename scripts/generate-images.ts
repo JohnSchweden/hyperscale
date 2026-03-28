@@ -7,11 +7,7 @@ import { ARCHETYPES } from "../data/archetypes";
 import { ROLE_CARDS } from "../data/cards";
 import { HEAD_OF_SOMETHING_CARDS } from "../data/cards/head-of-something";
 import { DEATH_ENDINGS } from "../data/deathEndings";
-import {
-	extractHosOutcomePairs,
-	extractIncidentSlugs,
-	slugify,
-} from "../data/imageMap";
+import { extractHosOutcomePairs, slugify } from "../data/imageMap";
 import type { ArchetypeId, DeathType } from "../types";
 
 const apiKey = process.env.GEMINI_API_KEY;
@@ -725,48 +721,50 @@ async function main() {
 		const archetypeEntries = getArchetypes();
 		const deathEntries = getDeaths();
 
-		if (incidents.has(replaceSlug)) {
-			const incident = incidents.get(replaceSlug)!;
-			const { prompt, source } = generateIncidentPrompt(incident);
+		const incidentForReplace = incidents.get(replaceSlug);
+		if (incidentForReplace) {
+			const { prompt, source } = generateIncidentPrompt(incidentForReplace);
 			tasks.push({ category: "incident", slug: replaceSlug, prompt, source });
-		} else if (hosOutcomes.has(replaceSlug)) {
-			const outcome = hosOutcomes.get(replaceSlug)!;
-			const { prompt, source } = generateOutcomePrompt(
-				outcome.label,
-				outcome.lesson,
-				outcome.incident,
-			);
-			tasks.push({ category: "outcome", slug: replaceSlug, prompt, source });
 		} else {
-			const archetypeMatch = archetypeEntries.find(
-				({ id }) => slugify(id) === replaceSlug,
-			);
-			if (archetypeMatch) {
-				const { prompt, source } = generateArchetypePrompt(
-					archetypeMatch.entry.incident,
-					archetypeMatch.entry.outcome,
+			const outcomeForReplace = hosOutcomes.get(replaceSlug);
+			if (outcomeForReplace) {
+				const { prompt, source } = generateOutcomePrompt(
+					outcomeForReplace.label,
+					outcomeForReplace.lesson,
+					outcomeForReplace.incident,
 				);
-				tasks.push({
-					category: "archetype",
-					slug: replaceSlug,
-					prompt,
-					source,
-				});
+				tasks.push({ category: "outcome", slug: replaceSlug, prompt, source });
 			} else {
-				const deathMatch = deathEntries.find(
+				const archetypeMatch = archetypeEntries.find(
 					({ id }) => slugify(id) === replaceSlug,
 				);
-				if (deathMatch) {
-					const { prompt, source } = generateDeathPrompt(
-						deathMatch.entry.incident,
-						deathMatch.entry.outcome,
+				if (archetypeMatch) {
+					const { prompt, source } = generateArchetypePrompt(
+						archetypeMatch.entry.incident,
+						archetypeMatch.entry.outcome,
 					);
 					tasks.push({
-						category: "death",
+						category: "archetype",
 						slug: replaceSlug,
 						prompt,
 						source,
 					});
+				} else {
+					const deathMatch = deathEntries.find(
+						({ id }) => slugify(id) === replaceSlug,
+					);
+					if (deathMatch) {
+						const { prompt, source } = generateDeathPrompt(
+							deathMatch.entry.incident,
+							deathMatch.entry.outcome,
+						);
+						tasks.push({
+							category: "death",
+							slug: replaceSlug,
+							prompt,
+							source,
+						});
+					}
 				}
 			}
 		}

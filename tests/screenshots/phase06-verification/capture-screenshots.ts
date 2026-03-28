@@ -180,7 +180,7 @@ async function main() {
 		console.log(`\n📸 Capturing: Game Over - ${death.type}...`);
 
 		await setFullGameState(page, {
-			stage: GameStage.GAME_OVER,
+			stage: GameStage.DEBRIEF_PAGE_1,
 			hype: 30,
 			heat: death.type === DeathType.BANKRUPT ? 40 : 95,
 			budget: death.budget,
@@ -204,7 +204,7 @@ async function main() {
 
 		await captureScreenshot(page, {
 			name: `07-game-over-${death.name}`,
-			description: `Game over screen with ${death.type} ending`,
+			description: `Debrief page 1 (death) with ${death.type} ending`,
 		});
 	}
 
@@ -436,11 +436,11 @@ async function main() {
 	}
 
 	// ==========================================
-	// SUMMARY SCREEN (Successful Completion)
+	// DEBRIEF PAGE 1 — victory (boss success)
 	// ==========================================
-	console.log("\n📸 Capturing: Summary Screen (Success)...");
+	console.log("\n📸 Capturing: Debrief Page 1 (Quarter survived)...");
 	await setFullGameState(page, {
-		stage: GameStage.SUMMARY,
+		stage: GameStage.DEBRIEF_PAGE_1,
 		hype: 85,
 		heat: 30,
 		budget: 125000,
@@ -470,7 +470,7 @@ async function main() {
 	await captureScreenshot(page, {
 		name: "12-summary-success",
 		description:
-			"Summary screen showing successful game completion with final stats",
+			"Debrief page 1 (Quarter survived) after successful boss fight",
 	});
 
 	// ==========================================

@@ -72,15 +72,12 @@ test.describe("Outcome overlay images @area:layout", () => {
 		// Check that feedback dialog eventually renders when a choice is made
 		// (This verifies the component integration doesn't break)
 		const swipeLeftButton = page.locator('[data-testid="swipe-left-button"]');
-		let dialogFound = false;
 
 		if ((await swipeLeftButton.count()) > 0) {
 			await swipeLeftButton.waitFor({ state: "visible" });
 			await page.waitForTimeout(200);
 			try {
 				await swipeLeftButton.click({ timeout: 3000 });
-				const feedbackDialog = page.locator('[data-testid="feedback-dialog"]');
-				dialogFound = await feedbackDialog.isVisible().catch(() => false);
 			} catch {
 				// Button click timeout is acceptable for this test
 			}
