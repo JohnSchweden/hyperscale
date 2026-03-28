@@ -1,16 +1,9 @@
 import "dotenv/config";
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { GoogleGenAI, Modality } from "@google/genai";
-import { compressAudioFile } from "./compress-audio";
+import { delay, generateVoiceFile, initializeClient } from "./tts-utils";
 
-const apiKey = process.env.GEMINI_API_KEY || process.env.VITE_GEMINI_API_KEY;
-if (!apiKey) {
-	console.error("GEMINI_API_KEY not set");
-	process.exit(1);
-}
-
-const ai = new GoogleGenAI({ apiKey });
+const ai = initializeClient();
 
 /**
  * The 10 remaining Head of Something cards that need voice feedback audio.
@@ -116,105 +109,6 @@ const OUTPUT_DIR = path.join(
 	"public/audio/voices/roaster/feedback",
 );
 
-function createWavFile(
-	pcmData: Buffer,
-	sampleRate: number = 24000,
-	numChannels: number = 1,
-	bitsPerSample: number = 16,
-): Buffer {
-	const dataSize = pcmData.length;
-	const buffer = Buffer.alloc(44 + dataSize);
-
-	// RIFF header
-	buffer.write("RIFF", 0);
-	buffer.writeUInt32LE(36 + dataSize, 4);
-	buffer.write("WAVE", 8);
-
-	// fmt subchunk
-	buffer.write("fmt ", 12);
-	buffer.writeUInt32LE(16, 16); // Subchunk1Size
-	buffer.writeUInt16LE(1, 20); // AudioFormat (PCM)
-	buffer.writeUInt16LE(numChannels, 22);
-	buffer.writeUInt32LE(sampleRate, 24);
-	buffer.writeUInt32LE((sampleRate * numChannels * bitsPerSample) / 8, 28); // ByteRate
-	buffer.writeUInt16LE((numChannels * bitsPerSample) / 8, 32); // BlockAlign
-	buffer.writeUInt16LE(bitsPerSample, 34);
-
-	// data subchunk
-	buffer.write("data", 36);
-	buffer.writeUInt32LE(dataSize, 40);
-	pcmData.copy(buffer, 44);
-
-	return buffer;
-}
-
-async function generateVoiceWithRadio(
-	text: string,
-	outputFilename: string,
-): Promise<void> {
-	const outputPath = path.join(OUTPUT_DIR, `${outputFilename}.wav`);
-
-	// Check if file already exists
-	if (fs.existsSync(outputPath)) {
-		console.log(`  ⏭️  Skipping (exists): ${outputFilename}.wav`);
-		return;
-	}
-
-	console.log(`  🎙️  Generating: ${outputFilename}.wav`);
-	console.log(`     Text: "${text.substring(0, 60)}..."`);
-
-	try {
-		const response = await ai.models.generateContent({
-			model: "gemini-2.5-flash-preview-tts",
-			contents: [{ parts: [{ text }] }],
-			config: {
-				responseModalities: [Modality.AUDIO],
-				speechConfig: {
-					voiceConfig: {
-						prebuiltVoiceConfig: { voiceName: "Kore" },
-					},
-				},
-			},
-		});
-
-		const base64Audio =
-			response.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data;
-		if (!base64Audio) {
-			console.error(`  ❌ No audio data in response for ${outputFilename}`);
-			return;
-		}
-
-		const pcmBuffer = Buffer.from(base64Audio, "base64");
-
-		// Wrap in WAV container
-		const wavBuffer = createWavFile(pcmBuffer, 24000, 1, 16);
-
-		// Ensure output directory exists
-		fs.mkdirSync(OUTPUT_DIR, { recursive: true });
-
-		// Write WAV file
-		fs.writeFileSync(outputPath, wavBuffer);
-		console.log(
-			`  ✅ Created: ${outputFilename}.wav (${wavBuffer.length} bytes)`,
-		);
-
-		// Compress to Opus and MP3
-		try {
-			await compressAudioFile(outputPath);
-			console.log(`  🗜️  Compressed: ${outputFilename}.{opus,mp3}`);
-		} catch (error) {
-			console.warn(`  ⚠️  Compression failed for ${outputFilename}:`, error);
-		}
-	} catch (error) {
-		console.error(`  ❌ Failed to generate ${outputFilename}:`, error);
-		throw error;
-	}
-}
-
-async function delay(ms: number): Promise<void> {
-	return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
 async function generateAll() {
 	console.log("=".repeat(60));
 	console.log("Generating voice audio for 10 remaining HoS cards");
@@ -237,29 +131,25 @@ async function generateAll() {
 
 		try {
 			// Generate LEFT feedback
-			const leftFilename = `feedback_${card.id}_${card.leftSlug}`;
-			const leftExists = fs.existsSync(
-				path.join(OUTPUT_DIR, `${leftFilename}.wav`),
-			);
-			if (!leftExists) {
-				await generateVoiceWithRadio(card.leftText, leftFilename);
+			const leftFilename = `feedback_${card.id}_${card.leftSlug}.wav`;
+			try {
+				await generateVoiceFile(leftFilename, card.leftText, OUTPUT_DIR, ai, {
+					skipExisting: true,
+				});
 				generatedCount++;
 				await delay(500); // Small delay between API calls
-			} else {
-				console.log(`  ⏭️  Skipping (exists): ${leftFilename}.wav`);
+			} catch {
 				skippedCount++;
 			}
 
 			// Generate RIGHT feedback
-			const rightFilename = `feedback_${card.id}_${card.rightSlug}`;
-			const rightExists = fs.existsSync(
-				path.join(OUTPUT_DIR, `${rightFilename}.wav`),
-			);
-			if (!rightExists) {
-				await generateVoiceWithRadio(card.rightText, rightFilename);
+			const rightFilename = `feedback_${card.id}_${card.rightSlug}.wav`;
+			try {
+				await generateVoiceFile(rightFilename, card.rightText, OUTPUT_DIR, ai, {
+					skipExisting: true,
+				});
 				generatedCount++;
-			} else {
-				console.log(`  ⏭️  Skipping (exists): ${rightFilename}.wav`);
+			} catch {
 				skippedCount++;
 			}
 		} catch (error) {
