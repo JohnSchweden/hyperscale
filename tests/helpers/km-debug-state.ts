@@ -16,6 +16,8 @@ export type KmDebugStateFixture = {
 	unlockedEndings?: string[];
 	bossFightAnswers?: unknown[];
 	effectiveDeck?: unknown | null;
+	kirkCounter?: number;
+	kirkCorruptionActive?: boolean;
 };
 
 const DEFAULT_KM_DEBUG_STATE = {

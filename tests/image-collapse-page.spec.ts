@@ -1,29 +1,22 @@
 import { expect, test } from "@playwright/test";
+import { gotoWithKmDebugState } from "./helpers/km-debug-state";
 
 test.use({ baseURL: "https://localhost:3000" });
 
 test.describe("Collapse Page Images (DEBRIEF_PAGE_1) @area:layout", () => {
 	test("page renders with death ending card for BANKRUPT", async ({ page }) => {
-		await page.goto("/");
-		await page.evaluate(() => {
-			localStorage.setItem(
-				"km-debug-state",
-				JSON.stringify({
-					stage: "DEBRIEF_PAGE_1",
-					deathType: "BANKRUPT",
-					personality: "ROASTER",
-					role: "CHIEF_SOMETHING_OFFICER",
-					budget: -100000,
-					heat: 75,
-					hype: 45,
-					unlockedEndings: ["BANKRUPT"],
-					history: [],
-					effectiveDeck: [],
-				}),
-			);
+		await gotoWithKmDebugState(page, {
+			stage: "DEBRIEF_PAGE_1",
+			deathType: "BANKRUPT",
+			personality: "ROASTER",
+			role: "CHIEF_SOMETHING_OFFICER",
+			budget: -100000,
+			heat: 75,
+			hype: 45,
+			unlockedEndings: ["BANKRUPT"],
+			history: [],
+			effectiveDeck: [],
 		});
-
-		await page.reload();
 		// Wait for the main page structure
 		await page.waitForSelector("h1:has-text('GAME OVER')", { timeout: 10000 });
 		// Verify death ending card is present (BANKRUPT deathType shows as "Liquidated")
@@ -31,27 +24,19 @@ test.describe("Collapse Page Images (DEBRIEF_PAGE_1) @area:layout", () => {
 	});
 
 	test("page renders with death ending card for KIRK", async ({ page }) => {
-		await page.goto("/");
-		await page.evaluate(() => {
-			localStorage.setItem(
-				"km-debug-state",
-				JSON.stringify({
-					stage: "DEBRIEF_PAGE_1",
-					deathType: "KIRK",
-					personality: "ROASTER",
-					role: "CHIEF_SOMETHING_OFFICER",
-					budget: 500000,
-					heat: 150,
-					hype: 100,
-					unlockedEndings: ["KIRK"],
-					history: [],
-					effectiveDeck: [],
-					kirkCounter: 1,
-				}),
-			);
+		await gotoWithKmDebugState(page, {
+			stage: "DEBRIEF_PAGE_1",
+			deathType: "KIRK",
+			personality: "ROASTER",
+			role: "CHIEF_SOMETHING_OFFICER",
+			budget: 500000,
+			heat: 150,
+			hype: 100,
+			unlockedEndings: ["KIRK"],
+			history: [],
+			effectiveDeck: [],
+			kirkCounter: 1,
 		});
-
-		await page.reload();
 		// Wait for Kirk-specific glitch text
 		await page.waitForSelector("h1.kirk-glitch-text", { timeout: 10000 });
 		// Verify Kirk-specific content
@@ -61,26 +46,18 @@ test.describe("Collapse Page Images (DEBRIEF_PAGE_1) @area:layout", () => {
 	test("death ending components render with image container", async ({
 		page,
 	}) => {
-		await page.goto("/");
-		await page.evaluate(() => {
-			localStorage.setItem(
-				"km-debug-state",
-				JSON.stringify({
-					stage: "DEBRIEF_PAGE_1",
-					deathType: "PRISON",
-					personality: "ZEN_MASTER",
-					role: "TECH_AI_CONSULTANT",
-					budget: -50000,
-					heat: 90,
-					hype: 30,
-					unlockedEndings: ["PRISON"],
-					history: [],
-					effectiveDeck: [],
-				}),
-			);
+		await gotoWithKmDebugState(page, {
+			stage: "DEBRIEF_PAGE_1",
+			deathType: "PRISON",
+			personality: "ZEN_MASTER",
+			role: "TECH_AI_CONSULTANT",
+			budget: -50000,
+			heat: 90,
+			hype: 30,
+			unlockedEndings: ["PRISON"],
+			history: [],
+			effectiveDeck: [],
 		});
-
-		await page.reload();
 		await page.waitForSelector("h1:has-text('GAME OVER')", { timeout: 10000 });
 
 		// Verify the structure is present (image will be inside this)

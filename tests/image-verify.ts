@@ -1,12 +1,5 @@
 import { expect, test } from "@playwright/test";
-
-const gotoWithKmDebugState = async (page: any, state: any) => {
-	await page.goto("/");
-	await page.evaluate((payload: string) => {
-		localStorage.setItem("km-debug-state", payload);
-	}, JSON.stringify(state));
-	await page.reload();
-};
+import { gotoWithKmDebugState } from "./helpers/km-debug-state";
 
 test.describe("Image Verification @area:layout", () => {
 	test.use({ baseURL: "https://localhost:3000" });
