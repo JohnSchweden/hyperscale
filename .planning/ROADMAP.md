@@ -578,7 +578,7 @@ Automated compression pipeline to reduce bandwidth while maintaining quality:
 | 16 | Ending Variety System | v1.2 | Complete (10/10) |
 | 17 | Shuffle-aware Feedback TTS | v1.2 | Complete (5/5) |
 | 18 | Meme Template System | v1.2 | Not started (3 plans) |
-| 19 | Refactor the Design | v1.2 | Not started (5 plans) |
+| 19 | 2/5 | In Progress|  |
 | 20 | Short Video Clips for Key Moments | v1.2 | Not started |
 
 ### Phase 16: Kobayashi Maru Ending Variety System
@@ -645,7 +645,7 @@ Plans:
 **Goal:** Reduce visual clutter across game screens (FeedbackOverlay, GameOver, DebriefPage2, CardStack, DebriefPage3) to match the minimalist design DNA of the selection screens. All changes are subtractive.
 **Requirements**: DESIGN-01 to DESIGN-05
 **Depends on:** Phase 18
-**Plans:** 5 plans
+**Plans:** 2/5 plans executed
 
 Plans:
 - [ ] 19-01-PLAN.md — FeedbackOverlay clutter removal (personality label, section header, noise copy, image cap, merge sub-blocks)
