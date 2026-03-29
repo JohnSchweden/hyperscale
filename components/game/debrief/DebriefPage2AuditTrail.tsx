@@ -41,19 +41,6 @@ function getKirkPersonalityBreak(personality: PersonalityType | null): string {
 	}
 }
 
-function getPersonalityClosing(personality: PersonalityType | null): string {
-	switch (personality) {
-		case PersonalityType.ROASTER:
-			return "The system awaits your inevitable return. Try not to disappoint it again.";
-		case PersonalityType.ZEN_MASTER:
-			return "May your next journey bring clarity. The test is eternal, but so is growth.";
-		case PersonalityType.LOVEBOMBER:
-			return "You got this! Every failure is just a stepping stone to LEGENDARY success!";
-		default:
-			return "Ready for another run?";
-	}
-}
-
 function formatConsequence(hype: number, heat: number, fine: number): string {
 	const parts: string[] = [];
 	if (hype !== 0) parts.push(`${hype > 0 ? "+" : ""}${hype} hype`);
@@ -158,64 +145,10 @@ function AuditEntry({
 	);
 }
 
-type PathHintVariant = "safe" | "risky";
-
-const PATH_HINT_CONFIG: Record<
-	PathHintVariant,
-	{ border: string; icon: string; iconClass: string; labelClass: string }
-> = {
-	safe: {
-		border: "border-cyan-500/50",
-		icon: "💡",
-		iconClass: "text-cyan-400",
-		labelClass: "text-cyan-400",
-	},
-	risky: {
-		border: "border-amber-500/50",
-		icon: "🛡️",
-		iconClass: "text-amber-400",
-		labelClass: "text-amber-400",
-	},
-};
-
-interface PathHintProps {
-	index: number;
-	variant: PathHintVariant;
-	prefix: string;
-	label: string;
-	suffix: string;
-}
-
-function PathHint({
-	index,
-	variant,
-	prefix,
-	label,
-	suffix,
-}: PathHintProps): React.ReactElement {
-	const config = PATH_HINT_CONFIG[variant];
-	return (
-		<div
-			className={`border-l-3 ${config.border} rounded-r py-2.5 pl-0 text-sm text-slate-300 sm:py-2`}
-		>
-			<div className="flex items-start gap-2">
-				<span className={`${config.iconClass} mt-0.5 shrink-0`}>
-					{config.icon}
-				</span>
-				<span className="min-w-0 leading-relaxed">
-					<strong>Decision {index + 1}:</strong> {prefix}
-					<span className={`${config.labelClass} font-medium`}>{label}</span>
-					{suffix}
-				</span>
-			</div>
-		</div>
-	);
-}
-
 /**
  * DebriefPage2AuditTrail component displays the second page of the game debrief.
  * Shows the complete audit trail of player decisions with expandable card details.
- * Includes personality commentary and reflection prompts for non-KIRK paths.
+ * Includes personality commentary for non-KIRK paths.
  * @param props - The component props
  * @returns The rendered debrief page 2 component
  */
@@ -246,7 +179,6 @@ export const DebriefPage2AuditTrail: React.FC<DebriefPage2AuditTrailProps> = ({
 			? getKirkPersonalityBreak(personality)
 			: getPersonalityComment(personality)
 		: "";
-	const personalityClosing = isKirk ? "" : getPersonalityClosing(personality);
 	const personalityData = personality ? PERSONALITIES[personality] : null;
 
 	return (
@@ -324,73 +256,6 @@ export const DebriefPage2AuditTrail: React.FC<DebriefPage2AuditTrailProps> = ({
 						<p className="text-left text-slate-300 italic">
 							"{personalityComment}"
 						</p>
-					</div>
-				)}
-
-				{/* Reflection Prompt — hidden for Kirk path */}
-				{!isKirk && (
-					<div
-						className={`mb-6 rounded-xl p-5 sm:p-6 md:mb-8 ${GLASS_PANEL_DEFAULT}`}
-					>
-						<h3 className="mb-3 text-left text-lg font-bold text-slate-200 sm:text-center">
-							<i className="fa-solid fa-lightbulb text-yellow-500 mr-2"></i>
-							What would you do differently?
-						</h3>
-						<p className="text-left text-slate-400 text-sm mb-4 leading-relaxed">
-							Every choice you made shaped this outcome. As you look back at
-							your decisions, consider the paths not taken and why you made the
-							choices you did.
-						</p>
-
-						{/* Per-choice hints for both safe and risky decisions */}
-						{history.length > 0 && (
-							<div className="mt-8">
-								<div className="text-base font-semibold text-slate-300 mb-3 flex items-center justify-center gap-2 pt-[24px]">
-									<i className="fa-solid fa-route text-cyan-400"></i>
-									Path you didn't take
-								</div>
-								<div className="space-y-1 text-left">
-									{history.map((entry, index) => {
-										const card = cards.find((c) => c.id === entry.cardId);
-										if (!card) return null;
-
-										if (entry.choice === "LEFT") {
-											return (
-												// biome-ignore lint/suspicious/noArrayIndexKey: chronological stable list
-												<Fragment key={`hint-${index}`}>
-													<PathHint
-														index={index}
-														variant="safe"
-														prefix="You played it safe. Next time, try "
-														label={card.onRight.label.toLowerCase()}
-														suffix=" to see how much hype you could gain—and what heat you might attract."
-													/>
-												</Fragment>
-											);
-										}
-										return (
-											// biome-ignore lint/suspicious/noArrayIndexKey: chronological stable list
-											<Fragment key={`hint-${index}`}>
-												<PathHint
-													index={index}
-													variant="risky"
-													prefix="You took a risk. Next time, try "
-													label={card.onLeft.label.toLowerCase()}
-													suffix=" to see if you can avoid the heat and fines."
-												/>
-											</Fragment>
-										);
-									})}
-								</div>
-							</div>
-						)}
-
-						{/* Personality closing line */}
-						<div className="mt-4 pt-4 border-t border-slate-700/50">
-							<p className="text-sm italic text-cyan-400/80 text-center">
-								{personalityClosing}
-							</p>
-						</div>
 					</div>
 				)}
 
