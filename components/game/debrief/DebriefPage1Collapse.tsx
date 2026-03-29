@@ -4,7 +4,6 @@ import {
 	FAILURE_LESSONS,
 	type FailureLesson,
 	generateDeathExplanation,
-	getRetryPrompt,
 } from "../../../data";
 import { getDeathImagePath } from "../../../data/imageMap";
 import { useUnlockedEndings } from "../../../hooks";
@@ -14,7 +13,7 @@ import {
 	playKirkCrashSound,
 	playKirkGlitchTone,
 } from "../../../services/kirkAudio";
-import { DeathType, type GameState, PersonalityType } from "../../../types";
+import { DeathType, type GameState } from "../../../types";
 import { corruptText } from "../../../utils/kirkText";
 import { ImageWithFallback } from "../../ImageWithFallback";
 import LayoutShell from "../../LayoutShell";
@@ -61,19 +60,6 @@ function StatCard({ label, value, color }: StatCardProps) {
 			<div className={`text-xl md:text-2xl font-black ${color}`}>{value}</div>
 		</div>
 	);
-}
-
-const PERSONALITY_REPLAY_LINES: Record<PersonalityType, string> = {
-	[PersonalityType.ROASTER]: "Go ahead. Fail differently this time.",
-	[PersonalityType.ZEN_MASTER]:
-		"The test awaits your next attempt. Wisdom lies in repetition.",
-	[PersonalityType.LOVEBOMBER]:
-		"I believe in you. Let's see what you learn next time!",
-};
-
-function getPersonalityReplayLine(personality: PersonalityType | null): string {
-	if (!personality) return "Ready for another attempt?";
-	return PERSONALITY_REPLAY_LINES[personality];
 }
 
 function getRandomLesson(deathType: Exclude<DeathType, typeof DeathType.KIRK>) {
@@ -158,7 +144,7 @@ function DeathEndingCard({ ending, deathType }: DeathEndingCardProps) {
 			className={`mb-6 md:mb-8 p-6 md:p-8 rounded-xl border border-red-500/40 bg-gradient-to-br from-red-950/30 to-black/70 ${GLASS_FILL_STRONG}`}
 		>
 			{/* Collapse image - dramatic full-width hero */}
-			<div className="mb-4 mx-auto max-w-md">
+			<div className="mb-4 mx-auto max-w-md max-h-[220px] overflow-hidden">
 				<ImageWithFallback
 					src={getDeathImagePath(deathType) ?? ""}
 					alt={`Ending: ${ending.title}`}
@@ -217,15 +203,7 @@ export function DebriefPage1Collapse({
 	state,
 	onNext,
 }: DebriefPage1CollapseProps) {
-	const {
-		deathType,
-		personality,
-		unlockedEndings,
-		history,
-		budget,
-		heat,
-		hype,
-	} = state;
+	const { deathType, unlockedEndings, history, budget, heat, hype } = state;
 
 	/** Boss fight win — land on debrief page 1 with no death type */
 	const isVictory = deathType === null;
@@ -238,9 +216,7 @@ export function DebriefPage1Collapse({
 		[],
 	);
 	const deathEnding = regularDeathType ? DEATH_ENDINGS[regularDeathType] : null;
-	const { progressText, unlockedCount, totalCount } =
-		useUnlockedEndings(unlockedEndings);
-	const replayLine = getPersonalityReplayLine(personality);
+	const { unlockedCount, totalCount } = useUnlockedEndings(unlockedEndings);
 
 	const explanation = useMemo(() => {
 		if (!regularDeathType) return null;
@@ -256,11 +232,6 @@ export function DebriefPage1Collapse({
 		if (!regularDeathType) return null;
 		return getRandomLesson(regularDeathType);
 	}, [regularDeathType]);
-
-	const retryPrompt = useMemo(() => {
-		if (!regularDeathType || !personality) return null;
-		return getRetryPrompt(regularDeathType, personality);
-	}, [regularDeathType, personality]);
 
 	const hasPlayedKirkGlitch = useRef(false);
 	useEffect(() => {
@@ -304,7 +275,7 @@ export function DebriefPage1Collapse({
 						</div>
 
 						{isKirk && (
-							<div className="mb-6 md:mb-8 mx-auto max-w-md">
+							<div className="mb-6 md:mb-8 mx-auto max-w-md max-h-[220px] overflow-hidden">
 								<ImageWithFallback
 									src={getDeathImagePath(DeathType.KIRK) ?? ""}
 									alt="KIRK simulation breach"
@@ -333,6 +304,7 @@ export function DebriefPage1Collapse({
 				<StatsGrid budget={budget} heat={heat} hype={hype} />
 
 				<div
+					data-testid="debrief-endings-box"
 					className={`mb-6 md:mb-8 p-4 md:p-6 rounded-xl border-2 border-cyan-500/35 bg-gradient-to-br from-cyan-950/30 to-black/70 ${GLASS_FILL_STRONG}`}
 				>
 					<div className="flex items-center justify-center gap-2 mb-4">
@@ -340,7 +312,6 @@ export function DebriefPage1Collapse({
 						<div className="text-xs text-cyan-400 tracking-widest uppercase font-bold">
 							Unlocked Endings
 						</div>
-						<i className="fa-solid fa-trophy text-cyan-400 text-lg" />
 					</div>
 
 					<div className="mb-4">
@@ -351,16 +322,6 @@ export function DebriefPage1Collapse({
 					</div>
 
 					<EndingIconGrid unlockedEndings={unlockedEndings} />
-
-					<p className="text-sm md:text-base text-slate-300 leading-relaxed mb-3">
-						{progressText}
-					</p>
-
-					{!isVictory && (
-						<p className="text-sm italic text-cyan-400/80">
-							{retryPrompt || replayLine}
-						</p>
-					)}
 				</div>
 
 				<button
