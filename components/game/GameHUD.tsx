@@ -124,7 +124,7 @@ export const GameHUD = React.memo(function GameHUD({
 						<span
 							className={`${hype < 20 ? "text-red-500 animate-pulse" : "text-cyan-400"} inline-flex items-center gap-1.5`}
 						>
-							<i className="fa-solid fa-chart-line text-[10px]" aria-hidden></i>
+							<i className="fa-solid fa-rocket text-[10px]" aria-hidden></i>
 							Hype
 						</span>
 						<span className="text-cyan-400">{hype}%</span>

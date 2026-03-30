@@ -61,34 +61,19 @@ test.describe("Debrief Page 2 - UI Enhancements @area:layout", () => {
 		await expect(pathTitle).toHaveClass(/justify-center/);
 	});
 
-	test("card descriptions expand with 'show more' button", async ({ page }) => {
+	test("card descriptions show full text without expand toggles", async ({
+		page,
+	}) => {
 		await gotoWithKmDebugState(page, {
 			stage: "DEBRIEF_PAGE_2",
 			history: [{ cardId: "se_security_patch_timeline", choice: "LEFT" }],
 		});
 		await page.waitForSelector("h1", { timeout: 10000 });
 
-		// Look for show more button
-		const showMoreButton = page.getByText("show more");
-
-		// If there's a long description, the button should exist
-		const count = await showMoreButton.count();
-		if (count > 0) {
-			await expect(showMoreButton.first()).toBeVisible();
-
-			// Click to expand
-			await showMoreButton.first().click();
-
-			// Should now show "show less"
-			const showLessButton = page.getByText("show less");
-			await expect(showLessButton.first()).toBeVisible();
-
-			// Click to collapse
-			await showLessButton.first().click();
-
-			// Should show "show more" again
-			await expect(showMoreButton.first()).toBeVisible();
-		}
+		await expect(page.getByText("show more")).toHaveCount(0);
+		await expect(page.getByText("show less")).toHaveCount(0);
+		// Tail of long card body (past prior 120-char preview cutoff)
+		await expect(page.getByText(/might miss edge cases/)).toBeVisible();
 	});
 });
 

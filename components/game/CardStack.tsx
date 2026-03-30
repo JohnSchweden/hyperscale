@@ -6,6 +6,12 @@ import { getIncidentImagePath, slugify } from "../../data/imageMap";
 import { SOURCE_ICONS } from "../../data/sources";
 import type { Card, RoleType } from "../../types";
 
+/** Match StarfieldSpeedPanel glass (StarfieldBackground) */
+const incidentCardGlass =
+	"bg-black/65 border border-white/10 shadow-lg backdrop-blur-sm backdrop-saturate-100";
+/** Opaque title bar — no backdrop blur (reads clearly on glass body) */
+const incidentCardHeaderBar = "bg-slate-800 border-b border-white/5";
+
 // import kept for commented incident image block (phase 19-06)
 // import { ImageWithFallback } from "../ImageWithFallback";
 
@@ -176,28 +182,31 @@ export const CardStack: React.FC<CardStackProps> = ({
 	const hasStressVisuals = isUrgent;
 
 	const swipeButtonBase =
-		"flex-1 py-2 px-3 md:py-4 md:px-4 text-sm md:text-base border tracking-wide transition-all min-h-[40px] md:min-h-[48px]";
+		"flex-1 py-2 px-3 md:py-4 md:px-4 text-sm md:text-base border-[0.5px] border-solid tracking-wide transition-all min-h-[40px] md:min-h-[48px]";
 	const swipeButtonDefault =
-		"border-white text-white bg-transparent hover:bg-cyan-500 hover:border-cyan-500 hover:text-black active:bg-cyan-500 active:border-cyan-500 active:text-black";
-	const swipeButtonSelected = "bg-cyan-500 border-cyan-500 text-black";
+		"border-white/35 text-slate-300 bg-transparent hover:bg-cyan-500 hover:border-cyan-500 hover:text-black active:bg-cyan-500 active:border-cyan-500 active:text-black";
+	const swipeButtonSelected =
+		"border-[0.5px] border-solid bg-cyan-500 border-cyan-500 font-bold text-black";
 
 	return (
 		<div
-			className={`relative flex-shrink-0 w-full max-w-full lg:max-w-[43rem] h-[480px] md:h-[620px] ${hasStressVisuals ? "pressure-shake" : ""}`}
+			className={`relative flex-shrink-0 w-full max-w-full lg:max-w-[43rem] h-[420px] md:h-[540px] ${hasStressVisuals ? "pressure-shake" : ""}`}
 			data-testid="incident-card-container"
 			data-pressure-stress={hasStressVisuals ? "true" : undefined}
 		>
 			{/* Next card (behind) */}
 			{nextCard && (
 				<div
-					className="absolute inset-0 bg-slate-900 border border-slate-700 rounded-xl overflow-hidden shadow-2xl flex flex-col"
+					className={`absolute inset-0 rounded-xl overflow-hidden flex flex-col ${incidentCardGlass}`}
 					style={{
 						zIndex: 0,
 						transform: "scale(0.95)",
 						opacity: 0.6,
 					}}
 				>
-					<div className="bg-slate-800 px-3 md:px-4 py-2 flex items-center justify-between border-b border-white/5">
+					<div
+						className={`px-3 md:px-4 py-2 flex items-center justify-between ${incidentCardHeaderBar}`}
+					>
 						<div className="flex items-center gap-2 text-[10px] mono font-bold text-slate-400 truncate">
 							<i
 								className={`fa-solid ${SOURCE_ICONS[nextCard.source] ?? "fa-hashtag"}`}
@@ -218,7 +227,7 @@ export const CardStack: React.FC<CardStackProps> = ({
 					<div className="p-4 md:p-6 flex flex-col justify-between flex-1 overflow-hidden">
 						<div className="space-y-3 overflow-y-auto">
 							<div className="flex items-center gap-3">
-								<div className="w-7 h-7 md:w-8 md:h-8 rounded bg-slate-800 flex items-center justify-center border border-white/5 shrink-0">
+								<div className="w-7 h-7 md:w-8 md:h-8 rounded bg-white/5 flex items-center justify-center border border-white/10 shrink-0 backdrop-blur-sm">
 									<i
 										className="fa-solid fa-user-robot text-slate-500 text-xs"
 										aria-hidden
@@ -262,7 +271,7 @@ export const CardStack: React.FC<CardStackProps> = ({
 				role="group"
 				data-testid="incident-card"
 				data-card-id={currentCard.id}
-				className={`absolute inset-0 bg-slate-900 border border-slate-700 rounded-xl overflow-hidden shadow-2xl flex flex-col select-none swipe-card ${isFirstCard && !exitDirection && !isDragging && !hasDragged ? "ticket-transition" : ""} ${isSnappingBack ? "spring-snap-back" : ""} ${hasStressVisuals ? "pressure-flicker" : ""}`}
+				className={`absolute inset-0 rounded-xl overflow-hidden flex flex-col select-none swipe-card ${incidentCardGlass} ${isFirstCard && !exitDirection && !isDragging && !hasDragged ? "ticket-transition" : ""} ${isSnappingBack ? "spring-snap-back" : ""} ${hasStressVisuals ? "pressure-flicker" : ""}`}
 				key={currentCardIndex}
 				onTouchStart={onTouchStart}
 				onTouchMove={onTouchMove}
@@ -291,7 +300,9 @@ export const CardStack: React.FC<CardStackProps> = ({
 					/>
 				)}
 
-				<div className="bg-slate-800 px-3 md:px-4 py-2 flex items-center justify-between border-b border-white/5">
+				<div
+					className={`px-3 md:px-4 py-2 flex items-center justify-between ${incidentCardHeaderBar}`}
+				>
 					<div className="flex items-center gap-2 text-[10px] mono font-bold text-slate-400 truncate">
 						<i
 							className={`fa-solid ${SOURCE_ICONS[currentCard.source] ?? "fa-hashtag"}`}
@@ -329,7 +340,7 @@ export const CardStack: React.FC<CardStackProps> = ({
 						className={`space-y-3 md:space-y-6 overflow-y-auto ${hasStressVisuals ? "pressure-shake-counter" : ""}`}
 					>
 						<div className="flex items-center gap-3">
-							<div className="w-8 h-8 md:w-10 md:h-10 rounded bg-slate-800 flex items-center justify-center border border-white/5 shrink-0">
+							<div className="w-8 h-8 md:w-10 md:h-10 rounded bg-white/5 flex items-center justify-center border border-white/10 shrink-0 backdrop-blur-sm">
 								<i
 									className="fa-solid fa-user-robot text-slate-400 text-xs md:text-base"
 									aria-hidden
@@ -356,11 +367,11 @@ export const CardStack: React.FC<CardStackProps> = ({
 					<div className="flex flex-col gap-2 md:gap-3 mt-4 md:mt-8 shrink-0">
 						{/* Keyboard hint */}
 						<div className="flex items-center justify-center gap-2 text-[10px] text-slate-400 mono">
-							<span className="hidden md:inline px-1.5 py-0.5 bg-slate-800 border border-slate-700 rounded">
+							<span className="hidden md:inline px-1.5 py-0.5 rounded bg-white/5 border border-white/10 backdrop-blur-sm">
 								←
 							</span>
 							<span className="hidden md:inline">Swipe or use arrow keys</span>
-							<span className="hidden md:inline px-1.5 py-0.5 bg-slate-800 border border-slate-700 rounded">
+							<span className="hidden md:inline px-1.5 py-0.5 rounded bg-white/5 border border-white/10 backdrop-blur-sm">
 								→
 							</span>
 
@@ -376,7 +387,7 @@ export const CardStack: React.FC<CardStackProps> = ({
 								type="button"
 								onClick={onSwipeLeft}
 								data-testid="swipe-left-button"
-								className={`${swipeButtonBase} font-bold ${direction === "LEFT" ? swipeButtonSelected : swipeButtonDefault}`}
+								className={`${swipeButtonBase} ${direction === "LEFT" ? swipeButtonSelected : `font-semibold ${swipeButtonDefault}`}`}
 							>
 								{currentCard.onLeft.label}
 							</button>
@@ -384,7 +395,7 @@ export const CardStack: React.FC<CardStackProps> = ({
 								type="button"
 								onClick={onSwipeRight}
 								data-testid="swipe-right-button"
-								className={`${swipeButtonBase} font-black ${direction === "RIGHT" ? swipeButtonSelected : swipeButtonDefault}`}
+								className={`${swipeButtonBase} ${direction === "RIGHT" ? swipeButtonSelected : `font-bold ${swipeButtonDefault}`}`}
 							>
 								{currentCard.onRight.label}
 							</button>

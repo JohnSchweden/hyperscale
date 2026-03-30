@@ -109,7 +109,12 @@ type FeedbackOverlayState = {
 	choice: "LEFT" | "RIGHT";
 	/** Authoring label slug for pre-baked feedback audio (accounts for choiceSidesSwapped). */
 	feedbackAuthoringStem: string;
+	/** Fine delta from this choice */
 	fine: number;
+	/** Heat delta from this choice */
+	heatDelta: number;
+	/** Hype delta from this choice */
+	hypeDelta: number;
 	violation: string;
 	cardId: string;
 	teamImpact?: string | null;
@@ -205,6 +210,8 @@ const App: React.FC = () => {
 				choice: direction,
 				feedbackAuthoringStem: authoringFeedbackStem(card, direction),
 				fine: outcome.fine,
+				heatDelta: outcome.heat,
+				hypeDelta: outcome.hype,
 				violation: outcome.violation,
 				cardId: card.id,
 				teamImpact: teamImpact ?? null,
@@ -624,6 +631,8 @@ const App: React.FC = () => {
 						lesson={feedbackOverlay.lesson}
 						choice={feedbackOverlay.choice}
 						fine={feedbackOverlay.fine}
+						heatDelta={feedbackOverlay.heatDelta}
+						hypeDelta={feedbackOverlay.hypeDelta}
 						violation={feedbackOverlay.violation}
 						teamImpact={feedbackOverlay.teamImpact}
 						budget={state.budget}

@@ -157,26 +157,16 @@ test.describe("Debrief Audit Trail - Description Length @area:layout", () => {
 		await expect(auditEntries.first()).toBeVisible();
 	});
 
-	test("provides expand option for long card descriptions", async ({
-		page,
-	}) => {
+	test("shows full long card descriptions inline", async ({ page }) => {
 		await gotoWithKmDebugState(page, {
 			stage: "DEBRIEF_PAGE_2",
 			history: [{ cardId: "se_security_patch_timeline", choice: "LEFT" }],
 		});
 
-		// Wait for the page to load
 		await page.waitForSelector("h1", { timeout: 10000 });
 
-		// Check for show more/less button if description is long
-		const showMoreButton = page.getByText(/show more|show less/i);
-
-		// If there's a long description, expand button should exist
-		// Otherwise, the test passes (short descriptions don't need expand)
-		const count = await showMoreButton.count();
-		if (count > 0) {
-			await expect(showMoreButton.first()).toBeVisible();
-		}
+		await expect(page.getByText(/show more|show less/i)).toHaveCount(0);
+		await expect(page.getByText(/might miss edge cases/)).toBeVisible();
 	});
 });
 

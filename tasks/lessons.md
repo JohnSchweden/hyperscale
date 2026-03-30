@@ -87,3 +87,16 @@ Patterns to prevent repeat mistakes. Update after corrections from the user.
 
 <!-- Captured 2026-03-29 via post-commit analysis -->
 - [RULE] Don't use Playwright's `page.mouse.move/down/up` for testing card drag interactions; use DOM-level synthetic event dispatch instead — Playwright's synthetic mouse events don't reliably fire window-level listeners in this architecture's gesture detection, causing flaky tests. Create helper functions (`syntheticDragOnCard`, `syntheticMouseUpAtCard`) that dispatch events directly on the target element.
+
+<!-- Captured 2026-03-30 via post-commit analysis -->
+- [RULE] Extract formatting/calculation utilities to shared modules immediately when found duplicated across components — parallel implementations diverge in precision/rounding (RoleSelect's `formatBudget` used `.toFixed(0)` while GameHUD used `.toFixed(1)` for millions), causing silent display inconsistencies in the UI.
+- [RULE] Test files should import and use actual utility functions from src/, not redefine them locally — test redefinitions create silent divergence where tests pass but real code behaves differently (game-hud.spec.ts had `formatBudgetMillion` instead of importing the actual `formatBudget`).
+
+<!-- Captured 2026-03-30 via post-commit analysis -->
+- [RULE] When card types require special asset handling (like Kirk-breach cards), provide type-specific fallback UI (e.g., glitch placeholder) instead of generic null returns — preserves narrative identity and prevents UI gaps when specialized assets are missing or delayed. Check the card's identifying pattern (slug prefix) and render accordingly, not just `return null` for all missing images.
+
+<!-- Captured 2026-03-30 via post-commit analysis -->
+- [RULE] When rendering type-specific content (explanation, lesson blocks for different death endings), always gate each piece with its type discriminator (isKirk, regularDeathType), not just the content presence check — Multiple death types may have the same fields populated, and absence of the type guard causes content to render for the wrong ending type
+
+<!-- Captured 2026-03-31 via post-commit analysis -->
+- [RULE] When a function formats data that appears visually (consequences, stats, etc.), match its parameter order to the visual display order — mismatched parameter order causes bugs where formatting logic diverges from the display sequence and makes it harder to verify consistency across components.

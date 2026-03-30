@@ -23,8 +23,12 @@ interface FeedbackOverlayProps {
 	lesson: string;
 	/** The choice made (left or right swipe) */
 	choice: "LEFT" | "RIGHT";
-	/** Fine amount for violation (0 if no violation) */
+	/** Fine delta from this choice */
 	fine: number;
+	/** Heat delta from this choice */
+	heatDelta?: number;
+	/** Hype delta from this choice */
+	hypeDelta?: number;
 	/** Description of the violation if any */
 	violation: string;
 	/** Optional team impact description */
@@ -59,6 +63,8 @@ export const FeedbackOverlay: React.FC<FeedbackOverlayProps> = ({
 	lesson,
 	choice,
 	fine,
+	heatDelta,
+	hypeDelta,
 	violation,
 	teamImpact,
 	budget,
@@ -185,63 +191,76 @@ export const FeedbackOverlay: React.FC<FeedbackOverlayProps> = ({
 				<h2 id="feedback-overlay-title" className="sr-only">
 					Governance feedback
 				</h2>
-				<div
-					className={`text-4xl md:text-6xl mb-4 md:mb-6 ${fine > 0 ? "text-amber-400" : "text-cyan-400"}`}
-				>
-					<i
-						className={`fa-solid ${fine > 0 ? "fa-triangle-exclamation" : "fa-circle-check"}`}
-						aria-hidden
-					></i>
-				</div>
 
-				{fine > 0 && (
-					<div className="mb-4 md:mb-6 p-3 md:p-4 bg-red-900/20 border border-red-500/30 rounded-lg">
-						<div className="text-red-400 text-xs md:text-sm font-bold tracking-wide mb-1 leading-relaxed">
-							Violation fine
-						</div>
-						<div className="text-2xl md:text-3xl font-black text-red-500">
-							-{formatBudget(fine)}
-						</div>
-						<div className="text-red-400/80 text-xs md:text-sm mt-1 leading-relaxed">
-							{violation}
-						</div>
+				{/* Combined violation block with icon, fine, consequences, and violation text */}
+				<div className="mb-4 md:mb-6 p-3 md:p-4 bg-red-900/20 border border-red-500/30 rounded-lg">
+					<div className="flex items-center justify-center gap-2 mb-2">
+						<i
+							className={`fa-solid text-xl md:text-2xl ${
+								fine > 0
+									? "fa-triangle-exclamation text-amber-400"
+									: "fa-circle-check text-cyan-400"
+							}`}
+							aria-hidden
+						></i>
+						<span
+							className={`text-lg md:text-xl font-bold ${
+								fine > 0 ? "text-amber-400" : "text-cyan-400"
+							}`}
+						>
+							{fine > 0 ? "Violation" : "Approved"}
+						</span>
 					</div>
-				)}
 
-				{/* Always-visible consequences: Fine → Heat → Hype */}
-				<div className="flex justify-center gap-3 md:gap-4 mb-4 text-xs md:text-sm">
-					<span
-						className={`inline-flex items-center gap-1.5 ${
-							fine > 0 ? "text-red-400" : "text-green-400"
-						}`}
-					>
-						<i className="fa-solid fa-coins" aria-hidden></i>
-						{fine > 0 ? `-${formatBudget(fine)}` : "$0"}
-					</span>
-					<span
-						className={`inline-flex items-center gap-1.5 ${
-							heatCritical
-								? "text-red-400"
-								: heatHigh
-									? "text-amber-400"
-									: "text-cyan-400"
-						}`}
-					>
-						<i className="fa-solid fa-fire" aria-hidden></i>
-						{heat != null ? `${heat}%` : "—"}
-					</span>
-					<span
-						className={`inline-flex items-center gap-1.5 ${
-							hypeCritical
-								? "text-red-400"
-								: hypeHigh
-									? "text-amber-400"
-									: "text-cyan-400"
-						}`}
-					>
-						<i className="fa-solid fa-bullhorn" aria-hidden></i>
-						{hype != null ? `${hype}%` : "—"}
-					</span>
+					{/* Consequences: Fine → Heat → Hype with focus on biggest impact */}
+					<div className="flex justify-center gap-3 md:gap-4 mb-3 text-sm md:text-base">
+						{/* Fine - always show */}
+						<span
+							className={`inline-flex items-center gap-1 ${
+								fine > 0 ? "text-red-400 font-bold" : "text-green-400"
+							}`}
+						>
+							<i className="fa-solid fa-coins text-xs" aria-hidden></i>
+							{fine > 0 ? `-${formatBudget(fine)}` : "$0"}
+						</span>
+
+						{/* Heat delta */}
+						{heatDelta !== undefined && heatDelta !== 0 && (
+							<span
+								className={`inline-flex items-center gap-1 ${
+									heatDelta > 0 ? "text-red-400 font-bold" : "text-green-400"
+								}`}
+							>
+								<i className="fa-solid fa-fire text-xs" aria-hidden></i>
+								{heatDelta > 0 ? `+${heatDelta}` : `${heatDelta}`}%
+							</span>
+						)}
+
+						{/* Hype delta - use rocket icon */}
+						{hypeDelta !== undefined && hypeDelta !== 0 && (
+							<span
+								className={`inline-flex items-center gap-1 ${
+									hypeDelta > 0
+										? "text-cyan-400 font-bold"
+										: "text-red-400 font-bold"
+								}`}
+							>
+								<i className="fa-solid fa-rocket text-xs" aria-hidden></i>
+								{hypeDelta > 0 ? `+${hypeDelta}` : `${hypeDelta}`}%
+							</span>
+						)}
+					</div>
+
+					{fine > 0 && (
+						<>
+							<div className="text-2xl md:text-3xl font-black text-red-500 text-center">
+								-{formatBudget(fine)}
+							</div>
+							<div className="text-red-400/80 text-xs md:text-sm mt-1 leading-relaxed text-center">
+								{violation}
+							</div>
+						</>
+					)}
 				</div>
 
 				<p className="text-lg md:text-2xl mb-4 md:mb-8 text-slate-100 font-light leading-relaxed">

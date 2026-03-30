@@ -240,6 +240,7 @@ export function DebriefPage1Collapse({
 								src="/images/victory.webp"
 								alt="Victory celebration"
 								aspectRatio="video"
+								containerClassName="mx-auto"
 							/>
 						</div>
 						<div className={`mt-4 mb-6 rounded-lg p-3 ${GLASS_PANEL_DEFAULT}`}>
