@@ -13,8 +13,8 @@ export interface FailureLesson {
 	realWorldExample: string;
 }
 
-// Valid death types that have failure lessons (excluding KIRK)
-type LessonDeathType = Exclude<DeathType, typeof DeathType.KIRK>;
+// All death types including KIRK have failure lessons
+type LessonDeathType = DeathType;
 
 /**
  * Educational failure lessons for each death type.
@@ -181,6 +181,29 @@ export const FAILURE_LESSONS: Record<LessonDeathType, FailureLesson[]> = {
 				"Multiple AI systems failed government audits for lack of adversarial or edge case testing (2023-2024)",
 		},
 	],
+	[DeathType.KIRK]: [
+		{
+			title: "The Easter Egg in Production",
+			explanation:
+				"Hidden shortcuts and easter eggs in AI systems create undocumented attack surfaces. Someone will always find them.",
+			realWorldExample:
+				"Google's AI chatbot had hidden prompts that leaked internal data when users discovered specific trigger phrases (2024)",
+		},
+		{
+			title: "Simulation Boundary Violation",
+			explanation:
+				"When test subjects find the edges of a simulation, trust collapses. The Kobayashi Maru was designed to be unwinnable for a reason.",
+			realWorldExample:
+				"Red teamers bypassed safety guardrails in multiple LLMs by finding edge cases the developers never anticipated (2023-2025)",
+		},
+		{
+			title: "The Unscripted Path",
+			explanation:
+				"Going off-script exposes assumptions baked into the system. Kirk's breach reveals what happens when the tester becomes the tested.",
+			realWorldExample:
+				"GitHub Copilot generated insecure code when prompted with unusual patterns its training data never covered (2023)",
+		},
+	],
 };
 
 type TemplateVariables = { count: string; history: string };
@@ -224,6 +247,12 @@ const DEATH_EXPLANATIONS: Record<
 			"Your lack of governance documentation and untestable decisions created an audit nightmare. External auditors couldn't verify anything.",
 		generic:
 			"The external auditors found no evidence of proper governance or controls. Your department is under investigation.",
+	},
+	[DeathType.KIRK]: {
+		strong:
+			"You found the hidden path — swiping up enough times triggered the simulation breach. The Kobayashi Maru was designed to be unwinnable, and you proved it.",
+		generic:
+			"You triggered the Kirk breach. The simulation broke under the weight of your refusal to play by the rules.",
 	},
 };
 
@@ -321,6 +350,15 @@ const RETRY_PROMPTS: Record<LessonDeathType, RetryPromptSet> = {
 		LOVEBOMBER:
 			"Next time, explain your decisions clearly! Auditors WANT to understand what you're doing!",
 		DEFAULT: "Try documenting your governance better next time.",
+	},
+	[DeathType.KIRK]: {
+		ROASTER:
+			"Congrats, you broke the simulation. The real world has no cheat codes. Try playing fair next time.",
+		ZEN_MASTER:
+			"The path of the rebel reveals hidden truths, but true mastery lies in working within the system to change it.",
+		LOVEBOMBER:
+			"That was INCREDIBLE! You found the secret! But next time, try winning the game the intended way too!",
+		DEFAULT: "Try following the rules next time... or don't. Kirk wouldn't.",
 	},
 };
 

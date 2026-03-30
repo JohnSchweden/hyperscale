@@ -62,7 +62,7 @@ function StatCard({ label, value, color }: StatCardProps) {
 	);
 }
 
-function getRandomLesson(deathType: Exclude<DeathType, typeof DeathType.KIRK>) {
+function getRandomLesson(deathType: DeathType) {
 	const lessons = FAILURE_LESSONS[deathType];
 	if (!lessons?.length) return null;
 	return lessons[Math.floor(Math.random() * lessons.length)];
@@ -197,19 +197,15 @@ export function DebriefPage1Collapse({
 	const { unlockedCount, totalCount } = useUnlockedEndings(unlockedEndings);
 
 	const explanation = useMemo(() => {
-		if (!regularDeathType) return null;
+		if (deathType === null) return null;
 		const vectorMap = state.deathVectorMap ?? {};
-		return generateDeathExplanation(
-			regularDeathType,
-			vectorMap,
-			history.length,
-		);
-	}, [regularDeathType, state.deathVectorMap, history.length]);
+		return generateDeathExplanation(deathType, vectorMap, history.length);
+	}, [deathType, state.deathVectorMap, history.length]);
 
 	const failureLesson = useMemo(() => {
-		if (!regularDeathType) return null;
-		return getRandomLesson(regularDeathType);
-	}, [regularDeathType]);
+		if (deathType === null) return null;
+		return getRandomLesson(deathType);
+	}, [deathType]);
 
 	const hasPlayedKirkGlitch = useRef(false);
 	useEffect(() => {
