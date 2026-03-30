@@ -177,6 +177,9 @@ export const FeedbackOverlay: React.FC<FeedbackOverlayProps> = ({
 					</p>
 					{teamImpact && (
 						<div className="mt-3 pt-3 border-t border-white/5">
+							<p className="text-[10px] font-bold tracking-wide text-amber-400/70 mb-1">
+								Team impact
+							</p>
 							<p className="text-sm text-slate-400 leading-relaxed font-light">
 								{teamImpact}
 							</p>
@@ -184,6 +187,10 @@ export const FeedbackOverlay: React.FC<FeedbackOverlayProps> = ({
 					)}
 					{realWorldReference && (
 						<div className="mt-3 pt-3 border-t border-white/5">
+							<p className="text-[10px] font-bold tracking-wide text-cyan-400/70 mb-1">
+								Real Case: {realWorldReference.incident} (
+								{realWorldReference.date})
+							</p>
 							<p className="text-sm text-slate-400 leading-relaxed font-light">
 								{realWorldReference.outcome}
 							</p>
