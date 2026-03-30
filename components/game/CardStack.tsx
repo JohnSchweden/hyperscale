@@ -5,7 +5,9 @@ import { ROLE_CARDS } from "../../data";
 import { getIncidentImagePath, slugify } from "../../data/imageMap";
 import { SOURCE_ICONS } from "../../data/sources";
 import type { Card, RoleType } from "../../types";
-import { ImageWithFallback } from "../ImageWithFallback";
+
+// import kept for commented incident image block (phase 19-06)
+// import { ImageWithFallback } from "../ImageWithFallback";
 
 function getCardTransition(
 	isDragging: boolean,
@@ -309,18 +311,19 @@ export const CardStack: React.FC<CardStackProps> = ({
 				</div>
 				<div className="p-4 md:p-6 flex flex-col justify-between flex-1 overflow-hidden">
 					{/* Hero image - moves with card during swipe */}
-					{currentCard.realWorldReference?.incident && (
-						<div className="mb-3 md:mb-6 shrink-0">
-							<ImageWithFallback
-								src={getIncidentImagePath(
-									slugify(currentCard.realWorldReference.incident),
-								)}
-								alt={`Incident: ${currentCard.context}`}
-								aspectRatio="video"
-								containerClassName="max-h-[140px] md:max-h-[280px]"
-							/>
-						</div>
-					)}
+					{/* COMMENTED: incident images removed from decision cards per UX research (phase 19-06) */}
+					{/* {currentCard.realWorldReference?.incident && (
+					<div className="mb-3 md:mb-6 shrink-0">
+						<ImageWithFallback
+							src={getIncidentImagePath(
+								slugify(currentCard.realWorldReference.incident),
+							)}
+							alt={`Incident: ${currentCard.context}`}
+							aspectRatio="video"
+							containerClassName="max-h-[140px] md:max-h-[280px]"
+						/>
+					</div>
+				)} */}
 
 					<div
 						className={`space-y-3 md:space-y-6 overflow-y-auto ${hasStressVisuals ? "pressure-shake-counter" : ""}`}
@@ -341,17 +344,11 @@ export const CardStack: React.FC<CardStackProps> = ({
 								</div>
 							</div>
 						</div>
-						{currentCard.storyContext &&
-							(() => {
-								const hasCardImage = !!currentCard.realWorldReference?.incident;
-								return (
-									<p
-										className={`text-sm md:text-base text-slate-400 leading-relaxed ${hasCardImage ? "hidden md:block" : ""}`}
-									>
-										{currentCard.storyContext}
-									</p>
-								);
-							})()}
+						{currentCard.storyContext && (
+							<p className="text-sm md:text-base text-slate-400 leading-relaxed">
+								{currentCard.storyContext}
+							</p>
+						)}
 						<p className="text-base md:text-xl font-medium leading-relaxed text-slate-200">
 							{currentCard.text}
 						</p>
