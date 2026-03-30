@@ -113,7 +113,7 @@ export const GameScreen: React.FC<GameScreenProps> = ({
 
 			{/* Main Content — extends under taskbar so content shows through blur; padding clears the bar + safe area */}
 			<div
-				className="absolute top-[80px] md:top-[56px] bottom-0 left-0 right-0 overflow-y-auto overflow-x-hidden"
+				className="absolute top-[31px] md:top-[56px] bottom-0 left-0 right-0 overflow-y-auto overflow-x-hidden"
 				{...pressureAttrs}
 			>
 				<div className="flex min-h-full flex-col items-center gap-4 p-3 pb-[calc(3rem+env(safe-area-inset-bottom,0px)+2rem)] md:gap-6 md:p-6 md:pb-[calc(3rem+env(safe-area-inset-bottom,0px)+3rem)]">

@@ -11,13 +11,9 @@ import { SELECTORS } from "./helpers/selectors";
 
 test.use({ baseURL: "https://localhost:3000" });
 
-// GameHUD has no data-testid; use stable structure: Budget/Risk/Hype rows with second span = value
+// Risk/Hype: second span in justify-between row = value; budget groups label + amount left (data-hud)
 function budgetValue(page: import("@playwright/test").Page) {
-	return page
-		.locator("div.flex.justify-between")
-		.filter({ hasText: "Budget" })
-		.locator("span")
-		.nth(1);
+	return page.locator('[data-hud="budget-value"]');
 }
 function riskValue(page: import("@playwright/test").Page) {
 	return page
