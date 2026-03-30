@@ -1,6 +1,7 @@
 import type React from "react";
 import { Fragment, useCallback, useState } from "react";
 import { PERSONALITIES, ROLE_CARDS } from "../../../data";
+import { formatBudget } from "../../../lib/formatting";
 import { DeathType, type GameState, PersonalityType } from "../../../types";
 import LayoutShell from "../../LayoutShell";
 import {
@@ -46,8 +47,58 @@ function formatConsequence(hype: number, heat: number, fine: number): string {
 	if (hype !== 0) parts.push(`${hype > 0 ? "+" : ""}${hype} hype`);
 	if (heat !== 0) parts.push(`${heat > 0 ? "+" : ""}${heat} heat`);
 	// Always show fine amount (including $0) for transparency
-	parts.push(`$${(fine / 1000000).toFixed(1)}M fine`);
+	parts.push(`${formatBudget(fine)} fine`);
 	return parts.join(" • ") || "No change";
+}
+
+interface ForkSegmentProps {
+	label: string;
+	hype: number;
+	heat: number;
+	fine: number;
+	violation: string | null;
+	isChosen: boolean;
+	direction: "left" | "right";
+}
+
+function ForkSegment({
+	label,
+	hype,
+	heat,
+	fine,
+	violation,
+	isChosen,
+	direction,
+}: ForkSegmentProps): React.ReactElement {
+	const directionLabel = direction === "left" ? "Swipe left" : "Swipe right";
+
+	const badgeClass = isChosen
+		? fine > 0
+			? "bg-amber-500/20 text-amber-400 border border-amber-500/30"
+			: "bg-cyan-500/20 text-cyan-400 border border-cyan-500/30"
+		: "bg-black/30 text-slate-400 border border-white/[0.08]";
+
+	return (
+		<div className="flex flex-1 flex-col gap-2 p-3 md:p-4">
+			<p className="text-[10px] font-bold tracking-wide text-slate-500 uppercase">
+				{directionLabel}
+			</p>
+			<div
+				className={`rounded px-3 py-2 text-xs font-bold leading-snug ${badgeClass}`}
+			>
+				{label}
+			</div>
+			<p className="text-[11px] text-slate-400">
+				<span className="font-medium text-slate-500">Consequence:</span>{" "}
+				{formatConsequence(hype, heat, fine)}
+			</p>
+			{violation && (
+				<p className="break-words text-[11px] leading-relaxed text-red-400/85">
+					Violation: {violation}
+				</p>
+			)}
+		</div>
+	);
 }
 
 interface AuditEntryProps {
@@ -119,27 +170,28 @@ function AuditEntry({
 						<span className="text-slate-500">"</span>
 					</div>
 				</div>
-				<div className="flex w-full flex-row items-center justify-between gap-3 border-t border-white/[0.08] pt-4 md:w-auto md:max-w-[13rem] md:flex-col md:items-end md:border-t-0 md:pt-0 md:pl-2 lg:max-w-[15rem]">
-					<span className="text-[11px] font-medium uppercase tracking-wide text-slate-500 md:text-slate-400">
-						Your choice
-					</span>
-					<div
-						className={`max-w-[min(100%,18rem)] rounded px-3 py-2 text-left text-xs font-bold leading-snug break-words hyphens-auto md:max-w-none md:text-right ${choiceBadgeClass}`}
-					>
-						{outcome.label}
-					</div>
-				</div>
 			</div>
-			<div className="mt-4 space-y-2 border-t border-white/[0.08] pt-3">
-				<p className="text-xs text-slate-400">
-					<span className="font-medium text-slate-500">Consequence:</span>{" "}
-					{formatConsequence(outcome.hype, outcome.heat, outcome.fine)}
-				</p>
-				{outcome.violation && (
-					<p className="break-words text-xs leading-relaxed text-red-400/85">
-						Violation: {outcome.violation}
-					</p>
-				)}
+			<div className="mt-4 flex flex-col md:flex-row gap-0 rounded-lg border border-white/[0.08] overflow-hidden">
+				<ForkSegment
+					label={card.onLeft.label}
+					hype={card.onLeft.hype}
+					heat={card.onLeft.heat}
+					fine={card.onLeft.fine}
+					violation={card.onLeft.violation || null}
+					isChosen={entry.choice === "LEFT"}
+					direction="left"
+				/>
+				<div className="hidden md:block border-l border-white/[0.08]" />
+				<div className="md:hidden border-t border-white/[0.08]" />
+				<ForkSegment
+					label={card.onRight.label}
+					hype={card.onRight.hype}
+					heat={card.onRight.heat}
+					fine={card.onRight.fine}
+					violation={card.onRight.violation || null}
+					isChosen={entry.choice === "RIGHT"}
+					direction="right"
+				/>
 			</div>
 		</div>
 	);
@@ -158,7 +210,7 @@ export const DebriefPage2AuditTrail: React.FC<DebriefPage2AuditTrailProps> = ({
 }) => {
 	const { personality, role, history } = state;
 	const isKirk = state.deathType === DeathType.KIRK;
-	const cards = role ? ROLE_CARDS[role] : [];
+	const cards = state.effectiveDeck ?? (role ? ROLE_CARDS[role] : []);
 
 	// Track which card descriptions are expanded
 	const [expandedEntries, setExpandedEntries] = useState<Set<number>>(
