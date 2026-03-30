@@ -23,8 +23,8 @@ See: .planning/PROJECT.md
 
 **Milestone:** v1.2 Kobayashi Maru — AI Governance Simulator
 **Current phase:** 19-refactor-the-design
-**Current plan:** Phase 19 complete
-**Status:** Ready to plan
+**Current plan:** 09
+**Status:** In Progress
 
 ## Session Log
 
@@ -110,6 +110,7 @@ See: .planning/PROJECT.md
 - 2026-03-29: Completed 19-05-PLAN.md (Remove duplicate endings hint from debrief page 3)
 - 2026-03-29: Completed 19-02-PLAN.md (DebriefPage1Clutter removal: TDD red-green, removed PERSONALITY_REPLAY_LINES/progressText/replayLine, max-h-[220px] images, one trophy icon)
 - 2026-03-30: Completed 19-06-PLAN.md (UAT gap closure: restored FeedbackOverlay context labels, added DebriefPage2 reflection hint, commented out CardStack placeholder images)
+- 2026-03-30: Completed 19-09-PLAN.md (Victory page alignment: removed trophy icon, h2→h1, matches death/Kirk pattern)
 
 ## Accumulated Context
 
@@ -142,6 +143,7 @@ See: .planning/PROJECT.md
 - [Phase 19-04]: CardStack desktop padding reduced from md:p-10 (40px) to md:p-6 (24px); storyContext hidden on mobile when card has incident image using IIFE + hidden md:block pattern
 - [Phase 19-02]: DebriefPage1 subtractive cleanup via TDD — removed personality replay lines, progressText, retryPrompt; constrained death/Kirk images to max-h-[220px]; single trophy icon in endings header; data-testid for Playwright targeting
 - [Phase 19-06]: CardStack incident images commented out (not deleted) — reversible removal; getIncidentImagePath/slugify imports kept for preload useEffect; ImageWithFallback import commented out (now unused); storyContext simplified from IIFE+hasCardImage guard to unconditional render
+- [Phase 19-09]: Victory path aligned with death/Kirk pattern — removed decorative trophy icon, changed h2 to h1; all three ending paths now use identical h1-first structure with no pre-content decorative icon
 
 ## Key Metrics
 
