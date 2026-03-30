@@ -23,7 +23,6 @@ test.describe("Outcome overlay images @area:layout", () => {
 		const feedbackDialog = page.locator('[data-testid="feedback-dialog"]');
 		await feedbackDialog.waitFor({ state: "visible" });
 
-		// Look for image containers within modal
 		const imageContainers = feedbackDialog.locator("div.aspect-video");
 		const count = await imageContainers.count();
 
@@ -87,7 +86,9 @@ test.describe("Outcome overlay images @area:layout", () => {
 		expect(true).toBe(true);
 	});
 
-	test("d) Outcome image has 16:9 aspect ratio", async ({ page }) => {
+	test("d) Outcome image keeps 16:9 frame scaled below modal width", async ({
+		page,
+	}) => {
 		await navigateToPlayingWithRoleFast(page, RoleType.HEAD_OF_SOMETHING);
 
 		// Make a swipe choice
@@ -102,7 +103,6 @@ test.describe("Outcome overlay images @area:layout", () => {
 		const feedbackDialog = page.locator('[data-testid="feedback-dialog"]');
 		await feedbackDialog.waitFor({ state: "visible" });
 
-		// Look for image containers with aspect-video
 		const imageContainers = feedbackDialog.locator("div.aspect-video");
 		const count = await imageContainers.count();
 
@@ -111,6 +111,7 @@ test.describe("Outcome overlay images @area:layout", () => {
 				.first()
 				.evaluate((el) => el.className);
 			expect(classes).toContain("aspect-video");
+			expect(classes).toContain("max-w-[280px]");
 		}
 	});
 
