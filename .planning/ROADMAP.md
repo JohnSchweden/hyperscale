@@ -578,7 +578,7 @@ Automated compression pipeline to reduce bandwidth while maintaining quality:
 | 16 | Ending Variety System | v1.2 | Complete (10/10) |
 | 17 | Shuffle-aware Feedback TTS | v1.2 | Complete (5/5) |
 | 18 | Meme Template System | v1.2 | Not started (3 plans) |
-| 19 | 12/12 | Complete    | 2026-03-30 |
+| 19 | 13/13 | Complete |
 | 20 | Short Video Clips for Key Moments | v1.2 | Not started |
 
 ### Phase 16: Kobayashi Maru Ending Variety System
@@ -645,7 +645,7 @@ Plans:
 **Goal:** Reduce visual clutter across game screens (FeedbackOverlay, GameOver, DebriefPage2, CardStack, DebriefPage3) to match the minimalist design DNA of the selection screens. All changes are subtractive.
 **Requirements**: DESIGN-01 to DESIGN-05
 **Depends on:** Phase 18
-**Plans:** 12/12 plans complete
+**Plans:** 13/13 plans executed
 
 Plans:
 - [x] 19-01-PLAN.md — FeedbackOverlay clutter removal ✓
@@ -653,7 +653,14 @@ Plans:
 - [x] 19-03-PLAN.md — DebriefPage2 reflection prompt removal ✓
 - [x] 19-04-PLAN.md — CardStack padding reduction and mobile storyContext suppression ✓
 - [x] 19-05-PLAN.md — DebriefPage3 endings hint removal ✓
-- [ ] 19-06-PLAN.md — Gap closure: restore context labels, add reflection hint, remove placeholder images
+- [x] 19-06-PLAN.md — Gap closure: restore context labels, add reflection hint, remove placeholder images ✓
+- [x] 19-07-PLAN.md — Hype metric in FeedbackOverlay ✓
+- [x] 19-08-PLAN.md — Gap closure: outcome images centered ✓
+- [x] 19-09-PLAN.md — Victory page alignment ✓
+- [x] 19-10-PLAN.md — Gap closure: outcome image centering ✓
+- [x] 19-11-PLAN.md — Gap closure: Kirk ending lessons ✓
+- [x] 19-12-PLAN.md — Kirk/Victory ending consistency ✓
+- [x] 19-13-PLAN.md — Always-visible consequences display ✓
 
 ### Phase 20: Short Video Clips for Key Moments
 
