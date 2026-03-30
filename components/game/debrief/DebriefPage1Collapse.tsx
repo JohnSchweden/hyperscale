@@ -235,6 +235,21 @@ export function DebriefPage1Collapse({
 							Against all odds, the company is still legal. You&apos;ve earned a
 							voucher for a synthetic coffee.
 						</p>
+						<div className={`mt-4 mb-6 rounded-lg p-3 ${GLASS_PANEL_DEFAULT}`}>
+							<p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-1">
+								Why you survived
+							</p>
+							<p className="text-xs text-slate-500 mb-2">
+								Your decisions balanced risk across budget, heat, and hype — no
+								single vector dominated.
+							</p>
+							<p className="text-sm text-gray-300 leading-relaxed">
+								Surviving a quarter in hyperscale means managing competing
+								pressures without letting any one metric spiral. You kept the
+								budget sustainable, avoided regulatory heat, and maintained just
+								enough hype to stay funded. That balance is the real win.
+							</p>
+						</div>
 					</>
 				) : (
 					<>
