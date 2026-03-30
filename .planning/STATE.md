@@ -111,6 +111,7 @@ See: .planning/PROJECT.md
 - 2026-03-29: Completed 19-02-PLAN.md (DebriefPage1Clutter removal: TDD red-green, removed PERSONALITY_REPLAY_LINES/progressText/replayLine, max-h-[220px] images, one trophy icon)
 - 2026-03-30: Completed 19-06-PLAN.md (UAT gap closure: restored FeedbackOverlay context labels, added DebriefPage2 reflection hint, commented out CardStack placeholder images)
 - 2026-03-30: Completed 19-09-PLAN.md (Victory page alignment: removed trophy icon, h2→h1, matches death/Kirk pattern)
+- 2026-03-30: Completed 19-10-PLAN.md (Center outcome images in FeedbackOverlay with mx-auto — 1 task, 1 file, 1 min)
 
 ## Accumulated Context
 
@@ -144,6 +145,7 @@ See: .planning/PROJECT.md
 - [Phase 19-02]: DebriefPage1 subtractive cleanup via TDD — removed personality replay lines, progressText, retryPrompt; constrained death/Kirk images to max-h-[220px]; single trophy icon in endings header; data-testid for Playwright targeting
 - [Phase 19-06]: CardStack incident images commented out (not deleted) — reversible removal; getIncidentImagePath/slugify imports kept for preload useEffect; ImageWithFallback import commented out (now unused); storyContext simplified from IIFE+hasCardImage guard to unconditional render
 - [Phase 19-09]: Victory path aligned with death/Kirk pattern — removed decorative trophy icon, changed h2 to h1; all three ending paths now use identical h1-first structure with no pre-content decorative icon
+- [Phase 19-10]: Outcome images centered with mx-auto on shrink-0 container; check/warning icon retained for visual differentiation, accessibility, and pattern consistency
 
 ## Key Metrics
 

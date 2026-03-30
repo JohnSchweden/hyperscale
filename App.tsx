@@ -628,6 +628,7 @@ const App: React.FC = () => {
 						teamImpact={feedbackOverlay.teamImpact}
 						budget={state.budget}
 						heat={state.heat}
+						hype={state.hype}
 						realWorldReference={feedbackOverlay.realWorldReference}
 						outcomeLabel={feedbackOverlay.outcomeLabel}
 						onNext={handleNextIncident}

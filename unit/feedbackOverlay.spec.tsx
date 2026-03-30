@@ -31,10 +31,10 @@ describe("FeedbackOverlay", () => {
 			).toBeInTheDocument();
 		});
 
-		it("should render the personality name", () => {
+		it("should expose screen-reader dialog title", () => {
 			render(<FeedbackOverlay {...defaultProps} />);
 
-			expect(screen.getByText(/V.E.R.A.'s review/)).toBeInTheDocument();
+			expect(screen.getByText("Governance feedback")).toBeInTheDocument();
 		});
 
 		it("should render the Next ticket button", () => {
@@ -69,7 +69,7 @@ describe("FeedbackOverlay", () => {
 		it("should display fine amount when fine > 0", () => {
 			render(<FeedbackOverlay {...defaultProps} fine={5000} />);
 
-			expect(screen.getByText(/-\$5,000/)).toBeInTheDocument();
+			expect(screen.getByText(/-\$5K/)).toBeInTheDocument();
 		});
 
 		it("should not display fine section when fine is 0", () => {
@@ -99,6 +99,26 @@ describe("FeedbackOverlay", () => {
 			);
 
 			expect(screen.getByText(/Risk High/)).toBeInTheDocument();
+		});
+
+		it("should show hype critical banner when hype is critical", () => {
+			render(<FeedbackOverlay {...defaultProps} hype={90} />);
+
+			expect(screen.getByText(/Hype Critical/)).toBeInTheDocument();
+		});
+
+		it("should show hype high banner when hype is high but not critical", () => {
+			render(
+				<FeedbackOverlay {...defaultProps} budget={1_000_000} hype={75} />,
+			);
+
+			expect(screen.getByText(/Hype High/)).toBeInTheDocument();
+		});
+
+		it("should not show hype banner when hype is below high threshold", () => {
+			render(<FeedbackOverlay {...defaultProps} hype={50} />);
+
+			expect(screen.queryByText(/Hype/)).not.toBeInTheDocument();
 		});
 	});
 

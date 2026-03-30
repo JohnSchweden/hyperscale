@@ -63,6 +63,7 @@ export const FeedbackOverlay: React.FC<FeedbackOverlayProps> = ({
 	teamImpact,
 	budget,
 	heat,
+	hype,
 	realWorldReference,
 	outcomeLabel,
 	onNext,
@@ -70,7 +71,9 @@ export const FeedbackOverlay: React.FC<FeedbackOverlayProps> = ({
 	const budgetCritical = budget != null && budget < BUDGET_CRITICAL;
 	const heatCritical = heat != null && heat >= HEAT_CRITICAL;
 	const heatHigh = heat != null && heat >= HEAT_HIGH && !heatCritical;
-	const showEscalation = budgetCritical || heatCritical;
+	const hypeCritical = hype != null && hype >= HYPE_CRITICAL;
+	const hypeHigh = hype != null && hype >= HYPE_HIGH && !hypeCritical;
+	const showEscalation = budgetCritical || heatCritical || hypeCritical;
 	// Keyboard navigation for overlay
 	useEffect(() => {
 		const handleOverlayKey = (e: KeyboardEvent) => {
@@ -112,6 +115,18 @@ export const FeedbackOverlay: React.FC<FeedbackOverlayProps> = ({
 							<span className="text-[10px] font-black tracking-wide text-amber-400 inline-flex items-center gap-1.5">
 								<i className="fa-solid fa-fire text-[10px]" aria-hidden></i>
 								Risk High — {heat}%
+							</span>
+						)}
+						{hypeCritical && (
+							<span className="text-[10px] font-black tracking-wide text-red-400 inline-flex items-center gap-1.5">
+								<i className="fa-solid fa-bullhorn text-[10px]" aria-hidden></i>
+								Hype Critical — {hype}%
+							</span>
+						)}
+						{hypeHigh && !hypeCritical && (
+							<span className="text-[10px] font-black tracking-wide text-amber-400 inline-flex items-center gap-1.5">
+								<i className="fa-solid fa-bullhorn text-[10px]" aria-hidden></i>
+								Hype High — {hype}%
 							</span>
 						)}
 					</div>

@@ -53,9 +53,9 @@ completed: 2026-03-30
 
 ## Task Commits
 
-1. **Task 1: Add lesson title label to FeedbackOverlay** - `a580f4a` (feat)
+1. **Task 1: Add lesson title label to FeedbackOverlay** - `0a66b4a` (feat)
 
-**Plan metadata:** (pending)
+**Plan metadata:** `f47508e` (docs: complete plan)
 
 ## Files Created/Modified
 - `components/game/FeedbackOverlay.tsx` - Added muted "Learning moment" label above lesson text
@@ -78,3 +78,5 @@ None
 ---
 *Phase: 19-refactor-the-design*
 *Completed: 2026-03-30*
+
+## Self-Check: PASSED
