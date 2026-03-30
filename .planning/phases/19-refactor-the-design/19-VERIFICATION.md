@@ -2,7 +2,7 @@
 phase: 19-refactor-the-design
 verified: 2026-03-30T21:30:00Z
 status: passed
-score: 40/42 must-haves verified (40 verified + 2 with documented acceptable reasons)
+score: 42/42 must-haves verified
 must_haves_total: 42
 must_haves_verified: 42
 re_verification: true
