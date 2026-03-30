@@ -1,12 +1,15 @@
 import type React from "react";
 import { useEffect } from "react";
 import { getOutcomeImagePath, slugify } from "../../data/imageMap";
+import { formatBudget } from "../../lib/formatting";
 import type { PersonalityType } from "../../types";
 import { ImageWithFallback } from "../ImageWithFallback";
 
 const BUDGET_CRITICAL = 2_000_000;
 const HEAT_CRITICAL = 85;
 const HEAT_HIGH = 70;
+const HYPE_CRITICAL = 85;
+const HYPE_HIGH = 70;
 
 /**
  * Props for the FeedbackOverlay component.
@@ -40,13 +43,6 @@ interface FeedbackOverlayProps {
 	outcomeLabel?: string;
 	/** Callback to proceed to next card */
 	onNext: () => void;
-}
-
-function formatBudget(amount: number): string {
-	if (amount >= 1000000) {
-		return `$${(amount / 1000000).toFixed(1)}M`;
-	}
-	return `$${amount.toLocaleString()}`;
 }
 
 /**
@@ -127,7 +123,7 @@ export const FeedbackOverlay: React.FC<FeedbackOverlayProps> = ({
 						const labelSlug = slugify(outcomeLabel);
 						const imagePath = getOutcomeImagePath(incidentSlug, labelSlug);
 						return imagePath ? (
-							<div className="mb-4 md:mb-6 shrink-0">
+							<div className="mb-4 md:mb-6 shrink-0 mx-auto">
 								<ImageWithFallback
 									src={imagePath}
 									alt={`Outcome: ${outcomeLabel}`}
@@ -172,6 +168,9 @@ export const FeedbackOverlay: React.FC<FeedbackOverlayProps> = ({
 					id="feedback-overlay-desc"
 					className="bg-black/50 border border-white/5 p-4 md:p-6 rounded-xl text-left mb-4 md:mb-8 min-h-[4.5rem]"
 				>
+					<p className="text-[10px] font-bold tracking-wide text-slate-400/70 mb-1">
+						Learning moment
+					</p>
 					<p className="text-sm md:text-base text-slate-300 leading-relaxed font-light">
 						{lesson}
 					</p>
