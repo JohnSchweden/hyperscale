@@ -235,6 +235,13 @@ export function DebriefPage1Collapse({
 							Against all odds, the company is still legal. You&apos;ve earned a
 							voucher for a synthetic coffee.
 						</p>
+						<div className="mb-6 md:mb-8 mx-auto w-full max-w-md">
+							<ImageWithFallback
+								src="/images/victory.webp"
+								alt="Victory celebration"
+								aspectRatio="video"
+							/>
+						</div>
 						<div className={`mt-4 mb-6 rounded-lg p-3 ${GLASS_PANEL_DEFAULT}`}>
 							<p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-1">
 								Why you survived
@@ -248,6 +255,18 @@ export function DebriefPage1Collapse({
 								pressures without letting any one metric spiral. You kept the
 								budget sustainable, avoided regulatory heat, and maintained just
 								enough hype to stay funded. That balance is the real win.
+							</p>
+						</div>
+						<div
+							className={`mt-3 mb-6 rounded-lg border border-green-500/35 bg-gradient-to-br from-green-950/30 to-black/70 p-3 ${GLASS_FILL_STRONG}`}
+						>
+							<p className="text-xs font-semibold text-green-400 uppercase mb-1">
+								Success Lesson
+							</p>
+							<p className="text-sm text-gray-300">
+								Balance across competing pressures — not perfection in any
+								single dimension — is what leads to sustainable success in
+								ambiguous environments.
 							</p>
 						</div>
 					</>
