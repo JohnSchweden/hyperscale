@@ -99,35 +99,18 @@ function EndingIconGrid({ unlockedEndings }: EndingIconGridProps) {
 	);
 }
 
-interface GameOverHeaderProps {
-	isKirk: boolean;
-	corruptedText: string;
-}
-
-function GameOverHeader({ isKirk, corruptedText }: GameOverHeaderProps) {
-	if (isKirk) {
-		return (
-			<>
-				<h1
-					className="text-4xl md:text-6xl font-black text-cyan-400 mb-2 tracking-tighter kirk-glitch-text"
-					aria-label="SIMULATION BREACH"
-				>
-					{corruptedText}
-				</h1>
-				<p className="text-slate-400 text-base md:text-lg">
-					Error: Subject refused to comply with test parameters. Attempting
-					damage control...
-				</p>
-			</>
-		);
-	}
+function KirkBreachHeader({ corruptedText }: { corruptedText: string }) {
 	return (
 		<>
-			<h1 className="text-4xl md:text-6xl font-black text-red-500 mb-2 tracking-tighter">
-				GAME OVER
+			<h1
+				className="text-4xl md:text-6xl font-black text-cyan-400 mb-2 tracking-tighter kirk-glitch-text"
+				aria-label="SIMULATION BREACH"
+			>
+				{corruptedText}
 			</h1>
 			<p className="text-slate-400 text-base md:text-lg">
-				Your tenure has come to an end
+				Error: Subject refused to comply with test parameters. Attempting damage
+				control...
 			</p>
 		</>
 	);
@@ -140,32 +123,25 @@ interface DeathEndingCardProps {
 
 function DeathEndingCard({ ending, deathType }: DeathEndingCardProps) {
 	return (
-		<div
-			className={`mb-6 md:mb-8 p-6 md:p-8 rounded-xl border border-red-500/40 bg-gradient-to-br from-red-950/30 to-black/70 ${GLASS_FILL_STRONG}`}
-		>
-			{/* Collapse image - dramatic full-width hero */}
-			<div className="mb-4 mx-auto max-w-md max-h-[220px] overflow-hidden">
+		<>
+			<div className="mb-6 md:mb-8">
+				<h1
+					className={`text-4xl md:text-6xl font-black mb-2 tracking-tighter ${ending.color}`}
+				>
+					{ending.title}
+				</h1>
+				<p className="text-slate-400 text-base md:text-lg">
+					{ending.description}
+				</p>
+			</div>
+			<div className="mb-6 md:mb-8 mx-auto w-full max-w-md">
 				<ImageWithFallback
 					src={getDeathImagePath(deathType) ?? ""}
 					alt={`Ending: ${ending.title}`}
 					aspectRatio="video"
 				/>
 			</div>
-
-			{/* Keep icon smaller, below image */}
-			<div className={`text-3xl mb-2 ${ending.color}`}>
-				<i className={`fa-solid ${ending.icon}`} aria-hidden />
-			</div>
-
-			<h2
-				className={`text-2xl md:text-3xl font-bold mb-3 tracking-tighter ${ending.color}`}
-			>
-				{ending.title}
-			</h2>
-			<p className="text-slate-300 text-base md:text-lg leading-relaxed">
-				{ending.description}
-			</p>
-		</div>
+		</>
 	);
 }
 
@@ -175,7 +151,9 @@ interface FailureLessonCardProps {
 
 function FailureLessonCard({ lesson }: FailureLessonCardProps) {
 	return (
-		<div className="mt-3 p-3 rounded-lg bg-amber-500/10 border border-amber-500/20 mb-6">
+		<div
+			className={`mt-3 mb-6 rounded-lg border border-amber-500/35 bg-gradient-to-br from-amber-950/30 to-black/70 p-3 ${GLASS_FILL_STRONG}`}
+		>
 			<p className="text-xs font-semibold text-amber-400 uppercase mb-1">
 				{lesson.title}
 			</p>
@@ -267,15 +245,14 @@ export function DebriefPage1Collapse({
 					</>
 				) : (
 					<>
-						<div className="mb-6 md:mb-8">
-							<GameOverHeader
-								isKirk={isKirk}
-								corruptedText={corruptedBreachText}
-							/>
-						</div>
+						{isKirk && (
+							<div className="mb-6 md:mb-8">
+								<KirkBreachHeader corruptedText={corruptedBreachText} />
+							</div>
+						)}
 
 						{isKirk && (
-							<div className="mb-6 md:mb-8 mx-auto max-w-md max-h-[220px] overflow-hidden">
+							<div className="mb-6 md:mb-8 mx-auto w-full max-w-md">
 								<ImageWithFallback
 									src={getDeathImagePath(DeathType.KIRK) ?? ""}
 									alt="KIRK simulation breach"
@@ -292,8 +269,19 @@ export function DebriefPage1Collapse({
 						)}
 
 						{explanation && (
-							<div className="mt-4 p-3 rounded-lg bg-white/5 border border-white/10 mb-6">
-								<p className="text-sm text-gray-300 italic">{explanation}</p>
+							<div
+								className={`mt-4 mb-6 rounded-lg p-3 ${GLASS_PANEL_DEFAULT}`}
+							>
+								<p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-1">
+									Why this ending
+								</p>
+								<p className="text-xs text-slate-500 mb-2">
+									Short read on how your swipe patterns relate to this outcome —
+									not random flavor text.
+								</p>
+								<p className="text-sm text-gray-300 leading-relaxed">
+									{explanation}
+								</p>
 							</div>
 						)}
 

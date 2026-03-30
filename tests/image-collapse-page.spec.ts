@@ -17,10 +17,9 @@ test.describe("Collapse Page Images (DEBRIEF_PAGE_1) @area:layout", () => {
 			history: [],
 			effectiveDeck: [],
 		});
-		// Wait for the main page structure
-		await page.waitForSelector("h1:has-text('GAME OVER')", { timeout: 10000 });
-		// Verify death ending card is present (BANKRUPT deathType shows as "Liquidated")
-		await expect(page.locator("text=Liquidated")).toBeVisible();
+		await expect(
+			page.getByRole("heading", { level: 1, name: "Liquidated" }),
+		).toBeVisible({ timeout: 10000 });
 	});
 
 	test("page renders with death ending card for KIRK", async ({ page }) => {
@@ -58,15 +57,16 @@ test.describe("Collapse Page Images (DEBRIEF_PAGE_1) @area:layout", () => {
 			history: [],
 			effectiveDeck: [],
 		});
-		await page.waitForSelector("h1:has-text('GAME OVER')", { timeout: 10000 });
+		await expect(
+			page.getByRole("heading", {
+				level: 1,
+				name: /Federal pound-me-in-the-ass prison/i,
+			}),
+		).toBeVisible({ timeout: 10000 });
 
-		// Verify the structure is present (image will be inside this)
-		const endingCard = page
-			.locator("text=Your tenure has come to an end")
-			.locator("..");
-
-		// Should have content above it
-		await expect(endingCard).toBeVisible();
+		await expect(
+			page.locator("img[alt='Ending: Federal pound-me-in-the-ass prison']"),
+		).toBeVisible();
 	});
 
 	test("image paths are correctly configured for all death types", async ({

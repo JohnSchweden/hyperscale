@@ -20,8 +20,9 @@ test.describe("Image Verification @area:layout", () => {
 			kirkCorruptionActive: false,
 		});
 
-		// Wait for page to load
-		await page.waitForSelector("h1:has-text('GAME OVER')", { timeout: 10000 });
+		await expect(
+			page.getByRole("heading", { level: 1, name: "Liquidated" }),
+		).toBeVisible({ timeout: 10000 });
 
 		// Check for image component
 		const img = page.locator("img[loading='lazy']").first();
