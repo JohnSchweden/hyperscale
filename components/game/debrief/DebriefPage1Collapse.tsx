@@ -232,12 +232,9 @@ export function DebriefPage1Collapse({
 			<div className="w-full max-w-2xl">
 				{isVictory ? (
 					<>
-						<div className="text-6xl md:text-9xl text-green-500 mb-6 md:mb-8 animate-pulse drop-shadow-[0_0_30px_rgba(34,197,94,0.4)]">
-							<i className="fa-solid fa-trophy" aria-hidden />
-						</div>
-						<h2 className="text-3xl md:text-6xl font-black mb-3 md:mb-4 tracking-tighter text-green-400">
+						<h1 className="text-3xl md:text-6xl font-black mb-3 md:mb-4 tracking-tighter text-green-400">
 							Quarter survived
-						</h2>
+						</h1>
 						<p className="max-w-xl text-base md:text-xl mb-6 md:mb-8 text-slate-400 px-4 mx-auto">
 							Against all odds, the company is still legal. You&apos;ve earned a
 							voucher for a synthetic coffee.

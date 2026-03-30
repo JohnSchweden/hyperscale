@@ -33,6 +33,8 @@ interface FeedbackOverlayProps {
 	budget?: number;
 	/** Optional heat level for escalation display */
 	heat?: number;
+	/** Optional hype level for escalation display */
+	hype?: number;
 	/** Real-world incident reference for context */
 	realWorldReference?: {
 		incident: string;
