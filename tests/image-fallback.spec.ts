@@ -1,6 +1,8 @@
 import { expect, test } from "@playwright/test";
-import { RoleType } from "../types";
-import { navigateToPlayingWithCardAtIndex } from "./helpers/navigation";
+import {
+	gotoDebriefVictoryScreen,
+	victoryImageContainer,
+} from "./helpers/victory-image-screen";
 
 test.use({ baseURL: "https://localhost:3000" });
 
@@ -9,50 +11,48 @@ test.describe("ImageWithFallback component @area:layout", () => {
 		await page.route("**/*.webp", (route) => {
 			setTimeout(() => route.continue(), 800);
 		});
-		await navigateToPlayingWithCardAtIndex(page, RoleType.SOFTWARE_ENGINEER, 0);
+		await gotoDebriefVictoryScreen(page);
 
-		const placeholder = page.locator("i.fa-solid.fa-image");
+		const host = victoryImageContainer(page);
+		const placeholder = host.locator("i.fa-solid.fa-image");
 		await expect(placeholder).toBeVisible({ timeout: 6000 });
 
-		const placeholderDiv = page.locator("i.fa-image").first();
-		const classList = await placeholderDiv.evaluate((el) => el.className);
+		const classList = await placeholder.evaluate((el) => el.className);
 		expect(classList).toContain("animate-pulse");
 	});
 
 	test("b) Glitch placeholder shown when image fails to load", async ({
 		page,
 	}) => {
-		await navigateToPlayingWithCardAtIndex(page, RoleType.SOFTWARE_ENGINEER, 0);
+		await page.route("**/victory.webp", (route) => route.abort());
+		await gotoDebriefVictoryScreen(page);
 
-		const placeholderContainer = page.locator(
+		const host = victoryImageContainer(page);
+		const placeholderContainer = host.locator(
 			'div.glitch-placeholder, div[style*="repeating-linear-gradient"]',
 		);
 
-		if ((await placeholderContainer.count()) > 0) {
-			const classList = await placeholderContainer
-				.first()
-				.evaluate((el) => el.className);
-			const style = await placeholderContainer
-				.first()
-				.evaluate((el) => el.getAttribute("style"));
-			expect(
-				classList?.includes("glitch-placeholder") ||
-					style?.includes("repeating-linear-gradient"),
-			).toBeTruthy();
-		}
+		await expect(placeholderContainer.first()).toBeVisible({ timeout: 8000 });
+		const classList = await placeholderContainer
+			.first()
+			.evaluate((el) => el.className);
+		const style = await placeholderContainer
+			.first()
+			.evaluate((el) => el.getAttribute("style"));
+		expect(
+			classList?.includes("glitch-placeholder") ||
+				style?.includes("repeating-linear-gradient"),
+		).toBeTruthy();
 	});
 
 	test("c) Image fades in over 300ms when loaded", async ({ page }) => {
-		await navigateToPlayingWithCardAtIndex(page, RoleType.SOFTWARE_ENGINEER, 0);
+		await gotoDebriefVictoryScreen(page);
 
-		const images = page.locator("img[loading='lazy']");
-		const count = await images.count();
-
-		if (count > 0) {
-			const imgClass = await images.first().evaluate((el) => el.className);
-			expect(imgClass).toContain("transition-opacity");
-			expect(imgClass).toContain("duration-300");
-		}
+		const img = page.getByRole("img", { name: "Victory celebration" });
+		await expect(img).toBeVisible({ timeout: 10000 });
+		const className = await img.getAttribute("class");
+		expect(className).toContain("transition-opacity");
+		expect(className).toContain("duration-300");
 	});
 
 	test("d) Placeholder has glitch aesthetic (scanline animation)", async ({
@@ -61,12 +61,11 @@ test.describe("ImageWithFallback component @area:layout", () => {
 		await page.route("**/*.webp", (route) => {
 			setTimeout(() => route.continue(), 800);
 		});
-		await navigateToPlayingWithCardAtIndex(page, RoleType.SOFTWARE_ENGINEER, 0);
+		await gotoDebriefVictoryScreen(page);
 
-		const placeholder = page
-			.locator('[data-testid="incident-card"]')
-			.locator("div.glitch-placeholder");
-
+		const placeholder = victoryImageContainer(page).locator(
+			"div.glitch-placeholder",
+		);
 		await expect(placeholder).toBeVisible({ timeout: 6000 });
 
 		const hasAnimation = await placeholder.first().evaluate((el) => {

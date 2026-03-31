@@ -1,10 +1,12 @@
 import { expect, test } from "@playwright/test";
-import { RoleType } from "../types";
-import { navigateToPlayingWithCardAtIndex } from "./helpers/navigation";
+import {
+	ensureVictoryImageLoaded,
+	gotoDebriefVictoryScreen,
+} from "./helpers/victory-image-screen";
 
 test.describe("Cumulative Layout Shift (CLS) prevention", () => {
 	test.beforeEach(async ({ page }) => {
-		await navigateToPlayingWithCardAtIndex(page, RoleType.SOFTWARE_ENGINEER, 0);
+		await gotoDebriefVictoryScreen(page);
 	});
 
 	test("No layout shift when images load (CLS < 0.1)", async ({ page }) => {
@@ -51,25 +53,14 @@ test.describe("Cumulative Layout Shift (CLS) prevention", () => {
 	});
 
 	test("Aspect ratio containers prevent layout shift", async ({ page }) => {
-		// beforeEach navigates at default viewport; resize-then-remount avoids mid-page
-		// viewport jumps and scrollbar reflow fighting parallel workers.
 		await page.setViewportSize({ width: 1280, height: 1600 });
-		await navigateToPlayingWithCardAtIndex(page, RoleType.SOFTWARE_ENGINEER, 0);
+		await gotoDebriefVictoryScreen(page);
 
 		const aspectBox = page
-			.locator('[data-testid="incident-card"]')
-			.locator('[class*="aspect-video"]')
-			.first();
+			.getByRole("img", { name: "Victory celebration" })
+			.locator("xpath=..");
 
-		await page.waitForFunction(
-			() => {
-				const img = document.querySelector(
-					'[data-testid="incident-card"] img',
-				) as HTMLImageElement | null;
-				return Boolean(img?.complete && img.naturalWidth > 0);
-			},
-			{ timeout: 15000 },
-		);
+		await ensureVictoryImageLoaded(page);
 
 		const containerBefore = await aspectBox.boundingBox();
 		await page.waitForTimeout(2000);
@@ -78,8 +69,6 @@ test.describe("Cumulative Layout Shift (CLS) prevention", () => {
 		expect(containerAfter).not.toBeNull();
 		if (!containerBefore || !containerAfter) return;
 
-		// Pixel width/height can reflow with fonts, scrollbars, or flex siblings;
-		// the invariant we care about is that aspect-video keeps a stable ratio.
 		const aspect = (b: { width: number; height: number }) => b.width / b.height;
 		const r0 = aspect(containerBefore);
 		const r1 = aspect(containerAfter);
