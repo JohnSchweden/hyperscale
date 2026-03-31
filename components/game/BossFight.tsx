@@ -49,7 +49,7 @@ export const BossFight: React.FC<BossFightProps> = ({
 					</p>
 				</div>
 
-				<div className="bg-slate-900 border border-slate-700 rounded-2xl p-4 md:p-8 shadow-2xl">
+				<div className="glass-card rounded-2xl p-4 md:p-8 shadow-2xl">
 					{/* Timer Bar */}
 					<div className="mb-4 md:mb-6">
 						<div className="flex justify-between text-xs text-slate-400 mb-2">

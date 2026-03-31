@@ -75,7 +75,7 @@ const RoastTerminalInner = memo(function RoastTerminalInner({
 
 	return (
 		<div
-			className={`w-full max-w-[43rem] lg:w-[43rem] flex-shrink-0 bg-black/80 border border-slate-800 rounded-xl overflow-hidden flex flex-col shadow-2xl ${output ? "min-h-[320px] lg:min-h-[260px]" : "min-h-0"}`}
+			className={`w-full max-w-[43rem] lg:w-[43rem] flex-shrink-0 glass-card rounded-xl overflow-hidden flex flex-col shadow-2xl ${output ? "min-h-[320px] lg:min-h-[260px]" : "min-h-0"}`}
 			data-testid="roast-terminal"
 		>
 			<div className="bg-slate-900 px-4 py-2 border-b border-white/5 flex-shrink-0 flex items-center justify-between">

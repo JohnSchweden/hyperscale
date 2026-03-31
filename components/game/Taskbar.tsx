@@ -76,7 +76,7 @@ export const Taskbar: React.FC<TaskbarProps> = ({
 
 	return (
 		<div className="pointer-events-none fixed bottom-0 left-0 right-0 z-20 pb-[env(safe-area-inset-bottom,0px)]">
-			<div className="pointer-events-auto flex h-12 w-full items-center justify-between bg-slate-950/55 px-3 shadow-[0_-8px_32px_rgba(0,0,0,0.35)] backdrop-blur-lg backdrop-saturate-100 md:px-6">
+			<div className="pointer-events-auto flex h-12 w-full items-center justify-between glass-header px-3 shadow-[0_-8px_32px_rgba(0,0,0,0.35)] md:px-6">
 				<div className="flex items-center gap-2 md:gap-6">
 					<button
 						type="button"

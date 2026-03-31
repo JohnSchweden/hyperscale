@@ -20,9 +20,9 @@ export const InitializingScreen: React.FC<InitializingScreenProps> = ({
 	return (
 		<LayoutShell className="px-4 md:px-6 !bg-transparent text-green-400 font-mono antialiased !justify-center !pt-0">
 			<div className="flex flex-col items-stretch w-full">
-				<div className="w-full max-w-xl bg-black/80 border border-slate-800 rounded-xl shadow-2xl relative overflow-hidden mx-auto">
+				<div className="w-full max-w-xl glass-card rounded-xl shadow-2xl relative overflow-hidden mx-auto">
 					{/* Title bar */}
-					<div className="flex items-center justify-between gap-2 px-4 py-2 bg-slate-900 border-b border-white/5 flex-shrink-0">
+					<div className="flex items-center justify-between gap-2 px-4 py-2 glass-header border-b border-white/5 flex-shrink-0">
 						<div className="min-w-0">
 							<span className="text-xs md:text-sm tracking-[0.15em] opacity-90 truncate">
 								System initializing

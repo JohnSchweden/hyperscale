@@ -131,9 +131,9 @@ export const FeedbackOverlay: React.FC<FeedbackOverlayProps> = ({
 			aria-labelledby="feedback-overlay-title"
 			aria-describedby="feedback-overlay-desc"
 		>
-			<div className="w-full max-w-full lg:max-w-[43rem] bg-slate-900 border border-slate-700 p-6 md:p-10 rounded-2xl text-center shadow-2xl max-h-[90vh] overflow-y-auto modal-content antialiased">
+			<div className="w-full max-w-full lg:max-w-[43rem] glass-card p-6 md:p-10 rounded-2xl text-center shadow-2xl max-h-[90vh] overflow-y-auto modal-content antialiased">
 				{showEscalation && (
-					<div className="mb-4 p-2 rounded-lg border flex flex-wrap gap-x-4 gap-y-1 justify-center items-center bg-black/30">
+					<div className="mb-4 p-2 rounded-lg border flex flex-wrap gap-x-4 gap-y-1 justify-center items-center glass-card">
 						{budgetCritical &&
 							(() => {
 								const level = Math.round((budget ?? 0) / 1000000);
@@ -462,7 +462,7 @@ export const FeedbackOverlay: React.FC<FeedbackOverlayProps> = ({
 
 				<div
 					id="feedback-overlay-desc"
-					className="bg-black/50 border border-white/5 p-4 md:p-6 rounded-xl text-left mb-4 md:mb-8 min-h-[4.5rem]"
+					className="glass-card p-4 md:p-6 rounded-xl text-left mb-4 md:mb-8 min-h-[4.5rem]"
 				>
 					<p className="text-[10px] font-bold tracking-wide text-slate-400/70 mb-1">
 						Learning moment

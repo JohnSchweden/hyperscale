@@ -204,7 +204,7 @@ function StarfieldSpeedPanel({
 	const inputId = `starfield-speed-${idSuffix}`;
 	const bgmVolumeId = useId();
 	return (
-		<div className="rounded-lg border border-white/10 bg-black/65 px-2.5 py-3 shadow-lg backdrop-blur-sm backdrop-saturate-100">
+		<div className="rounded-lg glass-card px-2.5 py-3">
 			<label
 				htmlFor={inputId}
 				className="mb-1.5 block text-center text-[10px] font-bold uppercase tracking-widest text-slate-400"

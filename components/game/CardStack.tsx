@@ -7,8 +7,7 @@ import type { Card, RoleType } from "../../types";
 import { CardBody, CardHeaderBar } from "./CardStackComponents";
 
 /** Match StarfieldSpeedPanel glass (StarfieldBackground) */
-const incidentCardGlass =
-	"bg-black/65 border border-white/10 shadow-lg backdrop-blur-sm backdrop-saturate-100";
+const incidentCardGlass = "glass-card";
 
 function getCardTransition(
 	isDragging: boolean,
