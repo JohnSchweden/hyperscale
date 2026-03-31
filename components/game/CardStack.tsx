@@ -3,17 +3,12 @@ import type { RefObject } from "react";
 import { useEffect } from "react";
 import { ROLE_CARDS } from "../../data";
 import { getIncidentImagePath, slugify } from "../../data/imageMap";
-import { SOURCE_ICONS } from "../../data/sources";
 import type { Card, RoleType } from "../../types";
+import { CardBody, CardHeaderBar } from "./CardStackComponents";
 
 /** Match StarfieldSpeedPanel glass (StarfieldBackground) */
 const incidentCardGlass =
 	"bg-black/65 border border-white/10 shadow-lg backdrop-blur-sm backdrop-saturate-100";
-/** Opaque title bar — no backdrop blur (reads clearly on glass body) */
-const incidentCardHeaderBar = "bg-slate-800 border-b border-white/5";
-
-// import kept for commented incident image block (phase 19-06)
-// import { ImageWithFallback } from "../ImageWithFallback";
 
 function getCardTransition(
 	isDragging: boolean,
@@ -55,8 +50,6 @@ interface CardStackProps {
 	exitPosition: { x: number; rotate: number } | null;
 	/** Whether the card is snapping back to center */
 	isSnappingBack: boolean;
-	/** Whether swipe up gesture is detected */
-	isSwipeUp?: boolean;
 	/** Handler for touch/mouse start events */
 	onTouchStart: (e: React.TouchEvent | React.MouseEvent) => void;
 	/** Handler for touch/mouse move events */
@@ -73,8 +66,6 @@ interface CardStackProps {
 	swipePreviewThreshold: number;
 	/** Whether the card should show urgent stress visuals */
 	isUrgent?: boolean;
-	/** Whether the card should show critical stress visuals */
-	isCritical?: boolean;
 }
 
 /**
@@ -100,21 +91,34 @@ function SwipePreview({
 	swipeThreshold,
 	card,
 }: SwipePreviewProps): React.ReactElement {
-	const progress = (Math.abs(offset) - swipePreviewThreshold) / swipeThreshold;
+	const raw = (Math.abs(offset) - swipePreviewThreshold) / swipeThreshold;
+	const t = Math.max(0, Math.min(1, raw));
+	const labelOpacity = Math.max(0, Math.min(1, 0.3 + t * 0.7));
+	/** Edge wash — cyan-500 / orange-500 (left reads warmer than pure yellow) */
+	const tintGradient =
+		direction === "RIGHT"
+			? "linear-gradient(to left, rgba(6, 182, 212, 0.4) 0%, rgba(6, 182, 212, 0.15) 42%, transparent 72%)"
+			: "linear-gradient(to right, rgba(249, 115, 22, 0.4) 0%, rgba(249, 115, 22, 0.15) 42%, transparent 72%)";
 	const label =
 		direction === "RIGHT"
 			? card.onRight.label.toUpperCase()
 			: card.onLeft.label.toUpperCase();
 	return (
-		<div
-			className="absolute inset-0 pointer-events-none z-10"
-			style={{ opacity: Math.min(1, 0.3 + progress * 0.7) }}
-		>
+		<div className="absolute inset-0 pointer-events-none z-10">
 			<div
-				className={`absolute top-1/2 -translate-y-1/2 font-black tracking-tighter ${direction === "RIGHT" ? "left-8 text-slate-200" : "right-8 text-slate-200"}`}
+				className="absolute inset-0 rounded-[inherit]"
 				style={{
-					fontSize: `clamp(1.5rem, ${2 + progress * 2}rem, 3.75rem)`,
-					transform: `scale(${0.5 + Math.min(0.5, progress * 0.5)})`,
+					background: tintGradient,
+					opacity: t * 0.9,
+				}}
+				aria-hidden
+			/>
+			<div
+				className={`absolute top-1/2 -translate-y-1/2 font-black tracking-tighter ${direction === "RIGHT" ? "left-8 text-cyan-500" : "right-8 text-orange-500"}`}
+				style={{
+					fontSize: `clamp(1.5rem, ${2 + t * 2}rem, 3.75rem)`,
+					transform: `scale(${0.5 + Math.min(0.5, t * 0.5)})`,
+					opacity: labelOpacity,
 				}}
 			>
 				{label}
@@ -144,7 +148,6 @@ export const CardStack: React.FC<CardStackProps> = ({
 	exitDirection,
 	exitPosition,
 	isSnappingBack,
-	isSwipeUp: _isSwipeUp = false,
 	onTouchStart,
 	onTouchMove,
 	onTouchEnd,
@@ -153,7 +156,6 @@ export const CardStack: React.FC<CardStackProps> = ({
 	swipeThreshold,
 	swipePreviewThreshold,
 	isUrgent = false,
-	isCritical: _isCritical = false,
 }) => {
 	// Use cards from props (effectiveDeck with shuffling/branching), fall back to ROLE_CARDS for compatibility
 	const cards = propsCards.length > 0 ? propsCards : ROLE_CARDS[role];
@@ -177,22 +179,11 @@ export const CardStack: React.FC<CardStackProps> = ({
 
 	if (!currentCard) return null;
 
-	// Tie stress visuals to incident countdown only; heat-based isCritical affects haptics,
-	// not the card's ongoing stress display (avoids right-swipe carrying stress to next card)
-	const hasStressVisuals = isUrgent;
-
-	const swipeButtonBase =
-		"flex-1 py-2 px-3 md:py-4 md:px-4 text-sm md:text-base border-[0.5px] border-solid tracking-wide transition-all min-h-[40px] md:min-h-[48px]";
-	const swipeButtonDefault =
-		"border-white/35 text-slate-300 bg-transparent hover:bg-cyan-500 hover:border-cyan-500 hover:text-black active:bg-cyan-500 active:border-cyan-500 active:text-black";
-	const swipeButtonSelected =
-		"border-[0.5px] border-solid bg-cyan-500 border-cyan-500 font-bold text-black";
-
 	return (
 		<div
-			className={`relative flex-shrink-0 w-full max-w-full lg:max-w-[43rem] h-[420px] md:h-[540px] ${hasStressVisuals ? "pressure-shake" : ""}`}
+			className={`relative flex-shrink-0 w-full max-w-full lg:max-w-[43rem] h-[420px] md:h-[540px] ${isUrgent ? "pressure-shake" : ""}`}
 			data-testid="incident-card-container"
-			data-pressure-stress={hasStressVisuals ? "true" : undefined}
+			data-pressure-stress={isUrgent ? "true" : undefined}
 		>
 			{/* Next card (behind) */}
 			{nextCard && (
@@ -204,59 +195,17 @@ export const CardStack: React.FC<CardStackProps> = ({
 						opacity: 0.6,
 					}}
 				>
-					<div
-						className={`px-3 md:px-4 py-2 flex items-center justify-between ${incidentCardHeaderBar}`}
-					>
-						<div className="flex items-center gap-2 text-[10px] mono font-bold text-slate-400 truncate">
-							<i
-								className={`fa-solid ${SOURCE_ICONS[nextCard.source] ?? "fa-hashtag"}`}
-								aria-hidden
-							></i>
-							<span className="truncate">
-								{nextCard.source}
-								{" // "}
-								{nextCard.context}
-							</span>
-						</div>
-						<div className="flex gap-1.5 shrink-0">
-							<div className="w-2.5 h-2.5 rounded-full bg-slate-600"></div>
-							<div className="w-2.5 h-2.5 rounded-full bg-slate-600"></div>
-							<div className="w-2.5 h-2.5 rounded-full bg-red-500/50"></div>
-						</div>
-					</div>
-					<div className="p-4 md:p-6 flex flex-col justify-between flex-1 overflow-hidden">
-						<div className="space-y-3 overflow-y-auto">
-							<div className="flex items-center gap-3">
-								<div className="w-7 h-7 md:w-8 md:h-8 rounded bg-white/5 flex items-center justify-center border border-white/10 shrink-0 backdrop-blur-sm">
-									<i
-										className="fa-solid fa-user-robot text-slate-500 text-xs"
-										aria-hidden
-									></i>
-								</div>
-								<div className="min-w-0">
-									<div className="text-xs font-bold text-slate-400 truncate">
-										{nextCard.sender}
-									</div>
-									<div className="text-[9px] text-slate-600 mono truncate">
-										Incident #{(currentCardIndex + 2) * 324}
-									</div>
-								</div>
-							</div>
-							{nextCard.storyContext && (
-								<p className="text-xs text-slate-500 line-clamp-2">
-									{nextCard.storyContext}
-								</p>
-							)}
-							<p className="text-sm md:text-base font-medium leading-relaxed text-slate-400 line-clamp-3">
-								{nextCard.text}
-							</p>
-						</div>
-					</div>
+					<CardHeaderBar source={nextCard.source} context={nextCard.context} />
+					<CardBody
+						card={nextCard}
+						incidentNumber={(currentCardIndex + 2) * 324}
+						variant="preview"
+					/>
 				</div>
 			)}
 
 			{/* Glow overlay: sibling to card, not in transform subtree — avoids compositor layer skipping repaint until touch */}
-			{hasStressVisuals && (
+			{isUrgent && (
 				<div
 					className="absolute inset-0 rounded-xl pointer-events-none pressure-pulse-overlay"
 					style={{ zIndex: 5 }}
@@ -271,7 +220,7 @@ export const CardStack: React.FC<CardStackProps> = ({
 				role="group"
 				data-testid="incident-card"
 				data-card-id={currentCard.id}
-				className={`absolute inset-0 rounded-xl overflow-hidden flex flex-col select-none swipe-card ${incidentCardGlass} ${isFirstCard && !exitDirection && !isDragging && !hasDragged ? "ticket-transition" : ""} ${isSnappingBack ? "spring-snap-back" : ""} ${hasStressVisuals ? "pressure-flicker" : ""}`}
+				className={`absolute inset-0 rounded-xl overflow-hidden flex flex-col select-none swipe-card ${incidentCardGlass} ${isFirstCard && !exitDirection && !isDragging && !hasDragged ? "ticket-transition" : ""} ${isSnappingBack ? "spring-snap-back" : ""} ${isUrgent ? "pressure-flicker" : ""}`}
 				key={currentCardIndex}
 				onTouchStart={onTouchStart}
 				onTouchMove={onTouchMove}
@@ -300,108 +249,21 @@ export const CardStack: React.FC<CardStackProps> = ({
 					/>
 				)}
 
-				<div
-					className={`px-3 md:px-4 py-2 flex items-center justify-between ${incidentCardHeaderBar}`}
-				>
-					<div className="flex items-center gap-2 text-[10px] mono font-bold text-slate-400 truncate">
-						<i
-							className={`fa-solid ${SOURCE_ICONS[currentCard.source] ?? "fa-hashtag"}`}
-							aria-hidden
-						></i>
-						<span className="truncate">
-							{currentCard.source}
-							{" // "}
-							{currentCard.context}
-						</span>
-					</div>
-					<div className="flex gap-1.5 shrink-0">
-						<div className="w-2.5 h-2.5 rounded-full bg-slate-600"></div>
-						<div className="w-2.5 h-2.5 rounded-full bg-slate-600"></div>
-						<div className="w-2.5 h-2.5 rounded-full bg-red-500/50"></div>
-					</div>
-				</div>
-				<div className="p-4 md:p-6 flex flex-col justify-between flex-1 overflow-hidden">
-					{/* Hero image - moves with card during swipe */}
-					{/* COMMENTED: incident images removed from decision cards per UX research (phase 19-06) */}
-					{/* {currentCard.realWorldReference?.incident && (
-					<div className="mb-3 md:mb-6 shrink-0">
-						<ImageWithFallback
-							src={getIncidentImagePath(
-								slugify(currentCard.realWorldReference.incident),
-							)}
-							alt={`Incident: ${currentCard.context}`}
-							aspectRatio="video"
-							containerClassName="max-h-[140px] md:max-h-[280px]"
-						/>
-					</div>
-				)} */}
-
-					<div
-						className={`space-y-3 md:space-y-6 overflow-y-auto ${hasStressVisuals ? "pressure-shake-counter" : ""}`}
-					>
-						<div className="flex items-center gap-3">
-							<div className="w-8 h-8 md:w-10 md:h-10 rounded bg-white/5 flex items-center justify-center border border-white/10 shrink-0 backdrop-blur-sm">
-								<i
-									className="fa-solid fa-user-robot text-slate-400 text-xs md:text-base"
-									aria-hidden
-								></i>
-							</div>
-							<div className="min-w-0">
-								<div className="text-xs md:text-sm font-bold text-cyan-400 truncate">
-									{currentCard.sender}
-								</div>
-								<div className="text-[9px] md:text-[10px] text-slate-400 mono truncate">
-									Incident #{(currentCardIndex + 1) * 324}
-								</div>
-							</div>
-						</div>
-						{currentCard.storyContext && (
-							<p className="text-sm md:text-base text-slate-400 leading-relaxed">
-								{currentCard.storyContext}
-							</p>
-						)}
-						<p className="text-base md:text-xl font-medium leading-relaxed text-slate-200">
-							{currentCard.text}
-						</p>
-					</div>
-					<div className="flex flex-col gap-2 md:gap-3 mt-4 md:mt-8 shrink-0">
-						{/* Keyboard hint */}
-						<div className="flex items-center justify-center gap-2 text-[10px] text-slate-400 mono">
-							<span className="hidden md:inline px-1.5 py-0.5 rounded bg-white/5 border border-white/10 backdrop-blur-sm">
-								←
-							</span>
-							<span className="hidden md:inline">Swipe or use arrow keys</span>
-							<span className="hidden md:inline px-1.5 py-0.5 rounded bg-white/5 border border-white/10 backdrop-blur-sm">
-								→
-							</span>
-
-							<span className="flex md:hidden items-center justify-center gap-3">
-								<span className="text-slate-300 font-bold">← Swipe left</span>
-								<span className="text-slate-600">or</span>
-								<span className="text-slate-300 font-bold">Swipe right →</span>
-							</span>
-						</div>
-
-						<div className="flex flex-row gap-3 md:gap-4">
-							<button
-								type="button"
-								onClick={onSwipeLeft}
-								data-testid="swipe-left-button"
-								className={`${swipeButtonBase} ${direction === "LEFT" ? swipeButtonSelected : `font-semibold ${swipeButtonDefault}`}`}
-							>
-								{currentCard.onLeft.label}
-							</button>
-							<button
-								type="button"
-								onClick={onSwipeRight}
-								data-testid="swipe-right-button"
-								className={`${swipeButtonBase} ${direction === "RIGHT" ? swipeButtonSelected : `font-bold ${swipeButtonDefault}`}`}
-							>
-								{currentCard.onRight.label}
-							</button>
-						</div>
-					</div>
-				</div>
+				<CardHeaderBar
+					source={currentCard.source}
+					context={currentCard.context}
+				/>
+				<CardBody
+					card={currentCard}
+					incidentNumber={(currentCardIndex + 1) * 324}
+					variant="full"
+					onSwipeLeft={onSwipeLeft}
+					onSwipeRight={onSwipeRight}
+					leftLabel={currentCard.onLeft.label}
+					rightLabel={currentCard.onRight.label}
+					currentDirection={direction}
+					isUrgent={isUrgent}
+				/>
 			</div>
 		</div>
 	);

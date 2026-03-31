@@ -4,6 +4,7 @@ import {
 	useCallback,
 	useContext,
 	useEffect,
+	useId,
 	useRef,
 	useState,
 } from "react";
@@ -201,7 +202,7 @@ function StarfieldSpeedPanel({
 	bgm,
 }: StarfieldSpeedPanelProps) {
 	const inputId = `starfield-speed-${idSuffix}`;
-	const bgmVolumeId = `bgm-volume-${idSuffix}`;
+	const bgmVolumeId = useId();
 	return (
 		<div className="rounded-lg border border-white/10 bg-black/65 px-2.5 py-3 shadow-lg backdrop-blur-sm backdrop-saturate-100">
 			<label

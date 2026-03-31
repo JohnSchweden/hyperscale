@@ -41,7 +41,6 @@ export const EmailCaptureForm: React.FC<EmailCaptureFormProps> = ({
 					value={email}
 					onChange={(e) => setEmail(e.target.value)}
 					placeholder="your.email@company.com"
-					disabled={success}
 					readOnly={success}
 					className={`
 						w-full px-4 py-3 rounded-lg

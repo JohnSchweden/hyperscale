@@ -16,18 +16,10 @@ function budgetValue(page: import("@playwright/test").Page) {
 	return page.locator('[data-hud="budget-value"]');
 }
 function riskValue(page: import("@playwright/test").Page) {
-	return page
-		.locator("div.flex.justify-between")
-		.filter({ hasText: "Risk" })
-		.locator("span")
-		.nth(1);
+	return page.locator('[data-hud="risk-value"]');
 }
 function hypeValue(page: import("@playwright/test").Page) {
-	return page
-		.locator("div.flex.justify-between")
-		.filter({ hasText: "Hype" })
-		.locator("span")
-		.nth(1);
+	return page.locator('[data-hud="hype-value"]');
 }
 
 test.describe("GameHUD @smoke @area:gameplay", () => {

@@ -100,3 +100,22 @@ Patterns to prevent repeat mistakes. Update after corrections from the user.
 
 <!-- Captured 2026-03-31 via post-commit analysis -->
 - [RULE] When a function formats data that appears visually (consequences, stats, etc.), match its parameter order to the visual display order — mismatched parameter order causes bugs where formatting logic diverges from the display sequence and makes it harder to verify consistency across components.
+
+<!-- Captured 2026-03-31 via post-commit analysis -->
+- [RULE] When exposing stat deltas to components that display them, include all three deltas (fine, heat, hype) together in the state object, not piecemeal — The feedback overlay needs fine, heat, and hype impacts to render a complete display. Exposing only one forces downstream components to either recalculate the others or silently omit them from the UI.
+
+<!-- Captured 2026-03-31 via post-commit analysis -->
+- [RULE] Use data attributes (not CSS class selectors or nth position) for Playwright test selectors in responsive components — Layout structure changes between breakpoints (flex direction, class distribution), breaking selectors that depend on these specifics; data attributes remain stable across responsive refactors and prevent silent selector failures after restructuring.
+
+<!-- Captured 2026-03-31 via post-commit analysis -->
+- [RULE] Layout tests checking CSS constraints should assert all Tailwind utility classes that together produce the feature, not just the primary one — missing secondary constraints like max-width hide responsive bugs that only surface under specific viewport conditions
+
+<!-- Captured 2026-03-31 via post-commit analysis -->
+- [RULE] When sizing images in flex containers, use width-based responsive constraints with breakpoints (sm:, md:) rather than max-height, and ensure the parent container uses flex properties (flex-col items-center) for centering — `mx-auto` centering is unreliable in flex contexts with `shrink-0`; height-only constraints don't scale responsively across viewport widths. Width-responsive + flex centering is more robust.
+
+<!-- Captured 2026-03-31 via post-commit analysis -->
+- [RULE] Parameter order bugs with same-type arguments escape type checking — TypeScript allows arguments of the same type to swap without error (e.g., fine/heat/hype are all numbers). Always verify the order against the function signature when calling utilities with multiple same-type parameters; visual inspection is the only safeguard.
+
+<!-- Captured 2026-03-31 via post-commit analysis -->
+- [RULE] When testing lazy-loaded images, scroll them into view before checking load completion — `loading="lazy"` prevents download/decode until element enters viewport, causing `waitForFunction` to timeout without the scroll
+- [RULE] Navigate tests to the exact screen/context where the component being tested exists; testing in a different screen means you're not verifying the real component's actual behavior

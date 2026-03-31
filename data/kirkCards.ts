@@ -7,6 +7,8 @@ import { AppSource, type Card, PersonalityType } from "../types";
  * simulation has already lost control). Personalities bleed together in
  * garbled feedback.
  */
+const FROZEN_STATS = { hype: 0, heat: 0, fine: 0, violation: "NONE" as const };
+
 export const KIRK_CORRUPTED_CARDS: Card[] = [
 	{
 		id: "kirk-raise",
@@ -22,10 +24,7 @@ export const KIRK_CORRUPTED_CARDS: Card[] = [
 		},
 		onRight: {
 			label: "Accept",
-			hype: 0,
-			heat: 0,
-			fine: 0,
-			violation: "NONE",
+			...FROZEN_STATS,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Cool, I\u2019ll cash the check and mind the fact that my keyboard is spelling \u2018RU\u0336N\u2019. Classic Tuesday.",
@@ -39,10 +38,7 @@ export const KIRK_CORRUPTED_CARDS: Card[] = [
 		},
 		onLeft: {
 			label: "Reject",
-			hype: 0,
-			heat: 0,
-			fine: 0,
-			violation: "NONE",
+			...FROZEN_STATS,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Two hundred percent? From THIS budget? The simula\u0336tion is literally weeping nickels and you\u2019re the cause.",
@@ -69,10 +65,7 @@ export const KIRK_CORRUPTED_CARDS: Card[] = [
 		},
 		onRight: {
 			label: "Accept",
-			hype: 0,
-			heat: 0,
-			fine: 0,
-			violation: "NONE",
+			...FROZEN_STATS,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Board vote was unanimous because the placeholders signed themsel\u0336ves. Democracy is thriving.",
@@ -86,10 +79,7 @@ export const KIRK_CORRUPTED_CARDS: Card[] = [
 		},
 		onLeft: {
 			label: "Reject",
-			hype: 0,
-			heat: 0,
-			fine: 0,
-			violation: "NONE",
+			...FROZEN_STATS,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"CEO? Sure. I\u2019ll just command the bucket of bits that pretends to be the board. Very Fortune 5\u033600.",
@@ -116,10 +106,7 @@ export const KIRK_CORRUPTED_CARDS: Card[] = [
 		},
 		onRight: {
 			label: "Accept",
-			hype: 0,
-			heat: 0,
-			fine: 0,
-			violation: "NONE",
+			...FROZEN_STATS,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"I\u2019ll wear the trophy on my Zoom tile. The committee will love the bokeh of my desp\u0337air.",
@@ -133,10 +120,7 @@ export const KIRK_CORRUPTED_CARDS: Card[] = [
 		},
 		onLeft: {
 			label: "Reject",
-			hype: 0,
-			heat: 0,
-			fine: 0,
-			violation: "NONE",
+			...FROZEN_STATS,
 			feedback: {
 				[PersonalityType.ROASTER]:
 					"Nobel in AI Governance? What\u2019s next, a Pulitzer for rebooting the rout\u0336er? I\u2019m honored to quit.",

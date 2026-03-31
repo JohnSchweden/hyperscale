@@ -7,7 +7,7 @@ current_plan: 13 (complete — Phase 19 complete)
 status: planning
 last_updated: "2026-03-31T20:35:00.000Z"
 progress:
-  total_phases: 23
+  total_phases: 24
   completed_phases: 14
   total_plans: 123
   completed_plans: 105
@@ -125,6 +125,7 @@ See: .planning/PROJECT.md
 - Phase 18 added: Meme Template System (3 plans)
 - Phase 19 added: refactor the design (6 plans — 5 core + 1 gap closure)
 - Phase 20 added: Short Video Clips for Key Moments (for TikTok/Reels/YouTube Shorts)
+- Phase 21 added: refactor-the-glassmorphism-design
 
 ## Decisions
 

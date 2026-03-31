@@ -11,6 +11,12 @@ const HEAT_HIGH = 70;
 const HYPE_CRITICAL = 85;
 const HYPE_HIGH = 70;
 
+const escalationIconMap: Record<string, string> = {
+	budget: "fa-coins",
+	heat: "fa-fire",
+	hype: "fa-bullhorn",
+};
+
 function ViolationRowDot() {
 	return (
 		<span
@@ -128,88 +134,195 @@ export const FeedbackOverlay: React.FC<FeedbackOverlayProps> = ({
 			<div className="w-full max-w-full lg:max-w-[43rem] bg-slate-900 border border-slate-700 p-6 md:p-10 rounded-2xl text-center shadow-2xl max-h-[90vh] overflow-y-auto modal-content antialiased">
 				{showEscalation && (
 					<div className="mb-4 p-2 rounded-lg border flex flex-wrap gap-x-4 gap-y-1 justify-center items-center bg-black/30">
-						{budgetCritical && (
-							<span className="text-[10px] font-black tracking-wide text-red-500 inline-flex items-center gap-1.5">
-								<i className="fa-solid fa-coins text-[10px]" aria-hidden></i>
-								Budget Critical — {formatBudget(budget ?? 0)}
-							</span>
-						)}
-						{heatCritical && (
-							<span className="text-[10px] font-black tracking-wide text-red-400 inline-flex items-center gap-1.5">
-								<i className="fa-solid fa-fire text-[10px]" aria-hidden></i>
-								Risk Critical — {heat}%
-							</span>
-						)}
-						{heatHigh && !heatCritical && (
-							<span className="text-[10px] font-black tracking-wide text-amber-400 inline-flex items-center gap-1.5">
-								<i className="fa-solid fa-fire text-[10px]" aria-hidden></i>
-								Risk High — {heat}%
-							</span>
-						)}
-						{hypeCritical && (
-							<span className="text-[10px] font-black tracking-wide text-red-400 inline-flex items-center gap-1.5">
-								<i className="fa-solid fa-bullhorn text-[10px]" aria-hidden></i>
-								Hype Critical — {hype}%
-							</span>
-						)}
-						{hypeHigh && !hypeCritical && (
-							<span className="text-[10px] font-black tracking-wide text-amber-400 inline-flex items-center gap-1.5">
-								<i className="fa-solid fa-bullhorn text-[10px]" aria-hidden></i>
-								Hype High — {hype}%
-							</span>
-						)}
+						{budgetCritical &&
+							(() => {
+								const level = Math.round((budget ?? 0) / 1000000);
+								const label = `Budget — ${formatBudget(budget ?? 0)}`;
+								const variant = "critical";
+								const isCritical = variant === "critical";
+								const iconKey = label.toLowerCase().split(" ")[0];
+								const icon = escalationIconMap[iconKey] || "fa-exclamation";
+								const textColor = isCritical
+									? "text-red-500"
+									: "text-amber-400";
+								const iconColorClass = isCritical
+									? "text-red-500"
+									: "text-amber-400";
+
+								return (
+									<span
+										className={`text-[10px] font-black tracking-wide ${textColor} inline-flex items-center gap-1.5`}
+									>
+										<i
+											className={`fa-solid ${icon} text-[10px] ${iconColorClass}`}
+											aria-hidden
+										></i>
+										{label} — {level}%
+									</span>
+								);
+							})()}
+						{heatCritical &&
+							(() => {
+								const level = heat ?? 0;
+								const label = "Risk";
+								const variant = "critical";
+								const isCritical = variant === "critical";
+								const iconKey = label.toLowerCase().split(" ")[0];
+								const icon = escalationIconMap[iconKey] || "fa-exclamation";
+								const textColor = isCritical
+									? "text-red-500"
+									: "text-amber-400";
+								const iconColorClass = isCritical
+									? "text-red-500"
+									: "text-amber-400";
+
+								return (
+									<span
+										className={`text-[10px] font-black tracking-wide ${textColor} inline-flex items-center gap-1.5`}
+									>
+										<i
+											className={`fa-solid ${icon} text-[10px] ${iconColorClass}`}
+											aria-hidden
+										></i>
+										{label} — {level}%
+									</span>
+								);
+							})()}
+						{heatHigh &&
+							!heatCritical &&
+							(() => {
+								const level = heat ?? 0;
+								const label = "Risk";
+								const isCritical = false;
+								const iconKey = label.toLowerCase().split(" ")[0];
+								const icon = escalationIconMap[iconKey] || "fa-exclamation";
+								const textColor = isCritical
+									? "text-red-500"
+									: "text-amber-400";
+								const iconColorClass = isCritical
+									? "text-red-500"
+									: "text-amber-400";
+
+								return (
+									<span
+										className={`text-[10px] font-black tracking-wide ${textColor} inline-flex items-center gap-1.5`}
+									>
+										<i
+											className={`fa-solid ${icon} text-[10px] ${iconColorClass}`}
+											aria-hidden
+										></i>
+										{label} — {level}%
+									</span>
+								);
+							})()}
+						{hypeCritical &&
+							(() => {
+								const level = hype ?? 0;
+								const label = "Hype";
+								const variant = "critical";
+								const isCritical = variant === "critical";
+								const iconKey = label.toLowerCase().split(" ")[0];
+								const icon = escalationIconMap[iconKey] || "fa-exclamation";
+								const textColor = isCritical
+									? "text-red-500"
+									: "text-amber-400";
+								const iconColorClass = isCritical
+									? "text-red-500"
+									: "text-amber-400";
+
+								return (
+									<span
+										className={`text-[10px] font-black tracking-wide ${textColor} inline-flex items-center gap-1.5`}
+									>
+										<i
+											className={`fa-solid ${icon} text-[10px] ${iconColorClass}`}
+											aria-hidden
+										></i>
+										{label} — {level}%
+									</span>
+								);
+							})()}
+						{hypeHigh &&
+							!hypeCritical &&
+							(() => {
+								const level = hype ?? 0;
+								const label = "Hype";
+								const isCritical = false;
+								const iconKey = label.toLowerCase().split(" ")[0];
+								const icon = escalationIconMap[iconKey] || "fa-exclamation";
+								const textColor = isCritical
+									? "text-red-500"
+									: "text-amber-400";
+								const iconColorClass = isCritical
+									? "text-red-500"
+									: "text-amber-400";
+
+								return (
+									<span
+										className={`text-[10px] font-black tracking-wide ${textColor} inline-flex items-center gap-1.5`}
+									>
+										<i
+											className={`fa-solid ${icon} text-[10px] ${iconColorClass}`}
+											aria-hidden
+										></i>
+										{label} — {level}%
+									</span>
+								);
+							})()}
 					</div>
 				)}
 
 				{/* Outcome image (Kirk-corrupted cards use kirk-breach* slugs + glitch placeholder) */}
-				{realWorldReference?.incident &&
-					outcomeLabel &&
-					(() => {
-						const incidentSlug = slugify(realWorldReference.incident);
-						const labelSlug = slugify(outcomeLabel);
-						const imagePath = getOutcomeImagePath(incidentSlug, labelSlug);
-						const showKirkPlaceholder =
-							!imagePath && incidentSlug.startsWith("kirk-breach");
-						if (!imagePath && !showKirkPlaceholder) return null;
-						return (
-							<div className="mb-4 md:mb-6 flex w-full shrink-0 flex-col items-center">
-								{imagePath ? (
-									<ImageWithFallback
-										src={imagePath}
-										alt={`Outcome: ${outcomeLabel}`}
-										aspectRatio="video"
-										containerClassName="w-full max-w-[280px] sm:max-w-[340px] md:max-w-[400px]"
-									/>
-								) : (
+				{(() => {
+					if (!realWorldReference?.incident || !outcomeLabel) return null;
+
+					const incidentSlug = slugify(realWorldReference.incident);
+					const labelSlug = slugify(outcomeLabel);
+					const imagePath = getOutcomeImagePath(incidentSlug, labelSlug);
+					const showKirkPlaceholder =
+						!imagePath && incidentSlug.startsWith("kirk-breach");
+
+					if (!imagePath && !showKirkPlaceholder) return null;
+
+					return (
+						<div className="mb-4 md:mb-6 flex w-full shrink-0 flex-col items-center">
+							{imagePath ? (
+								<ImageWithFallback
+									src={imagePath}
+									alt={`Outcome: ${outcomeLabel}`}
+									aspectRatio="video"
+									containerClassName="w-full max-w-[280px] sm:max-w-[340px] md:max-w-[400px]"
+								/>
+							) : (
+								<div
+									className="relative aspect-video w-full max-w-[280px] overflow-hidden rounded-lg border border-slate-700 bg-slate-900 sm:max-w-[340px] md:max-w-[400px]"
+									role="img"
+									aria-label="Corrupted outcome image unavailable"
+								>
 									<div
-										className="relative aspect-video w-full max-w-[280px] overflow-hidden rounded-lg border border-slate-700 bg-slate-900 sm:max-w-[340px] md:max-w-[400px]"
-										role="img"
-										aria-label="Corrupted outcome image unavailable"
+										className="absolute inset-0 flex items-center justify-center bg-gradient-to-b from-slate-800 to-slate-900 glitch-placeholder kirk-glitch-text"
+										style={{
+											backgroundImage: `
+               repeating-linear-gradient(
+                 0deg,
+                 rgba(0, 0, 0, 0.15),
+                 rgba(0, 0, 0, 0.15) 2px,
+                 transparent 2px,
+                 transparent 4px
+               )
+             `,
+										}}
 									>
-										<div
-											className="absolute inset-0 flex items-center justify-center bg-gradient-to-b from-slate-800 to-slate-900 glitch-placeholder kirk-glitch-text"
-											style={{
-												backgroundImage: `
-              repeating-linear-gradient(
-                0deg,
-                rgba(0, 0, 0, 0.15),
-                rgba(0, 0, 0, 0.15) 2px,
-                transparent 2px,
-                transparent 4px
-              )
-            `,
-											}}
-										>
-											<i
-												className="fa-solid fa-image text-cyan-500/80 text-3xl animate-pulse"
-												aria-hidden
-											></i>
-										</div>
+										<i
+											className="fa-solid fa-image text-cyan-500/80 text-3xl animate-pulse"
+											aria-hidden
+										></i>
 									</div>
-								)}
-							</div>
-						);
-					})()}
+								</div>
+							)}
+						</div>
+					);
+				})()}
 
 				<h2 id="feedback-overlay-title" className="sr-only">
 					Governance feedback
@@ -295,39 +408,53 @@ export const FeedbackOverlay: React.FC<FeedbackOverlayProps> = ({
 									</p>
 								</div>
 
-								{heatDelta !== undefined && heatDelta !== 0 && (
-									<div className="flex shrink-0 items-center gap-1.5">
-										<span className="sr-only">Risk</span>
-										<i
-											className="fa-solid fa-fire text-xs text-slate-500"
-											aria-hidden
-										></i>
-										<p
-											className={`text-base font-black tabular-nums leading-none md:text-lg ${
-												heatDelta > 0 ? "text-red-400" : "text-emerald-400"
-											}`}
-										>
-											{heatDelta > 0 ? `+${heatDelta}` : `${heatDelta}`}%
-										</p>
-									</div>
-								)}
+								{heatDelta !== undefined &&
+									heatDelta !== 0 &&
+									(() => {
+										const _type = "heat";
+										const value = heatDelta;
+										const label = "Risk";
+										const colorFn = (v: number) =>
+											v > 0 ? "text-red-400" : "text-emerald-400";
+										return (
+											<div className="flex shrink-0 items-center gap-1.5">
+												<span className="sr-only">{label}</span>
+												<i
+													className="fa-solid fa-fire text-xs text-slate-500"
+													aria-hidden
+												></i>
+												<p
+													className={`text-base font-black tabular-nums leading-none md:text-lg ${colorFn(value)}`}
+												>
+													{value > 0 ? `+${value}` : `${value}`}%
+												</p>
+											</div>
+										);
+									})()}
 
-								{hypeDelta !== undefined && hypeDelta !== 0 && (
-									<div className="flex shrink-0 items-center gap-1.5">
-										<span className="sr-only">Hype</span>
-										<i
-											className="fa-solid fa-rocket text-xs text-slate-500"
-											aria-hidden
-										></i>
-										<p
-											className={`text-base font-black tabular-nums leading-none md:text-lg ${
-												hypeDelta > 0 ? "text-cyan-400" : "text-red-400"
-											}`}
-										>
-											{hypeDelta > 0 ? `+${hypeDelta}` : `${hypeDelta}`}%
-										</p>
-									</div>
-								)}
+								{hypeDelta !== undefined &&
+									hypeDelta !== 0 &&
+									(() => {
+										const _type = "hype";
+										const value = hypeDelta;
+										const label = "Hype";
+										const colorFn = (v: number) =>
+											v > 0 ? "text-cyan-400" : "text-red-400";
+										return (
+											<div className="flex shrink-0 items-center gap-1.5">
+												<span className="sr-only">{label}</span>
+												<i
+													className="fa-solid fa-fire text-xs text-slate-500"
+													aria-hidden
+												></i>
+												<p
+													className={`text-base font-black tabular-nums leading-none md:text-lg ${colorFn(value)}`}
+												>
+													{value > 0 ? `+${value}` : `${value}`}%
+												</p>
+											</div>
+										);
+									})()}
 							</div>
 						</div>
 					</div>

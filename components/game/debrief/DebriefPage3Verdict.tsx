@@ -1,5 +1,5 @@
 import type React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ROLE_LABELS } from "../../../data";
 import { getArchetypeImagePath } from "../../../data/imageMap";
 import { useVoicePlayback } from "../../../hooks";
@@ -139,13 +139,21 @@ export const DebriefPage3Verdict: React.FC<DebriefPage3VerdictProps> = ({
 			: "";
 
 	const [copied, setCopied] = useState(false);
+	const copiedTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+	useEffect(() => {
+		return () => {
+			if (copiedTimerRef.current) clearTimeout(copiedTimerRef.current);
+		};
+	}, []);
 
 	const handleCopy = async () => {
 		if (!shareText) return;
 		try {
 			await navigator.clipboard.writeText(shareText);
 			setCopied(true);
-			setTimeout(() => setCopied(false), 2000);
+			if (copiedTimerRef.current) clearTimeout(copiedTimerRef.current);
+			copiedTimerRef.current = setTimeout(() => setCopied(false), 2000);
 		} catch (err) {
 			console.error("Failed to copy:", err);
 		}

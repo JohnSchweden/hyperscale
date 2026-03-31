@@ -10,6 +10,9 @@ export function formatBudget(amount: number): string {
 	const sign = amount < 0 ? "-" : "";
 	const abs = Math.abs(amount);
 
+	if (abs === 0) {
+		return "$0";
+	}
 	if (abs >= 1_000_000) {
 		return `${sign}$${(abs / 1_000_000).toFixed(1)}M`;
 	}
@@ -17,9 +20,6 @@ export function formatBudget(amount: number): string {
 		const k = abs / 1_000;
 		const kText = Number.isInteger(k) ? String(Math.round(k)) : k.toFixed(1);
 		return `${sign}$${kText}K`;
-	}
-	if (abs === 0) {
-		return "$0";
 	}
 	return `${sign}$${abs.toLocaleString()}`;
 }

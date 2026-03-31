@@ -671,6 +671,16 @@ Plans:
 Plans:
 - [ ] TBD (run /gsd:plan-phase 20 to break down)
 
+### Phase 21: refactor-the-glassmorphism-design
+
+**Goal:** [To be planned]
+**Requirements**: TBD
+**Depends on:** Phase 20
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 21 to break down)
+
 ---
 
 *Roadmap updated: 2026-03-28 — Phases 13, 16, 18 updated with all gap closure plans and extra phases*

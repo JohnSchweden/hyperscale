@@ -82,6 +82,7 @@ export const GameScreen: React.FC<GameScreenProps> = ({
 	const startingBudget = ROLE_FINE_TIERS[state.role]?.budget ?? 10000000;
 
 	const countdownVisible = isCountdownActive && countdownValue > 0;
+
 	const pressureAttrs = countdownVisible
 		? { "data-pressure-countdown": String(countdownValue) }
 		: {};

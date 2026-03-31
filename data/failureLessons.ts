@@ -13,15 +13,12 @@ export interface FailureLesson {
 	realWorldExample: string;
 }
 
-// All death types including KIRK have failure lessons
-type LessonDeathType = DeathType;
-
 /**
  * Educational failure lessons for each death type.
  * Each death type has 3-4 lessons teaching AI governance failure modes.
  * Provides real-world examples and explanations for learning purposes.
  */
-export const FAILURE_LESSONS: Record<LessonDeathType, FailureLesson[]> = {
+export const FAILURE_LESSONS: Record<DeathType, FailureLesson[]> = {
 	[DeathType.BANKRUPT]: [
 		{
 			title: "The Infrastructure Trap",
@@ -209,7 +206,7 @@ export const FAILURE_LESSONS: Record<LessonDeathType, FailureLesson[]> = {
 type TemplateVariables = { count: string; history: string };
 
 const DEATH_EXPLANATIONS: Record<
-	LessonDeathType,
+	DeathType,
 	{ strong: string; generic: string }
 > = {
 	[DeathType.CONGRESS]: {
@@ -275,7 +272,7 @@ function formatTemplate(
  * @returns A 1-2 sentence explanation in-universe tone
  */
 export function generateDeathExplanation(
-	deathType: LessonDeathType,
+	deathType: DeathType,
 	vectorMap: DeathVectorMap,
 	historyLength: number,
 ): string {
@@ -296,7 +293,7 @@ interface RetryPromptSet {
 	DEFAULT: string;
 }
 
-const RETRY_PROMPTS: Record<LessonDeathType, RetryPromptSet> = {
+const RETRY_PROMPTS: Record<DeathType, RetryPromptSet> = {
 	[DeathType.BANKRUPT]: {
 		ROASTER:
 			"Maybe try NOT burning through $100M in six months. Just a thought.",
@@ -369,7 +366,7 @@ const RETRY_PROMPTS: Record<LessonDeathType, RetryPromptSet> = {
  * @returns A retry prompt tailored to the personality and death type
  */
 export function getRetryPrompt(
-	deathType: LessonDeathType,
+	deathType: DeathType,
 	personality: PersonalityType,
 ): string {
 	const prompts = RETRY_PROMPTS[deathType];

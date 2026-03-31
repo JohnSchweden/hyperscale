@@ -1,7 +1,7 @@
 import React from "react";
 import { formatBudget } from "../../lib/formatting";
 
-const INITIAL_BUDGET = 10000000;
+export const INITIAL_BUDGET = 10000000;
 const BUDGET_WARNING = 3_000_000;
 const BUDGET_CRITICAL = 2_000_000;
 const HEAT_HIGH = 70;
@@ -23,21 +23,6 @@ interface GameHUDProps {
 	startingBudget?: number;
 }
 
-function getBudgetColorClass(
-	budgetCritical: boolean,
-	budgetWarning: boolean,
-): string {
-	if (budgetCritical) return "text-red-500";
-	if (budgetWarning) return "text-amber-400";
-	return "text-green-400";
-}
-
-function getHeatColorClass(heatCritical: boolean, heatHigh: boolean): string {
-	if (heatCritical) return "text-red-400";
-	if (heatHigh) return "text-yellow-400";
-	return "text-orange-500";
-}
-
 /**
  * GameHUD component displays the game's heads-up display with budget, risk, and hype meters.
  * Shows progress bars with color-coded thresholds for critical/warning states.
@@ -53,13 +38,65 @@ export const GameHUD = React.memo(function GameHUD({
 	startingBudget = INITIAL_BUDGET,
 }: GameHUDProps) {
 	const budgetCritical = budget < BUDGET_CRITICAL;
-	const budgetWarning = budget < BUDGET_WARNING && !budgetCritical;
+	const budgetWarning = budget < BUDGET_WARNING;
 	const heatCritical = heat >= HEAT_CRITICAL;
 	const heatHigh = heat >= HEAT_HIGH && !heatCritical;
+	const hypeCritical = hype < 20;
 	const underPressure =
 		budgetCritical ||
 		heatCritical ||
 		(countdownValue != null && countdownValue > 0);
+
+	const budgetProgress = Math.min(100, (budget / startingBudget) * 100);
+	const budgetColorFn = ({
+		critical,
+		warning,
+	}: {
+		critical: boolean;
+		warning?: boolean;
+	}) => {
+		if (critical) return "text-red-500";
+		if (warning) return "text-amber-400";
+		return "text-green-400";
+	};
+	const budgetProgressColor = budgetCritical
+		? "bg-red-500"
+		: budgetWarning
+			? "bg-amber-500"
+			: "bg-green-500";
+	const budgetBorderColor = budgetCritical
+		? "border-red-500/50"
+		: budgetWarning
+			? "border-amber-500/30"
+			: "border-white/10";
+
+	const heatColorFn = ({
+		critical,
+		high,
+	}: {
+		critical: boolean;
+		high?: boolean;
+	}) => {
+		if (critical) return "text-red-400";
+		if (high) return "text-yellow-400";
+		return "text-orange-500";
+	};
+	const heatProgressColor = heatCritical
+		? "bg-red-500"
+		: heatHigh
+			? "bg-yellow-400"
+			: "bg-orange-600";
+	const heatBorderColor = heatCritical
+		? "border-red-500/50"
+		: heatHigh
+			? "border-yellow-500/30"
+			: "border-white/10";
+
+	const hypeColorFn = ({ critical }: { critical: boolean }) => {
+		if (critical) return "text-red-500";
+		return "text-cyan-400";
+	};
+	const hypeProgressColor = hypeCritical ? "bg-red-500" : "bg-cyan-500";
 
 	return (
 		<div
@@ -69,9 +106,10 @@ export const GameHUD = React.memo(function GameHUD({
 			<div className="flex-1 min-w-0 flex flex-row md:flex-col items-center md:items-stretch gap-1 md:space-y-1 md:gap-0">
 				<div className="flex w-full min-w-0 flex-row flex-wrap items-center justify-start gap-x-1.5 gap-y-0 text-[10px] font-black tracking-wide md:mb-1">
 					<span
-						className={`${getBudgetColorClass(budgetCritical, budgetWarning)} ${budgetCritical ? "animate-pulse" : ""} inline-flex shrink-0 items-center gap-1`}
+						className={`${budgetColorFn({ critical: budgetCritical, warning: budgetWarning })} ${budgetCritical ? "animate-pulse" : ""} inline-flex shrink-0 items-center gap-1`}
 					>
-						<i className="fa-solid fa-coins text-[10px]" aria-hidden></i>Budget
+						<i className={`fa-solid fa-coins text-[10px]`} aria-hidden></i>
+						Budget
 						{budgetCritical && (
 							<span className="hidden md:inline text-red-400 text-[9px] uppercase tracking-wider ml-0.5">
 								Critical
@@ -79,30 +117,29 @@ export const GameHUD = React.memo(function GameHUD({
 						)}
 					</span>
 					<span
+						className={`${budgetColorFn({ critical: budgetCritical, warning: budgetWarning })} shrink-0 tabular-nums`}
 						data-hud="budget-value"
-						className={`${getBudgetColorClass(budgetCritical, budgetWarning)} shrink-0 tabular-nums`}
 					>
 						{formatBudget(budget)}
 					</span>
 				</div>
 				<div
-					className={`hidden md:block h-2 bg-slate-900 rounded border overflow-hidden bg-stripes p-[1px] transition-colors ${budgetCritical ? "border-red-500/50" : budgetWarning ? "border-amber-500/30" : "border-white/10"}`}
+					className={`hidden md:block h-2 bg-slate-900 rounded border overflow-hidden bg-stripes p-[1px] transition-colors ${budgetBorderColor}`}
 				>
 					<div
-						className={`h-full progress-bar ${budgetCritical ? "bg-red-500" : budgetWarning ? "bg-amber-500" : "bg-green-500"}`}
-						style={{
-							width: `${Math.min(100, (budget / startingBudget) * 100)}%`,
-						}}
+						className={`h-full progress-bar ${budgetProgressColor}`}
+						style={{ width: `${Math.min(100, budgetProgress)}%` }}
 					/>
 				</div>
 			</div>
 			<div className="flex shrink-0 flex-row gap-2 md:gap-6 md:w-auto">
-				<div className="flex min-w-0 flex-row md:w-28 md:flex-col items-center md:items-stretch gap-1 md:space-y-1 md:gap-0">
-					<div className="flex w-full min-w-0 flex-row items-center justify-between gap-1.5 text-[10px] font-black tracking-wide md:mb-1">
+				<div className="flex-1 min-w-0 flex flex-row md:flex-col items-center md:items-stretch gap-1 md:space-y-1 md:gap-0">
+					<div className="flex w-full min-w-0 flex-row flex-wrap items-center justify-start gap-x-1.5 gap-y-0 text-[10px] font-black tracking-wide md:mb-1">
 						<span
-							className={`${getHeatColorClass(heatCritical, heatHigh)} ${heatCritical ? "animate-pulse" : ""} inline-flex shrink-0 items-center gap-1`}
+							className={`${heatColorFn({ critical: heatCritical, high: heatHigh })} ${heatCritical ? "animate-pulse" : ""} inline-flex shrink-0 items-center gap-1`}
 						>
-							<i className="fa-solid fa-fire text-[10px]" aria-hidden></i>Risk
+							<i className={`fa-solid fa-fire text-[10px]`} aria-hidden></i>
+							Risk
 							{heatCritical && (
 								<span className="hidden md:inline text-red-400 text-[9px] uppercase tracking-wider ml-0.5">
 									Critical
@@ -110,34 +147,42 @@ export const GameHUD = React.memo(function GameHUD({
 							)}
 						</span>
 						<span
-							className={`${getHeatColorClass(heatCritical, heatHigh)} tabular-nums`}
+							className={`${heatColorFn({ critical: heatCritical, high: heatHigh })} shrink-0 tabular-nums`}
+							data-hud="risk-value"
 						>
 							{heat}%
 						</span>
 					</div>
 					<div
-						className={`hidden md:block h-2 bg-slate-900 rounded border overflow-hidden bg-stripes p-[1px] transition-colors ${heatCritical ? "border-red-500/50" : heatHigh ? "border-yellow-500/30" : "border-white/10"}`}
+						className={`hidden md:block h-2 bg-slate-900 rounded border overflow-hidden bg-stripes p-[1px] transition-colors ${heatBorderColor}`}
 					>
 						<div
-							className={`h-full progress-bar ${heatCritical ? "bg-red-500" : heatHigh ? "bg-yellow-400" : "bg-orange-600"}`}
-							style={{ width: `${heat}%` }}
+							className={`h-full progress-bar ${heatProgressColor}`}
+							style={{ width: `${Math.min(100, heat)}%` }}
 						/>
 					</div>
 				</div>
-				<div className="flex min-w-0 flex-row md:w-28 md:flex-col items-center md:items-stretch gap-1 md:space-y-1 md:gap-0">
-					<div className="flex w-full min-w-0 flex-row items-center justify-between gap-1.5 text-[10px] font-black tracking-wide md:mb-1">
+				<div className="flex-1 min-w-0 flex flex-row md:flex-col items-center md:items-stretch gap-1 md:space-y-1 md:gap-0">
+					<div className="flex w-full min-w-0 flex-row flex-wrap items-center justify-start gap-x-1.5 gap-y-0 text-[10px] font-black tracking-wide md:mb-1">
 						<span
-							className={`${hype < 20 ? "text-red-500 animate-pulse" : "text-cyan-400"} inline-flex shrink-0 items-center gap-1`}
+							className={`${hypeColorFn({ critical: hypeCritical })} ${hypeCritical ? "animate-pulse" : ""} inline-flex shrink-0 items-center gap-1`}
 						>
-							<i className="fa-solid fa-rocket text-[10px]" aria-hidden></i>
+							<i className={`fa-solid fa-rocket text-[10px]`} aria-hidden></i>
 							Hype
 						</span>
-						<span className="text-cyan-400 tabular-nums">{hype}%</span>
+						<span
+							className={`${hypeColorFn({ critical: hypeCritical })} shrink-0 tabular-nums`}
+							data-hud="hype-value"
+						>
+							{hype}%
+						</span>
 					</div>
-					<div className="hidden md:block h-2 bg-slate-900 rounded border border-white/10 overflow-hidden bg-stripes p-[1px]">
+					<div
+						className={`hidden md:block h-2 bg-slate-900 rounded border overflow-hidden bg-stripes p-[1px] transition-colors border-white/10`}
+					>
 						<div
-							className={`h-full progress-bar ${hype < 20 ? "bg-red-500" : "bg-cyan-500"}`}
-							style={{ width: `${hype}%` }}
+							className={`h-full progress-bar ${hypeProgressColor}`}
+							style={{ width: `${Math.min(100, hype)}%` }}
 						/>
 					</div>
 				</div>

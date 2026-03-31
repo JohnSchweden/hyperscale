@@ -153,10 +153,6 @@ const App: React.FC = () => {
 		bgmVolumeStep,
 	} = useBackgroundMusic();
 
-	const handleIntroStart = useCallback(() => {
-		startGame();
-	}, [startGame]);
-
 	// Debrief hook for 3-page flow navigation and archetype calculation
 	const debrief = useDebrief({ state, dispatch });
 
@@ -180,9 +176,7 @@ const App: React.FC = () => {
 	// Current card for pressure metadata lookup (only when playing; same instance as CardStack)
 	const currentCard =
 		state.stage === GameStage.PLAYING && state.role
-			? ((state.effectiveDeck ?? ROLE_CARDS[state.role])[
-					state.currentCardIndex
-				] ?? null)
+			? (state.effectiveDeck ?? ROLE_CARDS[state.role])[state.currentCardIndex]
 			: null;
 
 	// Derived pressure state (countdown, escalation, team-impact)
@@ -460,7 +454,7 @@ const App: React.FC = () => {
 	const renderStage = () => {
 		switch (state.stage) {
 			case GameStage.INTRO:
-				return <IntroScreen onStart={handleIntroStart} />;
+				return <IntroScreen onStart={startGame} />;
 
 			case GameStage.PERSONALITY_SELECT:
 				return (
@@ -577,7 +571,7 @@ const App: React.FC = () => {
 				);
 
 			default:
-				return <IntroScreen onStart={handleIntroStart} />;
+				return <IntroScreen onStart={startGame} />;
 		}
 	};
 
@@ -647,7 +641,7 @@ const App: React.FC = () => {
 					<Suspense fallback={null}>
 						<WebMCPToolsProvider
 							state={state}
-							startGame={handleIntroStart}
+							startGame={startGame}
 							selectPersonality={selectPersonality}
 							handleSelectRole={handleSelectRole}
 							swipe={swipe}

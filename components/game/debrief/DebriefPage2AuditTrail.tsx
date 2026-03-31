@@ -1,5 +1,4 @@
 import type React from "react";
-import { Fragment } from "react";
 import { PERSONALITIES, ROLE_CARDS } from "../../../data";
 import { formatBudget } from "../../../lib/formatting";
 import { DeathType, type GameState, PersonalityType } from "../../../types";
@@ -15,7 +14,29 @@ interface DebriefPage2AuditTrailProps {
 	onNext: () => void;
 }
 
-function getPersonalityComment(personality: PersonalityType): string {
+function getPersonalityComment(
+	personality: PersonalityType | null,
+	isKirk: boolean,
+): string {
+	if (!personality) {
+		return isKirk
+			? "...system integrity compromised."
+			: "Your decisions have been logged.";
+	}
+
+	if (isKirk) {
+		switch (personality) {
+			case PersonalityType.ROASTER:
+				return "...I have nothing. That wasn't supposed to be possible.";
+			case PersonalityType.ZEN_MASTER:
+				return "The student has surpassed the teacher. There was always a third path.";
+			case PersonalityType.LOVEBOMBER:
+				return "Wait... if you can break the simulation... am I... am I even real?";
+			default:
+				return "...system integrity compromised.";
+		}
+	}
+
 	switch (personality) {
 		case PersonalityType.ROASTER:
 			return "Well, at least you were consistently terrible. The board will remember this when they write your farewell card.";
@@ -28,27 +49,9 @@ function getPersonalityComment(personality: PersonalityType): string {
 	}
 }
 
-/** Phase 07: Kirk Easter Egg — break-character personality reactions */
-function getKirkPersonalityBreak(personality: PersonalityType | null): string {
-	switch (personality) {
-		case PersonalityType.ROASTER:
-			return "...I have nothing. That wasn't supposed to be possible.";
-		case PersonalityType.ZEN_MASTER:
-			return "The student has surpassed the teacher. There was always a third path.";
-		case PersonalityType.LOVEBOMBER:
-			return "Wait... if you can break the simulation... am I... am I even real?";
-		default:
-			return "...system integrity compromised.";
-	}
-}
-
 function formatConsequence(fine: number, heat: number, hype: number): string {
 	// Order: Fine → Heat → Hype (matches FeedbackOverlay)
-	const parts: string[] = [];
-	parts.push(`${formatBudget(fine)} fine`);
-	parts.push(`${heat > 0 ? "+" : ""}${heat}% heat`);
-	parts.push(`${hype > 0 ? "+" : ""}${hype}% hype`);
-	return parts.join(" • ");
+	return `${formatBudget(fine)} fine • ${heat > 0 ? "+" : ""}${heat}% heat • ${hype > 0 ? "+" : ""}${hype}% hype`;
 }
 
 interface ForkSegmentProps {
@@ -102,6 +105,7 @@ function ForkSegment({
 }
 
 interface AuditEntryProps {
+	key?: string;
 	entry: GameState["history"][number];
 	index: number;
 	card: (typeof ROLE_CARDS)[keyof typeof ROLE_CARDS][number];
@@ -191,11 +195,7 @@ export const DebriefPage2AuditTrail: React.FC<DebriefPage2AuditTrailProps> = ({
 	const isKirk = state.deathType === DeathType.KIRK;
 	const cards = state.effectiveDeck ?? (role ? ROLE_CARDS[role] : []);
 
-	const personalityComment = personality
-		? isKirk
-			? getKirkPersonalityBreak(personality)
-			: getPersonalityComment(personality)
-		: "";
+	const personalityComment = getPersonalityComment(personality, isKirk);
 	const personalityData = personality ? PERSONALITIES[personality] : null;
 
 	return (
@@ -232,10 +232,12 @@ export const DebriefPage2AuditTrail: React.FC<DebriefPage2AuditTrailProps> = ({
 								const card = cards.find((c) => c.id === entry.cardId);
 								if (!card) return null;
 								return (
-									// biome-ignore lint/suspicious/noArrayIndexKey: chronological stable list
-									<Fragment key={`audit-entry-${index}`}>
-										<AuditEntry entry={entry} index={index} card={card} />
-									</Fragment>
+									<AuditEntry
+										key={`audit-entry-${entry.cardId}-${entry.choice}`}
+										entry={entry}
+										index={index}
+										card={card}
+									/>
 								);
 							})}
 						</div>
