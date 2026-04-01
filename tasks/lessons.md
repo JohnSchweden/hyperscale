@@ -119,3 +119,6 @@ Patterns to prevent repeat mistakes. Update after corrections from the user.
 <!-- Captured 2026-03-31 via post-commit analysis -->
 - [RULE] When testing lazy-loaded images, scroll them into view before checking load completion — `loading="lazy"` prevents download/decode until element enters viewport, causing `waitForFunction` to timeout without the scroll
 - [RULE] Navigate tests to the exact screen/context where the component being tested exists; testing in a different screen means you're not verifying the real component's actual behavior
+
+<!-- Captured 2026-04-01 via post-commit analysis -->
+- [RULE] Don't animate opacity on parent elements that have `backdrop-filter` descendants — opacity < 1 converts the element to a backdrop root, breaking the filter on children. Use a `::before` pseudo-element overlay animated instead, and position descendants above it with z-index — preserves the window-level backdrop root where filters sample correctly.
