@@ -61,7 +61,7 @@ export function CardBody({
 	isUrgent,
 }: CardBodyProps): React.ReactElement {
 	const swipeButtonBase =
-		"flex-1 py-2 px-3 md:py-4 md:px-4 text-sm md:text-base border-[0.5px] border-solid tracking-wide transition-all min-h-[40px] md:min-h-[48px]";
+		"flex-1 py-2 px-2.5 md:py-3 md:px-3 text-base border-[0.5px] border-solid tracking-wide transition-all min-h-[40px] md:min-h-[48px]";
 	const swipeButtonDefault =
 		"border-white/35 text-slate-300 bg-transparent hover:bg-cyan-500 hover:border-cyan-500 hover:text-black active:bg-cyan-500 active:border-cyan-500 active:text-black";
 	const swipeButtonSelected =

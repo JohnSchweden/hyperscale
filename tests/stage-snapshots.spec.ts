@@ -1,4 +1,5 @@
 import { expect, type Page, test } from "@playwright/test";
+import { DeathType } from "../types";
 import { mockRoastApi } from "./helpers/mockApi";
 import {
 	navigateToBossFightFast,
@@ -49,6 +50,42 @@ async function navigateToInitializing(page: Page) {
 	await page
 		.getByText(/^[123]$|^Start$/)
 		.waitFor({ state: "visible", timeout: 5000 });
+}
+
+/** Injected Kirk debrief page 3 — fast path for visual baseline (no boss fight). */
+function kirkDebriefPage3DebugState() {
+	return {
+		stage: "DEBRIEF_PAGE_3",
+		personality: "ROASTER",
+		role: "SOFTWARE_ENGINEER",
+		currentCardIndex: 3,
+		hype: 50,
+		heat: 30,
+		budget: 5000000,
+		history: [
+			{ cardId: "kirk-raise", choice: "RIGHT" },
+			{ cardId: "kirk-ceo", choice: "RIGHT" },
+			{ cardId: "kirk-nobel", choice: "RIGHT" },
+		],
+		deathReason: "You changed the conditions of the test.",
+		deathType: DeathType.KIRK,
+		unlockedEndings: [],
+		bossFightAnswers: [],
+		effectiveDeck: null,
+		kirkCounter: 2,
+		kirkCorruptionActive: true,
+	};
+}
+
+async function navigateToDebriefPage3Verdict(page: Page) {
+	await page.addInitScript((stateStr: string) => {
+		window.localStorage.removeItem("gameState");
+		window.localStorage.setItem("km-debug-state", stateStr);
+	}, JSON.stringify(kirkDebriefPage3DebugState()));
+	await page.goto("/");
+	await expect(page.getByText(/simulation hijacked/i)).toBeVisible({
+		timeout: 8000,
+	});
 }
 
 async function navigateToSummary(page: Page) {
@@ -239,6 +276,14 @@ test.describe("Stage visual snapshots @visual @area:gameplay @slow", () => {
 		await navigateToSummary(page);
 		await expect(page).toHaveScreenshot("summary.png", {
 			mask: [page.getByTestId("starfield-canvas")],
+		});
+	});
+
+	test("debrief-page-3-verdict", async ({ page }) => {
+		await navigateToDebriefPage3Verdict(page);
+		await expect(page).toHaveScreenshot("debrief-page-3-verdict.png", {
+			mask: [page.getByTestId("starfield-canvas")],
+			maxDiffPixelRatio: 0.04, // glitch text / kirk styling variance
 		});
 	});
 });

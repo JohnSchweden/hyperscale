@@ -60,7 +60,7 @@ export const IntroScreen: React.FC<IntroScreenProps> = ({ onStart }) => {
 					type="button"
 					onClick={onStart}
 					data-testid="boot-system-button"
-					className="px-6 py-3 md:px-12 md:py-4 text-base md:text-xl font-bold tracking-wide bg-white text-black min-h-[40px] md:min-h-[48px] transition-colors duration-300 hover:bg-cyan-400 hover:shadow-[0_0_20px_rgba(34,211,238,0.4)]"
+					className="px-4 py-2 md:px-8 md:py-3 text-base font-bold tracking-wide bg-white text-black min-h-[40px] md:min-h-[48px] transition-colors duration-300 hover:bg-cyan-400 hover:shadow-[0_0_20px_rgba(34,211,238,0.4)]"
 				>
 					Boot system
 				</button>
