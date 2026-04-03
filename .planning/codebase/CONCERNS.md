@@ -1,6 +1,6 @@
 # Codebase Concerns
 
-**Analysis Date:** 2026-03-28
+**Analysis Date:** 2026-04-03
 
 ## Tech Debt
 
@@ -196,6 +196,75 @@
 
 ---
 
+### 10. Console Logging in Production Code
+
+**Issue:** Extensive console.log statements throughout codebase used for debugging.
+
+**Files:** `services/geminiLive.ts`, `vite.config.ts`, `scripts/*.ts`, `tests/*.ts`
+
+**Impact:**
+- Performance overhead from console operations
+- Potential information leakage in production logs
+- Clutters browser dev tools for developers
+- Debug code left in production builds
+
+**Fix approach:**
+1. Replace debug console.log with proper logging framework (e.g., winston, pino)
+2. Use environment-based log levels (debug in dev, warn/error in prod)
+3. Add build-time removal of debug logs
+4. Create wrapper: `logger.debug()` instead of `console.log()`
+
+---
+
+### 11. Large Data Files Without Code Splitting
+
+**Issue:** Card definition files exceed 900 lines, all loaded upfront.
+
+**Files:** `data/cards/*.ts` (chief-something-officer.ts: 954 lines, head-of-something.ts: 905 lines, etc.)
+
+**Impact:**
+- Large bundle size increases initial load time
+- All card data loaded regardless of player choices
+- No lazy loading for optional content
+- Memory usage scales with content size
+
+**Fix approach:**
+1. Implement lazy loading: load card data on-demand by role/personality
+2. Split cards into separate chunks: dynamic imports by archetype
+3. Add bundle analyzer to monitor data file impact
+4. Consider: compress card text data, decompress at runtime
+
+---
+
+### 12. Missing Tests for Core Utilities
+
+**Issue:** Large utility functions lack unit test coverage.
+
+**Files:** `lib/gif-overlay.ts` (646 lines), `lib/safeCoercion.ts`, `lib/slugify.ts`
+
+**Impact:**
+- Untested code changes could introduce regressions
+- GIF overlay functionality completely untested
+- Core utility functions used across application lack safety net
+
+**Fix approach:**
+1. Add unit tests for all lib/ functions
+2. Create test fixtures for GIF overlay operations
+3. Add integration tests for utility usage in components
+4. Set up test coverage thresholds to prevent future gaps
+
+---
+
+## Known Bugs
+
+**[Incomplete roaster text]:**
+- Issue: Placeholder text "TODO: Fix properly later. Later never comes. Debt compounds." in card definition
+- Files: `data/cards/software-engineer.ts`
+- Trigger: Display of specific card roaster text
+- Workaround: Content renders as-is with TODO placeholder
+
+---
+
 ## Known Issues
 
 ### 1. Speech Recognition STT Transcript Deduplication
@@ -276,7 +345,21 @@
 
 ## Test Coverage Gaps
 
-### 1. Fisher-Yates Shuffle Algorithm
+### 1. GIF Overlay Utility Functions
+
+**What's not tested:** Text overlay on GIF templates, fallback handling, error recovery.
+
+**Files:** `lib/gif-overlay.ts` (646 lines)
+
+**Risk:** GIF generation fails silently, memes don't render in debrief.
+
+**Priority:** MEDIUM — visual feature, not core gameplay
+
+**Test approach:** Mock canvas/text-on-gif imports, verify overlay creation
+
+---
+
+### 2. Fisher-Yates Shuffle Algorithm
 
 **What's not tested:** Shuffled deck distribution, uniform randomness, choice-side swapping.
 
@@ -441,6 +524,22 @@
 
 ---
 
+### 3. Optional Package Dependencies
+
+**Risk:** text-on-gif and canvas packages used without proper type definitions or fallbacks.
+
+**Files:** `lib/gif-overlay.ts` (lines 209, 225)
+
+**Impact:** @ts-expect-error comments indicate missing type safety, potential runtime errors.
+
+**Migration plan:**
+1. Create proper type definitions for optional packages
+2. Add runtime detection and fallback handling
+3. Consider replacing with maintained alternatives
+4. Document package requirements in setup guide
+
+---
+
 ## Security Considerations
 
 ### 1. Gemini API Key Exposure in Ephemeral Token Exchange
@@ -462,7 +561,7 @@
 
 ### 2. localStorage State Injection in Tests
 
-**Risk:** Test helpers write game state directly to localStorage (seen in PLAYWRIGHT_TESTING_QUICK_START.md).
+**Risk:** Test helpers write game state directly to localStorage (seen in docs/PLAYWRIGHT_TESTING_QUICK_START.md).
 
 **Files:** Test files reference localStorage injection
 
@@ -514,10 +613,10 @@
 
 | Category | Count | Severity |
 |----------|-------|----------|
-| Tech Debt | 9 | HIGH (5), MEDIUM (3), LOW (1) |
-| Known Bugs | 1 | MEDIUM |
+| Tech Debt | 12 | HIGH (5), MEDIUM (6), LOW (1) |
+| Known Bugs | 2 | MEDIUM |
 | Fragile Areas | 3 | MEDIUM–HIGH |
-| Test Gaps | 4 | HIGH (2), MEDIUM (2) |
+| Test Gaps | 5 | HIGH (2), MEDIUM (3) |
 | Security | 2 | LOW (token handling acceptable) |
 | Missing Features | 2 | MEDIUM |
 
@@ -525,8 +624,8 @@
 
 1. **Fix Fisher-Yates test mocking** (Tech Debt #2) — affects shuffle fairness, untested algorithm. Impact: HIGH, Effort: MEDIUM
 2. **Add Gemini Live timeout recovery** (Tech Debt #3) — roast feature can hang indefinitely. Impact: HIGH, Effort: MEDIUM
-3. **Add gesture state consolidation** (Tech Debt #1) — reduce RAF/timeout fragility in swipe handler. Impact: MEDIUM, Effort: MEDIUM
+3. **Add missing unit tests** (Test Gaps #1, #5) — core utilities lack test coverage. Impact: HIGH, Effort: MEDIUM
 
 ---
 
-*Concerns audit: 2026-03-28*
+*Concerns audit: 2026-04-03*

@@ -137,7 +137,7 @@ bun run test -- --project=chromium-mobile
 - **Exit Animations** - Card transition animations
 - **Mobile Responsiveness** - Viewport adaptation
 
-See [TESTING.md](TESTING.md) for detailed testing documentation.
+See [docs/TESTING.md](docs/TESTING.md) for detailed testing documentation.
 
 ## 🏛️ Architecture
 
@@ -148,11 +148,11 @@ The application follows a React + TypeScript architecture with:
 - **Styling** - Tailwind CSS with custom animations
 - **Testing** - Playwright for E2E and visual regression
 
-See [ARCHITECTURE.md](ARCHITECTURE.md) for detailed technical documentation.
+See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for detailed technical documentation.
 
 ## 🎨 Game Design
 
-See [GAME_DESIGN.md](GAME_DESIGN.md) for:
+See [docs/GAME_DESIGN.md](docs/GAME_DESIGN.md) for:
 - Card scenario design principles
 - Stat balancing
 - Personality writing guidelines
@@ -170,11 +170,21 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for:
 
 | Document | Description |
 |----------|-------------|
-| [ARCHITECTURE.md](ARCHITECTURE.md) | Technical architecture and design decisions |
-| [GAME_DESIGN.md](GAME_DESIGN.md) | Game mechanics and content design |
-| [TESTING.md](TESTING.md) | Testing strategy and guidelines |
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Technical architecture and design decisions |
+| [docs/GAME_DESIGN.md](docs/GAME_DESIGN.md) | Game mechanics and content design |
+| [docs/TESTING.md](docs/TESTING.md) | Testing strategy and guidelines |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | Contribution guidelines |
-| [API.md](API.md) | API documentation for services and components |
+| [docs/API.md](docs/API.md) | API documentation for services and components |
+| [docs/ONBOARDING.md](docs/ONBOARDING.md) | Developer onboarding guide |
+| [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) | Deployment and operations guide |
+| [docs/HOOKS.md](docs/HOOKS.md) | Custom React hooks reference |
+| [docs/COMPONENTS.md](docs/COMPONENTS.md) | React components reference |
+| [docs/AUDIO_SYSTEM.md](docs/AUDIO_SYSTEM.md) | Audio system architecture |
+| [docs/WEBMCP_TOOLS.md](docs/WEBMCP_TOOLS.md) | WebMCP dev tools reference |
+| [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) | Troubleshooting and FAQ |
+| [docs/IMAGE_PIPELINE.md](docs/IMAGE_PIPELINE.md) | Image asset pipeline guide |
+| [docs/CONTENT_AUTHORING.md](docs/CONTENT_AUTHORING.md) | Content authoring guide |
+| [docs/API_ROUTES.md](docs/API_ROUTES.md) | API routes reference |
 
 ## 🔒 License
 

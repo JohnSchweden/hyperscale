@@ -1,6 +1,6 @@
 # Codebase Structure
 
-**Analysis Date:** 2026-03-28
+**Analysis Date:** 2026-04-03
 
 ## Directory Layout
 
@@ -181,21 +181,26 @@ swiperisk/
 │   ├── .github/               # GitHub workflows/templates
 │   └── AGENTS.md              # Agent (Claude/Cursor) instructions
 │
-├── Planning/Docs
-│   ├── .planning/codebase/    # This codebase analysis
-│   │   ├── ARCHITECTURE.md
-│   │   ├── STRUCTURE.md       # This file
-│   │   ├── CONVENTIONS.md
-│   │   ├── TESTING.md
-│   │   ├── STACK.md
-│   │   ├── INTEGRATIONS.md
-│   │   └── CONCERNS.md
-│   ├── README.md              # Project overview
-│   ├── GAME_DESIGN.md         # Game design doc
-│   ├── CONTRIBUTING.md        # Contributor guide
-│   ├── TESTING.md             # Testing runbook
-│   ├── API.md                 # API documentation
-│   └── (other docs)
+ ├── Planning/Docs
+ │   ├── .planning/codebase/    # This codebase analysis
+ │   │   ├── ARCHITECTURE.md
+ │   │   ├── STRUCTURE.md       # This file
+ │   │   ├── CONVENTIONS.md
+ │   │   ├── TESTING.md
+ │   │   ├── STACK.md
+ │   │   ├── INTEGRATIONS.md
+ │   │   └── CONCERNS.md
+ │   ├── README.md              # Project overview
+ │   ├── docs/                  # Documentation directory
+ │   │   ├── ARCHITECTURE.md    # Technical architecture
+ │   │   ├── GAME_DESIGN.md     # Game mechanics and content design
+ │   │   ├── TESTING.md         # Testing strategy and guidelines
+ │   │   ├── API.md             # API documentation for services and components
+ │   │   ├── CONTRIBUTING.md    # Contributor guide
+ │   │   ├── ONBOARDING.md      # Developer onboarding guide
+ │   │   ├── DEPLOYMENT.md      # Deployment and operations guide
+ │   │   └── (more...)
+ │   └── CONTRIBUTING.md        # Contributor guide
 │
 └── Ignores (not committed)
     ├── node_modules/          # Dependencies
