@@ -126,6 +126,21 @@ type FeedbackOverlayState = {
 	outcomeLabel?: string;
 };
 
+/**
+ * Main application component that orchestrates the entire game flow.
+ * Manages game state, stage transitions, user interactions, and renders
+ * appropriate screens based on the current game stage.
+ *
+ * Features include:
+ * - Game stage management (intro, personality/role selection, gameplay, boss fight, debrief)
+ * - Swipe gesture handling for card choices
+ * - Feedback overlay system
+ * - Background music and sound effects
+ * - Pressure/timing mechanics for urgent incidents
+ * - Kirk Easter egg functionality
+ * - Voice playback system
+ * - Roast feature integration
+ */
 const App: React.FC = () => {
 	// Game state
 	const {

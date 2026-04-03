@@ -1,11 +1,30 @@
 import { getAudioExtension, getAudioMimeType } from "./audioUtils";
 import { createRadioSession } from "./radioEffect";
 
+/**
+ * Callback type for voice activity state changes
+ * @callback VoiceActivityListener
+ * @param {boolean} active - True when voice starts playing, false when it stops
+ */
 type VoiceActivityListener = (active: boolean) => void;
+
+/** Internal set of listeners for voice activity events */
 const voiceActivityListeners = new Set<VoiceActivityListener>();
 
 /**
- * Get the appropriate audio file path based on browser support
+ * Constructs audio file path with appropriate extension based on browser codec support
+ * Handles folder structure for different trigger types (archetype, death, feedback, core)
+ *
+ * @param {string} personalityDir - Base personality directory path (e.g., "/audio/voices/roaster")
+ * @param {string} subfolder - Subfolder name or empty string for root level
+ * @param {string} trigger - Audio trigger name without extension
+ * @returns {string} Complete file path with browser-appropriate extension
+ *
+ * @example
+ * ```typescript
+ * const path = getAudioFilePath("/audio/voices/roaster", "archetype", "onboarding");
+ * // Returns: "/audio/voices/roaster/archetype/onboarding.opus" (or .mp3)
+ * ```
  */
 function getAudioFilePath(
 	personalityDir: string,
@@ -19,7 +38,27 @@ function getAudioFilePath(
 	return `${basePath}${getAudioExtension()}`;
 }
 
-/** BGM ducking: subscribe to voice playback start/end (not pause glitches during teardown). */
+/**
+ * Subscribes to voice activity state changes for BGM ducking and UI feedback
+ * Allows components to react to voice playback start/stop events
+ * Useful for muting background music or showing visual indicators
+ *
+ * @param {VoiceActivityListener} listener - Callback function for activity changes
+ * @returns {() => void} Unsubscribe function to remove the listener
+ *
+ * @example
+ * ```typescript
+ * const unsubscribe = subscribeVoiceActivity((active) => {
+ *   if (active) {
+ *     bgm.setVolume(0.3); // Duck background music
+ *   } else {
+ *     bgm.setVolume(1.0); // Restore volume
+ *   }
+ * });
+ *
+ * // Later: unsubscribe();
+ * ```
+ */
 export function subscribeVoiceActivity(
 	listener: VoiceActivityListener,
 ): () => void {
@@ -27,6 +66,10 @@ export function subscribeVoiceActivity(
 	return () => voiceActivityListeners.delete(listener);
 }
 
+/**
+ * Internal function to notify all listeners of voice activity state changes
+ * @param {boolean} active - New activity state
+ */
 function emitVoiceActivity(active: boolean) {
 	for (const fn of voiceActivityListeners) {
 		try {
@@ -51,6 +94,12 @@ const ERROR_MESSAGES: Record<string, string> = {
 	lovebomber: "OMG the audio broke!! But we still love you!!",
 };
 
+/**
+ * Gets or creates the shared AudioContext for voice playback
+ * Handles browser compatibility (webkitAudioContext fallback)
+ * @returns {AudioContext} The audio context instance
+ * @throws {Error} If AudioContext is not supported in the browser
+ */
 function getOrCreateContext(): AudioContext {
 	if (!audioContext) {
 		const Ctx =
@@ -63,6 +112,13 @@ function getOrCreateContext(): AudioContext {
 	return audioContext;
 }
 
+/**
+ * Determines the appropriate subfolder for a trigger based on naming patterns
+ * Organizes audio files into logical categories for better file management
+ *
+ * @param {string} triggerName - The audio trigger name
+ * @returns {string} Subfolder name or empty string for root level
+ */
 function getSubfolder(triggerName: string): string {
 	if (triggerName.startsWith("archetype_")) return "archetype";
 	if (triggerName.startsWith("death_")) return "death";
@@ -71,6 +127,22 @@ function getSubfolder(triggerName: string): string {
 	return ""; // Fallback to root (for backwards compatibility)
 }
 
+/**
+ * Loads and prepares a voice audio file for playback with radio effects
+ * Fetches audio from server, creates radio session, and sets up audio routing
+ * Handles browser codec detection and AudioContext management
+ *
+ * @async
+ * @param {string} personality - Personality name (e.g., "roaster", "zenmaster", "lovebomber")
+ * @param {string} trigger - Audio trigger name (e.g., "onboarding", "victory", "archetype_weak")
+ * @throws {Error} If audio file not found, network fails, or audio context issues occur
+ *
+ * @example
+ * ```typescript
+ * await loadVoice("roaster", "onboarding");
+ * await playVoice(); // Plays with radio effect
+ * ```
+ */
 export async function loadVoice(
 	personality: string,
 	trigger: string,
@@ -166,6 +238,20 @@ export async function loadVoice(
 	}
 }
 
+/**
+ * Starts playback of the currently loaded voice audio
+ * Resumes AudioContext if suspended and emits voice activity events
+ * Safe to call multiple times - handles already-playing state gracefully
+ *
+ * @async
+ * @throws {Error} If no audio is loaded or playback fails
+ *
+ * @example
+ * ```typescript
+ * await loadVoice("roaster", "victory");
+ * await playVoice(); // Starts playback with radio effects
+ * ```
+ */
 export async function playVoice(): Promise<void> {
 	if (!currentAudio) {
 		console.log("[Voice] No source to play");
@@ -182,6 +268,16 @@ export async function playVoice(): Promise<void> {
 	}
 }
 
+/**
+ * Immediately stops voice playback and cleans up resources
+ * Stops radio effects, releases audio resources, and emits activity end event
+ * Safe to call even when no voice is playing
+ *
+ * @example
+ * ```typescript
+ * stopVoice(); // Stops playback and cleans up
+ * ```
+ */
 export function stopVoice(): void {
 	if (currentRadio) {
 		currentRadio.stop();
@@ -203,6 +299,19 @@ export function stopVoice(): void {
 	emitVoiceActivity(false);
 }
 
+/**
+ * Checks if voice audio is currently playing
+ * Returns false if paused, stopped, or no audio loaded
+ *
+ * @returns {boolean} True if voice is actively playing, false otherwise
+ *
+ * @example
+ * ```typescript
+ * if (isPlaying()) {
+ *   console.log("Voice is currently speaking");
+ * }
+ * ```
+ */
 export function isPlaying(): boolean {
 	return currentAudio !== null && !currentAudio.paused;
 }

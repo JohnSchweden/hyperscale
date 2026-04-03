@@ -1,5 +1,10 @@
 import { PersonalityType } from "../types";
 
+/**
+ * Personality configurations for the AI assistant in the game.
+ * Each personality defines the character's voice, tone, and scripted responses
+ * for different game states (onboarding, victory, failure).
+ */
 export const PERSONALITIES = {
 	[PersonalityType.ZEN_MASTER]: {
 		name: "BAMBOO",

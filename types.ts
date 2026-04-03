@@ -31,7 +31,10 @@ export function makeFeedback(
 	};
 }
 
-/** Input for creating a ChoiceOutcome via makeOutcome */
+/**
+ * Input for creating a ChoiceOutcome via makeOutcome function.
+ * Contains all the necessary data to construct a choice outcome object.
+ */
 interface OutcomeInput {
 	label: string;
 	hype: number;

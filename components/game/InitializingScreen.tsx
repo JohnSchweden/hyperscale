@@ -3,12 +3,25 @@ import { PERSONALITIES, ROLE_LABELS } from "../../data";
 import type { PersonalityType, RoleType } from "../../types";
 import LayoutShell from "../LayoutShell";
 
+/**
+ * Props for the InitializingScreen component.
+ */
 interface InitializingScreenProps {
+	/** The selected role type for the simulation */
 	role: RoleType | null;
+	/** The selected personality type for the narrator */
 	personality: PersonalityType | null;
+	/** Current countdown value before starting the game */
 	countdown: number;
 }
 
+/**
+ * InitializingScreen component displays the system initialization sequence.
+ * Shows progress bar and system messages while preparing the simulation.
+ * Transitions to the game when countdown reaches zero.
+ * @param props - The component props
+ * @returns The rendered initialization screen component
+ */
 export const InitializingScreen: React.FC<InitializingScreenProps> = ({
 	role,
 	personality,

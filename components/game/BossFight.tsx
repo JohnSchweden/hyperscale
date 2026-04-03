@@ -2,21 +2,43 @@ import type React from "react";
 import type { BossQuestion } from "../../types";
 import LayoutShell from "../LayoutShell";
 
+/**
+ * Props for the BossFight component.
+ */
 interface BossFightProps {
+	/** The current boss question object */
 	question: BossQuestion;
+	/** Array of shuffled answer options for the current question */
 	fixedAnswers: string[];
+	/** Index of the current question (0-based) */
 	currentQuestion: number;
+	/** Total number of questions in the boss fight */
 	totalQuestions: number;
+	/** Time remaining in seconds for the current question */
 	timeLeft: number;
+	/** Whether to show the explanation after answering */
 	showExplanation: boolean;
+	/** Whether the user has already answered the current question */
 	hasAnswered: boolean;
+	/** Whether the user's answer was correct */
 	isCorrect: boolean;
+	/** Number of correct answers so far */
 	correctCount: number;
+	/** Total number of questions answered */
 	totalAnswered: number;
+	/** Callback when user selects an answer */
 	onAnswer: (isCorrect: boolean) => void;
+	/** Callback to proceed to the next question or final result */
 	onNext: () => void;
 }
 
+/**
+ * BossFight component manages the final boss fight sequence with timed questions.
+ * Displays questions with multiple choice answers, tracks score and time.
+ * Shows explanations after answers and handles question progression.
+ * @param props - The component props
+ * @returns The rendered boss fight component
+ */
 export const BossFight: React.FC<BossFightProps> = ({
 	question,
 	fixedAnswers,

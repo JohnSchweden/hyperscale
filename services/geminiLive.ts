@@ -14,6 +14,14 @@ import { PersonalityType } from "../types";
  * - Automatic sample rate handling (24kHz output)
  */
 
+/**
+ * Configuration options for Gemini Live API session
+ * @interface LiveSessionConfig
+ * @property {string} [model] - The model name to use for the session (default: "gemini-2.5-flash-native-audio-latest")
+ * @property {string} [systemInstruction] - System prompt that defines AI personality and behavior
+ * @property {Record<string, unknown>} [inputAudioTranscription] - Configuration for transcribing user's voice input
+ * @property {(text: string, isFinal: boolean) => void} [onInputTranscription] - Callback fired when user speech is transcribed
+ */
 export interface LiveSessionConfig {
 	model?: string;
 	systemInstruction?: string;
@@ -21,19 +29,42 @@ export interface LiveSessionConfig {
 	onInputTranscription?: (text: string, isFinal: boolean) => void;
 }
 
+/**
+ * Represents a chunk of audio data from Gemini Live API
+ * @interface AudioChunk
+ * @property {ArrayBuffer} data - Raw audio data as 24kHz 16-bit PCM
+ * @property {boolean} isFinal - Whether this is the final chunk in the response
+ */
 interface AudioChunk {
 	data: ArrayBuffer;
 	isFinal: boolean;
 }
 
+/**
+ * Represents a chunk of transcribed text from Gemini Live API
+ * @interface TextChunk
+ * @property {string} text - Transcribed text content
+ * @property {boolean} isFinal - Whether this is the final transcription
+ */
 interface TextChunk {
 	text: string;
 	isFinal: boolean;
 }
 
 /**
- * Get ephemeral token from Google API
- * This allows direct browser connection without exposing the API key in WebSocket
+ * Retrieves an ephemeral token from Google's token endpoint for secure WebSocket authentication
+ * This enables direct browser-to-API connections without exposing the API key in client-side code
+ *
+ * @async
+ * @param {string} apiKey - The Gemini API key from environment variables
+ * @returns {Promise<string>} Ephemeral token valid for ~1 hour
+ * @throws {Error} If token request fails or response is invalid
+ *
+ * @example
+ * ```typescript
+ * const token = await getEphemeralToken(process.env.VITE_GEMINI_API_KEY);
+ * // Use token for WebSocket authentication
+ * ```
  */
 async function getEphemeralToken(apiKey: string): Promise<string> {
 	const response = await fetch(
@@ -63,11 +94,30 @@ async function getEphemeralToken(apiKey: string): Promise<string> {
 }
 
 /**
- * Connect to Gemini Live API and return streaming audio
+ * Establishes a WebSocket connection to Gemini Live API for real-time audio streaming
+ * Creates a persistent session that generates both audio and text responses simultaneously
  *
- * @param prompt - The text prompt to send to Gemini
- * @param personality - The personality type for tone/instruction
- * @returns ReadableStream of audio chunks
+ * @async
+ * @param {string} prompt - The workflow or text prompt to process
+ * @param {PersonalityType} personality - AI personality type that determines response style
+ * @returns {Promise<ReadableStream<AudioChunk | TextChunk>>} Stream yielding audio chunks (24kHz PCM) and text transcriptions
+ * @throws {Error} If API key is missing, connection fails, or WebSocket errors occur
+ *
+ * @example
+ * ```typescript
+ * const stream = await connectToLiveSession("User failed authentication", PersonalityType.ROASTER);
+ * const reader = stream.getReader();
+ *
+ * for await (const chunk of stream) {
+ *   if ('data' in chunk) {
+ *     // Play audio chunk
+ *     playAudio(chunk.data);
+ *   } else {
+ *     // Handle transcription
+ *     console.log(chunk.text);
+ *   }
+ * }
+ * ```
  */
 export async function connectToLiveSession(
 	prompt: string,
@@ -277,7 +327,17 @@ export async function connectToLiveSession(
 }
 
 /**
- * Generate personality-specific system instruction
+ * Generates system instruction prompts that define AI personality and response style
+ * Each personality type has unique tone, vocabulary, and behavioral characteristics
+ *
+ * @param {PersonalityType} personality - The personality type to generate instructions for
+ * @returns {string} Complete system instruction string for Gemini API
+ *
+ * @example
+ * ```typescript
+ * const instruction = getPersonalityInstruction(PersonalityType.ROASTER);
+ * // Returns: "You are V.E.R.A., the sarcastic AI for \"Roast.exe\"..."
+ * ```
  */
 function getPersonalityInstruction(personality: PersonalityType): string {
 	const baseInstruction =
@@ -295,8 +355,21 @@ function getPersonalityInstruction(personality: PersonalityType): string {
 }
 
 /**
- * Simple function to get a quick roast response (non-streaming fallback)
- * Uses standard generateContent for when Live API is unavailable
+ * Fallback function that generates roast text without audio streaming
+ * Uses standard Gemini generateContent API when Live API is unavailable or disabled
+ * Provides synchronous text response for compatibility with non-streaming workflows
+ *
+ * @async
+ * @param {string} prompt - The workflow text to roast
+ * @param {PersonalityType} personality - AI personality type for response style
+ * @returns {Promise<string>} Roast text response
+ * @throws {Error} If API key is missing or request fails
+ *
+ * @example
+ * ```typescript
+ * const roast = await getQuickRoast("User clicked phishing link", PersonalityType.ZEN_MASTER);
+ * console.log(roast); // "The spreadsheet of life has many columns..."
+ * ```
  */
 export async function getQuickRoast(
 	prompt: string,
@@ -323,8 +396,24 @@ export async function getQuickRoast(
 }
 
 /**
- * Check if the Live API is available
- * Returns true if we can connect, false otherwise
+ * Tests Live API availability by attempting to obtain an ephemeral token
+ * This pre-flight check ensures the service is operational before attempting connections
+ * Useful for feature detection and graceful degradation to TTS fallback
+ *
+ * @async
+ * @returns {Promise<boolean>} True if Live API is accessible, false if unavailable or misconfigured
+ *
+ * @example
+ * ```typescript
+ * const available = await checkLiveAPIAvailable();
+ * if (available) {
+ *   // Use streaming audio
+ *   useLiveAPI();
+ * } else {
+ *   // Fall back to TTS
+ *   useTTS();
+ * }
+ * ```
  */
 export async function checkLiveAPIAvailable(): Promise<boolean> {
 	try {

@@ -8,8 +8,9 @@ const TTS_FALLBACK_ENABLED =
 const LIVE_API_ENABLED = import.meta.env.VITE_ENABLE_LIVE_API === "true";
 
 /**
- * Voice mapping for TTS fallback
- * Maps personality to voice names used by the TTS API
+ * Voice mapping for TTS fallback when Live API is unavailable
+ * Maps personality types to ElevenLabs voice names for consistent character representation
+ * @constant {Record<PersonalityType, string>}
  */
 const VOICE_MAP: Record<PersonalityType, string> = {
 	[PersonalityType.ROASTER]: "Kore",
@@ -18,7 +19,9 @@ const VOICE_MAP: Record<PersonalityType, string> = {
 };
 
 /**
- * Error types that should trigger fallback to standard TTS
+ * Error message patterns that trigger automatic fallback to standard TTS
+ * Covers authentication failures, rate limits, network issues, and API unavailability
+ * @constant {string[]}
  */
 const FALLBACK_ERROR_CODES = [
 	"WebSocket connection error",
@@ -39,7 +42,22 @@ const FALLBACK_ERROR_CODES = [
 ];
 
 /**
- * Check if an error should trigger fallback to TTS
+ * Determines if an error warrants falling back to TTS instead of Live API
+ * Checks error message against known patterns that indicate API unavailability
+ *
+ * @param {unknown} error - The error object or message to evaluate
+ * @returns {boolean} True if fallback should be triggered, false otherwise
+ *
+ * @example
+ * ```typescript
+ * try {
+ *   await connectToLiveAPI();
+ * } catch (error) {
+ *   if (shouldFallback(error)) {
+ *     await useTTSFallback();
+ *   }
+ * }
+ * ```
  */
 function shouldFallback(error: unknown): boolean {
 	const errorMessage = error instanceof Error ? error.message : String(error);
@@ -50,12 +68,29 @@ function shouldFallback(error: unknown): boolean {
 	);
 }
 
-/** Live API radio delay (seconds) before intro beep and noise */
+/** Delay before radio effect intro when using Live API (seconds) */
 const LIVE_API_RADIO_DELAY_S = 1.5;
 
 /**
- * Stream text and audio simultaneously from Live API.
- * User workflow is sent as prompt; Live API generates roast text + audio together.
+ * Streams roast text and audio simultaneously from Gemini Live API
+ * Creates radio effect with noise, processes real-time audio chunks, and handles transcription
+ * Automatically manages AudioContext lifecycle and radio session cleanup
+ *
+ * @async
+ * @param {string} workflow - User workflow text to roast
+ * @param {PersonalityType} personality - AI personality for response style
+ * @param {(text: string) => void} onTextChunk - Callback for each text chunk as it's transcribed
+ * @returns {Promise<string>} Complete roast text when streaming finishes
+ * @throws {Error} If Live API is disabled, connection fails, or audio context issues occur
+ *
+ * @example
+ * ```typescript
+ * const fullText = await streamFromLiveAPI(
+ *   "User entered wrong password 3 times",
+ *   PersonalityType.ROASTER,
+ *   (chunk) => console.log("Received:", chunk)
+ * );
+ * ```
  */
 async function streamFromLiveAPI(
 	workflow: string,
@@ -132,7 +167,25 @@ async function streamFromLiveAPI(
 }
 
 /**
- * Get roast with streaming text + audio via Live API.
+ * High-level function for getting roast with streaming audio and text
+ * Direct wrapper around Live API streaming functionality
+ * Provides clean interface for components that need real-time feedback
+ *
+ * @async
+ * @param {string} workflow - User workflow text to roast
+ * @param {PersonalityType} personality - AI personality type
+ * @param {(text: string) => void} onTextChunk - Callback for incremental text updates
+ * @returns {Promise<string>} Complete roast text
+ * @throws {Error} If Live API connection fails or is unavailable
+ *
+ * @example
+ * ```typescript
+ * const roast = await getRoastWithStreaming(
+ *   workflow,
+ *   personality,
+ *   (chunk) => updateUI(chunk)
+ * );
+ * ```
  */
 export async function getRoastWithStreaming(
 	workflow: string,
@@ -143,7 +196,26 @@ export async function getRoastWithStreaming(
 }
 
 /**
- * Get roast with automatic fallback to standard TTS
+ * Gets roast with automatic fallback from Live API to standard TTS
+ * First attempts Live API streaming, falls back to TTS on authentication/network errors
+ * Handles error detection and personality-to-voice mapping automatically
+ *
+ * @async
+ * @param {string} workflow - User workflow text to roast
+ * @param {PersonalityType} personality - AI personality type
+ * @param {(text: string) => void} onTextChunk - Callback for text chunks (immediate for TTS, streaming for Live API)
+ * @returns {Promise<string>} Complete roast text
+ * @throws {Error} Only if both Live API and TTS fallback fail
+ *
+ * @example
+ * ```typescript
+ * try {
+ *   const roast = await getRoastWithFallback(workflow, personality, updateUI);
+ *   // Works whether Live API or TTS is used
+ * } catch (error) {
+ *   console.error("Both streaming and TTS failed:", error);
+ * }
+ * ```
  */
 export async function getRoastWithFallback(
 	workflow: string,
@@ -173,7 +245,21 @@ export async function getRoastWithFallback(
 }
 
 /**
- * Simple get roast without audio (for when audio is disabled)
+ * Gets roast text only without any audio playback
+ * Useful when audio is disabled or for text-only interfaces
+ * Bypasses all audio processing and goes directly to the roast API
+ *
+ * @async
+ * @param {string} workflow - User workflow text to roast
+ * @param {PersonalityType} personality - AI personality type
+ * @returns {Promise<string>} Roast text response
+ * @throws {Error} If roast API request fails
+ *
+ * @example
+ * ```typescript
+ * const textOnly = await getRoastTextOnly(workflow, personality);
+ * displayText(textOnly); // No audio, just text
+ * ```
  */
 export async function getRoastTextOnly(
 	workflow: string,

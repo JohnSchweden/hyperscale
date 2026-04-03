@@ -2,10 +2,21 @@ import type React from "react";
 import LayoutShell from "../LayoutShell";
 import { LAYOUT_SHELL_CENTERED_CLASS } from "./selectionStageStyles";
 
+/**
+ * Props for the IntroScreen component.
+ */
 interface IntroScreenProps {
+	/** Callback function triggered when the user clicks the boot system button */
 	onStart: () => void;
 }
 
+/**
+ * IntroScreen component displays the initial game introduction screen.
+ * Shows the game title, description, and boot system button.
+ * Provides context about the game's premise and starts the simulation.
+ * @param props - The component props
+ * @returns The rendered intro screen component
+ */
 export const IntroScreen: React.FC<IntroScreenProps> = ({ onStart }) => {
 	return (
 		<LayoutShell className={LAYOUT_SHELL_CENTERED_CLASS}>

@@ -1,5 +1,10 @@
 import type { BossQuestion } from "../types";
 
+/**
+ * Quiz questions for the boss fight phase of the game.
+ * Each question tests the player's knowledge of AI ethics, security, and compliance issues.
+ * Questions include multiple choice answers with explanations for educational value.
+ */
 export const BOSS_FIGHT_QUESTIONS: BossQuestion[] = [
 	{
 		id: "boss_1",

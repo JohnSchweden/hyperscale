@@ -7,44 +7,83 @@ import { GameHUD } from "./GameHUD";
 import { RoastTerminal } from "./RoastTerminal";
 import { Taskbar } from "./Taskbar";
 
+/**
+ * Props for the GameScreen component.
+ */
 interface GameScreenProps {
+	/** Current game state containing role, personality, budget, heat, hype, etc. */
 	state: GameState;
+	/** Whether this is the first card in the deck */
 	isFirstCard: boolean;
+	/** Reference to the card container div for swipe handling */
 	cardRef: React.RefObject<HTMLDivElement>;
 	// Swipe state
+	/** Horizontal offset for swipe animation */
 	swipeOffset: number;
+	/** Vertical offset for swipe animation */
 	swipeVerticalOffset?: number;
+	/** Current swipe direction */
 	swipeDirection: "LEFT" | "RIGHT" | null;
+	/** Whether the user is currently dragging */
 	isDragging: boolean;
+	/** Whether the user has dragged at least once */
 	hasDragged: boolean;
+	/** Direction of card exit animation */
 	cardExitDirection: "LEFT" | "RIGHT" | null;
+	/** Position and rotation for exit animation */
 	exitPosition: { x: number; rotate: number } | null;
+	/** Whether the card is snapping back to center */
 	isSnappingBack: boolean;
+	/** Whether this is an upward swipe gesture */
 	isSwipeUp?: boolean;
 	// Swipe handlers
+	/** Handler for touch/mouse start events */
 	onTouchStart: (e: React.TouchEvent | React.MouseEvent) => void;
+	/** Handler for touch/mouse move events */
 	onTouchMove: (e: React.TouchEvent | React.MouseEvent) => void;
+	/** Handler for touch/mouse end events */
 	onTouchEnd: () => void;
+	/** Action to perform on left swipe */
 	onSwipeLeft: () => void;
+	/** Action to perform on right swipe */
 	onSwipeRight: () => void;
 	// Roast
+	/** Current roast input text */
 	roastInput: string;
+	/** Roast output text or null if no output */
 	roastOutput: string | null;
+	/** Whether roast is currently being generated */
 	isRoasting: boolean;
+	/** Reference to roast output container for auto-scrolling */
 	roastOutputRef: React.RefObject<HTMLDivElement>;
+	/** Handler for roast input text changes */
 	onRoastInputChange: (value: string) => void;
+	/** Handler for roast submission */
 	onRoastSubmit: () => void;
 	// Taskbar
+	/** Current time string for display */
 	currentTime: string;
 	// Config
+	/** Distance threshold for completing a swipe */
 	swipeThreshold: number;
+	/** Distance threshold for showing swipe preview */
 	swipePreviewThreshold: number;
-	// Pressure / countdown (Phase 04 — 04-02 will render timer UI)
+	// Pressure / countdown
+	/** Current countdown value when active */
 	countdownValue?: number;
+	/** Whether countdown is currently active */
 	isCountdownActive?: boolean;
+	/** Whether the current state is critical */
 	isCritical?: boolean;
 }
 
+/**
+ * GameScreen component renders the main game interface with card stack, HUD, and roast terminal.
+ * Manages the core gameplay loop including swipe interactions, pressure states, and UI orchestration.
+ * Displays countdown timers during urgent situations and handles all game interactions.
+ * @param props - The component props
+ * @returns The rendered game screen component
+ */
 export const GameScreen: React.FC<GameScreenProps> = ({
 	state,
 	isFirstCard,
