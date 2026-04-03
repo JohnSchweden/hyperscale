@@ -46,7 +46,7 @@ git checkout -b content/new-role-or-scenarios
 ### Development Cycle
 
 1. **Make changes** - Edit code, add features, fix bugs
-2. **Test locally** - Run `bun run test` (see [TESTING.md](TESTING.md))
+2. **Test locally** - Run `bun run test` (see [docs/TESTING.md](docs/TESTING.md))
 3. **Verify visually** - Test in browser at `http://localhost:3000`
 4. **Commit** - Follow commit message guidelines
 5. **Push** - Push to your fork
@@ -247,7 +247,7 @@ bun run test -- --update-snapshots
 
 ### Writing Tests
 
-See [TESTING.md](TESTING.md) for detailed testing guide.
+See [docs/TESTING.md](docs/TESTING.md) for detailed testing guide.
 
 Key principles:
 - Use `data-testid` attributes for selectors

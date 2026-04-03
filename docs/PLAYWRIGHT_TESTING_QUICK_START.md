@@ -100,7 +100,7 @@ await expect(page.getByText(/complete record|governance decisions/i)).toBeVisibl
 
 ## The Bugs We Fixed (For Reference)
 
-If you want to understand what was broken, see: `DEBRIEF_BUTTON_INVESTIGATION.md`
+If you want to understand what was broken, see: [DEBRIEF_BUTTON_INVESTIGATION.md](DEBRIEF_BUTTON_INVESTIGATION.md)
 
 **TL;DR:**
 1. Reducer / debrief transitions were inconsistent with the intended linear debrief flow
