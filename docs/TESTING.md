@@ -2,29 +2,184 @@
 
 ## Overview
 
-This project uses [Playwright](https://playwright.dev/) for end-to-end testing with both functional and visual regression coverage.
+This project uses two test runners:
+- **Playwright** -- end-to-end, visual regression, and integration tests (`tests/`)
+- **Vitest** -- unit tests for hooks, utilities, data validation, and components (`unit/`)
 
-## Test Organization
+## Unit Tests (Vitest)
+
+### Running Unit Tests
+
+```bash
+# Run all unit tests
+bun run test:unit
+
+# Run in watch mode
+bun run test:unit:watch
+
+# Run specific file
+bun run test:unit -- unit/useCountdown.spec.ts
+
+# Run with coverage
+bun run test:unit -- --coverage
+```
+
+### Test File Organization
+
+```
+unit/
+├── testHelpers.ts              # Shared test utilities (createMockCard, determineDeathType, etc.)
+├── *.spec.ts                   # Hook and utility unit tests
+├── *.spec.tsx                  # Component unit tests
+├── *.test.ts                   # Data validation and business logic tests
+└── *.test.tsx                  # (if any)
+```
+
+### Test Categories
+
+#### Game Logic & State
+
+| File | What It Tests |
+|------|--------------|
+| `gameReducer.spec.ts` | Main game state reducer: stage transitions, choice outcomes, stat updates, Kirk easter egg state |
+| `deck.test.ts` | Fisher-Yates shuffle, choice-side swapping, branch injection logic |
+| `kirkRefusal.test.ts` | Kirk easter egg refusal flow, corruption cascade, counter logic |
+| `unlocked-endings.test.ts` | Ending unlock tracking, KIRK exclusion from count |
+
+#### Hooks
+
+| File | What It Tests |
+|------|--------------|
+| `useCountdown.spec.ts` | Timer initialization, tick behavior, completion/expiry callbacks |
+| `email-capture.test.ts` | Email validation, submission state, localStorage persistence |
+
+#### Components
+
+| File | What It Tests |
+|------|--------------|
+| `feedbackOverlay.spec.tsx` | Overlay rendering, personality voice button, image display |
+| `gameHud.spec.tsx` | Stat display, budget formatting, visual state changes |
+| `personalitySelect.spec.tsx` | Personality selection UI, callback firing |
+| `roleSelect.spec.tsx` | Role selection UI, card count display |
+| `pressureCueController.spec.tsx` | Pressure cue rendering, critical state display |
+
+#### Data Validation
+
+| File | What It Tests |
+|------|--------------|
+| `archetype.test.ts` | Archetype completeness: all required fields, valid IDs |
+| `bossQuestions.spec.ts` | Boss question structure: unique IDs, answer counts, explanation presence |
+| `deathVectorCoverage.test.ts` | Every card outcome has a deathVector, no orphaned vectors |
+| `deathVectors.test.ts` | Death vector resolution logic, edge cases |
+| `failureLessons.test.ts` | All death types have lessons, lesson structure validation |
+| `feedbackAudioChoice.test.ts` | Audio choice mapping consistency |
+| `roles.spec.ts` | Role completeness: labels, descriptions, fine tiers |
+| `roastPromptCopy.test.ts` | Roast prompt text consistency |
+
+#### Services & Utilities
+
+| File | What It Tests |
+|------|--------------|
+| `audioUtils.spec.ts` | Audio utility functions: codec detection, format conversion |
+| `formatting.test.ts` | Budget formatting: $XM, $XK, plain dollar display |
+| `geminiService.spec.ts` | TTS service: speak function, cleanup, error handling |
+| `linkedin-share.test.ts` | Share URL encoding, text formatting |
+| `pressureAudio.spec.ts` | Pressure audio: heartbeat, alert triggers |
+| `radioEffect.spec.ts` | Radio effect: noise generation, session management |
+| `voicePlayback.spec.ts` | Voice loading, playback, caching |
+| `v2-waitlist-api.test.ts` | Waitlist API: payload validation, response handling |
+
+### Test Helpers
+
+**File:** [`unit/testHelpers.ts`](../unit/testHelpers.ts)
+
+| Helper | Purpose |
+|--------|---------|
+| `TEST_DEFAULTS` | Standard budget/heat/hype/role values for tests |
+| `NON_KIRK_DEATH_TYPES` | All DeathType values except KIRK |
+| `assertValidLesson(lesson)` | Validates failure lesson has title, explanation, example |
+| `determineDeathType(args)` | Wrapper around `determineDeathTypeFromVectors` with test defaults |
+| `createMockCard(id, leftOverrides, rightOverrides)` | Creates a complete mock Card with optional outcome overrides |
+| `createMockOutcome(overrides)` | Creates a mock ChoiceOutcome with defaults |
+| `BASE_MOCK_OUTCOME` | Template for mock outcome objects |
+
+### Writing Unit Tests
+
+```typescript
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { renderHook, act } from "@testing-library/react";
+
+describe("useCountdown", () => {
+  beforeEach(() => {
+    vi.useFakeTimers();
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
+  it("should initialize with startFrom value", () => {
+    const onComplete = vi.fn();
+    const { result } = renderHook(() =>
+      useCountdown({ startFrom: 5, onComplete, isActive: false }),
+    );
+    expect(result.current.timeLeft).toBe(5);
+  });
+});
+```
+
+**Key patterns:**
+- Use `vi.useFakeTimers()` for time-based logic
+- Use `renderHook` from `@testing-library/react` for hook tests
+- Use `createMockCard` from `testHelpers.ts` for card-related tests
+- Mock browser APIs via `vi.stubGlobal()`
+- Component tests use `@testing-library/react` render/query patterns
+
+---
+
+## Playwright E2E Tests
+
+## Playwright E2E Tests
+
+### Test Organization
 
 ```
 tests/
 ├── helpers/
-│   ├── navigation.ts     # Navigation utilities
-│   └── selectors.ts      # Element selectors
+│   ├── navigation.ts         # Stage navigation utilities
+│   ├── selectors.ts          # Element selectors
+│   ├── km-debug-state.ts     # Debug state injection helpers
+│   ├── mockApi.ts            # API mocking utilities
+│   ├── keyboardSwipe.ts      # Keyboard-based swipe simulation
+│   ├── syntheticMouseSwipe.ts # Synthetic mouse swipe events
+│   └── victory-image-screen.ts # Victory screen helpers
+├── data/
+│   └── *.test.ts             # Data validation tests (Vitest)
+├── utils/
+│   └── card-test-utils.ts    # Card test utilities
 ├── stage-snapshots.spec.ts-snapshots/  # Visual baselines
-├── button-highlight.spec.ts
-├── drag-tracking.spec.ts
-├── exit-animation.spec.ts
-├── layout-overlay-touch.spec.ts
-├── mobile-width.spec.ts
-├── roast-console.spec.ts
-├── snap-back.spec.ts
-├── stage-snapshots.spec.ts
-├── swipe-consistency.spec.ts
-└── swipe-interactions.spec.ts
+├── stage-snapshots.spec.ts   # Visual regression for all stages
+├── stage-transitions.spec.ts # Full stage transition flows
+├── swipe-interactions.spec.ts # Touch/drag gesture handling
+├── swipe-consistency.spec.ts  # Drag vs button consistency
+├── drag-tracking.spec.ts      # Pointer event mechanics
+├── exit-animation.spec.ts     # Card exit animations
+├── snap-back.spec.ts          # Incomplete swipe snap-back
+├── button-highlight.spec.ts   # Button hover synchronization
+├── layout-overlay-touch.spec.ts # Responsive layout & touch
+├── mobile-width.spec.ts       # Mobile viewport fit
+├── roast-console.spec.ts      # AI commentary display
+├── debrief-*.spec.ts          # Debrief page flows (11 files)
+├── summary-navigation.spec.ts # Summary page navigation
+├── voice-*.spec.ts            # Voice/TTS tests (5 files)
+├── image-*.spec.ts            # Image pipeline tests (7 files)
+├── card-deck-*.spec.ts        # Deck shuffle/branch tests (2 files)
+├── boss-fight-*.spec.ts       # Boss fight tests (2 files)
+├── kirk-easter-egg.spec.ts    # Kirk easter egg flow
+└── verify-linkedin-same-tab.spec.ts # LinkedIn share behavior
 ```
 
-## Running Tests
+### Running Tests
 
 ### Basic Commands
 

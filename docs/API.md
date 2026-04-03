@@ -4,7 +4,7 @@
 
 ### GeminiService
 
-**File:** [`services/geminiService.ts`](services/geminiService.ts)
+**File:** [`services/geminiService.ts`](../services/geminiService.ts)
 
 Text-to-speech integration using Google Gemini 2.5 Flash Preview TTS.
 
@@ -33,7 +33,7 @@ Set `VITE_ENABLE_SPEECH=false` in `.env.local` to disable TTS globally.
 **Example:**
 ```typescript
 import { speak } from './services/geminiService';
-import { PERSONALITIES } from './constants';
+import { PERSONALITIES } from './data/personalities';
 
 // Use personality's voice
 const personality = PERSONALITIES[PersonalityType.ROASTER];
@@ -84,7 +84,7 @@ Generates contextual AI commentary using Gemini AI.
 
 ### LayoutShell
 
-**File:** [`components/LayoutShell.tsx`](components/LayoutShell.tsx)
+**File:** [`components/LayoutShell.tsx`](../components/LayoutShell.tsx)
 
 Responsive layout wrapper that provides consistent positioning across all game stages.
 
@@ -136,7 +136,9 @@ The shell element has `data-testid="layout-shell"` for testing.
 
 ## Types
 
-**File:** [`types.ts`](types.ts)
+**File:** [`types.ts`](../types.ts)
+
+All types are self-documented with JSDoc in the source file. Key types are summarized below.
 
 ### Enums
 
@@ -150,8 +152,9 @@ enum GameStage {
   INITIALIZING = 'INITIALIZING',
   PLAYING = 'PLAYING',
   BOSS_FIGHT = 'BOSS_FIGHT',
-  GAME_OVER = 'GAME_OVER',
-  SUMMARY = 'SUMMARY'
+  DEBRIEF_PAGE_1 = 'DEBRIEF_PAGE_1',
+  DEBRIEF_PAGE_2 = 'DEBRIEF_PAGE_2',
+  DEBRIEF_PAGE_3 = 'DEBRIEF_PAGE_3',
 }
 ```
 
@@ -165,16 +168,20 @@ enum PersonalityType {
 }
 ```
 
-#### `RoleType`
+#### `RoleType` (10 roles)
 
 ```typescript
 enum RoleType {
-  DEVELOPMENT = 'DEVELOPMENT',
-  MARKETING = 'MARKETING',
-  MANAGEMENT = 'MANAGEMENT',
-  HR = 'HR',
-  FINANCE = 'FINANCE',
-  CLEANING = 'CLEANING'
+  CHIEF_SOMETHING_OFFICER = 'CHIEF_SOMETHING_OFFICER',
+  HEAD_OF_SOMETHING = 'HEAD_OF_SOMETHING',
+  SOMETHING_MANAGER = 'SOMETHING_MANAGER',
+  TECH_AI_CONSULTANT = 'TECH_AI_CONSULTANT',
+  DATA_SCIENTIST = 'DATA_SCIENTIST',
+  SOFTWARE_ARCHITECT = 'SOFTWARE_ARCHITECT',
+  SOFTWARE_ENGINEER = 'SOFTWARE_ENGINEER',
+  VIBE_CODER = 'VIBE_CODER',
+  VIBE_ENGINEER = 'VIBE_ENGINEER',
+  AGENTIC_ENGINEER = 'AGENTIC_ENGINEER'
 }
 ```
 
@@ -185,7 +192,10 @@ enum AppSource {
   SLACK = 'SLACK',
   EMAIL = 'EMAIL',
   TERMINAL = 'TERMINAL',
-  IDE = 'IDE'
+  IDE = 'IDE',
+  JIRA = 'JIRA',
+  NOTION = 'NOTION',
+  MEETING = 'MEETING'
 }
 ```
 
@@ -198,7 +208,8 @@ enum DeathType {
   CONGRESS = 'CONGRESS',
   FLED_COUNTRY = 'FLED_COUNTRY',
   PRISON = 'PRISON',
-  AUDIT_FAILURE = 'AUDIT_FAILURE'
+  AUDIT_FAILURE = 'AUDIT_FAILURE',
+  KIRK = 'KIRK'
 }
 ```
 
@@ -208,14 +219,16 @@ enum DeathType {
 
 ```typescript
 interface Card {
-  id: string;                    // Unique identifier
-  source: AppSource;             // Message source type
-  sender: string;                // Sender name
-  context: string;               // Subject/context line
-  storyContext?: string;         // Optional scene-setting narrative
-  text: string;                  // Main dilemma text
-  onRight: ChoiceOutcome;        // Right swipe outcome
-  onLeft: ChoiceOutcome;         // Left swipe outcome
+  id: string;
+  source: AppSource;
+  sender: string;
+  context: string;
+  storyContext?: string;
+  text: string;
+  realWorldReference?: RealWorldReference;
+  onRight: ChoiceOutcome;
+  onLeft: ChoiceOutcome;
+  choiceSidesSwapped?: boolean;
 }
 ```
 
@@ -223,15 +236,14 @@ interface Card {
 
 ```typescript
 interface ChoiceOutcome {
-  label: string;                 // Button text (e.g., "Do it")
-  hype: number;                  // Hype stat change
-  heat: number;                  // Heat stat change
-  fine: number;                  // Budget penalty
-  violation: string;             // Legal/compliance violation
-  feedback: {                    // AI commentary
-    [key in PersonalityType]: string;
-  };
-  lesson: string;                // Educational takeaway
+  label: string;
+  hype: number;
+  heat: number;
+  fine: number;
+  violation: string;
+  feedback: { [key in PersonalityType]: string };
+  lesson: string;
+  deathVector?: DeathType;
 }
 ```
 
@@ -239,21 +251,22 @@ interface ChoiceOutcome {
 
 ```typescript
 interface GameState {
-  hype: number;                  // Current hype (0-100+)
-  heat: number;                  // Current heat (0-100)
-  budget: number;                // Current budget
-  stage: GameStage;              // Current game stage
+  hype: number;
+  heat: number;
+  budget: number;
+  stage: GameStage;
   personality: PersonalityType | null;
   role: RoleType | null;
-  currentCardIndex: number;      // Progress through deck
-  history: {                     // Choice history
-    cardId: string;
-    choice: 'LEFT' | 'RIGHT';
-  }[];
+  currentCardIndex: number;
+  history: { cardId: string; choice: 'LEFT' | 'RIGHT' }[];
   deathReason: string | null;
   deathType: DeathType | null;
   unlockedEndings: DeathType[];
   bossFightAnswers: boolean[];
+  effectiveDeck: Card[] | null;
+  kirkCounter: number;
+  kirkCorruptionActive: boolean;
+  deathVectorMap?: DeathVectorMap;
 }
 ```
 
@@ -269,63 +282,65 @@ interface BossQuestion {
 }
 ```
 
+#### `Archetype`
+
+```typescript
+interface Archetype {
+  id: ArchetypeId;
+  name: string;
+  description: string;
+  icon: string;
+  color: string;
+  traits: string[];
+  image?: string;
+}
+```
+
+#### `DebriefState`
+
+```typescript
+interface DebriefState {
+  page: DebrieRStage;
+  archetype: Archetype | null;
+  resilience: number;
+  deathType: DeathType | null;
+}
+```
+
+### Factory Functions
+
+| Function | Purpose |
+|----------|---------|
+| `makeFeedback(roaster, zenMaster, lovebomber)` | Create `PersonalityFeedback` object |
+| `makeOutcome(input: OutcomeInput)` | Create `ChoiceOutcome` from input |
+| `makeCard(id, source, sender, ...)` | Create `Card` with reduced boilerplate |
+
+### Game Configuration Constants
+
+| Constant | Location | Purpose |
+|----------|----------|---------|
+| `ROLE_FINE_TIERS` | `types.ts` | Per-role fine ranges and starting budgets |
+| `ROLE_HEAT_SCALES` | `types.ts` | Per-role heat scaling (deprecated, kept for reference) |
+
 ---
 
 ## Constants
 
-**File:** [`constants.ts`](constants.ts)
+Game content has been migrated from `constants.ts` to the `data/` directory.
 
-### `PERSONALITIES`
+| Content | File |
+|---------|------|
+| Card decks | `data/cards/` (10 role-specific files + nowin-dilemmas) |
+| Personalities | `data/personalities.ts` |
+| Roles | `data/roles.ts` |
+| Death endings | `data/deathEndings.ts` |
+| Boss questions | `data/bossQuestions.ts` |
+| Violations | `data/violations.ts` |
+| Archetypes | `data/archetypes.ts` |
+| Death vectors | `data/deathVectors.ts` |
+| Image mappings | `data/imageMap.ts` |
 
-Personality configurations including voice, tone, and dialogue.
-
-```typescript
-const PERSONALITIES = {
-  [PersonalityType.ROASTER]: {
-    name: 'V.E.R.A.',
-    title: 'The Roaster',
-    description: 'British sarcasm, burned-out IT director, cynical.',
-    voice: 'Puck',
-    onboarding: string,
-    victory: string,
-    failure: string
-  },
-  // ... other personalities
-};
-```
-
-### `ROLE_CARDS`
-
-Card decks organized by role.
-
-```typescript
-const ROLE_CARDS: Record<RoleType, Card[]> = {
-  [RoleType.DEVELOPMENT]: [...],
-  [RoleType.MARKETING]: [...],
-  // ... other roles
-};
-```
-
-### `DEATH_ENDINGS`
-
-Ending configuration for each death type.
-
-```typescript
-const DEATH_ENDINGS: Record<DeathType, {
-  title: string;
-  description: string;
-  icon: string;
-  color: string;
-}> = { ... };
-```
-
-### `BOSS_FIGHT_QUESTIONS`
-
-Array of quiz questions for the boss fight.
-
-```typescript
-const BOSS_FIGHT_QUESTIONS: BossQuestion[] = [...];
-```
+See [docs/CONTENT_AUTHORING.md](CONTENT_AUTHORING.md) for the content authoring guide.
 
 ---
 
@@ -333,7 +348,7 @@ const BOSS_FIGHT_QUESTIONS: BossQuestion[] = [...];
 
 ### Navigation
 
-**File:** [`tests/helpers/navigation.ts`](tests/helpers/navigation.ts)
+**File:** [`tests/helpers/navigation.ts`](../tests/helpers/navigation.ts)
 
 Quick navigation utilities for Playwright tests.
 
@@ -360,7 +375,7 @@ Navigates to victory summary.
 
 ### Selectors
 
-**File:** [`tests/helpers/selectors.ts`](tests/helpers/selectors.ts)
+**File:** [`tests/helpers/selectors.ts`](../tests/helpers/selectors.ts)
 
 Common element selectors for tests.
 
