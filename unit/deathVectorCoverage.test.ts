@@ -1,12 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { ROLE_CARDS } from "../data/cards";
+import { ROLE_CARDS } from "../src/data/cards";
+import { DeathType, RoleType } from "../src/types";
 import {
 	ALL_ROLE_DECKS,
 	countUniqueNonKirkTypes,
 	countVectorsInDeck,
 	validateRoleCardsMapping,
 } from "../tests/utils/card-test-utils";
-import { DeathType, RoleType } from "../types";
 
 /** Decks that already carry deathVector on outcomes; others are migration backlog. */
 const VECTOR_ANNOTATED_ROLES: readonly RoleType[] = [

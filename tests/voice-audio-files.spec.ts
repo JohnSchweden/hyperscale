@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { expect, test } from "@playwright/test";
-import { BGM_SOURCE_STEMS } from "../data/bgmPlaylist";
+import { BGM_SOURCE_STEMS } from "../src/data/bgmPlaylist";
 
 /**
  * Voice Audio Files Existence Tests

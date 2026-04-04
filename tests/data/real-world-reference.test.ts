@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { ROLE_CARDS } from "../../data/cards";
-import type { Card } from "../../types";
-import { RoleType } from "../../types";
+import { ROLE_CARDS } from "../../src/data/cards";
+import type { Card } from "../../src/types";
+import { RoleType } from "../../src/types";
 
 // Flatten all role cards into a single array
 const ALL_CARDS: Card[] = Object.values(ROLE_CARDS).flat();

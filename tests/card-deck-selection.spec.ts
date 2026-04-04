@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
-import { ROLE_DECK_ALIASES, ROLE_LABELS } from "../data/roles";
-import { RoleType } from "../types";
+import { ROLE_DECK_ALIASES, ROLE_LABELS } from "../src/data/roles";
+import { RoleType } from "../src/types";
 import {
 	assertSwipeLabelsBelongToRoleDeck,
 	navigateToPlayingWithRoleFast,

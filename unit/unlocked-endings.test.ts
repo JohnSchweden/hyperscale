@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { getUnlockProgress } from "../hooks/useUnlockedEndings";
-import type { DeathType } from "../types";
+import { getUnlockProgress } from "../src/hooks/useUnlockedEndings";
+import type { DeathType } from "../src/types";
 
 describe("getUnlockProgress", () => {
 	const totalCount = 6;

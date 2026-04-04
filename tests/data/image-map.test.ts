@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { ROLE_CARDS } from "../../data/cards";
-import { HEAD_OF_SOMETHING_CARDS } from "../../data/cards/head-of-something";
+import { ROLE_CARDS } from "../../src/data/cards";
+import { HEAD_OF_SOMETHING_CARDS } from "../../src/data/cards/head-of-something";
 import {
 	ARCHETYPE_IMAGES,
 	DEATH_IMAGES,
@@ -11,8 +11,8 @@ import {
 	INCIDENT_IMAGES,
 	OUTCOME_IMAGES,
 	slugify,
-} from "../../data/imageMap";
-import { type ArchetypeId, DeathType } from "../../types";
+} from "../../src/data/imageMap";
+import { type ArchetypeId, DeathType } from "../../src/types";
 
 describe("Image Map Contract Validation", () => {
 	describe("INCIDENT_IMAGES — dynamic contract", () => {

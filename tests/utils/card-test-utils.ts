@@ -10,8 +10,8 @@ import {
 	TECH_AI_CONSULTANT_CARDS,
 	VIBE_CODER_CARDS,
 	VIBE_ENGINEER_CARDS,
-} from "../../data/cards";
-import { type Card, DeathType, RoleType } from "../../types";
+} from "../../src/data/cards";
+import { type Card, DeathType, RoleType } from "../../src/types";
 
 /**
  * Unified deck collection for tests that need to iterate over all role decks.

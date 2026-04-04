@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { DEATH_ENDINGS } from "../data/deathEndings";
-import { KIRK_CORRUPTED_CARDS } from "../data/kirkCards";
-import { gameReducer, initialGameState } from "../hooks/useGameState";
+import { DEATH_ENDINGS } from "../src/data/deathEndings";
+import { KIRK_CORRUPTED_CARDS } from "../src/data/kirkCards";
+import { gameReducer, initialGameState } from "../src/hooks/useGameState";
 import {
 	AppSource,
 	type Card,
@@ -10,7 +10,7 @@ import {
 	type GameState,
 	PersonalityType,
 	RoleType,
-} from "../types";
+} from "../src/types";
 
 // Helper to build a playing state with a role and deck
 function playingState(overrides: Partial<GameState> = {}): GameState {

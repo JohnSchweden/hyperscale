@@ -9,7 +9,7 @@ import {
 	ROLE_FINE_TIERS,
 	ROLE_HEAT_SCALES,
 	RoleType,
-} from "../types";
+} from "../src/types";
 
 describe("makeFeedback", () => {
 	it("should create a feedback object with all three personalities", () => {

@@ -8,7 +8,7 @@
 		"vitest.config.ts",
 		"unit/**/*",
 		"tests/data/**/*.test.ts",
-		"lib/**/*.test.ts"
+		"src/lib/**/*.test.ts"
 	],
 	"exclude": ["node_modules", "scripts/**/*"]
 }

@@ -4,7 +4,7 @@ import {
 	GameStage,
 	PersonalityType,
 	RoleType,
-} from "../../../types";
+} from "../../../src/types";
 
 const BASE_URL = "https://localhost:3000";
 const OUTPUT_DIR = "tests/screenshots/phase06-verification";

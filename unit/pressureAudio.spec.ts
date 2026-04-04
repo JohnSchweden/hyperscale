@@ -55,7 +55,7 @@ describe("Pressure Audio System", () => {
 	describe("createPressureAudioSession", () => {
 		it("should create a session with required methods", async () => {
 			const { createPressureAudioSession } = await import(
-				"../services/pressureAudio"
+				"../src/services/pressureAudio"
 			);
 			const session = createPressureAudioSession();
 
@@ -73,7 +73,7 @@ describe("Pressure Audio System", () => {
 
 			// Need to re-import after clearing stubs
 			const { createPressureAudioSession } = await import(
-				"../services/pressureAudio"
+				"../src/services/pressureAudio"
 			);
 
 			expect(() => createPressureAudioSession()).toThrow(
@@ -85,7 +85,7 @@ describe("Pressure Audio System", () => {
 	describe("HeartbeatConfig validation", () => {
 		it("should handle missing config gracefully", async () => {
 			const { createPressureAudioSession } = await import(
-				"../services/pressureAudio"
+				"../src/services/pressureAudio"
 			);
 			const session = createPressureAudioSession();
 
@@ -96,7 +96,7 @@ describe("Pressure Audio System", () => {
 
 		it("should accept valid countdown config", async () => {
 			const { createPressureAudioSession } = await import(
-				"../services/pressureAudio"
+				"../src/services/pressureAudio"
 			);
 			const session = createPressureAudioSession();
 
@@ -109,7 +109,7 @@ describe("Pressure Audio System", () => {
 	describe("startAlert", () => {
 		it("should not throw when starting alert", async () => {
 			const { createPressureAudioSession } = await import(
-				"../services/pressureAudio"
+				"../src/services/pressureAudio"
 			);
 			const session = createPressureAudioSession();
 
@@ -121,7 +121,7 @@ describe("Pressure Audio System", () => {
 	describe("stop", () => {
 		it("should not throw when stopping without active audio", async () => {
 			const { createPressureAudioSession } = await import(
-				"../services/pressureAudio"
+				"../src/services/pressureAudio"
 			);
 			const session = createPressureAudioSession();
 
@@ -132,7 +132,7 @@ describe("Pressure Audio System", () => {
 	describe("startHeartbeat creates oscillator and gain (running context)", () => {
 		it("should create oscillator and gain when context is running", async () => {
 			const { createPressureAudioSession } = await import(
-				"../services/pressureAudio"
+				"../src/services/pressureAudio"
 			);
 			const session = createPressureAudioSession();
 			const ctx = session.context as unknown as InstanceType<
@@ -159,7 +159,7 @@ describe("Pressure Audio System", () => {
 
 		it("should play beep for 3, 2, 1 with ascending frequency", async () => {
 			const { playCountdownBeep, getCountdownContext } = await import(
-				"../services/pressureAudio"
+				"../src/services/pressureAudio"
 			);
 
 			playCountdownBeep(3);
@@ -179,7 +179,7 @@ describe("Pressure Audio System", () => {
 		it("should no-op when context suspended", async () => {
 			stubSuspendedContext();
 			const { playCountdownBeep, getCountdownContext } = await import(
-				"../services/pressureAudio"
+				"../src/services/pressureAudio"
 			);
 			getCountdownContext(); // populate cached ctx
 			playCountdownBeep(1);
@@ -195,7 +195,7 @@ describe("Pressure Audio System", () => {
 
 		it("should play single soft sine", async () => {
 			const { playCountdownStart, getCountdownContext } = await import(
-				"../services/pressureAudio"
+				"../src/services/pressureAudio"
 			);
 			playCountdownStart();
 			const ctx = getCountdownContext() as unknown as InstanceType<
@@ -209,7 +209,7 @@ describe("Pressure Audio System", () => {
 		it("should no-op when context suspended", async () => {
 			stubSuspendedContext();
 			const { playCountdownStart, getCountdownContext } = await import(
-				"../services/pressureAudio"
+				"../src/services/pressureAudio"
 			);
 			getCountdownContext();
 			playCountdownStart();
@@ -225,7 +225,7 @@ describe("Pressure Audio System", () => {
 
 		it("should not throw", async () => {
 			const { prepareCountdownAudio } = await import(
-				"../services/pressureAudio"
+				"../src/services/pressureAudio"
 			);
 			expect(() => prepareCountdownAudio()).not.toThrow();
 		});
@@ -233,7 +233,7 @@ describe("Pressure Audio System", () => {
 
 	describe("playUnlockPulse", () => {
 		it("should create oscillator, connect, start(0), stop(0.05)", async () => {
-			const { playUnlockPulse } = await import("../services/pressureAudio");
+			const { playUnlockPulse } = await import("../src/services/pressureAudio");
 			const mockCtx = new MockAudioContextClass();
 
 			playUnlockPulse(mockCtx as unknown as AudioContext);
@@ -257,7 +257,7 @@ describe("Pressure Audio System", () => {
 			vi.stubGlobal("window", { AudioContext: SuspendedContext });
 
 			const { createPressureAudioSession } = await import(
-				"../services/pressureAudio"
+				"../src/services/pressureAudio"
 			);
 			const session = createPressureAudioSession();
 
@@ -271,7 +271,7 @@ describe("Pressure Audio System", () => {
 	describe("startAlert when context running", () => {
 		it("should create oscillator for alert", async () => {
 			const { createPressureAudioSession } = await import(
-				"../services/pressureAudio"
+				"../src/services/pressureAudio"
 			);
 			const session = createPressureAudioSession();
 			const ctx = session.context as unknown as InstanceType<

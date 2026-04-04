@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { triggerHaptic } from "../utils/haptic";
+import { triggerHaptic } from "../src/utils/haptic";
 
 describe("triggerHaptic", () => {
 	beforeEach(() => {

@@ -67,7 +67,7 @@ describe("Voice Playback System", () => {
 				status: 404,
 			});
 
-			const { loadVoice } = await import("../services/voicePlayback");
+			const { loadVoice } = await import("../src/services/voicePlayback");
 			// Should fail with narrative error message
 			await expect(loadVoice("roaster", "nonexistent")).rejects.toThrow(
 				"V.E.R.A.",
@@ -76,7 +76,7 @@ describe("Voice Playback System", () => {
 
 		it("should throw for invalid personality", async () => {
 			mockFetch.mockResolvedValue({ ok: false, status: 404 });
-			const { loadVoice } = await import("../services/voicePlayback");
+			const { loadVoice } = await import("../src/services/voicePlayback");
 			// Should fail with generic error
 			await expect(loadVoice("invalid", "test")).rejects.toThrow();
 		});
@@ -89,7 +89,7 @@ describe("Voice Playback System", () => {
 				status: 404,
 			});
 
-			const { loadVoice } = await import("../services/voicePlayback");
+			const { loadVoice } = await import("../src/services/voicePlayback");
 			try {
 				await loadVoice("roaster", "invalid");
 			} catch (e: unknown) {
@@ -104,7 +104,7 @@ describe("Voice Playback System", () => {
 				status: 404,
 			});
 
-			const { loadVoice } = await import("../services/voicePlayback");
+			const { loadVoice } = await import("../src/services/voicePlayback");
 			try {
 				await loadVoice("zenmaster", "invalid");
 			} catch (e: unknown) {
@@ -119,7 +119,7 @@ describe("Voice Playback System", () => {
 				status: 404,
 			});
 
-			const { loadVoice } = await import("../services/voicePlayback");
+			const { loadVoice } = await import("../src/services/voicePlayback");
 			try {
 				await loadVoice("lovebomber", "invalid");
 			} catch (e: unknown) {

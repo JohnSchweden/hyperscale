@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { ROLE_CARDS } from "../../data/cards";
-import { PersonalityType, RoleType } from "../../types";
+import { ROLE_CARDS } from "../../src/data/cards";
+import { PersonalityType, RoleType } from "../../src/types";
 
 /**
  * Expected personality voice characteristics:

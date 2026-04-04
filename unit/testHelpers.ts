@@ -1,7 +1,7 @@
 import { expect } from "vitest";
-import { determineDeathTypeFromVectors } from "../data/deathVectors";
-import type { ArchetypeId, Card } from "../types";
-import { AppSource, DeathType, RoleType } from "../types";
+import { determineDeathTypeFromVectors } from "../src/data/deathVectors";
+import type { ArchetypeId, Card } from "../src/types";
+import { AppSource, DeathType, RoleType } from "../src/types";
 
 /** Standard test constants for game state values */
 export const TEST_DEFAULTS = {

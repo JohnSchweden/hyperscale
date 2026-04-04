@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { RoleType } from "../types";
+import { RoleType } from "../src/types";
 import { navigateToPlayingWithRoleFast } from "./helpers/navigation";
 
 test.use({ baseURL: "https://localhost:3000" });

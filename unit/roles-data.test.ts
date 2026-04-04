@@ -6,8 +6,8 @@ import {
 	ROLE_DESCRIPTIONS,
 	ROLE_ICONS,
 	ROLE_LABELS,
-} from "../data/roles";
-import { RoleType } from "../types";
+} from "../src/data/roles";
+import { RoleType } from "../src/types";
 
 describe("ROLE_DESCRIPTIONS", () => {
 	it("should have descriptions for all 10 roles", () => {

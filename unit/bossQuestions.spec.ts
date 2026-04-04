@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { BOSS_FIGHT_QUESTIONS } from "../data";
+import { BOSS_FIGHT_QUESTIONS } from "../src/data";
 
 describe("Boss Fight Questions Data", () => {
 	describe("data integrity", () => {

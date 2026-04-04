@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { PersonalityType } from "../types";
+import { PersonalityType } from "../src/types";
 
 const mockFetch = vi.fn();
 
@@ -40,7 +40,7 @@ describe("Gemini Service", () => {
 			vi.fn(() => mockAudioContext),
 		);
 
-		vi.mock("../services/radioEffect", () => ({
+		vi.mock("../src/services/radioEffect", () => ({
 			createRadioSession: vi.fn(() => ({
 				start: vi.fn(),
 				end: vi.fn(),
@@ -66,7 +66,7 @@ describe("Gemini Service", () => {
 				.spyOn(console, "error")
 				.mockImplementation(() => {});
 
-			const { speak } = await import("../services/geminiService");
+			const { speak } = await import("../src/services/geminiService");
 
 			await speak("Hello world");
 
@@ -85,7 +85,7 @@ describe("Gemini Service", () => {
 				}),
 			});
 
-			const { speak } = await import("../services/geminiService");
+			const { speak } = await import("../src/services/geminiService");
 
 			await speak("Hello world", "TestVoice");
 
@@ -103,7 +103,7 @@ describe("Gemini Service", () => {
 				.spyOn(console, "error")
 				.mockImplementation(() => {});
 
-			const { speak } = await import("../services/geminiService");
+			const { speak } = await import("../src/services/geminiService");
 
 			await speak("Hello world");
 
@@ -114,13 +114,13 @@ describe("Gemini Service", () => {
 
 	describe("cleanupAudio", () => {
 		it("should close AudioContext when running", async () => {
-			const { cleanupAudio } = await import("../services/geminiService");
+			const { cleanupAudio } = await import("../src/services/geminiService");
 
 			cleanupAudio();
 		});
 
 		it("should handle cleanup without errors", async () => {
-			const { cleanupAudio } = await import("../services/geminiService");
+			const { cleanupAudio } = await import("../src/services/geminiService");
 
 			expect(() => cleanupAudio()).not.toThrow();
 		});
@@ -136,7 +136,7 @@ describe("Gemini Service", () => {
 				},
 			});
 
-			const { getRoast } = await import("../services/geminiService");
+			const { getRoast } = await import("../src/services/geminiService");
 
 			const result = await getRoast("workflow text", PersonalityType.ROASTER);
 
@@ -166,7 +166,7 @@ describe("Gemini Service", () => {
 				.spyOn(console, "error")
 				.mockImplementation(() => {});
 
-			const { getRoast } = await import("../services/geminiService");
+			const { getRoast } = await import("../src/services/geminiService");
 
 			const result = await getRoast("workflow", PersonalityType.ZEN_MASTER);
 
@@ -192,7 +192,7 @@ describe("Gemini Service", () => {
 				.spyOn(console, "error")
 				.mockImplementation(() => {});
 
-			const { getRoast } = await import("../services/geminiService");
+			const { getRoast } = await import("../src/services/geminiService");
 
 			const result = await getRoast("workflow", PersonalityType.LOVEBOMBER);
 
@@ -207,7 +207,7 @@ describe("Gemini Service", () => {
 				.spyOn(console, "error")
 				.mockImplementation(() => {});
 
-			const { getRoast } = await import("../services/geminiService");
+			const { getRoast } = await import("../src/services/geminiService");
 
 			const result = await getRoast("workflow", PersonalityType.ROASTER);
 
@@ -228,7 +228,7 @@ describe("Gemini Service", () => {
 				},
 			});
 
-			const { getRoast } = await import("../services/geminiService");
+			const { getRoast } = await import("../src/services/geminiService");
 
 			const result = await getRoast("workflow", PersonalityType.ROASTER);
 

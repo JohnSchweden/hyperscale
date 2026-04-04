@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import { GameHUD } from "../components/game/GameHUD";
+import { GameHUD } from "../src/components/game/GameHUD";
 
 describe("GameHUD", () => {
 	const defaultProps = {

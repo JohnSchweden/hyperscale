@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
-import { DEATH_ENDINGS } from "../data/deathEndings";
-import { DeathType } from "../types";
+import { DEATH_ENDINGS } from "../src/data/deathEndings";
+import { DeathType } from "../src/types";
 import {
 	navigateToBossFightFast,
 	navigateToGameOverFast,

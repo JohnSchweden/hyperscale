@@ -5,7 +5,7 @@ import {
 	safeNumber,
 	safeParseJson,
 	safeString,
-} from "../lib/safeCoercion";
+} from "../src/lib/safeCoercion";
 
 describe("safeParseJson", () => {
 	it("should parse valid JSON strings", () => {

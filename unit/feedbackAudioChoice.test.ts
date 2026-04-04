@@ -3,8 +3,8 @@ import {
 	authoringFeedbackStem,
 	type PresentationChoiceSlot,
 	slugify,
-} from "../lib/feedbackAudioChoice";
-import type { Card } from "../types";
+} from "../src/lib/feedbackAudioChoice";
+import type { Card } from "../src/types";
 
 /** Minimal card shape for stem mapping with labels */
 function card(

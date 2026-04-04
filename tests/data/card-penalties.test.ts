@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { ROLE_CARDS } from "../../data/cards";
-import { RoleType } from "../../types";
+import { ROLE_CARDS } from "../../src/data/cards";
+import { RoleType } from "../../src/types";
 
 /**
  * Calculate penalty magnitude for an outcome.

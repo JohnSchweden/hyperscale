@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import { FeedbackOverlay } from "../components/game/FeedbackOverlay";
-import { PersonalityType } from "../types";
+import { FeedbackOverlay } from "../src/components/game/FeedbackOverlay";
+import { PersonalityType } from "../src/types";
 
 describe("FeedbackOverlay", () => {
 	const defaultProps = {

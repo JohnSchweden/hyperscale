@@ -8,8 +8,8 @@
  * - Page 3 verdict (SIMULATION COMPLETE / HIJACKED) after refactor
  */
 import { expect, test } from "@playwright/test";
-import { KIRK_CORRUPTED_CARDS } from "../data/kirkCards";
-import { DeathType } from "../types";
+import { KIRK_CORRUPTED_CARDS } from "../src/data/kirkCards";
+import { DeathType } from "../src/types";
 
 test.use({ baseURL: "https://localhost:3000" });
 

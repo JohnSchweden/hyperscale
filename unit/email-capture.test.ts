@@ -1,7 +1,7 @@
 import { act, renderHook } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { useEmailCapture } from "../hooks/useEmailCapture";
-import type { V2WaitlistPayload } from "../types";
+import { useEmailCapture } from "../src/hooks/useEmailCapture";
+import type { V2WaitlistPayload } from "../src/types";
 
 describe("V2WaitlistPayload Type", () => {
 	it("should define V2WaitlistPayload interface correctly", () => {

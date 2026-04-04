@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import { PersonalitySelect } from "../components/game/PersonalitySelect";
+import { PersonalitySelect } from "../src/components/game/PersonalitySelect";
 
 describe("PersonalitySelect", () => {
 	const defaultProps = {

@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { RoleType } from "../types";
+import { RoleType } from "../src/types";
 import {
 	encodeLinkedInShareUrl,
 	formatShareText,
 	getShareUrl,
-} from "../utils/linkedin-share";
+} from "../src/utils/linkedin-share";
 
 describe("LinkedIn Share Utility", () => {
 	describe("formatShareText", () => {

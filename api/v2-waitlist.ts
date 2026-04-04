@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import type { V2WaitlistPayload } from "../types";
+import type { V2WaitlistPayload } from "../src/types";
 
 /**
  * Regular expression for validating email addresses.

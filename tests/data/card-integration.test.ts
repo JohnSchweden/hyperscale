@@ -1,6 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { ROLE_CARDS } from "../../data/cards";
-import { AppSource, type Card, PersonalityType, RoleType } from "../../types";
+import { ROLE_CARDS } from "../../src/data/cards";
+import {
+	AppSource,
+	type Card,
+	PersonalityType,
+	RoleType,
+} from "../../src/types";
 
 /**
  * Card Integration Test

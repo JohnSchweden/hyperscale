@@ -5,10 +5,10 @@ import {
 	calculateArchetype,
 	calculateResilienceScore,
 	mapOutcomeToTraits,
-} from "../data/archetypes";
-import { useArchetype } from "../hooks/useArchetype";
-import type { Archetype, ArchetypeId, DebriefState } from "../types";
-import { DebrieRStage, RoleType } from "../types";
+} from "../src/data/archetypes";
+import { useArchetype } from "../src/hooks/useArchetype";
+import type { Archetype, ArchetypeId, DebriefState } from "../src/types";
+import { DebrieRStage, RoleType } from "../src/types";
 
 describe("Archetype Types", () => {
 	describe("ArchetypeId type", () => {
@@ -68,7 +68,7 @@ describe("Archetype Types", () => {
 					traits: ["adaptable"],
 				},
 				resilience: 75,
-				deathType: "BANKRUPT" as import("../types").DeathType,
+				deathType: "BANKRUPT" as import("../src/types").DeathType,
 			};
 
 			expect(state.page).toBe("PAGE_1");

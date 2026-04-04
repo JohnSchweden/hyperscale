@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { ROLE_CARDS } from "../../data/cards";
-import { type Card, RoleType } from "../../types";
+import { ROLE_CARDS } from "../../src/data/cards";
+import { type Card, RoleType } from "../../src/types";
 
 /**
  * Card Snapshot Test — Issue #12

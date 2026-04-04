@@ -1,5 +1,5 @@
 import { expect, type Page, test } from "@playwright/test";
-import { DeathType } from "../types";
+import { DeathType } from "../src/types";
 import { mockRoastApi } from "./helpers/mockApi";
 import {
 	navigateToBossFightFast,

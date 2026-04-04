@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { corruptText } from "../utils/kirkText";
+import { corruptText } from "../src/utils/kirkText";
 
 const COMBINING_START = 0x0300;
 const COMBINING_END = 0x030d;

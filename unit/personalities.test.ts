@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { PERSONALITIES } from "../data/personalities";
-import { PersonalityType } from "../types";
+import { PERSONALITIES } from "../src/data/personalities";
+import { PersonalityType } from "../src/types";
 
 describe("PERSONALITIES", () => {
 	it("should have entries for all 3 personality types", () => {

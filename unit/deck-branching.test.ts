@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { resolveDeckWithBranching } from "../lib/deck";
-import { AppSource, type Card, PersonalityType } from "../types";
+import { resolveDeckWithBranching } from "../src/lib/deck";
+import { AppSource, type Card, PersonalityType } from "../src/types";
 
 function createTestCard(id: string): Card {
 	return {

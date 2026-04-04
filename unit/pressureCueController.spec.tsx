@@ -1,10 +1,10 @@
 import { render } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import { PressureCueController } from "../components/game/PressureCueController";
+import { PressureCueController } from "../src/components/game/PressureCueController";
 
 const mockUsePressureAudio = vi.fn();
 
-vi.mock("../hooks/usePressureAudio", () => ({
+vi.mock("../src/hooks/usePressureAudio", () => ({
 	usePressureAudio: (opts: object) => {
 		mockUsePressureAudio(opts);
 	},

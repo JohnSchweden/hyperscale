@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { accumulateDeathVectors } from "../data/deathVectors";
-import { type Card, DeathType, type GameState, RoleType } from "../types";
+import { accumulateDeathVectors } from "../src/data/deathVectors";
+import { type Card, DeathType, type GameState, RoleType } from "../src/types";
 import {
 	createMockCard,
 	determineDeathType as determineDeathTypeHelper,

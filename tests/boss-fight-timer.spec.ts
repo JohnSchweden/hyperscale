@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { BOSS_FIGHT_QUESTIONS } from "../data/bossQuestions";
+import { BOSS_FIGHT_QUESTIONS } from "../src/data/bossQuestions";
 import { navigateToBossFightFast } from "./helpers/navigation";
 import { SELECTORS } from "./helpers/selectors";
 

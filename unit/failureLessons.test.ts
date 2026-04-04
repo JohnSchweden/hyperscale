@@ -3,8 +3,8 @@ import {
 	FAILURE_LESSONS,
 	generateDeathExplanation,
 	getRetryPrompt,
-} from "../data/failureLessons";
-import { DeathType, PersonalityType } from "../types";
+} from "../src/data/failureLessons";
+import { DeathType, PersonalityType } from "../src/types";
 import { assertValidLesson, NON_KIRK_DEATH_TYPES } from "./testHelpers";
 
 function expectExplanationValid(explanation: string, pattern: RegExp): void {

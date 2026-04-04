@@ -24,7 +24,7 @@ describe("Audio Utils", () => {
 		it("should return false when window is undefined (SSR)", async () => {
 			vi.stubGlobal("window", undefined);
 
-			const { supportsOpus } = await import("../services/audioUtils");
+			const { supportsOpus } = await import("../src/services/audioUtils");
 
 			expect(supportsOpus()).toBe(false);
 		});
@@ -32,7 +32,7 @@ describe("Audio Utils", () => {
 		it("should return true when Ogg Opus is probably supported", async () => {
 			canPlayType.mockReturnValue("probably");
 
-			const { supportsOpus } = await import("../services/audioUtils");
+			const { supportsOpus } = await import("../src/services/audioUtils");
 
 			expect(supportsOpus()).toBe(true);
 		});
@@ -40,7 +40,7 @@ describe("Audio Utils", () => {
 		it("should return true when WebM Opus is probably supported", async () => {
 			canPlayType.mockReturnValueOnce("").mockReturnValueOnce("probably");
 
-			const { supportsOpus } = await import("../services/audioUtils");
+			const { supportsOpus } = await import("../src/services/audioUtils");
 
 			expect(supportsOpus()).toBe(true);
 		});
@@ -51,7 +51,7 @@ describe("Audio Utils", () => {
 				.mockReturnValueOnce("")
 				.mockReturnValueOnce("probably");
 
-			const { supportsOpus } = await import("../services/audioUtils");
+			const { supportsOpus } = await import("../src/services/audioUtils");
 
 			expect(supportsOpus()).toBe(true);
 		});
@@ -59,7 +59,7 @@ describe("Audio Utils", () => {
 		it("should return false when no Opus format is supported", async () => {
 			canPlayType.mockReturnValue("");
 
-			const { supportsOpus } = await import("../services/audioUtils");
+			const { supportsOpus } = await import("../src/services/audioUtils");
 
 			expect(supportsOpus()).toBe(false);
 		});
@@ -67,7 +67,7 @@ describe("Audio Utils", () => {
 		it("should cache the result after first call", async () => {
 			canPlayType.mockReturnValue("probably");
 
-			const { supportsOpus } = await import("../services/audioUtils");
+			const { supportsOpus } = await import("../src/services/audioUtils");
 
 			expect(supportsOpus()).toBe(true);
 			expect(canPlayType).toHaveBeenCalledTimes(3);
@@ -81,7 +81,7 @@ describe("Audio Utils", () => {
 		it("should return .opus when Opus is supported", async () => {
 			canPlayType.mockReturnValue("probably");
 
-			const { getAudioExtension } = await import("../services/audioUtils");
+			const { getAudioExtension } = await import("../src/services/audioUtils");
 
 			expect(getAudioExtension()).toBe(".opus");
 		});
@@ -89,7 +89,7 @@ describe("Audio Utils", () => {
 		it("should return .mp3 when Opus is not supported", async () => {
 			canPlayType.mockReturnValue("");
 
-			const { getAudioExtension } = await import("../services/audioUtils");
+			const { getAudioExtension } = await import("../src/services/audioUtils");
 
 			expect(getAudioExtension()).toBe(".mp3");
 		});
@@ -99,7 +99,7 @@ describe("Audio Utils", () => {
 		it("should return audio/opus when Opus is supported", async () => {
 			canPlayType.mockReturnValue("probably");
 
-			const { getAudioMimeType } = await import("../services/audioUtils");
+			const { getAudioMimeType } = await import("../src/services/audioUtils");
 
 			expect(getAudioMimeType()).toBe("audio/opus");
 		});
@@ -107,7 +107,7 @@ describe("Audio Utils", () => {
 		it("should return audio/mpeg when Opus is not supported", async () => {
 			canPlayType.mockReturnValue("");
 
-			const { getAudioMimeType } = await import("../services/audioUtils");
+			const { getAudioMimeType } = await import("../src/services/audioUtils");
 
 			expect(getAudioMimeType()).toBe("audio/mpeg");
 		});
@@ -117,7 +117,7 @@ describe("Audio Utils", () => {
 		it("should append .opus extension when Opus is supported", async () => {
 			canPlayType.mockReturnValue("probably");
 
-			const { getAudioPath } = await import("../services/audioUtils");
+			const { getAudioPath } = await import("../src/services/audioUtils");
 
 			expect(getAudioPath("audio/voice")).toBe("audio/voice.opus");
 		});
@@ -125,7 +125,7 @@ describe("Audio Utils", () => {
 		it("should append .mp3 extension when Opus is not supported", async () => {
 			canPlayType.mockReturnValue("");
 
-			const { getAudioPath } = await import("../services/audioUtils");
+			const { getAudioPath } = await import("../src/services/audioUtils");
 
 			expect(getAudioPath("audio/voice")).toBe("audio/voice.mp3");
 		});
@@ -133,7 +133,7 @@ describe("Audio Utils", () => {
 		it("should replace existing audio extensions", async () => {
 			canPlayType.mockReturnValue("probably");
 
-			const { getAudioPath } = await import("../services/audioUtils");
+			const { getAudioPath } = await import("../src/services/audioUtils");
 
 			expect(getAudioPath("audio/voice.mp3")).toBe("audio/voice.opus");
 			expect(getAudioPath("audio/voice.opus")).toBe("audio/voice.opus");
@@ -143,7 +143,7 @@ describe("Audio Utils", () => {
 		it("should handle paths with dots in directory names", async () => {
 			canPlayType.mockReturnValue("probably");
 
-			const { getAudioPath } = await import("../services/audioUtils");
+			const { getAudioPath } = await import("../src/services/audioUtils");
 
 			expect(getAudioPath("audio.test/voice")).toBe("audio.test/voice.opus");
 		});

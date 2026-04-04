@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { PersonalityType, RoleType } from "../types";
+import { PersonalityType, RoleType } from "../src/types";
 import {
 	getCard,
 	getRightButton,

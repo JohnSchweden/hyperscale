@@ -6,7 +6,7 @@ import {
 	DEATH_IMAGES,
 	INCIDENT_IMAGES,
 	OUTCOME_IMAGES,
-} from "../../data/imageMap";
+} from "../../src/data/imageMap";
 
 const PUBLIC_DIR = path.join(process.cwd(), "public");
 const HAS_PUBLIC_IMAGES = existsSync(PUBLIC_DIR);

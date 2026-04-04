@@ -5,8 +5,8 @@ import {
 	ROLE_DESCRIPTIONS,
 	ROLE_ICONS,
 	ROLE_LABELS,
-} from "../data";
-import { RoleType } from "../types";
+} from "../src/data";
+import { RoleType } from "../src/types";
 
 describe("roles data", () => {
 	describe("getRoleDeck", () => {

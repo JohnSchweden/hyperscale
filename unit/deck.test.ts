@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
-import { shuffleDeck } from "../lib/deck";
-import { AppSource, type Card, PersonalityType } from "../types";
+import { shuffleDeck } from "../src/lib/deck";
+import { AppSource, type Card, PersonalityType } from "../src/types";
 
 /**
  * NOTE: Several tests are skipped due to Math.random() mocking issues.

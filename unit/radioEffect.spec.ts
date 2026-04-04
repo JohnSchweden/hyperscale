@@ -46,7 +46,9 @@ describe("Radio Effect System", () => {
 
 	describe("createRadioSession", () => {
 		it("should create a session with required properties", async () => {
-			const { createRadioSession } = await import("../services/radioEffect");
+			const { createRadioSession } = await import(
+				"../src/services/radioEffect"
+			);
 			const session = createRadioSession(mockAudioContext, {
 				delaySeconds: 0.5,
 			});
@@ -60,7 +62,9 @@ describe("Radio Effect System", () => {
 		});
 
 		it("should create voice filter chain (highpass + lowpass)", async () => {
-			const { createRadioSession } = await import("../services/radioEffect");
+			const { createRadioSession } = await import(
+				"../src/services/radioEffect"
+			);
 			createRadioSession(mockAudioContext, { delaySeconds: 0 });
 
 			// Should create filters: 2 for voice (highpass + lowpass) + 2 for noise = 4 total
@@ -68,7 +72,9 @@ describe("Radio Effect System", () => {
 		});
 
 		it("should create noise buffer", async () => {
-			const { createRadioSession } = await import("../services/radioEffect");
+			const { createRadioSession } = await import(
+				"../src/services/radioEffect"
+			);
 			createRadioSession(mockAudioContext, { delaySeconds: 0 });
 
 			// Should create buffer for noise
@@ -78,7 +84,9 @@ describe("Radio Effect System", () => {
 
 	describe("start()", () => {
 		it("should schedule intro tone and noise", async () => {
-			const { createRadioSession } = await import("../services/radioEffect");
+			const { createRadioSession } = await import(
+				"../src/services/radioEffect"
+			);
 			const session = createRadioSession(mockAudioContext, {
 				delaySeconds: 0.5,
 			});
@@ -96,7 +104,9 @@ describe("Radio Effect System", () => {
 
 	describe("scheduleChunk()", () => {
 		it("should return valid chunk start time", async () => {
-			const { createRadioSession } = await import("../services/radioEffect");
+			const { createRadioSession } = await import(
+				"../src/services/radioEffect"
+			);
 			const session = createRadioSession(mockAudioContext, { delaySeconds: 0 });
 
 			const chunkTime = session.scheduleChunk(1.0);
@@ -108,7 +118,9 @@ describe("Radio Effect System", () => {
 
 	describe("stop()", () => {
 		it("should not throw when stopping", async () => {
-			const { createRadioSession } = await import("../services/radioEffect");
+			const { createRadioSession } = await import(
+				"../src/services/radioEffect"
+			);
 			const session = createRadioSession(mockAudioContext, { delaySeconds: 0 });
 
 			expect(() => session.stop()).not.toThrow();
@@ -117,7 +129,9 @@ describe("Radio Effect System", () => {
 
 	describe("end()", () => {
 		it("should return a promise", async () => {
-			const { createRadioSession } = await import("../services/radioEffect");
+			const { createRadioSession } = await import(
+				"../src/services/radioEffect"
+			);
 			const session = createRadioSession(mockAudioContext, { delaySeconds: 0 });
 
 			const result = session.end();

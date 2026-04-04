@@ -1,7 +1,7 @@
 import type { Page } from "@playwright/test";
-import { ROLE_CARDS } from "../../data";
-import { ROLE_LABELS } from "../../data/roles";
-import { RoleType } from "../../types";
+import { ROLE_CARDS } from "../../src/data";
+import { ROLE_LABELS } from "../../src/data/roles";
+import { RoleType } from "../../src/types";
 import { SELECTORS } from "./selectors";
 
 /**

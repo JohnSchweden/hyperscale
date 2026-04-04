@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
-import { ROLE_CARDS } from "../data";
-import { PersonalityType, RoleType } from "../types";
+import { ROLE_CARDS } from "../src/data";
+import { PersonalityType, RoleType } from "../src/types";
 import {
 	getCard,
 	navigateToPlayingWithCardAtIndex,

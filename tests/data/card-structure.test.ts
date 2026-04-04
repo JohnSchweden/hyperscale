@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { ROLE_CARDS } from "../../data/cards";
-import { AppSource, PersonalityType, RoleType } from "../../types";
+import { ROLE_CARDS } from "../../src/data/cards";
+import { AppSource, PersonalityType, RoleType } from "../../src/types";
 
 describe("Card Structure", () => {
 	// Validate that ROLE_CARDS has entries for all 10 role types

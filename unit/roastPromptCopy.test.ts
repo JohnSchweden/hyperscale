@@ -8,7 +8,7 @@ const repoRoot = join(__dirname, "..");
 
 describe("roast prompt copy", () => {
 	it("geminiLive drops rigid 1–3 sentence cadence for varied rhythm", () => {
-		const path = join(repoRoot, "services/geminiLive.ts");
+		const path = join(repoRoot, "src/services/geminiLive.ts");
 		const src = readFileSync(path, "utf8");
 		expect(src).not.toContain("1-3 sentences");
 		expect(src.toLowerCase()).toMatch(/rhythm/);

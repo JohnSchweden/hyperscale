@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
-import { ROLE_CARDS } from "../data";
-import { formatBudget } from "../lib/formatting";
-import { RoleType } from "../types";
+import { ROLE_CARDS } from "../src/data";
+import { formatBudget } from "../src/lib/formatting";
+import { RoleType } from "../src/types";
 import {
 	getRightButton,
 	navigateToPlayingFast,

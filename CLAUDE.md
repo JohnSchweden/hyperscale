@@ -39,18 +39,18 @@ bun run test:unit:watch          # Vitest watch mode
 ## Architecture
 
 ```
-App.tsx                    # Root — mounts game, wires hooks to components
-index.tsx                  # Entry point
-types.ts                   # All shared types (GameState, Card, GameStage, etc.)
+src/App.tsx                 # Root — mounts game, wires hooks to components
+src/index.tsx               # Entry point
+src/types.ts                # All shared types (GameState, Card, GameStage, etc.)
 
-components/
+src/components/
   LayoutShell.tsx           # Responsive container wrapper
   game/                     # All game screen components
     IntroScreen, PersonalitySelect, RoleSelect, InitializingScreen
     GameScreen, CardStack, GameHUD, FeedbackOverlay
     BossFight, DebriefContainer (pages 1–3), RoastTerminal, Taskbar
 
-hooks/
+src/hooks/
   useGameState.ts           # Core useReducer state machine
   useSwipeGestures.ts       # Touch/mouse gesture handling
   useVoicePlayback.ts       # TTS playback state
@@ -59,24 +59,24 @@ hooks/
   useSpeechRecognition.ts   # Voice input
   useWebMCPTools.ts         # DEV-only: registers 10 WebMCP game control tools
 
-services/
+src/services/
   geminiService.ts          # Gemini 2.5 TTS API
   geminiLive.ts             # Live API integration
   pressureAudio.ts          # Ambient pressure audio
   roastService.ts           # AI roast generation
   voicePlayback.ts          # Audio playback utilities
 
-data/
+src/data/
   cards/                    # Role-specific card decks
   personalities.ts          # AI companion definitions
   roles.ts                  # Role definitions
   deathEndings.ts           # Failure ending content
   bossQuestions.ts          # Boss fight quiz data
 
-lib/
+src/lib/
   deck.ts                   # Deck resolution with branching logic
 
-utils/
+src/utils/
   haptic.ts                 # Haptic feedback utilities
 ```
 

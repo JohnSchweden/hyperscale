@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import { RoleSelect } from "../components/game/RoleSelect";
-import { RoleType } from "../types";
+import { RoleSelect } from "../src/components/game/RoleSelect";
+import { RoleType } from "../src/types";
 
 describe("RoleSelect", () => {
 	const defaultProps = {

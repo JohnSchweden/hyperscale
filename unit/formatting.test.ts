@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { formatBudget } from "../lib/formatting";
+import { formatBudget } from "../src/lib/formatting";
 
 describe("formatBudget", () => {
 	it("uses B with one decimal from 1B", () => {

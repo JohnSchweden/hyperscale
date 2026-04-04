@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { ROLE_CARDS } from "../data/cards";
-import { gameReducer, initialGameState } from "../hooks/useGameState";
-import { DeathType, GameStage, PersonalityType, RoleType } from "../types";
+import { ROLE_CARDS } from "../src/data/cards";
+import { gameReducer, initialGameState } from "../src/hooks/useGameState";
+import { DeathType, GameStage, PersonalityType, RoleType } from "../src/types";
 import { createMockCard } from "./testHelpers";
 
 describe("gameReducer", () => {
