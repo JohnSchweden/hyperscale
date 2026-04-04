@@ -272,14 +272,14 @@ export const DebriefPage3Verdict: React.FC<DebriefPage3VerdictProps> = ({
 						and adapts in response.
 						<br />
 						<br />
-						Message me on LinkedIn if you want to be first to test it.
+						DM me on LinkedIn if you want to be first to test it.
 					</p>
 					<a
 						href="https://www.linkedin.com/in/schwedeny/"
-						className="inline-flex items-center justify-center gap-2 px-6 py-3 md:px-8 md:py-4 text-base font-bold bg-cyan-600 hover:bg-cyan-500 text-white transition-colors duration-200"
+						className="inline-flex items-center justify-center gap-2 px-4 py-2 md:px-8 md:py-3 text-base font-bold bg-cyan-600 hover:bg-cyan-500 text-white transition-colors duration-200 min-h-[40px] md:min-h-[48px]"
 					>
 						<i className="fa-brands fa-linkedin text-lg"></i>
-						Message Yevgen Schweden
+						DM Yevgen Schweden
 					</a>
 				</div>
 

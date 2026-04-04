@@ -4,4 +4,4 @@ export const BTN_PRIMARY_CTA =
 
 // Debrief navigation button (used in DebriefPage1, DebriefPage2, DebriefPage3)
 export const BTN_DEBRIEF_NAV =
-	"px-6 py-3 md:px-12 md:py-4 text-base font-bold tracking-wide bg-white text-black hover:bg-cyan-400 hover:text-black transition-all duration-300 min-h-[40px] md:min-h-[48px]";
+	"px-4 py-2 md:px-8 md:py-3 text-base font-bold tracking-wide bg-white text-black hover:bg-cyan-400 hover:text-black transition-all duration-300 min-h-[40px] md:min-h-[48px]";
