@@ -48,7 +48,7 @@ test.describe("LinkedIn Buttons - Same Tab Verification", () => {
 		expect(rel).toBeNull();
 
 		// Verify the link text
-		await expect(linkedinCTALink).toContainText("Message Yevgen Schweden");
+		await expect(linkedinCTALink).toContainText("DM Yevgen Schweden");
 	});
 
 	test("Share to LinkedIn button opens in same tab (no target='_blank')", async ({
