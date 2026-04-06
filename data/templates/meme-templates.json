@@ -1,0 +1,376 @@
+{
+	"version": "2.0.0",
+	"description": "Meme template database - both static images AND animated GIFs from Imgflip",
+	"updated": "2026-04-05",
+
+	"deaths": {
+		"BANKRUPT": {
+			"static": {
+				"id": "sad-pablo-swing",
+				"name": "Sad Pablo alone on swing",
+				"url": "https://i.imgflip.com/4xl5d5.jpg"
+			},
+			"gif": {
+				"id": "pedro-pascal-crying",
+				"name": "Pedro Pascal Crying",
+				"url": "https://imgflip.com/memetemplate/345987437"
+			}
+		},
+		"REPLACED_BY_SCRIPT": {
+			"static": {
+				"id": "waiting-skeleton",
+				"name": "Waiting Skeleton",
+				"url": "https://i.imgflip.com/2fm6x.jpg"
+			},
+			"gif": {
+				"id": "talking-to-wall",
+				"name": "Talking to Wall",
+				"url": "https://imgflip.com/memetemplate/304768047"
+			}
+		},
+		"CONGRESS": {
+			"static": {
+				"id": "zuckerberg-congress",
+				"name": "Zuckerberg @ Congress",
+				"url": "https://i.imgflip.com/286jmv.jpg"
+			},
+			"gif": {
+				"id": "facepalm",
+				"name": "Facepalm",
+				"url": "https://imgflip.com/memetemplate/272169749"
+			}
+		},
+		"FLED_COUNTRY": {
+			"static": {
+				"id": "jack-sparrow-running",
+				"name": "Captain Jack Sparrow Running",
+				"url": "https://i.imgflip.com/sohpo.jpg"
+			},
+			"gif": {
+				"id": "jack-sparrow-running-gif",
+				"name": "Jack Sparrow Running",
+				"url": "https://imgflip.com/memetemplate/480994415"
+			}
+		},
+		"PRISON": {
+			"static": {
+				"id": "just-get-in-coffin",
+				"name": "Just get in the coffin (Dwight)",
+				"url": "https://i.imgflip.com/39ph5r.png"
+			},
+			"gif": {
+				"id": "coffin-dance",
+				"name": "Coffin Dance",
+				"url": "https://imgflip.com/memetemplate/237495615"
+			}
+		},
+		"AUDIT_FAILURE": {
+			"static": {
+				"id": "boardroom-meeting",
+				"name": "Boardroom Meeting Suggestion",
+				"url": "https://i.imgflip.com/m78d.jpg"
+			},
+			"gif": {
+				"id": "confused-monkey",
+				"name": "Confused Monkey",
+				"url": "https://imgflip.com/memetemplate/511357979"
+			}
+		},
+		"KIRK": {
+			"static": {
+				"id": "kirk-jailbreak-llm",
+				"name": "Kirk jailbreaks LLM",
+				"url": "https://i.imgflip.com/8ysh46.jpg",
+				"primary": true
+			},
+			"gif": {
+				"id": "tony-stark-discovers-new-element",
+				"name": "Tony Stark Discovers New Element",
+				"url": "https://imgflip.com/memetemplate/408644475",
+				"primary": true
+			}
+		}
+	},
+
+	"archetypes": {
+		"PRAGMATIST": {
+			"static": {
+				"id": "success-kid",
+				"name": "Success Kid",
+				"url": "https://i.imgflip.com/1bhk.jpg"
+			},
+			"gif": {
+				"id": "simba-gets-yeeted",
+				"name": "Simba Gets Yeeted",
+				"url": "https://imgflip.com/memetemplate/375025495"
+			}
+		},
+		"SHADOW_ARCHITECT": {
+			"static": {
+				"id": "grus-plan",
+				"name": "Gru's Plan",
+				"url": "https://i.imgflip.com/26jxvz.jpg"
+			},
+			"gif": {
+				"id": "confused-screaming",
+				"name": "Confused Screaming",
+				"url": "https://imgflip.com/memetemplate/288065571"
+			}
+		},
+		"DISRUPTOR": {
+			"static": {
+				"id": "disaster-girl",
+				"name": "Disaster Girl",
+				"url": "https://i.imgflip.com/23ls.jpg"
+			},
+			"gif": {
+				"id": "panda-cheese-destroy-computers",
+				"name": "Panda Cheese Destroy Computers",
+				"url": "https://imgflip.com/memetemplate/257537021"
+			}
+		},
+		"CONSERVATIVE": {
+			"static": {
+				"id": "change-my-mind",
+				"name": "Change My Mind",
+				"url": "https://i.imgflip.com/24y43o.jpg"
+			},
+			"gif": {
+				"id": "suspicious-squirrel",
+				"name": "Suspicious Squirrel",
+				"url": "https://imgflip.com/memetemplate/497867908"
+			}
+		},
+		"BALANCED": {
+			"static": {
+				"id": "theyre-same-picture",
+				"name": "They're The Same Picture",
+				"url": "https://i.imgflip.com/2za3u1.jpg"
+			},
+			"gif": {
+				"id": "wheres-hunter-travolta",
+				"name": "Wheres Hunter Travolta",
+				"url": "https://imgflip.com/memetemplate/274420964"
+			}
+		},
+		"CHAOS_AGENT": {
+			"static": {
+				"id": "this-is-fine",
+				"name": "This Is Fine",
+				"url": "https://i.imgflip.com/wxica.jpg"
+			},
+			"gif": {
+				"id": "tony-stark-explosion",
+				"name": "Tony Stark Explosion GIF",
+				"url": "https://imgflip.com/memetemplate/622431062"
+			}
+		},
+		"KIRK": {
+			"static": {
+				"id": "never-think-out-of-box",
+				"name": "Never think out of the Box",
+				"url": "https://i.imgflip.com/649w1o.png",
+				"primary": true
+			},
+			"gif": {
+				"id": "mr-bean-surprised",
+				"name": "Mr Bean Surprised",
+				"url": "https://imgflip.com/memetemplate/421260766",
+				"primary": true
+			}
+		}
+	},
+
+	"feedbackOutcomes": {
+		"shield-the-team": {
+			"id": "disaster-girl",
+			"name": "Disaster Girl",
+			"url": "https://imgflip.com/memetemplate/Disaster-Girl"
+		},
+		"give-names-to-compliance": {
+			"id": "3-spiderman-pointing",
+			"name": "3 Spiderman Pointing",
+			"url": "https://imgflip.com/memetemplate/212409295/3-Spiderman-Pointing"
+		},
+		"push-back-on-deadline": {
+			"id": "success-kid",
+			"name": "Success Kid",
+			"url": "https://imgflip.com/memegenerator/Success-Kid-Original"
+		},
+		"push-team-harder": {
+			"id": "burning-spongebob",
+			"name": "Burning Spongebob",
+			"url": "https://imgflip.com/memegenerator/40766443/Burning-Spongebob"
+		},
+		"side-with-engineering": {
+			"id": "futurama-fry",
+			"name": "Futurama Fry",
+			"url": "https://imgflip.com/memetemplate/Futurama-Fry"
+		},
+		"side-with-auditors": {
+			"id": "change-my-mind",
+			"name": "Change My Mind",
+			"url": "https://imgflip.com/memegenerator/130369516/Change-my-mind-Crowder"
+		},
+		"protect-the-team": {
+			"id": "jack-sparrow-being-chased",
+			"name": "Jack Sparrow Being Chased",
+			"url": "https://imgflip.com/memetemplate/Jack-Sparrow-Being-Chased"
+		},
+		"cooperate-with-investigation": {
+			"id": "woman-yelling-at-cat",
+			"name": "Woman Yelling At Cat",
+			"url": "https://imgflip.com/memetemplate/187112276/woman-yelling-at-cat"
+		},
+		"defend-delegation": {
+			"id": "man-walking-off-cliff",
+			"name": "Man Walking Off Cliff",
+			"url": "https://imgflip.com/memetemplate/258716155/man-walking-off-cliff"
+		},
+		"admit-oversight-failure": {
+			"id": "aliens-guy",
+			"name": "Aliens Guy",
+			"url": "https://imgflip.com/memegenerator/42353644/Aliens-Guy"
+		},
+		"tell-leadership-no": {
+			"id": "sparta-leonidas",
+			"name": "Sparta Leonidas",
+			"url": "https://imgflip.com/memetemplate/Sparta-Leonidas"
+		},
+		"promise-the-impossible": {
+			"id": "captain-picard-facepalm",
+			"name": "Captain Picard Facepalm",
+			"url": "https://imgflip.com/memetemplate/Captain-Picard-Facepalm"
+		},
+		"promote-best-performer": {
+			"id": "office-congratulations",
+			"name": "Office Congratulations",
+			"url": "https://imgflip.com/memetemplate/153695877/the-office-congratulations"
+		},
+		"promote-politically-connected": {
+			"id": "distracted-boyfriend",
+			"name": "Distracted Boyfriend",
+			"url": "https://imgflip.com/memetemplate/Distracted-Boyfriend"
+		},
+		"pull-for-patching": {
+			"id": "this-is-fine",
+			"name": "This Is Fine",
+			"url": "https://imgflip.com/memetemplate/This-Is-Fine"
+		},
+		"continue-development": {
+			"id": "scared-cat",
+			"name": "Scared Cat",
+			"url": "https://imgflip.com/memetemplate/Scared-Cat"
+		},
+		"force-security-fix": {
+			"id": "dr-evil-laser",
+			"name": "Dr Evil Laser",
+			"url": "https://imgflip.com/memetemplate/Dr-Evil-Laser"
+		},
+		"let-it-slide": {
+			"id": "third-world-skeptical-kid",
+			"name": "Third World Skeptical Kid",
+			"url": "https://imgflip.com/memetemplate/Third-World-Skeptical-Kid"
+		},
+		"defend-and-take-heat": {
+			"id": "waiting-skeleton",
+			"name": "Waiting Skeleton",
+			"url": "https://imgflip.com/memetemplate/12004715/Waiting-skeleton"
+		},
+		"blame-data-scientist": {
+			"id": "skeptical-baby",
+			"name": "Skeptical Baby",
+			"url": "https://imgflip.com/memetemplate/Skeptical-Baby"
+		},
+		"start-immediately": {
+			"id": "sweating-bullets",
+			"name": "Sweating Bullets",
+			"url": "https://imgflip.com/memetemplate/28416438/sweating-bullets"
+		},
+		"delay-until-next-quarter": {
+			"id": "wide-load",
+			"name": "Wide Load",
+			"url": "https://imgflip.com/memetemplate/77240178/Wide-Load"
+		},
+		"delay-and-comply": {
+			"id": "good-fellas-hilarious",
+			"name": "Good Fellas Hilarious",
+			"url": "https://imgflip.com/memetemplate/Good-Fellas-Hilarious"
+		},
+		"refuse-and-fight": {
+			"id": "red-pill-blue-pill",
+			"name": "Red Pill Blue Pill",
+			"url": "https://imgflip.com/memetemplate/84195720/Red-pill-blue-pill"
+		},
+		"allow-claude-use": {
+			"id": "i-too-like-to-live-dangerously",
+			"name": "I Too Like To Live Dangerously",
+			"url": "https://imgflip.com/memetemplate/I-Too-Like-To-Live-Dangerously"
+		},
+		"force-compliance": {
+			"id": "jack-nicholson-the-shining",
+			"name": "Jack Nicholson The Shining",
+			"url": "https://imgflip.com/memetemplate/Jack-Nicholson-The-Shining-Snow"
+		},
+		"testify-honestly": {
+			"id": "shut-up-and-take-my-money-fry",
+			"name": "Shut Up And Take My Money Fry",
+			"url": "https://imgflip.com/memetemplate/Shut-Up-And-Take-My-Money-Fry"
+		},
+		"minimize-risks-under-oath": {
+			"id": "you-were-the-chosen-one",
+			"name": "You Were The Chosen One",
+			"url": "https://imgflip.com/memetemplate/You-Were-The-Chosen-One-Star-Wars"
+		},
+		"address-issues-immediately": {
+			"id": "double-rainbow",
+			"name": "Double Rainbow",
+			"url": "https://imgflip.com/memegenerator/7350195/Double-Rainbow"
+		},
+		"encourage-silence": {
+			"id": "homer-backing-away",
+			"name": "Homer Backing Away",
+			"url": "https://imgflip.com/memegenerator/557865118/Homer-retreating-into-the-bush"
+		},
+		"volunteer-for-pilot": {
+			"id": "kevin-hart",
+			"name": "Kevin Hart",
+			"url": "https://imgflip.com/memetemplate/Kevin-Hart"
+		},
+		"fight-through-hr": {
+			"id": "roll-safe",
+			"name": "Roll Safe",
+			"url": "https://imgflip.com/memegenerator/Roll-Safe-Think-About-It"
+		},
+		"document-honestly": {
+			"id": "math-lady",
+			"name": "Math Lady",
+			"url": "https://imgflip.com/memegenerator/122181363/Math-Lady-Calculating-Lady"
+		},
+		"inflate-the-metrics": {
+			"id": "bad-luck-brian",
+			"name": "Bad Luck Brian",
+			"url": "https://imgflip.com/memegenerator/Bad-Luck-Brian"
+		},
+		"take-the-blame": {
+			"id": "hide-the-pain-harold",
+			"name": "Hide The Pain Harold",
+			"url": "https://imgflip.com/memegenerator/60992196/Hide-the-pain-harold-smile"
+		},
+		"name-the-data-scientist": {
+			"id": "is-this-a-pigeon",
+			"name": "Is This A Pigeon",
+			"url": "https://imgflip.com/memetemplate/Is-This-A-Pigeon"
+		},
+		"provide-full-documentation": {
+			"id": "one-does-not-simply",
+			"name": "One Does Not Simply",
+			"url": "https://imgflip.com/memetemplate/414208981/One-Does-Not-Simply-Boromir"
+		},
+		"claim-poor-record-keeping": {
+			"id": "deadpool-surprised",
+			"name": "Deadpool Surprised",
+			"url": "https://imgflip.com/memetemplate/Deadpool-Surprised"
+		}
+	}
+}
