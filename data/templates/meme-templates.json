@@ -6,9 +6,9 @@
 	"deaths": {
 		"BANKRUPT": {
 			"static": {
-				"id": "sad-pablo-swing",
-				"name": "Sad Pablo alone on swing",
-				"url": "https://i.imgflip.com/4xl5d5.jpg"
+				"id": "forever-alone",
+				"name": "Forever Alone",
+				"url": "https://i.imgflip.com/24yjn0.jpg"
 			},
 			"gif": {
 				"id": "pedro-pascal-crying",
@@ -169,7 +169,7 @@
 			"static": {
 				"id": "never-think-out-of-box",
 				"name": "Never think out of the Box",
-				"url": "https://i.imgflip.com/649w1o.png",
+				"url": "https://i.imgflip.com/66uvkj.png",
 				"primary": true
 			},
 			"gif": {
