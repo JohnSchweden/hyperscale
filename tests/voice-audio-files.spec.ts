@@ -16,12 +16,20 @@ const BGM_DIR = path.join(process.cwd(), "public/audio/music");
 
 const PERSONALITIES = ["roaster", "zenmaster", "lovebomber"] as const;
 
-// All personalities have these files (now in core/ subfolder)
-const COMMON_VOICE_FILES = [
-	"core/onboarding.opus",
+const CORE_EXCEPT_ONBOARDING = [
 	"core/victory.opus",
 	"core/failure.opus",
-];
+] as const;
+
+const ZEN_LOVE_ONBOARDING = ["core/onboarding.opus"] as const;
+
+const ROASTER_ONBOARDING_FILES = [
+	"core/onboarding_1.opus",
+	"core/onboarding_2.opus",
+	"core/onboarding_3.opus",
+	"core/onboarding_4.opus",
+	"core/onboarding_5.opus",
+] as const;
 
 // Only roaster has feedback files (per design decision) - now in feedback/ subfolder
 const ROASTER_FEEDBACK_FILES = [
@@ -42,9 +50,9 @@ test.describe("Voice Audio Files @smoke @area:audio", () => {
 		});
 	});
 
-	test.describe("Common voice files (all personalities)", () => {
+	test.describe("Core voice files (all personalities)", () => {
 		for (const personality of PERSONALITIES) {
-			for (const file of COMMON_VOICE_FILES) {
+			for (const file of CORE_EXCEPT_ONBOARDING) {
 				test(`${personality}/${file} exists`, () => {
 					const filePath = path.join(VOICES_DIR, personality, file);
 					expect(
@@ -53,6 +61,29 @@ test.describe("Voice Audio Files @smoke @area:audio", () => {
 					).toBe(true);
 				});
 			}
+		}
+	});
+
+	test.describe("Onboarding voice files", () => {
+		for (const personality of ["zenmaster", "lovebomber"] as const) {
+			for (const file of ZEN_LOVE_ONBOARDING) {
+				test(`${personality}/${file} exists`, () => {
+					const filePath = path.join(VOICES_DIR, personality, file);
+					expect(
+						fs.existsSync(filePath),
+						`Missing required file: ${personality}/${file}`,
+					).toBe(true);
+				});
+			}
+		}
+		for (const file of ROASTER_ONBOARDING_FILES) {
+			test(`roaster/${file} exists`, () => {
+				const filePath = path.join(VOICES_DIR, "roaster", file);
+				expect(
+					fs.existsSync(filePath),
+					`Missing required file: roaster/${file}`,
+				).toBe(true);
+			});
 		}
 	});
 

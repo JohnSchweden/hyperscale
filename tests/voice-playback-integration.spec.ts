@@ -33,12 +33,11 @@ test.describe("Voice Playback Integration @integration @area:audio", () => {
 				.locator('button:has-text("Software Engineer")')
 				.waitFor({ state: "visible", timeout: 5000 });
 
-			// Verify onboarding audio loaded for roaster
+			// Verify onboarding audio loaded for roaster (random variant 1–5)
 			const voiceLoad = consoleMessages.find(
 				(msg) =>
 					msg.includes("[Voice] Loading:") &&
-					(msg.includes("roaster/core/onboarding.opus") ||
-						msg.includes("roaster/core/onboarding.mp3")),
+					/roaster\/core\/onboarding_[1-5]\.(opus|mp3)/.test(msg),
 			);
 			expect(voiceLoad).toBeDefined();
 		});

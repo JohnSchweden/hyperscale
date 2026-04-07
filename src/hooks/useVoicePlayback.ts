@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { ROASTER_ONBOARDING_VARIANT_COUNT } from "../data/roasterOnboarding";
 import type { PresentationChoiceSlot } from "../lib/feedbackAudioChoice";
 import { loadVoice, playVoice, stopVoice } from "../services/voicePlayback";
 import {
@@ -30,9 +31,15 @@ function voiceKey(personality: PersonalityType): string {
 function stageTrigger(
 	stage: GameStage,
 	deathType: DeathType | null | undefined,
+	personality: PersonalityType | null | undefined,
 ): string | null {
 	switch (stage) {
 		case GameStage.ROLE_SELECT:
+			if (personality === PersonalityType.ROASTER) {
+				const n =
+					1 + Math.floor(Math.random() * ROASTER_ONBOARDING_VARIANT_COUNT);
+				return `onboarding_${n}`;
+			}
 			return "onboarding";
 		case GameStage.DEBRIEF_PAGE_1:
 			return deathType ? null : "victory";
@@ -185,7 +192,7 @@ export function useVoicePlayback({
 
 	useEffect(() => {
 		if (!personality) return;
-		const trigger = stageTrigger(stage, deathType);
+		const trigger = stageTrigger(stage, deathType, personality);
 		if (!trigger) return;
 		const key = voiceKey(personality);
 		runVoiceCue(key, trigger, trigger, false);

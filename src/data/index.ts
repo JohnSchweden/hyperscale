@@ -54,6 +54,10 @@ export { RealWorld as Incident } from "./incidents";
 export { PERSONALITIES } from "./personalities";
 export { PRESSURE_SCENARIOS } from "./pressureScenarios";
 export {
+	ROASTER_ONBOARDING_VARIANT_COUNT,
+	ROASTER_ONBOARDING_VOICE_VARIANTS,
+} from "./roasterOnboarding";
+export {
 	getRoleDeck,
 	ROLE_DECK_ALIASES,
 	ROLE_DESCRIPTIONS,

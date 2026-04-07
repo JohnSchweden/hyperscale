@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { PERSONALITIES } from "../src/data/personalities";
+import { ROASTER_ONBOARDING_VOICE_VARIANTS } from "../src/data/roasterOnboarding";
 import { PersonalityType } from "../src/types";
 
 describe("PERSONALITIES", () => {
@@ -45,6 +46,11 @@ describe("PERSONALITIES", () => {
 			expect(roaster.onboarding.length).toBeGreaterThan(0);
 			expect(roaster.victory.length).toBeGreaterThan(0);
 			expect(roaster.failure.length).toBeGreaterThan(0);
+		});
+
+		it("should align onboarding with voiced variant pool", () => {
+			expect(ROASTER_ONBOARDING_VOICE_VARIANTS).toHaveLength(5);
+			expect(roaster.onboarding).toBe(ROASTER_ONBOARDING_VOICE_VARIANTS[0]);
 		});
 	});
 

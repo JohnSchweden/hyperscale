@@ -133,9 +133,12 @@ function getSubfolder(filename: string): string {
 	if (filename.startsWith("archetype_")) return "archetype";
 	if (filename.startsWith("death_")) return "death";
 	if (filename.startsWith("feedback_")) return "feedback";
-	// Core: onboarding, victory, failure
+	// Core: onboarding, onboarding_N, victory, failure
+	const stem = filename.replace(".wav", "");
 	if (
-		["onboarding", "victory", "failure"].includes(filename.replace(".wav", ""))
+		stem === "onboarding" ||
+		/^onboarding_[1-9]\d*$/.test(stem) ||
+		["victory", "failure"].includes(stem)
 	)
 		return "core";
 	return "";

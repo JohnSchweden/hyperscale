@@ -1,4 +1,5 @@
 import { PersonalityType } from "../types";
+import { ROASTER_ONBOARDING_VOICE_VARIANTS } from "./roasterOnboarding";
 
 /**
  * Personality configurations for the AI assistant in the game.
@@ -24,8 +25,7 @@ export const PERSONALITIES = {
 		title: "The Roaster",
 		description: "British sarcasm, burned-out IT director, cynical.",
 		voice: "Kore",
-		onboarding:
-			"Oh, look. Another 'Visionary' hired to save the company. Try not to destroy us in the first 5 minutes, yeah?",
+		onboarding: ROASTER_ONBOARDING_VOICE_VARIANTS[0],
 		victory:
 			"I... don't hate it. Adequate performance. Here's a badge. Now leave.",
 		failure:
