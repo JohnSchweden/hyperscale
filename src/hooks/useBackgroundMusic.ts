@@ -24,8 +24,20 @@ const VOLUME = {
 } as const;
 
 const SESSION_FLUSH_MS = 2000;
-const VOICE_DUCK_MULT = 0.2;
+/** BGM level while voice is playing (desktop / wide viewport). */
+const VOICE_DUCK_MULT_DESKTOP = 0.2;
+/** Slightly stronger duck on narrow viewports so voice cuts through small speakers. */
+const VOICE_DUCK_MULT_MOBILE = 0.1;
+/** Align with Tailwind `md` (StarfieldBackground uses 768). */
+const VOICE_DUCK_MOBILE_MQ = "(max-width: 767px)";
 const VOICE_UNDUCK_RAMP_MS = 1200;
+
+function voiceDuckMultForViewport(): number {
+	if (typeof window === "undefined") return VOICE_DUCK_MULT_DESKTOP;
+	return window.matchMedia(VOICE_DUCK_MOBILE_MQ).matches
+		? VOICE_DUCK_MULT_MOBILE
+		: VOICE_DUCK_MULT_DESKTOP;
+}
 
 function safeParse<T>(
 	key: string,
@@ -114,11 +126,17 @@ function clearSessionProgress(): void {
 }
 
 function applyDuckedVolume(
-	el: HTMLAudioElement,
+	gain: GainNode | null,
 	userVolume: number,
 	voiceDucking: boolean,
+	duckMultWhenVoice: number,
 ): void {
-	el.volume = clamp(userVolume * (voiceDucking ? VOICE_DUCK_MULT : 1), 0, 1);
+	if (!gain) return;
+	gain.gain.value = clamp(
+		userVolume * (voiceDucking ? duckMultWhenVoice : 1),
+		0,
+		1,
+	);
 }
 
 const easeOutCubic = (t: number) => 1 - (1 - t) ** 3;
@@ -148,10 +166,13 @@ export function useBackgroundMusic() {
 	);
 
 	const audioRef = useRef<HTMLAudioElement | null>(null);
+	const gainRef = useRef<GainNode | null>(null);
+	const bgmCtxRef = useRef<AudioContext | null>(null);
 	const trackIndexRef = useRef(sessionResume.track);
 	const enabledRef = useRef(readStoredEnabled());
 	const userVolumeRef = useRef(readStoredVolume());
 	const voiceDuckingRef = useRef(false);
+	const voiceDuckMultRef = useRef(voiceDuckMultForViewport());
 	const volumeRampActiveRef = useRef(false);
 	const volumeRampRafRef = useRef(0);
 	const hadVoiceActivityRef = useRef(false);
@@ -164,45 +185,55 @@ export function useBackgroundMusic() {
 		volumeRampActiveRef.current = false;
 	}, []);
 
-	const syncVolumeUnlessRamping = useCallback((el: HTMLAudioElement) => {
+	const syncVolumeUnlessRamping = useCallback(() => {
 		if (volumeRampActiveRef.current) return;
-		applyDuckedVolume(el, userVolumeRef.current, voiceDuckingRef.current);
+		applyDuckedVolume(
+			gainRef.current,
+			userVolumeRef.current,
+			voiceDuckingRef.current,
+			voiceDuckMultRef.current,
+		);
 	}, []);
 
-	const startUnduckVolumeRamp = useCallback(
-		(el: HTMLAudioElement) => {
-			cancelVolumeRamp();
-			const endVol = clamp(userVolumeRef.current, 0, 1);
-			const startVol = Math.min(el.volume, endVol);
-			if (endVol - startVol < 0.001) {
-				el.volume = endVol;
+	const startUnduckVolumeRamp = useCallback(() => {
+		cancelVolumeRamp();
+		const gain = gainRef.current;
+		if (!gain) return;
+		const endVol = clamp(userVolumeRef.current, 0, 1);
+		const startVol = Math.min(gain.gain.value, endVol);
+		if (endVol - startVol < 0.001) {
+			gain.gain.value = endVol;
+			return;
+		}
+		volumeRampActiveRef.current = true;
+		const t0 = performance.now();
+		const capturedGain = gain;
+		const step = (now: number) => {
+			if (gainRef.current !== capturedGain || voiceDuckingRef.current) {
+				cancelVolumeRamp();
+				applyDuckedVolume(
+					gainRef.current,
+					userVolumeRef.current,
+					voiceDuckingRef.current,
+					voiceDuckMultRef.current,
+				);
 				return;
 			}
-			volumeRampActiveRef.current = true;
-			const t0 = performance.now();
-			const step = (now: number) => {
-				if (audioRef.current !== el || voiceDuckingRef.current) {
-					cancelVolumeRamp();
-					applyDuckedVolume(el, userVolumeRef.current, voiceDuckingRef.current);
-					return;
-				}
-				const u = Math.min(1, (now - t0) / VOICE_UNDUCK_RAMP_MS);
-				el.volume = clamp(
-					startVol + (endVol - startVol) * easeOutCubic(u),
-					0,
-					1,
-				);
-				if (u >= 1) {
-					volumeRampActiveRef.current = false;
-					volumeRampRafRef.current = 0;
-					return;
-				}
-				volumeRampRafRef.current = requestAnimationFrame(step);
-			};
+			const u = Math.min(1, (now - t0) / VOICE_UNDUCK_RAMP_MS);
+			capturedGain.gain.value = clamp(
+				startVol + (endVol - startVol) * easeOutCubic(u),
+				0,
+				1,
+			);
+			if (u >= 1) {
+				volumeRampActiveRef.current = false;
+				volumeRampRafRef.current = 0;
+				return;
+			}
 			volumeRampRafRef.current = requestAnimationFrame(step);
-		},
-		[cancelVolumeRamp],
-	);
+		};
+		volumeRampRafRef.current = requestAnimationFrame(step);
+	}, [cancelVolumeRamp]);
 
 	const [trackIndex, setTrackIndex] = useState(sessionResume.track);
 	const [userVolume, setUserVolumeState] = useState(readStoredVolume);
@@ -214,7 +245,7 @@ export function useBackgroundMusic() {
 			cancelVolumeRamp();
 			const el = audioRef.current;
 			if (!el || !primeBgmElementAtIndex(el, index)) return;
-			syncVolumeUnlessRamping(el);
+			syncVolumeUnlessRamping();
 		},
 		[cancelVolumeRamp, syncVolumeUnlessRamping],
 	);
@@ -228,13 +259,13 @@ export function useBackgroundMusic() {
 	const tryPlay = useCallback(() => {
 		const el = audioRef.current;
 		if (!el || !enabledRef.current) return;
-		syncVolumeUnlessRamping(el);
+		syncVolumeUnlessRamping();
 
 		const retryAfterReady = () => {
 			el.removeEventListener("canplaythrough", retryAfterReady);
 			el.removeEventListener("canplay", retryAfterReady);
 			if (audioRef.current !== el || !enabledRef.current) return;
-			syncVolumeUnlessRamping(el);
+			syncVolumeUnlessRamping();
 			void el
 				.play()
 				.catch((e2) => logAudioError("play retry after ready failed", e2));
@@ -264,27 +295,34 @@ export function useBackgroundMusic() {
 
 	useEffect(() => {
 		userVolumeRef.current = userVolume;
-		const el = audioRef.current;
-		if (!el) return;
 		cancelVolumeRamp();
-		applyDuckedVolume(el, userVolume, voiceDuckingRef.current);
+		applyDuckedVolume(
+			gainRef.current,
+			userVolume,
+			voiceDuckingRef.current,
+			voiceDuckMultRef.current,
+		);
 	}, [userVolume, cancelVolumeRamp]);
 
 	useEffect(() => {
 		voiceDuckingRef.current = voiceDucking;
-		const el = audioRef.current;
-		if (!el) return;
+		if (!gainRef.current) return;
 		if (voiceDucking) {
 			cancelVolumeRamp();
-			applyDuckedVolume(el, userVolumeRef.current, true);
+			applyDuckedVolume(
+				gainRef.current,
+				userVolumeRef.current,
+				true,
+				voiceDuckMultRef.current,
+			);
 			hadVoiceActivityRef.current = true;
 			return;
 		}
 		if (hadVoiceActivityRef.current) {
 			hadVoiceActivityRef.current = false;
-			startUnduckVolumeRamp(el);
+			startUnduckVolumeRamp();
 		} else {
-			syncVolumeUnlessRamping(el);
+			syncVolumeUnlessRamping();
 		}
 	}, [
 		voiceDucking,
@@ -295,6 +333,29 @@ export function useBackgroundMusic() {
 
 	useEffect(() => {
 		return subscribeVoiceActivity((active) => setVoiceDucking(active));
+	}, []);
+
+	// Stronger voice-duck on mobile-width viewports; re-apply when crossing breakpoint.
+	useEffect(() => {
+		if (typeof window === "undefined") return;
+		const mq = window.matchMedia(VOICE_DUCK_MOBILE_MQ);
+		const sync = () => {
+			voiceDuckMultRef.current = mq.matches
+				? VOICE_DUCK_MULT_MOBILE
+				: VOICE_DUCK_MULT_DESKTOP;
+			const gain = gainRef.current;
+			if (gain) {
+				applyDuckedVolume(
+					gain,
+					userVolumeRef.current,
+					voiceDuckingRef.current,
+					voiceDuckMultRef.current,
+				);
+			}
+		};
+		sync();
+		mq.addEventListener("change", sync);
+		return () => mq.removeEventListener("change", sync);
 	}, []);
 
 	useEffect(() => {
@@ -334,11 +395,22 @@ export function useBackgroundMusic() {
 		return () => el.removeEventListener("canplaythrough", kick);
 	}, [tryPlay]);
 
-	// Mobile autoplay: retry playback on first user gesture (iOS/Android block HTMLMediaElement.play() until gesture)
+	// Mobile autoplay: unmute and retry playback on first user gesture.
+	// Audio starts muted (see useLayoutEffect) so Android Chrome can autoplay silently.
+	// iOS always blocks autoplay even muted — first gesture unmutes and starts music.
 	useEffect(() => {
 		const unlock = () => {
 			const el = audioRef.current;
-			if (el && enabledRef.current && el.paused) {
+			if (!el || !enabledRef.current) return;
+			const ctx = bgmCtxRef.current;
+			if (ctx?.state === "suspended") {
+				void ctx.resume();
+			}
+			if (el.muted) {
+				el.muted = false;
+				syncVolumeUnlessRamping();
+			}
+			if (el.paused) {
 				tryPlay();
 			}
 		};
@@ -351,18 +423,49 @@ export function useBackgroundMusic() {
 			document.removeEventListener("touchstart", unlock, { capture: true });
 			document.removeEventListener("click", unlock, { capture: true });
 		};
-	}, [tryPlay]);
+	}, [tryPlay, syncVolumeUnlessRamping]);
 
 	useLayoutEffect(() => {
 		const el = new Audio();
 		el.preload = "auto";
+		el.muted = true;
 		el.setAttribute("playsinline", "");
 		el.setAttribute("webkit-playsinline", "");
 		audioRef.current = el;
 		trackIndexRef.current = sessionResume.track;
 		const url = BGM_TRACKS[sessionResume.track]?.url ?? "";
 		el.src = url;
-		applyDuckedVolume(el, userVolumeRef.current, voiceDuckingRef.current);
+
+		// Route through Web Audio API GainNode for volume control.
+		// iOS Safari ignores HTMLAudioElement.volume (read-only, always 1).
+		const ctx = new AudioContext();
+		const mediaSource = ctx.createMediaElementSource(el);
+		const gain = ctx.createGain();
+		mediaSource.connect(gain);
+		gain.connect(ctx.destination);
+		bgmCtxRef.current = ctx;
+		gainRef.current = gain;
+
+		applyDuckedVolume(
+			gain,
+			userVolumeRef.current,
+			voiceDuckingRef.current,
+			voiceDuckMultRef.current,
+		);
+
+		if (enabledRef.current) {
+			void el
+				.play()
+				.then(() => {
+					if (audioRef.current !== el) return;
+					el.muted = false;
+					if (ctx.state === "suspended") void ctx.resume();
+					syncVolumeUnlessRamping();
+				})
+				.catch(() => {
+					// Mobile autoplay blocked — first gesture will unmute and play
+				});
+		}
 
 		if (sessionResume.time > 0 && url) {
 			const onMeta = () => {
@@ -384,7 +487,7 @@ export function useBackgroundMusic() {
 			trackIndexRef.current = next;
 			setTrackIndex(next);
 			if (!primeBgmElementAtIndex(el, next)) return;
-			syncVolumeUnlessRamping(el);
+			syncVolumeUnlessRamping();
 			if (enabledRef.current) tryPlay();
 		};
 
@@ -396,6 +499,15 @@ export function useBackgroundMusic() {
 			el.removeAttribute("src");
 			el.load();
 			audioRef.current = null;
+			gainRef.current = null;
+			bgmCtxRef.current = null;
+			mediaSource.disconnect();
+			gain.disconnect();
+			try {
+				void ctx.close();
+			} catch {
+				/* already closed */
+			}
 		};
 	}, [
 		sessionResume.track,

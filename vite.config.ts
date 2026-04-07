@@ -31,6 +31,9 @@ const loadAllEnv = () => {
 };
 loadAllEnv();
 
+/** `VITE_USE_HTTP=1` — plain HTTP dev (iOS Simulator automation avoids self-signed cert interstitial). */
+const useHttpDev = process.env.VITE_USE_HTTP === "1";
+
 /**
  * Vite plugin to handle API routes during development.
  * Intercepts /api/* requests and executes the appropriate handler from api/ directory.
@@ -181,9 +184,14 @@ function apiRoutesPlugin(): Plugin {
 }
 
 export default defineConfig({
-	plugins: [tailwindcss(), basicSsl(), react(), apiRoutesPlugin()],
+	plugins: [
+		tailwindcss(),
+		...(useHttpDev ? [] : [basicSsl()]),
+		react(),
+		apiRoutesPlugin(),
+	],
 	server: {
-		port: 3000,
+		port: Number(process.env.VITE_DEV_PORT || 3000),
 		host: "0.0.0.0",
 	},
 	resolve: {

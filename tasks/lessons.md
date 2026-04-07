@@ -51,3 +51,10 @@ Patterns to prevent repeat mistakes. Update after corrections from the user.
 
 <!-- Captured 2026-04-05 via post-commit analysis -->
 - [RULE] When removing a card ID, audit ALL data generation and helper scripts that reference it (generate-*.ts, *-CARDS arrays) — Dead references in generation scripts create orphaned audio files and build bloat; card deletions require updates across multiple files, not just card data and tests.
+
+<!-- Captured 2026-04-05 via post-commit analysis -->
+- [RULE] When test helpers represent objects modified by upstream functions (like `shuffleDeck` swapping card sides), simulate the actual mutation in test setup, not just set a flag — Tests that only set `choiceSidesSwapped: true` without actually swapping `onLeft`/`onRight` hide bugs where the downstream code re-applies the transformation. Test state must match the actual state the code receives in production.
+
+<!-- Captured 2026-04-07 -->
+- [RULE] iOS Safari makes `HTMLAudioElement.volume` read-only (always returns 1). Never use `el.volume = x` for volume control — it silently no-ops on iOS. Instead, route audio through `AudioContext.createMediaElementSource()` → `GainNode` → `ctx.destination` and control volume via `gainNode.gain.value`. This is a permanent platform constraint, not a bug.
+- [RULE] When a bug appears on mobile, check platform API limitations before theorizing about race conditions or state bugs. Mobile Safari has many read-only properties and gesture requirements that differ from desktop Chrome.
