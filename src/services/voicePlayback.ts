@@ -1,4 +1,4 @@
-import { getAudioExtension, getAudioMimeType } from "./audioUtils";
+import { getAudioExtension } from "./audioUtils";
 import { createRadioSession } from "./radioEffect";
 
 /**
@@ -67,6 +67,14 @@ export function subscribeVoiceActivity(
 }
 
 /**
+ * Notify all voice-activity listeners from external audio paths (e.g. roast TTS)
+ * that don't go through loadVoice. Allows BGM ducking to apply to all voice audio.
+ */
+export function notifyVoiceActivity(active: boolean): void {
+	emitVoiceActivity(active);
+}
+
+/**
  * Internal function to notify all listeners of voice activity state changes
  * @param {boolean} active - New activity state
  */
@@ -81,12 +89,13 @@ function emitVoiceActivity(active: boolean) {
 }
 
 let audioContext: AudioContext | null = null;
-let currentAudio: HTMLAudioElement | null = null;
+// AudioBufferSourceNode — replaces HTMLAudioElement so we can schedule via the
+// AudioContext timeline without needing a gesture per-play (iOS blocks HTMLMediaElement.play()
+// when called from setTimeout, outside the original gesture window).
+let currentSource: AudioBufferSourceNode | null = null;
 let currentRadio: ReturnType<typeof createRadioSession> | null = null;
-let currentBlobUrl: string | null = null;
 
 const VOLUME = 0.4; // 40%
-const QUINDAR_INTRO_MS = 250;
 
 const ERROR_MESSAGES: Record<string, string> = {
 	roaster: "V.E.R.A. voice module malfunctioned",
@@ -110,6 +119,48 @@ function getOrCreateContext(): AudioContext {
 		audioContext = new Ctx();
 	}
 	return audioContext;
+}
+
+/**
+ * Decodes audio data with fallback for older iOS Safari that only supports
+ * the callback-based form of decodeAudioData (not the Promise-returning form).
+ */
+function decodeAudioDataCompat(
+	ctx: AudioContext,
+	buffer: ArrayBuffer,
+): Promise<AudioBuffer> {
+	return new Promise((resolve, reject) => {
+		ctx.decodeAudioData(buffer, resolve, reject);
+	});
+}
+
+/**
+ * Ensures the AudioContext is in "running" state, waiting up to 600ms after resume.
+ * iOS may keep the context suspended even after ctx.resume() resolves when called
+ * outside a direct user-gesture handler.
+ */
+async function ensureContextRunning(ctx: AudioContext): Promise<void> {
+	if (ctx.state === "running") return;
+	if (ctx.state === "suspended") {
+		try {
+			await ctx.resume();
+		} catch {
+			/* ignore — we'll check state below */
+		}
+	}
+	if ((ctx.state as AudioContextState) !== "running") {
+		await new Promise<void>((resolve) => {
+			const POLL_MS = 50;
+			const TIMEOUT_MS = 600;
+			const start = Date.now();
+			const poll = setInterval(() => {
+				if (ctx.state === "running" || Date.now() - start >= TIMEOUT_MS) {
+					clearInterval(poll);
+					resolve();
+				}
+			}, POLL_MS);
+		});
+	}
 }
 
 /**
@@ -144,20 +195,15 @@ function getSubfolder(triggerName: string): string {
 }
 
 /**
- * Loads and prepares a voice audio file for playback with radio effects
- * Fetches audio from server, creates radio session, and sets up audio routing
- * Handles browser codec detection and AudioContext management
+ * Loads and plays a voice audio file with radio effects.
+ * Uses AudioBufferSourceNode (decoded via decodeAudioData) instead of HTMLAudioElement,
+ * so playback is scheduled through the AudioContext timeline — no per-play gesture needed
+ * on iOS once the context is running (primed by resumeVoiceContext on touchstart).
  *
  * @async
  * @param {string} personality - Personality name (e.g., "roaster", "zenmaster", "lovebomber")
  * @param {string} trigger - Audio trigger name (e.g., "onboarding", "victory", "archetype_weak")
  * @throws {Error} If audio file not found, network fails, or audio context issues occur
- *
- * @example
- * ```typescript
- * await loadVoice("roaster", "onboarding");
- * await playVoice(); // Plays with radio effect
- * ```
  */
 export async function loadVoice(
 	personality: string,
@@ -185,13 +231,14 @@ export async function loadVoice(
 		const arrayBuffer = await response.arrayBuffer();
 		console.log("[Voice] Buffer size:", arrayBuffer.byteLength);
 
-		if (currentBlobUrl) {
-			URL.revokeObjectURL(currentBlobUrl);
-			currentBlobUrl = null;
-		}
-		if (currentAudio) {
-			currentAudio.pause();
-			currentAudio = null;
+		// Stop any previous playback
+		if (currentSource) {
+			try {
+				currentSource.stop();
+			} catch {
+				/* already stopped */
+			}
+			currentSource = null;
 			emitVoiceActivity(false);
 		}
 		if (currentRadio) {
@@ -199,54 +246,68 @@ export async function loadVoice(
 			currentRadio = null;
 		}
 
-		const audioData = new Uint8Array(arrayBuffer);
-		const audioBlob = new Blob([audioData], { type: getAudioMimeType() });
-		const audioUrl = URL.createObjectURL(audioBlob);
-		currentBlobUrl = audioUrl;
-
 		const ctx = getOrCreateContext();
-		if (ctx.state === "suspended") {
-			await ctx.resume();
-		}
+		await ensureContextRunning(ctx);
 
-		const radio = createRadioSession(ctx, { delaySeconds: 0 });
-		radio.start();
-		currentRadio = radio;
+		try {
+			const audioBuffer = await decodeAudioDataCompat(ctx, arrayBuffer);
 
-		const audio = new Audio(audioUrl);
-		audio.volume = VOLUME;
-		currentAudio = audio;
+			const radio = createRadioSession(ctx, { delaySeconds: 0 });
+			const voiceStartTime = radio.start();
+			currentRadio = radio;
 
-		const mediaSource = ctx.createMediaElementSource(audio);
-		mediaSource.connect(radio.voiceInput);
+			const source = ctx.createBufferSource();
+			source.buffer = audioBuffer;
 
-		audio.oncanplaythrough = () => {
-			console.log("[Voice] Audio can play through");
-		};
-		audio.onerror = (e) => {
-			console.error("[Voice] Audio error:", e);
-		};
-		audio.onended = () => {
-			currentRadio?.end();
+			const gainNode = ctx.createGain();
+			gainNode.gain.value = VOLUME;
+			source.connect(gainNode);
+			gainNode.connect(radio.voiceInput);
+
+			source.start(voiceStartTime);
+			currentSource = source;
+
+			emitVoiceActivity(true);
+
+			// Capture local refs so onended/fallback only clean up THIS session.
+			// If a new loadVoice call preempts this one, currentSource will no longer
+			// match capturedSource, and stale cleanup is safely skipped.
+			const capturedSource = source;
+			const capturedRadio = radio;
+
+			// iOS sometimes never fires onended — duration-based fallback.
+			// Voice starts after QUINDAR_DURATION_S (0.25s) intro, so add 0.25s +
+			// 500ms grace to ensure the fallback fires AFTER actual audio ends.
+			const fallbackMs = (audioBuffer.duration + 0.75) * 1000;
+			let endedFired = false;
+
+			const doCleanup = () => {
+				void capturedRadio.end();
+				if (currentRadio === capturedRadio) currentRadio = null;
+				if (currentSource === capturedSource) currentSource = null;
+				emitVoiceActivity(false);
+			};
+
+			const endedTimeout = setTimeout(() => {
+				if (endedFired || currentSource !== capturedSource) return;
+				endedFired = true;
+				doCleanup();
+			}, fallbackMs);
+
+			source.onended = () => {
+				if (endedFired || currentSource !== capturedSource) return;
+				endedFired = true;
+				clearTimeout(endedTimeout);
+				doCleanup();
+			};
+
+			return;
+		} catch (decodeError) {
+			currentRadio?.stop();
 			currentRadio = null;
 			emitVoiceActivity(false);
-		};
-
-		setTimeout(() => {
-			audio
-				.play()
-				.then(() => {
-					console.log("[Voice] Play started at volume:", VOLUME);
-					emitVoiceActivity(true);
-				})
-				.catch(() => {
-					currentRadio?.stop();
-					currentRadio = null;
-					emitVoiceActivity(false);
-				});
-		}, QUINDAR_INTRO_MS);
-
-		return;
+			throw decodeError;
+		}
 	} catch (error) {
 		console.error("[Voice Error]", error);
 		throw new Error(
@@ -257,33 +318,11 @@ export async function loadVoice(
 }
 
 /**
- * Starts playback of the currently loaded voice audio
- * Resumes AudioContext if suspended and emits voice activity events
- * Safe to call multiple times - handles already-playing state gracefully
- *
- * @async
- * @throws {Error} If no audio is loaded or playback fails
- *
- * @example
- * ```typescript
- * await loadVoice("roaster", "victory");
- * await playVoice(); // Starts playback with radio effects
- * ```
+ * No-op kept for API compatibility — playback is fully scheduled inside loadVoice.
  */
 export async function playVoice(): Promise<void> {
-	if (!currentAudio) {
-		console.log("[Voice] No source to play");
-		return;
-	}
-
-	try {
-		await currentAudio.play();
-		console.log("[Voice] Play resumed");
-		emitVoiceActivity(true);
-	} catch (e) {
-		console.error("[Voice] Play error:", e);
-		emitVoiceActivity(false);
-	}
+	// Playback is scheduled during loadVoice via AudioBufferSourceNode.start().
+	// This function is intentionally empty; callers in runVoiceCue still call it.
 }
 
 /**
@@ -301,35 +340,23 @@ export function stopVoice(): void {
 		currentRadio.stop();
 		currentRadio = null;
 	}
-	if (currentAudio) {
+	if (currentSource) {
 		try {
-			currentAudio.pause();
-			currentAudio.currentTime = 0;
-		} catch (e) {
-			console.error("Error stopping voice:", e);
+			currentSource.stop();
+		} catch {
+			/* already stopped */
 		}
-		currentAudio = null;
-	}
-	if (currentBlobUrl) {
-		URL.revokeObjectURL(currentBlobUrl);
-		currentBlobUrl = null;
+		currentSource = null;
 	}
 	emitVoiceActivity(false);
 }
 
 /**
  * Checks if voice audio is currently playing
- * Returns false if paused, stopped, or no audio loaded
+ * Returns false if stopped or no audio loaded
  *
  * @returns {boolean} True if voice is actively playing, false otherwise
- *
- * @example
- * ```typescript
- * if (isPlaying()) {
- *   console.log("Voice is currently speaking");
- * }
- * ```
  */
 export function isPlaying(): boolean {
-	return currentAudio !== null && !currentAudio.paused;
+	return currentSource !== null;
 }
