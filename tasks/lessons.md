@@ -58,3 +58,6 @@ Patterns to prevent repeat mistakes. Update after corrections from the user.
 <!-- Captured 2026-04-07 -->
 - [RULE] iOS Safari makes `HTMLAudioElement.volume` read-only (always returns 1). Never use `el.volume = x` for volume control — it silently no-ops on iOS. Instead, route audio through `AudioContext.createMediaElementSource()` → `GainNode` → `ctx.destination` and control volume via `gainNode.gain.value`. This is a permanent platform constraint, not a bug.
 - [RULE] When a bug appears on mobile, check platform API limitations before theorizing about race conditions or state bugs. Mobile Safari has many read-only properties and gesture requirements that differ from desktop Chrome.
+
+<!-- Captured 2026-04-07 via post-commit analysis -->
+- [RULE] Use viewport media queries (aligned with CSS framework breakpoints) to adjust audio parameters for different form factors — Mobile speakers are smaller and need stronger ducking (lower multiplier) to cut through ambient noise; desktop doesn't. Use `window.matchMedia("(max-width: 767px)")` keyed off the same breakpoint as CSS (e.g., Tailwind `md` at 768px), and document why each viewport needs its setting.
