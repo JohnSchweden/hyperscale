@@ -103,19 +103,31 @@ const RoastTerminalInner = memo(function RoastTerminalInner({
 						aria-label="Describe your use case / workflow for governance review"
 						className="flex-1 min-h-[3rem] lg:min-h-[6rem] bg-black border border-green-900/30 rounded p-3 text-sm mono text-green-400 focus:outline-none placeholder:text-green-500/60 resize-none"
 					/>
-					<button
-						type="button"
-						onClick={handleMicrophoneClick}
-						disabled={isLoading}
-						title={isListening ? "Stop recording" : "Start voice input"}
-						aria-label={isListening ? "Stop recording" : "Start voice input"}
-						className={`shrink-0 w-11 h-11 lg:w-12 lg:h-12 flex items-center justify-center border rounded focus:outline-none focus:ring-2 focus:ring-green-500/50 disabled:opacity-50 disabled:pointer-events-none [transition:background-color_150ms,border-color_150ms,color_150ms] ${isListening ? "bg-red-900/30 border-red-500/50 text-red-400 animate-pulse" : "bg-green-900/20 border-green-500/40 text-green-400 hover:bg-green-500 hover:text-black"}`}
-					>
-						<i
-							className={`fa-solid text-lg ${isListening ? "fa-stop" : "fa-microphone"}`}
-							aria-hidden
-						/>
-					</button>
+					{isListening ? (
+						<button
+							key="stop-btn"
+							type="button"
+							onClick={handleMicrophoneClick}
+							disabled={isLoading}
+							title="Stop recording"
+							aria-label="Stop recording"
+							className="shrink-0 w-11 h-11 lg:w-12 lg:h-12 flex items-center justify-center bg-red-900/30 border border-red-500/50 text-red-400 rounded focus:outline-none focus:ring-2 focus:ring-red-500/50 disabled:opacity-50 disabled:pointer-events-none"
+						>
+							<i className="fa-solid fa-stop text-lg" aria-hidden />
+						</button>
+					) : (
+						<button
+							key="mic-btn"
+							type="button"
+							onClick={handleMicrophoneClick}
+							disabled={isLoading}
+							title="Start voice input"
+							aria-label="Start voice input"
+							className="shrink-0 w-11 h-11 lg:w-12 lg:h-12 flex items-center justify-center bg-green-900/20 border border-green-500/40 text-green-400 hover:bg-green-500 hover:text-black rounded focus:outline-none focus:ring-2 focus:ring-green-500/50 disabled:opacity-50 disabled:pointer-events-none"
+						>
+							<i className="fa-solid fa-microphone text-lg" aria-hidden />
+						</button>
+					)}
 					<button
 						type="button"
 						onClick={handleSubmit}
