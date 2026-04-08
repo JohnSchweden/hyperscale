@@ -136,6 +136,19 @@ function convertWavToMp3(wavPath: string): void {
 	}
 }
 
+function convertWavToOpus(wavPath: string): void {
+	const opusPath = wavPath.replace(/\.wav$/, ".opus");
+	const cmd = `ffmpeg -y -i "${wavPath}" -codec:a libopus -b:a 96k "${opusPath}" 2>/dev/null`;
+	try {
+		execSync(cmd, { stdio: "pipe" });
+		// Remove wav file after conversion
+		fs.unlinkSync(wavPath);
+		console.log(`  Converted to Opus: ${path.basename(opusPath)}`);
+	} catch (error) {
+		console.error(`  FFmpeg error: ${error}`);
+	}
+}
+
 async function generateVoice(text: string): Promise<Buffer> {
 	const response = await ai.models.generateContent({
 		model: "gemini-2.5-flash-preview-tts",
@@ -185,14 +198,18 @@ async function main() {
 				const cleanedText = stripDiacritics(item.roaster);
 				const pcm = await generateVoice(cleanedText);
 				const wav = createWavFile(pcm);
-				const wavPath = path.join(
-					kirkDir,
-					item.filename.replace(".mp3", ".wav"),
-				);
-				fs.writeFileSync(wavPath, wav);
 
-				// Convert to MP3
-				convertWavToMp3(wavPath);
+				// Generate MP3
+				const mp3Path = path.join(kirkDir, item.filename);
+				const wavPathMP3 = mp3Path.replace(".mp3", ".wav");
+				fs.writeFileSync(wavPathMP3, wav);
+				convertWavToMp3(wavPathMP3);
+
+				// Generate Opus
+				const opusPath = mp3Path.replace(".mp3", ".opus");
+				const wavPathOpus = opusPath.replace(".opus", ".wav");
+				fs.writeFileSync(wavPathOpus, wav);
+				convertWavToOpus(wavPathOpus);
 
 				generated++;
 			} catch (error) {

@@ -703,6 +703,16 @@ Components using shared constants (PersonalitySelect, RoleSelect, DebriefPage co
 Plans:
 - [x] 22-01-PLAN.md — Feedback folder reorganization + Kirk script flag
 
+### Phase 23: Fix Kirk feedback audio not playing in HoS role
+
+**Goal:** [To be planned]
+**Requirements**: TBD
+**Depends on:** Phase 22
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 23 to break down)
+
 ---
 
 *Roadmap updated: 2026-03-28 — Phases 13, 16, 18 updated with all gap closure plans and extra phases*
