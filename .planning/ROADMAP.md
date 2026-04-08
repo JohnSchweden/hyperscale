@@ -633,13 +633,14 @@ Plans:
 
 **Goal:** Generate shareable meme templates from gameplay outcomes (archetypes, death types, high-impact moments) for viral social sharing
 **Depends on:** Phase 17
-**Plans:** 3 plans (+ 1 deferred)
+**Plans:** 4 plans (+ 1 gap closure)
 
 Plans:
 - [x] 18-01-PLAN.md — Meme template data model and image generation ✓ (COMPLETED 2026-04-06)
 - [x] 18-02-PLAN.md — Simple download/caching service for Imgflip templates ✓ (COMPLETED 2026-04-06)
 - [ ] 18-03-PLAN.md — CLI script to download all memes at once
 - [ ] ~~18-04-PLAN.md~~ — Overlay service for adding punchlines (DEFERRED)
+- [ ] 18-05-PLAN.md — Gap closure: Kirk meme mappings + overlay implementation
 
 ### Phase 19: refactor the design
 
