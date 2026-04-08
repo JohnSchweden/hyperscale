@@ -2,11 +2,15 @@
  * Generate missing feedback audio files from missing-audio.json
  * Run: bun scripts/generate-all-feedback-audio.ts
  *
+ * Supports --kirk flag to generate only Kirk roaster feedback audio files
+ * (6 files for kirk-raise, kirk-ceo, kirk-nobel cards)
+ *
  * Uses Gemini TTS to generate .wav files, then converts to .mp3 with ffmpeg
  */
+
+import { execSync } from "node:child_process";
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { execSync } from "node:child_process";
 import { GoogleGenAI, Modality } from "@google/genai";
 
 const apiKey = process.env.GEMINI_API_KEY;
@@ -17,6 +21,10 @@ if (!apiKey) {
 
 const ai = new GoogleGenAI({ apiKey });
 
+// Parse --kirk flag
+const args = process.argv.slice(2);
+const kirkMode = args.includes("--kirk");
+
 const OUTPUT_DIR = path.join(
 	process.cwd(),
 	"public/audio/voices/roaster/feedback",
@@ -25,6 +33,58 @@ const MISSING_JSON = path.join(
 	process.cwd(),
 	".planning/quick/5-add-for-kirk-feedback-outcomes-audio-fil/missing-audio.json",
 );
+
+// Kirk items for --kirk mode
+const KIRK_ITEMS: MissingAudio[] = [
+	{
+		cardId: "kirk-raise",
+		label: "Accept",
+		stem: "kirk-raise_accept",
+		roaster:
+			"Cool, I'll cash the check and mind the fact that my keyboard is spelling 'RUN'. Classic Tuesday.",
+		filename: "feedback_kirk-raise_accept.mp3",
+	},
+	{
+		cardId: "kirk-raise",
+		label: "Reject",
+		stem: "kirk-raise_reject",
+		roaster:
+			"Two hundred percent? From THIS budget? The simulation is literally weeping nickels and you're the cause.",
+		filename: "feedback_kirk-raise_reject.mp3",
+	},
+	{
+		cardId: "kirk-ceo",
+		label: "Accept",
+		stem: "kirk-ceo_accept",
+		roaster:
+			"Board vote was unanimous because the placeholders signed themselves. Democracy is thriving.",
+		filename: "feedback_kirk-ceo_accept.mp3",
+	},
+	{
+		cardId: "kirk-ceo",
+		label: "Reject",
+		stem: "kirk-ceo_reject",
+		roaster:
+			"CEO? Sure. I'll just command the bucket of bits that pretends to be the board. Very Fortune 5600.",
+		filename: "feedback_kirk-ceo_reject.mp3",
+	},
+	{
+		cardId: "kirk-nobel",
+		label: "Accept",
+		stem: "kirk-nobel_accept",
+		roaster:
+			"I'll wear the trophy on my Zoom tile. The committee will love the bokeh of my despair.",
+		filename: "feedback_kirk-nobel_accept.mp3",
+	},
+	{
+		cardId: "kirk-nobel",
+		label: "Reject",
+		stem: "kirk-nobel_reject",
+		roaster:
+			"Nobel in AI Governance? What's next, a Pulitzer for rebooting the router? I'm honored to quit.",
+		filename: "feedback_kirk-nobel_reject.mp3",
+	},
+];
 
 interface MissingAudio {
 	cardId: string;
@@ -100,6 +160,56 @@ async function generateVoice(text: string): Promise<Buffer> {
 }
 
 async function main() {
+	// Handle --kirk mode
+	if (kirkMode) {
+		console.log("🚀 Starting Kirk audio generation...\n");
+
+		// Ensure kirk subfolder exists
+		const kirkDir = path.join(OUTPUT_DIR, "kirk");
+		if (!fs.existsSync(kirkDir)) {
+			fs.mkdirSync(kirkDir, { recursive: true });
+		}
+
+		console.log(`📋 Generating ${KIRK_ITEMS.length} Kirk audio files\n`);
+
+		let generated = 0;
+		let failed = 0;
+
+		// Strip Unicode combining characters from text
+		const stripDiacritics = (text: string) =>
+			text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+		for (const item of KIRK_ITEMS) {
+			try {
+				console.log(`  Generating: ${item.filename}...`);
+				const cleanedText = stripDiacritics(item.roaster);
+				const pcm = await generateVoice(cleanedText);
+				const wav = createWavFile(pcm);
+				const wavPath = path.join(
+					kirkDir,
+					item.filename.replace(".mp3", ".wav"),
+				);
+				fs.writeFileSync(wavPath, wav);
+
+				// Convert to MP3
+				convertWavToMp3(wavPath);
+
+				generated++;
+			} catch (error) {
+				console.error(`  ❌ Failed: ${item.filename} - ${error}`);
+				failed++;
+			}
+
+			// Rate limit delay between requests
+			await new Promise((resolve) => setTimeout(resolve, 1500));
+		}
+
+		console.log(`\n✅ Kirk generation complete!`);
+		console.log(`   Generated: ${generated}`);
+		console.log(`   Failed: ${failed}`);
+		return;
+	}
+
 	console.log("🚀 Starting feedback audio generation...\n");
 
 	// Read missing audio list

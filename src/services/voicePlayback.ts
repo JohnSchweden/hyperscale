@@ -211,7 +211,27 @@ export function resumeVoiceContext(): void {
 function getSubfolder(triggerName: string): string {
 	if (triggerName.startsWith("archetype_")) return "archetype";
 	if (triggerName.startsWith("death_")) return "death";
-	if (triggerName.startsWith("feedback_")) return "feedback";
+	if (triggerName.startsWith("feedback_")) {
+		if (
+			triggerName.startsWith("feedback_hos_") ||
+			triggerName.startsWith("feedback_explainability_hos_") ||
+			triggerName.startsWith("feedback_shadow_ai_hos_") ||
+			triggerName.startsWith("feedback_synthetic_data_hos_")
+		)
+			return "feedback/hos";
+		if (triggerName.startsWith("feedback_ae_")) return "feedback/ae";
+		if (triggerName.startsWith("feedback_cso_")) return "feedback/cso";
+		if (triggerName.startsWith("feedback_se_")) return "feedback/se";
+		if (triggerName.startsWith("feedback_tac_")) return "feedback/tac";
+		if (triggerName.startsWith("feedback_vc_")) return "feedback/vc";
+		if (triggerName.startsWith("feedback_ve_")) return "feedback/ve";
+		if (triggerName.startsWith("feedback_ds_")) return "feedback/ds";
+		if (triggerName.startsWith("feedback_sm_")) return "feedback/sm";
+		if (triggerName.startsWith("feedback_consultant_"))
+			return "feedback/consultant";
+		if (triggerName.startsWith("feedback_kirk")) return "feedback/kirk";
+		return "feedback"; // generic: debug, ignore, install, paste
+	}
 	if (
 		triggerName === "onboarding" ||
 		/^onboarding_[1-9]\d*$/.test(triggerName) ||

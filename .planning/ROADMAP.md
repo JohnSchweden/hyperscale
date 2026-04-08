@@ -695,10 +695,10 @@ Components using shared constants (PersonalitySelect, RoleSelect, DebriefPage co
 
 ### Phase 22: Feedback Folder Role Subfolders + Kirk Script Flag
 
-**Goal:** [To be planned]
+**Goal:** Reorganize flat feedback folder into role-based subfolders, update path resolution code, add Kirk card support, add --kirk flag to generation script
 **Requirements**: TBD
 **Depends on:** Phase 21
-**Plans:** 1/1 plans
+**Plans:** 0/1 plans complete
 
 Plans:
 - [x] 22-01-PLAN.md — Feedback folder reorganization + Kirk script flag

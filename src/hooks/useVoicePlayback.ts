@@ -113,6 +113,10 @@ const CRITICAL_HOS_CARDS = new Set([
 	"hos_whistleblower_pressure",
 	"hos_ai_management_elimination",
 	"hos_process_automation_takeover",
+	// Kirk corrupted cards (Head of Something path only)
+	"kirk-raise",
+	"kirk-ceo",
+	"kirk-nobel",
 ]);
 
 function feedbackVoiceTrigger(

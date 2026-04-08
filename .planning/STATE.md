@@ -5,12 +5,13 @@ milestone_name: Kobayashi Maru — AI Governance Simulator
 current_phase: 19-refactor-the-design
 current_plan: 13 (complete — Phase 19 complete)
 status: completed
-last_updated: "2026-04-06T15:26:05.846Z"
+last_updated: "2026-04-08T21:12:16.157Z"
+last_activity: "2026-04-08 - Completed quick task 5: add for kirk feedback outcomes audio files with the outcome text for the roaster mode"
 progress:
-  total_phases: 24
+  total_phases: 26
   completed_phases: 15
-  total_plans: 124
-  completed_plans: 109
+  total_plans: 127
+  completed_plans: 110
 ---
 
 # Session State
@@ -128,6 +129,7 @@ See: .planning/PROJECT.md
 - Phase 19 added: refactor the design (6 plans — 5 core + 1 gap closure)
 - Phase 20 added: Short Video Clips for Key Moments (for TikTok/Reels/YouTube Shorts)
 - Phase 21 added: refactor-the-glassmorphism-design
+- Phase 22 added: Feedback Folder Role Subfolders + Kirk Script Flag
 
 ## Decisions
 
