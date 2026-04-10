@@ -14,17 +14,9 @@ describe("LinkedIn Share Utility", () => {
 				"Pragmatist",
 				88,
 			);
-			expect(result).toContain(
-				"I just faced the AI Kobayashi Maru as a Software Engineer.",
-			);
-			expect(result).toContain("My Resilience Score: 88% (Pragmatist).");
-			expect(result).toContain("Can you beat my score?");
-			expect(result).toContain(
-				"Try the No-Win Simulation and swipe your way through the AI Singularity.",
-			);
-			expect(result).toContain(
-				"It's not about passing; it's about discovering who you are when the system collapses.",
-			);
+			expect(result).toContain("I just finished K-Maru as a Software Engineer");
+			expect(result).toContain("Kobayashi energy, corporate liability");
+			expect(result).toContain("Resilience: 88% (Pragmatist). Beat my score?");
 			expect(result).toContain(
 				"[NOTICE: Made for people who hate f*cking boring training]",
 			);
@@ -57,6 +49,7 @@ describe("LinkedIn Share Utility", () => {
 			for (const { role, expected } of testCases) {
 				const result = formatShareText(role, "Pragmatist", 75);
 				expect(result).toContain(expected);
+				expect(result).toContain("K-Maru");
 			}
 		});
 
@@ -65,10 +58,14 @@ describe("LinkedIn Share Utility", () => {
 			const longArchetype = "Shadow Architect";
 			const result = formatShareText(longRole, longArchetype, 100);
 			expect(result).toContain(
-				"I just faced the AI Kobayashi Maru as a Chief Something Officer.",
+				"I just finished K-Maru as a Chief Something Officer",
 			);
-			expect(result).toContain("My Resilience Score: 100% (Shadow Architect).");
-			expect(result).toContain("Try the No-Win Simulation");
+			expect(result).toContain(
+				"Resilience: 100% (Shadow Architect). Beat my score?",
+			);
+			expect(result).toContain(
+				"[NOTICE: Made for people who hate f*cking boring training]",
+			);
 			expect(result).toContain("https://k-maru-seven.vercel.app/");
 		});
 
@@ -83,10 +80,8 @@ describe("LinkedIn Share Utility", () => {
 
 		it("should handle resilience score of 0", () => {
 			const result = formatShareText(RoleType.SOFTWARE_ENGINEER, "Balanced", 0);
-			expect(result).toContain("My Resilience Score: 0% (Balanced).");
-			expect(result).toContain(
-				"I just faced the AI Kobayashi Maru as a Software Engineer.",
-			);
+			expect(result).toContain("Resilience: 0% (Balanced). Beat my score?");
+			expect(result).toContain("I just finished K-Maru as a Software Engineer");
 		});
 
 		it("should handle resilience score of 100", () => {
@@ -95,10 +90,8 @@ describe("LinkedIn Share Utility", () => {
 				"Balanced",
 				100,
 			);
-			expect(result).toContain("My Resilience Score: 100% (Balanced).");
-			expect(result).toContain(
-				"I just faced the AI Kobayashi Maru as a Software Engineer.",
-			);
+			expect(result).toContain("Resilience: 100% (Balanced). Beat my score?");
+			expect(result).toContain("I just finished K-Maru as a Software Engineer");
 		});
 	});
 
@@ -164,6 +157,18 @@ describe("LinkedIn Share Utility", () => {
 			expect(result).toContain(
 				"https://www.linkedin.com/sharing/share-offsite/?url=",
 			);
+		});
+
+		it("should use updated title format with em dash", () => {
+			const mockLocation = "https://example.com/debrief";
+			const result = getShareUrl(
+				RoleType.SOFTWARE_ENGINEER,
+				{ name: "Pragmatist" },
+				88,
+				mockLocation,
+			);
+			// title param is encoded in URL
+			expect(result).toContain(encodeURIComponent("K-Maru \u2014 Pragmatist"));
 		});
 	});
 });

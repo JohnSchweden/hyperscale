@@ -60,12 +60,12 @@ test.describe("Collapse Page Images (DEBRIEF_PAGE_1) @area:layout", () => {
 		await expect(
 			page.getByRole("heading", {
 				level: 1,
-				name: /Federal pound-me-in-the-ass prison/i,
+				name: /Federal indictment \(jumpsuit included\)/i,
 			}),
 		).toBeVisible({ timeout: 10000 });
 
 		await expect(
-			page.locator("img[alt='Ending: Federal pound-me-in-the-ass prison']"),
+			page.locator("img[alt='Ending: Federal indictment (jumpsuit included)']"),
 		).toBeVisible();
 	});
 
