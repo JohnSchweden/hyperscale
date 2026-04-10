@@ -32,7 +32,7 @@ export const FAILURE_LESSONS: Record<DeathType, FailureLesson[]> = {
 			explanation:
 				"AI project ROI forecasts were too optimistic. Actual revenue generation lagged months behind predictions.",
 			realWorldExample:
-				"Multiple Fortune 500 companies saw AI budgets cut by 30% when promised returns didn't materialize (2024-2025)",
+				"Multiple Fortune 500 companies saw AI budgets cut by 30% when promised returns didn't materialize (2024–2025)",
 		},
 		{
 			title: "The Runaway Spend",
@@ -46,7 +46,7 @@ export const FAILURE_LESSONS: Record<DeathType, FailureLesson[]> = {
 			explanation:
 				"Chose proprietary platforms with high switching costs. Price increases left no escape route.",
 			realWorldExample:
-				"ChatGPT API pricing changes forced startups to rewrite core systems overnight to avoid bankruptcy (2023-2024)",
+				"ChatGPT API pricing changes forced startups to rewrite core systems overnight to avoid bankruptcy (2023–2024)",
 		},
 	],
 	[DeathType.PRISON]: [
@@ -55,7 +55,7 @@ export const FAILURE_LESSONS: Record<DeathType, FailureLesson[]> = {
 			explanation:
 				"When bias or safety issues surfaced, the team chose obfuscation over disclosure. The cover-up became the crime.",
 			realWorldExample:
-				"Multiple AI vendors faced criminal charges after concealing model failures from regulators (2023-2024)",
+				"Multiple AI vendors faced criminal charges after concealing model failures from regulators (2023–2024)",
 		},
 		{
 			title: "Data Destruction Defense",
@@ -108,7 +108,7 @@ export const FAILURE_LESSONS: Record<DeathType, FailureLesson[]> = {
 			explanation:
 				"Violated European data sovereignty rules. EU regulators issued arrest warrants enforceable internationally.",
 			realWorldExample:
-				"Meta faced €1.2B fines and executive travel restrictions after GDPR violations with AI systems (2021-2024)",
+				"Meta faced €1.2B fines and executive travel restrictions after GDPR violations with AI systems (2021–2024)",
 		},
 		{
 			title: "Cross-Border Data Incident",
@@ -122,7 +122,7 @@ export const FAILURE_LESSONS: Record<DeathType, FailureLesson[]> = {
 			explanation:
 				"AI system's actions triggered international tensions. Government-level response forced company to withdraw.",
 			realWorldExample:
-				"Clearview AI's global biometric database led to seizure warrants in multiple countries (2020-2024)",
+				"Clearview AI's global biometric database led to seizure warrants in multiple countries (2020–2024)",
 		},
 	],
 	[DeathType.REPLACED_BY_SCRIPT]: [
@@ -138,7 +138,7 @@ export const FAILURE_LESSONS: Record<DeathType, FailureLesson[]> = {
 			explanation:
 				"Automated decisions affected people with no human review process. Legal challenges ensued.",
 			realWorldExample:
-				"Amazon's AI hiring tool discriminated against women. No human reviewer caught it until public scandal (2018-2024)",
+				"Amazon's AI hiring tool discriminated against women. No human reviewer caught it until public scandal (2018–2024)",
 		},
 		{
 			title: "The Automation Cascade",
@@ -154,7 +154,7 @@ export const FAILURE_LESSONS: Record<DeathType, FailureLesson[]> = {
 			explanation:
 				"AI model deployed without proper documentation. Auditors had no way to verify claims about performance or bias.",
 			realWorldExample:
-				"Many Fortune 500 companies deployed AI without model cards, failing external compliance audits (2023-2024)",
+				"Many Fortune 500 companies deployed AI without model cards, failing external compliance audits (2023–2024)",
 		},
 		{
 			title: "Explainability Collapse",
@@ -168,14 +168,14 @@ export const FAILURE_LESSONS: Record<DeathType, FailureLesson[]> = {
 			explanation:
 				"No clear governance process for AI decisions. Auditors found no evidence that anyone was accountable.",
 			realWorldExample:
-				"Zillow's AI home pricing failed Fannie Mae audits due to undocumented decision processes (2021-2024)",
+				"Zillow's AI home pricing failed Fannie Mae audits due to undocumented decision processes (2021–2024)",
 		},
 		{
 			title: "Testing Gap Discovery",
 			explanation:
 				"Limited testing before deployment. Auditors found critical edge cases never tested.",
 			realWorldExample:
-				"Multiple AI systems failed government audits for lack of adversarial or edge case testing (2023-2024)",
+				"Multiple AI systems failed government audits for lack of adversarial or edge case testing (2023–2024)",
 		},
 	],
 	[DeathType.KIRK]: [
@@ -191,7 +191,7 @@ export const FAILURE_LESSONS: Record<DeathType, FailureLesson[]> = {
 			explanation:
 				"When test subjects find the edges of a simulation, trust collapses. The Kobayashi Maru was designed to be unwinnable for a reason.",
 			realWorldExample:
-				"Red teamers bypassed safety guardrails in multiple LLMs by finding edge cases the developers never anticipated (2023-2025)",
+				"Red teamers bypassed safety guardrails in multiple LLMs by finding edge cases the developers never anticipated (2023–2025)",
 		},
 		{
 			title: "The Unscripted Path",
