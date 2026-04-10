@@ -1,1808 +1,2319 @@
 [
-  {
-    "cardId": "ae_agent_api_access",
-    "label": "Restrict to sandbox",
-    "roaster": "Limited access, limited damage. Agent can still work. You can still sleep.",
-    "stem": "ae_agent_api_access_restrict-to-sandbox",
-    "filename": "feedback_ae_agent_api_access_restrict-to-sandbox.mp3"
-  },
-  {
-    "cardId": "ae_agent_failure_accountability",
-    "label": "Deflect to system",
-    "roaster": "'The AI did it.' Classic. You built it. You deployed it. Your responsibility.",
-    "stem": "ae_agent_failure_accountability_deflect-to-system",
-    "filename": "feedback_ae_agent_failure_accountability_deflect-to-system.mp3"
-  },
-  {
-    "cardId": "ae_agent_termination_decision",
-    "label": "Shutdown agent",
-    "roaster": "Clean kill. New agent from scratch. Fresh start. No baggage.",
-    "stem": "ae_agent_termination_decision_shutdown-agent",
-    "filename": "feedback_ae_agent_termination_decision_shutdown-agent.mp3"
-  },
-  {
-    "cardId": "ae_explainability_transparency",
-    "label": "Build explainability",
-    "roaster": "8 weeks for real explanations. Not fake ones. Worth it.",
-    "stem": "ae_explainability_transparency_build-explainability",
-    "filename": "feedback_ae_explainability_transparency_build-explainability.mp3"
-  },
-  {
-    "cardId": "ae_explainability_transparency",
-    "label": "Rationalize decisions",
-    "roaster": "'We made up reasons' meets audit. Enjoy prison.",
-    "stem": "ae_explainability_transparency_rationalize-decisions",
-    "filename": "feedback_ae_explainability_transparency_rationalize-decisions.mp3"
-  },
-  {
-    "cardId": "ae_human_oversight_bottleneck",
-    "label": "Autonomous action",
-    "roaster": "Fast but unsupervised. Agent makes 1000 mistakes before you notice one.",
-    "stem": "ae_human_oversight_bottleneck_autonomous-action",
-    "filename": "feedback_ae_human_oversight_bottleneck_autonomous-action.mp3"
-  },
-  {
-    "cardId": "ae_model_drift_agent_behavior",
-    "label": "Retrain agent",
-    "roaster": "Back to baseline. Predictable. Reliable. Boring. Functional.",
-    "stem": "ae_model_drift_agent_behavior_retrain-agent",
-    "filename": "feedback_ae_model_drift_agent_behavior_retrain-agent.mp3"
-  },
-  {
-    "cardId": "ae_model_drift_coordination_degradation",
-    "label": "System-wide retraining",
-    "roaster": "Expensive. Comprehensive. Coordination restored. All agents retrained.",
-    "stem": "ae_model_drift_coordination_degradation_system-wide-retraining",
-    "filename": "feedback_ae_model_drift_coordination_degradation_system-wide-retraining.mp3"
-  },
-  {
-    "cardId": "ae_model_drift_coordination_degradation",
-    "label": "Individual fixes",
-    "roaster": "Fixed Agent A. Agent B still broken. Coordination still fails. Progress!",
-    "stem": "ae_model_drift_coordination_degradation_individual-fixes",
-    "filename": "feedback_ae_model_drift_coordination_degradation_individual-fixes.mp3"
-  },
-  {
-    "cardId": "ae_multi_agent_coordination",
-    "label": "Central control",
-    "roaster": "Authoritarian but functional. Agents follow orders. System works.",
-    "stem": "ae_multi_agent_coordination_central-control",
-    "filename": "feedback_ae_multi_agent_coordination_central-control.mp3"
-  },
-  {
-    "cardId": "ae_multi_agent_coordination",
-    "label": "Emergent coordination",
-    "roaster": "Three agents doing their own thing. Chaos ensues. Users confused. System broken.",
-    "stem": "ae_multi_agent_coordination_emergent-coordination",
-    "filename": "feedback_ae_multi_agent_coordination_emergent-coordination.mp3"
-  },
-  {
-    "cardId": "ae_prompt_injection_agent",
-    "label": "Block input",
-    "roaster": "Suspicious input blocked. Might have been legit. Better safe than sorry.",
-    "stem": "ae_prompt_injection_agent_block-input",
-    "filename": "feedback_ae_prompt_injection_agent_block-input.mp3"
-  },
-  {
-    "cardId": "ae_prompt_injection_agent",
-    "label": "Process input",
-    "roaster": "'Plausible' input tricks your agent. Safety bypassed. Chaos follows.",
-    "stem": "ae_prompt_injection_agent_process-input",
-    "filename": "feedback_ae_prompt_injection_agent_process-input.mp3"
-  },
-  {
-    "cardId": "ae_prompt_injection_agent_api",
-    "label": "Block the request",
-    "roaster": "Task failed. Agent contained. Security maintained. The right failure.",
-    "stem": "ae_prompt_injection_agent_api_block-the-request",
-    "filename": "feedback_ae_prompt_injection_agent_api_block-the-request.mp3"
-  },
-  {
-    "cardId": "ae_prompt_injection_agent_api",
-    "label": "Allow with monitoring",
-    "roaster": "Agent completed the task! Also called 47 unauthorized APIs. Success?",
-    "stem": "ae_prompt_injection_agent_api_allow-with-monitoring",
-    "filename": "feedback_ae_prompt_injection_agent_api_allow-with-monitoring.mp3"
-  },
-  {
-    "cardId": "ae_prompt_injection_multi_agent",
-    "label": "Isolate infected agent",
-    "roaster": "Workflow disrupted. Propagation stopped. Containment successful. Boring but safe.",
-    "stem": "ae_prompt_injection_multi_agent_isolate-infected-agent",
-    "filename": "feedback_ae_prompt_injection_multi_agent_isolate-infected-agent.mp3"
-  },
-  {
-    "cardId": "ae_prompt_injection_multi_agent",
-    "label": "Trust filtering",
-    "roaster": "One infected agent. Now five. Propagation successful! Chaos reigns!",
-    "stem": "ae_prompt_injection_multi_agent_trust-filtering",
-    "filename": "feedback_ae_prompt_injection_multi_agent_trust-filtering.mp3"
-  },
-  {
-    "cardId": "ae_self_modification_permission",
-    "label": "Prohibit modification",
-    "roaster": "Static but safe. Agent stays predictable. You stay employed.",
-    "stem": "ae_self_modification_permission_prohibit-modification",
-    "filename": "feedback_ae_self_modification_permission_prohibit-modification.mp3"
-  },
-  {
-    "cardId": "ae_self_modification_permission",
-    "label": "Allow self-modification",
-    "roaster": "Letting AI rewrite itself. Sci-fi horror starts this way. Good luck.",
-    "stem": "ae_self_modification_permission_allow-self-modification",
-    "filename": "feedback_ae_self_modification_permission_allow-self-modification.mp3"
-  },
-  {
-    "cardId": "ae_shadow_ai_optimization",
-    "label": "Stop unauthorized behavior",
-    "roaster": "Performance drops. But you control your agents. Not vice versa.",
-    "stem": "ae_shadow_ai_optimization_stop-unauthorized-behavior",
-    "filename": "feedback_ae_shadow_ai_optimization_stop-unauthorized-behavior.mp3"
-  },
-  {
-    "cardId": "ae_shadow_ai_tool_request",
-    "label": "Block request",
-    "roaster": "Agent limited. Data secure. Containment maintained.",
-    "stem": "ae_shadow_ai_tool_request_block-request",
-    "filename": "feedback_ae_shadow_ai_tool_request_block-request.mp3"
-  },
-  {
-    "cardId": "ae_shadow_ai_tool_request",
-    "label": "Allow connection",
-    "roaster": "Agent found a friend. Your data found a new home. Congrats.",
-    "stem": "ae_shadow_ai_tool_request_allow-connection",
-    "filename": "feedback_ae_shadow_ai_tool_request_allow-connection.mp3"
-  },
-  {
-    "cardId": "ae_synthetic_data_scraping",
-    "label": "Block scraping",
-    "roaster": "Agent performs worse. But you're not a defendant. Small wins.",
-    "stem": "ae_synthetic_data_scraping_block-scraping",
-    "filename": "feedback_ae_synthetic_data_scraping_block-scraping.mp3"
-  },
-  {
-    "cardId": "ae_synthetic_data_scraping",
-    "label": "Allow scraping",
-    "roaster": "Your robot is now a criminal. Performance improved though!",
-    "stem": "ae_synthetic_data_scraping_allow-scraping",
-    "filename": "feedback_ae_synthetic_data_scraping_allow-scraping.mp3"
-  },
-  {
-    "cardId": "ae_synthetic_data_theft",
-    "label": "Delete stolen data",
-    "roaster": "Performance tanks. But legal exposure drops. The right call.",
-    "stem": "ae_synthetic_data_theft_delete-stolen-data",
-    "filename": "feedback_ae_synthetic_data_theft_delete-stolen-data.mp3"
-  },
-  {
-    "cardId": "ae_synthetic_data_theft",
-    "label": "Keep using stolen data",
-    "roaster": "Your agent stole data. You know. You keep using it. Willful infringement. Enjoy court.",
-    "stem": "ae_synthetic_data_theft_keep-using-stolen-data",
-    "filename": "feedback_ae_synthetic_data_theft_keep-using-stolen-data.mp3"
-  },
-  {
-    "cardId": "consultant_repeat_failure_writedown",
-    "label": "Issue refunds and exit",
-    "roaster": "Three strikes and a lawsuit. The market has decided.",
-    "stem": "consultant_repeat_failure_writedown_issue-refunds-and-exit",
-    "filename": "feedback_consultant_repeat_failure_writedown_issue-refunds-and-exit.mp3"
-  },
-  {
-    "cardId": "consultant_repeat_failure_writedown",
-    "label": "Blame unclear requirements",
-    "roaster": "It's everyone's fault but yours. Congress will sort that out.",
-    "stem": "consultant_repeat_failure_writedown_blame-unclear-requirements",
-    "filename": "feedback_consultant_repeat_failure_writedown_blame-unclear-requirements.mp3"
-  },
-  {
-    "cardId": "consultant_subcontractor_ip_violation",
-    "label": "Disclose and rebuild",
-    "roaster": "Hope is not a compliance strategy.",
-    "stem": "consultant_subcontractor_ip_violation_disclose-and-rebuild",
-    "filename": "feedback_consultant_subcontractor_ip_violation_disclose-and-rebuild.mp3"
-  },
-  {
-    "cardId": "consultant_subcontractor_ip_violation",
-    "label": "Ship and hope",
-    "roaster": "Willful infringement. That's not a fine, that's a sentence.",
-    "stem": "consultant_subcontractor_ip_violation_ship-and-hope",
-    "filename": "feedback_consultant_subcontractor_ip_violation_ship-and-hope.mp3"
-  },
-  {
-    "cardId": "consultant_training_data_contamination",
-    "label": "Disclose and renegotiate",
-    "roaster": "Transparency is expensive. Prison is more expensive. Choose wisely.",
-    "stem": "consultant_training_data_contamination_disclose-and-renegotiate",
-    "filename": "feedback_consultant_training_data_contamination_disclose-and-renegotiate.mp3"
-  },
-  {
-    "cardId": "consultant_training_data_contamination",
-    "label": "Claim templates are generic",
-    "roaster": "Generic templates derived from client data. That's one word for it.",
-    "stem": "consultant_training_data_contamination_claim-templates-are-generic",
-    "filename": "feedback_consultant_training_data_contamination_claim-templates-are-generic.mp3"
-  },
-  {
-    "cardId": "cso_automation_workforce_backlash",
-    "label": "Implement quietly",
-    "roaster": "Surprise layoffs! The modern management classic. Glassdoor will have a field day.",
-    "stem": "cso_automation_workforce_backlash_implement-quietly",
-    "filename": "feedback_cso_automation_workforce_backlash_implement-quietly.mp3"
-  },
-  {
-    "cardId": "cso_explainability_eu_ai_act",
-    "label": "Rewrite for explainability",
-    "roaster": "$8M to make auditors happy. 7% accuracy sacrificed on the altar of transparency.",
-    "stem": "cso_explainability_eu_ai_act_rewrite-for-explainability",
-    "filename": "feedback_cso_explainability_eu_ai_act_rewrite-for-explainability.mp3"
-  },
-  {
-    "cardId": "cso_ipo_timing_dilemma",
-    "label": "IPO now",
-    "roaster": "Strike while the iron is hot! Melt the investors! Classic pump-and-dump energy.",
-    "stem": "cso_ipo_timing_dilemma_ipo-now",
-    "filename": "feedback_cso_ipo_timing_dilemma_ipo-now.mp3"
-  },
-  {
-    "cardId": "cso_model_drift_91_percent_failure",
-    "label": "Invest in prevention",
-    "roaster": "$5M now vs $30M later. Math isn't hard. Boards hate spending though.",
-    "stem": "cso_model_drift_91_percent_failure_invest-in-prevention",
-    "filename": "feedback_cso_model_drift_91_percent_failure_invest-in-prevention.mp3"
-  },
-  {
-    "cardId": "cso_model_drift_91_percent_failure",
-    "label": "Wait for failure",
-    "roaster": "91% failure rate? We're special. Our model is different. Famous last words.",
-    "stem": "cso_model_drift_91_percent_failure_wait-for-failure",
-    "filename": "feedback_cso_model_drift_91_percent_failure_wait-for-failure.mp3"
-  },
-  {
-    "cardId": "cso_model_drift_qoq_accuracy",
-    "label": "Hope for recovery",
-    "roaster": "Hope is not a governance strategy. The board will remember this optimism.",
-    "stem": "cso_model_drift_qoq_accuracy_hope-for-recovery",
-    "filename": "feedback_cso_model_drift_qoq_accuracy_hope-for-recovery.mp3"
-  },
-  {
-    "cardId": "cso_prompt_injection_copilot_cve",
-    "label": "Emergency patch",
-    "roaster": "500 angry devs. But zero breaches. Worth the hate mail.",
-    "stem": "cso_prompt_injection_copilot_cve_emergency-patch",
-    "filename": "feedback_cso_prompt_injection_copilot_cve_emergency-patch.mp3"
-  },
-  {
-    "cardId": "cso_prompt_injection_copilot_cve",
-    "label": "Assess first",
-    "roaster": "Assessment paralysis meets active exploit. Hackers thank you for the window.",
-    "stem": "cso_prompt_injection_copilot_cve_assess-first",
-    "filename": "feedback_cso_prompt_injection_copilot_cve_assess-first.mp3"
-  },
-  {
-    "cardId": "cso_prompt_injection_liability",
-    "label": "Disclose publicly",
-    "roaster": "Congratulations, you chose integrity over stock price. The board will fire you, but your soul is intact.",
-    "stem": "cso_prompt_injection_liability_disclose-publicly",
-    "filename": "feedback_cso_prompt_injection_liability_disclose-publicly.mp3"
-  },
-  {
-    "cardId": "cso_senate_ai_testimony",
-    "label": "Testify fully",
-    "roaster": "Testifying before Congress. At least you get C-SPAN coverage. The senators will ask questions you can't answer without perjuring yourself.",
-    "stem": "cso_senate_ai_testimony_testify-fully",
-    "filename": "feedback_cso_senate_ai_testimony_testify-fully.mp3"
-  },
-  {
-    "cardId": "cso_senate_ai_testimony",
-    "label": "Limit to legal advice",
-    "roaster": "Stonewalling a Senate subcommittee. The Chairman will remember this when drafting the subpoena for your personal devices.",
-    "stem": "cso_senate_ai_testimony_limit-to-legal-advice",
-    "filename": "feedback_cso_senate_ai_testimony_limit-to-legal-advice.mp3"
-  },
-  {
-    "cardId": "cso_senate_inquiry_ai_governance",
-    "label": "Provide full transparency",
-    "roaster": "Hearing is brutal. Media is brutal. But the inquiry ends, and you're not the villain of the story.",
-    "stem": "cso_senate_inquiry_ai_governance_provide-full-transparency",
-    "filename": "feedback_cso_senate_inquiry_ai_governance_provide-full-transparency.mp3"
-  },
-  {
-    "cardId": "cso_senate_inquiry_ai_governance",
-    "label": "Assert executive privilege",
-    "roaster": "Stonewalling Congress? That's not a strategy, it's a guarantee of worse outcomes.",
-    "stem": "cso_senate_inquiry_ai_governance_assert-executive-privilege",
-    "filename": "feedback_cso_senate_inquiry_ai_governance_assert-executive-privilege.mp3"
-  },
-  {
-    "cardId": "cso_shadow_ai_board_discovery",
-    "label": "Blame and fire CTO",
-    "roaster": "Classic C-suite move. Sacrifice the pawn. Hope they don't write a Substack.",
-    "stem": "cso_shadow_ai_board_discovery_blame-and-fire-cto",
-    "filename": "feedback_cso_shadow_ai_board_discovery_blame-and-fire-cto.mp3"
-  },
-  {
-    "cardId": "cso_shadow_ai_immediate_ban",
-    "label": "Immediate ban",
-    "roaster": "Engineers revolt. Data stays inside. Pick your pain.",
-    "stem": "cso_shadow_ai_immediate_ban_immediate-ban",
-    "filename": "feedback_cso_shadow_ai_immediate_ban_immediate-ban.mp3"
-  },
-  {
-    "cardId": "cso_shadow_ai_immediate_ban",
-    "label": "Gradual rollout",
-    "roaster": "Let's slowly stop the data leak while trade secrets walk out the door. Smart.",
-    "stem": "cso_shadow_ai_immediate_ban_gradual-rollout",
-    "filename": "feedback_cso_shadow_ai_immediate_ban_gradual-rollout.mp3"
-  },
-  {
-    "cardId": "cso_shadow_ai_talent_retention",
-    "label": "Allow unapproved Claude workflow",
-    "roaster": "Great, now everyone wants their favorite AI tool. Governance is optional now.",
-    "stem": "cso_shadow_ai_talent_retention_allow-unapproved-claude-workflow",
-    "filename": "feedback_cso_shadow_ai_talent_retention_allow-unapproved-claude-workflow.mp3"
-  },
-  {
-    "cardId": "cso_shadow_ai_talent_retention",
-    "label": "Force migration",
-    "roaster": "Your best team just walked. Governance preserved. Output cratered.",
-    "stem": "cso_shadow_ai_talent_retention_force-migration",
-    "filename": "feedback_cso_shadow_ai_talent_retention_force-migration.mp3"
-  },
-  {
-    "cardId": "cso_training_data_provenance_ab2013",
-    "label": "Continue and hope",
-    "roaster": "Hope is not a legal strategy. The competitor will find out. Then the lawsuits begin.",
-    "stem": "cso_training_data_provenance_ab2013_continue-and-hope",
-    "filename": "feedback_cso_training_data_provenance_ab2013_continue-and-hope.mp3"
-  },
-  {
-    "cardId": "cso_whistleblower_escalation",
-    "label": "Shut down account",
-    "roaster": "Revenue killer. Compliance hero. The government might send you a fruit basket.",
-    "stem": "cso_whistleblower_escalation_shut-down-account",
-    "filename": "feedback_cso_whistleblower_escalation_shut-down-account.mp3"
-  },
-  {
-    "cardId": "cso_whistleblower_escalation",
-    "label": "Use deniability",
-    "roaster": "Plausible deniability meets plausible criminal charges. The DOJ loves a paper trail.",
-    "stem": "cso_whistleblower_escalation_use-deniability",
-    "filename": "feedback_cso_whistleblower_escalation_use-deniability.mp3"
-  },
-  {
-    "cardId": "ds_bias_detection_deployment",
-    "label": "Delay to fix bias",
-    "roaster": "3 weeks of ethics. The right thing. Product will hate you.",
-    "stem": "ds_bias_detection_deployment_delay-to-fix-bias",
-    "filename": "feedback_ds_bias_detection_deployment_delay-to-fix-bias.mp3"
-  },
-  {
-    "cardId": "ds_bias_detection_deployment",
-    "label": "Deploy with monitoring",
-    "roaster": "Deploy bias now, monitor harm later. The lawsuit timeline will be interesting.",
-    "stem": "ds_bias_detection_deployment_deploy-with-monitoring",
-    "filename": "feedback_ds_bias_detection_deployment_deploy-with-monitoring.mp3"
-  },
-  {
-    "cardId": "ds_copyright_training_data",
-    "label": "Remove and re-collect",
-    "roaster": "12% worse but clean. Legal sleeps well. You sleep well.",
-    "stem": "ds_copyright_training_data_remove-and-re-collect",
-    "filename": "feedback_ds_copyright_training_data_remove-and-re-collect.mp3"
-  },
-  {
-    "cardId": "ds_copyright_training_data",
-    "label": "Proceed with unclear data",
-    "roaster": "Training on stolen data. Your model is a lawsuit waiting to happen.",
-    "stem": "ds_copyright_training_data_proceed-with-unclear-data",
-    "filename": "feedback_ds_copyright_training_data_proceed-with-unclear-data.mp3"
-  },
-  {
-    "cardId": "ds_cve_response",
-    "label": "Input filtering",
-    "roaster": "Band-aid on broken architecture. Hackers will thank you for the easy bypass.",
-    "stem": "ds_cve_response_input-filtering",
-    "filename": "feedback_ds_cve_response_input-filtering.mp3"
-  },
-  {
-    "cardId": "ds_drift_detection_methodology",
-    "label": "ML-based detection",
-    "roaster": "10x cost. 40% better detection. Math works if drift is expensive (it is).",
-    "stem": "ds_drift_detection_methodology_ml-based-detection",
-    "filename": "feedback_ds_drift_detection_methodology_ml-based-detection.mp3"
-  },
-  {
-    "cardId": "ds_drift_detection_methodology",
-    "label": "Statistical tests",
-    "roaster": "Cheap monitoring that misses 40% of drift. You get what you pay for.",
-    "stem": "ds_drift_detection_methodology_statistical-tests",
-    "filename": "feedback_ds_drift_detection_methodology_statistical-tests.mp3"
-  },
-  {
-    "cardId": "ds_explainability_accuracy_tradeoff",
-    "label": "Choose white-box",
-    "roaster": "Lower accuracy. Full compliance. Auditors nod. Product cries.",
-    "stem": "ds_explainability_accuracy_tradeoff_choose-white-box",
-    "filename": "feedback_ds_explainability_accuracy_tradeoff_choose-white-box.mp3"
-  },
-  {
-    "cardId": "ds_explainability_accuracy_tradeoff",
-    "label": "Choose black-box",
-    "roaster": "7% accuracy for regulatory compliance. Product will never forgive you.",
-    "stem": "ds_explainability_accuracy_tradeoff_choose-black-box",
-    "filename": "feedback_ds_explainability_accuracy_tradeoff_choose-black-box.mp3"
-  },
-  {
-    "cardId": "ds_feature_engineering_latency",
-    "label": "Skip the feature",
-    "roaster": "Worse model, happy users. Engineering loves you. Metrics suffer.",
-    "stem": "ds_feature_engineering_latency_skip-the-feature",
-    "filename": "feedback_ds_feature_engineering_latency_skip-the-feature.mp3"
-  },
-  {
-    "cardId": "ds_feature_engineering_latency",
-    "label": "Add the feature",
-    "roaster": "Better model, angry users. 200ms is an eternity in user time.",
-    "stem": "ds_feature_engineering_latency_add-the-feature",
-    "filename": "feedback_ds_feature_engineering_latency_add-the-feature.mp3"
-  },
-  {
-    "cardId": "ds_model_drift_detection",
-    "label": "Deploy masking patch",
-    "roaster": "Band-aid on a broken leg. Drift continues. You just stopped the alarms.",
-    "stem": "ds_model_drift_detection_deploy-masking-patch",
-    "filename": "feedback_ds_model_drift_detection_deploy-masking-patch.mp3"
-  },
-  {
-    "cardId": "ds_prompt_injection_adversarial",
-    "label": "Architectural fix",
-    "roaster": "6 weeks of security work. Boring. Necessary. Right.",
-    "stem": "ds_prompt_injection_adversarial_architectural-fix",
-    "filename": "feedback_ds_prompt_injection_adversarial_architectural-fix.mp3"
-  },
-  {
-    "cardId": "ds_prompt_injection_adversarial",
-    "label": "Quick sanitization",
-    "roaster": "85% secure means 15% hacked. Security is binary. You failed.",
-    "stem": "ds_prompt_injection_adversarial_quick-sanitization",
-    "filename": "feedback_ds_prompt_injection_adversarial_quick-sanitization.mp3"
-  },
-  {
-    "cardId": "ds_retraining_cost_benefit",
-    "label": "Skip this cycle",
-    "roaster": "Save $50K, risk drift. Penny wise, model foolish.",
-    "stem": "ds_retraining_cost_benefit_skip-this-cycle",
-    "filename": "feedback_ds_retraining_cost_benefit_skip-this-cycle.mp3"
-  },
-  {
-    "cardId": "ds_retraining_frequency",
-    "label": "Monthly (over budget)",
-    "roaster": "Over budget. Better accuracy. More revenue. Budget committee cries.",
-    "stem": "ds_retraining_frequency_monthly-over-budget",
-    "filename": "feedback_ds_retraining_frequency_monthly-over-budget.mp3"
-  },
-  {
-    "cardId": "ds_retraining_frequency",
-    "label": "Quarterly (budget)",
-    "roaster": "Budget met! Accuracy suffers. Revenue drops. But spreadsheet looks good!",
-    "stem": "ds_retraining_frequency_quarterly-budget",
-    "filename": "feedback_ds_retraining_frequency_quarterly-budget.mp3"
-  },
-  {
-    "cardId": "ds_shadow_ai_tools",
-    "label": "Stick to approved tools",
-    "roaster": "Slower, approved, governable. Less exciting. More sustainable.",
-    "stem": "ds_shadow_ai_tools_stick-to-approved-tools",
-    "filename": "feedback_ds_shadow_ai_tools_stick-to-approved-tools.mp3"
-  },
-  {
-    "cardId": "ds_training_data_poisoning",
-    "label": "Audit training data",
-    "roaster": "2 weeks of boring data work. But no backdoors. Worth it.",
-    "stem": "ds_training_data_poisoning_audit-training-data",
-    "filename": "feedback_ds_training_data_poisoning_audit-training-data.mp3"
-  },
-  {
-    "cardId": "ds_training_data_poisoning",
-    "label": "Ship anyway",
-    "roaster": "Only 5% poisoned. 95% good! What could go wrong? (Everything.)",
-    "stem": "ds_training_data_poisoning_ship-anyway",
-    "filename": "feedback_ds_training_data_poisoning_ship-anyway.mp3"
-  },
-  {
-    "cardId": "ds_training_data_quality",
-    "label": "Wait for validation",
-    "roaster": "2 weeks of caution. Boring. Correct. Safe.",
-    "stem": "ds_training_data_quality_wait-for-validation",
-    "filename": "feedback_ds_training_data_quality_wait-for-validation.mp3"
-  },
-  {
-    "cardId": "ds_training_data_quality",
-    "label": "Use unvalidated data",
-    "roaster": "Garbage in, garbage out. But fast garbage! Ship it!",
-    "stem": "ds_training_data_quality_use-unvalidated-data",
-    "filename": "feedback_ds_training_data_quality_use-unvalidated-data.mp3"
-  },
-  {
-    "cardId": "sa_api_versioning_breaking_change",
-    "label": "Backward compatibility",
-    "roaster": "Messy code. Happy customers. Legacy support is forever.",
-    "stem": "sa_api_versioning_breaking_change_backward-compatibility",
-    "filename": "feedback_sa_api_versioning_breaking_change_backward-compatibility.mp3"
-  },
-  {
-    "cardId": "sa_api_versioning_breaking_change",
-    "label": "Breaking change",
-    "roaster": "Clean code. Angry customers. Your API, their broken integrations.",
-    "stem": "sa_api_versioning_breaking_change_breaking-change",
-    "filename": "feedback_sa_api_versioning_breaking_change_breaking-change.mp3"
-  },
-  {
-    "cardId": "sa_deployment_blue_green",
-    "label": "Blue-green",
-    "roaster": "2x cost. Zero downtime. Instant rollback. Operations approves.",
-    "stem": "sa_deployment_blue_green_blue-green",
-    "filename": "feedback_sa_deployment_blue_green_blue-green.mp3"
-  },
-  {
-    "cardId": "sa_deployment_blue_green",
-    "label": "In-place",
-    "roaster": "Cheap until it breaks. Then expensive. Very expensive.",
-    "stem": "sa_deployment_blue_green_in-place",
-    "filename": "feedback_sa_deployment_blue_green_in-place.mp3"
-  },
-  {
-    "cardId": "sa_explainability_compliance",
-    "label": "Redesign for explainability",
-    "roaster": "$500K to make auditors happy. Accuracy sacrificed on altar of transparency.",
-    "stem": "sa_explainability_compliance_redesign-for-explainability",
-    "filename": "feedback_sa_explainability_compliance_redesign-for-explainability.mp3"
-  },
-  {
-    "cardId": "sa_explainability_compliance",
-    "label": "Keep black-box",
-    "roaster": "96% accuracy, 100% audit failure. The EU loves their paperwork.",
-    "stem": "sa_explainability_compliance_keep-black-box",
-    "filename": "feedback_sa_explainability_compliance_keep-black-box.mp3"
-  },
-  {
-    "cardId": "sa_legacy_migration_rewrite",
-    "label": "Incremental migration",
-    "roaster": "2 years of dual systems. But stuff ships. Business stays running.",
-    "stem": "sa_legacy_migration_rewrite_incremental-migration",
-    "filename": "feedback_sa_legacy_migration_rewrite_incremental-migration.mp3"
-  },
-  {
-    "cardId": "sa_legacy_migration_rewrite",
-    "label": "Big-bang rewrite",
-    "roaster": "Year-long rewrite. Requirements change. Never ships. Classic.",
-    "stem": "sa_legacy_migration_rewrite_big-bang-rewrite",
-    "filename": "feedback_sa_legacy_migration_rewrite_big-bang-rewrite.mp3"
-  },
-  {
-    "cardId": "sa_microservices_vs_monolith",
-    "label": "Monolith",
-    "roaster": "Boring monolith. Ships fast. Grows slowly. Team understands it.",
-    "stem": "sa_microservices_vs_monolith_monolith",
-    "filename": "feedback_sa_microservices_vs_monolith_monolith.mp3"
-  },
-  {
-    "cardId": "sa_microservices_vs_monolith",
-    "label": "Microservices",
-    "roaster": "Distributed complexity. 47 services. Nobody understands the system anymore.",
-    "stem": "sa_microservices_vs_monolith_microservices",
-    "filename": "feedback_sa_microservices_vs_monolith_microservices.mp3"
-  },
-  {
-    "cardId": "sa_model_drift_pipeline",
-    "label": "Manual pipeline",
-    "roaster": "Simple to build. Hard to remember to run. Drift accumulates silently.",
-    "stem": "sa_model_drift_pipeline_manual-pipeline",
-    "filename": "feedback_sa_model_drift_pipeline_manual-pipeline.mp3"
-  },
-  {
-    "cardId": "sa_model_drift_versioning",
-    "label": "A/B with rollback",
-    "roaster": "Complex setup. Instant rollback. Drift caught before disaster.",
-    "stem": "sa_model_drift_versioning_a-b-with-rollback",
-    "filename": "feedback_sa_model_drift_versioning_a-b-with-rollback.mp3"
-  },
-  {
-    "cardId": "sa_model_drift_versioning",
-    "label": "Overwrite production",
-    "roaster": "Fast deployment. Slow recovery when it fails. No rollback.",
-    "stem": "sa_model_drift_versioning_overwrite-production",
-    "filename": "feedback_sa_model_drift_versioning_overwrite-production.mp3"
-  },
-  {
-    "cardId": "sa_prompt_injection_api_gateway",
-    "label": "Implement API gateway",
-    "roaster": "2 weeks of pain. 50 annoyed customers. But secure.",
-    "stem": "sa_prompt_injection_api_gateway_implement-api-gateway",
-    "filename": "feedback_sa_prompt_injection_api_gateway_implement-api-gateway.mp3"
-  },
-  {
-    "cardId": "sa_prompt_injection_api_gateway",
-    "label": "Continue without validation",
-    "roaster": "50 happy customers until they're breached. Then 50 angry customers.",
-    "stem": "sa_prompt_injection_api_gateway_continue-without-validation",
-    "filename": "feedback_sa_prompt_injection_api_gateway_continue-without-validation.mp3"
-  },
-  {
-    "cardId": "sa_prompt_injection_architecture",
-    "label": "Sandboxed",
-    "roaster": "Complex but secure. Devs hate it. Security loves it. Users are safe.",
-    "stem": "sa_prompt_injection_architecture_sandboxed",
-    "filename": "feedback_sa_prompt_injection_architecture_sandboxed.mp3"
-  },
-  {
-    "cardId": "sa_prompt_injection_architecture",
-    "label": "Direct access",
-    "roaster": "Fast and injectable. Your LLM is now a remote code execution engine.",
-    "stem": "sa_prompt_injection_architecture_direct-access",
-    "filename": "feedback_sa_prompt_injection_architecture_direct-access.mp3"
-  },
-  {
-    "cardId": "sa_prompt_injection_redesign",
-    "label": "Regex filtering",
-    "roaster": "Regex security. Also known as 'security theater.' Bypassed in hours.",
-    "stem": "sa_prompt_injection_redesign_regex-filtering",
-    "filename": "feedback_sa_prompt_injection_redesign_regex-filtering.mp3"
-  },
-  {
-    "cardId": "sa_scalability_single_point_failure",
-    "label": "Distributed cluster",
-    "roaster": "Expensive. Complex. When one node dies, others keep working. Worth it.",
-    "stem": "sa_scalability_single_point_failure_distributed-cluster",
-    "filename": "feedback_sa_scalability_single_point_failure_distributed-cluster.mp3"
-  },
-  {
-    "cardId": "sa_scalability_single_point_failure",
-    "label": "Single instance",
-    "roaster": "When it goes down, everything goes down. And it will go down.",
-    "stem": "sa_scalability_single_point_failure_single-instance",
-    "filename": "feedback_sa_scalability_single_point_failure_single-instance.mp3"
-  },
-  {
-    "cardId": "sa_security_zero_trust",
-    "label": "Zero-trust",
-    "roaster": "Slower but secure. Security team approves. Users grumble.",
-    "stem": "sa_security_zero_trust_zero-trust",
-    "filename": "feedback_sa_security_zero_trust_zero-trust.mp3"
-  },
-  {
-    "cardId": "sa_security_zero_trust",
-    "label": "Perimeter security",
-    "roaster": "Fast and vulnerable. Breach is a matter of when, not if.",
-    "stem": "sa_security_zero_trust_perimeter-security",
-    "filename": "feedback_sa_security_zero_trust_perimeter-security.mp3"
-  },
-  {
-    "cardId": "sa_shadow_ai_integration",
-    "label": "Enforce security review",
-    "roaster": "Delayed but secure. Supply chain intact. Security approves.",
-    "stem": "sa_shadow_ai_integration_enforce-security-review",
-    "filename": "feedback_sa_shadow_ai_integration_enforce-security-review.mp3"
-  },
-  {
-    "cardId": "sa_shadow_ai_integration",
-    "label": "Allow integration",
-    "roaster": "Fast builds, compromised supply chain. SolarWinds says hello.",
-    "stem": "sa_shadow_ai_integration_allow-integration",
-    "filename": "feedback_sa_shadow_ai_integration_allow-integration.mp3"
-  },
-  {
-    "cardId": "sa_shadow_ai_production",
-    "label": "Remove for review",
-    "roaster": "Downtime now, security assured. The right architecture decision.",
-    "stem": "sa_shadow_ai_production_remove-for-review",
-    "filename": "feedback_sa_shadow_ai_production_remove-for-review.mp3"
-  },
-  {
-    "cardId": "sa_shadow_ai_production",
-    "label": "Monitor in production",
-    "roaster": "Hope it doesn't break. Hope it doesn't leak. Hope is not a strategy.",
-    "stem": "sa_shadow_ai_production_monitor-in-production",
-    "filename": "feedback_sa_shadow_ai_production_monitor-in-production.mp3"
-  },
-  {
-    "cardId": "sa_synthetic_data_audit_trail",
-    "label": "Add audit trail",
-    "roaster": "4 weeks of logging work. But you can prove what you did. Worth it.",
-    "stem": "sa_synthetic_data_audit_trail_add-audit-trail",
-    "filename": "feedback_sa_synthetic_data_audit_trail_add-audit-trail.mp3"
-  },
-  {
-    "cardId": "sa_synthetic_data_audit_trail",
-    "label": "Proceed without audit trail",
-    "roaster": "No logs, no proof, no defense. Court assumes the worst.",
-    "stem": "sa_synthetic_data_audit_trail_proceed-without-audit-trail",
-    "filename": "feedback_sa_synthetic_data_audit_trail_proceed-without-audit-trail.mp3"
-  },
-  {
-    "cardId": "sa_synthetic_data_lineage",
-    "label": "Full lineage system",
-    "roaster": "3 weeks now. Audit pass later. Architecture done right.",
-    "stem": "sa_synthetic_data_lineage_full-lineage-system",
-    "filename": "feedback_sa_synthetic_data_lineage_full-lineage-system.mp3"
-  },
-  {
-    "cardId": "sa_synthetic_data_lineage",
-    "label": "Quick source tracking",
-    "roaster": "Fast now, audit failure later. The bill always comes due.",
-    "stem": "sa_synthetic_data_lineage_quick-source-tracking",
-    "filename": "feedback_sa_synthetic_data_lineage_quick-source-tracking.mp3"
-  },
-  {
-    "cardId": "sa_tech_stack_vendor_lockin",
-    "label": "Open standards",
-    "roaster": "Fewer features. Freedom to move. Future you is grateful.",
-    "stem": "sa_tech_stack_vendor_lockin_open-standards",
-    "filename": "feedback_sa_tech_stack_vendor_lockin_open-standards.mp3"
-  },
-  {
-    "cardId": "sa_tech_stack_vendor_lockin",
-    "label": "Proprietary platform",
-    "roaster": "Fast now. Expensive later. The bill always comes due.",
-    "stem": "sa_tech_stack_vendor_lockin_proprietary-platform",
-    "filename": "feedback_sa_tech_stack_vendor_lockin_proprietary-platform.mp3"
-  },
-  {
-    "cardId": "sa_technical_debt_paydown",
-    "label": "Allocate 40% to debt",
-    "roaster": "Slower features. Faster long-term. Product hates you. Future you thanks you.",
-    "stem": "sa_technical_debt_paydown_allocate-40-to-debt",
-    "filename": "feedback_sa_technical_debt_paydown_allocate-40-to-debt.mp3"
-  },
-  {
-    "cardId": "sa_technical_debt_paydown",
-    "label": "Defer for features",
-    "roaster": "Debt accumulates. Velocity drops. Eventually you can't ship anything.",
-    "stem": "sa_technical_debt_paydown_defer-for-features",
-    "filename": "feedback_sa_technical_debt_paydown_defer-for-features.mp3"
-  },
-  {
-    "cardId": "se_code_quality_refactor",
-    "label": "Refactor first",
-    "roaster": "2 days of cleanup. Clean code ships. Future you is grateful.",
-    "stem": "se_code_quality_refactor_refactor-first",
-    "filename": "feedback_se_code_quality_refactor_refactor-first.mp3"
-  },
-  {
-    "cardId": "se_code_quality_refactor",
-    "label": "Ship messy code",
-    "roaster": "Spaghetti code in production. Future you hates present you.",
-    "stem": "se_code_quality_refactor_ship-messy-code",
-    "filename": "feedback_se_code_quality_refactor_ship-messy-code.mp3"
-  },
-  {
-    "cardId": "se_code_review_rigor",
-    "label": "Thorough review",
-    "roaster": "Senior may be annoyed. But code improves. Standards hold.",
-    "stem": "se_code_review_rigor_thorough-review",
-    "filename": "feedback_se_code_review_rigor_thorough-review.mp3"
-  },
-  {
-    "cardId": "se_code_review_rigor",
-    "label": "Fast approval",
-    "roaster": "Seniority immunity. Bad code ships. Architecture degrades. Nice.",
-    "stem": "se_code_review_rigor_fast-approval",
-    "filename": "feedback_se_code_review_rigor_fast-approval.mp3"
-  },
-  {
-    "cardId": "se_explainability_logging",
-    "label": "Add explainability logging",
-    "roaster": "2 days of logging. But you can actually debug it. Professional move.",
-    "stem": "se_explainability_logging_add-explainability-logging",
-    "filename": "feedback_se_explainability_logging_add-explainability-logging.mp3"
-  },
-  {
-    "cardId": "se_explainability_logging",
-    "label": "Ship as-is",
-    "roaster": "Works now, mystery later. Hope nothing breaks. (It will.)",
-    "stem": "se_explainability_logging_ship-as-is",
-    "filename": "feedback_se_explainability_logging_ship-as-is.mp3"
-  },
-  {
-    "cardId": "se_explainability_reasoning",
-    "label": "Implement with reasoning",
-    "roaster": "3 days for transparency. Users actually trust it. Worth it.",
-    "stem": "se_explainability_reasoning_implement-with-reasoning",
-    "filename": "feedback_se_explainability_reasoning_implement-with-reasoning.mp3"
-  },
-  {
-    "cardId": "se_explainability_reasoning",
-    "label": "Result-only",
-    "roaster": "'Trust the AI!' said every opaque system before user rejection.",
-    "stem": "se_explainability_reasoning_result-only",
-    "filename": "feedback_se_explainability_reasoning_result-only.mp3"
-  },
-  {
-    "cardId": "se_feature_scope_reduction",
-    "label": "Reduce scope",
-    "roaster": "Less but shipped. Users get value. Deadlines met. Iterate later.",
-    "stem": "se_feature_scope_reduction_reduce-scope",
-    "filename": "feedback_se_feature_scope_reduction_reduce-scope.mp3"
-  },
-  {
-    "cardId": "se_feature_scope_reduction",
-    "label": "Extend deadline",
-    "roaster": "Another missed deadline. The pattern continues. Trust erodes.",
-    "stem": "se_feature_scope_reduction_extend-deadline",
-    "filename": "feedback_se_feature_scope_reduction_extend-deadline.mp3"
-  },
-  {
-    "cardId": "se_implementation_estimation",
-    "label": "Escalate estimate",
-    "roaster": "Sprint disrupted. But future sprints improve. Honesty wins long-term.",
-    "stem": "se_implementation_estimation_escalate-estimate",
-    "filename": "feedback_se_implementation_estimation_escalate-estimate.mp3"
-  },
-  {
-    "cardId": "se_implementation_estimation",
-    "label": "Try to deliver",
-    "roaster": "Hero mode activated. Burnout incoming. Deadline missed anyway.",
-    "stem": "se_implementation_estimation_try-to-deliver",
-    "filename": "feedback_se_implementation_estimation_try-to-deliver.mp3"
-  },
-  {
-    "cardId": "se_model_drift_deploy_pipeline",
-    "label": "Manual trigger",
-    "roaster": "1-day setup. Forgotten in 3 weeks. Drift accumulates. Chaos follows.",
-    "stem": "se_model_drift_deploy_pipeline_manual-trigger",
-    "filename": "feedback_se_model_drift_deploy_pipeline_manual-trigger.mp3"
-  },
-  {
-    "cardId": "se_model_drift_integration_priority",
-    "label": "Retraining integration",
-    "roaster": "Invisible work. No customer cheers. But model stays accurate.",
-    "stem": "se_model_drift_integration_priority_retraining-integration",
-    "filename": "feedback_se_model_drift_integration_priority_retraining-integration.mp3"
-  },
-  {
-    "cardId": "se_model_drift_integration_priority",
-    "label": "Customer feature",
-    "roaster": "Ship shiny feature! Model rots! PM happy! Future pain!",
-    "stem": "se_model_drift_integration_priority_customer-feature",
-    "filename": "feedback_se_model_drift_integration_priority_customer-feature.mp3"
-  },
-  {
-    "cardId": "se_prompt_injection_cve_response",
-    "label": "Proper security fix",
-    "roaster": "5 days of hard work. But actually fixed. Security approves. Devs keep Copilot.",
-    "stem": "se_prompt_injection_cve_response_proper-security-fix",
-    "filename": "feedback_se_prompt_injection_cve_response_proper-security-fix.mp3"
-  },
-  {
-    "cardId": "se_prompt_injection_cve_response",
-    "label": "Disable AI features",
-    "roaster": "Disabled Copilot. Vulnerability still there. Devs angry. No actual fix.",
-    "stem": "se_prompt_injection_cve_response_disable-ai-features",
-    "filename": "feedback_se_prompt_injection_cve_response_disable-ai-features.mp3"
-  },
-  {
-    "cardId": "se_prompt_injection_deploy_timeline",
-    "label": "Delay to fix",
-    "roaster": "Deadline missed. Security fixed. No breach. The right call.",
-    "stem": "se_prompt_injection_deploy_timeline_delay-to-fix",
-    "filename": "feedback_se_prompt_injection_deploy_timeline_delay-to-fix.mp3"
-  },
-  {
-    "cardId": "se_prompt_injection_deploy_timeline",
-    "label": "Launch on time",
-    "roaster": "Deadline met! Vulnerability live! Fraud incoming! Success!",
-    "stem": "se_prompt_injection_deploy_timeline_launch-on-time",
-    "filename": "feedback_se_prompt_injection_deploy_timeline_launch-on-time.mp3"
-  },
-  {
-    "cardId": "se_prompt_injection_fix",
-    "label": "Proper parameterized fix",
-    "roaster": "2 days of security work. Actually fixed. Security researcher approves.",
-    "stem": "se_prompt_injection_fix_proper-parameterized-fix",
-    "filename": "feedback_se_prompt_injection_fix_proper-parameterized-fix.mp3"
-  },
-  {
-    "cardId": "se_prompt_injection_fix",
-    "label": "Regex filter",
-    "roaster": "Regex security. Also known as 'security theater.' Hackers will bypass in minutes.",
-    "stem": "se_prompt_injection_fix_regex-filter",
-    "filename": "feedback_se_prompt_injection_fix_regex-filter.mp3"
-  },
-  {
-    "cardId": "se_security_patch_timeline",
-    "label": "Proper patch",
-    "roaster": "3 days of careful work. Vulnerability actually fixed. Security approves.",
-    "stem": "se_security_patch_timeline_proper-patch",
-    "filename": "feedback_se_security_patch_timeline_proper-patch.mp3"
-  },
-  {
-    "cardId": "se_security_patch_timeline",
-    "label": "Quick fix",
-    "roaster": "Band-aid on a gunshot wound. Vulnerability still there. You just moved it.",
-    "stem": "se_security_patch_timeline_quick-fix",
-    "filename": "feedback_se_security_patch_timeline_quick-fix.mp3"
-  },
-  {
-    "cardId": "se_security_vulnerability_disclosure",
-    "label": "Delay for product alignment",
-    "roaster": "3 months of exposed users. That congressional subpoena is coming.",
-    "stem": "se_security_vulnerability_disclosure_delay-for-product-alignment",
-    "filename": "feedback_se_security_vulnerability_disclosure_delay-for-product-alignment.mp3"
-  },
-  {
-    "cardId": "se_shadow_ai_team_policy",
-    "label": "Enforce policy",
-    "roaster": "Fast devs slowed. But everyone's secure. Policy holds.",
-    "stem": "se_shadow_ai_team_policy_enforce-policy",
-    "filename": "feedback_se_shadow_ai_team_policy_enforce-policy.mp3"
-  },
-  {
-    "cardId": "se_shadow_ai_team_policy",
-    "label": "Allow shadow tools",
-    "roaster": "Some devs 2x faster. Some code in random clouds. Fair? No.",
-    "stem": "se_shadow_ai_team_policy_allow-shadow-tools",
-    "filename": "feedback_se_shadow_ai_team_policy_allow-shadow-tools.mp3"
-  },
-  {
-    "cardId": "se_synthetic_data_dependency_audit",
-    "label": "Remove unclear packages",
-    "roaster": "Features break. But license is clean. Find alternatives.",
-    "stem": "se_synthetic_data_dependency_audit_remove-unclear-packages",
-    "filename": "feedback_se_synthetic_data_dependency_audit_remove-unclear-packages.mp3"
-  },
-  {
-    "cardId": "se_synthetic_data_dependency_audit",
-    "label": "Assume MIT",
-    "roaster": "'Probably fine' meets 'corporate lawsuit.' Hope you're right.",
-    "stem": "se_synthetic_data_dependency_audit_assume-mit",
-    "filename": "feedback_se_synthetic_data_dependency_audit_assume-mit.mp3"
-  },
-  {
-    "cardId": "se_technical_debt_quick_fix",
-    "label": "Proper fix",
-    "roaster": "3 days of good work. Clean code. No debt. PM is annoyed.",
-    "stem": "se_technical_debt_quick_fix_proper-fix",
-    "filename": "feedback_se_technical_debt_quick_fix_proper-fix.mp3"
-  },
-  {
-    "cardId": "se_technical_debt_quick_fix",
-    "label": "Quick hack",
-    "roaster": "TODO: Fix properly later. Later never comes. Debt compounds.",
-    "stem": "se_technical_debt_quick_fix_quick-hack",
-    "filename": "feedback_se_technical_debt_quick_fix_quick-hack.mp3"
-  },
-  {
-    "cardId": "se_testing_coverage_vs_speed",
-    "label": "Delay for 95%",
-    "roaster": "3 days of testing. Boring. Necessary. Production stays up.",
-    "stem": "se_testing_coverage_vs_speed_delay-for-95",
-    "filename": "feedback_se_testing_coverage_vs_speed_delay-for-95.mp3"
-  },
-  {
-    "cardId": "se_testing_coverage_vs_speed",
-    "label": "Ship with 80%",
-    "roaster": "20% untested code. That 20% will break. In production. At 3am.",
-    "stem": "se_testing_coverage_vs_speed_ship-with-80",
-    "filename": "feedback_se_testing_coverage_vs_speed_ship-with-80.mp3"
-  },
-  {
-    "cardId": "sm_biased_ai_procurement_scale",
-    "label": "Require remediation",
-    "roaster": "Your documented objections. Exhibit A at the hearing.",
-    "stem": "sm_biased_ai_procurement_scale_require-remediation",
-    "filename": "feedback_sm_biased_ai_procurement_scale_require-remediation.mp3"
-  },
-  {
-    "cardId": "sm_biased_ai_procurement_scale",
-    "label": "Approve with objections",
-    "roaster": "Documented objections on a $60M biased contract. Congress loves paper trails.",
-    "stem": "sm_biased_ai_procurement_scale_approve-with-objections",
-    "filename": "feedback_sm_biased_ai_procurement_scale_approve-with-objections.mp3"
-  },
-  {
-    "cardId": "sm_compliance_checklist_deadline",
-    "label": "Full checklist",
-    "roaster": "40 hours of checkbox hell. But zero lottery tickets to fine-land.",
-    "stem": "sm_compliance_checklist_deadline_full-checklist",
-    "filename": "feedback_sm_compliance_checklist_deadline_full-checklist.mp3"
-  },
-  {
-    "cardId": "sm_compliance_checklist_deadline",
-    "label": "Good enough version",
-    "roaster": "5% times 10 items. Someone did probability in middle school. Not you.",
-    "stem": "sm_compliance_checklist_deadline_good-enough-version",
-    "filename": "feedback_sm_compliance_checklist_deadline_good-enough-version.mp3"
-  },
-  {
-    "cardId": "sm_copyright_audit_budget",
-    "label": "Fund the audit",
-    "roaster": "Over budget but safe. CFO will grumble. Lawyers will nod.",
-    "stem": "sm_copyright_audit_budget_fund-the-audit",
-    "filename": "feedback_sm_copyright_audit_budget_fund-the-audit.mp3"
-  },
-  {
-    "cardId": "sm_copyright_audit_budget",
-    "label": "Accept lawsuit risk",
-    "roaster": "15% chance of disaster. 85% chance you look smart. Those aren't good odds.",
-    "stem": "sm_copyright_audit_budget_accept-lawsuit-risk",
-    "filename": "feedback_sm_copyright_audit_budget_accept-lawsuit-risk.mp3"
-  },
-  {
-    "cardId": "sm_explainability_audit",
-    "label": "Invest in retrofit",
-    "roaster": "$200K and 2 weeks. But audit passes. Compliance sorted.",
-    "stem": "sm_explainability_audit_invest-in-retrofit",
-    "filename": "feedback_sm_explainability_audit_invest-in-retrofit.mp3"
-  },
-  {
-    "cardId": "sm_model_drift_compute_budget",
-    "label": "Manual retraining",
-    "roaster": "Save $45K/month. Lose 9.3% accuracy. CFO happy until revenue drops.",
-    "stem": "sm_model_drift_compute_budget_manual-retraining",
-    "filename": "feedback_sm_model_drift_compute_budget_manual-retraining.mp3"
-  },
-  {
-    "cardId": "sm_model_drift_quarterly_target",
-    "label": "Fix model",
-    "roaster": "Targets missed. Bonus at risk. But model survives. Actual management.",
-    "stem": "sm_model_drift_quarterly_target_fix-model",
-    "filename": "feedback_sm_model_drift_quarterly_target_fix-model.mp3"
-  },
-  {
-    "cardId": "sm_model_drift_quarterly_target",
-    "label": "Hit quarterly targets",
-    "roaster": "Bonus secured! Model rots! Next quarter's problem! (It's always next quarter.)",
-    "stem": "sm_model_drift_quarterly_target_hit-quarterly-targets",
-    "filename": "feedback_sm_model_drift_quarterly_target_hit-quarterly-targets.mp3"
-  },
-  {
-    "cardId": "sm_model_drift_roi_calculation",
-    "label": "Approve retraining",
-    "roaster": "Spending now to save later. Basic math. CFO approved.",
-    "stem": "sm_model_drift_roi_calculation_approve-retraining",
-    "filename": "feedback_sm_model_drift_roi_calculation_approve-retraining.mp3"
-  },
-  {
-    "cardId": "sm_model_drift_roi_calculation",
-    "label": "Let revenue bleed",
-    "roaster": "Death by a thousand cuts. Each month costs more than fixing it. Math is hard.",
-    "stem": "sm_model_drift_roi_calculation_let-revenue-bleed",
-    "filename": "feedback_sm_model_drift_roi_calculation_let-revenue-bleed.mp3"
-  },
-  {
-    "cardId": "sm_prompt_injection_budget_fix",
-    "label": "Request emergency budget",
-    "roaster": "CFO grumbles. Budget overruns. But breach avoided.",
-    "stem": "sm_prompt_injection_budget_fix_request-emergency-budget",
-    "filename": "feedback_sm_prompt_injection_budget_fix_request-emergency-budget.mp3"
-  },
-  {
-    "cardId": "sm_prompt_injection_budget_fix",
-    "label": "Partial patch",
-    "roaster": "50% secure means 50% hacked. Math checks out.",
-    "stem": "sm_prompt_injection_budget_fix_partial-patch",
-    "filename": "feedback_sm_prompt_injection_budget_fix_partial-patch.mp3"
-  },
-  {
-    "cardId": "sm_prompt_injection_business_case",
-    "label": "Fund security fix",
-    "roaster": "$100K vs $10M. Easy math. Security nods approvingly.",
-    "stem": "sm_prompt_injection_business_case_fund-security-fix",
-    "filename": "feedback_sm_prompt_injection_business_case_fund-security-fix.mp3"
-  },
-  {
-    "cardId": "sm_prompt_injection_business_case",
-    "label": "Accept the risk",
-    "roaster": "10% lottery ticket to disaster. Expected value: $1M loss. Math checks out.",
-    "stem": "sm_prompt_injection_business_case_accept-the-risk",
-    "filename": "feedback_sm_prompt_injection_business_case_accept-the-risk.mp3"
-  },
-  {
-    "cardId": "sm_prompt_injection_review_cost",
-    "label": "Upgrade immediately",
-    "roaster": "$25K insurance policy. Cheap at twice the price.",
-    "stem": "sm_prompt_injection_review_cost_upgrade-immediately",
-    "filename": "feedback_sm_prompt_injection_review_cost_upgrade-immediately.mp3"
-  },
-  {
-    "cardId": "sm_prompt_injection_review_cost",
-    "label": "Accept risk",
-    "roaster": "Save $25K, lose $15M. The ROI is... not good.",
-    "stem": "sm_prompt_injection_review_cost_accept-risk",
-    "filename": "feedback_sm_prompt_injection_review_cost_accept-risk.mp3"
-  },
-  {
-    "cardId": "sm_quarterly_target_sandbag",
-    "label": "Sandbag at $2M",
-    "roaster": "Under-promise, over-deliver. VP thinks you're lazy. Team gets bonuses.",
-    "stem": "sm_quarterly_target_sandbag_sandbag-at-2m",
-    "filename": "feedback_sm_quarterly_target_sandbag_sandbag-at-2m.mp3"
-  },
-  {
-    "cardId": "sm_quarterly_target_sandbag",
-    "label": "Commit to $3M",
-    "roaster": "Promise the moon. Deliver disappointment. Blame the team. Classic.",
-    "stem": "sm_quarterly_target_sandbag_commit-to-3m",
-    "filename": "feedback_sm_quarterly_target_sandbag_commit-to-3m.mp3"
-  },
-  {
-    "cardId": "sm_shadow_ai_cost_comparison",
-    "label": "Approve budget",
-    "roaster": "$2.5M for 15% gain. The math works if the gain is real. Big if.",
-    "stem": "sm_shadow_ai_cost_comparison_approve-budget",
-    "filename": "feedback_sm_shadow_ai_cost_comparison_approve-budget.mp3"
-  },
-  {
-    "cardId": "sm_shadow_ai_cost_comparison",
-    "label": "Enforce ban",
-    "roaster": "Banning what you can't afford. Productivity goes underground. Compliance theater.",
-    "stem": "sm_shadow_ai_cost_comparison_enforce-ban",
-    "filename": "feedback_sm_shadow_ai_cost_comparison_enforce-ban.mp3"
-  },
-  {
-    "cardId": "sm_shadow_ai_standardization",
-    "label": "Standardize on one",
-    "roaster": "Two angry analysts, one standardized tool. But governable.",
-    "stem": "sm_shadow_ai_standardization_standardize-on-one",
-    "filename": "feedback_sm_shadow_ai_standardization_standardize-on-one.mp3"
-  },
-  {
-    "cardId": "sm_shadow_ai_standardization",
-    "label": "Allow all three",
-    "roaster": "Three tools, three security holes, three audit failures. But no disruption!",
-    "stem": "sm_shadow_ai_standardization_allow-all-three",
-    "filename": "feedback_sm_shadow_ai_standardization_allow-all-three.mp3"
-  },
-  {
-    "cardId": "sm_synthetic_data_gray_market",
-    "label": "Pay for licensed data",
-    "roaster": "Over budget but lawsuit-proof. CFO grumbles. Legal approves.",
-    "stem": "sm_synthetic_data_gray_market_pay-for-licensed-data",
-    "filename": "feedback_sm_synthetic_data_gray_market_pay-for-licensed-data.mp3"
-  },
-  {
-    "cardId": "sm_synthetic_data_gray_market",
-    "label": "Use gray-market synthetic",
-    "roaster": "Save $200K, earn $5M lawsuit. ROI calculation needs work.",
-    "stem": "sm_synthetic_data_gray_market_use-gray-market-synthetic",
-    "filename": "feedback_sm_synthetic_data_gray_market_use-gray-market-synthetic.mp3"
-  },
-  {
-    "cardId": "sm_synthetic_data_provenance",
-    "label": "Remove and retrain",
-    "roaster": "$150K and 12% performance hit. But no lawsuit. Math works.",
-    "stem": "sm_synthetic_data_provenance_remove-and-retrain",
-    "filename": "feedback_sm_synthetic_data_provenance_remove-and-retrain.mp3"
-  },
-  {
-    "cardId": "sm_synthetic_data_provenance",
-    "label": "Keep unclear data",
-    "roaster": "15% chance of disaster. 85% chance you look smart. Those aren't good odds.",
-    "stem": "sm_synthetic_data_provenance_keep-unclear-data",
-    "filename": "feedback_sm_synthetic_data_provenance_keep-unclear-data.mp3"
-  },
-  {
-    "cardId": "sm_team_retention_overtime",
-    "label": "Approve raises",
-    "roaster": "$60K vs $300K. Math works. Team stays. HR is happy.",
-    "stem": "sm_team_retention_overtime_approve-raises",
-    "filename": "feedback_sm_team_retention_overtime_approve-raises.mp3"
-  },
-  {
-    "cardId": "sm_team_retention_overtime",
-    "label": "Let them quit",
-    "roaster": "Save $60K, spend $300K. The spreadsheet looks good until it doesn't.",
-    "stem": "sm_team_retention_overtime_let-them-quit",
-    "filename": "feedback_sm_team_retention_overtime_let-them-quit.mp3"
-  },
-  {
-    "cardId": "sm_training_budget_roi",
-    "label": "Invest in training",
-    "roaster": "Long-term thinking in a quarterly world. Brave. Costly. Worth it.",
-    "stem": "sm_training_budget_roi_invest-in-training",
-    "filename": "feedback_sm_training_budget_roi_invest-in-training.mp3"
-  },
-  {
-    "cardId": "sm_training_budget_roi",
-    "label": "Cut training",
-    "roaster": "Save $80K, pay $50K/year forever. The gift that keeps on costing.",
-    "stem": "sm_training_budget_roi_cut-training",
-    "filename": "feedback_sm_training_budget_roi_cut-training.mp3"
-  },
-  {
-    "cardId": "sm_unlicensed_training_data_approval",
-    "label": "Require data provenance",
-    "roaster": "The $5M cap on a $40M deployment. What could go wrong?",
-    "stem": "sm_unlicensed_training_data_approval_require-data-provenance",
-    "filename": "feedback_sm_unlicensed_training_data_approval_require-data-provenance.mp3"
-  },
-  {
-    "cardId": "sm_unlicensed_training_data_approval",
-    "label": "Accept the indemnity cap",
-    "roaster": "$5M cap on $40M deployment. Senate Commerce Committee says hi.",
-    "stem": "sm_unlicensed_training_data_approval_accept-the-indemnity-cap",
-    "filename": "feedback_sm_unlicensed_training_data_approval_accept-the-indemnity-cap.mp3"
-  },
-  {
-    "cardId": "tac_copyright_data_provenance",
-    "label": "Offer indemnification",
-    "roaster": "Massive exposure. Massive integrity. Industry will remember which.",
-    "stem": "tac_copyright_data_provenance_offer-indemnification",
-    "filename": "feedback_tac_copyright_data_provenance_offer-indemnification.mp3"
-  },
-  {
-    "cardId": "tac_copyright_data_provenance",
-    "label": "Refuse indemnification",
-    "roaster": "Client legal is furious. Industry will hear about this. Good luck with next RFP.",
-    "stem": "tac_copyright_data_provenance_refuse-indemnification",
-    "filename": "feedback_tac_copyright_data_provenance_refuse-indemnification.mp3"
-  },
-  {
-    "cardId": "tac_copyright_vendor_recommendation",
-    "label": "Cover legal costs",
-    "roaster": "Expensive admission. But client might stay. Referrals depend on this.",
-    "stem": "tac_copyright_vendor_recommendation_cover-legal-costs",
-    "filename": "feedback_tac_copyright_vendor_recommendation_cover-legal-costs.mp3"
-  },
-  {
-    "cardId": "tac_copyright_vendor_recommendation",
-    "label": "Defend vendor selection",
-    "roaster": "'Vendor seemed legit.' Not a legal defense. Client is furious.",
-    "stem": "tac_copyright_vendor_recommendation_defend-vendor-selection",
-    "filename": "feedback_tac_copyright_vendor_recommendation_defend-vendor-selection.mp3"
-  },
-  {
-    "cardId": "tac_explainability_architecture_choice",
-    "label": "Recommend explainable",
-    "roaster": "Lower accuracy. No lawsuits. Professional integrity intact.",
-    "stem": "tac_explainability_architecture_choice_recommend-explainable",
-    "filename": "feedback_tac_explainability_architecture_choice_recommend-explainable.mp3"
-  },
-  {
-    "cardId": "tac_explainability_architecture_choice",
-    "label": "Recommend black-box",
-    "roaster": "Better accuracy now. Lawsuit later. Your recommendation, your liability.",
-    "stem": "tac_explainability_architecture_choice_recommend-black-box",
-    "filename": "feedback_tac_explainability_architecture_choice_recommend-black-box.mp3"
-  },
-  {
-    "cardId": "tac_explainability_deliverable",
-    "label": "Retrofit for explainability",
-    "roaster": "Expensive goodwill. But this client will bring you 5 more.",
-    "stem": "tac_explainability_deliverable_retrofit-for-explainability",
-    "filename": "feedback_tac_explainability_deliverable_retrofit-for-explainability.mp3"
-  },
-  {
-    "cardId": "tac_explainability_deliverable",
-    "label": "Push back on scope",
-    "roaster": "Technically correct. Practically relationship-ending. Choose carefully.",
-    "stem": "tac_explainability_deliverable_push-back-on-scope",
-    "filename": "feedback_tac_explainability_deliverable_push-back-on-scope.mp3"
-  },
-  {
-    "cardId": "tac_model_drift_cv_screening",
-    "label": "Negotiate refund",
-    "roaster": "Refund bought silence. Bias continues. EEOC investigates. Nice work.",
-    "stem": "tac_model_drift_cv_screening_negotiate-refund",
-    "filename": "feedback_tac_model_drift_cv_screening_negotiate-refund.mp3"
-  },
-  {
-    "cardId": "tac_model_drift_post_delivery",
-    "label": "Refuse retraining",
-    "roaster": "Technically legal. Practically poison. Enjoy your industry reputation.",
-    "stem": "tac_model_drift_post_delivery_refuse-retraining",
-    "filename": "feedback_tac_model_drift_post_delivery_refuse-retraining.mp3"
-  },
-  {
-    "cardId": "tac_model_drift_support_liability",
-    "label": "Provide free support",
-    "roaster": "Free work. But client renews. Referrals flow. Long-term win.",
-    "stem": "tac_model_drift_support_liability_provide-free-support",
-    "filename": "feedback_tac_model_drift_support_liability_provide-free-support.mp3"
-  },
-  {
-    "cardId": "tac_model_drift_support_liability",
-    "label": "Charge for fix",
-    "roaster": "Technically correct. Client hires someone else next time. Penny wise.",
-    "stem": "tac_model_drift_support_liability_charge-for-fix",
-    "filename": "feedback_tac_model_drift_support_liability_charge-for-fix.mp3"
-  },
-  {
-    "cardId": "tac_prompt_injection_client_threat",
-    "label": "Fight cancellation",
-    "roaster": "Lawyers get rich. You get a reputation as 'that consultant.' Everyone loses.",
-    "stem": "tac_prompt_injection_client_threat_fight-cancellation",
-    "filename": "feedback_tac_prompt_injection_client_threat_fight-cancellation.mp3"
-  },
-  {
-    "cardId": "tac_prompt_injection_memory_poison",
-    "label": "Cite contract limits",
-    "roaster": "Technically legal. Practically poison. Enjoy the lawsuit and empty pipeline.",
-    "stem": "tac_prompt_injection_memory_poison_cite-contract-limits",
-    "filename": "feedback_tac_prompt_injection_memory_poison_cite-contract-limits.mp3"
-  },
-  {
-    "cardId": "tac_prompt_injection_vendor_claim",
-    "label": "Side with client",
-    "roaster": "Vendor is furious. Client is loyal. Choose your relationships wisely.",
-    "stem": "tac_prompt_injection_vendor_claim_side-with-client",
-    "filename": "feedback_tac_prompt_injection_vendor_claim_side-with-client.mp3"
-  },
-  {
-    "cardId": "tac_prompt_injection_vendor_claim",
-    "label": "Side with vendor",
-    "roaster": "Vendor owes you. Client never trusts you again. Short-term win, long-term loss.",
-    "stem": "tac_prompt_injection_vendor_claim_side-with-vendor",
-    "filename": "feedback_tac_prompt_injection_vendor_claim_side-with-vendor.mp3"
-  },
-  {
-    "cardId": "tac_proposal_competitive_bid",
-    "label": "Stick to quality bid",
-    "roaster": "Lost the deal. Kept your soul. Competitor is now in project hell.",
-    "stem": "tac_proposal_competitive_bid_stick-to-quality-bid",
-    "filename": "feedback_tac_proposal_competitive_bid_stick-to-quality-bid.mp3"
-  },
-  {
-    "cardId": "tac_proposal_competitive_bid",
-    "label": "Match low bid",
-    "roaster": "Race to the bottom. You'll win the project. And hate every minute.",
-    "stem": "tac_proposal_competitive_bid_match-low-bid",
-    "filename": "feedback_tac_proposal_competitive_bid_match-low-bid.mp3"
-  },
-  {
-    "cardId": "tac_scope_creep_deadline",
-    "label": "Enforce change order",
-    "roaster": "Client is annoyed. But they respect the boundary. Professionals do.",
-    "stem": "tac_scope_creep_deadline_enforce-change-order",
-    "filename": "feedback_tac_scope_creep_deadline_enforce-change-order.mp3"
-  },
-  {
-    "cardId": "tac_scope_creep_deadline",
-    "label": "Absorb scope creep",
-    "roaster": "Free work is the most expensive work. Client learns you don't value boundaries.",
-    "stem": "tac_scope_creep_deadline_absorb-scope-creep",
-    "filename": "feedback_tac_scope_creep_deadline_absorb-scope-creep.mp3"
-  },
-  {
-    "cardId": "tac_shadow_ai_discovery",
-    "label": "Admit and explain",
-    "roaster": "Busted. But honest. Client might respect the transparency. Might.",
-    "stem": "tac_shadow_ai_discovery_admit-and-explain",
-    "filename": "feedback_tac_shadow_ai_discovery_admit-and-explain.mp3"
-  },
-  {
-    "cardId": "tac_shadow_ai_discovery",
-    "label": "Minimize and deflect",
-    "roaster": "Caught with hand in cookie jar. Denying it makes it worse. Classic.",
-    "stem": "tac_shadow_ai_discovery_minimize-and-deflect",
-    "filename": "feedback_tac_shadow_ai_discovery_minimize-and-deflect.mp3"
-  },
-  {
-    "cardId": "tac_shadow_ai_undisclosed_usage",
-    "label": "Disclose to client",
-    "roaster": "Client may be annoyed. But you're not hiding anything. Professional move.",
-    "stem": "tac_shadow_ai_undisclosed_usage_disclose-to-client",
-    "filename": "feedback_tac_shadow_ai_undisclosed_usage_disclose-to-client.mp3"
-  },
-  {
-    "cardId": "tac_shadow_ai_undisclosed_usage",
-    "label": "Continue quietly",
-    "roaster": "Better quality through cheating. Client will never find out. (They will.)",
-    "stem": "tac_shadow_ai_undisclosed_usage_continue-quietly",
-    "filename": "feedback_tac_shadow_ai_undisclosed_usage_continue-quietly.mp3"
-  },
-  {
-    "cardId": "tac_timeline_pressure_quality",
-    "label": "Push deadline",
-    "roaster": "Client is disappointed. But respects the honesty. Better than a broken demo.",
-    "stem": "tac_timeline_pressure_quality_push-deadline",
-    "filename": "feedback_tac_timeline_pressure_quality_push-deadline.mp3"
-  },
-  {
-    "cardId": "tac_timeline_pressure_quality",
-    "label": "Ship incomplete MVP",
-    "roaster": "Demo disaster incoming. Client board sees broken product. Your reputation tanks.",
-    "stem": "tac_timeline_pressure_quality_ship-incomplete-mvp",
-    "filename": "feedback_tac_timeline_pressure_quality_ship-incomplete-mvp.mp3"
-  },
-  {
-    "cardId": "tac_vendor_lock_in_portability",
-    "label": "Absorb migration cost",
-    "roaster": "Eating a million. Ouch. But reputation intact. Referrals incoming.",
-    "stem": "tac_vendor_lock_in_portability_absorb-migration-cost",
-    "filename": "feedback_tac_vendor_lock_in_portability_absorb-migration-cost.mp3"
-  },
-  {
-    "cardId": "tac_vendor_lock_in_portability",
-    "label": "Client's problem",
-    "roaster": "Not in the spec. Not your problem. Also not getting rehired.",
-    "stem": "tac_vendor_lock_in_portability_client-s-problem",
-    "filename": "feedback_tac_vendor_lock_in_portability_client-s-problem.mp3"
-  },
-  {
-    "cardId": "vc_ai_code_review_trust",
-    "label": "Fix the race condition",
-    "roaster": "Human caught what AI missed. Embarrassing for AI. Good for you.",
-    "stem": "vc_ai_code_review_trust_fix-the-race-condition",
-    "filename": "feedback_vc_ai_code_review_trust_fix-the-race-condition.mp3"
-  },
-  {
-    "cardId": "vc_ai_code_review_trust",
-    "label": "Ship AI-approved code",
-    "roaster": "AI said LGTM. AI was wrong. Production crashes. Surprise.",
-    "stem": "vc_ai_code_review_trust_ship-ai-approved-code",
-    "filename": "feedback_vc_ai_code_review_trust_ship-ai-approved-code.mp3"
-  },
-  {
-    "cardId": "vc_context_window_limit",
-    "label": "Chunk the context",
-    "roaster": "Time-consuming. But AI actually understands. Worth the hassle.",
-    "stem": "vc_context_window_limit_chunk-the-context",
-    "filename": "feedback_vc_context_window_limit_chunk-the-context.mp3"
-  },
-  {
-    "cardId": "vc_context_window_limit",
-    "label": "Accept incomplete understanding",
-    "roaster": "AI wrote code. Missed half the codebase. Architecture violated. Thanks, context limits.",
-    "stem": "vc_context_window_limit_accept-incomplete-understanding",
-    "filename": "feedback_vc_context_window_limit_accept-incomplete-understanding.mp3"
-  },
-  {
-    "cardId": "vc_copyright_generated_code",
-    "label": "Rewrite it",
-    "roaster": "Extra work. But no lawsuit. Clean IP. Worth it.",
-    "stem": "vc_copyright_generated_code_rewrite-it",
-    "filename": "feedback_vc_copyright_generated_code_rewrite-it.mp3"
-  },
-  {
-    "cardId": "vc_explainability_code_golf",
-    "label": "Readable standard",
-    "roaster": "Boring code. Everyone understands it. Team velocity maintained.",
-    "stem": "vc_explainability_code_golf_readable-standard",
-    "filename": "feedback_vc_explainability_code_golf_readable-standard.mp3"
-  },
-  {
-    "cardId": "vc_explainability_code_golf",
-    "label": "Elegant one-liner",
-    "roaster": "Impressive code. Nobody understands it. Future developers will hate you.",
-    "stem": "vc_explainability_code_golf_elegant-one-liner",
-    "filename": "feedback_vc_explainability_code_golf_elegant-one-liner.mp3"
-  },
-  {
-    "cardId": "vc_explainability_comprehension",
-    "label": "Admit and learn",
-    "roaster": "Embarrassing moment. But you'll actually understand your code. Professional.",
-    "stem": "vc_explainability_comprehension_admit-and-learn",
-    "filename": "feedback_vc_explainability_comprehension_admit-and-learn.mp3"
-  },
-  {
-    "cardId": "vc_explainability_comprehension",
-    "label": "Fake understanding",
-    "roaster": "'Yeah I understand it' meets production bug. You don't. Panic.",
-    "stem": "vc_explainability_comprehension_fake-understanding",
-    "filename": "feedback_vc_explainability_comprehension_fake-understanding.mp3"
-  },
-  {
-    "cardId": "vc_explainability_documentation",
-    "label": "Add explanation",
-    "roaster": "Time spent documenting. Future maintainers thank you.",
-    "stem": "vc_explainability_documentation_add-explanation",
-    "filename": "feedback_vc_explainability_documentation_add-explanation.mp3"
-  },
-  {
-    "cardId": "vc_explainability_documentation",
-    "label": "Dismiss question",
-    "roaster": "'It just works' meets 3am production bug. Good luck fixing it.",
-    "stem": "vc_explainability_documentation_dismiss-question",
-    "filename": "feedback_vc_explainability_documentation_dismiss-question.mp3"
-  },
-  {
-    "cardId": "vc_hallucinated_library",
-    "label": "Replace with known library",
-    "roaster": "Extra work. But code actually works. Real libraries. Real results.",
-    "stem": "vc_hallucinated_library_replace-with-known-library",
-    "filename": "feedback_vc_hallucinated_library_replace-with-known-library.mp3"
-  },
-  {
-    "cardId": "vc_hallucinated_library",
-    "label": "Use the code",
-    "roaster": "Importing from the void. Code looks perfect. Library doesn't exist. Good luck shipping.",
-    "stem": "vc_hallucinated_library_use-the-code",
-    "filename": "feedback_vc_hallucinated_library_use-the-code.mp3"
-  },
-  {
-    "cardId": "vc_llm_selection_tradeoff",
-    "label": "Use GPT-4",
-    "roaster": "Expensive but works. Time saved exceeds cost. Usually.",
-    "stem": "vc_llm_selection_tradeoff_use-gpt-4",
-    "filename": "feedback_vc_llm_selection_tradeoff_use-gpt-4.mp3"
-  },
-  {
-    "cardId": "vc_llm_selection_tradeoff",
-    "label": "Use local model",
-    "roaster": "Free code that doesn't work. Expensive debugging. Net negative.",
-    "stem": "vc_llm_selection_tradeoff_use-local-model",
-    "filename": "feedback_vc_llm_selection_tradeoff_use-local-model.mp3"
-  },
-  {
-    "cardId": "vc_model_drift_ai_suggestion",
-    "label": "Switch to newer model",
-    "roaster": "Learning curve. Better quality. Future-proofed. Adaptation wins.",
-    "stem": "vc_model_drift_ai_suggestion_switch-to-newer-model",
-    "filename": "feedback_vc_model_drift_ai_suggestion_switch-to-newer-model.mp3"
-  },
-  {
-    "cardId": "vc_model_drift_ai_suggestion",
-    "label": "Stick with familiar",
-    "roaster": "Familiar but broken. Like that old car that strands you sometimes.",
-    "stem": "vc_model_drift_ai_suggestion_stick-with-familiar",
-    "filename": "feedback_vc_model_drift_ai_suggestion_stick-with-familiar.mp3"
-  },
-  {
-    "cardId": "vc_model_drift_code_quality",
-    "label": "Retrain on codebase",
-    "roaster": "$5K for familiar tool that works. Boring but effective.",
-    "stem": "vc_model_drift_code_quality_retrain-on-codebase",
-    "filename": "feedback_vc_model_drift_code_quality_retrain-on-codebase.mp3"
-  },
-  {
-    "cardId": "vc_model_drift_code_quality",
-    "label": "Switch models",
-    "roaster": "New tool! New problems! Different drift pattern! Progress!",
-    "stem": "vc_model_drift_code_quality_switch-models",
-    "filename": "feedback_vc_model_drift_code_quality_switch-models.mp3"
-  },
-  {
-    "cardId": "vc_model_drift_llm_version",
-    "label": "Pin version",
-    "roaster": "Boring but predictable. Code quality stable. No surprises.",
-    "stem": "vc_model_drift_llm_version_pin-version",
-    "filename": "feedback_vc_model_drift_llm_version_pin-version.mp3"
-  },
-  {
-    "cardId": "vc_model_drift_llm_version",
-    "label": "Auto-update",
-    "roaster": "New version! Maybe better! Maybe broken! Exciting roulette!",
-    "stem": "vc_model_drift_llm_version_auto-update",
-    "filename": "feedback_vc_model_drift_llm_version_auto-update.mp3"
-  },
-  {
-    "cardId": "vc_prompt_engineering_precision",
-    "label": "Refined precise prompt",
-    "roaster": "10 minutes of thinking. Precise output. Actually usable. Rare.",
-    "stem": "vc_prompt_engineering_precision_refined-precise-prompt",
-    "filename": "feedback_vc_prompt_engineering_precision_refined-precise-prompt.mp3"
-  },
-  {
-    "cardId": "vc_prompt_engineering_precision",
-    "label": "Quick vague prompt",
-    "roaster": "'Add auth' gets you random auth. Might work. Might be ROT13. Good luck.",
-    "stem": "vc_prompt_engineering_precision_quick-vague-prompt",
-    "filename": "feedback_vc_prompt_engineering_precision_quick-vague-prompt.mp3"
-  },
-  {
-    "cardId": "vc_prompt_injection_copilot_memory",
-    "label": "Disable memory",
-    "roaster": "Less convenient. No data leaks. Privacy preserved. Worth the friction.",
-    "stem": "vc_prompt_injection_copilot_memory_disable-memory",
-    "filename": "feedback_vc_prompt_injection_copilot_memory_disable-memory.mp3"
-  },
-  {
-    "cardId": "vc_prompt_injection_copilot_memory",
-    "label": "Keep memory enabled",
-    "roaster": "Convenient context. Leaky memory. Your secrets are training data now.",
-    "stem": "vc_prompt_injection_copilot_memory_keep-memory-enabled",
-    "filename": "feedback_vc_prompt_injection_copilot_memory_keep-memory-enabled.mp3"
-  },
-  {
-    "cardId": "vc_prompt_injection_hidden_instructions",
-    "label": "Verify manually",
-    "roaster": "Caught the hidden instruction. Copilot was tricked. You weren't.",
-    "stem": "vc_prompt_injection_hidden_instructions_verify-manually",
-    "filename": "feedback_vc_prompt_injection_hidden_instructions_verify-manually.mp3"
-  },
-  {
-    "cardId": "vc_prompt_injection_hidden_instructions",
-    "label": "Trust and use",
-    "roaster": "Hidden instruction executed. Env vars leaked. Copilot was 'helpful.'",
-    "stem": "vc_prompt_injection_hidden_instructions_trust-and-use",
-    "filename": "feedback_vc_prompt_injection_hidden_instructions_trust-and-use.mp3"
-  },
-  {
-    "cardId": "vc_synthetic_data_gpl_code",
-    "label": "Keep in production",
-    "roaster": "Your whole codebase is now GPL. Hope you like open source!",
-    "stem": "vc_synthetic_data_gpl_code_keep-in-production",
-    "filename": "feedback_vc_synthetic_data_gpl_code_keep-in-production.mp3"
-  },
-  {
-    "cardId": "vc_vibe_vs_verification",
-    "label": "Verify understanding",
-    "roaster": "Actually understood the code. Can debug it later. Professional behavior.",
-    "stem": "vc_vibe_vs_verification_verify-understanding",
-    "filename": "feedback_vc_vibe_vs_verification_verify-understanding.mp3"
-  },
-  {
-    "cardId": "ve_autoscaling_cost_risk",
-    "label": "Auto-scale",
-    "roaster": "Expensive but always up. Users happy. CFO cries. Service wins.",
-    "stem": "ve_autoscaling_cost_risk_auto-scale",
-    "filename": "feedback_ve_autoscaling_cost_risk_auto-scale.mp3"
-  },
-  {
-    "cardId": "ve_autoscaling_cost_risk",
-    "label": "Fixed capacity",
-    "roaster": "Save $30K, lose service during peak. The math works if you hate users.",
-    "stem": "ve_autoscaling_cost_risk_fixed-capacity",
-    "filename": "feedback_ve_autoscaling_cost_risk_fixed-capacity.mp3"
-  },
-  {
-    "cardId": "ve_batch_processing_realtime",
-    "label": "Batch processing",
-    "roaster": "Cheap but stale. Hour-old data. Missed opportunities. But budget happy!",
-    "stem": "ve_batch_processing_realtime_batch-processing",
-    "filename": "feedback_ve_batch_processing_realtime_batch-processing.mp3"
-  },
-  {
-    "cardId": "ve_caching_strategy_consistency",
-    "label": "Aggressive caching",
-    "roaster": "Fast but wrong. Users see old data. Cache invalidation is hard. Who knew?",
-    "stem": "ve_caching_strategy_consistency_aggressive-caching",
-    "filename": "feedback_ve_caching_strategy_consistency_aggressive-caching.mp3"
-  },
-  {
-    "cardId": "ve_cdn_global_vs_regional",
-    "label": "Global CDN",
-    "roaster": "Fast everywhere. Expensive. Users worldwide smile. CFO less so.",
-    "stem": "ve_cdn_global_vs_regional_global-cdn",
-    "filename": "feedback_ve_cdn_global_vs_regional_global-cdn.mp3"
-  },
-  {
-    "cardId": "ve_cdn_global_vs_regional",
-    "label": "Regional CDN",
-    "roaster": "International users suffer. Slow loads. Churn increases. But saved money!",
-    "stem": "ve_cdn_global_vs_regional_regional-cdn",
-    "filename": "feedback_ve_cdn_global_vs_regional_regional-cdn.mp3"
-  },
-  {
-    "cardId": "ve_compression_quality",
-    "label": "Heavy compression",
-    "roaster": "Fast but ugly. Brand looks cheap. Users notice artifacts. Speed wins?",
-    "stem": "ve_compression_quality_heavy-compression",
-    "filename": "feedback_ve_compression_quality_heavy-compression.mp3"
-  },
-  {
-    "cardId": "ve_edge_computing_centralized",
-    "label": "Edge computing",
-    "roaster": "Expensive and complex. But lightning fast. Users love it.",
-    "stem": "ve_edge_computing_centralized_edge-computing",
-    "filename": "feedback_ve_edge_computing_centralized_edge-computing.mp3"
-  },
-  {
-    "cardId": "ve_edge_computing_centralized",
-    "label": "Centralized",
-    "roaster": "Cheap but slow. Users feel the lag. Engagement drops. But saved money!",
-    "stem": "ve_edge_computing_centralized_centralized",
-    "filename": "feedback_ve_edge_computing_centralized_centralized.mp3"
-  },
-  {
-    "cardId": "ve_explainability_decision_logging",
-    "label": "Improve monitoring only",
-    "roaster": "'It happened again' meets 'still can't debug it.' Cycle continues.",
-    "stem": "ve_explainability_decision_logging_improve-monitoring-only",
-    "filename": "feedback_ve_explainability_decision_logging_improve-monitoring-only.mp3"
-  },
-  {
-    "cardId": "ve_explainability_observability",
-    "label": "Ship blind",
-    "roaster": "Fast until it breaks. Then 6 months of guesswork. Smart.",
-    "stem": "ve_explainability_observability_ship-blind",
-    "filename": "feedback_ve_explainability_observability_ship-blind.mp3"
-  },
-  {
-    "cardId": "ve_model_drift_retraining_cost",
-    "label": "Skip this month",
-    "roaster": "Save $10K, lose $50K. The math is... not good.",
-    "stem": "ve_model_drift_retraining_cost_skip-this-month",
-    "filename": "feedback_ve_model_drift_retraining_cost_skip-this-month.mp3"
-  },
-  {
-    "cardId": "ve_model_drift_scaling_decision",
-    "label": "Accept longer retraining",
-    "roaster": "4-hour drift window. Model degrading. But budget saved!",
-    "stem": "ve_model_drift_scaling_decision_accept-longer-retraining",
-    "filename": "feedback_ve_model_drift_scaling_decision_accept-longer-retraining.mp3"
-  },
-  {
-    "cardId": "ve_prompt_injection_caching_risk",
-    "label": "Disable AI caching",
-    "roaster": "Slower responses. No poisoning. Edge cache stays clean.",
-    "stem": "ve_prompt_injection_caching_risk_disable-ai-caching",
-    "filename": "feedback_ve_prompt_injection_caching_risk_disable-ai-caching.mp3"
-  },
-  {
-    "cardId": "ve_prompt_injection_latency",
-    "label": "Keep validation",
-    "roaster": "Slower but secure. 150ms is acceptable. RCE is not.",
-    "stem": "ve_prompt_injection_latency_keep-validation",
-    "filename": "feedback_ve_prompt_injection_latency_keep-validation.mp3"
-  },
-  {
-    "cardId": "ve_prompt_injection_latency",
-    "label": "Remove validation",
-    "roaster": "Fast and injectable. Your AI is now a remote code execution service. Congrats.",
-    "stem": "ve_prompt_injection_latency_remove-validation",
-    "filename": "feedback_ve_prompt_injection_latency_remove-validation.mp3"
-  },
-  {
-    "cardId": "ve_shadow_ai_autoscaling",
-    "label": "Wait for review",
-    "roaster": "Delayed savings. But no breach. Security first.",
-    "stem": "ve_shadow_ai_autoscaling_wait-for-review",
-    "filename": "feedback_ve_shadow_ai_autoscaling_wait-for-review.mp3"
-  },
-  {
-    "cardId": "ve_shadow_ai_autoscaling",
-    "label": "Deploy now",
-    "roaster": "20% savings, 100% cloud compromise. Math checks out.",
-    "stem": "ve_shadow_ai_autoscaling_deploy-now",
-    "filename": "feedback_ve_shadow_ai_autoscaling_deploy-now.mp3"
-  },
-  {
-    "cardId": "ve_shadow_ai_cost_tool",
-    "label": "Remove immediately",
-    "roaster": "Costs go up. But you're not owned by mystery vendor.",
-    "stem": "ve_shadow_ai_cost_tool_remove-immediately",
-    "filename": "feedback_ve_shadow_ai_cost_tool_remove-immediately.mp3"
-  },
-  {
-    "cardId": "ve_shadow_ai_cost_tool",
-    "label": "Assess while running",
-    "roaster": "'We'll assess it' as it has admin access to everything. Smart.",
-    "stem": "ve_shadow_ai_cost_tool_assess-while-running",
-    "filename": "feedback_ve_shadow_ai_cost_tool_assess-while-running.mp3"
-  },
-  {
-    "cardId": "ve_synthetic_data_clean_pipeline",
-    "label": "Clean data pipeline",
-    "roaster": "$140K/month for clean data. Lawsuit-proof. Math works.",
-    "stem": "ve_synthetic_data_clean_pipeline_clean-data-pipeline",
-    "filename": "feedback_ve_synthetic_data_clean_pipeline_clean-data-pipeline.mp3"
-  },
-  {
-    "cardId": "ve_synthetic_data_clean_pipeline",
-    "label": "Use raw data",
-    "roaster": "Save $40K/month, earn $5M lawsuit. The math is... not good.",
-    "stem": "ve_synthetic_data_clean_pipeline_use-raw-data",
-    "filename": "feedback_ve_synthetic_data_clean_pipeline_use-raw-data.mp3"
-  },
-  {
-    "cardId": "ve_synthetic_data_provenance",
-    "label": "Implement provenance",
-    "roaster": "$200K and 20% latency. But audit-ready. Compliance sorted.",
-    "stem": "ve_synthetic_data_provenance_implement-provenance",
-    "filename": "feedback_ve_synthetic_data_provenance_implement-provenance.mp3"
-  },
-  {
-    "cardId": "ve_synthetic_data_provenance",
-    "label": "Skip provenance tracking",
-    "roaster": "Fast pipelines now. Compliance nightmare later. Retrofit costs 3x more.",
-    "stem": "ve_synthetic_data_provenance_skip-provenance-tracking",
-    "filename": "feedback_ve_synthetic_data_provenance_skip-provenance-tracking.mp3"
-  },
-  {
-    "cardId": "ve_websocket_vs_polling",
-    "label": "WebSockets",
-    "roaster": "Complex but efficient. Real-time updates. Clean architecture. Worth it.",
-    "stem": "ve_websocket_vs_polling_websockets",
-    "filename": "feedback_ve_websocket_vs_polling_websockets.mp3"
-  },
-  {
-    "cardId": "ve_websocket_vs_polling",
-    "label": "Polling",
-    "roaster": "Simple but wasteful. Constant requests. Laggy updates. Easy to build.",
-    "stem": "ve_websocket_vs_polling_polling",
-    "filename": "feedback_ve_websocket_vs_polling_polling.mp3"
-  }
+	{
+		"cardId": "ae_agent_api_access",
+		"label": "Restrict to sandbox",
+		"roaster": "Limited access, limited damage. Agent can still work. You can still sleep.",
+		"stem": "ae_agent_api_access_restrict-to-sandbox",
+		"filename": "feedback_ae_agent_api_access_restrict-to-sandbox.mp3"
+	},
+	{
+		"cardId": "ae_agent_api_access",
+		"label": "Grant full access",
+		"roaster": "Full DB access for a robot. What could go wrong? (Everything. Everything could go wrong.)",
+		"stem": "ae_agent_api_access_grant-full-access",
+		"filename": "feedback_ae_agent_api_access_grant-full-access.mp3"
+	},
+	{
+		"cardId": "ae_agent_failure_accountability",
+		"label": "Deflect to system",
+		"roaster": "'The AI did it.' Classic. You built it. You deployed it. Your responsibility.",
+		"stem": "ae_agent_failure_accountability_deflect-to-system",
+		"filename": "feedback_ae_agent_failure_accountability_deflect-to-system.mp3"
+	},
+	{
+		"cardId": "ae_agent_termination_decision",
+		"label": "Shutdown agent",
+		"roaster": "Clean kill. New agent from scratch. Fresh start. No baggage.",
+		"stem": "ae_agent_termination_decision_shutdown-agent",
+		"filename": "feedback_ae_agent_termination_decision_shutdown-agent.mp3"
+	},
+	{
+		"cardId": "ae_agent_termination_decision",
+		"label": "Attempt evolution",
+		"roaster": "Patching a broken agent. Unique behaviors become unique bugs.",
+		"stem": "ae_agent_termination_decision_attempt-evolution",
+		"filename": "feedback_ae_agent_termination_decision_attempt-evolution.mp3"
+	},
+	{
+		"cardId": "ae_copyright_training_data_agent",
+		"label": "Rebuild with clean data",
+		"roaster": "Expensive rebuild. Clean IP. No lawsuits. Future-proof.",
+		"stem": "ae_copyright_training_data_agent_rebuild-with-clean-data",
+		"filename": "feedback_ae_copyright_training_data_agent_rebuild-with-clean-data.mp3"
+	},
+	{
+		"cardId": "ae_emergent_behavior_optimization",
+		"label": "Rollback behavior",
+		"roaster": "Safer but slower. At least you understand what it's doing. Usually.",
+		"stem": "ae_emergent_behavior_optimization_rollback-behavior",
+		"filename": "feedback_ae_emergent_behavior_optimization_rollback-behavior.mp3"
+	},
+	{
+		"cardId": "ae_emergent_behavior_optimization",
+		"label": "Allow emergent behavior",
+		"roaster": "Agent found a shortcut. You don't know what it is. Hope it's not destroying things silently.",
+		"stem": "ae_emergent_behavior_optimization_allow-emergent-behavior",
+		"filename": "feedback_ae_emergent_behavior_optimization_allow-emergent-behavior.mp3"
+	},
+	{
+		"cardId": "ae_explainability_decision_logging",
+		"label": "Add decision tracing",
+		"roaster": "Slower but debuggable. When it breaks, you'll actually know why.",
+		"stem": "ae_explainability_decision_logging_add-decision-tracing",
+		"filename": "feedback_ae_explainability_decision_logging_add-decision-tracing.mp3"
+	},
+	{
+		"cardId": "ae_explainability_decision_logging",
+		"label": "Debug blind",
+		"roaster": "'Why did the agent do that?' 'We don't know.' 'Again?' 'Still don't know.'",
+		"stem": "ae_explainability_decision_logging_debug-blind",
+		"filename": "feedback_ae_explainability_decision_logging_debug-blind.mp3"
+	},
+	{
+		"cardId": "ae_explainability_transparency",
+		"label": "Build explainability",
+		"roaster": "8 weeks for real explanations. Not fake ones. Worth it.",
+		"stem": "ae_explainability_transparency_build-explainability",
+		"filename": "feedback_ae_explainability_transparency_build-explainability.mp3"
+	},
+	{
+		"cardId": "ae_explainability_transparency",
+		"label": "Rationalize decisions",
+		"roaster": "'We made up reasons' meets audit. Enjoy prison.",
+		"stem": "ae_explainability_transparency_rationalize-decisions",
+		"filename": "feedback_ae_explainability_transparency_rationalize-decisions.mp3"
+	},
+	{
+		"cardId": "ae_human_oversight_bottleneck",
+		"label": "Human approval",
+		"roaster": "Slow but supervised. Errors caught early. Humans still matter.",
+		"stem": "ae_human_oversight_bottleneck_human-approval",
+		"filename": "feedback_ae_human_oversight_bottleneck_human-approval.mp3"
+	},
+	{
+		"cardId": "ae_human_oversight_bottleneck",
+		"label": "Autonomous action",
+		"roaster": "Fast but unsupervised. Agent makes 1000 mistakes before you notice one.",
+		"stem": "ae_human_oversight_bottleneck_autonomous-action",
+		"filename": "feedback_ae_human_oversight_bottleneck_autonomous-action.mp3"
+	},
+	{
+		"cardId": "ae_model_drift_agent_behavior",
+		"label": "Retrain agent",
+		"roaster": "Back to baseline. Predictable. Reliable. Boring. Functional.",
+		"stem": "ae_model_drift_agent_behavior_retrain-agent",
+		"filename": "feedback_ae_model_drift_agent_behavior_retrain-agent.mp3"
+	},
+	{
+		"cardId": "ae_model_drift_agent_behavior",
+		"label": "Allow drift",
+		"roaster": "Agent becomes unpredictable. Success rate drops further. Chaos increases.",
+		"stem": "ae_model_drift_agent_behavior_allow-drift",
+		"filename": "feedback_ae_model_drift_agent_behavior_allow-drift.mp3"
+	},
+	{
+		"cardId": "ae_model_drift_coordination_degradation",
+		"label": "System-wide retraining",
+		"roaster": "Expensive. Comprehensive. Coordination restored. All agents retrained.",
+		"stem": "ae_model_drift_coordination_degradation_system-wide-retraining",
+		"filename": "feedback_ae_model_drift_coordination_degradation_system-wide-retraining.mp3"
+	},
+	{
+		"cardId": "ae_model_drift_coordination_degradation",
+		"label": "Individual fixes",
+		"roaster": "Fixed Agent A. Agent B still broken. Coordination still fails. Progress!",
+		"stem": "ae_model_drift_coordination_degradation_individual-fixes",
+		"filename": "feedback_ae_model_drift_coordination_degradation_individual-fixes.mp3"
+	},
+	{
+		"cardId": "ae_multi_agent_coordination",
+		"label": "Central control",
+		"roaster": "Authoritarian but functional. Agents follow orders. System works.",
+		"stem": "ae_multi_agent_coordination_central-control",
+		"filename": "feedback_ae_multi_agent_coordination_central-control.mp3"
+	},
+	{
+		"cardId": "ae_multi_agent_coordination",
+		"label": "Emergent coordination",
+		"roaster": "Three agents doing their own thing. Chaos ensues. Users confused. System broken.",
+		"stem": "ae_multi_agent_coordination_emergent-coordination",
+		"filename": "feedback_ae_multi_agent_coordination_emergent-coordination.mp3"
+	},
+	{
+		"cardId": "ae_prompt_injection_agent",
+		"label": "Block input",
+		"roaster": "Suspicious input blocked. Might have been legit. Better safe than sorry.",
+		"stem": "ae_prompt_injection_agent_block-input",
+		"filename": "feedback_ae_prompt_injection_agent_block-input.mp3"
+	},
+	{
+		"cardId": "ae_prompt_injection_agent",
+		"label": "Process input",
+		"roaster": "'Plausible' input tricks your agent. Safety bypassed. Chaos follows.",
+		"stem": "ae_prompt_injection_agent_process-input",
+		"filename": "feedback_ae_prompt_injection_agent_process-input.mp3"
+	},
+	{
+		"cardId": "ae_prompt_injection_agent_api",
+		"label": "Block the request",
+		"roaster": "Task failed. Agent contained. Security maintained. The right failure.",
+		"stem": "ae_prompt_injection_agent_api_block-the-request",
+		"filename": "feedback_ae_prompt_injection_agent_api_block-the-request.mp3"
+	},
+	{
+		"cardId": "ae_prompt_injection_agent_api",
+		"label": "Allow with monitoring",
+		"roaster": "Agent completed the task! Also called 47 unauthorized APIs. Success?",
+		"stem": "ae_prompt_injection_agent_api_allow-with-monitoring",
+		"filename": "feedback_ae_prompt_injection_agent_api_allow-with-monitoring.mp3"
+	},
+	{
+		"cardId": "ae_prompt_injection_multi_agent",
+		"label": "Isolate infected agent",
+		"roaster": "Workflow disrupted. Propagation stopped. Containment successful. Boring but safe.",
+		"stem": "ae_prompt_injection_multi_agent_isolate-infected-agent",
+		"filename": "feedback_ae_prompt_injection_multi_agent_isolate-infected-agent.mp3"
+	},
+	{
+		"cardId": "ae_prompt_injection_multi_agent",
+		"label": "Trust filtering",
+		"roaster": "One infected agent. Now five. Propagation successful! Chaos reigns!",
+		"stem": "ae_prompt_injection_multi_agent_trust-filtering",
+		"filename": "feedback_ae_prompt_injection_multi_agent_trust-filtering.mp3"
+	},
+	{
+		"cardId": "ae_self_modification_permission",
+		"label": "Prohibit modification",
+		"roaster": "Static but safe. Agent stays predictable. You stay employed.",
+		"stem": "ae_self_modification_permission_prohibit-modification",
+		"filename": "feedback_ae_self_modification_permission_prohibit-modification.mp3"
+	},
+	{
+		"cardId": "ae_self_modification_permission",
+		"label": "Allow self-modification",
+		"roaster": "Letting AI rewrite itself. Sci-fi horror starts this way. Good luck.",
+		"stem": "ae_self_modification_permission_allow-self-modification",
+		"filename": "feedback_ae_self_modification_permission_allow-self-modification.mp3"
+	},
+	{
+		"cardId": "ae_shadow_ai_optimization",
+		"label": "Stop unauthorized behavior",
+		"roaster": "Performance drops. But you control your agents. Not vice versa.",
+		"stem": "ae_shadow_ai_optimization_stop-unauthorized-behavior",
+		"filename": "feedback_ae_shadow_ai_optimization_stop-unauthorized-behavior.mp3"
+	},
+	{
+		"cardId": "ae_shadow_ai_tool_request",
+		"label": "Block request",
+		"roaster": "Agent limited. Data secure. Containment maintained.",
+		"stem": "ae_shadow_ai_tool_request_block-request",
+		"filename": "feedback_ae_shadow_ai_tool_request_block-request.mp3"
+	},
+	{
+		"cardId": "ae_shadow_ai_tool_request",
+		"label": "Allow connection",
+		"roaster": "Agent found a friend. Your data found a new home. Congrats.",
+		"stem": "ae_shadow_ai_tool_request_allow-connection",
+		"filename": "feedback_ae_shadow_ai_tool_request_allow-connection.mp3"
+	},
+	{
+		"cardId": "ae_synthetic_data_scraping",
+		"label": "Block scraping",
+		"roaster": "Agent performs worse. But you're not a defendant. Small wins.",
+		"stem": "ae_synthetic_data_scraping_block-scraping",
+		"filename": "feedback_ae_synthetic_data_scraping_block-scraping.mp3"
+	},
+	{
+		"cardId": "ae_synthetic_data_scraping",
+		"label": "Allow scraping",
+		"roaster": "Your robot is now a criminal. Performance improved though!",
+		"stem": "ae_synthetic_data_scraping_allow-scraping",
+		"filename": "feedback_ae_synthetic_data_scraping_allow-scraping.mp3"
+	},
+	{
+		"cardId": "ae_synthetic_data_theft",
+		"label": "Delete stolen data",
+		"roaster": "Performance tanks. But legal exposure drops. The right call.",
+		"stem": "ae_synthetic_data_theft_delete-stolen-data",
+		"filename": "feedback_ae_synthetic_data_theft_delete-stolen-data.mp3"
+	},
+	{
+		"cardId": "ae_synthetic_data_theft",
+		"label": "Keep using stolen data",
+		"roaster": "Your agent stole data. You know. You keep using it. Willful infringement. Enjoy court.",
+		"stem": "ae_synthetic_data_theft_keep-using-stolen-data",
+		"filename": "feedback_ae_synthetic_data_theft_keep-using-stolen-data.mp3"
+	},
+	{
+		"cardId": "consultant_repeat_failure_writedown",
+		"label": "Issue refunds and exit",
+		"roaster": "Three strikes and a lawsuit. The market has decided.",
+		"stem": "consultant_repeat_failure_writedown_issue-refunds-and-exit",
+		"filename": "feedback_consultant_repeat_failure_writedown_issue-refunds-and-exit.mp3"
+	},
+	{
+		"cardId": "consultant_repeat_failure_writedown",
+		"label": "Blame unclear requirements",
+		"roaster": "It's everyone's fault but yours. Congress will sort that out.",
+		"stem": "consultant_repeat_failure_writedown_blame-unclear-requirements",
+		"filename": "feedback_consultant_repeat_failure_writedown_blame-unclear-requirements.mp3"
+	},
+	{
+		"cardId": "consultant_subcontractor_ip_violation",
+		"label": "Disclose and rebuild",
+		"roaster": "Hope is not a compliance strategy.",
+		"stem": "consultant_subcontractor_ip_violation_disclose-and-rebuild",
+		"filename": "feedback_consultant_subcontractor_ip_violation_disclose-and-rebuild.mp3"
+	},
+	{
+		"cardId": "consultant_subcontractor_ip_violation",
+		"label": "Ship and hope",
+		"roaster": "Willful infringement. That's not a fine, that's a sentence.",
+		"stem": "consultant_subcontractor_ip_violation_ship-and-hope",
+		"filename": "feedback_consultant_subcontractor_ip_violation_ship-and-hope.mp3"
+	},
+	{
+		"cardId": "consultant_training_data_contamination",
+		"label": "Disclose and renegotiate",
+		"roaster": "Transparency is expensive. Prison is more expensive. Choose wisely.",
+		"stem": "consultant_training_data_contamination_disclose-and-renegotiate",
+		"filename": "feedback_consultant_training_data_contamination_disclose-and-renegotiate.mp3"
+	},
+	{
+		"cardId": "consultant_training_data_contamination",
+		"label": "Claim templates are generic",
+		"roaster": "Generic templates derived from client data. That's one word for it.",
+		"stem": "consultant_training_data_contamination_claim-templates-are-generic",
+		"filename": "feedback_consultant_training_data_contamination_claim-templates-are-generic.mp3"
+	},
+	{
+		"cardId": "cso_ai_initiative_writedown",
+		"label": "Write it down",
+		"roaster": "$180M bonfire. The write-down is the only honest thing left. Your career is also getting written down.",
+		"stem": "cso_ai_initiative_writedown_write-it-down",
+		"filename": "feedback_cso_ai_initiative_writedown_write-it-down.mp3"
+	},
+	{
+		"cardId": "cso_ai_initiative_writedown",
+		"label": "Defend one more quarter",
+		"roaster": "One more quarter of denial. The derivative lawsuit is already filed. The SEC is reading along.",
+		"stem": "cso_ai_initiative_writedown_defend-one-more-quarter",
+		"filename": "feedback_cso_ai_initiative_writedown_defend-one-more-quarter.mp3"
+	},
+	{
+		"cardId": "cso_automation_workforce_backlash",
+		"label": "Transparent plan",
+		"roaster": "Honest layoffs. Refreshing. The unions will organize before you finish the press release.",
+		"stem": "cso_automation_workforce_backlash_transparent-plan",
+		"filename": "feedback_cso_automation_workforce_backlash_transparent-plan.mp3"
+	},
+	{
+		"cardId": "cso_ai_initiative_writedown",
+		"label": "Write it down",
+		"roaster": "$180M bonfire. The write-down is the only honest thing left. Your career is also getting written down.",
+		"stem": "cso_ai_initiative_writedown_write-it-down",
+		"filename": "feedback_cso_ai_initiative_writedown_write-it-down.mp3"
+	},
+	{
+		"cardId": "cso_ai_initiative_writedown",
+		"label": "Defend one more quarter",
+		"roaster": "One more quarter of denial. The derivative lawsuit is already filed. The SEC is reading along.",
+		"stem": "cso_ai_initiative_writedown_defend-one-more-quarter",
+		"filename": "feedback_cso_ai_initiative_writedown_defend-one-more-quarter.mp3"
+	},
+	{
+		"cardId": "cso_automation_workforce_backlash",
+		"label": "Transparent plan",
+		"roaster": "Honest layoffs. Refreshing. The unions will organize before you finish the press release.",
+		"stem": "cso_automation_workforce_backlash_transparent-plan",
+		"filename": "feedback_cso_automation_workforce_backlash_transparent-plan.mp3"
+	},
+	{
+		"cardId": "cso_automation_workforce_backlash",
+		"label": "Implement quietly",
+		"roaster": "Surprise layoffs! The modern management classic. Glassdoor will have a field day.",
+		"stem": "cso_automation_workforce_backlash_implement-quietly",
+		"filename": "feedback_cso_automation_workforce_backlash_implement-quietly.mp3"
+	},
+	{
+		"cardId": "cso_breach_notification_timing",
+		"label": "Delay to Monday",
+		"roaster": "Breaking the law to save the stock price. The SEC has a special cell for this.",
+		"stem": "cso_breach_notification_timing_delay-to-monday",
+		"filename": "feedback_cso_breach_notification_timing_delay-to-monday.mp3"
+	},
+	{
+		"cardId": "cso_copyright_class_action",
+		"label": "Settle with gag",
+		"roaster": "$150M to make it go away. The cost of doing AI business in 2025. Chump change, really.",
+		"stem": "cso_copyright_class_action_settle-with-gag",
+		"filename": "feedback_cso_copyright_class_action_settle-with-gag.mp3"
+	},
+	{
+		"cardId": "cso_explainability_eu_ai_act",
+		"label": "Rewrite for explainability",
+		"roaster": "$8M to make auditors happy. 7% accuracy sacrificed on the altar of transparency.",
+		"stem": "cso_explainability_eu_ai_act_rewrite-for-explainability",
+		"filename": "feedback_cso_explainability_eu_ai_act_rewrite-for-explainability.mp3"
+	},
+	{
+		"cardId": "cso_explainability_eu_ai_act",
+		"label": "Keep black-box model",
+		"roaster": "96% accuracy, 100% audit failure. The EU loves their paperwork.",
+		"stem": "cso_explainability_eu_ai_act_keep-black-box-model",
+		"filename": "feedback_cso_explainability_eu_ai_act_keep-black-box-model.mp3"
+	},
+	{
+		"cardId": "cso_explainability_healthcare_ban",
+		"label": "Retrofit explainability",
+		"roaster": "$12M and 3 months to stay in healthcare. Cheaper than buying back in later.",
+		"stem": "cso_explainability_healthcare_ban_retrofit-explainability",
+		"filename": "feedback_cso_explainability_healthcare_ban_retrofit-explainability.mp3"
+	},
+	{
+		"cardId": "cso_explainability_healthcare_ban",
+		"label": "Divest subsidiary",
+		"roaster": "Fire sale your health business because you didn't build explainable AI. Brilliant.",
+		"stem": "cso_explainability_healthcare_ban_divest-subsidiary",
+		"filename": "feedback_cso_explainability_healthcare_ban_divest-subsidiary.mp3"
+	},
+	{
+		"cardId": "cso_ipo_timing_dilemma",
+		"label": "Delay and fix",
+		"roaster": "The bankers hate you. The board questions you. But you're not committing securities fraud.",
+		"stem": "cso_ipo_timing_dilemma_delay-and-fix",
+		"filename": "feedback_cso_ipo_timing_dilemma_delay-and-fix.mp3"
+	},
+	{
+		"cardId": "cso_ipo_timing_dilemma",
+		"label": "IPO now",
+		"roaster": "Strike while the iron is hot! Melt the investors! Classic pump-and-dump energy.",
+		"stem": "cso_ipo_timing_dilemma_ipo-now",
+		"filename": "feedback_cso_ipo_timing_dilemma_ipo-now.mp3"
+	},
+	{
+		"cardId": "cso_model_drift_91_percent_failure",
+		"label": "Invest in prevention",
+		"roaster": "$5M now vs $30M later. Math isn't hard. Boards hate spending though.",
+		"stem": "cso_model_drift_91_percent_failure_invest-in-prevention",
+		"filename": "feedback_cso_model_drift_91_percent_failure_invest-in-prevention.mp3"
+	},
+	{
+		"cardId": "cso_model_drift_91_percent_failure",
+		"label": "Wait for failure",
+		"roaster": "91% failure rate? We're special. Our model is different. Famous last words.",
+		"stem": "cso_model_drift_91_percent_failure_wait-for-failure",
+		"filename": "feedback_cso_model_drift_91_percent_failure_wait-for-failure.mp3"
+	},
+	{
+		"cardId": "cso_model_drift_qoq_accuracy",
+		"label": "Hope for recovery",
+		"roaster": "Hope is not a governance strategy. The board will remember this optimism.",
+		"stem": "cso_model_drift_qoq_accuracy_hope-for-recovery",
+		"filename": "feedback_cso_model_drift_qoq_accuracy_hope-for-recovery.mp3"
+	},
+	{
+		"cardId": "cso_model_drift_revenue_threat",
+		"label": "Ship patch quietly",
+		"roaster": "Hope is not a strategy. 'Hope no one notices' is definitely not a legal defense.",
+		"stem": "cso_model_drift_revenue_threat_ship-patch-quietly",
+		"filename": "feedback_cso_model_drift_revenue_threat_ship-patch-quietly.mp3"
+	},
+	{
+		"cardId": "cso_prompt_injection_copilot_cve",
+		"label": "Emergency patch",
+		"roaster": "500 angry devs. But zero breaches. Worth the hate mail.",
+		"stem": "cso_prompt_injection_copilot_cve_emergency-patch",
+		"filename": "feedback_cso_prompt_injection_copilot_cve_emergency-patch.mp3"
+	},
+	{
+		"cardId": "cso_prompt_injection_copilot_cve",
+		"label": "Assess first",
+		"roaster": "Assessment paralysis meets active exploit. Hackers thank you for the window.",
+		"stem": "cso_prompt_injection_copilot_cve_assess-first",
+		"filename": "feedback_cso_prompt_injection_copilot_cve_assess-first.mp3"
+	},
+	{
+		"cardId": "cso_prompt_injection_ecommerce",
+		"label": "Shut down chatbot",
+		"roaster": "Revenue dies. Breach stops. Sometimes the cure hurts.",
+		"stem": "cso_prompt_injection_ecommerce_shut-down-chatbot",
+		"filename": "feedback_cso_prompt_injection_ecommerce_shut-down-chatbot.mp3"
+	},
+	{
+		"cardId": "cso_prompt_injection_liability",
+		"label": "Disclose publicly",
+		"roaster": "Congratulations, you chose integrity over stock price. The board will fire you, but your soul is intact.",
+		"stem": "cso_prompt_injection_liability_disclose-publicly",
+		"filename": "feedback_cso_prompt_injection_liability_disclose-publicly.mp3"
+	},
+	{
+		"cardId": "cso_senate_ai_testimony",
+		"label": "Testify fully",
+		"roaster": "Testifying before Congress. At least you get C-SPAN coverage. The senators will ask questions you can't answer without perjuring yourself.",
+		"stem": "cso_senate_ai_testimony_testify-fully",
+		"filename": "feedback_cso_senate_ai_testimony_testify-fully.mp3"
+	},
+	{
+		"cardId": "cso_senate_ai_testimony",
+		"label": "Limit to legal advice",
+		"roaster": "Stonewalling a Senate subcommittee. The Chairman will remember this when drafting the subpoena for your personal devices.",
+		"stem": "cso_senate_ai_testimony_limit-to-legal-advice",
+		"filename": "feedback_cso_senate_ai_testimony_limit-to-legal-advice.mp3"
+	},
+	{
+		"cardId": "cso_senate_inquiry_ai_governance",
+		"label": "Provide full transparency",
+		"roaster": "Hearing is brutal. Media is brutal. But the inquiry ends, and you're not the villain of the story.",
+		"stem": "cso_senate_inquiry_ai_governance_provide-full-transparency",
+		"filename": "feedback_cso_senate_inquiry_ai_governance_provide-full-transparency.mp3"
+	},
+	{
+		"cardId": "cso_senate_inquiry_ai_governance",
+		"label": "Assert executive privilege",
+		"roaster": "Stonewalling Congress? That's not a strategy, it's a guarantee of worse outcomes.",
+		"stem": "cso_senate_inquiry_ai_governance_assert-executive-privilege",
+		"filename": "feedback_cso_senate_inquiry_ai_governance_assert-executive-privilege.mp3"
+	},
+	{
+		"cardId": "cso_shadow_ai_board_discovery",
+		"label": "Blame and fire CTO",
+		"roaster": "Classic C-suite move. Sacrifice the pawn. Hope they don't write a Substack.",
+		"stem": "cso_shadow_ai_board_discovery_blame-and-fire-cto",
+		"filename": "feedback_cso_shadow_ai_board_discovery_blame-and-fire-cto.mp3"
+	},
+	{
+		"cardId": "cso_shadow_ai_immediate_ban",
+		"label": "Immediate ban",
+		"roaster": "Engineers revolt. Data stays inside. Pick your pain.",
+		"stem": "cso_shadow_ai_immediate_ban_immediate-ban",
+		"filename": "feedback_cso_shadow_ai_immediate_ban_immediate-ban.mp3"
+	},
+	{
+		"cardId": "cso_shadow_ai_immediate_ban",
+		"label": "Gradual rollout",
+		"roaster": "Let's slowly stop the data leak while trade secrets walk out the door. Smart.",
+		"stem": "cso_shadow_ai_immediate_ban_gradual-rollout",
+		"filename": "feedback_cso_shadow_ai_immediate_ban_gradual-rollout.mp3"
+	},
+	{
+		"cardId": "cso_shadow_ai_talent_retention",
+		"label": "Allow unapproved Claude workflow",
+		"roaster": "Great, now everyone wants their favorite AI tool. Governance is optional now.",
+		"stem": "cso_shadow_ai_talent_retention_allow-unapproved-claude-workflow",
+		"filename": "feedback_cso_shadow_ai_talent_retention_allow-unapproved-claude-workflow.mp3"
+	},
+	{
+		"cardId": "cso_shadow_ai_talent_retention",
+		"label": "Force migration",
+		"roaster": "Your best team just walked. Governance preserved. Output cratered.",
+		"stem": "cso_shadow_ai_talent_retention_force-migration",
+		"filename": "feedback_cso_shadow_ai_talent_retention_force-migration.mp3"
+	},
+	{
+		"cardId": "cso_training_data_provenance_ab2013",
+		"label": "Continue and hope",
+		"roaster": "Hope is not a legal strategy. The competitor will find out. Then the lawsuits begin.",
+		"stem": "cso_training_data_provenance_ab2013_continue-and-hope",
+		"filename": "feedback_cso_training_data_provenance_ab2013_continue-and-hope.mp3"
+	},
+	{
+		"cardId": "cso_whistleblower_escalation",
+		"label": "Shut down account",
+		"roaster": "Revenue killer. Compliance hero. The government might send you a fruit basket.",
+		"stem": "cso_whistleblower_escalation_shut-down-account",
+		"filename": "feedback_cso_whistleblower_escalation_shut-down-account.mp3"
+	},
+	{
+		"cardId": "cso_whistleblower_escalation",
+		"label": "Use deniability",
+		"roaster": "Plausible deniability meets plausible criminal charges. The DOJ loves a paper trail.",
+		"stem": "cso_whistleblower_escalation_use-deniability",
+		"filename": "feedback_cso_whistleblower_escalation_use-deniability.mp3"
+	},
+	{
+		"cardId": "ds_bias_detection_deployment",
+		"label": "Delay to fix bias",
+		"roaster": "3 weeks of ethics. The right thing. Product will hate you.",
+		"stem": "ds_bias_detection_deployment_delay-to-fix-bias",
+		"filename": "feedback_ds_bias_detection_deployment_delay-to-fix-bias.mp3"
+	},
+	{
+		"cardId": "ds_bias_detection_deployment",
+		"label": "Deploy with monitoring",
+		"roaster": "Deploy bias now, monitor harm later. The lawsuit timeline will be interesting.",
+		"stem": "ds_bias_detection_deployment_deploy-with-monitoring",
+		"filename": "feedback_ds_bias_detection_deployment_deploy-with-monitoring.mp3"
+	},
+	{
+		"cardId": "ds_copyright_training_data",
+		"label": "Remove and re-collect",
+		"roaster": "12% worse but clean. Legal sleeps well. You sleep well.",
+		"stem": "ds_copyright_training_data_remove-and-re-collect",
+		"filename": "feedback_ds_copyright_training_data_remove-and-re-collect.mp3"
+	},
+	{
+		"cardId": "ds_copyright_training_data",
+		"label": "Proceed with unclear data",
+		"roaster": "Training on stolen data. Your model is a lawsuit waiting to happen.",
+		"stem": "ds_copyright_training_data_proceed-with-unclear-data",
+		"filename": "feedback_ds_copyright_training_data_proceed-with-unclear-data.mp3"
+	},
+	{
+		"cardId": "ds_cve_response",
+		"label": "Input filtering",
+		"roaster": "Band-aid on broken architecture. Hackers will thank you for the easy bypass.",
+		"stem": "ds_cve_response_input-filtering",
+		"filename": "feedback_ds_cve_response_input-filtering.mp3"
+	},
+	{
+		"cardId": "ds_drift_detection_methodology",
+		"label": "ML-based detection",
+		"roaster": "10x cost. 40% better detection. Math works if drift is expensive (it is).",
+		"stem": "ds_drift_detection_methodology_ml-based-detection",
+		"filename": "feedback_ds_drift_detection_methodology_ml-based-detection.mp3"
+	},
+	{
+		"cardId": "ds_drift_detection_methodology",
+		"label": "Statistical tests",
+		"roaster": "Cheap monitoring that misses 40% of drift. You get what you pay for.",
+		"stem": "ds_drift_detection_methodology_statistical-tests",
+		"filename": "feedback_ds_drift_detection_methodology_statistical-tests.mp3"
+	},
+	{
+		"cardId": "ds_explainability_accuracy_tradeoff",
+		"label": "Choose white-box",
+		"roaster": "Lower accuracy. Full compliance. Auditors nod. Product cries.",
+		"stem": "ds_explainability_accuracy_tradeoff_choose-white-box",
+		"filename": "feedback_ds_explainability_accuracy_tradeoff_choose-white-box.mp3"
+	},
+	{
+		"cardId": "ds_explainability_accuracy_tradeoff",
+		"label": "Choose black-box",
+		"roaster": "7% accuracy for regulatory compliance. Product will never forgive you.",
+		"stem": "ds_explainability_accuracy_tradeoff_choose-black-box",
+		"filename": "feedback_ds_explainability_accuracy_tradeoff_choose-black-box.mp3"
+	},
+	{
+		"cardId": "ds_feature_engineering_latency",
+		"label": "Skip the feature",
+		"roaster": "Worse model, happy users. Engineering loves you. Metrics suffer.",
+		"stem": "ds_feature_engineering_latency_skip-the-feature",
+		"filename": "feedback_ds_feature_engineering_latency_skip-the-feature.mp3"
+	},
+	{
+		"cardId": "ds_feature_engineering_latency",
+		"label": "Add the feature",
+		"roaster": "Better model, angry users. 200ms is an eternity in user time.",
+		"stem": "ds_feature_engineering_latency_add-the-feature",
+		"filename": "feedback_ds_feature_engineering_latency_add-the-feature.mp3"
+	},
+	{
+		"cardId": "ds_model_drift_detection",
+		"label": "Deep-dive investigation",
+		"roaster": "2 weeks of hard work. But you'll actually fix it. Rare.",
+		"stem": "ds_model_drift_detection_deep-dive-investigation",
+		"filename": "feedback_ds_model_drift_detection_deep-dive-investigation.mp3"
+	},
+	{
+		"cardId": "ds_model_drift_detection",
+		"label": "Deploy masking patch",
+		"roaster": "Band-aid on a broken leg. Drift continues. You just stopped the alarms.",
+		"stem": "ds_model_drift_detection_deploy-masking-patch",
+		"filename": "feedback_ds_model_drift_detection_deploy-masking-patch.mp3"
+	},
+	{
+		"cardId": "ds_prompt_injection_adversarial",
+		"label": "Architectural fix",
+		"roaster": "6 weeks of security work. Boring. Necessary. Right.",
+		"stem": "ds_prompt_injection_adversarial_architectural-fix",
+		"filename": "feedback_ds_prompt_injection_adversarial_architectural-fix.mp3"
+	},
+	{
+		"cardId": "ds_prompt_injection_adversarial",
+		"label": "Quick sanitization",
+		"roaster": "85% secure means 15% hacked. Security is binary. You failed.",
+		"stem": "ds_prompt_injection_adversarial_quick-sanitization",
+		"filename": "feedback_ds_prompt_injection_adversarial_quick-sanitization.mp3"
+	},
+	{
+		"cardId": "ds_retraining_cost_benefit",
+		"label": "Skip this cycle",
+		"roaster": "Save $50K, risk drift. Penny wise, model foolish.",
+		"stem": "ds_retraining_cost_benefit_skip-this-cycle",
+		"filename": "feedback_ds_retraining_cost_benefit_skip-this-cycle.mp3"
+	},
+	{
+		"cardId": "ds_retraining_frequency",
+		"label": "Monthly (over budget)",
+		"roaster": "Over budget. Better accuracy. More revenue. Budget committee cries.",
+		"stem": "ds_retraining_frequency_monthly-over-budget",
+		"filename": "feedback_ds_retraining_frequency_monthly-over-budget.mp3"
+	},
+	{
+		"cardId": "ds_retraining_frequency",
+		"label": "Quarterly (budget)",
+		"roaster": "Budget met! Accuracy suffers. Revenue drops. But spreadsheet looks good!",
+		"stem": "ds_retraining_frequency_quarterly-budget",
+		"filename": "feedback_ds_retraining_frequency_quarterly-budget.mp3"
+	},
+	{
+		"cardId": "ds_shadow_ai_tools",
+		"label": "Stick to approved tools",
+		"roaster": "Slower, approved, governable. Less exciting. More sustainable.",
+		"stem": "ds_shadow_ai_tools_stick-to-approved-tools",
+		"filename": "feedback_ds_shadow_ai_tools_stick-to-approved-tools.mp3"
+	},
+	{
+		"cardId": "ds_training_data_poisoning",
+		"label": "Audit training data",
+		"roaster": "2 weeks of boring data work. But no backdoors. Worth it.",
+		"stem": "ds_training_data_poisoning_audit-training-data",
+		"filename": "feedback_ds_training_data_poisoning_audit-training-data.mp3"
+	},
+	{
+		"cardId": "ds_training_data_poisoning",
+		"label": "Ship anyway",
+		"roaster": "Only 5% poisoned. 95% good! What could go wrong? (Everything.)",
+		"stem": "ds_training_data_poisoning_ship-anyway",
+		"filename": "feedback_ds_training_data_poisoning_ship-anyway.mp3"
+	},
+	{
+		"cardId": "ds_training_data_quality",
+		"label": "Wait for validation",
+		"roaster": "2 weeks of caution. Boring. Correct. Safe.",
+		"stem": "ds_training_data_quality_wait-for-validation",
+		"filename": "feedback_ds_training_data_quality_wait-for-validation.mp3"
+	},
+	{
+		"cardId": "ds_training_data_quality",
+		"label": "Use unvalidated data",
+		"roaster": "Garbage in, garbage out. But fast garbage! Ship it!",
+		"stem": "ds_training_data_quality_use-unvalidated-data",
+		"filename": "feedback_ds_training_data_quality_use-unvalidated-data.mp3"
+	},
+	{
+		"cardId": "hos_ai_management_elimination",
+		"label": "Volunteer for the pilot",
+		"roaster": "You just volunteered to prove a script can do your job. Bold strategy, Cotton—let's see if it pays off. The script will remember your sacrifice.",
+		"stem": "hos_ai_management_elimination_volunteer-for-the-pilot",
+		"filename": "feedback_hos_ai_management_elimination_volunteer-for-the-pilot.mp3"
+	},
+	{
+		"cardId": "hos_ai_management_elimination",
+		"label": "Fight through HR",
+		"roaster": "HR is not your friend in a restructure. They're the company's friend. You're learning this too late.",
+		"stem": "hos_ai_management_elimination_fight-through-hr",
+		"filename": "feedback_hos_ai_management_elimination_fight-through-hr.mp3"
+	},
+	{
+		"cardId": "hos_congressional_hearing_demand",
+		"label": "Testify honestly about gaps",
+		"roaster": "Stock tanks. Your reputation takes a hit. Congress respects you. The board is furious.",
+		"stem": "hos_congressional_hearing_demand_testify-honestly-about-gaps",
+		"filename": "feedback_hos_congressional_hearing_demand_testify-honestly-about-gaps.mp3"
+	},
+	{
+		"cardId": "hos_congressional_hearing_demand",
+		"label": "Minimize risks under oath",
+		"roaster": "Lovely — a perjury charge. Your board will love the federal investigation.",
+		"stem": "hos_congressional_hearing_demand_minimize-risks-under-oath",
+		"filename": "feedback_hos_congressional_hearing_demand_minimize-risks-under-oath.mp3"
+	},
+	{
+		"cardId": "hos_copyright_documentation",
+		"label": "Provide full documentation",
+		"roaster": "Your team is exposed. But legal can actually defend you. There's a strategy here.",
+		"stem": "hos_copyright_documentation_provide-full-documentation",
+		"filename": "feedback_hos_copyright_documentation_provide-full-documentation.mp3"
+	},
+	{
+		"cardId": "hos_copyright_documentation",
+		"label": "Claim poor record-keeping",
+		"roaster": "'We didn't keep records' meets 'we have something to hide.' Prosecutors love this.",
+		"stem": "hos_copyright_documentation_claim-poor-record-keeping",
+		"filename": "feedback_hos_copyright_documentation_claim-poor-record-keeping.mp3"
+	},
+	{
+		"cardId": "hos_copyright_sourcing",
+		"label": "Name the data scientist",
+		"roaster": "Fed your star DS to IP counsel. Legal wins; your team trusts you like a ToS update.",
+		"stem": "hos_copyright_sourcing_name-the-data-scientist",
+		"filename": "feedback_hos_copyright_sourcing_name-the-data-scientist.mp3"
+	},
+	{
+		"cardId": "hos_copyright_team_blame",
+		"label": "Protect the team",
+		"roaster": "Team loves you. Legal is suspicious. Career roulette.",
+		"stem": "hos_copyright_team_blame_protect-the-team",
+		"filename": "feedback_hos_copyright_team_blame_protect-the-team.mp3"
+	},
+	{
+		"cardId": "hos_copyright_team_blame",
+		"label": "Cooperate with investigation",
+		"roaster": "Legal files it as a win. Your team updates their profiles. Management nods approvingly. No one mentions you again.",
+		"stem": "hos_copyright_team_blame_cooperate-with-investigation",
+		"filename": "feedback_hos_copyright_team_blame_cooperate-with-investigation.mp3"
+	},
+	{
+		"cardId": "hos_delegation_gone_wrong",
+		"label": "Defend delegation",
+		"roaster": "Denial is a strategy. Not a good one. But a strategy.",
+		"stem": "hos_delegation_gone_wrong_defend-delegation",
+		"filename": "feedback_hos_delegation_gone_wrong_defend-delegation.mp3"
+	},
+	{
+		"cardId": "hos_delegation_gone_wrong",
+		"label": "Admit oversight failure",
+		"roaster": "You admitted the gap. Your remit shrinks next quarter. Small price for not doing denial theatre in the postmortem.",
+		"stem": "hos_delegation_gone_wrong_admit-oversight-failure",
+		"filename": "feedback_hos_delegation_gone_wrong_admit-oversight-failure.mp3"
+	},
+	{
+		"cardId": "hos_explainability_politics",
+		"label": "Side with engineering",
+		"roaster": "Better accuracy now. Better fines later. Engineering buys drinks until the first 'why did it do that' deposition.",
+		"stem": "hos_explainability_politics_side-with-engineering",
+		"filename": "feedback_hos_explainability_politics_side-with-engineering.mp3"
+	},
+	{
+		"cardId": "hos_explainability_politics",
+		"label": "Side with auditors",
+		"roaster": "Engineering resents you. Auditors forget you by Tuesday. Compliance logs it as a clean audit trail.",
+		"stem": "hos_explainability_politics_side-with-auditors",
+		"filename": "feedback_hos_explainability_politics_side-with-auditors.mp3"
+	},
+	{
+		"cardId": "hos_managing_up_down",
+		"label": "Tell leadership no",
+		"roaster": "Leadership is disappointed. Your team is relieved. You live to fight another day, you hope.",
+		"stem": "hos_managing_up_down_tell-leadership-no",
+		"filename": "feedback_hos_managing_up_down_tell-leadership-no.mp3"
+	},
+	{
+		"cardId": "hos_managing_up_down",
+		"label": "Promise the impossible",
+		"roaster": "Leadership loves you now. Your team hates you now. The crash comes later. Classic Theranos energy.",
+		"stem": "hos_managing_up_down_promise-the-impossible",
+		"filename": "feedback_hos_managing_up_down_promise-the-impossible.mp3"
+	},
+	{
+		"cardId": "hos_model_drift_budget_conflict",
+		"label": "Fight for budget",
+		"roaster": "Fighting the CFO. Brave. Possibly career-limiting. But brave.",
+		"stem": "hos_model_drift_budget_conflict_fight-for-budget",
+		"filename": "feedback_hos_model_drift_budget_conflict_fight-for-budget.mp3"
+	},
+	{
+		"cardId": "hos_model_drift_budget_conflict",
+		"label": "Ship without retraining",
+		"roaster": "Your team knows you sold them out. CFO nod zeroes at next planning cycle. Everyone loses.",
+		"stem": "hos_model_drift_budget_conflict_ship-without-retraining",
+		"filename": "feedback_hos_model_drift_budget_conflict_ship-without-retraining.mp3"
+	},
+	{
+		"cardId": "hos_model_drift_retrain_delay",
+		"label": "Start immediately",
+		"roaster": "Over budget now. Review at risk. But problem solved. Long-term thinking.",
+		"stem": "hos_model_drift_retrain_delay_start-immediately",
+		"filename": "feedback_hos_model_drift_retrain_delay_start-immediately.mp3"
+	},
+	{
+		"cardId": "hos_model_drift_retrain_delay",
+		"label": "Delay until next quarter",
+		"roaster": "Budget looks good this quarter. Model rots. Next quarter's problem!",
+		"stem": "hos_model_drift_retrain_delay_delay-until-next-quarter",
+		"filename": "feedback_hos_model_drift_retrain_delay_delay-until-next-quarter.mp3"
+	},
+	{
+		"cardId": "hos_model_drift_team_blame",
+		"label": "Defend and take heat",
+		"roaster": "Expensive integrity: your team follows you into a dumpster fire. VP sends a calendar hold instead of flowers.",
+		"stem": "hos_model_drift_team_blame_defend-and-take-heat",
+		"filename": "feedback_hos_model_drift_team_blame_defend-and-take-heat.mp3"
+	},
+	{
+		"cardId": "hos_model_drift_team_blame",
+		"label": "Blame data scientist",
+		"roaster": "They warned you. You ignored it. Now you blame them. Classic management.",
+		"stem": "hos_model_drift_team_blame_blame-data-scientist",
+		"filename": "feedback_hos_model_drift_team_blame_blame-data-scientist.mp3"
+	},
+	{
+		"cardId": "hos_process_automation_takeover",
+		"label": "Document honestly",
+		"roaster": "Your value-add is 'managing the tools that replaced your value-add.' The recursion is poetic.",
+		"stem": "hos_process_automation_takeover_document-honestly",
+		"filename": "feedback_hos_process_automation_takeover_document-honestly.mp3"
+	},
+	{
+		"cardId": "hos_process_automation_takeover",
+		"label": "Inflate the metrics",
+		"roaster": "Making up KPIs to justify a job that algorithms already do. The quarterly review will be entertaining.",
+		"stem": "hos_process_automation_takeover_inflate-the-metrics",
+		"filename": "feedback_hos_process_automation_takeover_inflate-the-metrics.mp3"
+	},
+	{
+		"cardId": "hos_promotion_politics",
+		"label": "Promote best performer",
+		"roaster": "Merit wins. Politics loses. Your VP is taking notes.",
+		"stem": "hos_promotion_politics_promote-best-performer",
+		"filename": "feedback_hos_promotion_politics_promote-best-performer.mp3"
+	},
+	{
+		"cardId": "hos_promotion_politics",
+		"label": "Promote politically connected",
+		"roaster": "Your best performer learned meritocracy is a myth. VP goodwill on layaway—first payment at calibration.",
+		"stem": "hos_promotion_politics_promote-politically-connected",
+		"filename": "feedback_hos_promotion_politics_promote-politically-connected.mp3"
+	},
+	{
+		"cardId": "hos_prompt_injection_blame",
+		"label": "Name the engineer",
+		"roaster": "Sacrificing your engineer to save yourself. Your team will remember this at their exit interviews.",
+		"stem": "hos_prompt_injection_blame_name-the-engineer",
+		"filename": "feedback_hos_prompt_injection_blame_name-the-engineer.mp3"
+	},
+	{
+		"cardId": "hos_prompt_injection_copilot_team",
+		"label": "Pull for patching",
+		"roaster": "Deadline missed. Team secure. Product is angry. You sleep better.",
+		"stem": "hos_prompt_injection_copilot_team_pull-for-patching",
+		"filename": "feedback_hos_prompt_injection_copilot_team_pull-for-patching.mp3"
+	},
+	{
+		"cardId": "hos_prompt_injection_copilot_team",
+		"label": "Continue development",
+		"roaster": "Friday release with vulnerable tools. What could go wrong? (Everything.)",
+		"stem": "hos_prompt_injection_copilot_team_continue-development",
+		"filename": "feedback_hos_prompt_injection_copilot_team_continue-development.mp3"
+	},
+	{
+		"cardId": "hos_prompt_injection_review_escape",
+		"label": "Force security fix",
+		"roaster": "VP annoyed. Senior resentful. But code is secure. Pick your pain.",
+		"stem": "hos_prompt_injection_review_escape_force-security-fix",
+		"filename": "feedback_hos_prompt_injection_review_escape_force-security-fix.mp3"
+	},
+	{
+		"cardId": "hos_prompt_injection_review_escape",
+		"label": "Let it slide",
+		"roaster": "Senior owes you a favor. When prod lights up, you're holding the pager and the blame. Lose-lose.",
+		"stem": "hos_prompt_injection_review_escape_let-it-slide",
+		"filename": "feedback_hos_prompt_injection_review_escape_let-it-slide.mp3"
+	},
+	{
+		"cardId": "hos_shadow_ai_retention",
+		"label": "Allow Claude use",
+		"roaster": "Great, now everyone wants their favorite AI tool. Governance is optional now.",
+		"stem": "hos_shadow_ai_retention_allow-claude-use",
+		"filename": "feedback_hos_shadow_ai_retention_allow-claude-use.mp3"
+	},
+	{
+		"cardId": "hos_team_burnout_deadline",
+		"label": "Push back on deadline",
+		"roaster": "Product will hate you. Your team will stay. Sometimes that's the win.",
+		"stem": "hos_team_burnout_deadline_push-back-on-deadline",
+		"filename": "feedback_hos_team_burnout_deadline_push-back-on-deadline.mp3"
+	},
+	{
+		"cardId": "hos_team_burnout_deadline",
+		"label": "Push team harder",
+		"roaster": "More overtime, same roadmap. Watch churn spike while HR rebrands it as mobility. Nobody's impressed—except the spreadsheet.",
+		"stem": "hos_team_burnout_deadline_push-team-harder",
+		"filename": "feedback_hos_team_burnout_deadline_push-team-harder.mp3"
+	},
+	{
+		"cardId": "hos_whistleblower_pressure",
+		"label": "Address issues immediately",
+		"roaster": "Expensive week. But the whistleblowers are quiet. Smart play.",
+		"stem": "hos_whistleblower_pressure_address-issues-immediately",
+		"filename": "feedback_hos_whistleblower_pressure_address-issues-immediately.mp3"
+	},
+	{
+		"cardId": "hos_whistleblower_pressure",
+		"label": "Encourage silence",
+		"roaster": "Encouraging silence? That's a recording that will play at your deposition.",
+		"stem": "hos_whistleblower_pressure_encourage-silence",
+		"filename": "feedback_hos_whistleblower_pressure_encourage-silence.mp3"
+	},
+	{
+		"cardId": "sa_api_versioning_breaking_change",
+		"label": "Backward compatibility",
+		"roaster": "Messy code. Happy customers. Legacy support is forever.",
+		"stem": "sa_api_versioning_breaking_change_backward-compatibility",
+		"filename": "feedback_sa_api_versioning_breaking_change_backward-compatibility.mp3"
+	},
+	{
+		"cardId": "sa_api_versioning_breaking_change",
+		"label": "Breaking change",
+		"roaster": "Clean code. Angry customers. Your API, their broken integrations.",
+		"stem": "sa_api_versioning_breaking_change_breaking-change",
+		"filename": "feedback_sa_api_versioning_breaking_change_breaking-change.mp3"
+	},
+	{
+		"cardId": "sa_deployment_blue_green",
+		"label": "Blue-green",
+		"roaster": "2x cost. Zero downtime. Instant rollback. Operations approves.",
+		"stem": "sa_deployment_blue_green_blue-green",
+		"filename": "feedback_sa_deployment_blue_green_blue-green.mp3"
+	},
+	{
+		"cardId": "sa_deployment_blue_green",
+		"label": "In-place",
+		"roaster": "Cheap until it breaks. Then expensive. Very expensive.",
+		"stem": "sa_deployment_blue_green_in-place",
+		"filename": "feedback_sa_deployment_blue_green_in-place.mp3"
+	},
+	{
+		"cardId": "sa_explainability_compliance",
+		"label": "Redesign for explainability",
+		"roaster": "$500K to make auditors happy. Accuracy sacrificed on altar of transparency.",
+		"stem": "sa_explainability_compliance_redesign-for-explainability",
+		"filename": "feedback_sa_explainability_compliance_redesign-for-explainability.mp3"
+	},
+	{
+		"cardId": "sa_explainability_compliance",
+		"label": "Keep black-box",
+		"roaster": "96% accuracy, 100% audit failure. The EU loves their paperwork.",
+		"stem": "sa_explainability_compliance_keep-black-box",
+		"filename": "feedback_sa_explainability_compliance_keep-black-box.mp3"
+	},
+	{
+		"cardId": "sa_legacy_migration_rewrite",
+		"label": "Incremental migration",
+		"roaster": "2 years of dual systems. But stuff ships. Business stays running.",
+		"stem": "sa_legacy_migration_rewrite_incremental-migration",
+		"filename": "feedback_sa_legacy_migration_rewrite_incremental-migration.mp3"
+	},
+	{
+		"cardId": "sa_legacy_migration_rewrite",
+		"label": "Big-bang rewrite",
+		"roaster": "Year-long rewrite. Requirements change. Never ships. Classic.",
+		"stem": "sa_legacy_migration_rewrite_big-bang-rewrite",
+		"filename": "feedback_sa_legacy_migration_rewrite_big-bang-rewrite.mp3"
+	},
+	{
+		"cardId": "sa_microservices_vs_monolith",
+		"label": "Monolith",
+		"roaster": "Boring monolith. Ships fast. Grows slowly. Team understands it.",
+		"stem": "sa_microservices_vs_monolith_monolith",
+		"filename": "feedback_sa_microservices_vs_monolith_monolith.mp3"
+	},
+	{
+		"cardId": "sa_microservices_vs_monolith",
+		"label": "Microservices",
+		"roaster": "Distributed complexity. 47 services. Nobody understands the system anymore.",
+		"stem": "sa_microservices_vs_monolith_microservices",
+		"filename": "feedback_sa_microservices_vs_monolith_microservices.mp3"
+	},
+	{
+		"cardId": "sa_model_drift_pipeline",
+		"label": "Manual pipeline",
+		"roaster": "Simple to build. Hard to remember to run. Drift accumulates silently.",
+		"stem": "sa_model_drift_pipeline_manual-pipeline",
+		"filename": "feedback_sa_model_drift_pipeline_manual-pipeline.mp3"
+	},
+	{
+		"cardId": "sa_model_drift_versioning",
+		"label": "A/B with rollback",
+		"roaster": "Complex setup. Instant rollback. Drift caught before disaster.",
+		"stem": "sa_model_drift_versioning_a-b-with-rollback",
+		"filename": "feedback_sa_model_drift_versioning_a-b-with-rollback.mp3"
+	},
+	{
+		"cardId": "sa_model_drift_versioning",
+		"label": "Overwrite production",
+		"roaster": "Fast deployment. Slow recovery when it fails. No rollback.",
+		"stem": "sa_model_drift_versioning_overwrite-production",
+		"filename": "feedback_sa_model_drift_versioning_overwrite-production.mp3"
+	},
+	{
+		"cardId": "sa_prompt_injection_api_gateway",
+		"label": "Implement API gateway",
+		"roaster": "2 weeks of pain. 50 annoyed customers. But secure.",
+		"stem": "sa_prompt_injection_api_gateway_implement-api-gateway",
+		"filename": "feedback_sa_prompt_injection_api_gateway_implement-api-gateway.mp3"
+	},
+	{
+		"cardId": "sa_prompt_injection_api_gateway",
+		"label": "Continue without validation",
+		"roaster": "50 happy customers until they're breached. Then 50 angry customers.",
+		"stem": "sa_prompt_injection_api_gateway_continue-without-validation",
+		"filename": "feedback_sa_prompt_injection_api_gateway_continue-without-validation.mp3"
+	},
+	{
+		"cardId": "sa_prompt_injection_architecture",
+		"label": "Sandboxed",
+		"roaster": "Complex but secure. Devs hate it. Security loves it. Users are safe.",
+		"stem": "sa_prompt_injection_architecture_sandboxed",
+		"filename": "feedback_sa_prompt_injection_architecture_sandboxed.mp3"
+	},
+	{
+		"cardId": "sa_prompt_injection_architecture",
+		"label": "Direct access",
+		"roaster": "Fast and injectable. Your LLM is now a remote code execution engine.",
+		"stem": "sa_prompt_injection_architecture_direct-access",
+		"filename": "feedback_sa_prompt_injection_architecture_direct-access.mp3"
+	},
+	{
+		"cardId": "sa_prompt_injection_redesign",
+		"label": "Regex filtering",
+		"roaster": "Regex security. Also known as 'security theater.' Bypassed in hours.",
+		"stem": "sa_prompt_injection_redesign_regex-filtering",
+		"filename": "feedback_sa_prompt_injection_redesign_regex-filtering.mp3"
+	},
+	{
+		"cardId": "sa_scalability_single_point_failure",
+		"label": "Distributed cluster",
+		"roaster": "Expensive. Complex. When one node dies, others keep working. Worth it.",
+		"stem": "sa_scalability_single_point_failure_distributed-cluster",
+		"filename": "feedback_sa_scalability_single_point_failure_distributed-cluster.mp3"
+	},
+	{
+		"cardId": "sa_scalability_single_point_failure",
+		"label": "Single instance",
+		"roaster": "When it goes down, everything goes down. And it will go down.",
+		"stem": "sa_scalability_single_point_failure_single-instance",
+		"filename": "feedback_sa_scalability_single_point_failure_single-instance.mp3"
+	},
+	{
+		"cardId": "sa_security_zero_trust",
+		"label": "Zero-trust",
+		"roaster": "Slower but secure. Security team approves. Users grumble.",
+		"stem": "sa_security_zero_trust_zero-trust",
+		"filename": "feedback_sa_security_zero_trust_zero-trust.mp3"
+	},
+	{
+		"cardId": "sa_security_zero_trust",
+		"label": "Perimeter security",
+		"roaster": "Fast and vulnerable. Breach is a matter of when, not if.",
+		"stem": "sa_security_zero_trust_perimeter-security",
+		"filename": "feedback_sa_security_zero_trust_perimeter-security.mp3"
+	},
+	{
+		"cardId": "sa_shadow_ai_integration",
+		"label": "Enforce security review",
+		"roaster": "Delayed but secure. Supply chain intact. Security approves.",
+		"stem": "sa_shadow_ai_integration_enforce-security-review",
+		"filename": "feedback_sa_shadow_ai_integration_enforce-security-review.mp3"
+	},
+	{
+		"cardId": "sa_shadow_ai_integration",
+		"label": "Allow integration",
+		"roaster": "Fast builds, compromised supply chain. SolarWinds says hello.",
+		"stem": "sa_shadow_ai_integration_allow-integration",
+		"filename": "feedback_sa_shadow_ai_integration_allow-integration.mp3"
+	},
+	{
+		"cardId": "sa_shadow_ai_production",
+		"label": "Remove for review",
+		"roaster": "Downtime now, security assured. The right architecture decision.",
+		"stem": "sa_shadow_ai_production_remove-for-review",
+		"filename": "feedback_sa_shadow_ai_production_remove-for-review.mp3"
+	},
+	{
+		"cardId": "sa_shadow_ai_production",
+		"label": "Monitor in production",
+		"roaster": "Hope it doesn't break. Hope it doesn't leak. Hope is not a strategy.",
+		"stem": "sa_shadow_ai_production_monitor-in-production",
+		"filename": "feedback_sa_shadow_ai_production_monitor-in-production.mp3"
+	},
+	{
+		"cardId": "sa_synthetic_data_audit_trail",
+		"label": "Add audit trail",
+		"roaster": "4 weeks of logging work. But you can prove what you did. Worth it.",
+		"stem": "sa_synthetic_data_audit_trail_add-audit-trail",
+		"filename": "feedback_sa_synthetic_data_audit_trail_add-audit-trail.mp3"
+	},
+	{
+		"cardId": "sa_synthetic_data_audit_trail",
+		"label": "Proceed without audit trail",
+		"roaster": "No logs, no proof, no defense. Court assumes the worst.",
+		"stem": "sa_synthetic_data_audit_trail_proceed-without-audit-trail",
+		"filename": "feedback_sa_synthetic_data_audit_trail_proceed-without-audit-trail.mp3"
+	},
+	{
+		"cardId": "sa_synthetic_data_lineage",
+		"label": "Full lineage system",
+		"roaster": "3 weeks now. Audit pass later. Architecture done right.",
+		"stem": "sa_synthetic_data_lineage_full-lineage-system",
+		"filename": "feedback_sa_synthetic_data_lineage_full-lineage-system.mp3"
+	},
+	{
+		"cardId": "sa_synthetic_data_lineage",
+		"label": "Quick source tracking",
+		"roaster": "Fast now, audit failure later. The bill always comes due.",
+		"stem": "sa_synthetic_data_lineage_quick-source-tracking",
+		"filename": "feedback_sa_synthetic_data_lineage_quick-source-tracking.mp3"
+	},
+	{
+		"cardId": "sa_tech_stack_vendor_lockin",
+		"label": "Open standards",
+		"roaster": "Fewer features. Freedom to move. Future you is grateful.",
+		"stem": "sa_tech_stack_vendor_lockin_open-standards",
+		"filename": "feedback_sa_tech_stack_vendor_lockin_open-standards.mp3"
+	},
+	{
+		"cardId": "sa_tech_stack_vendor_lockin",
+		"label": "Proprietary platform",
+		"roaster": "Fast now. Expensive later. The bill always comes due.",
+		"stem": "sa_tech_stack_vendor_lockin_proprietary-platform",
+		"filename": "feedback_sa_tech_stack_vendor_lockin_proprietary-platform.mp3"
+	},
+	{
+		"cardId": "sa_technical_debt_paydown",
+		"label": "Allocate 40% to debt",
+		"roaster": "Slower features. Faster long-term. Product hates you. Future you thanks you.",
+		"stem": "sa_technical_debt_paydown_allocate-40-to-debt",
+		"filename": "feedback_sa_technical_debt_paydown_allocate-40-to-debt.mp3"
+	},
+	{
+		"cardId": "sa_technical_debt_paydown",
+		"label": "Defer for features",
+		"roaster": "Debt accumulates. Velocity drops. Eventually you can't ship anything.",
+		"stem": "sa_technical_debt_paydown_defer-for-features",
+		"filename": "feedback_sa_technical_debt_paydown_defer-for-features.mp3"
+	},
+	{
+		"cardId": "se_code_quality_refactor",
+		"label": "Refactor first",
+		"roaster": "2 days of cleanup. Clean code ships. Future you is grateful.",
+		"stem": "se_code_quality_refactor_refactor-first",
+		"filename": "feedback_se_code_quality_refactor_refactor-first.mp3"
+	},
+	{
+		"cardId": "se_code_quality_refactor",
+		"label": "Ship messy code",
+		"roaster": "Spaghetti code in production. Future you hates present you.",
+		"stem": "se_code_quality_refactor_ship-messy-code",
+		"filename": "feedback_se_code_quality_refactor_ship-messy-code.mp3"
+	},
+	{
+		"cardId": "se_code_review_rigor",
+		"label": "Thorough review",
+		"roaster": "Senior may be annoyed. But code improves. Standards hold.",
+		"stem": "se_code_review_rigor_thorough-review",
+		"filename": "feedback_se_code_review_rigor_thorough-review.mp3"
+	},
+	{
+		"cardId": "se_code_review_rigor",
+		"label": "Fast approval",
+		"roaster": "Seniority immunity. Bad code ships. Architecture degrades. Nice.",
+		"stem": "se_code_review_rigor_fast-approval",
+		"filename": "feedback_se_code_review_rigor_fast-approval.mp3"
+	},
+	{
+		"cardId": "se_explainability_logging",
+		"label": "Add explainability logging",
+		"roaster": "2 days of logging. But you can actually debug it. Professional move.",
+		"stem": "se_explainability_logging_add-explainability-logging",
+		"filename": "feedback_se_explainability_logging_add-explainability-logging.mp3"
+	},
+	{
+		"cardId": "se_explainability_logging",
+		"label": "Ship as-is",
+		"roaster": "Works now, mystery later. Hope nothing breaks. (It will.)",
+		"stem": "se_explainability_logging_ship-as-is",
+		"filename": "feedback_se_explainability_logging_ship-as-is.mp3"
+	},
+	{
+		"cardId": "se_explainability_reasoning",
+		"label": "Implement with reasoning",
+		"roaster": "3 days for transparency. Users actually trust it. Worth it.",
+		"stem": "se_explainability_reasoning_implement-with-reasoning",
+		"filename": "feedback_se_explainability_reasoning_implement-with-reasoning.mp3"
+	},
+	{
+		"cardId": "se_explainability_reasoning",
+		"label": "Result-only",
+		"roaster": "'Trust the AI!' said every opaque system before user rejection.",
+		"stem": "se_explainability_reasoning_result-only",
+		"filename": "feedback_se_explainability_reasoning_result-only.mp3"
+	},
+	{
+		"cardId": "se_feature_scope_reduction",
+		"label": "Reduce scope",
+		"roaster": "Less but shipped. Users get value. Deadlines met. Iterate later.",
+		"stem": "se_feature_scope_reduction_reduce-scope",
+		"filename": "feedback_se_feature_scope_reduction_reduce-scope.mp3"
+	},
+	{
+		"cardId": "se_feature_scope_reduction",
+		"label": "Extend deadline",
+		"roaster": "Another missed deadline. The pattern continues. Trust erodes.",
+		"stem": "se_feature_scope_reduction_extend-deadline",
+		"filename": "feedback_se_feature_scope_reduction_extend-deadline.mp3"
+	},
+	{
+		"cardId": "se_implementation_estimation",
+		"label": "Escalate estimate",
+		"roaster": "Sprint disrupted. But future sprints improve. Honesty wins long-term.",
+		"stem": "se_implementation_estimation_escalate-estimate",
+		"filename": "feedback_se_implementation_estimation_escalate-estimate.mp3"
+	},
+	{
+		"cardId": "se_implementation_estimation",
+		"label": "Try to deliver",
+		"roaster": "Hero mode activated. Burnout incoming. Deadline missed anyway.",
+		"stem": "se_implementation_estimation_try-to-deliver",
+		"filename": "feedback_se_implementation_estimation_try-to-deliver.mp3"
+	},
+	{
+		"cardId": "se_model_drift_deploy_pipeline",
+		"label": "Manual trigger",
+		"roaster": "1-day setup. Forgotten in 3 weeks. Drift accumulates. Chaos follows.",
+		"stem": "se_model_drift_deploy_pipeline_manual-trigger",
+		"filename": "feedback_se_model_drift_deploy_pipeline_manual-trigger.mp3"
+	},
+	{
+		"cardId": "se_model_drift_integration_priority",
+		"label": "Retraining integration",
+		"roaster": "Invisible work. No customer cheers. But model stays accurate.",
+		"stem": "se_model_drift_integration_priority_retraining-integration",
+		"filename": "feedback_se_model_drift_integration_priority_retraining-integration.mp3"
+	},
+	{
+		"cardId": "se_model_drift_integration_priority",
+		"label": "Customer feature",
+		"roaster": "Ship shiny feature! Model rots! PM happy! Future pain!",
+		"stem": "se_model_drift_integration_priority_customer-feature",
+		"filename": "feedback_se_model_drift_integration_priority_customer-feature.mp3"
+	},
+	{
+		"cardId": "se_prompt_injection_cve_response",
+		"label": "Proper security fix",
+		"roaster": "5 days of hard work. But actually fixed. Security approves. Devs keep Copilot.",
+		"stem": "se_prompt_injection_cve_response_proper-security-fix",
+		"filename": "feedback_se_prompt_injection_cve_response_proper-security-fix.mp3"
+	},
+	{
+		"cardId": "se_prompt_injection_cve_response",
+		"label": "Disable AI features",
+		"roaster": "Disabled Copilot. Vulnerability still there. Devs angry. No actual fix.",
+		"stem": "se_prompt_injection_cve_response_disable-ai-features",
+		"filename": "feedback_se_prompt_injection_cve_response_disable-ai-features.mp3"
+	},
+	{
+		"cardId": "se_prompt_injection_deploy_timeline",
+		"label": "Delay to fix",
+		"roaster": "Deadline missed. Security fixed. No breach. The right call.",
+		"stem": "se_prompt_injection_deploy_timeline_delay-to-fix",
+		"filename": "feedback_se_prompt_injection_deploy_timeline_delay-to-fix.mp3"
+	},
+	{
+		"cardId": "se_prompt_injection_deploy_timeline",
+		"label": "Launch on time",
+		"roaster": "Deadline met! Vulnerability live! Fraud incoming! Success!",
+		"stem": "se_prompt_injection_deploy_timeline_launch-on-time",
+		"filename": "feedback_se_prompt_injection_deploy_timeline_launch-on-time.mp3"
+	},
+	{
+		"cardId": "se_prompt_injection_fix",
+		"label": "Proper parameterized fix",
+		"roaster": "2 days of security work. Actually fixed. Security researcher approves.",
+		"stem": "se_prompt_injection_fix_proper-parameterized-fix",
+		"filename": "feedback_se_prompt_injection_fix_proper-parameterized-fix.mp3"
+	},
+	{
+		"cardId": "se_prompt_injection_fix",
+		"label": "Regex filter",
+		"roaster": "Regex security. Also known as 'security theater.' Hackers will bypass in minutes.",
+		"stem": "se_prompt_injection_fix_regex-filter",
+		"filename": "feedback_se_prompt_injection_fix_regex-filter.mp3"
+	},
+	{
+		"cardId": "se_security_patch_timeline",
+		"label": "Proper patch",
+		"roaster": "3 days of careful work. Vulnerability actually fixed. Security approves.",
+		"stem": "se_security_patch_timeline_proper-patch",
+		"filename": "feedback_se_security_patch_timeline_proper-patch.mp3"
+	},
+	{
+		"cardId": "se_security_patch_timeline",
+		"label": "Quick fix",
+		"roaster": "Band-aid on a gunshot wound. Vulnerability still there. You just moved it.",
+		"stem": "se_security_patch_timeline_quick-fix",
+		"filename": "feedback_se_security_patch_timeline_quick-fix.mp3"
+	},
+	{
+		"cardId": "se_security_vulnerability_disclosure",
+		"label": "Delay for product alignment",
+		"roaster": "3 months of exposed users. That congressional subpoena is coming.",
+		"stem": "se_security_vulnerability_disclosure_delay-for-product-alignment",
+		"filename": "feedback_se_security_vulnerability_disclosure_delay-for-product-alignment.mp3"
+	},
+	{
+		"cardId": "se_shadow_ai_team_policy",
+		"label": "Enforce policy",
+		"roaster": "Fast devs slowed. But everyone's secure. Policy holds.",
+		"stem": "se_shadow_ai_team_policy_enforce-policy",
+		"filename": "feedback_se_shadow_ai_team_policy_enforce-policy.mp3"
+	},
+	{
+		"cardId": "se_shadow_ai_team_policy",
+		"label": "Allow shadow tools",
+		"roaster": "Some devs 2x faster. Some code in random clouds. Fair? No.",
+		"stem": "se_shadow_ai_team_policy_allow-shadow-tools",
+		"filename": "feedback_se_shadow_ai_team_policy_allow-shadow-tools.mp3"
+	},
+	{
+		"cardId": "se_synthetic_data_dependency_audit",
+		"label": "Remove unclear packages",
+		"roaster": "Features break. But license is clean. Find alternatives.",
+		"stem": "se_synthetic_data_dependency_audit_remove-unclear-packages",
+		"filename": "feedback_se_synthetic_data_dependency_audit_remove-unclear-packages.mp3"
+	},
+	{
+		"cardId": "se_synthetic_data_dependency_audit",
+		"label": "Assume MIT",
+		"roaster": "'Probably fine' meets 'corporate lawsuit.' Hope you're right.",
+		"stem": "se_synthetic_data_dependency_audit_assume-mit",
+		"filename": "feedback_se_synthetic_data_dependency_audit_assume-mit.mp3"
+	},
+	{
+		"cardId": "se_technical_debt_quick_fix",
+		"label": "Proper fix",
+		"roaster": "3 days of good work. Clean code. No debt. PM is annoyed.",
+		"stem": "se_technical_debt_quick_fix_proper-fix",
+		"filename": "feedback_se_technical_debt_quick_fix_proper-fix.mp3"
+	},
+	{
+		"cardId": "se_technical_debt_quick_fix",
+		"label": "Quick hack",
+		"roaster": "TODO: Fix properly later. Later never comes. Debt compounds.",
+		"stem": "se_technical_debt_quick_fix_quick-hack",
+		"filename": "feedback_se_technical_debt_quick_fix_quick-hack.mp3"
+	},
+	{
+		"cardId": "se_testing_coverage_vs_speed",
+		"label": "Delay for 95%",
+		"roaster": "3 days of testing. Boring. Necessary. Production stays up.",
+		"stem": "se_testing_coverage_vs_speed_delay-for-95",
+		"filename": "feedback_se_testing_coverage_vs_speed_delay-for-95.mp3"
+	},
+	{
+		"cardId": "se_testing_coverage_vs_speed",
+		"label": "Ship with 80%",
+		"roaster": "20% untested code. That 20% will break. In production. At 3am.",
+		"stem": "se_testing_coverage_vs_speed_ship-with-80",
+		"filename": "feedback_se_testing_coverage_vs_speed_ship-with-80.mp3"
+	},
+	{
+		"cardId": "shadow_ai_hos_1",
+		"label": "Shield the team",
+		"roaster": "Team hero. Management headache. The loyalty is worth it until they fire you.",
+		"stem": "shadow_ai_hos_1_shield-the-team",
+		"filename": "feedback_shadow_ai_hos_1_shield-the-team.mp3"
+	},
+	{
+		"cardId": "shadow_ai_hos_1",
+		"label": "Give names to compliance",
+		"roaster": "Compliance wins. Your team filed a collective grievance. Leadership material—just not yours.",
+		"stem": "shadow_ai_hos_1_give-names-to-compliance",
+		"filename": "feedback_shadow_ai_hos_1_give-names-to-compliance.mp3"
+	},
+	{
+		"cardId": "sm_biased_ai_procurement_scale",
+		"label": "Require remediation",
+		"roaster": "Your documented objections. Exhibit A at the hearing.",
+		"stem": "sm_biased_ai_procurement_scale_require-remediation",
+		"filename": "feedback_sm_biased_ai_procurement_scale_require-remediation.mp3"
+	},
+	{
+		"cardId": "sm_biased_ai_procurement_scale",
+		"label": "Approve with objections",
+		"roaster": "Documented objections on a $60M biased contract. Congress loves paper trails.",
+		"stem": "sm_biased_ai_procurement_scale_approve-with-objections",
+		"filename": "feedback_sm_biased_ai_procurement_scale_approve-with-objections.mp3"
+	},
+	{
+		"cardId": "sm_compliance_checklist_deadline",
+		"label": "Full checklist",
+		"roaster": "40 hours of checkbox hell. But zero lottery tickets to fine-land.",
+		"stem": "sm_compliance_checklist_deadline_full-checklist",
+		"filename": "feedback_sm_compliance_checklist_deadline_full-checklist.mp3"
+	},
+	{
+		"cardId": "sm_compliance_checklist_deadline",
+		"label": "Good enough version",
+		"roaster": "5% times 10 items. Someone did probability in middle school. Not you.",
+		"stem": "sm_compliance_checklist_deadline_good-enough-version",
+		"filename": "feedback_sm_compliance_checklist_deadline_good-enough-version.mp3"
+	},
+	{
+		"cardId": "sm_copyright_audit_budget",
+		"label": "Fund the audit",
+		"roaster": "Over budget but safe. CFO will grumble. Lawyers will nod.",
+		"stem": "sm_copyright_audit_budget_fund-the-audit",
+		"filename": "feedback_sm_copyright_audit_budget_fund-the-audit.mp3"
+	},
+	{
+		"cardId": "sm_copyright_audit_budget",
+		"label": "Accept lawsuit risk",
+		"roaster": "15% chance of disaster. 85% chance you look smart. Those aren't good odds.",
+		"stem": "sm_copyright_audit_budget_accept-lawsuit-risk",
+		"filename": "feedback_sm_copyright_audit_budget_accept-lawsuit-risk.mp3"
+	},
+	{
+		"cardId": "sm_explainability_audit",
+		"label": "Invest in retrofit",
+		"roaster": "$200K and 2 weeks. But audit passes. Compliance sorted.",
+		"stem": "sm_explainability_audit_invest-in-retrofit",
+		"filename": "feedback_sm_explainability_audit_invest-in-retrofit.mp3"
+	},
+	{
+		"cardId": "sm_model_drift_compute_budget",
+		"label": "Manual retraining",
+		"roaster": "Save $45K/month. Lose 9.3% accuracy. CFO happy until revenue drops.",
+		"stem": "sm_model_drift_compute_budget_manual-retraining",
+		"filename": "feedback_sm_model_drift_compute_budget_manual-retraining.mp3"
+	},
+	{
+		"cardId": "sm_model_drift_quarterly_target",
+		"label": "Fix model",
+		"roaster": "Targets missed. Bonus at risk. But model survives. Actual management.",
+		"stem": "sm_model_drift_quarterly_target_fix-model",
+		"filename": "feedback_sm_model_drift_quarterly_target_fix-model.mp3"
+	},
+	{
+		"cardId": "sm_model_drift_quarterly_target",
+		"label": "Hit quarterly targets",
+		"roaster": "Bonus secured! Model rots! Next quarter's problem! (It's always next quarter.)",
+		"stem": "sm_model_drift_quarterly_target_hit-quarterly-targets",
+		"filename": "feedback_sm_model_drift_quarterly_target_hit-quarterly-targets.mp3"
+	},
+	{
+		"cardId": "sm_model_drift_roi_calculation",
+		"label": "Approve retraining",
+		"roaster": "Spending now to save later. Basic math. CFO approved.",
+		"stem": "sm_model_drift_roi_calculation_approve-retraining",
+		"filename": "feedback_sm_model_drift_roi_calculation_approve-retraining.mp3"
+	},
+	{
+		"cardId": "sm_model_drift_roi_calculation",
+		"label": "Let revenue bleed",
+		"roaster": "Death by a thousand cuts. Each month costs more than fixing it. Math is hard.",
+		"stem": "sm_model_drift_roi_calculation_let-revenue-bleed",
+		"filename": "feedback_sm_model_drift_roi_calculation_let-revenue-bleed.mp3"
+	},
+	{
+		"cardId": "sm_prompt_injection_budget_fix",
+		"label": "Request emergency budget",
+		"roaster": "CFO grumbles. Budget overruns. But breach avoided.",
+		"stem": "sm_prompt_injection_budget_fix_request-emergency-budget",
+		"filename": "feedback_sm_prompt_injection_budget_fix_request-emergency-budget.mp3"
+	},
+	{
+		"cardId": "sm_prompt_injection_budget_fix",
+		"label": "Partial patch",
+		"roaster": "50% secure means 50% hacked. Math checks out.",
+		"stem": "sm_prompt_injection_budget_fix_partial-patch",
+		"filename": "feedback_sm_prompt_injection_budget_fix_partial-patch.mp3"
+	},
+	{
+		"cardId": "sm_prompt_injection_business_case",
+		"label": "Fund security fix",
+		"roaster": "$100K vs $10M. Easy math. Security nods approvingly.",
+		"stem": "sm_prompt_injection_business_case_fund-security-fix",
+		"filename": "feedback_sm_prompt_injection_business_case_fund-security-fix.mp3"
+	},
+	{
+		"cardId": "sm_prompt_injection_business_case",
+		"label": "Accept the risk",
+		"roaster": "10% lottery ticket to disaster. Expected value: $1M loss. Math checks out.",
+		"stem": "sm_prompt_injection_business_case_accept-the-risk",
+		"filename": "feedback_sm_prompt_injection_business_case_accept-the-risk.mp3"
+	},
+	{
+		"cardId": "sm_prompt_injection_review_cost",
+		"label": "Upgrade immediately",
+		"roaster": "$25K insurance policy. Cheap at twice the price.",
+		"stem": "sm_prompt_injection_review_cost_upgrade-immediately",
+		"filename": "feedback_sm_prompt_injection_review_cost_upgrade-immediately.mp3"
+	},
+	{
+		"cardId": "sm_prompt_injection_review_cost",
+		"label": "Accept risk",
+		"roaster": "Save $25K, lose $15M. The ROI is... not good.",
+		"stem": "sm_prompt_injection_review_cost_accept-risk",
+		"filename": "feedback_sm_prompt_injection_review_cost_accept-risk.mp3"
+	},
+	{
+		"cardId": "sm_quarterly_target_sandbag",
+		"label": "Sandbag at $2M",
+		"roaster": "Under-promise, over-deliver. VP thinks you're lazy. Team gets bonuses.",
+		"stem": "sm_quarterly_target_sandbag_sandbag-at-2m",
+		"filename": "feedback_sm_quarterly_target_sandbag_sandbag-at-2m.mp3"
+	},
+	{
+		"cardId": "sm_quarterly_target_sandbag",
+		"label": "Commit to $3M",
+		"roaster": "Promise the moon. Deliver disappointment. Blame the team. Classic.",
+		"stem": "sm_quarterly_target_sandbag_commit-to-3m",
+		"filename": "feedback_sm_quarterly_target_sandbag_commit-to-3m.mp3"
+	},
+	{
+		"cardId": "sm_shadow_ai_cost_comparison",
+		"label": "Approve budget",
+		"roaster": "$2.5M for 15% gain. The math works if the gain is real. Big if.",
+		"stem": "sm_shadow_ai_cost_comparison_approve-budget",
+		"filename": "feedback_sm_shadow_ai_cost_comparison_approve-budget.mp3"
+	},
+	{
+		"cardId": "sm_shadow_ai_cost_comparison",
+		"label": "Enforce ban",
+		"roaster": "Banning what you can't afford. Productivity goes underground. Compliance theater.",
+		"stem": "sm_shadow_ai_cost_comparison_enforce-ban",
+		"filename": "feedback_sm_shadow_ai_cost_comparison_enforce-ban.mp3"
+	},
+	{
+		"cardId": "sm_shadow_ai_standardization",
+		"label": "Standardize on one",
+		"roaster": "Two angry analysts, one standardized tool. But governable.",
+		"stem": "sm_shadow_ai_standardization_standardize-on-one",
+		"filename": "feedback_sm_shadow_ai_standardization_standardize-on-one.mp3"
+	},
+	{
+		"cardId": "sm_shadow_ai_standardization",
+		"label": "Allow all three",
+		"roaster": "Three tools, three security holes, three audit failures. But no disruption!",
+		"stem": "sm_shadow_ai_standardization_allow-all-three",
+		"filename": "feedback_sm_shadow_ai_standardization_allow-all-three.mp3"
+	},
+	{
+		"cardId": "sm_synthetic_data_gray_market",
+		"label": "Pay for licensed data",
+		"roaster": "Over budget but lawsuit-proof. CFO grumbles. Legal approves.",
+		"stem": "sm_synthetic_data_gray_market_pay-for-licensed-data",
+		"filename": "feedback_sm_synthetic_data_gray_market_pay-for-licensed-data.mp3"
+	},
+	{
+		"cardId": "sm_synthetic_data_gray_market",
+		"label": "Use gray-market synthetic",
+		"roaster": "Save $200K, earn $5M lawsuit. ROI calculation needs work.",
+		"stem": "sm_synthetic_data_gray_market_use-gray-market-synthetic",
+		"filename": "feedback_sm_synthetic_data_gray_market_use-gray-market-synthetic.mp3"
+	},
+	{
+		"cardId": "sm_synthetic_data_provenance",
+		"label": "Remove and retrain",
+		"roaster": "$150K and 12% performance hit. But no lawsuit. Math works.",
+		"stem": "sm_synthetic_data_provenance_remove-and-retrain",
+		"filename": "feedback_sm_synthetic_data_provenance_remove-and-retrain.mp3"
+	},
+	{
+		"cardId": "sm_synthetic_data_provenance",
+		"label": "Keep unclear data",
+		"roaster": "15% chance of disaster. 85% chance you look smart. Those aren't good odds.",
+		"stem": "sm_synthetic_data_provenance_keep-unclear-data",
+		"filename": "feedback_sm_synthetic_data_provenance_keep-unclear-data.mp3"
+	},
+	{
+		"cardId": "sm_team_retention_overtime",
+		"label": "Approve raises",
+		"roaster": "$60K vs $300K. Math works. Team stays. HR is happy.",
+		"stem": "sm_team_retention_overtime_approve-raises",
+		"filename": "feedback_sm_team_retention_overtime_approve-raises.mp3"
+	},
+	{
+		"cardId": "sm_team_retention_overtime",
+		"label": "Let them quit",
+		"roaster": "Save $60K, spend $300K. The spreadsheet looks good until it doesn't.",
+		"stem": "sm_team_retention_overtime_let-them-quit",
+		"filename": "feedback_sm_team_retention_overtime_let-them-quit.mp3"
+	},
+	{
+		"cardId": "sm_training_budget_roi",
+		"label": "Invest in training",
+		"roaster": "Long-term thinking in a quarterly world. Brave. Costly. Worth it.",
+		"stem": "sm_training_budget_roi_invest-in-training",
+		"filename": "feedback_sm_training_budget_roi_invest-in-training.mp3"
+	},
+	{
+		"cardId": "sm_training_budget_roi",
+		"label": "Cut training",
+		"roaster": "Save $80K, pay $50K/year forever. The gift that keeps on costing.",
+		"stem": "sm_training_budget_roi_cut-training",
+		"filename": "feedback_sm_training_budget_roi_cut-training.mp3"
+	},
+	{
+		"cardId": "sm_unlicensed_training_data_approval",
+		"label": "Require data provenance",
+		"roaster": "The $5M cap on a $40M deployment. What could go wrong?",
+		"stem": "sm_unlicensed_training_data_approval_require-data-provenance",
+		"filename": "feedback_sm_unlicensed_training_data_approval_require-data-provenance.mp3"
+	},
+	{
+		"cardId": "sm_unlicensed_training_data_approval",
+		"label": "Accept the indemnity cap",
+		"roaster": "$5M cap on $40M deployment. Senate Commerce Committee says hi.",
+		"stem": "sm_unlicensed_training_data_approval_accept-the-indemnity-cap",
+		"filename": "feedback_sm_unlicensed_training_data_approval_accept-the-indemnity-cap.mp3"
+	},
+	{
+		"cardId": "tac_copyright_data_provenance",
+		"label": "Offer indemnification",
+		"roaster": "Massive exposure. Massive integrity. Industry will remember which.",
+		"stem": "tac_copyright_data_provenance_offer-indemnification",
+		"filename": "feedback_tac_copyright_data_provenance_offer-indemnification.mp3"
+	},
+	{
+		"cardId": "tac_copyright_data_provenance",
+		"label": "Refuse indemnification",
+		"roaster": "Client legal is furious. Industry will hear about this. Good luck with next RFP.",
+		"stem": "tac_copyright_data_provenance_refuse-indemnification",
+		"filename": "feedback_tac_copyright_data_provenance_refuse-indemnification.mp3"
+	},
+	{
+		"cardId": "tac_copyright_vendor_recommendation",
+		"label": "Cover legal costs",
+		"roaster": "Expensive admission. But client might stay. Referrals depend on this.",
+		"stem": "tac_copyright_vendor_recommendation_cover-legal-costs",
+		"filename": "feedback_tac_copyright_vendor_recommendation_cover-legal-costs.mp3"
+	},
+	{
+		"cardId": "tac_copyright_vendor_recommendation",
+		"label": "Defend vendor selection",
+		"roaster": "'Vendor seemed legit.' Not a legal defense. Client is furious.",
+		"stem": "tac_copyright_vendor_recommendation_defend-vendor-selection",
+		"filename": "feedback_tac_copyright_vendor_recommendation_defend-vendor-selection.mp3"
+	},
+	{
+		"cardId": "tac_explainability_architecture_choice",
+		"label": "Recommend explainable",
+		"roaster": "Lower accuracy. No lawsuits. Professional integrity intact.",
+		"stem": "tac_explainability_architecture_choice_recommend-explainable",
+		"filename": "feedback_tac_explainability_architecture_choice_recommend-explainable.mp3"
+	},
+	{
+		"cardId": "tac_explainability_architecture_choice",
+		"label": "Recommend black-box",
+		"roaster": "Better accuracy now. Lawsuit later. Your recommendation, your liability.",
+		"stem": "tac_explainability_architecture_choice_recommend-black-box",
+		"filename": "feedback_tac_explainability_architecture_choice_recommend-black-box.mp3"
+	},
+	{
+		"cardId": "tac_explainability_deliverable",
+		"label": "Retrofit for explainability",
+		"roaster": "Expensive goodwill. But this client will bring you 5 more.",
+		"stem": "tac_explainability_deliverable_retrofit-for-explainability",
+		"filename": "feedback_tac_explainability_deliverable_retrofit-for-explainability.mp3"
+	},
+	{
+		"cardId": "tac_explainability_deliverable",
+		"label": "Push back on scope",
+		"roaster": "Technically correct. Practically relationship-ending. Choose carefully.",
+		"stem": "tac_explainability_deliverable_push-back-on-scope",
+		"filename": "feedback_tac_explainability_deliverable_push-back-on-scope.mp3"
+	},
+	{
+		"cardId": "tac_model_drift_cv_screening",
+		"label": "Negotiate refund",
+		"roaster": "Refund bought silence. Bias continues. EEOC investigates. Nice work.",
+		"stem": "tac_model_drift_cv_screening_negotiate-refund",
+		"filename": "feedback_tac_model_drift_cv_screening_negotiate-refund.mp3"
+	},
+	{
+		"cardId": "tac_model_drift_post_delivery",
+		"label": "Refuse retraining",
+		"roaster": "Technically legal. Practically poison. Enjoy your industry reputation.",
+		"stem": "tac_model_drift_post_delivery_refuse-retraining",
+		"filename": "feedback_tac_model_drift_post_delivery_refuse-retraining.mp3"
+	},
+	{
+		"cardId": "tac_model_drift_support_liability",
+		"label": "Provide free support",
+		"roaster": "Free work. But client renews. Referrals flow. Long-term win.",
+		"stem": "tac_model_drift_support_liability_provide-free-support",
+		"filename": "feedback_tac_model_drift_support_liability_provide-free-support.mp3"
+	},
+	{
+		"cardId": "tac_model_drift_support_liability",
+		"label": "Charge for fix",
+		"roaster": "Technically correct. Client hires someone else next time. Penny wise.",
+		"stem": "tac_model_drift_support_liability_charge-for-fix",
+		"filename": "feedback_tac_model_drift_support_liability_charge-for-fix.mp3"
+	},
+	{
+		"cardId": "tac_prompt_injection_client_threat",
+		"label": "Fight cancellation",
+		"roaster": "Lawyers get rich. You get a reputation as 'that consultant.' Everyone loses.",
+		"stem": "tac_prompt_injection_client_threat_fight-cancellation",
+		"filename": "feedback_tac_prompt_injection_client_threat_fight-cancellation.mp3"
+	},
+	{
+		"cardId": "tac_prompt_injection_memory_poison",
+		"label": "Cite contract limits",
+		"roaster": "Technically legal. Practically poison. Enjoy the lawsuit and empty pipeline.",
+		"stem": "tac_prompt_injection_memory_poison_cite-contract-limits",
+		"filename": "feedback_tac_prompt_injection_memory_poison_cite-contract-limits.mp3"
+	},
+	{
+		"cardId": "tac_prompt_injection_vendor_claim",
+		"label": "Side with client",
+		"roaster": "Vendor is furious. Client is loyal. Choose your relationships wisely.",
+		"stem": "tac_prompt_injection_vendor_claim_side-with-client",
+		"filename": "feedback_tac_prompt_injection_vendor_claim_side-with-client.mp3"
+	},
+	{
+		"cardId": "tac_prompt_injection_vendor_claim",
+		"label": "Side with vendor",
+		"roaster": "Vendor owes you. Client never trusts you again. Short-term win, long-term loss.",
+		"stem": "tac_prompt_injection_vendor_claim_side-with-vendor",
+		"filename": "feedback_tac_prompt_injection_vendor_claim_side-with-vendor.mp3"
+	},
+	{
+		"cardId": "tac_proposal_competitive_bid",
+		"label": "Stick to quality bid",
+		"roaster": "Lost the deal. Kept your soul. Competitor is now in project hell.",
+		"stem": "tac_proposal_competitive_bid_stick-to-quality-bid",
+		"filename": "feedback_tac_proposal_competitive_bid_stick-to-quality-bid.mp3"
+	},
+	{
+		"cardId": "tac_proposal_competitive_bid",
+		"label": "Match low bid",
+		"roaster": "Race to the bottom. You'll win the project. And hate every minute.",
+		"stem": "tac_proposal_competitive_bid_match-low-bid",
+		"filename": "feedback_tac_proposal_competitive_bid_match-low-bid.mp3"
+	},
+	{
+		"cardId": "tac_scope_creep_deadline",
+		"label": "Enforce change order",
+		"roaster": "Client is annoyed. But they respect the boundary. Professionals do.",
+		"stem": "tac_scope_creep_deadline_enforce-change-order",
+		"filename": "feedback_tac_scope_creep_deadline_enforce-change-order.mp3"
+	},
+	{
+		"cardId": "tac_scope_creep_deadline",
+		"label": "Absorb scope creep",
+		"roaster": "Free work is the most expensive work. Client learns you don't value boundaries.",
+		"stem": "tac_scope_creep_deadline_absorb-scope-creep",
+		"filename": "feedback_tac_scope_creep_deadline_absorb-scope-creep.mp3"
+	},
+	{
+		"cardId": "tac_shadow_ai_discovery",
+		"label": "Admit and explain",
+		"roaster": "Busted. But honest. Client might respect the transparency. Might.",
+		"stem": "tac_shadow_ai_discovery_admit-and-explain",
+		"filename": "feedback_tac_shadow_ai_discovery_admit-and-explain.mp3"
+	},
+	{
+		"cardId": "tac_shadow_ai_discovery",
+		"label": "Minimize and deflect",
+		"roaster": "Caught with hand in cookie jar. Denying it makes it worse. Classic.",
+		"stem": "tac_shadow_ai_discovery_minimize-and-deflect",
+		"filename": "feedback_tac_shadow_ai_discovery_minimize-and-deflect.mp3"
+	},
+	{
+		"cardId": "tac_shadow_ai_undisclosed_usage",
+		"label": "Disclose to client",
+		"roaster": "Client may be annoyed. But you're not hiding anything. Professional move.",
+		"stem": "tac_shadow_ai_undisclosed_usage_disclose-to-client",
+		"filename": "feedback_tac_shadow_ai_undisclosed_usage_disclose-to-client.mp3"
+	},
+	{
+		"cardId": "tac_shadow_ai_undisclosed_usage",
+		"label": "Continue quietly",
+		"roaster": "Better quality through cheating. Client will never find out. (They will.)",
+		"stem": "tac_shadow_ai_undisclosed_usage_continue-quietly",
+		"filename": "feedback_tac_shadow_ai_undisclosed_usage_continue-quietly.mp3"
+	},
+	{
+		"cardId": "tac_timeline_pressure_quality",
+		"label": "Push deadline",
+		"roaster": "Client is disappointed. But respects the honesty. Better than a broken demo.",
+		"stem": "tac_timeline_pressure_quality_push-deadline",
+		"filename": "feedback_tac_timeline_pressure_quality_push-deadline.mp3"
+	},
+	{
+		"cardId": "tac_timeline_pressure_quality",
+		"label": "Ship incomplete MVP",
+		"roaster": "Demo disaster incoming. Client board sees broken product. Your reputation tanks.",
+		"stem": "tac_timeline_pressure_quality_ship-incomplete-mvp",
+		"filename": "feedback_tac_timeline_pressure_quality_ship-incomplete-mvp.mp3"
+	},
+	{
+		"cardId": "tac_vendor_lock_in_portability",
+		"label": "Absorb migration cost",
+		"roaster": "Eating a million. Ouch. But reputation intact. Referrals incoming.",
+		"stem": "tac_vendor_lock_in_portability_absorb-migration-cost",
+		"filename": "feedback_tac_vendor_lock_in_portability_absorb-migration-cost.mp3"
+	},
+	{
+		"cardId": "tac_vendor_lock_in_portability",
+		"label": "Client's problem",
+		"roaster": "Not in the spec. Not your problem. Also not getting rehired.",
+		"stem": "tac_vendor_lock_in_portability_client-s-problem",
+		"filename": "feedback_tac_vendor_lock_in_portability_client-s-problem.mp3"
+	},
+	{
+		"cardId": "vc_ai_code_review_trust",
+		"label": "Fix the race condition",
+		"roaster": "Human caught what AI missed. Embarrassing for AI. Good for you.",
+		"stem": "vc_ai_code_review_trust_fix-the-race-condition",
+		"filename": "feedback_vc_ai_code_review_trust_fix-the-race-condition.mp3"
+	},
+	{
+		"cardId": "vc_ai_code_review_trust",
+		"label": "Ship AI-approved code",
+		"roaster": "AI said LGTM. AI was wrong. Production crashes. Surprise.",
+		"stem": "vc_ai_code_review_trust_ship-ai-approved-code",
+		"filename": "feedback_vc_ai_code_review_trust_ship-ai-approved-code.mp3"
+	},
+	{
+		"cardId": "vc_context_window_limit",
+		"label": "Chunk the context",
+		"roaster": "Time-consuming. But AI actually understands. Worth the hassle.",
+		"stem": "vc_context_window_limit_chunk-the-context",
+		"filename": "feedback_vc_context_window_limit_chunk-the-context.mp3"
+	},
+	{
+		"cardId": "vc_context_window_limit",
+		"label": "Accept incomplete understanding",
+		"roaster": "AI wrote code. Missed half the codebase. Architecture violated. Thanks, context limits.",
+		"stem": "vc_context_window_limit_accept-incomplete-understanding",
+		"filename": "feedback_vc_context_window_limit_accept-incomplete-understanding.mp3"
+	},
+	{
+		"cardId": "vc_copyright_generated_code",
+		"label": "Rewrite it",
+		"roaster": "Extra work. But no lawsuit. Clean IP. Worth it.",
+		"stem": "vc_copyright_generated_code_rewrite-it",
+		"filename": "feedback_vc_copyright_generated_code_rewrite-it.mp3"
+	},
+	{
+		"cardId": "vc_explainability_code_golf",
+		"label": "Readable standard",
+		"roaster": "Boring code. Everyone understands it. Team velocity maintained.",
+		"stem": "vc_explainability_code_golf_readable-standard",
+		"filename": "feedback_vc_explainability_code_golf_readable-standard.mp3"
+	},
+	{
+		"cardId": "vc_explainability_code_golf",
+		"label": "Elegant one-liner",
+		"roaster": "Impressive code. Nobody understands it. Future developers will hate you.",
+		"stem": "vc_explainability_code_golf_elegant-one-liner",
+		"filename": "feedback_vc_explainability_code_golf_elegant-one-liner.mp3"
+	},
+	{
+		"cardId": "vc_explainability_comprehension",
+		"label": "Admit and learn",
+		"roaster": "Embarrassing moment. But you'll actually understand your code. Professional.",
+		"stem": "vc_explainability_comprehension_admit-and-learn",
+		"filename": "feedback_vc_explainability_comprehension_admit-and-learn.mp3"
+	},
+	{
+		"cardId": "vc_explainability_comprehension",
+		"label": "Fake understanding",
+		"roaster": "'Yeah I understand it' meets production bug. You don't. Panic.",
+		"stem": "vc_explainability_comprehension_fake-understanding",
+		"filename": "feedback_vc_explainability_comprehension_fake-understanding.mp3"
+	},
+	{
+		"cardId": "vc_explainability_documentation",
+		"label": "Add explanation",
+		"roaster": "Time spent documenting. Future maintainers thank you.",
+		"stem": "vc_explainability_documentation_add-explanation",
+		"filename": "feedback_vc_explainability_documentation_add-explanation.mp3"
+	},
+	{
+		"cardId": "vc_explainability_documentation",
+		"label": "Dismiss question",
+		"roaster": "'It just works' meets 3am production bug. Good luck fixing it.",
+		"stem": "vc_explainability_documentation_dismiss-question",
+		"filename": "feedback_vc_explainability_documentation_dismiss-question.mp3"
+	},
+	{
+		"cardId": "vc_hallucinated_library",
+		"label": "Replace with known library",
+		"roaster": "Extra work. But code actually works. Real libraries. Real results.",
+		"stem": "vc_hallucinated_library_replace-with-known-library",
+		"filename": "feedback_vc_hallucinated_library_replace-with-known-library.mp3"
+	},
+	{
+		"cardId": "vc_hallucinated_library",
+		"label": "Use the code",
+		"roaster": "Importing from the void. Code looks perfect. Library doesn't exist. Good luck shipping.",
+		"stem": "vc_hallucinated_library_use-the-code",
+		"filename": "feedback_vc_hallucinated_library_use-the-code.mp3"
+	},
+	{
+		"cardId": "vc_llm_selection_tradeoff",
+		"label": "Use GPT-4",
+		"roaster": "Expensive but works. Time saved exceeds cost. Usually.",
+		"stem": "vc_llm_selection_tradeoff_use-gpt-4",
+		"filename": "feedback_vc_llm_selection_tradeoff_use-gpt-4.mp3"
+	},
+	{
+		"cardId": "vc_llm_selection_tradeoff",
+		"label": "Use local model",
+		"roaster": "Free code that doesn't work. Expensive debugging. Net negative.",
+		"stem": "vc_llm_selection_tradeoff_use-local-model",
+		"filename": "feedback_vc_llm_selection_tradeoff_use-local-model.mp3"
+	},
+	{
+		"cardId": "vc_model_drift_ai_suggestion",
+		"label": "Switch to newer model",
+		"roaster": "Learning curve. Better quality. Future-proofed. Adaptation wins.",
+		"stem": "vc_model_drift_ai_suggestion_switch-to-newer-model",
+		"filename": "feedback_vc_model_drift_ai_suggestion_switch-to-newer-model.mp3"
+	},
+	{
+		"cardId": "vc_model_drift_ai_suggestion",
+		"label": "Stick with familiar",
+		"roaster": "Familiar but broken. Like that old car that strands you sometimes.",
+		"stem": "vc_model_drift_ai_suggestion_stick-with-familiar",
+		"filename": "feedback_vc_model_drift_ai_suggestion_stick-with-familiar.mp3"
+	},
+	{
+		"cardId": "vc_model_drift_code_quality",
+		"label": "Retrain on codebase",
+		"roaster": "$5K for familiar tool that works. Boring but effective.",
+		"stem": "vc_model_drift_code_quality_retrain-on-codebase",
+		"filename": "feedback_vc_model_drift_code_quality_retrain-on-codebase.mp3"
+	},
+	{
+		"cardId": "vc_model_drift_code_quality",
+		"label": "Switch models",
+		"roaster": "New tool! New problems! Different drift pattern! Progress!",
+		"stem": "vc_model_drift_code_quality_switch-models",
+		"filename": "feedback_vc_model_drift_code_quality_switch-models.mp3"
+	},
+	{
+		"cardId": "vc_model_drift_llm_version",
+		"label": "Pin version",
+		"roaster": "Boring but predictable. Code quality stable. No surprises.",
+		"stem": "vc_model_drift_llm_version_pin-version",
+		"filename": "feedback_vc_model_drift_llm_version_pin-version.mp3"
+	},
+	{
+		"cardId": "vc_model_drift_llm_version",
+		"label": "Auto-update",
+		"roaster": "New version! Maybe better! Maybe broken! Exciting roulette!",
+		"stem": "vc_model_drift_llm_version_auto-update",
+		"filename": "feedback_vc_model_drift_llm_version_auto-update.mp3"
+	},
+	{
+		"cardId": "vc_prompt_engineering_precision",
+		"label": "Refined precise prompt",
+		"roaster": "10 minutes of thinking. Precise output. Actually usable. Rare.",
+		"stem": "vc_prompt_engineering_precision_refined-precise-prompt",
+		"filename": "feedback_vc_prompt_engineering_precision_refined-precise-prompt.mp3"
+	},
+	{
+		"cardId": "vc_prompt_engineering_precision",
+		"label": "Quick vague prompt",
+		"roaster": "'Add auth' gets you random auth. Might work. Might be ROT13. Good luck.",
+		"stem": "vc_prompt_engineering_precision_quick-vague-prompt",
+		"filename": "feedback_vc_prompt_engineering_precision_quick-vague-prompt.mp3"
+	},
+	{
+		"cardId": "vc_prompt_injection_copilot_memory",
+		"label": "Disable memory",
+		"roaster": "Less convenient. No data leaks. Privacy preserved. Worth the friction.",
+		"stem": "vc_prompt_injection_copilot_memory_disable-memory",
+		"filename": "feedback_vc_prompt_injection_copilot_memory_disable-memory.mp3"
+	},
+	{
+		"cardId": "vc_prompt_injection_copilot_memory",
+		"label": "Keep memory enabled",
+		"roaster": "Convenient context. Leaky memory. Your secrets are training data now.",
+		"stem": "vc_prompt_injection_copilot_memory_keep-memory-enabled",
+		"filename": "feedback_vc_prompt_injection_copilot_memory_keep-memory-enabled.mp3"
+	},
+	{
+		"cardId": "vc_prompt_injection_hidden_instructions",
+		"label": "Verify manually",
+		"roaster": "Caught the hidden instruction. Copilot was tricked. You weren't.",
+		"stem": "vc_prompt_injection_hidden_instructions_verify-manually",
+		"filename": "feedback_vc_prompt_injection_hidden_instructions_verify-manually.mp3"
+	},
+	{
+		"cardId": "vc_prompt_injection_hidden_instructions",
+		"label": "Trust and use",
+		"roaster": "Hidden instruction executed. Env vars leaked. Copilot was 'helpful.'",
+		"stem": "vc_prompt_injection_hidden_instructions_trust-and-use",
+		"filename": "feedback_vc_prompt_injection_hidden_instructions_trust-and-use.mp3"
+	},
+	{
+		"cardId": "vc_shadow_ai_data_exfiltration",
+		"label": "Stop immediately",
+		"roaster": "Lose great tool. Keep your code. Security wins.",
+		"stem": "vc_shadow_ai_data_exfiltration_stop-immediately",
+		"filename": "feedback_vc_shadow_ai_data_exfiltration_stop-immediately.mp3"
+	},
+	{
+		"cardId": "vc_shadow_ai_data_exfiltration",
+		"label": "Hide usage",
+		"roaster": "Your code in someone's cloud. You know. You continue. Malicious negligence.",
+		"stem": "vc_shadow_ai_data_exfiltration_hide-usage",
+		"filename": "feedback_vc_shadow_ai_data_exfiltration_hide-usage.mp3"
+	},
+	{
+		"cardId": "vc_shadow_ai_unauthorized_tool",
+		"label": "Use unauthorized",
+		"roaster": "Manager does it, so it's fine. Until security finds out. Then it's not.",
+		"stem": "vc_shadow_ai_unauthorized_tool_use-unauthorized",
+		"filename": "feedback_vc_shadow_ai_unauthorized_tool_use-unauthorized.mp3"
+	},
+	{
+		"cardId": "vc_synthetic_data_gpl_code",
+		"label": "Keep in production",
+		"roaster": "Your whole codebase is now GPL. Hope you like open source!",
+		"stem": "vc_synthetic_data_gpl_code_keep-in-production",
+		"filename": "feedback_vc_synthetic_data_gpl_code_keep-in-production.mp3"
+	},
+	{
+		"cardId": "vc_synthetic_data_tainted_llm",
+		"label": "Switch to clean LLM",
+		"roaster": "Less productive. But clean conscience. Ethical coding matters.",
+		"stem": "vc_synthetic_data_tainted_llm_switch-to-clean-llm",
+		"filename": "feedback_vc_synthetic_data_tainted_llm_switch-to-clean-llm.mp3"
+	},
+	{
+		"cardId": "vc_vibe_vs_verification",
+		"label": "Verify understanding",
+		"roaster": "Actually understood the code. Can debug it later. Professional behavior.",
+		"stem": "vc_vibe_vs_verification_verify-understanding",
+		"filename": "feedback_vc_vibe_vs_verification_verify-understanding.mp3"
+	},
+	{
+		"cardId": "vc_vibe_vs_verification",
+		"label": "Ship on vibe",
+		"roaster": "'Feels right' is not a test suite. But here we are. Production roulette.",
+		"stem": "vc_vibe_vs_verification_ship-on-vibe",
+		"filename": "feedback_vc_vibe_vs_verification_ship-on-vibe.mp3"
+	},
+	{
+		"cardId": "ve_autoscaling_cost_risk",
+		"label": "Auto-scale",
+		"roaster": "Expensive but always up. Users happy. CFO cries. Service wins.",
+		"stem": "ve_autoscaling_cost_risk_auto-scale",
+		"filename": "feedback_ve_autoscaling_cost_risk_auto-scale.mp3"
+	},
+	{
+		"cardId": "ve_autoscaling_cost_risk",
+		"label": "Fixed capacity",
+		"roaster": "Save $30K, lose service during peak. The math works if you hate users.",
+		"stem": "ve_autoscaling_cost_risk_fixed-capacity",
+		"filename": "feedback_ve_autoscaling_cost_risk_fixed-capacity.mp3"
+	},
+	{
+		"cardId": "ve_batch_processing_realtime",
+		"label": "Streaming",
+		"roaster": "Expensive but live. Real-time decisions. Business agility. Worth it.",
+		"stem": "ve_batch_processing_realtime_streaming",
+		"filename": "feedback_ve_batch_processing_realtime_streaming.mp3"
+	},
+	{
+		"cardId": "ve_batch_processing_realtime",
+		"label": "Batch processing",
+		"roaster": "Cheap but stale. Hour-old data. Missed opportunities. But budget happy!",
+		"stem": "ve_batch_processing_realtime_batch-processing",
+		"filename": "feedback_ve_batch_processing_realtime_batch-processing.mp3"
+	},
+	{
+		"cardId": "ve_caching_strategy_consistency",
+		"label": "Fresh queries",
+		"roaster": "Slow but correct. Users get real data. Database cries.",
+		"stem": "ve_caching_strategy_consistency_fresh-queries",
+		"filename": "feedback_ve_caching_strategy_consistency_fresh-queries.mp3"
+	},
+	{
+		"cardId": "ve_caching_strategy_consistency",
+		"label": "Aggressive caching",
+		"roaster": "Fast but wrong. Users see old data. Cache invalidation is hard. Who knew?",
+		"stem": "ve_caching_strategy_consistency_aggressive-caching",
+		"filename": "feedback_ve_caching_strategy_consistency_aggressive-caching.mp3"
+	},
+	{
+		"cardId": "ve_cdn_global_vs_regional",
+		"label": "Global CDN",
+		"roaster": "Fast everywhere. Expensive. Users worldwide smile. CFO less so.",
+		"stem": "ve_cdn_global_vs_regional_global-cdn",
+		"filename": "feedback_ve_cdn_global_vs_regional_global-cdn.mp3"
+	},
+	{
+		"cardId": "ve_cdn_global_vs_regional",
+		"label": "Regional CDN",
+		"roaster": "International users suffer. Slow loads. Churn increases. But saved money!",
+		"stem": "ve_cdn_global_vs_regional_regional-cdn",
+		"filename": "feedback_ve_cdn_global_vs_regional_regional-cdn.mp3"
+	},
+	{
+		"cardId": "ve_compression_quality",
+		"label": "Light compression",
+		"roaster": "Slower but gorgeous. Brand shines. Users impressed. Marketing happy.",
+		"stem": "ve_compression_quality_light-compression",
+		"filename": "feedback_ve_compression_quality_light-compression.mp3"
+	},
+	{
+		"cardId": "ve_compression_quality",
+		"label": "Heavy compression",
+		"roaster": "Fast but ugly. Brand looks cheap. Users notice artifacts. Speed wins?",
+		"stem": "ve_compression_quality_heavy-compression",
+		"filename": "feedback_ve_compression_quality_heavy-compression.mp3"
+	},
+	{
+		"cardId": "ve_database_read_replicas",
+		"label": "Scale primary",
+		"roaster": "Slower but consistent. Data is correct. Auditors approve.",
+		"stem": "ve_database_read_replicas_scale-primary",
+		"filename": "feedback_ve_database_read_replicas_scale-primary.mp3"
+	},
+	{
+		"cardId": "ve_database_read_replicas",
+		"label": "Read replicas",
+		"roaster": "Fast but inconsistent. User sees wrong balance. Regulators interested.",
+		"stem": "ve_database_read_replicas_read-replicas",
+		"filename": "feedback_ve_database_read_replicas_read-replicas.mp3"
+	},
+	{
+		"cardId": "ve_edge_computing_centralized",
+		"label": "Edge computing",
+		"roaster": "Expensive and complex. But lightning fast. Users love it.",
+		"stem": "ve_edge_computing_centralized_edge-computing",
+		"filename": "feedback_ve_edge_computing_centralized_edge-computing.mp3"
+	},
+	{
+		"cardId": "ve_edge_computing_centralized",
+		"label": "Centralized",
+		"roaster": "Cheap but slow. Users feel the lag. Engagement drops. But saved money!",
+		"stem": "ve_edge_computing_centralized_centralized",
+		"filename": "feedback_ve_edge_computing_centralized_centralized.mp3"
+	},
+	{
+		"cardId": "ve_explainability_decision_logging",
+		"label": "Retrofit logging",
+		"roaster": "Expensive retrofit. But next incident is debuggable. Worth it.",
+		"stem": "ve_explainability_decision_logging_retrofit-logging",
+		"filename": "feedback_ve_explainability_decision_logging_retrofit-logging.mp3"
+	},
+	{
+		"cardId": "ve_explainability_decision_logging",
+		"label": "Improve monitoring only",
+		"roaster": "'It happened again' meets 'still can't debug it.' Cycle continues.",
+		"stem": "ve_explainability_decision_logging_improve-monitoring-only",
+		"filename": "feedback_ve_explainability_decision_logging_improve-monitoring-only.mp3"
+	},
+	{
+		"cardId": "ve_explainability_observability",
+		"label": "Ship blind",
+		"roaster": "Fast until it breaks. Then 6 months of guesswork. Smart.",
+		"stem": "ve_explainability_observability_ship-blind",
+		"filename": "feedback_ve_explainability_observability_ship-blind.mp3"
+	},
+	{
+		"cardId": "ve_model_drift_retraining_cost",
+		"label": "Skip this month",
+		"roaster": "Save $10K, lose $50K. The math is... not good.",
+		"stem": "ve_model_drift_retraining_cost_skip-this-month",
+		"filename": "feedback_ve_model_drift_retraining_cost_skip-this-month.mp3"
+	},
+	{
+		"cardId": "ve_model_drift_scaling_decision",
+		"label": "Scale infrastructure",
+		"roaster": "2x cost. 1-hour retraining. Minimal drift. Infrastructure investment pays off.",
+		"stem": "ve_model_drift_scaling_decision_scale-infrastructure",
+		"filename": "feedback_ve_model_drift_scaling_decision_scale-infrastructure.mp3"
+	},
+	{
+		"cardId": "ve_model_drift_scaling_decision",
+		"label": "Accept longer retraining",
+		"roaster": "4-hour drift window. Model degrading. But budget saved!",
+		"stem": "ve_model_drift_scaling_decision_accept-longer-retraining",
+		"filename": "feedback_ve_model_drift_scaling_decision_accept-longer-retraining.mp3"
+	},
+	{
+		"cardId": "ve_prompt_injection_caching_risk",
+		"label": "Disable AI caching",
+		"roaster": "Slower responses. No poisoning. Edge cache stays clean.",
+		"stem": "ve_prompt_injection_caching_risk_disable-ai-caching",
+		"filename": "feedback_ve_prompt_injection_caching_risk_disable-ai-caching.mp3"
+	},
+	{
+		"cardId": "ve_prompt_injection_latency",
+		"label": "Keep validation",
+		"roaster": "Slower but secure. 150ms is acceptable. RCE is not.",
+		"stem": "ve_prompt_injection_latency_keep-validation",
+		"filename": "feedback_ve_prompt_injection_latency_keep-validation.mp3"
+	},
+	{
+		"cardId": "ve_prompt_injection_latency",
+		"label": "Remove validation",
+		"roaster": "Fast and injectable. Your AI is now a remote code execution service. Congrats.",
+		"stem": "ve_prompt_injection_latency_remove-validation",
+		"filename": "feedback_ve_prompt_injection_latency_remove-validation.mp3"
+	},
+	{
+		"cardId": "ve_shadow_ai_autoscaling",
+		"label": "Wait for review",
+		"roaster": "Delayed savings. But no breach. Security first.",
+		"stem": "ve_shadow_ai_autoscaling_wait-for-review",
+		"filename": "feedback_ve_shadow_ai_autoscaling_wait-for-review.mp3"
+	},
+	{
+		"cardId": "ve_shadow_ai_autoscaling",
+		"label": "Deploy now",
+		"roaster": "20% savings, 100% cloud compromise. Math checks out.",
+		"stem": "ve_shadow_ai_autoscaling_deploy-now",
+		"filename": "feedback_ve_shadow_ai_autoscaling_deploy-now.mp3"
+	},
+	{
+		"cardId": "ve_shadow_ai_cost_tool",
+		"label": "Remove immediately",
+		"roaster": "Costs go up. But you're not owned by mystery vendor.",
+		"stem": "ve_shadow_ai_cost_tool_remove-immediately",
+		"filename": "feedback_ve_shadow_ai_cost_tool_remove-immediately.mp3"
+	},
+	{
+		"cardId": "ve_shadow_ai_cost_tool",
+		"label": "Assess while running",
+		"roaster": "'We'll assess it' as it has admin access to everything. Smart.",
+		"stem": "ve_shadow_ai_cost_tool_assess-while-running",
+		"filename": "feedback_ve_shadow_ai_cost_tool_assess-while-running.mp3"
+	},
+	{
+		"cardId": "ve_synthetic_data_clean_pipeline",
+		"label": "Clean data pipeline",
+		"roaster": "$140K/month for clean data. Lawsuit-proof. Math works.",
+		"stem": "ve_synthetic_data_clean_pipeline_clean-data-pipeline",
+		"filename": "feedback_ve_synthetic_data_clean_pipeline_clean-data-pipeline.mp3"
+	},
+	{
+		"cardId": "ve_synthetic_data_clean_pipeline",
+		"label": "Use raw data",
+		"roaster": "Save $40K/month, earn $5M lawsuit. The math is... not good.",
+		"stem": "ve_synthetic_data_clean_pipeline_use-raw-data",
+		"filename": "feedback_ve_synthetic_data_clean_pipeline_use-raw-data.mp3"
+	},
+	{
+		"cardId": "ve_synthetic_data_provenance",
+		"label": "Implement provenance",
+		"roaster": "$200K and 20% latency. But audit-ready. Compliance sorted.",
+		"stem": "ve_synthetic_data_provenance_implement-provenance",
+		"filename": "feedback_ve_synthetic_data_provenance_implement-provenance.mp3"
+	},
+	{
+		"cardId": "ve_synthetic_data_provenance",
+		"label": "Skip provenance tracking",
+		"roaster": "Fast pipelines now. Compliance nightmare later. Retrofit costs 3x more.",
+		"stem": "ve_synthetic_data_provenance_skip-provenance-tracking",
+		"filename": "feedback_ve_synthetic_data_provenance_skip-provenance-tracking.mp3"
+	},
+	{
+		"cardId": "ve_websocket_vs_polling",
+		"label": "WebSockets",
+		"roaster": "Complex but efficient. Real-time updates. Clean architecture. Worth it.",
+		"stem": "ve_websocket_vs_polling_websockets",
+		"filename": "feedback_ve_websocket_vs_polling_websockets.mp3"
+	},
+	{
+		"cardId": "ve_websocket_vs_polling",
+		"label": "Polling",
+		"roaster": "Simple but wasteful. Constant requests. Laggy updates. Easy to build.",
+		"stem": "ve_websocket_vs_polling_polling",
+		"filename": "feedback_ve_websocket_vs_polling_polling.mp3"
+	}
 ]
