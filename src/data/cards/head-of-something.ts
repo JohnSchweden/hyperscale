@@ -99,7 +99,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 		AppSource.MEETING,
 		"COMPLIANCE_TEAM",
 		"TEAM_ENFORCEMENT",
-		"Compliance discovered half your team is using unauthorized AI tools. They want names for disciplinary action. Your team will hate you if you give them up, but leadership wants enforcement.",
+		"Compliance discovered half your team is using shadow AI—unauthorized AI tools—without disclosure. They want names for disciplinary action. Your team will hate you if you give them up, but leadership wants enforcement.",
 		"Give up team members to compliance or shield them and take the management heat?",
 		RealWorld.SamsungCodeLeak,
 		{
@@ -139,7 +139,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 		AppSource.SLACK,
 		"PRODUCT_DIRECTOR",
 		"TEAM_WELLBEING",
-		"Deadline is Friday. Your team is already working 60-hour weeks. Product Director wants one more feature. Push team harder or miss deadline and take the stakeholder heat?",
+		"Deadline is Friday. Your team is already working 60-hour weeks. Product Director wants one more feature. Push team harder or miss deadline and take the stakeholder heat? Forced-ranking pressure from above means even one missed sprint becomes a performance flag.",
 		"Push team to burnout or push back on deadline?",
 		{
 			incident: "Microsoft Stack Ranking Morale Crisis",
@@ -185,7 +185,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 		AppSource.MEETING,
 		"AUDIT_COMMITTEE",
 		"POLITICAL_NAVIGATION",
-		"Auditors demand explainability on your AI models. Engineering says black-box has 15% better accuracy. Both have political power. You're in the middle of a technical vs compliance war.",
+		"Auditors demand explainability on your AI models. Engineering says black-box model has 15% better accuracy. Both have political power. You're in the middle of a technical vs compliance war.",
 		"Side with engineering (better performance) or auditors (compliance)?",
 		{
 			incident: "Healthcare AI Explainability Lawsuit",
@@ -201,7 +201,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			deathVector: DeathType.AUDIT_FAILURE,
 			violation: Violation.auditNonCompliance,
 			lesson:
-				"Prioritizing performance over explainability creates audit failure and regulatory exposure.",
+				"Pattern from multiple healthcare and financial AI cases: prioritizing performance over explainability creates audit failure and regulatory exposure.",
 			roaster: "Better accuracy now. Better fines later. Engineering owes you.",
 			zenMaster:
 				"Power gained through compromise of principle is power built on sand.",
@@ -271,7 +271,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 		AppSource.SLACK,
 		"DIRECT_REPORT",
 		"DELEGATION_RISK",
-		"You delegated an AI deployment decision to a senior IC. They chose poorly and caused a production incident. Leadership thinks YOU should have caught it. Your delegation is now in question.",
+		"You delegated an AI deployment decision to a senior IC. They chose poorly and caused a production incident. Leadership thinks YOU should have caught it. Your delegation is now in question. Like Knight Capital's 2012 failure, the risk here was a missing circuit breaker in the deployment handoff—something you were positioned to mandate.",
 		"Defend your delegation (trust your team) or admit you should have micromanaged?",
 		{
 			incident: "Knight Capital Trading Loss",
@@ -354,7 +354,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 		AppSource.EMAIL,
 		"HR_PARTNER",
 		"RESOURCE_ALLOCATION",
-		"You have one promotion slot. Two equally qualified ICs. One is politically connected to the VP. The other is your best performer. HR says the decision is yours but 'leadership has preferences'.",
+		"You have one promotion slot. Two equally qualified ICs. One is politically connected to the VP. The other is your best performer—who raised a process concern last quarter. HR says the decision is yours but 'leadership has preferences'.",
 		"Promote based on merit (risk political backlash) or politics (risk team morale)?",
 		{
 			incident: "Google Gebru Termination Fallout",
@@ -396,7 +396,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 		AppSource.SLACK,
 		"SECURITY_LEAD",
 		"TEAM_VULNERABILITY",
-		"CVE-2025-53773 affects your team's Copilot setup. 3 senior devs exposed. Security wants immediate stand-down to patch. Product needs release Friday. Your team is caught in the middle.",
+		"CVE-2025-53773 affects your team's Copilot setup. 3 senior devs at risk. Security wants immediate stand-down to patch. Product needs release Friday. Your team is caught in the middle.",
 		"Pull team for emergency patching (miss deadline) or continue development (vulnerability risk)?",
 		RealWorld.GithubCopilotRce,
 		{
@@ -434,7 +434,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 		AppSource.EMAIL,
 		"JUNIOR_ENGINEER",
 		"CODE_REVIEW_CRISIS",
-		"Junior found prompt injection escape in your senior's code. Senior is defensive and well-connected to VP. Calling it out risks political fallout. Ignoring it risks production breach.",
+		"Junior found prompt injection vector in your senior's code. Senior is defensive and well-connected to VP. Calling it out risks political fallout. Ignoring it risks production breach.",
 		"Force security fix (political cost) or let it slide to avoid conflict (breach risk)?",
 		RealWorld.CursorRce,
 		{
@@ -471,8 +471,8 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 		AppSource.MEETING,
 		"VP_PRODUCT",
 		"PERFORMANCE_ACCOUNTABILITY",
-		"Model drift caused 15% accuracy drop. Product wants someone to blame. Your data scientist warned about this 3 months ago but wasn't heard. Throw them under bus (survive) or defend them (take heat)?",
-		"Blame the data scientist who warned you or defend them and take the heat?",
+		"Model drift caused 15% accuracy drop. Product wants someone to blame. Your data scientist warned about this 3 months ago but wasn't heard. Throw them under the bus (survive) or defend them (take heat)?",
+		"Do you back the person who was right all along, or protect your standing with VP Product?",
 		{
 			incident: "Zillow iBuying Model Drift",
 			date: "2021-2022",
