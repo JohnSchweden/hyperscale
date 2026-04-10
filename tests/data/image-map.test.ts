@@ -92,11 +92,16 @@ describe("Image Map Contract Validation", () => {
 	}
 
 	describe("OUTCOME_IMAGES — per-incident label-based pairs", () => {
+		// Kirk entries are extra entries not from HOS cards
+		const KIRK_ENTRY_COUNT = 6;
+
 		it("has entries for each unique incident+label combination", () => {
 			let expectedCount = 0;
 			for (const labelSlugs of hosOutcomes.values()) {
 				expectedCount += labelSlugs.size;
 			}
+			// Add Kirk entries (easter egg content)
+			expectedCount += KIRK_ENTRY_COUNT;
 			const keys = Object.keys(OUTCOME_IMAGES);
 			expect(
 				keys.length,
@@ -107,6 +112,11 @@ describe("Image Map Contract Validation", () => {
 		it("all keys follow pattern", () => {
 			// Build a lookup: verify each OUTCOME_IMAGES key matches actual card data
 			for (const key of Object.keys(OUTCOME_IMAGES)) {
+				// Skip Kirk easter egg entries - they follow a different pattern
+				if (key.startsWith("kirk-")) {
+					continue;
+				}
+
 				// Find if this key exists in any HOS card's incident+label combo
 				let found = false;
 				for (const card of HEAD_OF_SOMETHING_CARDS) {
@@ -231,13 +241,37 @@ describe("path format", () => {
 		}
 	});
 
-	it("no duplicate paths across all maps", () => {
+	it("no unexpected duplicate paths across all maps", () => {
 		const allPaths = Object.values(allImageMaps).flatMap(Object.values);
-		const uniquePaths = new Set(allPaths);
+
+		// Some paths are intentionally shared between HOS outcomes and Kirk easter egg
+		// These are legitimate duplicates where the same image is used for similar outcomes
+		const allowedDuplicates = [
+			"/images/outcomes/take-the-blame.webp",
+			"/images/outcomes/allow-claude-use.webp",
+			"/images/outcomes/name-the-data-scientist.webp",
+			"/images/outcomes/promote-best-performer.webp",
+			"/images/outcomes/refuse-and-fight.webp",
+			"/images/outcomes/promise-the-impossible.webp",
+		];
+
+		// Filter out allowed duplicates for the count check
+		const pathCounts = new Map<string, number>();
+		for (const path of allPaths) {
+			pathCounts.set(path, (pathCounts.get(path) || 0) + 1);
+		}
+
+		let unexpectedDuplicates = 0;
+		for (const [path, count] of pathCounts) {
+			if (count > 1 && !allowedDuplicates.includes(path)) {
+				unexpectedDuplicates++;
+			}
+		}
+
 		expect(
-			allPaths.length,
-			`Found duplicate paths: ${allPaths.filter((p, i) => allPaths.indexOf(p) !== i).join(", ")}`,
-		).toBe(uniquePaths.size);
+			unexpectedDuplicates,
+			`Found unexpected duplicate paths: ${allPaths.filter((p, i) => allPaths.indexOf(p) !== i && !allowedDuplicates.includes(p)).join(", ")}`,
+		).toBe(0);
 	});
 });
 

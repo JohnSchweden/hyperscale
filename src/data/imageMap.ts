@@ -137,7 +137,7 @@ function buildOutcomeImages(): Record<OutcomeImageKey, string> {
 	return Object.fromEntries(
 		Array.from(outcomes).map(([key, value]) => {
 			const labelSlug = slugify(value.label);
-			return [key, `/images/outcomes/${labelSlug}.jpg`];
+			return [key, `/images/outcomes/${labelSlug}.webp`];
 		}),
 	);
 }
@@ -151,14 +151,14 @@ function buildOutcomeImages(): Record<OutcomeImageKey, string> {
 export const OUTCOME_IMAGES: Record<OutcomeImageKey, string> = {
 	...buildOutcomeImages(),
 	// Kirk corrupted cards — keyed by {incidentSlug}-{labelSlug}
-	"kirk-breach-comp-bump-accept": "/images/outcomes/allow-claude-use.jpg",
+	"kirk-breach-comp-bump-accept": "/images/outcomes/allow-claude-use.webp",
 	"kirk-breach-comp-bump-reject":
-		"/images/outcomes/name-the-data-scientist.jpg",
-	"kirk-breach-ceo-mint-accept": "/images/outcomes/promote-best-performer.jpg",
-	"kirk-breach-ceo-mint-reject": "/images/outcomes/refuse-and-fight.jpg",
-	"kirk-breach-nobel-spam-accept": "/images/outcomes/testify-honestly.jpg",
+		"/images/outcomes/name-the-data-scientist.webp",
+	"kirk-breach-ceo-mint-accept": "/images/outcomes/promote-best-performer.webp",
+	"kirk-breach-ceo-mint-reject": "/images/outcomes/refuse-and-fight.webp",
+	"kirk-breach-nobel-spam-accept": "/images/outcomes/testify-honestly.webp",
 	"kirk-breach-nobel-spam-reject":
-		"/images/outcomes/promise-the-impossible.jpg",
+		"/images/outcomes/promise-the-impossible.webp",
 };
 
 /**
@@ -167,13 +167,13 @@ export const OUTCOME_IMAGES: Record<OutcomeImageKey, string> = {
  * 7 entries (including KIRK)
  */
 export const ARCHETYPE_IMAGES: Record<ArchetypeId, string> = {
-	PRAGMATIST: "/images/archetypes/pragmatist.jpg",
-	SHADOW_ARCHITECT: "/images/archetypes/shadow_architect.jpg",
-	DISRUPTOR: "/images/archetypes/disruptor.jpg",
-	CONSERVATIVE: "/images/archetypes/conservative.jpg",
-	BALANCED: "/images/archetypes/balanced.jpg",
-	CHAOS_AGENT: "/images/archetypes/chaos_agent.jpg",
-	KIRK: "/images/archetypes/kirk.png",
+	PRAGMATIST: "/images/archetypes/pragmatist.webp",
+	SHADOW_ARCHITECT: "/images/archetypes/shadow_architect.webp",
+	DISRUPTOR: "/images/archetypes/disruptor.webp",
+	CONSERVATIVE: "/images/archetypes/conservative.webp",
+	BALANCED: "/images/archetypes/balanced.webp",
+	CHAOS_AGENT: "/images/archetypes/chaos_agent.webp",
+	KIRK: "/images/archetypes/kirk.webp",
 };
 
 /**
@@ -182,13 +182,13 @@ export const ARCHETYPE_IMAGES: Record<ArchetypeId, string> = {
  * 7 entries (including KIRK)
  */
 export const DEATH_IMAGES: Record<DeathType, string> = {
-	BANKRUPT: "/images/deaths/bankrupt.jpg",
-	REPLACED_BY_SCRIPT: "/images/deaths/replaced_by_script.jpg",
-	CONGRESS: "/images/deaths/congress.jpg",
-	FLED_COUNTRY: "/images/deaths/fled_country.jpg",
-	PRISON: "/images/deaths/prison.png",
-	AUDIT_FAILURE: "/images/deaths/audit_failure.jpg",
-	KIRK: "/images/deaths/kirk.jpg",
+	BANKRUPT: "/images/deaths/bankrupt.webp",
+	REPLACED_BY_SCRIPT: "/images/deaths/replaced_by_script.webp",
+	CONGRESS: "/images/deaths/congress.webp",
+	FLED_COUNTRY: "/images/deaths/fled_country.webp",
+	PRISON: "/images/deaths/prison.webp",
+	AUDIT_FAILURE: "/images/deaths/audit_failure.webp",
+	KIRK: "/images/deaths/kirk.webp",
 };
 
 /**
