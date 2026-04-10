@@ -1,5 +1,6 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
+import "dotenv/config";
 import { GoogleGenAI, Modality } from "@google/genai";
 
 const apiKey = process.env.GEMINI_API_KEY;

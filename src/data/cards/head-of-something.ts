@@ -835,7 +835,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			lesson:
 				"Volunteering to test AI automation of your own role accelerates your obsolescence but demonstrates leadership courage.",
 			roaster:
-				"You just volunteered to prove a script can do your job. Bold. The script will remember your sacrifice.",
+				"You just volunteered to prove a script can do your job. Bold strategy, Cotton—let's see if it pays off. The script will remember your sacrifice.",
 			zenMaster:
 				"The tree that bows before the wind stands after the storm. But it is still bent.",
 			lovebomber:
