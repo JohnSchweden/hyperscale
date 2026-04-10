@@ -15,17 +15,10 @@ export function formatShareText(
 	const clampedResilience = Math.max(0, Math.min(100, Math.round(resilience)));
 	const url = gameUrl ?? "https://k-maru-seven.vercel.app/";
 
-	return `I just faced the AI Kobayashi Maru as a ${roleTitle}.
-
-My Resilience Score: ${clampedResilience}% (${archetypeName}). Can you beat my score?
-
-Try the No-Win Simulation and swipe your way through the AI Singularity.
-
-It's not about passing; it's about discovering who you are when the system collapses.
-
-[NOTICE: Made for people who hate f*cking boring training]
-
-${url}`;
+	return `I just finished K-Maru as a ${roleTitle} — the AI no-win swipe game (Kobayashi energy, corporate liability).
+Resilience: ${clampedResilience}% (${archetypeName}). Beat my score?
+${url}
+[NOTICE: Made for people who hate f*cking boring training]`;
 }
 
 /**
@@ -106,6 +99,6 @@ export function getShareUrl(
 	const url =
 		currentUrl ?? (typeof window !== "undefined" ? window.location.href : "");
 	const shareText = formatShareText(role, archetype.name, resilience, url);
-	const title = `Kobayashi Maru - ${archetype.name} Archetype`;
+	const title = `K-Maru — ${archetype.name}`;
 	return encodeLinkedInShareUrl(url, shareText, title);
 }
