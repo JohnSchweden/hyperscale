@@ -35,10 +35,10 @@ interface DebriefPage3VerdictProps {
 }
 
 function getResilienceContext(score: number): string {
-	if (score >= 80) return "Exceptional - You navigated the chaos with grace";
-	if (score >= 60) return "Solid - You survived, mostly intact";
-	if (score >= 40) return "Concerning - The system took its toll";
-	return "Critical - You're lucky to be walking away";
+	if (score >= 80) return "Exceptional. Probably got lucky. Don't tell anyone.";
+	if (score >= 60) return "Solid. The lawyers are not involved. Yet.";
+	if (score >= 40) return "Concerning. HR has a file with your name on it.";
+	return "Critical. The previous person in your role is also walking away. From a deposition.";
 }
 
 function getArchetypeColor(score: number): string {
@@ -262,12 +262,9 @@ export const DebriefPage3Verdict: React.FC<DebriefPage3VerdictProps> = ({
 						Early access to V2
 					</div>
 					<p className="text-sm text-slate-400 mb-6">
-						This was the static test. The adaptive version crawls the web for
-						new use cases relevant for you, reads your decisions in real time
-						and adapts in response.
-						<br />
-						<br />
-						DM me on LinkedIn if you want to be first to test it.
+						This was the static version. V2 reads the news, finds incidents
+						relevant to your role, and adapts the scenarios in real time. Your
+						decisions won't be the same twice.
 					</p>
 					<a
 						href="https://www.linkedin.com/in/schwedeny/"

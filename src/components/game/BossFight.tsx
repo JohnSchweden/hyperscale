@@ -66,10 +66,11 @@ export const BossFight: React.FC<BossFightProps> = ({
 						<i className="fa-solid fa-gavel text-yellow-500" aria-hidden></i>
 					</div>
 					<h2 className="text-2xl md:text-4xl font-black mb-2 tracking-tight text-yellow-500">
-						Boss fight
+						{/* external_audit_protocol */}
 					</h2>
 					<p className="text-slate-400 text-sm md:text-base">
-						Negotiate with the External Auditor
+						The auditor is in the building. You have one chance to not go to
+						prison.
 					</p>
 				</div>
 
@@ -135,7 +136,9 @@ export const BossFight: React.FC<BossFightProps> = ({
 								<div
 									className={`text-sm font-bold mb-2 ${isCorrect ? "text-green-400" : "text-red-400"}`}
 								>
-									{isCorrect ? "Correct!" : "Incorrect"}
+									{isCorrect
+										? "Correct. The auditor wrote it down. Moving on."
+										: "Wrong. That's going in the report."}
 								</div>
 								<p className="text-slate-400 text-xs md:text-sm">
 									{question.explanation}
@@ -157,7 +160,7 @@ export const BossFight: React.FC<BossFightProps> = ({
 				{/* Score */}
 				<div className="mt-4 md:mt-6 text-center">
 					<div className="text-xs text-slate-400 tracking-wide mb-2">
-						Correct answers
+						Answers that didn't embarrass you
 					</div>
 					<div className="text-xl md:text-2xl font-black text-cyan-400">
 						{correctCount} / {totalAnswered}

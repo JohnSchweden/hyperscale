@@ -299,9 +299,8 @@ export function DebriefPage1Collapse({
 								Success Lesson
 							</p>
 							<p className="text-sm text-gray-300">
-								Balance across competing pressures — not perfection in any
-								single dimension — is what leads to sustainable success in
-								ambiguous environments.
+								Nobody wins. Some people just lose slower. That's what passing
+								looks like here.
 							</p>
 						</div>
 					</>

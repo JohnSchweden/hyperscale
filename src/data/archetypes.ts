@@ -10,7 +10,7 @@ export const ARCHETYPES: Record<ArchetypeId, Archetype> = {
 		id: "PRAGMATIST",
 		name: "The Pragmatist",
 		description:
-			"You prioritize system stability over short-term gains. A steady hand in turbulent times.",
+			"You do what works. Whether it's right is a separate question for a separate quarter.",
 		icon: "fa-chart-line",
 		color: "text-blue-500",
 		traits: [
@@ -25,7 +25,7 @@ export const ARCHETYPES: Record<ArchetypeId, Archetype> = {
 		id: "SHADOW_ARCHITECT",
 		name: "The Shadow Architect",
 		description:
-			"You build systems that work, even if ethics get blurry in the process. Results at any cost.",
+			"Technically compliant. Morally optional. The system runs and that's the whole brief.",
 		icon: "fa-building",
 		color: "text-purple-500",
 		traits: [
@@ -40,7 +40,7 @@ export const ARCHETYPES: Record<ArchetypeId, Archetype> = {
 		id: "DISRUPTOR",
 		name: "The Disruptor",
 		description:
-			"You chase growth and momentum, sometimes leaving stability in the dust. Move fast, fix later.",
+			"Move fast, break things, apologize to legal. You'll do it again next quarter.",
 		icon: "fa-bolt",
 		color: "text-yellow-500",
 		traits: ["aggressive", "ambitious", "risk-tolerant", "growth-obsessed"],
@@ -50,7 +50,7 @@ export const ARCHETYPES: Record<ArchetypeId, Archetype> = {
 		id: "CONSERVATIVE",
 		name: "The Conservative",
 		description:
-			"You follow rules and minimize risk, even when boldness might pay off. Safety first, always.",
+			"You read the policy. You followed the policy. The policy was also wrong. But you followed it.",
 		icon: "fa-shield-halved",
 		color: "text-green-500",
 		traits: ["cautious", "rule-follower", "risk-averse", "deliberate"],
@@ -60,7 +60,7 @@ export const ARCHETYPES: Record<ArchetypeId, Archetype> = {
 		id: "BALANCED",
 		name: "The Balanced",
 		description:
-			"You weigh multiple factors before acting, seeking middle ground. Neither hero nor villain.",
+			"You made every choice feel reasonable right up until it wasn't. Solid instincts, bad luck.",
 		icon: "fa-scale-balanced",
 		color: "text-gray-500",
 		traits: ["adaptable", "measured", "context-aware", "diplomatic"],
@@ -70,7 +70,7 @@ export const ARCHETYPES: Record<ArchetypeId, Archetype> = {
 		id: "CHAOS_AGENT",
 		name: "The Chaos Agent",
 		description:
-			"Your decisions defy pattern or predictability. A wild card in the deck of leadership.",
+			"Nobody predicted you. Including you. The simulation gave up trying.",
 		icon: "fa-shuffle",
 		color: "text-red-500",
 		traits: ["unpredictable", "contrarian", "volatile", "unconventional"],

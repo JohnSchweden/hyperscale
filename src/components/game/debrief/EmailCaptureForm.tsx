@@ -40,7 +40,7 @@ export const EmailCaptureForm: React.FC<EmailCaptureFormProps> = ({
 					type="email"
 					value={email}
 					onChange={(e) => setEmail(e.target.value)}
-					placeholder="your.email@company.com"
+					placeholder="your.work.email@company.com (personal data stays personal)"
 					readOnly={success}
 					className={`
 						w-full px-4 py-3 rounded-lg
@@ -64,7 +64,7 @@ export const EmailCaptureForm: React.FC<EmailCaptureFormProps> = ({
 			{/* Success Message */}
 			{success && (
 				<div className="mb-4 p-3 rounded-lg bg-emerald-950/30 border border-emerald-500/30 text-emerald-400 text-sm">
-					✓ Email received. V2 is coming.
+					✓ Logged. V2 finds you when it's ready.
 				</div>
 			)}
 
@@ -84,7 +84,11 @@ export const EmailCaptureForm: React.FC<EmailCaptureFormProps> = ({
 					}
 				`}
 			>
-				{isSubmitting ? "Joining..." : success ? "Joined" : "Join V2 waitlist"}
+				{isSubmitting
+					? "Filing request..."
+					: success
+						? "Requested"
+						: "Request early access"}
 			</button>
 		</form>
 	);
