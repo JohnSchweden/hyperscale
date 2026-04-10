@@ -815,8 +815,8 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 		AppSource.EMAIL,
 		"CHIEF_TRANSFORMATION_OFFICER",
 		"ORG_RESTRUCTURE",
-		"Volunteer to pilot your own replacement or fight the restructuring?",
 		"The CTO's 'AI-First Operations' report concluded that AI orchestration tools can replace 60% of middle management coordination tasks. Your entire Head of Something layer is being evaluated for elimination. You can volunteer to lead the pilot — proving AI can do your job — or fight the restructure through HR.",
+		"Volunteer to pilot your own replacement or fight the restructuring?",
 		{
 			incident: "McKinsey AI Management Layer Report",
 			date: "2024",
@@ -861,8 +861,8 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 		AppSource.NOTION,
 		"OPERATIONS_AI_TEAM",
 		"AUTOMATION_PROPOSAL",
-		"Honestly document your remaining value-add or inflate your contribution metrics?",
 		"Your team's workflow automation initiative has been so successful that the AI tools now handle all the status updates, sprint planning coordination, and stakeholder reporting you used to manage. The quarterly org review asks: does your role still add value beyond what the tools already do?",
+		"Honestly document your remaining value-add or inflate your contribution metrics?",
 		{
 			incident: "Klarna AI Workforce Reduction",
 			date: "2024",
