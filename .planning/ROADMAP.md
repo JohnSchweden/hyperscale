@@ -732,7 +732,7 @@ Plans:
 **Goal:** Align Head of Something card deck with V.E.R.A. (ROASTER) voice register: fix makeCard arg order for 2 cards, add incident copy bridges, apply 12-14 roaster copy rewrites, and regenerate all affected pre-baked audio clips.
 **Requirements**: TBD
 **Depends on:** Phase 24
-**Plans:** 4 plans
+**Plans:** 4/4 plans complete
 
 Plans:
 - [ ] 25-01-PLAN.md — makeCard arg swap: fix storyContext/text arg order for hos_ai_management_elimination and hos_process_automation_takeover
