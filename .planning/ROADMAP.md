@@ -740,6 +740,17 @@ Plans:
 - [ ] 25-03-PLAN.md — V.E.R.A. roaster copy rewrites: 12 baseline + up to 2 optional triggers
 - [ ] 25-04-PLAN.md — Audio regeneration: replace 12-14 HOS feedback audio stem pairs with new V.E.R.A. copy
 
+### Phase 26: Preload outcome & ending assets
+
+**Goal:** Eliminate the 1–2s placeholder flash for outcome memes, death GIFs, and archetype GIFs by preloading assets ahead of display and fixing lazy loading on above-the-fold overlay/debrief images.
+**Requirements**: TBD
+**Depends on:** Phase 25
+**Plans:** 2 plans
+
+Plans:
+- [ ] 26-01-PLAN.md — preloadAsset utility + outcome/death/archetype preload effects in CardStack and App.tsx
+- [ ] 26-02-PLAN.md — ImageWithFallback loading prop + eager loading on FeedbackOverlay, DebriefPage1, DebriefPage3
+
 ---
 
 *Roadmap updated: 2026-03-28 — Phases 13, 16, 18 updated with all gap closure plans and extra phases*
