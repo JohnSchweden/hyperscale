@@ -68,8 +68,11 @@ export type FeedbackOutcome =
 	| "inflate-the-metrics"
 	| "take-the-blame"
 	| "name-the-data-scientist"
+	| "name-the-engineer"
 	| "provide-full-documentation"
-	| "claim-poor-record-keeping";
+	| "claim-poor-record-keeping"
+	| "fight-for-budget"
+	| "ship-without-retraining";
 
 // =============================================================================
 // DOWNLOAD FUNCTIONS
@@ -141,12 +144,19 @@ export async function downloadMeme(
 	let imageUrl = url;
 
 	// If it's a template URL, convert to direct image format
+	// e.g. .../memetemplate/187112276/woman-yelling-at-cat → .../s/meme/Woman-Yelling-At-Cat.jpg
+	// (first segment alone is often a numeric id and 404s as /s/meme/187112276.jpg)
 	if (url.includes("memetemplate") || url.includes("memegenerator")) {
-		// Extract template name from URL
-		const match = url.match(/(memetemplate|memegenerator)\/([^/?]+)/);
+		const match = url.match(/(?:memetemplate|memegenerator)\/([^?]+)/);
 		if (match) {
-			const templateName = match[2].split("/")[0]; // Get first part before any subpath
-			imageUrl = `https://imgflip.com/s/meme/${templateName}.jpg`;
+			const tail = match[1].includes("/")
+				? (match[1].split("/").pop() ?? match[1])
+				: match[1];
+			const memeFileName = tail
+				.split("-")
+				.map((w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+				.join("-");
+			imageUrl = `https://imgflip.com/s/meme/${memeFileName}.jpg`;
 		}
 	}
 

@@ -255,7 +255,7 @@
 		"pull-for-patching": {
 			"id": "this-is-fine",
 			"name": "This Is Fine",
-			"url": "https://imgflip.com/memetemplate/This-Is-Fine"
+			"url": "https://i.imgflip.com/wxica.jpg"
 		},
 		"continue-development": {
 			"id": "scared-cat",
@@ -362,6 +362,11 @@
 			"name": "Is This A Pigeon",
 			"url": "https://imgflip.com/memetemplate/Is-This-A-Pigeon"
 		},
+		"name-the-engineer": {
+			"id": "philosoraptor",
+			"name": "Philosoraptor",
+			"url": "https://imgflip.com/memetemplate/Philosoraptor"
+		},
 		"provide-full-documentation": {
 			"id": "one-does-not-simply",
 			"name": "One Does Not Simply",
@@ -371,6 +376,16 @@
 			"id": "deadpool-surprised",
 			"name": "Deadpool Surprised",
 			"url": "https://imgflip.com/memetemplate/Deadpool-Surprised"
+		},
+		"fight-for-budget": {
+			"id": "woman-yelling-at-cat",
+			"name": "Woman Yelling At Cat",
+			"url": "https://imgflip.com/memetemplate/187112276/woman-yelling-at-cat"
+		},
+		"ship-without-retraining": {
+			"id": "this-is-fine",
+			"name": "This Is Fine",
+			"url": "https://i.imgflip.com/wxica.jpg"
 		}
 	}
 }

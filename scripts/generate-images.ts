@@ -258,23 +258,19 @@ function extractHosOutcomesByLabel(): Map<
 	// Reuse the shared extractor from imageMap for consistency
 	const pairs = extractHosOutcomePairs();
 	for (const [key, pair] of pairs) {
-		// Find the lesson text from the original card
+		const incidentSlug = slugify(pair.incident);
+		const labelSlug = slugify(pair.label);
+
 		let lesson = "";
 		for (const card of HEAD_OF_SOMETHING_CARDS) {
 			if (!card.realWorldReference?.incident) continue;
-			if (card.realWorldReference.incident !== pair.incident) continue;
+			if (slugify(card.realWorldReference.incident) !== incidentSlug) continue;
 
-			const incidentSlug = slugify(card.realWorldReference.incident);
-			if (incidentSlug !== key.split("-")[0]) continue;
-
-			const leftLabelSlug = slugify(card.onLeft.label);
-			const rightLabelSlug = slugify(card.onRight.label);
-			const expectedLabelSlug = key.split("-")[1];
-
-			if (leftLabelSlug === expectedLabelSlug) {
+			if (slugify(card.onLeft.label) === labelSlug) {
 				lesson = card.onLeft.lesson;
 				break;
-			} else if (rightLabelSlug === expectedLabelSlug) {
+			}
+			if (slugify(card.onRight.label) === labelSlug) {
 				lesson = card.onRight.lesson;
 				break;
 			}
@@ -283,7 +279,7 @@ function extractHosOutcomesByLabel(): Map<
 		outcomes.set(key, {
 			incident: pair.incident,
 			label: pair.label,
-			labelSlug: key.split("-")[1],
+			labelSlug,
 			lesson,
 		});
 	}
@@ -443,6 +439,8 @@ interface PromptSource {
 interface ImageGenTask {
 	category: "incident" | "outcome" | "archetype" | "death";
 	slug: string;
+	/** HOS outcomes: basename for `{outcomeFileSlug}.webp` — must match imageMap label paths */
+	outcomeFileSlug?: string;
 	prompt: string;
 	source: PromptSource;
 }
@@ -564,10 +562,14 @@ async function generateAndSaveImage(
 	status: "success" | "skipped" | "failed" | "dry-run";
 	message: string;
 }> {
+	const diskSlug =
+		task.category === "outcome" && task.outcomeFileSlug
+			? task.outcomeFileSlug
+			: task.slug;
 	const outputPath = path.join(
 		process.cwd(),
 		CATEGORY_DIR[task.category],
-		`${task.slug}.webp`,
+		`${diskSlug}.webp`,
 	);
 
 	// Skip if exists — unless this is a --replace run targeting this exact slug
@@ -733,7 +735,13 @@ async function main() {
 					outcomeForReplace.lesson,
 					outcomeForReplace.incident,
 				);
-				tasks.push({ category: "outcome", slug: replaceSlug, prompt, source });
+				tasks.push({
+					category: "outcome",
+					slug: replaceSlug,
+					outcomeFileSlug: outcomeForReplace.labelSlug,
+					prompt,
+					source,
+				});
 			} else {
 				const archetypeMatch = archetypeEntries.find(
 					({ id }) => slugify(id) === replaceSlug,
@@ -805,6 +813,7 @@ async function main() {
 					tasks.push({
 						category: "outcome",
 						slug: `${slugifiedSlug}-${outcome.labelSlug}`,
+						outcomeFileSlug: outcome.labelSlug,
 						prompt,
 						source,
 					});
@@ -852,6 +861,7 @@ async function main() {
 				tasks.push({
 					category: "outcome",
 					slug: key, // This is ${incidentSlug}-${labelSlug}
+					outcomeFileSlug: outcome.labelSlug,
 					prompt,
 					source,
 				});

@@ -343,8 +343,11 @@ async function downloadAllFeedbackOutcomes() {
 		"inflate-the-metrics",
 		"take-the-blame",
 		"name-the-data-scientist",
+		"name-the-engineer",
 		"provide-full-documentation",
 		"claim-poor-record-keeping",
+		"fight-for-budget",
+		"ship-without-retraining",
 	];
 
 	console.log("Downloading FEEDBACK OUTCOME memes...\n");
