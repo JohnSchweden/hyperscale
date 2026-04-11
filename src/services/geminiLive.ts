@@ -416,10 +416,11 @@ export async function getQuickRoast(
  * ```
  */
 export async function checkLiveAPIAvailable(): Promise<boolean> {
-	try {
-		const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-		if (!apiKey) return false;
+	// Check cheap sync condition before await (async-cheap-condition-before-await)
+	const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+	if (!apiKey) return false;
 
+	try {
 		// Try to get ephemeral token - if this works, Live API should be available
 		await getEphemeralToken(apiKey);
 		return true;

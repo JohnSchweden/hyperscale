@@ -145,15 +145,14 @@ export function getTemplatesByPattern(pattern: string): PatternMatch[] {
  * Get all available template IDs
  */
 export function getAllTemplateIds(): string[] {
-	const ids: string[] = [];
+	// Use Set for O(1) lookups (js-set-map-lookups)
+	const idSet = new Set<string>();
 	for (const category of Object.values(templates.templates)) {
 		for (const t of category as TemplateEntry[]) {
-			if (!ids.includes(t.id)) {
-				ids.push(t.id);
-			}
+			idSet.add(t.id);
 		}
 	}
-	return ids;
+	return Array.from(idSet);
 }
 
 /**

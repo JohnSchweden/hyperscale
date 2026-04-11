@@ -96,7 +96,20 @@ export function useWebMCPTools(deps: UseWebMCPToolsDeps) {
 				feedbackAuthoringStem: feedbackOverlay?.feedbackAuthoringStem ?? null,
 			}),
 		},
-		[state, feedbackOverlay],
+		// Use primitive dependencies to avoid unnecessary re-renders
+		[
+			state.stage,
+			state.hype,
+			state.heat,
+			state.budget,
+			state.role,
+			state.personality,
+			state.currentCardIndex,
+			state.deathReason,
+			state.deathType,
+			state.bossFightAnswers,
+			feedbackOverlay,
+		],
 	);
 
 	useWebMCP(
@@ -136,6 +149,7 @@ export function useWebMCPTools(deps: UseWebMCPToolsDeps) {
 				};
 			},
 		},
+		// Use primitive dependencies to avoid unnecessary re-renders
 		[
 			state.stage,
 			feedbackOverlay,
@@ -335,7 +349,14 @@ export function useWebMCPTools(deps: UseWebMCPToolsDeps) {
 				};
 			},
 		},
-		[state.stage, bossFight],
+		// Use primitive dependencies to avoid unnecessary re-renders
+		[
+			state.stage,
+			bossFight.hasAnswered,
+			bossFight.fixedAnswers,
+			bossFight.question?.correctAnswer,
+			bossFight.handleAnswer,
+		],
 	);
 
 	useWebMCP(
@@ -362,6 +383,7 @@ export function useWebMCPTools(deps: UseWebMCPToolsDeps) {
 				return { success: true };
 			},
 		},
+		// Dependencies are already primitive
 		[state.stage, bossFight.showExplanation, bossFight.nextQuestion],
 	);
 

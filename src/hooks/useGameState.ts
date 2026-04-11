@@ -309,6 +309,7 @@ function createActionDispatchers(dispatch: Dispatch<GameAction>) {
 }
 
 function useDebugStateSync(state: GameState) {
+	// Debounce state sync to localStorage to avoid excessive writes
 	useEffect(() => {
 		if (typeof window === "undefined") return;
 		if (window.localStorage.getItem("km-debug-state")) {

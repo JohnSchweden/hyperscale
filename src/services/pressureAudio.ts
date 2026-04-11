@@ -26,10 +26,17 @@ const HEARTBEAT_SAMPLE_URL = getAudioPath("/audio/stress/heartbeat");
 
 let cachedHeartbeatBuffer: AudioBuffer | null = null;
 
+// Hoisted regex for Android detection (js-hoist-regexp)
+const ANDROID_REGEX = /Android/i;
+
+// Cached result for Android detection (js-cache-function-results)
+let _isAndroidCached: boolean | null = null;
+
 function isAndroid(): boolean {
-	return (
-		typeof navigator !== "undefined" && /Android/i.test(navigator.userAgent)
-	);
+	if (_isAndroidCached !== null) return _isAndroidCached;
+	_isAndroidCached =
+		typeof navigator !== "undefined" && ANDROID_REGEX.test(navigator.userAgent);
+	return _isAndroidCached;
 }
 
 /** Progressive volume ramp: start (1x) → end (1.65x, 10% louder than prior 1.5x) */

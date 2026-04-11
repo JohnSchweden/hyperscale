@@ -73,27 +73,29 @@ export function useStarfieldSpeedUIBurger(): StarfieldSpeedUIContextValue | null
 	return useContext(StarfieldSpeedUIContext);
 }
 
-function BurgerGlyph({ menuOpen }: { menuOpen: boolean }) {
-	return (
-		<span
-			className={`relative block w-6 transition-[height] duration-200 ease-out ${
-				menuOpen ? "h-5" : "h-6"
-			}`}
-			aria-hidden
-		>
-			<span
-				className={`absolute left-1/2 h-0.5 w-5 -translate-x-1/2 rounded-full bg-current transition-all duration-200 ease-out ${
-					menuOpen ? "top-1/2 -translate-y-1/2 rotate-45" : "top-[5px]"
-				}`}
-			/>
-			<span
-				className={`absolute left-1/2 h-0.5 w-5 -translate-x-1/2 rounded-full bg-current transition-all duration-200 ease-out ${
-					menuOpen ? "top-1/2 -translate-y-1/2 -rotate-45" : "bottom-[5px]"
-				}`}
-			/>
-		</span>
-	);
+interface BurgerGlyphProps {
+	menuOpen: boolean;
 }
+
+const BurgerGlyph: React.FC<BurgerGlyphProps> = ({ menuOpen }) => (
+	<span
+		className={`relative block w-6 transition-[height] duration-200 ease-out ${
+			menuOpen ? "h-5" : "h-6"
+		}`}
+		aria-hidden
+	>
+		<span
+			className={`absolute left-1/2 h-0.5 w-5 -translate-x-1/2 rounded-full bg-current transition-all duration-200 ease-out ${
+				menuOpen ? "top-1/2 -translate-y-1/2 rotate-45" : "top-[5px]"
+			}`}
+		/>
+		<span
+			className={`absolute left-1/2 h-0.5 w-5 -translate-x-1/2 rounded-full bg-current transition-all duration-200 ease-out ${
+				menuOpen ? "top-1/2 -translate-y-1/2 -rotate-45" : "bottom-[5px]"
+			}`}
+		/>
+	</span>
+);
 
 class Star {
 	x = 0;

@@ -221,9 +221,12 @@ export function calculateArchetype(
 		return { archetype: ARCHETYPES.BALANCED, resilience: 0 };
 	}
 
+	// Build Map for O(1) card lookups (js-index-maps)
+	const cardMap = new Map(deck.map((c) => [c.id, c]));
+
 	// Process each decision in history
 	for (const { cardId, choice } of history) {
-		const card = deck.find((c) => c.id === cardId);
+		const card = cardMap.get(cardId);
 		if (!card) continue;
 
 		const outcome = choice === "LEFT" ? card.onLeft : card.onRight;

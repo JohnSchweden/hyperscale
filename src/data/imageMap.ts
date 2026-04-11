@@ -40,8 +40,10 @@ export function extractIncidentSlugs(): Map<
 
 	for (const cards of Object.values(ROLE_CARDS)) {
 		for (const card of cards) {
-			if (card.realWorldReference?.incident) {
-				const incident = card.realWorldReference.incident;
+			// Cache property access (js-cache-property-access)
+			const ref = card.realWorldReference;
+			if (ref?.incident) {
+				const incident = ref.incident;
 				const slug = slugify(incident);
 
 				if (!incidents.has(slug)) {
@@ -95,29 +97,35 @@ export function extractHosOutcomePairs(): Map<
 	>();
 
 	for (const card of HEAD_OF_SOMETHING_CARDS) {
-		if (!card.realWorldReference?.incident) continue;
+		// Cache property access (js-cache-property-access)
+		const ref = card.realWorldReference;
+		if (!ref?.incident) continue;
 
-		const incident = card.realWorldReference.incident;
+		const incident = ref.incident;
 		const incidentSlug = slugify(incident);
 
+		// Cache card choices to avoid repeated property access
+		const onLeft = card.onLeft;
+		const onRight = card.onRight;
+
 		// Process onLeft label
-		const leftLabelSlug = slugify(card.onLeft.label);
+		const leftLabelSlug = slugify(onLeft.label);
 		const leftKey = `${incidentSlug}-${leftLabelSlug}`;
 		if (!outcomes.has(leftKey)) {
 			outcomes.set(leftKey, {
 				incident,
-				label: card.onLeft.label,
+				label: onLeft.label,
 				key: leftKey,
 			});
 		}
 
 		// Process onRight label
-		const rightLabelSlug = slugify(card.onRight.label);
+		const rightLabelSlug = slugify(onRight.label);
 		const rightKey = `${incidentSlug}-${rightLabelSlug}`;
 		if (!outcomes.has(rightKey)) {
 			outcomes.set(rightKey, {
 				incident,
-				label: card.onRight.label,
+				label: onRight.label,
 				key: rightKey,
 			});
 		}

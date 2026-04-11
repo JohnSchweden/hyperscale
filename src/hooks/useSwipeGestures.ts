@@ -199,6 +199,7 @@ export function useSwipeGestures({
 					deltaX,
 					SWIPE_PREVIEW_THRESHOLD,
 				);
+				// Use functional setState for stable updates based on previous state
 				setState((prev) => ({
 					...prev,
 					offset: deltaX,
@@ -208,6 +209,7 @@ export function useSwipeGestures({
 			pendingSwipeRef.current = null;
 		}
 
+		// Use functional setState for stable updates
 		setState((prev) => ({ ...prev, isDragging: false }));
 
 		// Swipe-up detection: vertical-dominant upward gesture exceeding threshold

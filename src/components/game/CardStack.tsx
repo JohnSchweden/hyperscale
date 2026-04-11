@@ -115,13 +115,13 @@ interface SwipePreviewProps {
 	card: Card;
 }
 
-function SwipePreview({
+const SwipePreview: React.FC<SwipePreviewProps> = ({
 	direction,
 	offset,
 	swipePreviewThreshold,
 	swipeThreshold,
 	card,
-}: SwipePreviewProps): React.ReactElement {
+}) => {
 	const raw = (Math.abs(offset) - swipePreviewThreshold) / swipeThreshold;
 	const t = Math.max(0, Math.min(1, raw));
 	const labelOpacity = Math.max(0, Math.min(1, 0.3 + t * 0.7));
@@ -156,7 +156,7 @@ function SwipePreview({
 			</div>
 		</div>
 	);
-}
+};
 
 /**
  * CardStack component for displaying and handling swipe interactions on incident cards.

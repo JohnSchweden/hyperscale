@@ -4,6 +4,14 @@ import type { Card } from "../../types";
 
 const incidentCardHeaderBar = "bg-slate-800 border-b border-white/5";
 
+// Static button styles hoisted from CardBody to avoid recreating on each render
+const SWIPE_BUTTON_BASE =
+	"flex-1 py-2 px-2.5 md:py-3 md:px-3 text-base border-[0.5px] border-solid tracking-wide transition-all min-h-[40px] md:min-h-[48px]";
+const SWIPE_BUTTON_DEFAULT =
+	"border-white/35 text-slate-300 bg-transparent hover:bg-cyan-500 hover:border-cyan-500 hover:text-black active:bg-cyan-500 active:border-cyan-500 active:text-black";
+const SWIPE_BUTTON_SELECTED =
+	"border-[0.5px] border-solid bg-cyan-500 border-cyan-500 font-bold text-black";
+
 interface CardHeaderBarProps {
 	source: string;
 	context: string;
@@ -60,13 +68,6 @@ export function CardBody({
 	currentDirection,
 	isUrgent,
 }: CardBodyProps): React.ReactElement {
-	const swipeButtonBase =
-		"flex-1 py-2 px-2.5 md:py-3 md:px-3 text-base border-[0.5px] border-solid tracking-wide transition-all min-h-[40px] md:min-h-[48px]";
-	const swipeButtonDefault =
-		"border-white/35 text-slate-300 bg-transparent hover:bg-cyan-500 hover:border-cyan-500 hover:text-black active:bg-cyan-500 active:border-cyan-500 active:text-black";
-	const swipeButtonSelected =
-		"border-[0.5px] border-solid bg-cyan-500 border-cyan-500 font-bold text-black";
-
 	const senderTextClass =
 		variant === "preview" ? "text-slate-400" : "text-cyan-400";
 
@@ -158,7 +159,7 @@ export function CardBody({
 							type="button"
 							onClick={onSwipeLeft}
 							data-testid="swipe-left-button"
-							className={`${swipeButtonBase} ${currentDirection === "LEFT" ? swipeButtonSelected : `font-semibold ${swipeButtonDefault}`}`}
+							className={`${SWIPE_BUTTON_BASE} ${currentDirection === "LEFT" ? SWIPE_BUTTON_SELECTED : `font-semibold ${SWIPE_BUTTON_DEFAULT}`}`}
 						>
 							{leftLabel}
 						</button>
@@ -166,7 +167,7 @@ export function CardBody({
 							type="button"
 							onClick={onSwipeRight}
 							data-testid="swipe-right-button"
-							className={`${swipeButtonBase} ${currentDirection === "RIGHT" ? swipeButtonSelected : `font-bold ${swipeButtonDefault}`}`}
+							className={`${SWIPE_BUTTON_BASE} ${currentDirection === "RIGHT" ? SWIPE_BUTTON_SELECTED : `font-bold ${SWIPE_BUTTON_DEFAULT}`}`}
 						>
 							{rightLabel}
 						</button>

@@ -21,13 +21,13 @@ interface EscalationBadgeProps {
 	icon: string;
 }
 
-function EscalationBadge({
+const EscalationBadge: React.FC<EscalationBadgeProps> = ({
 	label,
 	level,
 	levelSuffix = "%",
 	isCritical,
 	icon,
-}: EscalationBadgeProps) {
+}) => {
 	const textColor = isCritical ? "text-red-500" : "text-amber-400";
 	return (
 		<span
@@ -38,7 +38,7 @@ function EscalationBadge({
 			{levelSuffix}
 		</span>
 	);
-}
+};
 
 interface StatDeltaProps {
 	icon: string;
@@ -47,7 +47,12 @@ interface StatDeltaProps {
 	colorFn: (delta: number) => string;
 }
 
-function StatDelta({ icon, label, delta, colorFn }: StatDeltaProps) {
+const StatDelta: React.FC<StatDeltaProps> = ({
+	icon,
+	label,
+	delta,
+	colorFn,
+}) => {
 	const color = colorFn(delta);
 	const sign = delta > 0 ? "+" : "";
 	return (
@@ -59,16 +64,14 @@ function StatDelta({ icon, label, delta, colorFn }: StatDeltaProps) {
 			{delta}
 		</span>
 	);
-}
+};
 
-function ViolationRowDot() {
-	return (
-		<span
-			className="inline-block size-1.5 shrink-0 rounded-full bg-slate-500/70"
-			aria-hidden
-		/>
-	);
-}
+const ViolationRowDot: React.FC = () => (
+	<span
+		className="inline-block size-1.5 shrink-0 rounded-full bg-slate-500/70"
+		aria-hidden
+	/>
+);
 
 function splitViolationLabel(violation: string): {
 	left: string;

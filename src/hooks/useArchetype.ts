@@ -32,5 +32,7 @@ export function useArchetype(
 			return { archetype: ARCHETYPES.KIRK, resilience: 0 };
 		}
 		return calculateArchetype(history, finalBudget, finalHeat, finalHype, role);
+		// Note: history array is intentionally included as it's required for calculateArchetype
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [history, finalBudget, finalHeat, finalHype, role, deathType]);
 }

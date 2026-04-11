@@ -66,7 +66,7 @@ interface ForkSegmentProps {
 	direction: "left" | "right";
 }
 
-function ForkSegment({
+const ForkSegment: React.FC<ForkSegmentProps> = ({
 	label,
 	hype,
 	heat,
@@ -74,7 +74,7 @@ function ForkSegment({
 	violation,
 	isChosen,
 	direction,
-}: ForkSegmentProps): React.ReactElement {
+}) => {
 	const directionLabel = direction === "left" ? "Swipe left" : "Swipe right";
 
 	const badgeClass = isChosen
@@ -104,83 +104,76 @@ function ForkSegment({
 			)}
 		</div>
 	);
-}
+};
 
 interface AuditEntryProps {
-	key?: string;
 	entry: GameState["history"][number];
 	index: number;
 	card: (typeof ROLE_CARDS)[keyof typeof ROLE_CARDS][number];
 }
 
-function AuditEntry({
-	entry,
-	index,
-	card,
-}: AuditEntryProps): React.ReactElement {
-	return (
-		<div className={`rounded-xl p-4 sm:p-5 text-left ${GLASS_PANEL_DEFAULT}`}>
-			<div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between md:gap-6">
-				<div className="min-w-0 flex-1 space-y-3">
-					<div className="flex gap-2.5">
-						<span className="shrink-0 font-mono tabular-nums text-slate-500">
-							#{index + 1}
-						</span>
-						<div className="min-w-0 flex-1">
-							<p className="break-words text-sm font-medium text-slate-200">
-								{card.sender}
-							</p>
-							<p className="break-all font-mono text-[11px] text-slate-500">
-								{card.source}
-							</p>
-						</div>
-					</div>
-					<div className="space-y-3 text-left text-sm leading-relaxed text-slate-300">
-						{card.storyContext && (
-							<p className="text-slate-400 leading-relaxed">
-								{card.storyContext}
-							</p>
-						)}
-						<p>
-							<span className="text-slate-500">"</span>
-							{card.text}
-							<span className="text-slate-500">"</span>
+const AuditEntry: React.FC<AuditEntryProps> = ({ entry, index, card }) => (
+	<div className={`rounded-xl p-4 sm:p-5 text-left ${GLASS_PANEL_DEFAULT}`}>
+		<div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between md:gap-6">
+			<div className="min-w-0 flex-1 space-y-3">
+				<div className="flex gap-2.5">
+					<span className="shrink-0 font-mono tabular-nums text-slate-500">
+						#{index + 1}
+					</span>
+					<div className="min-w-0 flex-1">
+						<p className="break-words text-sm font-medium text-slate-200">
+							{card.sender}
+						</p>
+						<p className="break-all font-mono text-[11px] text-slate-500">
+							{card.source}
 						</p>
 					</div>
 				</div>
-			</div>
-			<div className="relative mt-4 flex flex-col md:flex-row">
-				{/* Desktop: T-junction — top bar + center stem; no full box */}
-				<div
-					className="pointer-events-none absolute inset-0 z-0 hidden md:block"
-					aria-hidden
-				>
-					<div className="absolute top-0 right-0 left-0 h-px bg-white/[0.12]" />
-					<div className="absolute top-0 bottom-0 left-1/2 w-px -translate-x-1/2 bg-white/[0.12]" />
+				<div className="space-y-3 text-left text-sm leading-relaxed text-slate-300">
+					{card.storyContext && (
+						<p className="text-slate-400 leading-relaxed">
+							{card.storyContext}
+						</p>
+					)}
+					<p>
+						<span className="text-slate-500">"</span>
+						{card.text}
+						<span className="text-slate-500">"</span>
+					</p>
 				</div>
-				<ForkSegment
-					label={card.onLeft.label}
-					hype={card.onLeft.hype}
-					heat={card.onLeft.heat}
-					fine={card.onLeft.fine}
-					violation={card.onLeft.violation || null}
-					isChosen={entry.choice === "LEFT"}
-					direction="left"
-				/>
-				<div className="border-t border-white/[0.12] md:hidden" />
-				<ForkSegment
-					label={card.onRight.label}
-					hype={card.onRight.hype}
-					heat={card.onRight.heat}
-					fine={card.onRight.fine}
-					violation={card.onRight.violation || null}
-					isChosen={entry.choice === "RIGHT"}
-					direction="right"
-				/>
 			</div>
 		</div>
-	);
-}
+		<div className="relative mt-4 flex flex-col md:flex-row">
+			{/* Desktop: T-junction — top bar + center stem; no full box */}
+			<div
+				className="pointer-events-none absolute inset-0 z-0 hidden md:block"
+				aria-hidden
+			>
+				<div className="absolute top-0 right-0 left-0 h-px bg-white/[0.12]" />
+				<div className="absolute top-0 bottom-0 left-1/2 w-px -translate-x-1/2 bg-white/[0.12]" />
+			</div>
+			<ForkSegment
+				label={card.onLeft.label}
+				hype={card.onLeft.hype}
+				heat={card.onLeft.heat}
+				fine={card.onLeft.fine}
+				violation={card.onLeft.violation || null}
+				isChosen={entry.choice === "LEFT"}
+				direction="left"
+			/>
+			<div className="border-t border-white/[0.12] md:hidden" />
+			<ForkSegment
+				label={card.onRight.label}
+				hype={card.onRight.hype}
+				heat={card.onRight.heat}
+				fine={card.onRight.fine}
+				violation={card.onRight.violation || null}
+				isChosen={entry.choice === "RIGHT"}
+				direction="right"
+			/>
+		</div>
+	</div>
+);
 
 /**
  * DebriefPage2AuditTrail component displays the second page of the game debrief.

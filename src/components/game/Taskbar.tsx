@@ -22,9 +22,14 @@ interface TaskbarProps {
 	currentTime: string;
 }
 
+interface TaskbarFlySpeedBurgerProps {
+	menuOpen: boolean;
+	onClick: () => void;
+}
+
 const TaskbarFlySpeedBurger = forwardRef<
 	HTMLButtonElement,
-	{ menuOpen: boolean; onClick: () => void }
+	TaskbarFlySpeedBurgerProps
 >(function TaskbarFlySpeedBurger({ menuOpen, onClick }, ref) {
 	return (
 		<button

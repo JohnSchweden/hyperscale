@@ -50,6 +50,7 @@ export function useBossFight({
 			rand: Math.random() + seed * 0.1 * (i + 1),
 		}));
 		return seeded.sort((a, b) => a.rand - b.rand).map((s) => s.val);
+		// Dependencies: question object properties accessed inside
 	}, [question, seed]);
 
 	// Reset when boss fight becomes active

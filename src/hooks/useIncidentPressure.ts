@@ -35,28 +35,34 @@ export function useIncidentPressure(
 	options?: UseIncidentPressureOptions,
 ): IncidentPressureState {
 	const previousIsCritical = useRef(false);
+	const onCriticalChangeRef = useRef(options?.onCriticalChange);
+	onCriticalChangeRef.current = options?.onCriticalChange;
+
+	// Use card ID (primitive) instead of card object for dependency
+	const currentCardId = currentCard?.id ?? null;
 
 	// Calculate the current isCritical value
 	const isCritical = useMemo(() => {
-		if (!currentCard) return false;
+		if (!currentCardId) return false;
 
-		const scenario = PRESSURE_SCENARIOS[currentCard.id] ?? null;
+		const scenario = PRESSURE_SCENARIOS[currentCardId] ?? null;
 		const criticalFromScenario = scenario?.criticalForHaptics ?? false;
 		const heatHigh = state.heat >= 70;
 		return criticalFromScenario || heatHigh;
-	}, [currentCard, state.heat]);
+	}, [currentCardId, state.heat]);
 
 	// Detect transition into critical and call onCriticalChange
 	useEffect(() => {
-		if (!options?.onCriticalChange) return;
+		const onCriticalChange = onCriticalChangeRef.current;
+		if (!onCriticalChange) return;
 
 		if (isCritical && !previousIsCritical.current) {
-			options.onCriticalChange(true);
+			onCriticalChange(true);
 		}
 		previousIsCritical.current = isCritical;
-	}, [isCritical, options]);
+	}, [isCritical]);
 	return useMemo(() => {
-		if (!currentCard) {
+		if (!currentCardId) {
 			return {
 				activeScenario: null,
 				isUrgent: false,
@@ -67,7 +73,7 @@ export function useIncidentPressure(
 			};
 		}
 
-		const scenario = PRESSURE_SCENARIOS[currentCard.id] ?? null;
+		const scenario = PRESSURE_SCENARIOS[currentCardId] ?? null;
 		const isUrgent = (scenario?.urgent ?? false) && !isChoiceResolving;
 		const countdownSec = scenario?.countdownSec ?? 0;
 		const timeoutResolvesTo = scenario?.timeoutResolvesTo ?? null;
@@ -88,5 +94,6 @@ export function useIncidentPressure(
 			isCritical,
 			getTeamImpact,
 		};
-	}, [currentCard, state.heat, isChoiceResolving]);
+		// Use primitive dependencies (cardId instead of card object)
+	}, [currentCardId, state.heat, isChoiceResolving]);
 }

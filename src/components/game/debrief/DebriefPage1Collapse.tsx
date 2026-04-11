@@ -1,3 +1,4 @@
+import type React from "react";
 import { useEffect, useMemo, useRef } from "react";
 import {
 	DEATH_ENDINGS,
@@ -25,50 +26,40 @@ import {
 } from "../selectionStageStyles";
 import { ExplanationCard } from "./ExplanationCard";
 
-interface StatsGridProps {
-	budget: number;
-	heat: number;
-	hype: number;
-}
-
-function StatsGrid({ budget, heat, hype }: StatsGridProps) {
-	return (
-		<div className="mb-6 md:mb-8 grid grid-cols-3 gap-4">
-			<StatCard
-				label="Budget"
-				value={formatBudget(budget)}
-				color={budget > 0 ? "text-emerald-400" : "text-red-500"}
-			/>
-			<StatCard
-				label="Heat"
-				value={`${heat}%`}
-				color={heat < 100 ? "text-amber-400" : "text-red-500"}
-			/>
-			<StatCard label="Hype" value={`${hype}%`} color="text-cyan-400" />
-		</div>
-	);
-}
-
 interface StatCardProps {
 	label: string;
 	value: string;
 	color: string;
 }
 
-function StatCard({ label, value, color }: StatCardProps) {
-	return (
-		<div className={`p-4 rounded-lg ${GLASS_PANEL_DEFAULT}`}>
-			<div className="text-xs text-slate-400 tracking-wide mb-1">{label}</div>
-			<div className={`text-xl md:text-2xl font-black ${color}`}>{value}</div>
-		</div>
-	);
+const StatCard: React.FC<StatCardProps> = ({ label, value, color }) => (
+	<div className={`p-4 rounded-lg ${GLASS_PANEL_DEFAULT}`}>
+		<div className="text-xs text-slate-400 tracking-wide mb-1">{label}</div>
+		<div className={`text-xl md:text-2xl font-black ${color}`}>{value}</div>
+	</div>
+);
+
+interface StatsGridProps {
+	budget: number;
+	heat: number;
+	hype: number;
 }
 
-function getRandomLesson(deathType: DeathType) {
-	const lessons = FAILURE_LESSONS[deathType];
-	if (!lessons?.length) return null;
-	return lessons[Math.floor(Math.random() * lessons.length)];
-}
+const StatsGrid: React.FC<StatsGridProps> = ({ budget, heat, hype }) => (
+	<div className="mb-6 md:mb-8 grid grid-cols-3 gap-4">
+		<StatCard
+			label="Budget"
+			value={formatBudget(budget)}
+			color={budget > 0 ? "text-emerald-400" : "text-red-500"}
+		/>
+		<StatCard
+			label="Heat"
+			value={`${heat}%`}
+			color={heat < 100 ? "text-amber-400" : "text-red-500"}
+		/>
+		<StatCard label="Hype" value={`${hype}%`} color="text-cyan-400" />
+	</div>
+);
 
 /** Six standard endings shown in the collection grid; KIRK is batch 7 (secret). */
 const DEBRIEF_STANDARD_DEATH_TYPES = Object.values(DeathType).filter(
@@ -79,125 +70,130 @@ interface EndingIconGridProps {
 	unlockedEndings: DeathType[];
 }
 
-function EndingIconGrid({ unlockedEndings }: EndingIconGridProps) {
-	return (
-		<div className="flex gap-2 md:gap-3 justify-center flex-wrap mb-4">
-			{DEBRIEF_STANDARD_DEATH_TYPES.map((type) => {
-				const isUnlocked = unlockedEndings.includes(type);
-				const ending = DEATH_ENDINGS[type];
-				return (
-					<div
-						key={type}
-						className={`w-10 h-10 md:w-12 md:h-12 rounded-lg flex items-center justify-center border ${
-							isUnlocked
-								? "bg-cyan-500/20 border-cyan-500"
-								: "bg-slate-800 border-slate-700 opacity-30"
-						}`}
-						title={ending.title}
-					>
-						<i
-							className={`fa-solid ${ending.icon} ${isUnlocked ? "text-cyan-400" : "text-slate-600"}`}
-							aria-hidden
-						/>
-					</div>
-				);
-			})}
-		</div>
-	);
-}
-
-function KirkEndingBatch7() {
-	return (
-		<div
-			data-testid="debrief-ending-batch-7"
-			className="mt-4 border-t border-cyan-500/25 pt-4"
-		>
-			<p className="text-center text-[10px] font-black uppercase tracking-[0.2em] text-cyan-300/90 mb-1">
-				Ending batch 7
-			</p>
-			<p className="text-center text-xs text-slate-500 mb-3">
-				Secret ending — unlocked this run
-			</p>
-			<div className="flex justify-center">
+const EndingIconGrid: React.FC<EndingIconGridProps> = ({ unlockedEndings }) => (
+	<div className="flex gap-2 md:gap-3 justify-center flex-wrap mb-4">
+		{DEBRIEF_STANDARD_DEATH_TYPES.map((type) => {
+			const isUnlocked = unlockedEndings.includes(type);
+			const ending = DEATH_ENDINGS[type];
+			return (
 				<div
-					className="w-12 h-12 md:w-14 md:h-14 rounded-lg flex flex-col items-center justify-center border bg-cyan-500/25 border-cyan-400 shadow-[0_0_20px_rgba(34,211,238,0.15)]"
-					title="Secret ending (batch 7)"
+					key={type}
+					className={`w-10 h-10 md:w-12 md:h-12 rounded-lg flex items-center justify-center border ${
+						isUnlocked
+							? "bg-cyan-500/20 border-cyan-500"
+							: "bg-slate-800 border-slate-700 opacity-30"
+					}`}
+					title={ending.title}
 				>
 					<i
-						className="fa-solid fa-pizza-slice text-lg md:text-xl text-cyan-300"
+						className={`fa-solid ${ending.icon} ${isUnlocked ? "text-cyan-400" : "text-slate-600"}`}
 						aria-hidden
 					/>
 				</div>
-			</div>
-		</div>
-	);
+			);
+		})}
+	</div>
+);
+
+function getRandomLesson(deathType: DeathType) {
+	const lessons = FAILURE_LESSONS[deathType];
+	if (!lessons?.length) return null;
+	return lessons[Math.floor(Math.random() * lessons.length)];
 }
 
-function KirkBreachHeader({ corruptedText }: { corruptedText: string }) {
-	return (
-		<>
-			<h1
-				className="text-4xl md:text-6xl font-black text-cyan-400 mb-2 tracking-tighter kirk-glitch-text"
-				aria-label="SIMULATION BREACH"
+const KirkEndingBatch7: React.FC = () => (
+	<div
+		data-testid="debrief-ending-batch-7"
+		className="mt-4 border-t border-cyan-500/25 pt-4"
+	>
+		<p className="text-center text-[10px] font-black uppercase tracking-[0.2em] text-cyan-300/90 mb-1">
+			Ending batch 7
+		</p>
+		<p className="text-center text-xs text-slate-500 mb-3">
+			Secret ending — unlocked this run
+		</p>
+		<div className="flex justify-center">
+			<div
+				className="w-12 h-12 md:w-14 md:h-14 rounded-lg flex flex-col items-center justify-center border bg-cyan-500/25 border-cyan-400 shadow-[0_0_20px_rgba(34,211,238,0.15)]"
+				title="Secret ending (batch 7)"
 			>
-				{corruptedText}
-			</h1>
-			<p className="text-slate-400 text-base md:text-lg">
-				Error: Subject refused to comply with test parameters. Attempting damage
-				control...
-			</p>
-		</>
-	);
+				<i
+					className="fa-solid fa-pizza-slice text-lg md:text-xl text-cyan-300"
+					aria-hidden
+				/>
+			</div>
+		</div>
+	</div>
+);
+
+interface KirkBreachHeaderProps {
+	corruptedText: string;
 }
+
+const KirkBreachHeader: React.FC<KirkBreachHeaderProps> = ({
+	corruptedText,
+}) => (
+	<>
+		<h1
+			className="text-4xl md:text-6xl font-black text-cyan-400 mb-2 tracking-tighter kirk-glitch-text"
+			aria-label="SIMULATION BREACH"
+		>
+			{corruptedText}
+		</h1>
+		<p className="text-slate-400 text-base md:text-lg">
+			Error: Subject refused to comply with test parameters. Attempting damage
+			control...
+		</p>
+	</>
+);
 
 interface DeathEndingCardProps {
 	ending: (typeof DEATH_ENDINGS)[DeathType];
 	deathType: DeathType;
 }
 
-function DeathEndingCard({ ending, deathType }: DeathEndingCardProps) {
-	return (
-		<>
-			<div className="mb-6 md:mb-8">
-				<h1
-					className={`text-4xl md:text-6xl font-black mb-2 tracking-tighter ${ending.color}`}
-				>
-					{ending.title}
-				</h1>
-				<p className="text-slate-400 text-base md:text-lg">
-					{ending.description}
-				</p>
-			</div>
-			<div className="mb-6 md:mb-8 mx-auto w-full max-w-xl">
-				<ImageWithFallback
-					src={getDeathGifPath(deathType)}
-					alt={`Ending: ${ending.title}`}
-					aspectRatio="video"
-				/>
-			</div>
-		</>
-	);
-}
+const DeathEndingCard: React.FC<DeathEndingCardProps> = ({
+	ending,
+	deathType,
+}) => (
+	<>
+		<div className="mb-6 md:mb-8">
+			<h1
+				className={`text-4xl md:text-6xl font-black mb-2 tracking-tighter ${ending.color}`}
+			>
+				{ending.title}
+			</h1>
+			<p className="text-slate-400 text-base md:text-lg">
+				{ending.description}
+			</p>
+		</div>
+		<div className="mb-6 md:mb-8 mx-auto w-full max-w-xl">
+			<ImageWithFallback
+				src={getDeathGifPath(deathType)}
+				alt={`Ending: ${ending.title}`}
+				aspectRatio="video"
+			/>
+		</div>
+	</>
+);
 
 interface FailureLessonCardProps {
 	lesson: FailureLesson;
 }
 
-function FailureLessonCard({ lesson }: FailureLessonCardProps) {
-	return (
-		<div
-			className={`mt-3 mb-6 rounded-lg border border-amber-500/35 bg-gradient-to-br from-amber-950/30 to-black/70 p-3 ${GLASS_FILL_STRONG}`}
-		>
-			<p className="text-xs font-semibold text-amber-400 uppercase mb-1">
-				{lesson.title}
-			</p>
-			<p className="text-sm text-gray-300">{lesson.explanation}</p>
-			<p className="text-xs text-gray-500 mt-1">
-				Real case: {lesson.realWorldExample}
-			</p>
-		</div>
-	);
-}
+const FailureLessonCard: React.FC<FailureLessonCardProps> = ({ lesson }) => (
+	<div
+		className={`mt-3 mb-6 rounded-lg border border-amber-500/35 bg-gradient-to-br from-amber-950/30 to-black/70 p-3 ${GLASS_FILL_STRONG}`}
+	>
+		<p className="text-xs font-semibold text-amber-400 uppercase mb-1">
+			{lesson.title}
+		</p>
+		<p className="text-sm text-gray-300">{lesson.explanation}</p>
+		<p className="text-xs text-gray-500 mt-1">
+			Real case: {lesson.realWorldExample}
+		</p>
+	</div>
+);
 
 interface DebriefPage1CollapseProps {
 	state: GameState;

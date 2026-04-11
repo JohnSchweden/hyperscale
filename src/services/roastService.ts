@@ -21,10 +21,11 @@ const VOICE_MAP: Record<PersonalityType, string> = {
 /**
  * Error message patterns that trigger automatic fallback to standard TTS
  * Covers authentication failures, rate limits, network issues, and API unavailability
- * @constant {string[]}
+ * Using Set for O(1) lookups (js-set-map-lookups)
+ * @constant {Set<string>}
  */
-const FALLBACK_ERROR_CODES = [
-	"WebSocket connection error",
+const FALLBACK_ERROR_CODES = new Set([
+	"websocket connection error",
 	"401",
 	"403",
 	"429",
@@ -39,7 +40,7 @@ const FALLBACK_ERROR_CODES = [
 	"ephemeral",
 	"live api not enabled",
 	"live api unavailable",
-];
+]);
 
 /**
  * Determines if an error warrants falling back to TTS instead of Live API
@@ -63,9 +64,11 @@ function shouldFallback(error: unknown): boolean {
 	const errorMessage = error instanceof Error ? error.message : String(error);
 	const lowerMessage = errorMessage.toLowerCase();
 
-	return FALLBACK_ERROR_CODES.some((code) =>
-		lowerMessage.includes(code.toLowerCase()),
-	);
+	// Use Set for O(1) lookups instead of array.some() (js-set-map-lookups)
+	for (const code of FALLBACK_ERROR_CODES) {
+		if (lowerMessage.includes(code)) return true;
+	}
+	return false;
 }
 
 /** Delay before radio effect intro when using Live API (seconds) */

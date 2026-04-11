@@ -7,6 +7,18 @@ const ASPECT_CLASSES = {
 	auto: "",
 } as const;
 
+const PLACEHOLDER_BG_STYLE: React.CSSProperties = {
+	backgroundImage: `
+		repeating-linear-gradient(
+			0deg,
+			rgba(0, 0, 0, 0.15),
+			rgba(0, 0, 0, 0.15) 2px,
+			transparent 2px,
+			transparent 4px
+		)
+	`,
+};
+
 export interface ImageWithFallbackProps {
 	/** Image source path (e.g., from imageMap.ts helpers) */
 	src: string;
@@ -75,17 +87,7 @@ export function ImageWithFallback({
             glitch-placeholder
             ${isLoaded && !hasError ? "opacity-0 pointer-events-none" : "opacity-100"}
           `.trim()}
-					style={{
-						backgroundImage: `
-              repeating-linear-gradient(
-                0deg,
-                rgba(0, 0, 0, 0.15),
-                rgba(0, 0, 0, 0.15) 2px,
-                transparent 2px,
-                transparent 4px
-              )
-            `,
-					}}
+					style={PLACEHOLDER_BG_STYLE}
 				>
 					<i className="fa-solid fa-image text-cyan-500 text-3xl animate-pulse" />
 				</div>

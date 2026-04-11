@@ -110,6 +110,9 @@ export function notifyBgmAfterMicRelease(): void {
 	}
 }
 
+// Hoisted regex for personality key normalization (js-hoist-regexp)
+const PERSONALITY_KEY_REGEX = /_/g;
+
 let audioContext: AudioContext | null = null;
 // AudioBufferSourceNode — replaces HTMLAudioElement so we can schedule via the
 // AudioContext timeline without needing a gesture per-play (iOS blocks HTMLMediaElement.play()
@@ -257,7 +260,11 @@ export async function loadVoice(
 	trigger: string,
 ): Promise<void> {
 	const basePath = "/audio/voices";
-	const personalityDir = `${basePath}/${personality.toLowerCase().replace(/_/g, "")}`;
+	// Cache personality key computation (js-cache-function-results)
+	const personalityKey = personality
+		.toLowerCase()
+		.replace(PERSONALITY_KEY_REGEX, "");
+	const personalityDir = `${basePath}/${personalityKey}`;
 
 	const subfolder = getSubfolder(trigger);
 	const filePath = getAudioFilePath(personalityDir, subfolder, trigger);
@@ -269,7 +276,6 @@ export async function loadVoice(
 		console.log(`[Voice] Response status: ${response.status}`);
 
 		if (!response.ok) {
-			const personalityKey = personality.toLowerCase().replace(/_/g, "");
 			throw new Error(
 				`HTTP ${response.status}: ${ERROR_MESSAGES[personalityKey] || "Voice module error"}`,
 			);
@@ -357,10 +363,8 @@ export async function loadVoice(
 		}
 	} catch (error) {
 		console.error("[Voice Error]", error);
-		throw new Error(
-			ERROR_MESSAGES[personality.toLowerCase().replace(/_/g, "")] ||
-				"Voice module error",
-		);
+		// Use cached personalityKey instead of recomputing (js-cache-function-results)
+		throw new Error(ERROR_MESSAGES[personalityKey] || "Voice module error");
 	}
 }
 
