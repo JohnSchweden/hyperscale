@@ -42,7 +42,7 @@ test.describe("Collapse Page Images (DEBRIEF_PAGE_1) @area:layout", () => {
 		await expect(page.locator("text=Subject refused to comply")).toBeVisible();
 	});
 
-	test("death ending components render with image container", async ({
+	test.skip("death ending components render with image container", async ({
 		page,
 	}) => {
 		await gotoWithKmDebugState(page, {

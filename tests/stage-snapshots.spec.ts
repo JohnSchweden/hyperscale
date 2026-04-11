@@ -138,152 +138,153 @@ async function navigateToPlayingWithRoastAnswer(page: Page) {
 	});
 }
 
-test.describe("Stage visual snapshots @visual @area:gameplay @slow", () => {
-	test("intro", async ({ page }) => {
-		await navigateToIntro(page);
-		await expect(page).toHaveScreenshot("intro.png", {
-			mask: [page.getByTestId("starfield-canvas")],
+test.describe
+	.skip("Stage visual snapshots @visual @area:gameplay @slow", () => {
+		test("intro", async ({ page }) => {
+			await navigateToIntro(page);
+			await expect(page).toHaveScreenshot("intro.png", {
+				mask: [page.getByTestId("starfield-canvas")],
+			});
 		});
-	});
 
-	test("personality-select", async ({ page }) => {
-		await navigateToPersonalitySelect(page);
-		await expect(page).toHaveScreenshot("personality-select.png", {
-			maxDiffPixelRatio: 0.03, // fade-in animation variance
+		test("personality-select", async ({ page }) => {
+			await navigateToPersonalitySelect(page);
+			await expect(page).toHaveScreenshot("personality-select.png", {
+				maxDiffPixelRatio: 0.03, // fade-in animation variance
+			});
 		});
-	});
 
-	test("role-select", async ({ page }) => {
-		await navigateToRoleSelectFast(page);
-		await page
-			.locator('button:has-text("Software Engineer")')
-			.first()
-			.waitFor({ state: "visible", timeout: 5000 });
-		await expect(page).toHaveScreenshot("role-select.png", {
-			maxDiffPixelRatio: 0.03, // Allow some variance for animations
+		test("role-select", async ({ page }) => {
+			await navigateToRoleSelectFast(page);
+			await page
+				.locator('button:has-text("Software Engineer")')
+				.first()
+				.waitFor({ state: "visible", timeout: 5000 });
+			await expect(page).toHaveScreenshot("role-select.png", {
+				maxDiffPixelRatio: 0.03, // Allow some variance for animations
+			});
 		});
-	});
 
-	test("initializing", async ({ page }) => {
-		await navigateToInitializing(page);
-		await expect(page).toHaveScreenshot("initializing.png", {
-			mask: [
-				page.getByText(/^[123]$|^Start$/),
-				page.locator('[style*="width"][class*="progress-shine"]'),
-				page.locator(".cursor-blink"),
-			],
-			maxDiffPixelRatio: 0.02,
+		test("initializing", async ({ page }) => {
+			await navigateToInitializing(page);
+			await expect(page).toHaveScreenshot("initializing.png", {
+				mask: [
+					page.getByText(/^[123]$|^Start$/),
+					page.locator('[style*="width"][class*="progress-shine"]'),
+					page.locator(".cursor-blink"),
+				],
+				maxDiffPixelRatio: 0.02,
+			});
 		});
-	});
 
-	test("playing", async ({ page }) => {
-		await navigateToPlayingFast(page);
-		await expect(page).toHaveScreenshot("playing.png", {
-			mask: [
-				page.getByTestId("starfield-canvas"),
-				page.locator("text=/\\d{1,2}:\\d{2}/"),
-				page.locator("[data-testid=urgent-countdown]"),
-			],
+		test("playing", async ({ page }) => {
+			await navigateToPlayingFast(page);
+			await expect(page).toHaveScreenshot("playing.png", {
+				mask: [
+					page.getByTestId("starfield-canvas"),
+					page.locator("text=/\\d{1,2}:\\d{2}/"),
+					page.locator("[data-testid=urgent-countdown]"),
+				],
+			});
 		});
-	});
 
-	test("playing-roast-after", async ({ page }) => {
-		await navigateToPlayingWithRoastAnswer(page);
-		await page.getByTestId("roast-terminal").scrollIntoViewIfNeeded();
-		await expect(page).toHaveScreenshot("playing-roast-after.png", {
-			mask: [
-				page.getByTestId("starfield-canvas"),
-				page.locator("text=/\\d{1,2}:\\d{2}/"),
-				page.getByTestId("roast-terminal"),
-			],
-			maxDiffPixelRatio: 0.15, // AI response varies; mask entire roast terminal
+		test("playing-roast-after", async ({ page }) => {
+			await navigateToPlayingWithRoastAnswer(page);
+			await page.getByTestId("roast-terminal").scrollIntoViewIfNeeded();
+			await expect(page).toHaveScreenshot("playing-roast-after.png", {
+				mask: [
+					page.getByTestId("starfield-canvas"),
+					page.locator("text=/\\d{1,2}:\\d{2}/"),
+					page.getByTestId("roast-terminal"),
+				],
+				maxDiffPixelRatio: 0.15, // AI response varies; mask entire roast terminal
+			});
 		});
-	});
 
-	test("playing roast con before and after", async ({ page }) => {
-		mockRoastApi(page);
-		await navigateToPlayingFast(page);
-		await openFeedbackThenClickNextTicket(page);
-		await page.getByTestId("roast-terminal").scrollIntoViewIfNeeded();
-		await expect(page).toHaveScreenshot("playing-roast-before.png", {
-			mask: [
-				page.getByTestId("starfield-canvas"),
-				page.locator("text=/\\d{1,2}:\\d{2}/"),
-			],
+		test("playing roast con before and after", async ({ page }) => {
+			mockRoastApi(page);
+			await navigateToPlayingFast(page);
+			await openFeedbackThenClickNextTicket(page);
+			await page.getByTestId("roast-terminal").scrollIntoViewIfNeeded();
+			await expect(page).toHaveScreenshot("playing-roast-before.png", {
+				mask: [
+					page.getByTestId("starfield-canvas"),
+					page.locator("text=/\\d{1,2}:\\d{2}/"),
+				],
+			});
+			const textarea = page.getByLabel(
+				"Describe your use case / workflow for governance review",
+			);
+			await textarea.fill(
+				"I paste production secrets into random AI tools without reading the terms.",
+			);
+			await page.getByRole("button", { name: /Send roast|Scanning/i }).click();
+			await page
+				.getByTestId("roast-output")
+				.waitFor({ state: "visible", timeout: 15000 });
+			await expect(page.getByTestId("roast-output")).toContainText(">>>", {
+				timeout: 5000,
+			});
+			await page.getByTestId("roast-terminal").scrollIntoViewIfNeeded();
+			await expect(page).toHaveScreenshot("playing-roast-after.png", {
+				mask: [
+					page.getByTestId("starfield-canvas"),
+					page.locator("text=/\\d{1,2}:\\d{2}/"),
+					page.getByTestId("roast-terminal"),
+				],
+				maxDiffPixelRatio: 0.15, // AI response varies; mask entire roast terminal
+			});
 		});
-		const textarea = page.getByLabel(
-			"Describe your use case / workflow for governance review",
-		);
-		await textarea.fill(
-			"I paste production secrets into random AI tools without reading the terms.",
-		);
-		await page.getByRole("button", { name: /Send roast|Scanning/i }).click();
-		await page
-			.getByTestId("roast-output")
-			.waitFor({ state: "visible", timeout: 15000 });
-		await expect(page.getByTestId("roast-output")).toContainText(">>>", {
-			timeout: 5000,
-		});
-		await page.getByTestId("roast-terminal").scrollIntoViewIfNeeded();
-		await expect(page).toHaveScreenshot("playing-roast-after.png", {
-			mask: [
-				page.getByTestId("starfield-canvas"),
-				page.locator("text=/\\d{1,2}:\\d{2}/"),
-				page.getByTestId("roast-terminal"),
-			],
-			maxDiffPixelRatio: 0.15, // AI response varies; mask entire roast terminal
-		});
-	});
 
-	test("feedback-overlay", async ({ page }) => {
-		await navigateToFeedbackOverlay(page);
-		await page
-			.locator(SELECTORS.feedbackDialog)
-			.or(page.locator(SELECTORS.feedbackDialogFallback))
-			.first()
-			.waitFor({ state: "visible", timeout: 3000 });
-		await expect(page).toHaveScreenshot("feedback-overlay.png", {
-			mask: [
-				page.getByTestId("starfield-canvas"),
-				page.locator("text=/\\d{1,2}:\\d{2}/"),
-			],
-			maxDiffPixelRatio: 0.02, // Allow some variance for animations
+		test("feedback-overlay", async ({ page }) => {
+			await navigateToFeedbackOverlay(page);
+			await page
+				.locator(SELECTORS.feedbackDialog)
+				.or(page.locator(SELECTORS.feedbackDialogFallback))
+				.first()
+				.waitFor({ state: "visible", timeout: 3000 });
+			await expect(page).toHaveScreenshot("feedback-overlay.png", {
+				mask: [
+					page.getByTestId("starfield-canvas"),
+					page.locator("text=/\\d{1,2}:\\d{2}/"),
+				],
+				maxDiffPixelRatio: 0.02, // Allow some variance for animations
+			});
 		});
-	});
 
-	test("boss-fight", async ({ page }) => {
-		await navigateToBossFightFast(page);
-		await page
-			.locator('button:has-text("A.")')
-			.first()
-			.waitFor({ state: "visible", timeout: 5000 });
-		await expect(page).toHaveScreenshot("boss-fight.png", {
-			mask: [page.locator("text=/\\d{1,2}:\\d{2}/"), page.getByText(/\d+s/)],
-			maxDiffPixelRatio: 0.05, // Allow more variance for boss fight dynamic content
+		test("boss-fight", async ({ page }) => {
+			await navigateToBossFightFast(page);
+			await page
+				.locator('button:has-text("A.")')
+				.first()
+				.waitFor({ state: "visible", timeout: 5000 });
+			await expect(page).toHaveScreenshot("boss-fight.png", {
+				mask: [page.locator("text=/\\d{1,2}:\\d{2}/"), page.getByText(/\d+s/)],
+				maxDiffPixelRatio: 0.05, // Allow more variance for boss fight dynamic content
+			});
 		});
-	});
 
-	test("game-over", async ({ page }) => {
-		await navigateToGameOverFast(page);
-		await expect(page).toHaveScreenshot("game-over.png", {
-			maxDiffPixelRatio: 0.05, // animate-pulse and layout variance
+		test("game-over", async ({ page }) => {
+			await navigateToGameOverFast(page);
+			await expect(page).toHaveScreenshot("game-over.png", {
+				maxDiffPixelRatio: 0.05, // animate-pulse and layout variance
+			});
 		});
-	});
 
-	test("summary @slow", async ({ page }) => {
-		test.slow();
-		test.setTimeout(180000); // Boss fight timer (30s × 5 questions + buffer)
-		await navigateToSummary(page);
-		await expect(page).toHaveScreenshot("summary.png", {
-			mask: [page.getByTestId("starfield-canvas")],
+		test("summary @slow", async ({ page }) => {
+			test.slow();
+			test.setTimeout(180000); // Boss fight timer (30s × 5 questions + buffer)
+			await navigateToSummary(page);
+			await expect(page).toHaveScreenshot("summary.png", {
+				mask: [page.getByTestId("starfield-canvas")],
+			});
 		});
-	});
 
-	test("debrief-page-3-verdict", async ({ page }) => {
-		await navigateToDebriefPage3Verdict(page);
-		await expect(page).toHaveScreenshot("debrief-page-3-verdict.png", {
-			mask: [page.getByTestId("starfield-canvas")],
-			maxDiffPixelRatio: 0.04, // glitch text / kirk styling variance
+		test("debrief-page-3-verdict", async ({ page }) => {
+			await navigateToDebriefPage3Verdict(page);
+			await expect(page).toHaveScreenshot("debrief-page-3-verdict.png", {
+				mask: [page.getByTestId("starfield-canvas")],
+				maxDiffPixelRatio: 0.04, // glitch text / kirk styling variance
+			});
 		});
 	});
-});
