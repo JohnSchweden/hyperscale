@@ -61,3 +61,9 @@ Patterns to prevent repeat mistakes. Update after corrections from the user.
 
 <!-- Captured 2026-04-07 via post-commit analysis -->
 - [RULE] Use viewport media queries (aligned with CSS framework breakpoints) to adjust audio parameters for different form factors — Mobile speakers are smaller and need stronger ducking (lower multiplier) to cut through ambient noise; desktop doesn't. Use `window.matchMedia("(max-width: 767px)")` keyed off the same breakpoint as CSS (e.g., Tailwind `md` at 768px), and document why each viewport needs its setting.
+
+<!-- Captured 2026-04-11 via post-commit analysis -->
+- [RULE] Preload outcome/result images for both choices before the user makes a selection (not after swipe) — prevents visual lag/flash of unstyled content when the outcome is revealed. Coordinate preload cleanup via useEffect (dependency on currentCard) with return cleanup functions to prevent resource leaks during card transitions.
+
+<!-- Captured 2026-04-11 via post-commit analysis -->
+- [RULE] Add `loading="eager"` to outcome/result display images in FeedbackOverlay and debrief pages — These images appear in response to user swipes or game completion and must render immediately; default lazy-loading defers fetch until viewport entry, causing visible lag during critical moments.
