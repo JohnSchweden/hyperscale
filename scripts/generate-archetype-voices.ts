@@ -202,10 +202,35 @@ async function generateVoice(text: string, voice: string): Promise<Buffer> {
 	return Buffer.from(base64Audio, "base64");
 }
 
-async function main() {
-	console.log("Generating 21 archetype reveal voice files...\n");
+function parseArgs(argv: string[]): {
+	roasterOnly: boolean;
+} {
+	const roasterOnly =
+		argv.includes("--roaster") || argv.includes("--roaster-only");
+	if (argv.includes("--help") || argv.includes("-h")) {
+		console.log(`Usage: bun run scripts/generate-archetype-voices.ts [options]
 
-	for (const v of archetypeVoices) {
+Options:
+  --roaster, --roaster-only   Generate only public/audio/voices/roaster/archetype/*
+  --help, -h                  Show this message
+
+With no options, generates all 21 files (roaster, zenmaster, lovebomber).`);
+		process.exit(0);
+	}
+	return { roasterOnly };
+}
+
+async function main() {
+	const { roasterOnly } = parseArgs(process.argv.slice(2));
+	const voices = roasterOnly
+		? archetypeVoices.filter((v) => v.folder === "roaster")
+		: archetypeVoices;
+
+	console.log(
+		`Generating ${voices.length} archetype reveal voice file${voices.length === 1 ? "" : "s"}${roasterOnly ? " (roaster only)" : ""}...\n`,
+	);
+
+	for (const v of voices) {
 		const outputDir = path.join(
 			process.cwd(),
 			"public/audio/voices",
@@ -238,7 +263,9 @@ async function main() {
 		}
 	}
 
-	console.log("\n✅ All 21 archetype reveal files generated!");
+	console.log(
+		`\n✅ All ${voices.length} archetype reveal file${voices.length === 1 ? "" : "s"} generated!`,
+	);
 }
 
 main().catch(console.error);
