@@ -675,7 +675,7 @@ export const HEAD_OF_SOMETHING_CARDS: Card[] = [
 			lesson:
 				"Throwing team members under the bus preserves short-term standing but destroys team trust and creates legal exposure.",
 			roaster:
-				"Fed your star DS to IP counsel. Legal wins; your team trusts you like a ToS update.",
+				"Sacrificing your best performer to save yourself? Your team will remember this at their exit interviews.",
 			zenMaster:
 				"A leader who shifts blame is a ship without a captain. The crew sees the emptiness.",
 			lovebomber:
