@@ -3,10 +3,10 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Kobayashi Maru — AI Governance Simulator
 current_phase: 27-mobile-ux-fixes-audio-isolation-button-heights-linkedin-share-copy-link-debrief-text-uiux-sizing-audit
-current_plan: 02 (complete)
+current_plan: 03 (complete)
 status: ready
 last_updated: "2026-04-17T03:15:00.000Z"
-last_activity: "2026-04-17 - Completed Phase 27 Plan 02: Debrief page polish (button heights, LinkedIn, copy) — 2 tasks, 2 commits, 2 files modified"
+last_activity: "2026-04-17 - Completed Phase 27 Plan 03: Bug fixes (iOS clipboard, BGM pause lag, scroll autoplay) — 3 bug fixes, 1 commit, 2 files modified"
 progress:
   total_phases: 28
   completed_phases: 18
@@ -24,11 +24,16 @@ See: .planning/PROJECT.md
 
 **Milestone:** v1.2 Kobayashi Maru — AI Governance Simulator
 **Current phase:** 27-mobile-ux-fixes-audio-isolation-button-heights-linkedin-share-copy-link-debrief-text-uiux-sizing-audit
-**Current plan:** 01 (complete)
-**Status:** Ready for Phase 27 Plan 02
+**Current plan:** 03 (complete)
+**Status:** Ready for next plan
 
 ## Session Log
 
+- 2026-04-17: Completed Phase 27 Plan 03: Bug fixes (iOS clipboard, BGM pause lag, scroll autoplay) — 3 fixes, 1 commit, 2 files modified
+  - Fix 1: iOS clipboard copy fallback with setSelectionRange + fontSize prevention
+  - Fix 2: Remove BGM suspend/resume loop causing pause lags
+  - Fix 3: Add scroll event listener for BGM autoplay on mobile
+  - Verification: typecheck clean, lint clean, 168 smoke tests passed
 - 2026-04-16: Completed Phase 27 Plan 01: Audio isolation, volume defaults, scroll unlock — 3 tasks, 1 commit, 1 file modified
   - Task 1: Viewport-aware BGM defaults (15% mobile, 20% desktop) via matchMedia
   - Task 2: BGM pause isolation with AudioContext resume keepalive on iOS
