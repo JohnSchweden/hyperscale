@@ -39,11 +39,21 @@ export const IntroScreen: React.FC<IntroScreenProps> = ({ onStart }) => {
 		el.style.position = "fixed";
 		el.style.left = "-9999px";
 		el.style.top = "-9999px";
+		el.style.fontSize = "16px"; // Prevent iOS auto-zoom on focus
 		document.body.appendChild(el);
 		el.focus();
-		el.select();
+		// Use setSelectionRange for more reliable iOS selection
+		const len = el.value.length;
+		el.setSelectionRange(0, len);
 		try {
-			document.execCommand("copy");
+			const success = document.execCommand("copy");
+			if (!success && import.meta.env.DEV) {
+				console.warn("[IntroScreen] execCommand copy failed");
+			}
+		} catch (error) {
+			if (import.meta.env.DEV) {
+				console.warn("[IntroScreen] execCommand error:", error);
+			}
 		} finally {
 			document.body.removeChild(el);
 		}

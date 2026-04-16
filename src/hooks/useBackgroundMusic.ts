@@ -311,22 +311,20 @@ export function useBackgroundMusic() {
 		tryPlay();
 	}, [enabled, tryPlay]);
 
-	// Mobile keepalive: if BGM is disabled/paused, iOS may auto-suspend the BGM
-	// AudioContext. Resuming it does NOT restart playback (element is paused)
-	// but keeps the AudioSession alive so the voice AudioContext stays running.
+	// Mobile keepalive: iOS may auto-suspend the BGM AudioContext when paused.
+	// We resume it but don't restart playback (element stays paused).
+	// However, we must guard against infinite suspend/resume loops:
+	// - Don't resume every time context suspends while paused (causes lag)
+	// - Only attempt once on initial pause transition
 	useEffect(() => {
-		if (enabled) return; // Only needed when BGM is paused
+		if (enabled) return; // Only apply when BGM is disabled/paused
 		const ctx = bgmCtxRef.current;
 		if (!ctx) return;
-		const onStateChange = () => {
-			if (ctx.state === "suspended" && !enabledRef.current) {
-				void ctx.resume().catch(() => {});
-			}
-		};
-		ctx.addEventListener("statechange", onStateChange);
-		// Also resume immediately if already suspended
-		if (ctx.state === "suspended") void ctx.resume().catch(() => {});
-		return () => ctx.removeEventListener("statechange", onStateChange);
+		// Single attempt to resume on initial pause (not on every statechange)
+		if (ctx.state === "suspended") {
+			void ctx.resume().catch(() => {});
+		}
+		// No statechange listener — it causes suspend/resume loops and lags
 	}, [enabled]);
 
 	useEffect(() => {
@@ -436,6 +434,7 @@ export function useBackgroundMusic() {
 	// Desktop: AudioContext starts suspended even when el.play() succeeds; resume it on
 	// first mousemove/keydown so music plays without requiring a click.
 	// iOS note: touchend (not touchstart) counts as user activation during scroll gestures.
+	// Also listen to scroll: scrolling is a user gesture on mobile that should unlock autoplay.
 	useEffect(() => {
 		const unlock = () => {
 			const el = audioRef.current;
@@ -457,6 +456,12 @@ export function useBackgroundMusic() {
 			passive: true,
 		});
 		document.addEventListener("click", unlock, { capture: true });
+		// Mobile scroll: scrolling is a user gesture that satisfies autoplay policy
+		document.addEventListener("scroll", unlock, {
+			capture: true,
+			once: true,
+			passive: true,
+		});
 		// Desktop: resume on first mouse/keyboard interaction (no click required).
 		// pointerdown fires before click and IS a recognized Chrome activation gesture
 		// (mousemove is NOT — it doesn't satisfy Chrome's autoplay policy on production).
@@ -468,6 +473,7 @@ export function useBackgroundMusic() {
 		return () => {
 			document.removeEventListener("touchend", unlock, { capture: true });
 			document.removeEventListener("click", unlock, { capture: true });
+			document.removeEventListener("scroll", unlock, { capture: true });
 			document.removeEventListener("pointerdown", unlock, { capture: true });
 			document.removeEventListener("keydown", unlock, { capture: true });
 		};
