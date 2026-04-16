@@ -751,6 +751,18 @@ Plans:
 - [x] 26-01-PLAN.md — preloadAsset utility + outcome/death/archetype preload effects in CardStack and App.tsx ✓
 - [x] 26-02-PLAN.md — ImageWithFallback loading prop + eager loading on FeedbackOverlay, DebriefPage1, DebriefPage3 ✓
 
+### Phase 27: Mobile UX fixes: audio isolation, button heights, LinkedIn share, copy link, debrief text, UIUX sizing audit
+
+**Goal:** Fix 8 specific mobile UX issues: BGM volume defaults, BGM pause audio isolation, debrief button heights, LinkedIn in-app share, copy game link on mobile, debrief page 2 copy, em dash cleanup, and UIUX mobile sizing audit.
+**Requirements**: BGM-VOL-01, BGM-ISO-01, DEBRIEF-BTN-01, LINKEDIN-01, COPY-LINK-01, COPY-02, EMDASH-01, UIUX-MOBILE-01
+**Depends on:** Phase 26
+**Plans:** 3 plans
+
+Plans:
+- [ ] 27-01-PLAN.md — BGM volume defaults (mobile 15%, desktop 20%) + BGM pause voice isolation
+- [ ] 27-02-PLAN.md — Debrief button heights + LinkedIn in-app share + page 2 copy + em dashes
+- [ ] 27-03-PLAN.md — Copy game link mobile fix + UIUX mobile sizing audit + human verification
+
 ---
 
 *Roadmap updated: 2026-03-28 — Phases 13, 16, 18 updated with all gap closure plans and extra phases*
