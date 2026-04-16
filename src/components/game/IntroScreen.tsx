@@ -18,6 +18,37 @@ interface IntroScreenProps {
  * @returns The rendered intro screen component
  */
 export const IntroScreen: React.FC<IntroScreenProps> = ({ onStart }) => {
+	const handleCopyLink = async () => {
+		const url = window.location.href;
+		// Modern Clipboard API — works on desktop and Android (RESEARCH.md primary)
+		if (
+			navigator.clipboard &&
+			typeof navigator.clipboard.writeText === "function"
+		) {
+			try {
+				await navigator.clipboard.writeText(url);
+				return;
+			} catch {
+				// iOS Safari may reject — fall through to execCommand fallback (RESEARCH.md)
+			}
+		}
+		// execCommand fallback for iOS Safari (RESEARCH.md Pattern 4)
+		// Works synchronously within user gesture, satisfying Safari's requirements
+		const el = document.createElement("textarea");
+		el.value = url;
+		el.style.position = "fixed";
+		el.style.left = "-9999px";
+		el.style.top = "-9999px";
+		document.body.appendChild(el);
+		el.focus();
+		el.select();
+		try {
+			document.execCommand("copy");
+		} finally {
+			document.body.removeChild(el);
+		}
+	};
+
 	return (
 		<LayoutShell className={LAYOUT_SHELL_CENTERED_CLASS}>
 			{/* Brand Block */}
@@ -89,8 +120,8 @@ export const IntroScreen: React.FC<IntroScreenProps> = ({ onStart }) => {
 				<button
 					type="button"
 					data-testid="copy-game-link-button"
-					onClick={() => navigator.clipboard.writeText(window.location.href)}
-					className="px-4 py-2 text-xs font-bold tracking-wide border border-slate-600 text-slate-400 hover:border-cyan-500/40 hover:text-cyan-300 transition-colors duration-200"
+					onClick={() => void handleCopyLink()}
+					className="px-4 py-2 text-xs font-bold tracking-wide border border-slate-600 text-slate-400 hover:border-cyan-500/40 hover:text-cyan-300 transition-colors duration-200 min-h-[44px]"
 				>
 					Copy game link
 				</button>
