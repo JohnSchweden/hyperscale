@@ -299,33 +299,10 @@ export function useBackgroundMusic() {
 		if (!el) return;
 		if (!enabled) {
 			el.pause();
-			// On mobile, iOS may suspend the AudioContext when the element pauses.
-			// Re-resume immediately so the voice AudioContext (separate) is not affected.
-			// BGM gain is already 0 when suspended, so re-resuming BGM ctx is harmless.
-			const ctx = bgmCtxRef.current;
-			if (ctx && ctx.state === "suspended") {
-				void ctx.resume().catch(() => {});
-			}
 			return;
 		}
 		tryPlay();
 	}, [enabled, tryPlay]);
-
-	// Mobile keepalive: iOS may auto-suspend the BGM AudioContext when paused.
-	// We resume it but don't restart playback (element stays paused).
-	// However, we must guard against infinite suspend/resume loops:
-	// - Don't resume every time context suspends while paused (causes lag)
-	// - Only attempt once on initial pause transition
-	useEffect(() => {
-		if (enabled) return; // Only apply when BGM is disabled/paused
-		const ctx = bgmCtxRef.current;
-		if (!ctx) return;
-		// Single attempt to resume on initial pause (not on every statechange)
-		if (ctx.state === "suspended") {
-			void ctx.resume().catch(() => {});
-		}
-		// No statechange listener — it causes suspend/resume loops and lags
-	}, [enabled]);
 
 	useEffect(() => {
 		userVolumeRef.current = userVolume;
@@ -432,10 +409,23 @@ export function useBackgroundMusic() {
 	// Autoplay unlock: resume AudioContext and unmute/play on first user interaction.
 	// iOS always blocks autoplay — first touch unmutes and starts music.
 	// Desktop: AudioContext starts suspended even when el.play() succeeds; resume it on
-	// first mousemove/keydown so music plays without requiring a click.
-	// iOS note: touchend (not touchstart) counts as user activation during scroll gestures.
-	// Also listen to scroll: scrolling is a user gesture on mobile that should unlock autoplay.
+	// first pointerdown/keydown so music plays without requiring a click.
+	//
+	// Two-phase iOS unlock:
+	// - touchstart: prime the AudioContext (resume ctx) at gesture START — iOS requires
+	//   this to happen as early as possible in the gesture chain for card swipes to work.
+	// - touchend: unmute + play after the gesture ends (avoids playing mid-swipe).
+	// Both events together cover taps AND swipes reliably.
 	useEffect(() => {
+		// Phase 1: prime AudioContext on touchstart so it's ready by touchend.
+		const primeCtx = () => {
+			const ctx = bgmCtxRef.current;
+			if (ctx?.state === "suspended") {
+				void ctx.resume().catch(() => {});
+			}
+		};
+
+		// Phase 2: unmute + play after gesture ends.
 		const unlock = () => {
 			const el = audioRef.current;
 			if (!el || !enabledRef.current) return;
@@ -451,18 +441,17 @@ export function useBackgroundMusic() {
 				tryPlay();
 			}
 		};
+
+		document.addEventListener("touchstart", primeCtx, {
+			capture: true,
+			passive: true,
+		});
 		document.addEventListener("touchend", unlock, {
 			capture: true,
 			passive: true,
 		});
 		document.addEventListener("click", unlock, { capture: true });
-		// Mobile scroll: scrolling is a user gesture that satisfies autoplay policy
-		document.addEventListener("scroll", unlock, {
-			capture: true,
-			once: true,
-			passive: true,
-		});
-		// Desktop: resume on first mouse/keyboard interaction (no click required).
+		// Desktop: resume on first pointer/keyboard interaction (no click required).
 		// pointerdown fires before click and IS a recognized Chrome activation gesture
 		// (mousemove is NOT — it doesn't satisfy Chrome's autoplay policy on production).
 		document.addEventListener("pointerdown", unlock, {
@@ -471,9 +460,9 @@ export function useBackgroundMusic() {
 		});
 		document.addEventListener("keydown", unlock, { capture: true, once: true });
 		return () => {
+			document.removeEventListener("touchstart", primeCtx, { capture: true });
 			document.removeEventListener("touchend", unlock, { capture: true });
 			document.removeEventListener("click", unlock, { capture: true });
-			document.removeEventListener("scroll", unlock, { capture: true });
 			document.removeEventListener("pointerdown", unlock, { capture: true });
 			document.removeEventListener("keydown", unlock, { capture: true });
 		};

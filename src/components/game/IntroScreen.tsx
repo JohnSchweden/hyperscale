@@ -1,4 +1,5 @@
 import type React from "react";
+import { useEffect, useRef, useState } from "react";
 import LayoutShell from "../LayoutShell";
 import { LAYOUT_SHELL_CENTERED_CLASS } from "./selectionStageStyles";
 
@@ -18,44 +19,56 @@ interface IntroScreenProps {
  * @returns The rendered intro screen component
  */
 export const IntroScreen: React.FC<IntroScreenProps> = ({ onStart }) => {
-	const handleCopyLink = async () => {
+	const [linkCopied, setLinkCopied] = useState(false);
+	const linkCopiedTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+	useEffect(() => {
+		return () => {
+			if (linkCopiedTimerRef.current) clearTimeout(linkCopiedTimerRef.current);
+		};
+	}, []);
+
+	// Synchronous handler — keeps iOS gesture trust intact throughout execution.
+	// execCommand runs first (synchronous, reliable on iOS within user gesture).
+	// Clipboard API is the fallback for browsers where execCommand is unsupported.
+	const handleCopyLink = () => {
 		const url = window.location.href;
-		// Modern Clipboard API — works on desktop and Android (RESEARCH.md primary)
-		if (
-			navigator.clipboard &&
-			typeof navigator.clipboard.writeText === "function"
-		) {
-			try {
-				await navigator.clipboard.writeText(url);
-				return;
-			} catch {
-				// iOS Safari may reject — fall through to execCommand fallback (RESEARCH.md)
-			}
-		}
-		// execCommand fallback for iOS Safari (RESEARCH.md Pattern 4)
-		// Works synchronously within user gesture, satisfying Safari's requirements
-		const el = document.createElement("textarea");
-		el.value = url;
-		el.style.position = "fixed";
-		el.style.left = "-9999px";
-		el.style.top = "-9999px";
-		el.style.fontSize = "16px"; // Prevent iOS auto-zoom on focus
-		document.body.appendChild(el);
-		el.focus();
-		// Use setSelectionRange for more reliable iOS selection
-		const len = el.value.length;
-		el.setSelectionRange(0, len);
+
+		// execCommand first — synchronous, works within iOS Safari user gesture.
+		// Position at top:0/left:0 with opacity:0 so iOS allows focus + selection.
+		const ta = document.createElement("textarea");
+		ta.value = url;
+		ta.style.cssText =
+			"position:fixed;top:0;left:0;width:1px;height:1px;padding:0;border:none;outline:none;background:transparent;opacity:0;font-size:16px;";
+		document.body.appendChild(ta);
+		ta.focus();
+		ta.setSelectionRange(0, url.length);
+		let success = false;
 		try {
-			const success = document.execCommand("copy");
-			if (!success && import.meta.env.DEV) {
-				console.warn("[IntroScreen] execCommand copy failed");
-			}
-		} catch (error) {
-			if (import.meta.env.DEV) {
-				console.warn("[IntroScreen] execCommand error:", error);
-			}
-		} finally {
-			document.body.removeChild(el);
+			success = document.execCommand("copy");
+		} catch {
+			/* ignore */
+		}
+		document.body.removeChild(ta);
+
+		if (success) {
+			setLinkCopied(true);
+			if (linkCopiedTimerRef.current) clearTimeout(linkCopiedTimerRef.current);
+			linkCopiedTimerRef.current = setTimeout(() => setLinkCopied(false), 2000);
+			return;
+		}
+
+		// Clipboard API fallback (desktop and Android)
+		if (navigator.clipboard?.writeText) {
+			void navigator.clipboard.writeText(url).then(() => {
+				setLinkCopied(true);
+				if (linkCopiedTimerRef.current)
+					clearTimeout(linkCopiedTimerRef.current);
+				linkCopiedTimerRef.current = setTimeout(
+					() => setLinkCopied(false),
+					2000,
+				);
+			});
 		}
 	};
 
@@ -130,10 +143,10 @@ export const IntroScreen: React.FC<IntroScreenProps> = ({ onStart }) => {
 				<button
 					type="button"
 					data-testid="copy-game-link-button"
-					onClick={() => void handleCopyLink()}
+					onClick={handleCopyLink}
 					className="px-4 py-2 text-xs font-bold tracking-wide border border-slate-600 text-slate-400 hover:border-cyan-500/40 hover:text-cyan-300 transition-colors duration-200 min-h-[44px]"
 				>
-					Copy game link
+					{linkCopied ? "Link copied." : "Copy game link"}
 				</button>
 			</div>
 
