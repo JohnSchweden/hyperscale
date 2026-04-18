@@ -1,6 +1,12 @@
 {
 	"version": 1,
 	"hooks": {
+		"preToolUse": [
+			{
+				"command": ".cursor/hooks/rtk-rewrite.sh",
+				"matcher": "Shell"
+			}
+		],
 		"afterFileEdit": [
 			{
 				"type": "command",

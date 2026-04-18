@@ -8,6 +8,7 @@ Patterns to prevent repeat mistakes. Update after corrections from the user.
 - [RULE] Never use `bunx` — use `rtk bun` instead (e.g., `rtk bun playwright test`) — bunx bypasses RTK token savings
 - [RULE] Never use bare `git` subcommands — always `rtk git log`, `rtk git diff`, `rtk git status`, etc.
 - [RULE] Chain all piped commands with rtk prefixes in one Bash call: `rtk bun ... | rtk grep ... | rtk head ...`
+- [RULE] In this repo, Cursor `preToolUse` (`.cursor/hooks.json`) runs `.cursor/hooks/rtk-rewrite.sh` → `rtk rewrite`; executed Shell may be `rtk …` even when the model typed bare `bun`/`git`/`grep`.
 
 **Capture process:**
 1. Add learnings here after sessions
@@ -74,3 +75,10 @@ Patterns to prevent repeat mistakes. Update after corrections from the user.
 
 <!-- Captured 2026-04-11 via post-commit analysis -->
 - [RULE] Add `loading="eager"` to outcome/result display images in FeedbackOverlay and debrief pages — These images appear in response to user swipes or game completion and must render immediately; default lazy-loading defers fetch until viewport entry, causing visible lag during critical moments.
+
+<!-- Captured 2026-04-17 via post-commit analysis -->
+- [RULE] When managing AudioContext suspend during pause (iOS), don't attach listeners to statechange events — continuous listeners cause suspend/resume loops and input lag. Resume once on pause transition instead with no listener. — Prevents hard-to-diagnose performance regressions where audio interaction causes frame drops on pause.
+
+<!-- Captured 2026-04-18 via post-commit analysis -->
+- [RULE] Perspective-rendered content spawning at a fixed depth Z: calculate spawn bounds from viewport dimensions and focal length using `(halfW * Z_MAX) / FOCAL_LENGTH`, not hardcoded screen coordinates. Update on resize. — Without this, stars spawn in fixed 1600×1200 range regardless of viewport, causing out-of-bounds rendering after resize and on different screen sizes.
+- [RULE] When disabling a feature with a sentinel state value (e.g., `gain=0` for BGM), guard all effect-based state syncs with an enabled check — Prevents effects from overwriting the disabled state (e.g., voice ducking should not apply gain multipliers when BGM is disabled). Include guard in every useEffect that might mutate that state.
