@@ -17,7 +17,7 @@ test.describe("Debrief Page 2 - Incident audit log @area:layout", () => {
 			page.getByRole("heading", { name: /incident audit log/i }),
 		).toBeVisible();
 		await expect(
-			page.getByText(/complete record of your governance decisions/i),
+			page.getByText(/complete record of your decisions/i),
 		).toBeVisible();
 	});
 

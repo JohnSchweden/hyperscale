@@ -1,2 +1,10 @@
+# Node sometimes reports x64 under Cursor/Rosetta on Apple Silicon; Biome's shim then
+# looks for @biomejs/cli-darwin-x64 which is not installed. Force the arm64 native CLI.
+if [ "$(uname -s)" = Darwin ] && [ "$(uname -m)" = arm64 ]; then
+	if command -v node >/dev/null 2>&1 && [ "$(node -p process.arch)" = x64 ]; then
+		export BIOME_BINARY=@biomejs/cli-darwin-arm64/biome
+	fi
+fi
+
 bun run typecheck
 bun run lint-staged:run

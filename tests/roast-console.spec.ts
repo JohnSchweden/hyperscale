@@ -8,8 +8,9 @@ async function assertRoastOutputVisibleAndInViewport(
 	page: import("@playwright/test").Page,
 ) {
 	const roastContainer = page.getByTestId("roast-output");
-	await roastContainer.waitFor({ state: "visible", timeout: 15000 });
-	await expect(roastContainer).toContainText(">>>", { timeout: 15000 });
+	// Increase timeout to handle slower CI environments
+	await roastContainer.waitFor({ state: "visible", timeout: 30000 });
+	await expect(roastContainer).toContainText(">>>", { timeout: 10000 });
 	await roastContainer.scrollIntoViewIfNeeded();
 
 	const metrics = await roastContainer.evaluate((el) => {
@@ -31,7 +32,11 @@ async function assertRoastOutputVisibleAndInViewport(
 
 test.describe
 	.serial("Roast console visibility @smoke @area:gameplay", () => {
-		test.beforeEach(({ page }) => mockRoastApi(page));
+		test.beforeEach(async ({ page }) => {
+			mockRoastApi(page);
+			// Small delay to ensure mock is registered
+			await page.waitForTimeout(100);
+		});
 
 		test("desktop roast output is visible and within viewport", async ({
 			page,

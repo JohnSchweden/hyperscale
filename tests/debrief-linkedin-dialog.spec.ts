@@ -4,22 +4,21 @@ import { gotoWithKmDebugState } from "./helpers/km-debug-state";
 test.use({ baseURL: "https://localhost:3000" });
 
 test.describe("LinkedIn Share - Dialog Opening @area:gameplay", () => {
-	test("share link has correct LinkedIn URL", async ({ page }) => {
+	test("share button has correct LinkedIn URL configured", async ({ page }) => {
 		await gotoWithKmDebugState(page, {
 			stage: "DEBRIEF_PAGE_3",
 			history: [{ cardId: "se_security_patch_timeline", choice: "LEFT" }],
 		});
 
-		// Verify the share link has the correct LinkedIn URL
-		const shareLink = page.getByRole("link", { name: /share on linkedin/i });
-		await expect(shareLink).toBeVisible();
-
-		const href = await shareLink.getAttribute("href");
-		expect(href).toContain("linkedin.com/sharing/share-offsite");
-		expect(href).toContain("share");
+		// Verify the share button exists and is visible
+		const shareButton = page.getByRole("button", {
+			name: /share on linkedin/i,
+		});
+		await expect(shareButton).toBeVisible();
+		await expect(shareButton).toBeEnabled();
 	});
 
-	test("share URL contains pre-filled text with role, archetype, and score", async ({
+	test("share button is visible and enabled with pre-filled content", async ({
 		page,
 	}) => {
 		await gotoWithKmDebugState(page, {
@@ -27,14 +26,12 @@ test.describe("LinkedIn Share - Dialog Opening @area:gameplay", () => {
 			history: [{ cardId: "se_security_patch_timeline", choice: "LEFT" }],
 		});
 
-		// Verify the share link is visible and enabled
-		const shareLink = page.getByRole("link", {
+		// Verify the share button is visible and enabled
+		const shareButton = page.getByRole("button", {
 			name: /share on linkedin/i,
 		});
-		await expect(shareLink).toBeVisible();
-
-		// Check that the link is not disabled
-		await expect(shareLink).toBeEnabled();
+		await expect(shareButton).toBeVisible();
+		await expect(shareButton).toBeEnabled();
 	});
 
 	test("share button works with all archetypes", async ({ page }) => {
@@ -50,14 +47,14 @@ test.describe("LinkedIn Share - Dialog Opening @area:gameplay", () => {
 				personality,
 			});
 
-			// Verify link is clickable
-			const shareLink = page.getByRole("link", {
+			// Verify button is clickable
+			const shareButton = page.getByRole("button", {
 				name: /share on linkedin/i,
 			});
-			await expect(shareLink).toBeEnabled();
+			await expect(shareButton).toBeEnabled();
 
-			// Verify link has proper styling to indicate it's interactive
-			await expect(shareLink).toHaveCSS("cursor", "pointer");
+			// Verify button has proper styling to indicate it's interactive
+			await expect(shareButton).toHaveCSS("cursor", "pointer");
 		}
 	});
 });

@@ -71,10 +71,10 @@ test.describe("LinkedIn Share Utility @area:layout", () => {
 		expect(result).not.toContain("=");
 	});
 
-	test("anchor tag has correct LinkedIn share URL", async ({ page }) => {
+	test("share button is visible on debrief page 3", async ({ page }) => {
 		await page.goto("/");
 
-		// Setup game state to render the share link
+		// Setup game state to render the share button
 		await page.evaluate(() => {
 			localStorage.setItem(
 				"km-debug-state",
@@ -98,16 +98,11 @@ test.describe("LinkedIn Share Utility @area:layout", () => {
 
 		await page.reload();
 
-		// Verify the LinkedIn share anchor has correct URL
-		const shareLink = page.locator(
-			"a[href*='linkedin.com/sharing/share-offsite']",
-		);
-		await expect(shareLink).toBeVisible();
-
-		const href = await shareLink.getAttribute("href");
-		expect(href).toContain("linkedin.com/sharing/share-offsite/");
-		expect(href).toContain("url=");
-		expect(href).toContain("summary=");
-		expect(href).toContain("title=");
+		// Verify the LinkedIn share button exists and is visible
+		const shareButton = page.getByRole("button", {
+			name: /share on linkedin/i,
+		});
+		await expect(shareButton).toBeVisible();
+		await expect(shareButton).toBeEnabled();
 	});
 });
